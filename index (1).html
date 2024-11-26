@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+    <form action="/" method="post">
+        <main class="container py-5">
+
+
+            <label for="comment">Plaintext</label>
+            <br>
+            <textarea class="rounded-corner" autofocus id="plaintext" name="plaintext" rows="4" cols="50" placeholder="Put your message here" required>{{ plaintext }}</textarea>
+            <br>
+            <label for="ciphertext">Ciphertext</label>
+            <br>
+            <textarea class="rounded-corner" id="ciphertext" name="ciphertext" rows="4" cols="50" readonly placeholder="Encrypted message will appear here">{{ ciphertext }}</textarea>
+            <br>
+            <br>
+            <div>
+                <label for="rotors">Rotors</label><br>
+                <select name="rotor3" class="rounded-corner" required>
+                    {% for rotor in rotors %}
+                        {% if rotors_choice %}
+                            {% if rotors_choice[2] == rotor.rotor_name %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% else %}
+                            {% if rotor.model == "M3 & M4" and rotor.rotor_name == "I" %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select name="rotor2" class="rounded-corner" required>
+                    {% for rotor in rotors %}
+                        {% if rotors_choice %}
+                            {% if rotors_choice[1] == rotor.rotor_name %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% else %}
+                            {% if rotor.model == "M3 & M4" and rotor.rotor_name == "II" %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% endif %}
+
+                    {% endfor %}
+                </select>
+                <select name="rotor1" class="rounded-corner" required>
+                    {% for rotor in rotors %}
+                        {% if rotors_choice %}
+                            {% if rotors_choice[0] == rotor.rotor_name %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% else %}
+                            {% if rotor.model == "M3 & M4" and rotor.rotor_name == "III" %}
+                                <option value="{{ rotor.rotor_name}}" selected>{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% else %}
+                                <option value="{{ rotor.rotor_name}}">{{ rotor.rotor_name }} {{ rotor.model }}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="rotors_positions">Rotors Positions</label><br>
+                <input class="rounded-corner" min="1" max="26" value="{{ rotor3pos }}" name="rotor3pos" type="number">
+
+                <input class="rounded-corner" min="1" max="26" value="{{ rotor2pos }}" name="rotor2pos" type="number">
+
+                <input class="rounded-corner" min="1" max="26" value="{{ rotor1pos }}" name="rotor1pos" type="number">
+            </div>
+            <div>
+                <label for="Reflector">Reflector</label><br>
+                <select class="rounded-corner" name="reflector" required>
+                    {% for reflector in reflectors %}
+                        {% if reflector_type %}
+                            {% if reflector_type == reflector.reflector_name %}
+                                <option value="{{ reflector.reflector_name }}" selected>{{ reflector.reflector_name }}</option>
+                            {% else %}
+                                <option value="{{ reflector.reflector_name }}">{{ reflector.reflector_name }}</option>
+                            {% endif %}
+                        {% else %}
+                            {% if reflector.reflector_name == "B" %}
+                                <option value="{{ reflector.reflector_name }}" selected>{{ reflector.reflector_name }}</option>
+                            {% else %}
+                                <option value="{{ reflector.reflector_name }}">{{ reflector.reflector_name }}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <input class="rounded-corner" type="submit" value="Encrypt">
+
+        </main>
+    </form>
+    <script>
+
+
+    </script>
+{% endblock %}
