@@ -1,9 +1,520 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📺 LeAti Homepage</title>
+  <style>
+    /* General body styling */
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
+    /* Themes */
+    body.dark-theme {
+      background-color: #0d0d0d;
+      color: #fff;
+    }
+    body.white-theme {
+      background-color: #ffffff;
+      color: #000;
+    }
+    body.pink-theme {
+      background-color: #ffe4e1;
+      color: #000;
+    }
+
+    /* Top container for Favorites and Traditional Websites */
+    #top-container {
+      display: flex;
+      flex-direction: row; /* Arrange favorites and traditional websites horizontally */
+      justify-content: space-between; /* Space out the sections */
+      align-items: flex-start; /* Align sections at the top */
+      padding: 1rem;
+      gap: 1rem; /* Add spacing between sections */
+    }
+
+    /* Grid styling for Favorites and Traditional Websites */
+    #favorites-slider,
+    #traditional-websites-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 5 columns for consistency */
+      gap: 1rem; /* Add spacing between items */
+      max-height: calc(2 * 150px + 2 * 1rem); /* Limit to 2 rows (150px per row + gap) */
+      overflow-y: auto; /* Enable vertical scrolling */
+      justify-items: center; /* Center align items horizontally */
+    }
+
+    /* Bottom container for other sections */
+    #bottom-container {
+      display: flex;
+      flex-direction: row; /* Arrange sections horizontally */
+      gap: 1rem; /* Add spacing between sections */
+      padding: 1rem;
+      overflow-x: auto; /* Enable horizontal scrolling for the container */
+    }
+
+    /* General category styling */
+    .category {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 1rem;
+      flex: 1; /* Allow sections to grow equally */
+      min-width: 300px; /* Minimum width for each section */
+      max-height: 600px; /* Increase vertical height for bottom sections */
+      overflow-y: auto; /* Enable vertical scrolling for each section */
+    }
+
+    /* Sticky section headers */
+    .category h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      background: #1a1a1a;
+      z-index: 1;
+      padding: 0.5rem 0;
+    }
+
+    /* Grid layout for bottom sections (3 columns) */
+    .slider {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns for bottom sections */
+      gap: 1rem; /* Add spacing between items */
+      justify-items: center; /* Center align items horizontally */
+    }
+
+    /* Individual site styling */
+    .site {
+      background: #2a2a2a;
+      border-radius: 12px;
+      padding: 0.5rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    /* Hover effect for sites */
+    .site:hover {
+      transform: scale(1.05);
+    }
+
+    /* Links inside sites */
+    .site a {
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Favicon styling */
+    .site img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain; /* Ensure the image fits within the box */
+      border-radius: 8px; /* Optional: Add rounded corners */
+      background-color: #f0f0f0; /* Add a subtle background color for consistency */
+      border: 1px solid #ddd; /* Add a border for a polished look */
+    }
+
+    /* Site name styling */
+    .site span {
+      display: block;
+      font-size: 0.85rem;
+    }
+
+    /* Sleek scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #777;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    /* Drag handle styling */
+    .drag-handle {
+      cursor: grab;
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+      color: #aaa;
+      display: inline-block;
+    }
+    .drag-handle:hover {
+      color: #fff;
+    }
+
+    /* Modal Overlay */
+    #settings-modal {
+      width: 300px;
+      text-align: center;
+    }
+  </style>
+</head>
 <body>
-  <h1>Atish Ramkhelawon</h1>
-  <p>Welcome to my website!</p>
-</body>
+  <!-- Settings Button -->
+  <button id="settings-button" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem 1rem; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
+    ⚙️ Settings
+  </button>
 
+  <!-- Settings Modal -->
+  <div id="settings-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; color: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1001;">
+    <h2>Settings</h2>
+    <div>
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select" style="margin-left: 0.5rem;">
+        <option value="dark">Dark</option>
+        <option value="white">White</option>
+        <option value="pink">Pink</option>
+      </select>
+    </div>
+    <div style="margin-top: 1rem;">
+      <label for="adult-toggle">Show Adult (+18) Websites:</label>
+      <input type="checkbox" id="adult-toggle" />
+    </div>
+    <button id="close-settings" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #555; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
+      Close
+    </button>
+  </div>
+
+  <!-- Top container for Favorites and Traditional Websites -->
+  <div id="top-container">
+    <!-- Favorites Section -->
+    <div id="favorites" class="category" style="display:none;">
+      <h2>⭐ Favorites</h2>
+      <div class="grid" id="favorites-slider"></div>
+    </div>
+
+    <!-- Traditional Websites Section -->
+    <div id="traditional-websites" class="category">
+      <h2>🌐 Traditional Websites</h2>
+      <div class="grid" id="traditional-websites-grid"></div>
+    </div>
+  </div>
+
+  <div id="bottom-container">
+    <!-- Sections will be dynamically added here -->
+  </div>
+
+  <script>
+    // Define the sections to be displayed on the homepage
+    const SECTIONS = [
+      { id: 'streaming-sites', label: 'Streaming Sites', type: 'h2' },
+      { id: 'anime-streaming', label: 'Anime Streaming', type: 'h3' },
+      { id: 'drama-streaming', label: 'Drama Streaming', type: 'h3' },
+      { id: 'live-tv', label: 'Live TV', type: 'h3' },
+      { id: 'live-sports', label: 'Live Sports', type: 'h3' },
+    ];
+
+    // Key for storing and retrieving favorites from localStorage
+    const FAVORITES_KEY = 'fmhy_favorites';
+
+    // Retrieve favorites from localStorage or initialize as an empty array
+    const favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
+
+    // Check if a URL is in the favorites list
+    function isFavorite(url) {
+      return favorites.some(fav => fav.url === url);
+    }
+
+    // Add or remove a site from the favorites list
+    function toggleFavorite(site) {
+      const index = favorites.findIndex(fav => fav.url === site.url);
+      if (index === -1) {
+        // Add to favorites if not already present
+        favorites.push(site);
+      } else {
+        // Remove from favorites if already present
+        favorites.splice(index, 1);
+      }
+      // Update localStorage with the new favorites list
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+      // Re-render the favorites section
+      renderSection('favorites-slider', favorites);
+      // Show or hide the favorites section based on its content
+      document.getElementById('favorites').style.display = favorites.length ? 'block' : 'none';
+    }
+
+    // Function to get a consistent logo for a website
+    function getWebsiteLogo(url) {
+      const domain = new URL(url).hostname;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`; // Use Google's favicon service
+    }
+
+    // Render a section of sites (e.g., favorites or a specific category)
+    function renderSection(containerId, sites) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = ''; // Clear the container before rendering
+
+      // Create a grid container for the websites
+      const grid = document.createElement('div');
+      grid.className = 'slider'; // Use the grid layout for all sections
+
+      for (const site of sites) {
+        // Create a div for each site
+        const div = document.createElement('div');
+        div.className = 'site';
+
+        // Create the favorite toggle button
+        const fav = document.createElement('div');
+        fav.className = 'favorite';
+        fav.textContent = isFavorite(site.url) ? '★' : '☆'; // Filled star if favorite, empty otherwise
+        fav.onclick = () => {
+          toggleFavorite(site); // Toggle favorite on click
+          fav.textContent = isFavorite(site.url) ? '★' : '☆'; // Update the star icon
+        };
+        div.appendChild(fav);
+
+        // Create the link to the site
+        const a = document.createElement('a');
+        a.href = site.url;
+        a.target = '_blank'; // Open link in a new tab
+
+        // Add the site's favicon
+        const img = document.createElement('img');
+        img.src = getWebsiteLogo(site.url); // Use Google's favicon service
+        img.onerror = () => { img.src = 'https://via.placeholder.com/64?text=🌐'; }; // Fallback icon if favicon fails to load
+        img.style.width = '48px'; // Ensure consistent size
+        img.style.height = '48px';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = '8px'; // Optional: Add rounded corners for a polished look
+        a.appendChild(img);
+
+        // Add the site's name
+        const name = document.createElement('span');
+        name.textContent = site.name;
+        a.appendChild(name);
+
+        div.appendChild(a);
+        grid.appendChild(div); // Add the site div to the grid
+      }
+
+      container.appendChild(grid); // Add the grid to the container
+    }
+
+    // Fetch and parse the FMHY page to extract links
+    async function loadAndParseFMHY() {
+      const response = await fetch('https://fmhy.pages.dev/videopiracyguide'); // Fetch the FMHY page
+      const html = await response.text(); // Get the HTML content as text
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html'); // Parse the HTML content
+
+      for (const section of SECTIONS) {
+        // Find the header for the current section
+        let header = doc.querySelector(section.type + '#' + section.id);
+        if (!header) continue; // Skip if the header is not found
+
+        // Find the <ul> element containing the links
+        let ul = header.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
+        }
+        if (!ul) continue; // Skip if no <ul> is found
+
+        // Extract links from the <ul>
+        const links = [];
+        Array.from(ul.querySelectorAll('li')).forEach((li) => {
+          const mainLink = li.querySelector('a');
+          if (!mainLink || !mainLink.href.startsWith('http')) return;
+
+          const mainName = mainLink.textContent.trim();
+          links.push({ name: mainName, url: mainLink.href });
+
+          // Process mirror links
+          const mirrorLinks = Array.from(li.querySelectorAll('a:not(:first-child)'));
+          mirrorLinks.forEach((mirror, index) => {
+            if (mirror.href.startsWith('http') && mirror.textContent.trim().match(/^\d+$/)) {
+              links.push({ name: `${mainName} ${index + 2}`, url: mirror.href });
+            }
+          });
+        });
+
+        // Create a container for the section and render the links
+        const container = document.createElement('div');
+        container.className = 'category';
+        container.draggable = true; // Make the section draggable
+        container.dataset.id = section.id; // Add a unique ID for drag-and-drop functionality
+
+        // Add the section header with a drag handle
+        container.innerHTML = `
+          <h2>
+            <span class="drag-handle" title="Drag to reposition">☰</span>
+            ${section.label}
+          </h2>
+          <div class="slider" id="${section.id}-slider"></div>
+        `;
+
+        document.getElementById('bottom-container').appendChild(container);
+        renderSection(`${section.id}-slider`, links); // Render the links in the section
+      }
+
+      // Render the favorites section if there are any favorites
+      if (favorites.length) {
+        document.getElementById('favorites').style.display = 'block';
+        renderSection('favorites-slider', favorites);
+      }
+    }
+
+    // Predefined list of traditional websites
+    const TRADITIONAL_WEBSITES = [
+      { name: 'YouTube', url: 'https://www.youtube.com' },
+      { name: 'YouTube Music', url: 'https://music.youtube.com' },
+      { name: 'Netflix', url: 'https://www.netflix.com' },
+      { name: 'Amazon Prime', url: 'https://www.primevideo.com' },
+      { name: 'Disney+', url: 'https://www.disneyplus.com' },
+      { name: 'France.tv', url: 'https://www.france.tv' },
+      { name: 'TF1', url: 'https://www.tf1.fr' },
+      { name: 'M6', url: 'https://www.6play.fr' },
+      { name: 'BFMTV', url: 'https://www.bfmtv.com' },
+    ];
+
+    // Render traditional websites
+    function renderTraditionalWebsites() {
+      const container = document.getElementById('traditional-websites-grid');
+      container.innerHTML = ''; // Clear the container before rendering
+
+      for (const site of TRADITIONAL_WEBSITES) {
+        // Create a div for each site
+        const div = document.createElement('div');
+        div.className = 'site';
+
+        // Create the link to the site
+        const a = document.createElement('a');
+        a.href = site.url;
+        a.target = '_blank'; // Open link in a new tab
+
+        // Add the site's favicon
+        const img = document.createElement('img');
+        img.src = getWebsiteLogo(site.url); // Use Google's favicon service
+        img.onerror = () => { img.src = 'https://via.placeholder.com/64?text=🌐'; }; // Fallback icon if logo fails to load
+        img.style.width = '48px'; // Ensure consistent size
+        img.style.height = '48px';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = '8px'; // Optional: Add rounded corners for a polished look
+        a.appendChild(img);
+
+        // Add the site's name
+        const name = document.createElement('span');
+        name.textContent = site.name;
+        a.appendChild(name);
+
+        div.appendChild(a);
+        container.appendChild(div); // Add the site div to the container
+      }
+    }
+
+    // Enable drag-and-drop functionality for sections
+    function enableDragAndDrop() {
+      const container = document.getElementById('bottom-container');
+
+      container.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('category')) {
+          e.dataTransfer.setData('text/plain', e.target.dataset.id);
+          e.target.classList.add('dragging');
+        }
+      });
+
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const draggingElement = container.querySelector('.dragging');
+        const afterElement = getDragAfterElement(container, e.clientY);
+        if (afterElement == null) {
+          container.appendChild(draggingElement);
+        } else {
+          container.insertBefore(draggingElement, afterElement);
+        }
+      });
+
+      container.addEventListener('dragend', (e) => {
+        if (e.target.classList.contains('category')) {
+          e.target.classList.remove('dragging');
+        }
+      });
+    }
+
+    // Helper function to determine the element after which the dragged element should be placed
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.category:not(.dragging)')];
+
+      return draggableElements.reduce(
+        (closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          } else {
+            return closest;
+          }
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+      ).element;
+    }
+
+    // Call the function to enable drag-and-drop
+    enableDragAndDrop();
+
+    // Load and parse the FMHY page when the script is executed
+    loadAndParseFMHY();
+
+    // Call the function to render traditional websites
+    renderTraditionalWebsites();
+
+    // Handle Settings Modal
+    const settingsButton = document.getElementById('settings-button');
+    const settingsModal = document.getElementById('settings-modal');
+    const closeSettings = document.getElementById('close-settings');
+    const themeSelect = document.getElementById('theme-select');
+    const adultToggle = document.getElementById('adult-toggle');
+
+    // Open Settings Modal
+    settingsButton.addEventListener('click', () => {
+      settingsModal.style.display = 'block';
+    });
+
+    // Close Settings Modal
+    closeSettings.addEventListener('click', () => {
+      settingsModal.style.display = 'none';
+    });
+
+    // Handle Theme Change
+    themeSelect.addEventListener('change', (e) => {
+      const theme = e.target.value;
+      document.body.className = ''; // Clear existing theme classes
+      document.body.classList.add(`${theme}-theme`);
+    });
+
+    // Handle Adult Content Toggle
+    adultToggle.addEventListener('change', (e) => {
+      const showAdult = e.target.checked;
+      const adultSection = document.getElementById('adult-websites');
+      if (adultSection) {
+        adultSection.style.display = showAdult ? 'block' : 'none';
+      }
+    });
+
+    // Add a blank template for Adult Websites
+    const adultSection = document.createElement('div');
+    adultSection.id = 'adult-websites';
+    adultSection.className = 'category';
+    adultSection.style.display = 'none'; // Initially hidden
+    adultSection.innerHTML = `
+      <h2>🔞 Adult Websites</h2>
+      <div class="grid" id="adult-websites-grid"></div>
+    `;
+    document.getElementById('bottom-container').appendChild(adultSection);
+  </script>
+</body>
 </html>
+
