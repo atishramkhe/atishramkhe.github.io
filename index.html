@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📺 LeAti Homepage</title>
+  <title>📺 FMHY Homepage</title>
   <style>
     /* General body styling */
     body {
@@ -205,7 +205,12 @@
   </div>
 
   <div id="bottom-container">
-    <!-- Sections will be dynamically added here -->
+    <!-- Français Section -->
+    <div id="french-francais" class="category">
+      <h2>🇫🇷 Français 🥖</h2>
+      <div class="slider" id="french-streaming-slider"></div>
+    </div>
+    <!-- Other sections will be dynamically added here -->
   </div>
 
   <script>
@@ -258,10 +263,6 @@
       const container = document.getElementById(containerId);
       container.innerHTML = ''; // Clear the container before rendering
 
-      // Create a grid container for the websites
-      const grid = document.createElement('div');
-      grid.className = 'slider'; // Use the grid layout for all sections
-
       for (const site of sites) {
         // Create a div for each site
         const div = document.createElement('div');
@@ -298,10 +299,8 @@
         a.appendChild(name);
 
         div.appendChild(a);
-        grid.appendChild(div); // Add the site div to the grid
+        container.appendChild(div); // Add the site div to the container
       }
-
-      container.appendChild(grid); // Add the grid to the container
     }
 
     // Fetch and parse the FMHY page to extract links
@@ -514,9 +513,38 @@
       <div class="grid" id="adult-websites-grid"></div>
     `;
     document.getElementById('bottom-container').appendChild(adultSection);
+
+    // Fetch and parse the FMHY page to extract links for the "Français" section
+    async function loadFrenchSection() {
+      const response = await fetch('https://fmhy.pages.dev/non-english');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const streamingHeader = doc.querySelector('h3#streaming');
+      const links = [];
+
+      if (streamingHeader) {
+        let ul = streamingHeader.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling;
+        }
+        if (ul) {
+          Array.from(ul.querySelectorAll('li')).forEach((li) => {
+            const mainLink = li.querySelector('a');
+            if (mainLink && mainLink.href.startsWith('http')) {
+              links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
+            }
+          });
+        }
+      }
+
+      renderSection('french-streaming-slider', links);
+    }
+
+    // Load the "Français" section
+    loadFrenchSection();
   </script>
 </body>
 </html>
-
-
 
