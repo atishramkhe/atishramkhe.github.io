@@ -45,7 +45,7 @@
       grid-template-columns: repeat(5, 1fr); /* 5 columns for consistency */
       gap: 1rem; /* Add spacing between items */
       max-height: calc(2 * 150px + 2 * 1rem); /* Limit to 2 rows (150px per row + gap) */
-      overflow-y: auto; /* Enable vertical scrolling */
+      overflow-x: auto; /* Enable horizontal scrolling */
       justify-items: center; /* Center align items horizontally */
     }
 
@@ -69,25 +69,28 @@
       overflow-y: auto; /* Enable vertical scrolling for each section */
     }
 
-    /* Sticky section headers */
+    /* Sticky section headers with extended background */
     .category h2 {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
       text-align: center;
       position: sticky;
       top: 0;
-      background: #1a1a1a;
-      z-index: 1;
-      padding: 0.5rem 0;
+      background: #1a1a1a; /* Extend background to cover the top */
+      z-index: 2; /* Ensure it stays above other elements */
+      padding: 1rem 0; /* Add padding for better spacing */
     }
 
-    /* Site count styling */
+    /* Sticky site counter below the section header */
     .site-count {
       font-size: 0.9rem;
       color: #ccc;
       text-align: center;
-      margin-top: -0.5rem;
-      margin-bottom: 1rem;
+      position: sticky;
+      top: 3.5rem; /* Position below the section header */
+      background: #1a1a1a; /* Match the header background */
+      z-index: 1; /* Ensure it stays below the header but above content */
+      padding: 0.5rem 0;
     }
 
     /* Grid layout for bottom sections (3 columns) */
@@ -98,8 +101,26 @@
       justify-items: center; /* Center align items horizontally */
     }
 
-    /* Individual site styling */
+    /* Favorite star stays within the site container */
+    .favorite-star {
+      position: absolute;
+      top: 8px; /* Adjusted to stay within the site container */
+      right: 8px;
+      background: transparent;
+      color: yellow;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .favorite-star:hover {
+      transform: scale(1.2);
+    }
+
+    /* Site container with relative positioning for the star */
     .site {
+      position: relative;
       background: #2a2a2a;
       border-radius: 12px;
       padding: 0.5rem;
@@ -129,6 +150,20 @@
       border-radius: 8px; /* Optional: Add rounded corners */
       background-color: #f0f0f0; /* Add a subtle background color for consistency */
       border: 1px solid #ddd; /* Add a border for a polished look */
+    }
+
+    /* Placeholder icon styling */
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #444;
+      border-radius: 8px;
+      font-size: 1.5rem;
+      color: #fff;
+      border: 1px solid #ddd;
     }
 
     /* Site name styling */
@@ -189,6 +224,16 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* Favorites section styling */
+    #favorites-slider {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* 5 columns */
+      gap: 1rem; /* Add spacing between items */
+      max-height: calc(2 * 150px + 2 * 1rem); /* Limit to 2 rows (150px per row + gap) */
+      overflow-y: auto; /* Enable vertical scrolling if content exceeds 2 rows */
+      justify-items: center; /* Center align items horizontally */
+    }
   </style>
 </head>
 <body>
@@ -244,7 +289,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Website designed by Atish | Version 0.12</p>
+    <p>Website designed by Atish | Version 0.14</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
   </footer>
 
@@ -302,13 +347,30 @@
         const div = document.createElement('div');
         div.className = 'site';
 
+        // Add favorite star
+        const favButton = document.createElement('button');
+        favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Filled star if favorite, empty otherwise
+        favButton.className = 'favorite-star';
+        favButton.onclick = () => {
+          toggleFavorite(site); // Toggle favorite on click
+          favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Update the star icon
+          renderSection('favorites-slider', favorites); // Re-render favorites to handle overflow
+        };
+        div.appendChild(favButton);
+
         const a = document.createElement('a');
         a.href = site.url;
         a.target = '_blank';
 
         const img = document.createElement('img');
         img.src = getWebsiteLogo(site.url);
-        img.onerror = () => { img.src = 'https://via.placeholder.com/64?text=🌐'; };
+        img.onerror = () => {
+          img.remove(); // Remove the broken image
+          const placeholder = document.createElement('div');
+          placeholder.className = 'placeholder-icon';
+          placeholder.textContent = '▶'; // Sleek play symbol
+          a.appendChild(placeholder);
+        };
         a.appendChild(img);
 
         const name = document.createElement('span');
@@ -346,22 +408,14 @@
         if (!ul) continue; // Skip if no <ul> is found
 
         // Extract links from the <ul>
-        const links = [];
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (!mainLink || !mainLink.href.startsWith('http')) return;
-
-          const mainName = mainLink.textContent.trim();
-          links.push({ name: mainName, url: mainLink.href });
-
-          // Process mirror links
-          const mirrorLinks = Array.from(li.querySelectorAll('a:not(:first-child)'));
-          mirrorLinks.forEach((mirror, index) => {
-            if (mirror.href.startsWith('http') && mirror.textContent.trim().match(/^\d+$/)) {
-              links.push({ name: `${mainName} ${index + 2}`, url: mirror.href });
-            }
-          });
-        });
+        const links = Array.from(ul.querySelectorAll('li a'))
+          .filter(a => 
+            a.href.startsWith('http') && 
+            a.textContent && 
+            !/(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(a.href) &&
+            !(section.id === 'french-francais' && /^(https:\/\/ici\.tou\.tv|https:\/\/www\.telequebec\.tv|https:\/\/www\.tv5unis\.ca|https:\/\/www\.tfo\.org|https:\/\/www\.youtube\.com\/@LesicsFR|https:\/\/grafikart\.fr|https:\/\/www\.tf1\.fr)$/i.test(a.href)) // Exclude specific links from Français
+          )
+          .map(a => ({ name: a.textContent.trim(), url: a.href })); // Map to an array of objects with name and URL
 
         // Create a container for the section and render the links
         const container = document.createElement('div');
@@ -401,6 +455,7 @@
       { name: 'TF1', url: 'https://www.tf1.fr' },
       { name: 'M6', url: 'https://www.6play.fr' },
       { name: 'BFMTV', url: 'https://www.bfmtv.com' },
+      { name: 'Arte', url: 'https://www.arte.fr', logo: 'https://upload.wikimedia.org/wikipedia/fr/8/8c/Logo_ARTE.TV_2020.svg' } // Updated Arte logo
     ];
 
     // Render traditional websites
@@ -420,7 +475,7 @@
 
         // Add the site's favicon
         const img = document.createElement('img');
-        img.src = getWebsiteLogo(site.url); // Use Google's favicon service
+        img.src = site.logo || getWebsiteLogo(site.url); // Use custom logo if available, fallback to favicon
         img.onerror = () => { img.src = 'https://via.placeholder.com/64?text=🌐'; }; // Fallback icon if logo fails to load
         img.style.width = '48px'; // Ensure consistent size
         img.style.height = '48px';
@@ -556,7 +611,11 @@
         if (ul) {
           Array.from(ul.querySelectorAll('li')).forEach((li) => {
             const mainLink = li.querySelector('a');
-            if (mainLink && mainLink.href.startsWith('http')) {
+            if (
+              mainLink &&
+              mainLink.href.startsWith('http') &&
+              !/^(https:\/\/grafikart\.fr|https:\/\/www\.youtube\.com\/@LesicsFR|https:\/\/doc4u\.top|https:\/\/www\.tv5unis\.ca|https:\/\/www\.tfo\.org|https:\/\/www\.telequebec\.tv|https:\/\/ici\.tou\.tv|https:\/\/www\.tf1\.fr)$/i.test(mainLink.href) // Exclude specified links
+            ) {
               links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
             }
           });
@@ -564,6 +623,12 @@
       }
 
       renderSection('french-streaming-slider', links);
+
+      // Update the Français section site count
+      const countElement = document.getElementById('french-streaming-count');
+      if (countElement) {
+        countElement.textContent = `${links.length} sites`;
+      }
     }
 
     // Load the "Français" section
