@@ -60,7 +60,7 @@
 
     /* General category styling */
     .category {
-      background: #1a1a1a;
+      background: #000000; /* Updated from #1a1a1a */
       border-radius: 12px;
       padding: 1rem;
       flex: 1; /* Allow sections to grow equally */
@@ -76,7 +76,7 @@
       text-align: center;
       position: sticky;
       top: 0;
-      background: #1a1a1a; /* Extend background to cover the top */
+      background: #000000; /* Updated from #1a1a1a */
       z-index: 2; /* Ensure it stays above other elements */
       padding: 1rem 0; /* Add padding for better spacing */
     }
@@ -88,7 +88,7 @@
       text-align: center;
       position: sticky;
       top: 3.5rem; /* Position below the section header */
-      background: #1a1a1a; /* Match the header background */
+      background: #000000; /* Updated from #1a1a1a */
       z-index: 1; /* Ensure it stays below the header but above content */
       padding: 0.5rem 0;
     }
@@ -121,7 +121,7 @@
     /* Site container with relative positioning for the star */
     .site {
       position: relative;
-      background: #2a2a2a;
+      background: #000000; /* Updated from #2a2a2a */
       border-radius: 12px;
       padding: 0.5rem;
       text-align: center;
@@ -208,21 +208,31 @@
 
     /* Footer styling */
     footer {
-      background: #1a1a1a;
+      background: #000000; /* Updated from #1a1a1a */
       color: #fff;
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
       margin-top: 1rem;
+      position: relative;
     }
 
-    footer a {
-      color: #ffcc00;
-      text-decoration: none;
+    /* Settings button in the footer */
+    #settings-button {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 1000;
+      padding: 0.5rem 1rem;
+      background: #000000; /* Updated from #1a1a1a */
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    #settings-button:hover {
+      background: #555; /* Add hover effect */
     }
 
     /* Favorites section styling */
@@ -237,11 +247,6 @@
   </style>
 </head>
 <body>
-  <!-- Settings Button -->
-  <button id="settings-button" style="position: fixed; top: 1rem; right: 1rem; z-index: 1000; padding: 0.5rem 1rem; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
-    ⚙️ Settings
-  </button>
-
   <!-- Settings Modal -->
   <div id="settings-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; color: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1001;">
     <h2>Settings</h2>
@@ -291,6 +296,8 @@
   <footer>
     <p>Website designed by Atish | Version 0.14</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
+    <!-- Moved settings button to the footer -->
+    <button id="settings-button">⚙️ Settings</button>
   </footer>
 
   <script>
