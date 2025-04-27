@@ -89,7 +89,7 @@
       position: sticky;
       top: 3.5rem; /* Position below the section header */
       background: #000000; /* Updated from #1a1a1a */
-      z-index: 1; /* Ensure it stays below the header but above content */
+      z-index: 2; /* Ensure it stays below the header but above content */
       padding: 0.5rem 0;
     }
 
@@ -111,7 +111,7 @@
       font-size: 1.2rem;
       border: none;
       cursor: pointer;
-      z-index: 2;
+      z-index: 1;
     }
 
     .favorite-star:hover {
@@ -427,14 +427,12 @@
         // Create a container for the section and render the links
         const container = document.createElement('div');
         container.className = 'category';
-        container.draggable = true; // Make the section draggable
-        container.dataset.id = section.id; // Add a unique ID for drag-and-drop functionality
+        container.dataset.id = section.id; // Add a unique ID for identification
 
-        // Add the section header with a drag handle and site count
+        // Add the section header with a site count
         container.innerHTML = `
           <h2>
-            <span class="drag-handle" title="Drag to reposition">☰</span>
-            ${section.label}
+            <span>${section.label}</span>
           </h2>
           <p class="site-count" id="${section.id}-slider-count"></p>
           <div class="slider" id="${section.id}-slider"></div>
@@ -500,56 +498,6 @@
       }
     }
 
-    // Enable drag-and-drop functionality for sections
-    function enableDragAndDrop() {
-      const container = document.getElementById('bottom-container');
-
-      container.addEventListener('dragstart', (e) => {
-        if (e.target.classList.contains('category')) {
-          e.dataTransfer.setData('text/plain', e.target.dataset.id);
-          e.target.classList.add('dragging');
-        }
-      });
-
-      container.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        const draggingElement = container.querySelector('.dragging');
-        const afterElement = getDragAfterElement(container, e.clientY);
-        if (afterElement == null) {
-          container.appendChild(draggingElement);
-        } else {
-          container.insertBefore(draggingElement, afterElement);
-        }
-      });
-
-      container.addEventListener('dragend', (e) => {
-        if (e.target.classList.contains('category')) {
-          e.target.classList.remove('dragging');
-        }
-      });
-    }
-
-    // Helper function to determine the element after which the dragged element should be placed
-    function getDragAfterElement(container, y) {
-      const draggableElements = [...container.querySelectorAll('.category:not(.dragging)')];
-
-      return draggableElements.reduce(
-        (closest, child) => {
-          const box = child.getBoundingClientRect();
-          const offset = y - box.top - box.height / 2;
-          if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child };
-          } else {
-            return closest;
-          }
-        },
-        { offset: Number.NEGATIVE_INFINITY }
-      ).element;
-    }
-
-    // Call the function to enable drag-and-drop
-    enableDragAndDrop();
-
     // Load and parse the FMHY page when the script is executed
     loadAndParseFMHY();
 
@@ -613,7 +561,7 @@
       if (streamingHeader) {
         let ul = streamingHeader.nextElementSibling;
         while (ul && ul.tagName !== 'UL') {
-          ul = ul.nextElementSibling;
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
         }
         if (ul) {
           Array.from(ul.querySelectorAll('li')).forEach((li) => {
@@ -621,7 +569,16 @@
             if (
               mainLink &&
               mainLink.href.startsWith('http') &&
-              !/^(https:\/\/grafikart\.fr|https:\/\/www\.youtube\.com\/@LesicsFR|https:\/\/doc4u\.top|https:\/\/www\.tv5unis\.ca|https:\/\/www\.tfo\.org|https:\/\/www\.telequebec\.tv|https:\/\/ici\.tou\.tv|https:\/\/www\.tf1\.fr)$/i.test(mainLink.href) // Exclude specified links
+              ![
+                'https://grafikart.fr/',
+                'https://www.youtube.com/@LesicsFR',
+                'https://doc4u.top/',
+                'https://www.tv5unis.ca/',
+                'https://www.tfo.org/',
+                'https://www.telequebec.tv/',
+                'https://ici.tou.tv/',
+                'https://www.tf1.fr/'
+              ].includes(mainLink.href) // Explicitly exclude these links
             ) {
               links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
             }
@@ -640,6 +597,63 @@
 
     // Load the "Français" section
     loadFrenchSection();
+
+    // Fetch and parse the FMHY page to extract links for the "Live TV" section
+    async function loadLiveTVSection() {
+      const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const liveTVHeader = doc.querySelector('h3#live-tv');
+      const links = [];
+
+      if (liveTVHeader) {
+        let ul = liveTVHeader.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
+        }
+        if (ul) {
+          Array.from(ul.querySelectorAll('li')).forEach((li) => {
+            const mainLink = li.querySelector('a');
+            if (
+              mainLink &&
+              mainLink.href.startsWith('http') &&
+              ![
+                'https://titantv.com/',
+                'https://kcnawatch.us/korea-central-tv-livestream',
+                'https://funcube.space/',
+                'https://greasyfork.org/',
+                'https://miru.js.org/en/',
+                'https://miguapp.pages.dev/',
+                'https://www.squidtv.net/',
+                'https://play.xumo.com/'
+              ].includes(mainLink.href) // Explicitly exclude these links
+            ) {
+              links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
+            }
+          });
+        }
+      }
+
+      // Ensure vavoo.to is at the top of the list
+      const vavooLink = links.find(link => link.url === 'https://vavoo.to/');
+      if (vavooLink) {
+        links.splice(links.indexOf(vavooLink), 1); // Remove vavoo.to from its current position
+        links.unshift(vavooLink); // Add it to the top
+      }
+
+      renderSection('live-tv-slider', links);
+
+      // Update the Live TV section site count
+      const countElement = document.getElementById('live-tv-slider-count');
+      if (countElement) {
+        countElement.textContent = `${links.length} sites`;
+      }
+    }
+
+    // Load the "Live TV" section
+    loadLiveTVSection();
   </script>
 </body>
 </html>
