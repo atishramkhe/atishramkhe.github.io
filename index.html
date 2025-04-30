@@ -235,13 +235,11 @@
       background: #555; /* Add hover effect */
     }
 
-    /* Favorites section styling */
-    #favorites-slider {
+    #favorites {
       display: grid;
       grid-template-columns: repeat(5, 1fr); /* 5 columns */
-      gap: 1rem; /* Add spacing between items */
-      max-height: calc(2 * 150px + 2 * 1rem); /* Limit to 2 rows (150px per row + gap) */
-      overflow-y: auto; /* Enable vertical scrolling if content exceeds 2 rows */
+      height: calc(1.15 * 150px + 2 * 1rem + 4rem); /* Fixed height to match Traditional Websites */
+      overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
       justify-items: center; /* Center align items horizontally */
     }
   </style>
@@ -294,7 +292,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Website designed by Atish | Version 0.16</p>
+    <p>Website designed by Atish | Version 0.22</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
     <!-- Moved settings button to the footer -->
     <button id="settings-button">⚙️ Settings</button>
@@ -345,47 +343,77 @@
       return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`; // Use Google's favicon service
     }
 
-    // Render a section of sites (e.g., favorites or a specific category)
+    // Ensure the favorites section is always visible by default
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render the favorites section with an empty list if no favorites exist
+      renderSection('favorites-slider', favorites);
+
+      // Ensure the favorites section is visible
+      document.getElementById('favorites').style.display = 'block';
+
+      // Load other sections
+      loadAndParseFMHY();
+      loadFrenchSection();
+      loadAnimeStreamingSection();
+      loadLiveTVSection();
+    });
+
+    // Updated renderSection to handle empty favorites
     function renderSection(containerId, sites) {
       const container = document.getElementById(containerId);
+      if (!container) {
+        console.error(`Container with ID "${containerId}" not found. Skipping rendering.`);
+        return;
+      }
+
       container.innerHTML = ''; // Clear the container before rendering
 
-      for (const site of sites) {
-        const div = document.createElement('div');
-        div.className = 'site';
+      if (sites.length === 0 && containerId === 'favorites-slider') {
+        // Show a placeholder message if the favorites section is empty
+        const placeholder = document.createElement('div');
+        placeholder.className = 'placeholder';
+        placeholder.textContent = '⭐ No favorites yet. Add some by clicking the star!';
+        placeholder.style.textAlign = 'center';
+        placeholder.style.color = '#ccc';
+        container.appendChild(placeholder);
+      } else {
+        for (const site of sites) {
+          const div = document.createElement('div');
+          div.className = 'site';
 
-        // Add favorite star
-        const favButton = document.createElement('button');
-        favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Filled star if favorite, empty otherwise
-        favButton.className = 'favorite-star';
-        favButton.onclick = () => {
-          toggleFavorite(site); // Toggle favorite on click
-          favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Update the star icon
-          renderSection('favorites-slider', favorites); // Re-render favorites to handle overflow
-        };
-        div.appendChild(favButton);
+          // Add favorite star
+          const favButton = document.createElement('button');
+          favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Filled star if favorite, empty otherwise
+          favButton.className = 'favorite-star';
+          favButton.onclick = () => {
+            toggleFavorite(site); // Toggle favorite on click
+            favButton.textContent = isFavorite(site.url) ? '★' : '☆'; // Update the star icon
+            renderSection(containerId, sites); // Re-render section to handle updates
+          };
+          div.appendChild(favButton);
 
-        const a = document.createElement('a');
-        a.href = site.url;
-        a.target = '_blank';
+          const a = document.createElement('a');
+          a.href = site.url;
+          a.target = '_blank';
 
-        const img = document.createElement('img');
-        img.src = getWebsiteLogo(site.url);
-        img.onerror = () => {
-          img.remove(); // Remove the broken image
-          const placeholder = document.createElement('div');
-          placeholder.className = 'placeholder-icon';
-          placeholder.textContent = '▶'; // Sleek play symbol
-          a.appendChild(placeholder);
-        };
-        a.appendChild(img);
+          const img = document.createElement('img');
+          img.src = getWebsiteLogo(site.url);
+          img.onerror = () => {
+            img.remove(); // Remove the broken image
+            const placeholder = document.createElement('div');
+            placeholder.className = 'placeholder-icon';
+            placeholder.textContent = '▶'; // Sleek play symbol
+            a.appendChild(placeholder);
+          };
+          a.appendChild(img);
 
-        const name = document.createElement('span');
-        name.textContent = site.name;
-        a.appendChild(name);
+          const name = document.createElement('span');
+          name.textContent = site.name;
+          a.appendChild(name);
 
-        div.appendChild(a);
-        container.appendChild(div);
+          div.appendChild(a);
+          container.appendChild(div);
+        }
       }
 
       // Update the site count
@@ -395,7 +423,7 @@
       }
     }
 
-    // Fetch and parse the FMHY page to extract links
+    // Implemented the loadAndParseFMHY function
     async function loadAndParseFMHY() {
       const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
       const html = await response.text();
@@ -403,49 +431,105 @@
       const doc = parser.parseFromString(html, 'text/html');
 
       for (const section of SECTIONS) {
-        // Find the header for the current section
-        let header = doc.querySelector(section.type + '#' + section.id);
-        if (!header) continue; // Skip if the header is not found
+        const sectionHeader = doc.querySelector(`${section.type}#${section.id}`);
+        if (!sectionHeader) continue;
 
-        // Find the <ul> element containing the links
-        let ul = header.nextElementSibling;
+        let ul = sectionHeader.nextElementSibling;
         while (ul && ul.tagName !== 'UL') {
           ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
         }
-        if (!ul) continue; // Skip if no <ul> is found
+        if (!ul) continue;
 
-        // Extract links from the <ul>
-        const links = Array.from(ul.querySelectorAll('li a'))
-          .filter(a => 
-            a.href.startsWith('http') && 
-            a.textContent && 
-            !/(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(a.href) &&
-            !(section.id === 'french-francais' && /^(https:\/\/ici\.tou\.tv|https:\/\/www\.telequebec\.tv|https:\/\/www\.tv5unis\.ca|https:\/\/www\.tfo\.org|https:\/\/www\.youtube\.com\/@LesicsFR|https:\/\/grafikart\.fr|https:\/\/www\.tf1\.fr)$/i.test(a.href)) // Exclude specific links from Français
-          )
-          .map(a => ({ name: a.textContent.trim(), url: a.href })); // Map to an array of objects with name and URL
+        const links = processLinks(ul);
+        const containerId = `${section.id}-slider`;
 
-        // Create a container for the section and render the links
-        const container = document.createElement('div');
-        container.className = 'category';
-        container.dataset.id = section.id; // Add a unique ID for identification
+        // Ensure the container exists
+        let container = document.getElementById(containerId);
+        if (!container) {
+          console.warn(`Container with ID "${containerId}" not found. Creating dynamically.`);
+          container = document.createElement('div');
+          container.id = containerId;
+          container.className = 'slider';
+          const sectionElement = document.createElement('div');
+          sectionElement.className = 'category';
+          sectionElement.innerHTML = `
+            <h2>${section.label}</h2>
+            <p class="site-count" id="${containerId}-count"></p>
+          `;
+          sectionElement.appendChild(container);
+          document.getElementById('bottom-container').appendChild(sectionElement);
+        }
 
-        // Add the section header with a site count
-        container.innerHTML = `
-          <h2>
-            <span>${section.label}</span>
-          </h2>
-          <p class="site-count" id="${section.id}-slider-count"></p>
-          <div class="slider" id="${section.id}-slider"></div>
-        `;
+        renderSection(containerId, links);
+      }
+    }
 
-        document.getElementById('bottom-container').appendChild(container);
-        renderSection(`${section.id}-slider`, links); // Render the links in the section
+    // Fixed container ID issues for Anime Streaming and Live TV sections
+    async function loadAnimeStreamingSection() {
+      await loadSection('anime-streaming', 'anime-streaming-slider');
+    }
+
+    async function loadLiveTVSection() {
+      await loadSection('live-tv', 'live-tv-slider');
+    }
+
+    // Helper function to process links and handle mirrors
+    function processLinks(ul) {
+      const links = [];
+      const mirrors = [];
+
+      Array.from(ul.querySelectorAll('li')).forEach((li) => {
+        const mainLink = li.querySelector('a');
+        if (mainLink) {
+          const mainName = mainLink.textContent.trim();
+          const mainUrl = mainLink.href;
+
+          // Add the main link to the list
+          links.push({ name: mainName, url: mainUrl });
+
+          // Process mirrors (subsequent <a> tags in the same <li>)
+          const mirrorLinks = Array.from(li.querySelectorAll('a')).slice(1); // Skip the first <a> (main link)
+          mirrorLinks.forEach((mirror, index) => {
+            mirrors.push({
+              name: `${mainName} ${index + 2}`, // Append "2", "3", etc., to the main name
+              url: mirror.href,
+            });
+          });
+        }
+      });
+
+      // Push mirrors to the bottom of the list
+      return [...links, ...mirrors];
+    }
+
+    // Fetch and parse the FMHY page to extract links for a section
+    async function loadSection(sectionId, containerId) {
+      const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const sectionHeader = doc.querySelector(`h3#${sectionId}`);
+      const links = [];
+
+      if (sectionHeader) {
+        let ul = sectionHeader.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
+        }
+        if (ul) {
+          // Process links and mirrors
+          const processedLinks = processLinks(ul);
+          links.push(...processedLinks);
+        }
       }
 
-      // Render the favorites section if there are any favorites
-      if (favorites.length) {
-        document.getElementById('favorites').style.display = 'block';
-        renderSection('favorites-slider', favorites);
+      renderSection(containerId, links);
+
+      // Update the section site count
+      const countElement = document.getElementById(`${containerId}-count`);
+      if (countElement) {
+        countElement.textContent = `${links.length} sites`;
       }
     }
 
@@ -623,7 +707,8 @@
                 'https://titantv.com/',
                 'https://kcnawatch.us/korea-central-tv-livestream',
                 'https://funcube.space/',
-                'https://greasyfork.org/',
+                'https://greasyfork.org/en/scripts/506340-better-hianime',
+                'https://greasyfork.org/en/scripts/506891-hianime-auto-1080p',
                 'https://miru.js.org/en/',
                 'https://miguapp.pages.dev/',
                 'https://www.squidtv.net/',
@@ -637,11 +722,14 @@
       }
 
       // Ensure vavoo.to is at the top of the list
-      const vavooLink = links.find(link => link.url === 'https://vavoo.to/');
+      const vavooURL = 'https://vavoo.to/';
+      const vavooLink = links.find(link => link.url === vavooURL);
       if (vavooLink) {
         links.splice(links.indexOf(vavooLink), 1); // Remove vavoo.to from its current position
-        links.unshift(vavooLink); // Add it to the top
+      } else {
+        links.unshift({ name: 'Vavoo', url: vavooURL }); // Add vavoo.to if it is missing
       }
+      //links.unshift(vavooLink || { name: 'Vavoo', url: vavooURL }); // Add vavoo.to to the top
 
       renderSection('live-tv-slider', links);
 
@@ -654,6 +742,50 @@
 
     // Load the "Live TV" section
     loadLiveTVSection();
+
+    // Fetch and parse the FMHY page to extract links for the "Anime Streaming" section
+    async function loadAnimeStreamingSection() {
+      const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const animeHeader = doc.querySelector('h3#anime-streaming');
+      const links = [];
+
+      if (animeHeader) {
+        let ul = animeHeader.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
+        }
+        if (ul) {
+          Array.from(ul.querySelectorAll('li')).forEach((li) => {
+            const mainLink = li.querySelector('a');
+            if (
+              mainLink &&
+              mainLink.href.startsWith('http') &&
+              ![
+                'https://greasyfork.org/en/scripts/506340-better-hianime',
+                'https://greasyfork.org/en/scripts/506891-hianime-auto-1080p'
+              ].includes(mainLink.href) // Explicitly exclude these links
+            ) {
+              links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
+            }
+          });
+        }
+      }
+
+      renderSection('anime-streaming-slider', links);
+
+      // Update the Anime Streaming section site count
+      const countElement = document.getElementById('anime-streaming-slider-count');
+      if (countElement) {
+        countElement.textContent = `${links.length} sites`;
+      }
+    }
+
+    // Load the "Anime Streaming" section
+    loadAnimeStreamingSection();
   </script>
 </body>
 </html>
