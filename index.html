@@ -247,8 +247,9 @@
       </select>
     </div>
     <div style="margin-top: 1rem;">
-      <label for="adult-toggle">Show Adult (+18) Websites:</label>
-      <input type="checkbox" id="adult-toggle" />
+      <button id="sort-alphabetically" style="padding: 0.5rem 1rem; background: #555; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
+        Sort All Sections Alphabetically
+      </button>
     </div>
     <button id="close-settings" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #555; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
       Close
@@ -612,7 +613,6 @@
     const settingsModal = document.getElementById('settings-modal');
     const closeSettings = document.getElementById('close-settings');
     const themeSelect = document.getElementById('theme-select');
-    const adultToggle = document.getElementById('adult-toggle');
 
     // Open Settings Modal
     settingsButton.addEventListener('click', () => {
@@ -631,14 +631,38 @@
       document.body.classList.add(`${theme}-theme`);
     });
 
-    // Handle Adult Content Toggle
-    adultToggle.addEventListener('change', (e) => {
-      const showAdult = e.target.checked;
-      const adultSection = document.getElementById('adult-websites');
-      if (adultSection) {
-        adultSection.style.display = showAdult ? 'block' : 'none';
-      }
-    });
+    // Function to sort all sections alphabetically
+    function sortSectionsAlphabetically() {
+      const sectionIds = [
+        'favorites-slider',
+        'traditional-websites-grid',
+        'french-streaming-slider',
+        'anime-streaming-slider',
+        'live-tv-slider',
+        'streaming-sites-slider', // Added Streaming Sites
+        'drama-streaming-slider', // Added Drama Streaming
+        'live-sports-slider'      // Added Live Sports
+      ];
+
+      sectionIds.forEach((sectionId) => {
+        const container = document.getElementById(sectionId);
+        if (container) {
+          const sites = Array.from(container.querySelectorAll('.site')).map((site) => {
+            const link = site.querySelector('a');
+            return { name: link.querySelector('span').textContent.trim(), url: link.href };
+          });
+
+          // Sort sites alphabetically by name
+          sites.sort((a, b) => a.name.localeCompare(b.name));
+
+          // Re-render the section with sorted sites
+          renderSection(sectionId, sites);
+        }
+      });
+    }
+
+    // Add event listener to the sort button
+    document.getElementById('sort-alphabetically').addEventListener('click', sortSectionsAlphabetically);
 
     // Add a blank template for Adult Websites
     const adultSection = document.createElement('div');
