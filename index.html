@@ -80,6 +80,17 @@
       background: #000000; /* Updated from #1a1a1a */
       z-index: 2; /* Ensure it stays above other elements */
       padding: 1rem 0; /* Add padding for better spacing */
+      color: inherit; /* Ensure text color adapts to the theme */
+    }
+
+    /* Ensure text color is visible in Pink and White themes */
+    body.white-theme .category h2,
+    body.pink-theme .category h2 {
+      color: #000; /* Black text for light backgrounds */
+    }
+
+    body.dark-theme .category h2 {
+      color: #fff; /* White text for dark backgrounds */
     }
 
     /* Sticky site counter below the section header */
@@ -232,6 +243,24 @@
       overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
       justify-items: center; /* Center align items horizontally */
     }
+
+    /* Center align placeholder text in the favorites box */
+    .placeholder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Fill the height of the container */
+      width: 100%; /* Ensure it spans the full width */
+      color: #ccc;
+      text-align: center;
+    }
+
+    #favorites-slider {
+      display: flex; /* Ensure the placeholder fills the container */
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Fill the height of the parent container */
+    }
   </style>
 </head>
 <body>
@@ -283,7 +312,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Website designed by Atish | Version 0.26</p>
+    <p>Website designed by Atish | Version 0.27</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
     <!-- Moved settings button to the footer -->
     <button id="settings-button">⚙️ Settings</button>
@@ -324,8 +353,21 @@
       localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
       // Re-render the favorites section
       renderSection('favorites-slider', favorites);
-      // Show or hide the favorites section based on its content
-      document.getElementById('favorites').style.display = favorites.length ? 'block' : 'none';
+      // Update all sections to reflect the favorite status
+      updateFavoriteStars();
+    }
+
+    // Update the favorite stars in all sections
+    function updateFavoriteStars() {
+      const allSections = document.querySelectorAll('.site');
+      allSections.forEach(siteElement => {
+        const link = siteElement.querySelector('a');
+        const favButton = siteElement.querySelector('.favorite-star');
+        if (link && favButton) {
+          const isFav = isFavorite(link.href);
+          favButton.textContent = isFav ? '★' : '☆'; // Update the star icon
+        }
+      });
     }
 
     // Function to get a consistent logo for a website
@@ -350,6 +392,9 @@
 
       // Sort all sections alphabetically by default
       sortSectionsAlphabetically();
+
+      // Update favorite stars in all sections
+      updateFavoriteStars();
     });
 
     // Updated renderSection to handle empty favorites
@@ -367,8 +412,6 @@
         const placeholder = document.createElement('div');
         placeholder.className = 'placeholder';
         placeholder.textContent = '⭐ No favorites yet. Add some by clicking the star!';
-        placeholder.style.textAlign = 'center';
-        placeholder.style.color = '#ccc';
         container.appendChild(placeholder);
       } else {
         for (const site of sites) {
