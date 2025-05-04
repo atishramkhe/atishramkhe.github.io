@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📺 FMHY Homepage</title>
+  <title>LeAti Homepage</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     /* General body styling */
     body {
@@ -93,10 +94,10 @@
       padding: 0.5rem 0;
     }
 
-    /* Grid layout for bottom sections (3 columns) */
+    /* Grid layout for bottom sections (2 columns) */
     .slider {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 3 columns for bottom sections */
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for bottom sections */
       gap: 1rem; /* Add spacing between items */
       justify-items: center; /* Center align items horizontally */
     }
@@ -188,17 +189,6 @@
       background: #1a1a1a;
     }
 
-    /* Drag handle styling */
-    .drag-handle {
-      cursor: grab;
-      font-size: 1.2rem;
-      margin-right: 0.5rem;
-      color: #aaa;
-      display: inline-block;
-    }
-    .drag-handle:hover {
-      color: #fff;
-    }
 
     /* Modal Overlay */
     #settings-modal {
@@ -292,7 +282,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Website designed by Atish | Version 0.22</p>
+    <p>Website designed by Atish | Version 0.24</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
     <!-- Moved settings button to the footer -->
     <button id="settings-button">⚙️ Settings</button>
@@ -443,6 +433,8 @@
         const links = processLinks(ul);
         const containerId = `${section.id}-slider`;
 
+        
+
         // Ensure the container exists
         let container = document.getElementById(containerId);
         if (!container) {
@@ -484,15 +476,26 @@
           const mainName = mainLink.textContent.trim();
           const mainUrl = mainLink.href;
 
+          // Exclude unwanted links
+          if (/^(https?:\/\/)?(www\.)?(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(mainUrl)) {
+            console.log(`Excluded URL: ${mainUrl}`); // Log excluded URLs
+            return;
+          }
+
           // Add the main link to the list
           links.push({ name: mainName, url: mainUrl });
 
           // Process mirrors (subsequent <a> tags in the same <li>)
           const mirrorLinks = Array.from(li.querySelectorAll('a')).slice(1); // Skip the first <a> (main link)
           mirrorLinks.forEach((mirror, index) => {
+            const mirrorUrl = mirror.href;
+            if (/^(https?:\/\/)?(www\.)?(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(mirrorUrl)) {
+              console.log(`Excluded Mirror URL: ${mirrorUrl}`); // Log excluded mirror URLs
+              return;
+            }
             mirrors.push({
               name: `${mainName} ${index + 2}`, // Append "2", "3", etc., to the main name
-              url: mirror.href,
+              url: mirrorUrl,
             });
           });
         }
@@ -519,9 +522,25 @@
         }
         if (ul) {
           // Process links and mirrors
-          const processedLinks = processLinks(ul);
+          const processedLinks = processLinks(ul).filter(link => {
+            if (!link || typeof link.url !== 'string') {
+              console.error('Invalid link object encountered:', link); // Log invalid link objects
+              return false;
+            }
+            const isExcluded = /^(https?:\/\/)?(www\.)?(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(link.url);
+            if (isExcluded) {
+              console.log(`Excluded URL: ${link.url}`); // Log excluded URLs
+            } else {
+              console.log(`Included URL: ${link.url}`); // Log included URLs
+            }
+            return !isExcluded;
+          });
           links.push(...processedLinks);
+        } else {
+          console.warn(`No <ul> found for section ID: ${sectionId}`); // Log if no <ul> is found
         }
+      } else {
+        console.warn(`No section header found for section ID: ${sectionId}`); // Log if no section header is found
       }
 
       renderSection(containerId, links);
