@@ -335,7 +335,7 @@
     }
 
     // Ensure the favorites section is always visible by default
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       // Render the favorites section with an empty list if no favorites exist
       renderSection('favorites-slider', favorites);
 
@@ -343,10 +343,13 @@
       document.getElementById('favorites').style.display = 'block';
 
       // Load other sections
-      loadAndParseFMHY();
-      loadFrenchSection();
-      loadAnimeStreamingSection();
-      loadLiveTVSection();
+      await loadAndParseFMHY();
+      await loadFrenchSection();
+      await loadAnimeStreamingSection();
+      await loadLiveTVSection();
+
+      // Sort all sections alphabetically by default
+      sortSectionsAlphabetically();
     });
 
     // Updated renderSection to handle empty favorites
