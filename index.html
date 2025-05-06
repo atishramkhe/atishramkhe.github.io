@@ -312,7 +312,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>Website designed by Atish | Version 0.29</p>
+    <p>Website designed by Atish | Version 0.27</p>
     <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
     <!-- Moved settings button to the footer -->
     <button id="settings-button">⚙️ Settings</button>
@@ -327,6 +327,40 @@
       { id: 'live-sports', label: 'Live Sports', type: 'h3' },
       { id: 'live-tv', label: 'Live TV', type: 'h3' },
     ];
+
+    // Fetch and parse the FMHY page to extract links for the "Manga Reading" section
+    async function loadMangaReadingSection() {
+      const response = await fetch('https://fmhy.pages.dev/readingpiracyguide');
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+    
+      const mangaHeader = doc.querySelector('h3#manga');
+      const links = [];
+    
+      if (mangaHeader) {
+        let ul = mangaHeader.nextElementSibling;
+        while (ul && ul.tagName !== 'UL') {
+          ul = ul.nextElementSibling; // Traverse to the next sibling until a <ul> is found
+        }
+        if (ul) {
+          Array.from(ul.querySelectorAll('li')).forEach((li) => {
+            const mainLink = li.querySelector('a');
+            if (mainLink && mainLink.href.startsWith('http')) {
+              links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
+            }
+          });
+        }
+      }
+    
+      renderSection('manga-slider', links);
+    
+      // Update the Manga Reading section site count
+      const countElement = document.getElementById('manga-slider-count');
+      if (countElement) {
+        countElement.textContent = `${links.length} sites`;
+      }
+    }
 
     // Key for storing and retrieving favorites from localStorage
     const FAVORITES_KEY = 'fmhy_favorites';
@@ -750,7 +784,8 @@
                 'https://www.tfo.org/',
                 'https://www.telequebec.tv/',
                 'https://ici.tou.tv/',
-                'https://www.tf1.fr/'
+                'https://www.tf1.fr/', 
+                'https://www.awtwa.site/'
               ].includes(mainLink.href) // Explicitly exclude these links
             ) {
               links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
@@ -875,6 +910,20 @@
 
     // Load the "Anime Streaming" section
     loadAnimeStreamingSection();
+
+    // Add a blank template for Manga Reading
+    const mangaSection = document.createElement('div');
+    mangaSection.id = 'manga';
+    mangaSection.className = 'category';
+    mangaSection.innerHTML = `
+      <h2>📚 Manga Reading</h2>
+      <p class="site-count" id="manga-slider-count"></p>
+      <div class="slider" id="manga-slider"></div>
+    `;
+    document.getElementById('bottom-container').appendChild(mangaSection);
+    
+    // Load the "Manga Reading" section
+    loadMangaReadingSection();
   </script>
 </body>
 </html>
