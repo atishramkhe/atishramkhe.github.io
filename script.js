@@ -56,10 +56,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+function findNextUl(sectionHeader) {
+  let element = sectionHeader.nextElementSibling;
+  while (element) {
+    if (element.tagName === 'UL') {
+      return element;
+    }
+    if (element.tagName === 'H2' || element.tagName === 'H3') {
+      // We've hit the next section, so stop.
+      break;
+    }
+    element = element.nextElementSibling;
+  }
+  return null;
+}
+
 async function loadMangaReadingSection() {
   console.log('Attempting to load Manga Reading section...');
   try {
-    const response = await fetch('https://fmhy.pages.dev/readingpiracyguide');
+    const response = await fetch('https://fmhy.net/reading');
     if (!response.ok) throw new Error(`Failed to fetch reading guide: ${response.statusText}`);
     const html = await response.text();
     const parser = new DOMParser();
@@ -69,10 +84,7 @@ async function loadMangaReadingSection() {
     const links = [];
 
     if (mangaHeader) {
-      let ul = mangaHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
+      const ul = findNextUl(mangaHeader);
       if (ul) {
         Array.from(ul.querySelectorAll('li')).forEach((li) => {
           const mainLink = li.querySelector('a');
@@ -92,7 +104,7 @@ async function loadMangaReadingSection() {
 async function loadAndParseFMHY() {
   console.log('Attempting to load and parse FMHY sections...');
   try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+    const response = await fetch('https://fmhy.net/video');
     if (!response.ok) throw new Error(`Failed to fetch video piracy guide: ${response.statusText}`);
     const html = await response.text();
     const parser = new DOMParser();
@@ -105,10 +117,7 @@ async function loadAndParseFMHY() {
       const sectionHeader = doc.querySelector(`${section.type}#${section.id}`);
       if (!sectionHeader) continue;
 
-      let ul = sectionHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
+      const ul = findNextUl(sectionHeader);
       if (!ul) continue;
 
       const links = processLinks(ul);
@@ -122,7 +131,7 @@ async function loadAndParseFMHY() {
 async function loadFrenchSection() {
   console.log('Attempting to load French section...');
   try {
-    const response = await fetch('https://fmhy.pages.dev/non-english');
+    const response = await fetch('https://fmhy.net/non-english');
     if (!response.ok) throw new Error(`Failed to fetch non-english guide: ${response.statusText}`);
     const html = await response.text();
     const parser = new DOMParser();
@@ -132,10 +141,7 @@ async function loadFrenchSection() {
     const links = [];
 
     if (streamingHeader) {
-      let ul = streamingHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
+      const ul = findNextUl(streamingHeader);
       if (ul) {
         Array.from(ul.querySelectorAll('li')).forEach((li) => {
           const mainLink = li.querySelector('a');
@@ -159,7 +165,7 @@ async function loadFrenchSection() {
 async function loadLiveTVSection() {
   console.log('Attempting to load Live TV section...');
   try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+    const response = await fetch('https://fmhy.net/video');
     if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Live TV: ${response.statusText}`);
     const html = await response.text();
     const parser = new DOMParser();
@@ -169,10 +175,7 @@ async function loadLiveTVSection() {
     const links = [];
 
     if (liveTVHeader) {
-      let ul = liveTVHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
+      const ul = findNextUl(liveTVHeader);
       if (ul) {
         Array.from(ul.querySelectorAll('li')).forEach((li) => {
           const mainLink = li.querySelector('a');
@@ -202,7 +205,7 @@ async function loadLiveTVSection() {
 async function loadAnimeStreamingSection() {
   console.log('Attempting to load Anime Streaming section...');
   try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
+    const response = await fetch('https://fmhy.net/video');
     if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Anime: ${response.statusText}`);
     const html = await response.text();
     const parser = new DOMParser();
@@ -212,10 +215,7 @@ async function loadAnimeStreamingSection() {
     const links = [];
 
     if (animeHeader) {
-      let ul = animeHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
+      const ul = findNextUl(animeHeader);
       if (ul) {
         Array.from(ul.querySelectorAll('li')).forEach((li) => {
           const mainLink = li.querySelector('a');
@@ -439,117 +439,6 @@ function renderSection(containerId, sites) {
   const countElement = document.getElementById(`${containerId}-count`);
   if (countElement) {
     countElement.textContent = `${sites.length} sites`;
-  }
-}
-
-// Implemented the loadAndParseFMHY function
-async function loadAndParseFMHY() {
-  try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    for (const section of SECTIONS) {
-      // Skip favorites and traditional websites as they are already in index.html
-      if (section.id === 'favorites' || section.id === 'traditional-websites') continue;
-
-      const sectionHeader = doc.querySelector(`${section.type}#${section.id}`);
-      if (!sectionHeader) continue;
-
-      let ul = sectionHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
-      if (!ul) continue;
-
-      const links = processLinks(ul);
-      sectionData[section.id] = links; // Store data in sectionData
-    }
-  } catch (error) {
-    console.error('Error loading main FMHY sections:', error);
-  }
-}
-
-// Fixed container ID issues for Anime Streaming and Live TV sections
-async function loadAnimeStreamingSection() {
-  console.log('Attempting to load Anime Streaming section...');
-  try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Anime: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const animeHeader = doc.querySelector('h3#anime-streaming');
-    const links = [];
-
-    if (animeHeader) {
-      let ul = animeHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (
-            mainLink &&
-            mainLink.href.startsWith('http') &&
-            !['https://greasyfork.org/en/scripts/506340-better-hianime','https://greasyfork.org/en/scripts/506891-hianime-auto-1080p'].includes(mainLink.href)
-          ) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
-    }
-    console.log('Anime Streaming links extracted:', links.length);
-    sectionData['anime-streaming'] = links; // Store data in sectionData
-  } catch (error) {
-    console.error('Error loading Anime Streaming section:', error);
-  }
-}
-
-async function loadLiveTVSection() {
-  console.log('Attempting to load Live TV section...');
-  try {
-    const response = await fetch('https://fmhy.pages.dev/videopiracyguide');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Live TV: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const liveTVHeader = doc.querySelector('h3#live-tv');
-    const links = [];
-
-    if (liveTVHeader) {
-      let ul = liveTVHeader.nextElementSibling;
-      while (ul && ul.tagName !== 'UL') {
-        ul = ul.nextElementSibling;
-      }
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (
-            mainLink &&
-            mainLink.href.startsWith('http') &&
-            !['https://titantv.com/','https://kcnawatch.us/korea-central-tv-livestream','https://funcube.space/','https://greasyfork.org/en/scripts/506340-better-hianime','https://greasyfork.org/en/scripts/506891-hianime-auto-1080p','https://miru.js.org/en/','https://miguapp.pages.dev/','https://www.squidtv.net/','https://play.xumo.com/'].includes(mainLink.href)
-          ) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
-    }
-
-    const vavooURL = 'https://vavoo.to/';
-    const vavooLink = links.find(link => link.url === vavooURL);
-    if (vavooLink) {
-      links.splice(links.indexOf(vavooLink), 1);
-    }
-    links.unshift({ name: 'Vavoo', url: vavooURL });
-    sectionData['live-tv'] = links; // Store data in sectionData
-  } catch (error) {
-    console.error('Error loading Live TV section:', error);
   }
 }
 
