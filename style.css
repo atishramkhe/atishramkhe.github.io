@@ -602,3 +602,9 @@ footer a:hover {
 .fr-instructions {
   display: none;
 }
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1a1a1a;
+}
