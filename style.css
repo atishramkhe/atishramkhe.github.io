@@ -420,3 +420,185 @@ footer a:hover {
     font-size: 1rem;
   }
 }
+
+
+/* Custom Links Management */
+#custom-links-management {
+  border: 1px solid #444;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  margin-top: 15px;
+}
+
+#custom-links-management input {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+#custom-links-management button {
+  width: 100%;
+  padding: 10px;
+  background-color: #8a2be2;
+  color: white;
+}
+
+#custom-links-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+#custom-links-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #444;
+}
+
+#custom-links-list li:last-child {
+  border-bottom: none;
+}
+
+#custom-links-list button {
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  background-color: #555;
+  margin-left: 5px;
+}
+
+#custom-links-list button.delete-custom-link {
+  background-color: #c0392b;
+}
+
+#custom-links-list button.edit-custom-link {
+  background-color: #2980b9;
+}
+
+/* Placeholder for empty favorites */
+.placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #a0a0a0;
+    font-style: italic;
+}
+#access-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1003; /* Higher than the loading indicator */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#access-message {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+#cache-notice {
+  background-color: #413000; /* Dark gold/brown background */
+  color: #ecf0f1; /* Light grey text */
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  border: 2px solid #ffc107; /* Bright gold/yellow border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: none; /* Hidden by default */
+  position: relative;
+}
+
+#cache-notice h3 {
+  color: #ffc107; /* Bright gold/yellow for the main message */
+  margin-top: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.warning-sign {
+  color: #ffc107;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+#cache-notice .instructions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+#cache-notice .browser-instructions {
+  background-color: #5a481c; /* Slightly lighter background for instruction boxes */
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+#cache-notice h4 {
+  color: #ecf0f1;
+  border-bottom: 1px solid #413000;
+  padding-bottom: 5px;
+  margin-top: 0;
+}
+
+#cache-notice ol {
+  padding-left: 20px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+#cache-notice .lang-toggle {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#cache-notice .lang-toggle button {
+  background: none;
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+#cache-notice .lang-toggle button.active {
+  background-color: #ffc107;
+  color: #000;
+}
+
+#close-cache-notice {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ecf0f1;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Hide French by default */
+.fr-instructions {
+  display: none;
+}

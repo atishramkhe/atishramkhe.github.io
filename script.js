@@ -834,4 +834,40 @@ function editCustomLink(index, newName, newUrl) {
   }
 }
 
+// Cache Notice Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const cacheNotice = document.getElementById('cache-notice');
+  const closeButton = document.getElementById('close-cache-notice');
+  const langEnButton = document.getElementById('lang-en');
+  const langFrButton = document.getElementById('lang-fr');
+  const enInstructions = document.querySelector('.en-instructions');
+  const frInstructions = document.querySelector('.fr-instructions');
+
+  const noticeDismissed = localStorage.getItem('cacheNoticeDismissed');
+  const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+  if (!noticeDismissed || (Date.now() - noticeDismissed > oneWeek)) {
+    cacheNotice.style.display = 'block';
+  }
+
+  closeButton.addEventListener('click', () => {
+    cacheNotice.style.display = 'none';
+    localStorage.setItem('cacheNoticeDismissed', Date.now());
+  });
+
+  langEnButton.addEventListener('click', () => {
+    enInstructions.style.display = 'block';
+    frInstructions.style.display = 'none';
+    langEnButton.classList.add('active');
+    langFrButton.classList.remove('active');
+  });
+
+  langFrButton.addEventListener('click', () => {
+    enInstructions.style.display = 'none';
+    frInstructions.style.display = 'block';
+    langFrButton.classList.add('active');
+    langEnButton.classList.remove('active');
+  });
+});
+
 
