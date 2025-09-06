@@ -81,6 +81,11 @@ header {
   gap: 1rem;
 }
 
+#logo {
+  width: 160px; /* Double logo width */
+  height: auto; /* Maintain aspect ratio */
+}
+
 #clock {
   font-size: 1.8rem; /* Larger clock */
   font-weight: bold;
