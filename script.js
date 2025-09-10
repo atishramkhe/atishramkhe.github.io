@@ -191,11 +191,12 @@ async function loadLiveTVSection() {
     }
 
     const vavooURL = 'https://vavoo.to/';
+    const witvURL = 'https://witv.soccer/'
     const vavooLink = links.find(link => link.url === vavooURL);
     if (vavooLink) {
       links.splice(links.indexOf(vavooLink), 1);
     }
-    links.unshift({ name: 'Vavoo', url: vavooURL });
+    links.unshift({ name: 'Vavoo', url: vavooURL }, {name: 'WiTV', url: witvURL});
     sectionData['live-tv'] = links; // Store data in sectionData
   } catch (error) {
     console.error('Error loading Live TV section:', error);
