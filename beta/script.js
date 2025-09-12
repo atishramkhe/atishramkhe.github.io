@@ -1339,7 +1339,7 @@ function injectLoadingStyles() {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: url('/assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
+      background: url('beta/assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
       background-size: cover, cover, cover;
       background-color: #181820;
       z-index: 99999;
