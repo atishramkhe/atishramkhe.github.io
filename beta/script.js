@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadLocalFMHYData() {
   console.log('Attempting to load data from local links.v5.json...'); // Updated to v5
   try {
-    const response = await fetch('/scraper/links.v5.json'); // Path to your generated JSON (v5)
+    const response = await fetch('/links.v5.json'); // Path to your generated JSON (v5)
     console.log('Fetch response received. Status:', response.status, response.statusText);
     if (!response.ok) {
       throw new Error(`Failed to fetch local JSON: ${response.statusText} (${response.status})`);
