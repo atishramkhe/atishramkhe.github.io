@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ateaish Streaming</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body lang="en">
+  <div id="cache-notice">
+    <button id="close-cache-notice">&times;</button>
+    <div class="lang-toggle">
+      <button id="lang-en" class="active">English</button>
+      <button id="lang-fr">Français</button>
+    </div>
+    <div class="en-instructions">
+      <h3><span class="warning-sign">!</span> If you are having an empty list in Movies, Anime, Sports, TV, and Drama, please clear your cache.</h3>
+      <div class="instructions">
+        <div class="browser-instructions">
+          <h4>Brave</h4>
+          <ol>
+            <li>Click on the Menu icon (&#9776;) in the top-right corner.</li>
+            <li>Go to "Settings".</li>
+            <li>Go to "Privacy and security".</li>
+            <li>Click on "Clear browsing data".</li>
+            <li>Select "Cached images and files".</li>
+            <li>Click on "Clear data".</li>
+          </ol>
+        </div>
+        <div class="browser-instructions">
+          <h4>Firefox</h4>
+          <ol>
+            <li>Click on the Menu icon (&#9776;) in the top-right corner.</li>
+            <li>Go to "Settings".</li>
+            <li>Go to "Privacy & Security".</li>
+            <li>Scroll down to the "Cookies and Site Data" section.</li>
+            <li>Click on "Clear Data...".</li>
+            <li>Select "Cached Web Content".</li>
+            <li>Click on "Clear".</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="fr-instructions">
+      <h3><span class="warning-sign">!</span> Si votre liste de Films, Animes, Sports, TV et Dramas est vide, veuillez vider votre cache.</h3>
+      <div class="instructions">
+        <div class="browser-instructions">
+          <h4>Brave</h4>
+          <ol>
+            <li>Cliquez sur l'icône du Menu (&#9776;) dans le coin supérieur droit.</li>
+            <li>Allez dans "Paramètres".</li>
+            <li>Allez dans "Confidentialité et sécurité".</li>
+            <li>Cliquez sur "Effacer les données de navigation".</li>
+            <li>Sélectionnez "Images et fichiers en cache".</li>
+            <li>Cliquez sur "Effacer les données".</li>
+          </ol>
+        </div>
+        <div class="browser-instructions">
+          <h4>Firefox</h4>
+          <ol>
+            <li>Cliquez sur l'icône du Menu (&#9776;) dans le coin supérieur droit.</li>
+            <li>Allez dans "Paramètres".</li>
+            <li>Allez dans "Vie privée et sécurité".</li>
+            <li>Descendez jusqu'à la section "Cookies et données de sites".</li>
+            <li>Cliquez sur "Effacer les données...".</li>
+            <li>Sélectionnez "Contenu web en cache".</li>
+            <li>Cliquez sur "Effacer".</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <!--div id="loading-indicator"-->
+    <!--div class="loader"></div-->
+  <!--/div-->
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-content">
+      <h2 id="settings-modal-title">Settings</h2>
+      <div>
+        <label for="theme-select">Theme:</label>
+        <select id="theme-select" aria-label="Select theme">
+          <option value="dark">Dark</option>
+          <option value="white">White</option>
+          <option value="pink">Pink</option>
+        </select>
+      </div>
+      <div style="margin-top: 1rem;">
+        <button id="sort-alphabetically" aria-label="Sort all sections alphabetically">
+          Sort All Sections Alphabetically
+        </button>
+      </div>
+      <div class="settings-section">
+        <h3>Section Visibility</h3>
+        <div id="section-visibility-options"></div>
+      </div>
+      <div class="settings-section">
+        <h3>Section Order</h3>
+        <ul id="section-order-list"></ul>
+      </div>
+      <div class="settings-section">
+        <h3>Custom Links</h3>
+        <div id="custom-links-management">
+          <input type="text" id="custom-link-name" placeholder="Site Name">
+          <input type="url" id="custom-link-url" placeholder="Site URL">
+          <button id="add-custom-link">Add Link</button>
+          <ul id="custom-links-list"></ul>
+          <div id="edit-custom-link-form" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #444;">
+            <h4>Edit Link</h4>
+            <input type="hidden" id="edit-link-index">
+            <input type="text" id="edit-link-name" placeholder="New Site Name" style="margin-bottom: 10px;">
+            <input type="url" id="edit-link-url" placeholder="New Site URL" style="margin-bottom: 10px;">
+            <button id="save-edit-link" style="margin-right: 10px;">Save Changes</button>
+            <button id="cancel-edit-link">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <button id="close-settings" aria-label="Close settings">Close</button>
+    </div>
+  </div>
+
+  <main class="main-container">
+    <header>
+      <img src="assets/logo.png" alt="Ateaish Logo" id="logo">
+      <div class="header-spacer"></div>
+      <input type="text" id="search-bar" placeholder="Search for a site...">
+      <button id="settings-button" class="icon-button">☰</button>
+    </header>
+
+    <div class="content-grid" id="main-content">
+      <!-- Favorites Section -->
+      <div id="favorites" class="category">
+        <h2>⭐ Favorites</h2>
+        <div class="grid" id="favorites-grid"></div>
+      </div>
+
+      <!-- Traditional Websites Section -->
+      <div id="traditional-websites" class="category">
+        <h2>🌐 Traditional Websites</h2>
+        <div class="grid" id="traditional-websites-grid"></div>
+      </div>
+
+      <!-- Search Results Section (initially hidden) -->
+      <div id="search-results" class="category" style="display: none;">
+        <h2>🔍 Search Results</h2>
+        <div class="grid" id="search-results-grid"></div>
+      </div>
+
+      <!-- Dynamic sections will be added here by JavaScript -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+  </main>
+
+  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
+  <div id="access-overlay">
+    <div id="access-message">
+      <div style="font-size: 5rem;">🔒</div>
+      <div>Website Locked!</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
