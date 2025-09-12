@@ -23,7 +23,7 @@ async function loadLocalLogoManifest() {
         `./websites_logos/manifest.json`,
         `../websites_logos/logo_manifest.json`,
         `../websites_logos/manifest.json`,
-        `/logos/manifest.json`
+        `beta/logos/logo_manifest.json`
     ];
     for (const url of candidates) {
         try {
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadLocalFMHYData() {
   console.log('Attempting to load data from local links.v5.json...'); // Updated to v5
   try {
-    const response = await fetch('/links.v5.json'); // Path to your generated JSON (v5)
+    const response = await fetch('beta/links.v5.json'); // Path to your generated JSON (v5)
     console.log('Fetch response received. Status:', response.status, response.statusText);
     if (!response.ok) {
       throw new Error(`Failed to fetch local JSON: ${response.statusText} (${response.status})`);
