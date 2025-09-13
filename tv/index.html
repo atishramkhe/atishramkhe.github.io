@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WITV Player</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh; /* Use viewport height to ensure it fills the screen */
+    overflow: hidden; /* Hide scrollbars on the main page */
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make body fill the html tag */
+  }
+  #controls {
+    padding: 10px;
+    background-color: #f0f0f0;
+    flex-shrink: 0; /* Prevent controls from shrinking */
+  }
+  #player-iframe {
+    flex-grow: 1; /* Allow the iframe to grow and fill available space */
+    border: none;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <label for="channel-select">Select Channel:</label>
+  <select id="channel-select"></select>
+</div>
+
+<iframe id="player-iframe"></iframe>
+
+<script>
+  const channelSelect = document.getElementById('channel-select');
+  const playerIframe = document.getElementById('player-iframe');
+  const baseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
+
+  // Populate the dropdown
+  for (let i = 1; i <= 300; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = 'Channel ' + i;
+    channelSelect.appendChild(option);
+  }
+
+  // Function to update the iframe source
+  function updatePlayer(channelId) {
+    playerIframe.src = baseUrl + channelId;
+  }
+
+  // Event listener for the dropdown
+  channelSelect.addEventListener('change', (event) => {
+    updatePlayer(event.target.value);
+  });
+
+  // Initial load
+  const initialChannel = 246; // The original channel
+  channelSelect.value = initialChannel;
+  updatePlayer(initialChannel);
+</script>
+
+</body>
+</html>
