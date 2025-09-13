@@ -15,15 +15,12 @@ let localLogoManifest = {};
  * }
  */
 async function loadLocalLogoManifest() {
-    // Try multiple likely locations for the manifest (relative, parent, absolute)
+    // Try multiple likely locations for the manifest (relative only)
     const candidates = [
+        `logo_manifest.json`, 
         `${LOGO_BASE_PATH}/logo_manifest.json`,   // try this name first (new)
         `${LOGO_BASE_PATH}/manifest.json`,
-        `./websites_logos/logo_manifest.json`,    // also try logo_manifest in websites_logos
-        `./websites_logos/manifest.json`,
-        `../websites_logos/logo_manifest.json`,
-        `../websites_logos/manifest.json`,
-        `logos/logo_manifest.json`
+        `websites_logos/manifest.json`
     ];
     for (const url of candidates) {
         try {
@@ -281,7 +278,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadLocalFMHYData() {
   console.log('Attempting to load data from local links.v5.json...'); // Updated to v5
   try {
-    const response = await fetch('/links.v5.json'); // Path to your generated JSON (v5)
+    const response = await fetch('links.v5.json'); // Use relative path
     console.log('Fetch response received. Status:', response.status, response.statusText);
     if (!response.ok) {
       throw new Error(`Failed to fetch local JSON: ${response.statusText} (${response.status})`);
@@ -1339,7 +1336,7 @@ function injectLoadingStyles() {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: url('/assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
+      background: url('assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
       background-size: cover, cover, cover;
       background-color: #181820;
       z-index: 99999;
