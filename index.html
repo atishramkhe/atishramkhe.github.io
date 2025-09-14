@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ateaish Streaming</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body lang="en">
@@ -71,16 +71,11 @@
       </div>
     </div>
   </div>
-  <div id="access-overlay">
-    <div id="access-message">
-      <div style="font-size: 5rem;">🔒</div>
-      <div>Website Locked!</div>
-    </div>
-  </div>
+
   <!-- Loading Indicator -->
-  <div id="loading-indicator">
-    <div class="loader"></div>
-  </div>
+  <!--div id="loading-indicator"-->
+    <!--div class="loader"></div-->
+  <!--/div-->
 
   <!-- Settings Modal -->
   <div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
@@ -129,11 +124,11 @@
   </div>
 
   <main class="main-container">
-    <!-- Header with Clock and Search -->
     <header>
-      <img src="logo.png" alt="Ateaish Logo" id="logo">
+      <img src="assets/logo.png" alt="Ateaish Logo" id="logo">
+      <div class="header-spacer"></div>
       <input type="text" id="search-bar" placeholder="Search for a site...">
-      <button id="settings-button" class="icon-button">⚙️</button>
+      <button id="settings-button" class="icon-button">☰</button>
     </header>
 
     <div class="content-grid" id="main-content">
@@ -160,9 +155,16 @@
 
     <!-- Footer -->
     <footer>
-      <p>Website designed by Atish | Version 0.30</p>
-      <p>For updates and support, visit <a href="https://github.com/atishramkhe" target="_blank">GitHub</a>.</p>
+
     </footer>
+  </main>
+
+  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
+  <div id="access-overlay">
+    <div id="access-message">
+      <div style="font-size: 5rem;">🔒</div>
+      <div>Website Locked!</div>
+    </div>
   </div>
 
   <script src="script.js"></script>

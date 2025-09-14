@@ -1,277 +1,387 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  console.log('DOMContentLoaded event fired. Script execution started.');
-  const loadingIndicator = document.getElementById('loading-indicator');
-  loadingIndicator.style.display = 'flex';
+let loadedFMHYData = {}; // New global variable to store raw FMHY data
 
-  try {
-    // Initialize the clock
+// Base path to the logos folder (relative path - adjust if your build serves logos elsewhere)
+const LOGO_BASE_PATH = './logos';
+
+// Loaded manifest mapping (e.g. { "example-site": "example-site.png", ... })
+let localLogoManifest = {};
+
+/**
+ * Load a manifest.json from the logos folder that maps site keys/names to filenames.
+ * manifest.json example:
+ * {
+ *   "anime-sama.fr": "anime-sama.png",
+ *   "default": "default.png"
+ * }
+ */
+async function loadLocalLogoManifest() {
+    // Try multiple likely locations for the manifest (relative only)
+    const candidates = [
+        `logo_manifest.json`, 
+        `${LOGO_BASE_PATH}/logo_manifest.json`,   // try this name first (new)
+        `${LOGO_BASE_PATH}/manifest.json`,
+        `websites_logos/manifest.json`
+    ];
+    for (const url of candidates) {
+        try {
+            const resp = await fetch(url, { cache: 'no-cache' });
+            if (!resp.ok) throw new Error(`Not found ${resp.status}`);
+            const json = await resp.json();
+            if (json && typeof json === 'object') {
+                // Normalize keys: store original keys and slugified/hostname variants for easier lookup
+                localLogoManifest = {};
+                for (const rawKey of Object.keys(json)) {
+                    const entry = json[rawKey];
+                    localLogoManifest[rawKey] = entry;
+                    try {
+                        const s = slugify(rawKey);
+                        if (s) localLogoManifest[s] = entry;
+                    } catch (e) {}
+                    // if the manifest key looks like a URL, also register its hostname
+                    try {
+                        const u = new URL(rawKey, window.location.origin);
+                        if (u && u.hostname) {
+                            localLogoManifest[u.hostname] = entry;
+                            localLogoManifest[slugify(u.hostname)] = entry;
+                        }
+                    } catch (e) {
+                        // not a URL; ignore
+                    }
+                }
+                console.info('Loaded logo manifest from', url);
+                return;
+            }
+        } catch (err) {
+            // continue to next candidate
+        }
+    }
+    // no manifest found, use empty manifest (we'll fallback to conventions / favicons)
+    localLogoManifest = {};
+}
+
+/**
+ * Make a safe slug from a string (used to form fallback filenames).
+ */
+function slugify(text) {
+    return String(text || '')
+        .toLowerCase()
+        .replace(/https?:\/\//, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+}
+
+// Minimal clock function to avoid ReferenceError if UI expects a clock
+function updateClock() {
+    try {
+        const el = document.getElementById('clock');
+        if (el) el.textContent = new Date().toLocaleTimeString();
+    } catch (e) {
+        // noop
+    }
+}
+
+/**
+ * Resolve the logo URL for a site object.
+ * - If site.logo or site.icon is provided, return that (absolute or relative).
+ * - If manifest contains an entry for site.url or site.name, use it.
+ * - Otherwise fallback to a conventional path: /logos/<slug>.png
+ * - Final fallback: /logos/default.png
+ *
+ * site may be { name, url, logo, icon }
+ */
+function getLogoUrlForSite(site) {
+    // 1) explicit logo field provided by data
+    if (site.logo) {
+        return site.logo.startsWith('http') ? site.logo : `${LOGO_BASE_PATH}/${site.logo}`;
+    }
+    if (site.icon) {
+        return site.icon.startsWith('http') ? site.icon : `${LOGO_BASE_PATH}/${site.icon}`;
+    }
+
+    // 2) manifest lookup by exact url, hostname or name
+    const candidates = [];
+    if (site.url) {
+        try {
+            const u = new URL(site.url, window.location.origin);
+            candidates.push(u.hostname);
+            candidates.push(u.hostname + u.pathname.replace(/\//g, '-'));
+            candidates.push(site.url);
+        } catch (e) {
+            // ignore
+        }
+    }
+    if (site.name) candidates.push(site.name);
+    // normalize and check manifest keys
+    for (const raw of candidates) {
+        const key = slugify(raw);
+        if (localLogoManifest[key]) {
+            const entry = localLogoManifest[key];
+            // manifest can be either string filename or object { filename, logo_type, dominant_color }
+            if (typeof entry === 'string') {
+                return `${LOGO_BASE_PATH}/${entry}`;
+            } else if (entry && entry.filename) {
+                return entry.filename.startsWith('http') ? entry.filename : `${LOGO_BASE_PATH}/${entry.filename}`;
+            }
+        }
+    }
+
+    // 3) convention fallback using slugified name or url
+    const fallbackSlug = slugify(site.name || site.url || 'unknown');
+    const tryExts = ['png', 'svg', 'jpg', 'webp'];
+    for (const ext of tryExts) {
+        // optimistic path - file may not exist but browser will show broken image,
+        // we handle onerror when creating <img>
+        return `${LOGO_BASE_PATH}/${fallbackSlug}.${ext}`;
+    }
+
+    // 4) default image
+    return `${LOGO_BASE_PATH}/default.png`;
+}
+
+/**
+ * Example helper to create a site card element that uses the logo loader.
+ * Use this in your rendering loop where you create site list items.
+ */
+function createSiteCard(site) {
+    const a = document.createElement('a');
+    a.href = site.url || '#';
+    a.className = 'site-card';
+
+    const img = document.createElement('img');
+    img.alt = site.name || site.url || 'site';
+    img.className = 'site-logo';
+    img.src = getLogoUrlForSite(site);
+    // fallback to default if image fails to load
+    img.onerror = () => {
+        if (img.src && !img.src.endsWith('/default.png')) {
+            img.src = `${LOGO_BASE_PATH}/default.png`;
+        }
+    };
+
+    const title = document.createElement('div');
+    title.className = 'site-title';
+    title.textContent = site.name || site.url || 'Unknown';
+
+    // Add favorite star button (hidden by default, shown on hover)
+    const starBtn = document.createElement('button');
+    starBtn.className = 'favorite-star';
+    starBtn.type = 'button';
+    starBtn.title = 'Add to Favorites';
+    starBtn.textContent = isFavorite(site.url) ? '★' : '☆';
+    starBtn.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      toggleFavorite(site);
+      // Update star immediately
+      starBtn.textContent = isFavorite(site.url) ? '★' : '☆';
+    };
+    a.appendChild(starBtn);
+
+    a.appendChild(img);
+    a.appendChild(title);
+    return a;
+}
+
+// Example usage: ensure manifest is loaded before rendering
+async function initHomepage() {
+    await loadLocalLogoManifest();
+    // ...existing initialization: loadLocalFMHYData(), renderSectionsInOrder(), etc.
+    // then when rendering each site use createSiteCard(site)
+}
+
+// If you already have a DOMContentLoaded initializer, call initHomepage() inside it.
+// Otherwise you may add:
+document.addEventListener('DOMContentLoaded', async () => {
+    const loadingIndicator = document.getElementById('loading-indicator');
+
+    // Show loading overlay
+    showLoadingScreen();
+    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+
+    // Also make sure settings modal starts hidden
+    const sm = document.getElementById('settings-modal');
+    if (sm) sm.style.display = 'none';
+
+    // Inject runtime style overrides (header transparent, aligned rows, snap)
+    injectRuntimeOverrides();
+
+    // Make background glow move on scroll
+    updateGlowOnScroll();
+    window.addEventListener('scroll', updateGlowOnScroll, { passive: true });
+
+    // Initialize small utilities
     updateClock();
     setInterval(updateClock, 1000);
 
-    // Initialize section data from localStorage and constants
-    sectionData['favorites'] = favorites; // Use safely loaded favorites
-    sectionData['my-links'] = myCustomLinks; // Use safely loaded custom links
+    // Initialize section data
+    sectionData['favorites'] = favorites;
+    sectionData['my-links'] = myCustomLinks;
     sectionData['traditional-websites'] = TRADITIONAL_WEBSITES;
-    sectionData['adult-websites'] = []; // Initialize as empty
 
-    // Load all remote data in parallel
-    await Promise.allSettled([
-      loadAndParseFMHY(),
-      loadFrenchSection(),
-      loadAnimeStreamingSection(),
-      loadLiveTVSection(),
-      loadMangaReadingSection(),
-    ]);
+    // Load manifest and local FMHY data (best-effort)
+    await loadLocalLogoManifest();
+    await loadLocalFMHYData();
 
-    // Render all sections in their final order
+    // Inject homepage styles and render the TV-style app grid hero
+    injectHomepageStyles();
+    try { renderAppGrid(); } catch (e) { console.warn('renderAppGrid failed', e); }
+
+    // Render the rest of the sections as before
     renderSectionsInOrder();
 
-    // Collect all sites for search functionality *after* final rendering
+    // Collect all sites for search functionality (unchanged logic)
     allSites = [];
-    document.querySelectorAll('.site').forEach(siteElement => {
-      const name = siteElement.querySelector('span').textContent.trim();
-      const url = siteElement.querySelector('a').href;
-      const site = { name, url };
-      if (!allSites.some(s => s.url === site.url)) { // Avoid duplicates
-          allSites.push(site);
-      }
-    });
+    for (const sectionId in loadedFMHYData) {
+         if (loadedFMHYData.hasOwnProperty(sectionId) && Array.isArray(loadedFMHYData[sectionId])) {
+             loadedFMHYData[sectionId].forEach(site => {
+                 if (site && site.name && site.url && !allSites.some(s => s.url === site.url)) {
+                     allSites.push({ name: site.name, url: site.url });
+                 }
+             });
+         } else if (
+             loadedFMHYData.hasOwnProperty(sectionId) &&
+             typeof loadedFMHYData[sectionId] === 'object' &&
+             loadedFMHYData[sectionId] !== null
+         ) {
+             for (const subSectionName in loadedFMHYData[sectionId]) {
+                 if (
+                     loadedFMHYData[sectionId].hasOwnProperty(subSectionName) &&
+                     Array.isArray(loadedFMHYData[sectionId][subSectionName])
+                 ) {
+                     loadedFMHYData[sectionId][subSectionName].forEach(site => {
+                         if (site && site.name && site.url && !allSites.some(s => s.url === site.url)) {
+                             allSites.push({ name: site.name, url: site.url });
+                         }
+                     });
+                 }
+             }
+         }
+     }
 
-    // Update favorite stars and apply visibility
-    updateFavoriteStars();
-    applySectionVisibility();
-
-    // Setup all event listeners now that the page is fully rendered
+    // Finalize UI
     setupEventListeners();
 
-    console.log('Page initialization complete.');
-
-  } catch (error) {
-    console.error('An error occurred during page initialization:', error);
-    // Optionally, display a user-friendly error message on the page
-  } finally {
-    // Hide loading indicator regardless of success or failure
-    loadingIndicator.style.display = 'none';
+    if (loadingIndicator) loadingIndicator.style.display = 'none';
+    hideLoadingScreen();
     document.body.classList.add('loaded');
-  }
 });
 
-function findNextUl(sectionHeader) {
-  let element = sectionHeader.nextElementSibling;
-  while (element) {
-    if (element.tagName === 'UL') {
-      return element;
-    }
-    if (element.tagName === 'H2' || element.tagName === 'H3') {
-      // We've hit the next section, so stop.
-      break;
-    }
-    element = element.nextElementSibling;
-  }
-  return null;
-}
+// Remove the second DOMContentLoaded for settings modal (already handled in setupEventListeners)
 
-async function loadMangaReadingSection() {
-  console.log('Attempting to load Manga Reading section...');
+// If you already have a DOMContentLoaded initializer, call initHomepage() inside it.
+// Otherwise you may add:
+// document.addEventListener('DOMContentLoaded', () => {
+//     // start init but do not block page if other init exists
+//     initHomepage().catch(e => console.error('Init failed', e));
+// });
+
+async function loadLocalFMHYData() {
+  console.log('Attempting to load data from local links.v5.json...'); // Updated to v5
   try {
-    const response = await fetch('https://fmhy.net/reading');
-    if (!response.ok) throw new Error(`Failed to fetch reading guide: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const mangaHeader = doc.querySelector('h3#manga');
-    const links = [];
-
-    if (mangaHeader) {
-      const ul = findNextUl(mangaHeader);
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (mainLink && mainLink.href.startsWith('http')) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
+    const response = await fetch('links.v5.json'); // Use relative path
+    console.log('Fetch response received. Status:', response.status, response.statusText);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch local JSON: ${response.statusText} (${response.status})`);
     }
-    console.log('Manga Reading links extracted:', links.length);
-    sectionData['manga'] = links; // Store data in sectionData
+    const data = await response.json();
+    console.log('JSON data parsed. Data keys:', Object.keys(data));
+
+    // Store the raw loaded data globally
+    loadedFMHYData = data;
+    console.log('Local FMHY data loaded successfully into loadedFMHYData. Keys:', Object.keys(loadedFMHYData));
   } catch (error) {
-    console.error('Error loading Manga Reading section:', error);
+    console.error('Error loading local FMHY data:', error);
   }
 }
 
-async function loadAndParseFMHY() {
-  console.log('Attempting to load and parse FMHY sections...');
-  try {
-    const response = await fetch('https://fmhy.net/video');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+// Limit visible tiles per section (except search results)
+const VISIBLE_LIMIT = 4;
+// Track expanded/collapsed state per section grid id
+const expandedSections = {}; // { '<section-id>-grid': boolean }
 
-    for (const section of SECTIONS) {
-      // Skip favorites and traditional websites as they are already in index.html
-      if (section.id === 'favorites' || section.id === 'traditional-websites') continue;
-
-      const sectionHeader = doc.querySelector(`${section.type}#${section.id}`);
-      if (!sectionHeader) continue;
-
-      const ul = findNextUl(sectionHeader);
-      if (!ul) continue;
-
-      const links = processLinks(ul);
-      sectionData[section.id] = links; // Store data in sectionData
-    }
-  } catch (error) {
-    console.error('Error loading main FMHY sections:', error);
-  }
-}
-
-async function loadFrenchSection() {
-  console.log('Attempting to load French section...');
-  try {
-    const response = await fetch('https://fmhy.net/non-english');
-    if (!response.ok) throw new Error(`Failed to fetch non-english guide: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const streamingHeader = doc.querySelector('h3#streaming');
-    const links = [];
-
-    if (streamingHeader) {
-      const ul = findNextUl(streamingHeader);
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (
-            mainLink &&
-            mainLink.href.startsWith('http') &&
-            !['https://grafikart.fr/','https://www.youtube.com/@LesicsFR','https://doc4u.top/','https://www.tv5unis.ca/','https://www.tfo.org/','https://www.telequebec.tv/','https://ici.tou.tv/','https://www.tf1.fr/', 'https://www.awtwa.site/'].includes(mainLink.href)
-          ) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
-    }
-    console.log('French section links extracted:', links.length);
-    sectionData['french-francais'] = links; // Store data in sectionData
-  } catch (error) {
-    console.error('Error loading French section:', error);
-  }
-}
-
-async function loadLiveTVSection() {
-  console.log('Attempting to load Live TV section...');
-  try {
-    const response = await fetch('https://fmhy.net/video');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Live TV: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const liveTVHeader = doc.querySelector('h3#live-tv');
-    const links = [];
-
-    if (liveTVHeader) {
-      const ul = findNextUl(liveTVHeader);
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (
-            mainLink &&
-            mainLink.href.startsWith('http') &&
-            !['https://titantv.com/','https://kcnawatch.us/korea-central-tv-livestream','https://funcube.space/','https://greasyfork.org/en/scripts/506340-better-hianime','https://greasyfork.org/en/scripts/506891-hianime-auto-1080p','https://miru.js.org/en/','https://miguapp.pages.dev/','https://www.squidtv.net/','https://play.xumo.com/'].includes(mainLink.href)
-          ) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
-    }
-
-    const vavooURL = 'https://vavoo.to/';
-    const witvURL = 'https://witv.soccer/'
-    const vavooLink = links.find(link => link.url === vavooURL);
-    if (vavooLink) {
-      links.splice(links.indexOf(vavooLink), 1);
-    }
-    links.unshift({ name: 'Vavoo', url: vavooURL }, {name: 'WiTV', url: witvURL});
-    sectionData['live-tv'] = links; // Store data in sectionData
-  } catch (error) {
-    console.error('Error loading Live TV section:', error);
-  }
-}
-
-async function loadAnimeStreamingSection() {
-  console.log('Attempting to load Anime Streaming section...');
-  try {
-    const response = await fetch('https://fmhy.net/video');
-    if (!response.ok) throw new Error(`Failed to fetch video piracy guide for Anime: ${response.statusText}`);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    const animeHeader = doc.querySelector('h3#anime-streaming');
-    const links = [];
-
-    if (animeHeader) {
-      const ul = findNextUl(animeHeader);
-      if (ul) {
-        Array.from(ul.querySelectorAll('li')).forEach((li) => {
-          const mainLink = li.querySelector('a');
-          if (
-            mainLink &&
-            mainLink.href.startsWith('http') &&
-            !['https://greasyfork.org/en/scripts/506340-better-hianime','https://greasyfork.org/en/scripts/506891-hianime-auto-1080p'].includes(mainLink.href)
-          ) {
-            links.push({ name: mainLink.textContent.trim(), url: mainLink.href });
-          }
-        });
-      }
-    }
-    console.log('Anime Streaming links extracted:', links.length);
-    sectionData['anime-streaming'] = links; // Store data in sectionData
-  } catch (error) {
-    console.error('Error loading Anime Streaming section:', error);
-  }
-}
-
-function renderTraditionalWebsites() {
-  console.log('Attempting to render Traditional Websites section...');
-  try {
-    sectionData['traditional-websites'] = TRADITIONAL_WEBSITES; // Store data in sectionData
-  } catch (error) {
-    console.error('Error rendering traditional websites:', error);
-  }
-}
-
-function updateClock() {
-  const clockElement = document.getElementById('clock');
-  if (clockElement) {
-    const now = new Date();
-    clockElement.textContent = now.toLocaleTimeString();
-  }
-}
-
-// Function to sort all sections alphabetically
-
+// Default section order (no longer user-customizable)
+const DEFAULT_SECTION_ORDER = [
+  'favorites',
+  'movies-tv-shows',
+  'francais',
+  'live-sports',
+  'live-tv',
+  'anime-streaming',
+  'drama-streaming',
+  'manga',
+  'traditional-websites',
+  'my-links'
+];
+let sectionOrder = DEFAULT_SECTION_ORDER.slice();
 
 // Define the sections to be displayed on the homepage
 let allSites = []; // Global array to store all sites for searching
-let sectionData = {}; // Global object to store data for each section
+let sectionData = {}; // Global object to store data for each section (will be populated by renderSectionsInOrder)
 
 const SECTIONS = [
-  { id: 'favorites', label: 'Favorites', type: 'h2', defaultVisible: true, order: 1 },
-  { id: 'traditional-websites', label: 'Traditional Websites', type: 'h2', defaultVisible: true, order: 2 },
-  { id: 'streaming-sites', label: 'Movies & TV Shows', type: 'h2', defaultVisible: true, order: 3 },
-  { id: 'anime-streaming', label: 'Anime Streaming', type: 'h3', defaultVisible: true, order: 4 },
-  { id: 'drama-streaming', label: 'Drama Streaming', type: 'h3', defaultVisible: true, order: 5 },
-  { id: 'live-sports', label: 'Live Sports', type: 'h3', defaultVisible: true, order: 6 },
-  { id: 'live-tv', label: 'Live TV', type: 'h3', defaultVisible: true, order: 7 },
-  { id: 'french-francais', label: 'Français', type: 'h2', defaultVisible: true, order: 8 },
-  { id: 'manga', label: 'Manga Reading', type: 'h2', defaultVisible: true, order: 9 },
-  { id: 'my-links', label: 'My Links', type: 'h2', defaultVisible: true, order: 10 },
+  { id: 'anime-streaming', label: 'Anime', type: 'h2', defaultVisible: true, order: 1, sourceSectionId: 'video', sourceSubSectionNames: ['Anime Streaming'], sitesToRemove: [
+    'Wotaku', 'Wotaku The Index', 'Wotaku Wiki', 'Wotaku EverythingMoe', 'Wotaku 2',
+    'AnimeKai Status', 'Official Mirrors', 'Official Mirrors Enhancements', 
+    'Official Mirrors Auto-Focus', 'animepahe Enhancements', 'Anime Streaming CSE',
+    'Anime Streaming CSE Kuroiru', 'Rive', 'Aninow', 'Rive 2', 'Rive Status', 
+    'Crunchyroll', 'Crunchyroll US Proxy', 'Miu', 'Miu AnimeThemes', 'Layendimator', 
+    'Layendimator AnymeX', 'Layendimator Extension Guide', 'Layendimator Seanime', 
+    'Layendimator Miru'
+  ] },
+  { id: 'drama-streaming', label: 'Drama', type: 'h2', defaultVisible: true, order: 2, sourceSectionId: 'video', sourceSubSectionNames: ['Drama Streaming'], sitesToRemove: [
+    'EverythingMoe', 'EverythingMoe 2', 'dramacool', 'OnDemandChina', 'AsianCrush', 'Dramacool 2',
+    'KissAsian'
+  ] },
+  { id: 'live-sports', label: 'Sports', type: 'h2', defaultVisible: true, order: 3, sourceSectionId: 'video', sourceSubSectionNames: ['Live Sports'], sitesToRemove: [
+    '/sport calendars/', '/sport calendars/ 2', 'r/rugbystreams', 'Live Snooker Guide', 
+    'WatchSports', 'DaddyLive Self-Hosted Proxy', 'Sport7', 'StreamEast', 'LiveTV', 
+    'VIP Box Sports', 'VIP Box Sports Mirrors', 'TimStreams Status', 'TotalSportek.to', 
+    'TotalSportek.to 2', 'CricHD.to', 'SportOnTv 2', 'Sports Plus', 'CrackStreams', '720pStream', 
+    '⁠GoalieTrend', 'BuffStream', 'Boxing-100', 'Soccerdoge', 'OnHockey', 'MLB24ALL', 'MLB24ALL NHL24ALL', 
+    'OvertakeFans', 'Aceztrims', 'DD12', 'NontonGP', 'F1 Dash' 
+  ] },
+  { id: 'live-tv', label: 'TV', type: 'h2', defaultVisible: true, order: 4, sourceSectionId: 'video', sourceSubSectionNames: ['Live TV'], sitesToRemove: [
+    'TitanTV', 'SHOWROOM',  'EXP TV', 'Channel 99', 'Baked', 'psp-tv', 'cytube', 'Puffer', 'SquidTV', 'FreeInterTV', 
+    'lmao.love', 'IPTV Play', 'USTVGo', 'Xumo Play', 'DaddyLive TV Self-Hosted Proxy', 'EAsyWebTV IPTV Web', 
+    'StreamHub'
+  ] },
+  { id: 'movies-tv-shows', label: 'Films & TV', type: 'h2', defaultVisible: true, order: 5, sourceSectionId: 'video', sourceSubSectionNames: ['Streaming Sites', 'API Frontends', 'Single Server'], sitesToRemove: [
+    'Rive Status', '1Shows Guide', '1Shows RgShows', 'Cinegram', 'Smashystream', 'Smashystream 2','PrimeWire', 'PrimeWire 2',
+    'Downloads-Anymovies', 'Streaming CSE', 'Streaming CSE 2', 'Streaming CSE 3', 'Streaming CSE 4', 'BEECH', 'BEECH Mocine', 
+    'Willow', 'Willow 2', 'Willow 4K Guide', 'Primeshows', 'VLOP', 'HydraHD', 'HydraHD Status', 'Mapple.tv', 'Nunflix Docs', 
+    'Hopfly', 'Purplix', 'Purplix 2', 'Purplix 3', 'M-Zone', 'Movie Pluto', 'Cinema Deck', 'Cinema Deck 2', 'Cinema Deck Status', 
+    'Altair', 'Altair Nova', 'Autoembed', 'Ask4Movies', 'Novafork', 'EE3', 'EE3 RIPS', 'Poorflix', 'Movies7', 'LookMovie', 'LookMovie Clones', 
+    'Soaker', 'Soaker Soaper', 'Soaker Mirrors', 'Vidsrc.cx', 'OnionPlay', 'Mp4Hydra', 'Mp4Hydra 2', 'ShowBox', 'Levidia', 'Levidia 2',
+    'Levidia 3', 'Movies4F', 'FshareTV', 'Zoechip', 'Player4U', 'Gir Society', 'PlayIMDb'
+  ] },
+  { id: 'manga', label: 'Manga', type: 'h2', defaultVisible: true, order: 6, sourceSectionId: 'reading', sourceSubSectionNames: ['Manga'], sitesToRemove: [
+    'Wotaku', 'Wotaku The Index', 'Wotaku Wiki', 'Wotaku EverythingMoe', 'Wotaku 2', 'Rawmangaz', 'MangaDex Downloader', 'NyaaManga / LNs',
+    'The Manga Library', 'Great Discord Links', 'Great Discord Links MangaDex Groups', 'Madokami', 'Madokami Archive', 'Manga CSE', 
+    'Manga CSE CSE 2', 'Seanime', 'Kaizoku', 'Webcomic Reader', 'BallonsTranslator', 'BallonsTranslator Cotrans', 
+    'BallonsTranslator Scanlate', 'Manga-Manager', 'Scan Updates', 'MangaHasu'
+  ] },
+  { id: 'traditional-websites', label: 'Web', type: 'h2', defaultVisible: true, order: 7, sitesToRemove: [] },
+  { id: 'favorites', label: 'Favorites', type: 'h2', defaultVisible: true, order: 8, sitesToRemove: [] },
+  { id: 'francais', label: 'Français', type: 'h2', defaultVisible: true, order: 9, sourceSectionId: 'non-english', sourceSubSectionNames: ['French'], sitesToRemove: [
+    'RgShows API', 'xalaflix Status', 'Paradise lost.666', 'Movie to Review', 'Ciné-Bis-Art', 'TF1',
+    'Cinémathèque de Bretagne', 'ICI Tou.tv', 'Télé-Québec', 'TV5Unis', 'TFO', 'molotov.tv',
+    'Grafikart', 'fluxradios', 'programmes-radio', 'RgShows Guide', 'RgShows', 'kiboanime'
+  ] },
+  { id: 'my-links', label: 'My Links', type: 'h2', defaultVisible: true, order: 10, sitesToRemove: [] },
+];
+
+// Predefined list of traditional websites
+const TRADITIONAL_WEBSITES = [
+  { name: 'YouTube', url: 'https://www.youtube.com' },
+  { name: 'YouTube Music', url: 'https://music.youtube.com' },
+  { name: 'Netflix', url: 'https://www.netflix.com' },
+  { name: 'Amazon Prime', url: 'https://www.primevideo.com' },
+  { name: 'Disney+', url: 'https://www.disneyplus.com' },
+  { name: 'France.tv', url: 'https://www.france.tv' },
+  { name: 'TF1', url: 'https://www.tf1.fr' },
+  { name: 'M6', url: 'https://www.6play.fr' },
+  { name: 'BFMTV', url: 'https://www.bfmtv.com' },
+  { name: 'Arte', url: 'https://www.arte.fr', logo: 'https://upload.wikimedia.org/wikipedia/fr/8/8c/Logo_ARTE.TV_2020.svg' }
 ];
 
 // Helper function to safely parse JSON from localStorage
@@ -295,7 +405,7 @@ const MY_LINKS_KEY = 'my_custom_links';
 let favorites = safeJsonParse(FAVORITES_KEY, []);
 let myCustomLinks = safeJsonParse(MY_LINKS_KEY, []);
 let sectionVisibility = safeJsonParse('sectionVisibility', {});
-let sectionOrder = safeJsonParse('sectionOrder', []);
+// Remove sectionOrder from here
 
 // Initialize section visibility for new sections
 SECTIONS.forEach(section => {
@@ -304,21 +414,6 @@ SECTIONS.forEach(section => {
   }
 });
 localStorage.setItem('sectionVisibility', JSON.stringify(sectionVisibility));
-
-// Initialize section order for new sections
-if (sectionOrder.length === 0) {
-  sectionOrder = SECTIONS.map(section => section.id);
-  localStorage.setItem('sectionOrder', JSON.stringify(sectionOrder));
-} else {
-  const currentSectionIds = new Set(sectionOrder);
-  SECTIONS.forEach(section => {
-    if (!currentSectionIds.has(section.id)) {
-      sectionOrder.push(section.id);
-    }
-  });
-  sectionOrder = sectionOrder.filter(id => SECTIONS.some(section => section.id === id));
-  localStorage.setItem('sectionOrder', JSON.stringify(sectionOrder));
-}
 
 // Check if a URL is in the favorites list
 function isFavorite(url) {
@@ -349,7 +444,7 @@ function toggleFavorite(site) {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
     
     // Re-render the favorites section and update stars everywhere
-    renderSection('favorites-grid', favorites);
+    renderSection('favorites-grid', favorites, 'Favorites');
     updateFavoriteStars(); // This will update all stars on the page
 }
 
@@ -359,28 +454,93 @@ function updateFavoriteStars() {
   allSections.forEach(siteElement => {
     const link = siteElement.querySelector('a');
     const favButton = siteElement.querySelector('.favorite-star');
-    if (link && favButton) {
-      const isFav = isFavorite(link.href);
-      favButton.textContent = isFav ? '★' : '☆'; // Update the star icon
-    }
+    if (!link) return;
+    const fav = isFavorite(link.href);
+    // keep old behavior if a star still exists
+    if (favButton) favButton.textContent = fav ? '★' : '☆';
+    // NEW: reflect favorite state via class
+    siteElement.classList.toggle('favorite', fav);
   });
 }
 
-// Function to get a consistent logo for a website
-function getWebsiteLogo(url) {
-  const domain = new URL(url).hostname;
-  return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`; // Use Google's favicon service
+// Replace the old getWebsiteLogo(siteName, siteUrl) with a robust version that accepts the whole site object
+function getWebsiteLogo(site) {
+  if (!site) {
+    return { src: `${LOGO_BASE_PATH}/default.png`, logoType: 'default', dominantColor: null };
+  }
+
+  // 1) explicit logo/icon fields on the site object
+  if (site.logo) {
+    const src = site.logo.startsWith('http') ? site.logo : `${LOGO_BASE_PATH}/${site.logo}`;
+    return { src, logoType: 'explicit', dominantColor: site.dominant_color || site.dominantColor || null };
+  }
+  if (site.icon) {
+    const src = site.icon.startsWith('http') ? site.icon : `${LOGO_BASE_PATH}/${site.icon}`;
+    return { src, logoType: 'explicit', dominantColor: site.dominant_color || site.dominantColor || null };
+  }
+
+  // 2) try manifest lookup using several candidate keys (name, slug(name), hostname, slug(hostname), url, slug(url))
+  const candidates = [];
+  if (site.name) {
+    candidates.push(site.name, slugify(site.name));
+  }
+  if (site.url) {
+    try {
+      const u = new URL(site.url, window.location.origin);
+      candidates.push(u.hostname, slugify(u.hostname), site.url, slugify(site.url));
+    } catch (e) {
+      candidates.push(site.url, slugify(site.url));
+    }
+  }
+
+  for (const raw of candidates) {
+    if (!raw) continue;
+    const key = String(raw);
+    const entry = localLogoManifest[key];
+    if (entry) {
+      if (typeof entry === 'string') {
+        return { src: entry.startsWith('http') ? entry : `${LOGO_BASE_PATH}/${entry}`, logoType: 'local_manifest', dominantColor: null };
+      } else if (entry && entry.filename) {
+        return { src: entry.filename.startsWith('http') ? entry.filename : `${LOGO_BASE_PATH}/${entry.filename}`, logoType: 'local_manifest', dominantColor: entry.dominant_color || entry.dominantColor || null };
+      }
+    }
+  }
+
+  // 3) fallback to Google's favicon service if not found in local manifest
+  try {
+    const domain = site.url ? (new URL(site.url, window.location.origin).hostname) : slugify(site.name || '');
+    if (domain) {
+      return {
+        src: `https://www.google.com/s2/favicons?domain=${domain}&sz=64`,
+        logoType: 'google_favicon',
+        dominantColor: null
+      };
+    }
+  } catch (e) {
+    // ignore and fall through
+  }
+
+  // 4) final fallback
+  return { src: `${LOGO_BASE_PATH}/default.png`, logoType: 'default', dominantColor: null };
 }
 
-// Updated renderSection to handle empty favorites
-function renderSection(containerId, sites) {
+// Updated renderSection to handle empty favorites and new data structure
+function renderSection(containerId, sites, sectionLabel) {
   const container = document.getElementById(containerId);
   if (!container) {
     console.error(`Container with ID "${containerId}" not found. Skipping rendering.`);
     return;
   }
 
-  container.innerHTML = ''; // Clear the container before rendering
+  container.innerHTML = '';
+
+  // Section title tile should be the first child inside the grid
+  if (sectionLabel) {
+    const titleTile = document.createElement('div');
+    titleTile.className = 'site section-title-tile';
+    titleTile.innerHTML = `<span class="section-title-text">${sectionLabel}</span>`;
+    container.appendChild(titleTile);
+  }
 
   if (!sites || sites.length === 0) {
     if (containerId === 'favorites-grid') {
@@ -392,8 +552,10 @@ function renderSection(containerId, sites) {
     return;
   }
 
+  // Render all tiles, no limit, no show more button
   for (const site of sites) {
-    if (!site || !site.name || !site.url) continue; // Prevent errors from malformed site data
+    // Ensure site has at least name and url
+    if (!site || !site.name || !site.url) continue; 
 
     const div = document.createElement('div');
     div.className = 'site';
@@ -401,109 +563,107 @@ function renderSection(containerId, sites) {
     const a = document.createElement('a');
     a.href = site.url;
     a.target = '_blank';
+    a.title = site.name; // Add name to title attribute for tooltip
+
+    const logoInfo = getWebsiteLogo(site);
 
     const img = document.createElement('img');
-    img.src = getWebsiteLogo(site.url);
-    img.alt = `Logo for ${site.name}`;
-    img.onerror = () => {
-      img.remove(); // Remove the broken image
-      const placeholder = document.createElement('div');
-      placeholder.className = 'placeholder-icon';
-      placeholder.textContent = '▶'; // Sleek play symbol
-      a.insertBefore(placeholder, a.firstChild);
+    img.alt = site.name; // Keep alt text for accessibility
+
+    if (logoInfo.logoType === 'favicon_fallback' || logoInfo.logoType === 'google_favicon') {
+      // For favicons, create a text placeholder instead of a tiny icon
+      const textLogoContainer = document.createElement('div');
+      textLogoContainer.className = 'text-logo-container';
+      const textLogoName = document.createElement('span');
+      textLogoName.className = 'text-logo-name';
+      textLogoName.textContent = site.name;
+      textLogoName.style.fontFamily = 'Ubuntu, sans-serif';
+      textLogoContainer.appendChild(textLogoName);
+      a.appendChild(textLogoContainer);
+    } else {
+      img.src = logoInfo.src;
+      img.onerror = () => {
+        // If image fails, show a text placeholder with the name
+        img.remove();
+        const placeholder = document.createElement('div');
+        placeholder.className = 'placeholder-icon';
+        placeholder.textContent = site.name; // Show name in placeholder
+        a.insertBefore(placeholder, a.firstChild);
+      };
+      a.appendChild(img);
+    }
+
+    if (logoInfo.dominantColor) {
+      div.style.backgroundColor = logoInfo.dominantColor;
+      div.classList.add('has-dominant-bg');
+    }
+
+    // Add crown for featured sites directly to the link
+    if (site.featured) {
+      const crownIcon = document.createElement('span');
+      crownIcon.textContent = '';
+      crownIcon.className = 'featured-crown';
+      crownIcon.title = 'Featured Site';
+      a.appendChild(crownIcon);
+    }
+
+    // Add FMHY suggested star if applicable
+    if (site.fmhy_suggested) {
+      const fmhyStar = document.createElement('span');
+      fmhyStar.textContent = '';
+      fmhyStar.className = 'fmhy-suggested-star';
+      fmhyStar.title = 'FMHY Suggested';
+      a.appendChild(fmhyStar);
+    }
+
+    // Add favorite star button (hidden by default, shown on hover)
+    const starBtn = document.createElement('button');
+    starBtn.className = 'favorite-star';
+    starBtn.type = 'button';
+    starBtn.title = 'Add to Favorites';
+    starBtn.textContent = isFavorite(site.url) ? '★' : '☆';
+    starBtn.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      toggleFavorite(site);
+      // Update star immediately
+      starBtn.textContent = isFavorite(site.url) ? '★' : '☆';
     };
-    a.appendChild(img);
-
-    const name = document.createElement('span');
-    name.textContent = site.name;
-
-    const nameAndStarContainer = document.createElement('div');
-    nameAndStarContainer.className = 'site-name-and-star';
-    nameAndStarContainer.appendChild(name);
-
-    const favButton = document.createElement('button');
-    favButton.textContent = isFavorite(site.url) ? '★' : '☆';
-    favButton.className = 'favorite-star';
-    favButton.setAttribute('aria-label', `Toggle favorite for ${site.name}`);
-    favButton.onclick = (event) => {
-      event.preventDefault();
-      toggleFavorite({ name: site.name, url: site.url });
-    };
-    nameAndStarContainer.appendChild(favButton);
-
-    a.appendChild(nameAndStarContainer);
+    div.appendChild(starBtn);
 
     div.appendChild(a);
     container.appendChild(div);
   }
 
+  // Add placeholder tiles if less than 10 sites (for favorites and my-links only)
+  if ((containerId === 'favorites-grid' || containerId === 'my-links-grid') && sites && sites.length < 10) {
+    const placeholdersNeeded = 10 - sites.length;
+    for (let i = 0; i < placeholdersNeeded; i++) {
+      const placeholderDiv = document.createElement('div');
+      placeholderDiv.className = 'site placeholder-tile';
+      container.appendChild(placeholderDiv);
+    }
+  }
+
+  // Update total count (all sites, not just visible subset)
   const countElement = document.getElementById(`${containerId}-count`);
   if (countElement) {
     countElement.textContent = `${sites.length} sites`;
   }
 }
 
-// Helper function to process links and handle mirrors
-function processLinks(ul) {
-  const links = [];
-  const mirrors = [];
-
-  Array.from(ul.querySelectorAll('li')).forEach((li) => {
-    const mainLink = li.querySelector('a');
-    if (mainLink) {
-      const mainName = mainLink.textContent.trim();
-      const mainUrl = mainLink.href;
-
-      // Exclude unwanted links
-      if (/^(https?:\/\/)?(www\.)?(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(mainUrl)) {
-        console.log(`Excluded URL: ${mainUrl}`); // Log excluded URLs
-        return;
-      }
-
-      // Add the main link to the list
-      links.push({ name: mainName, url: mainUrl });
-
-      // Process mirrors (subsequent <a> tags in the same <li>)
-      const mirrorLinks = Array.from(li.querySelectorAll('a')).slice(1); // Skip the first <a> (main link)
-      mirrorLinks.forEach((mirror, index) => {
-        const mirrorUrl = mirror.href;
-        if (/^(https?:\/\/)?(www\.)?(github\.com|discord\.gg|discord\.com|t\.me|telegram\.me|reddit\.com\/r\/|twitter\.com|github\.io|cse\.google\.com|rentry\.co|addons\.mozilla\.org|wotaku\.wiki\/websites|thewiki\.moe|everythingmoe\.com)/i.test(mirrorUrl)) {
-          console.log(`Excluded Mirror URL: ${mirrorUrl}`); // Log excluded mirror URLs
-          return;
-        }
-        mirrors.push({
-          name: `${mainName} ${index + 2}`, // Append "2", "3", etc., to the main name
-          url: mirrorUrl,
-        });
-      });
+function sortSectionsAlphabetically() {
+  console.log('Sorting sections alphabetically...');
+  for (const sectionId in sectionData) {
+    if (sectionData.hasOwnProperty(sectionId) && Array.isArray(sectionData[sectionId])) {
+      sectionData[sectionId].sort((a, b) => a.name.localeCompare(b.name));
     }
-  });
-
-  // Push mirrors to the bottom of the list
-  return [...links, ...mirrors];
+  }
+  renderSectionsInOrder(); // Re-render sections after sorting
 }
 
-
-
-// Predefined list of traditional websites
-const TRADITIONAL_WEBSITES = [
-  { name: 'YouTube', url: 'https://www.youtube.com' },
-  { name: 'YouTube Music', url: 'https://music.youtube.com' },
-  { name: 'Netflix', url: 'https://www.netflix.com' },
-  { name: 'Amazon Prime', url: 'https://www.primevideo.com' },
-  { name: 'Disney+', url: 'https://www.disneyplus.com' },
-  { name: 'France.tv', url: 'https://www.france.tv' },
-  { name: 'TF1', url: 'https://www.tf1.fr' },
-  { name: 'M6', url: 'https://www.6play.fr' },
-  { name: 'BFMTV', url: 'https://www.bfmtv.com' },
-  { name: 'Arte', url: 'https://www.arte.fr', logo: 'https://upload.wikimedia.org/wikipedia/fr/8/8c/Logo_ARTE.TV_2020.svg' } // Updated Arte logo
-];
-
-
-
-// Function to sort all sections alphabetically
 function renderSectionsInOrder() {
-  console.log('Rendering sections in order...');
+  console.log('Rendering sections in order. Current sectionData keys:', Object.keys(sectionData));
   const contentGrid = document.querySelector('.content-grid');
   if (!contentGrid) {
     console.error('Content grid container not found.');
@@ -520,42 +680,278 @@ function renderSectionsInOrder() {
   sectionOrder.forEach(sectionId => {
     const section = SECTIONS.find(s => s.id === sectionId);
     if (section) {
+      let dataToRender = [];
+      if (section.sourceSectionId) {
+        let rawSourceData = loadedFMHYData[section.sourceSectionId] || {};
+        let collectedLinks = [];
+
+        if (section.sourceSectionId === 'non-english') {
+          if (section.sourceSubSectionNames && section.sourceSubSectionNames.length > 0) {
+            section.sourceSubSectionNames.forEach(languageName => {
+              const languageData = rawSourceData[languageName] || {};
+              if (section.id === 'francais') {
+                  const streamingLinks = languageData['Streaming'] || [];
+                  collectedLinks.push(...streamingLinks);
+              } else {
+                  for (const categoryName in languageData) {
+                      if (languageData.hasOwnProperty(categoryName) && Array.isArray(languageData[categoryName])) {
+                          collectedLinks.push(...languageData[categoryName]);
+                      }
+                  }
+              }
+            });
+          }
+        } else {
+          if (section.sourceSubSectionNames && section.sourceSubSectionNames.length > 0) {
+            section.sourceSubSectionNames.forEach(subSectionName => {
+              const subSectionLinks = rawSourceData[subSectionName] || [];
+              collectedLinks.push(...subSectionLinks);
+            });
+          } else {
+            for (const subSectionName in rawSourceData) {
+                if (rawSourceData.hasOwnProperty(subSectionName) && Array.isArray(rawSourceData[subSectionName])) {
+                    collectedLinks.push(...rawSourceData[subSectionName]);
+                }
+            }
+          }
+        }
+
+          // Apply custom modifications based on section.id
+          if (section.id === 'anime-streaming') {
+            const featuredAnimeNames = ['AnimeKai', 'HiAnime', 'Gojo', 'otakuu 2', 'KickAssAnime'];
+            const newAnimeSites = [];
+            
+            featuredAnimeNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newAnimeSites.push({ ...foundSite, featured: true });
+                } else {
+                    let url = '';
+                    if (featuredName === 'AnimeKai') url = 'https://animekai.com/';
+                    else if (featuredName === 'HiAnime') url = 'https://hianime.to/';
+                    else if (featuredName === 'KickAssAnime') url = 'https://www2.kickassanime.ro/';
+                    newAnimeSites.push({ name: featuredName, url: url, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!featuredAnimeNames.includes(site.name)) {
+                    newAnimeSites.push(site);
+                }
+            });
+            dataToRender = newAnimeSites;
+
+          } else if (section.id === 'movies-tv-shows') {
+            const featuredMovieNames = ['Cineby', 'XPrime', 'Rive CorsFlix'];
+            const newMoviesSites = [];
+            
+            featuredMovieNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newMoviesSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!newMoviesSites.some(s => s.url === site.url)) {
+                    newMoviesSites.push(site);
+                }
+            });
+            dataToRender = newMoviesSites;
+
+          } else if (section.id === 'drama-streaming') {
+            const featuredDramaNames = ['kisskh', 'GoPlay'];
+            const newDramaSites = [];
+
+            const kissAsianSite = collectedLinks.find(site => site.url.includes('kissasian.vip'));
+            if (kissAsianSite) {
+                newDramaSites.push({ ...kissAsianSite, featured: true });
+            }
+            
+            featuredDramaNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite && !newDramaSites.some(s => s.url === foundSite.url)) {
+                    newDramaSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!newDramaSites.some(s => s.url === site.url)) {
+                    newDramaSites.push(site);
+                }
+            });
+            dataToRender = newDramaSites;
+
+          } else if (section.id === 'cartoon') {
+            const featuredCartoonNames = ['HiCartoons', 'KissCartoon', 'Watch Cartoon Online'];
+            const newCartoonSites = [];
+            
+            featuredCartoonNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newCartoonSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!newCartoonSites.some(s => s.url === site.url)) {
+                    newCartoonSites.push(site);
+                }
+            });
+            dataToRender = newCartoonSites;
+
+          } else if (section.id === 'live-sports') {
+            const featuredSportsNames = ['Streamed 2', 'PPV.TO', 'MrGamingStreams', 'TimStreams'];
+            const newSportsSites = [];
+            
+            featuredSportsNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newSportsSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!newSportsSites.some(s => s.url === site.url)) {
+                    newSportsSites.push(site);
+                }
+            });
+            dataToRender = newSportsSites;
+
+          } else if (section.id === 'francais') {
+            const featuredFrenchNames = ['cinepulse', 'xalaflix', 'cinestream', 'anime-sama', 'oohquelbut'];
+            const newFrenchSites = [];
+            
+            featuredFrenchNames.forEach(featuredName => {
+                const foundSite = collectedLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newFrenchSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            collectedLinks.forEach(site => {
+                if (!newFrenchSites.some(s => s.url === site.url)) {
+                    newFrenchSites.push(site);
+                }
+            });
+            dataToRender = newFrenchSites;
+
+          } else if (section.id === 'live-tv') {
+            const featuredLiveTVNames = ['ateaish TV', 'AlienFlix TV', 'NTV', 'DaddyLive TV', 'WiTV','DistroTV'];
+            const sitesToRemoveNames = ['KCNA', 'Titan TV'];
+            const newLiveTVSites = [];
+
+            let filteredLinks = collectedLinks.filter(site => !sitesToRemoveNames.includes(site.name));
+
+            // Ensure WiTV is present in the list
+            if (!filteredLinks.some(site => site.name === 'WiTV')) {
+              filteredLinks.push({ name: 'WiTV', url: 'https://witv.soccer/' }, { name: 'ateaish TV', url: 'https://atishramkhe.github.io/tv' });
+            }
+
+            featuredLiveTVNames.forEach(featuredName => {
+                const foundSite = filteredLinks.find(site => site.name === featuredName);
+                if (foundSite) {
+                    newLiveTVSites.push({ ...foundSite, featured: true });
+                }
+            });
+
+            filteredLinks.forEach(site => {
+                if (!featuredLiveTVNames.includes(site.name)) {
+                    newLiveTVSites.push(site);
+                }
+            });
+            dataToRender = newLiveTVSites;
+          } else {
+            dataToRender = collectedLinks;
+          }
+      } else {
+        dataToRender = sectionData[section.id] || [];
+      }
+
+      if (section.sitesToRemove && section.sitesToRemove.length > 0) {
+        dataToRender = dataToRender.filter(site => !section.sitesToRemove.includes(site.name));
+      }
+      sectionData[section.id] = dataToRender;
+
       const sectionElement = document.createElement('div');
       sectionElement.id = section.id;
       sectionElement.className = 'category';
 
-      const header = document.createElement(section.type);
-      header.textContent = section.label;
-      sectionElement.appendChild(header);
+      // Remove header, add title as tile in grid
+      // const header = document.createElement('h2');
+      // header.textContent = section.label;
+      // sectionElement.appendChild(header);
 
       const countSpan = document.createElement('span');
       countSpan.id = `${section.id}-count`;
       countSpan.className = 'site-count';
-      header.appendChild(countSpan);
+      // header.appendChild(countSpan);
+
+      const carouselWrapper = document.createElement('div');
+      carouselWrapper.className = 'carousel-wrapper';
+
+      const prevButton = document.createElement('button');
+      prevButton.className = 'carousel-btn prev';
+      prevButton.innerHTML = '&lsaquo;';
 
       const gridDiv = document.createElement('div');
       gridDiv.id = `${section.id}-grid`;
       gridDiv.className = 'grid';
-      sectionElement.appendChild(gridDiv);
+
+      const nextButton = document.createElement('button');
+      nextButton.className = 'carousel-btn next';
+      nextButton.innerHTML = '&rsaquo;';
+
+      carouselWrapper.appendChild(prevButton);
+      carouselWrapper.appendChild(gridDiv);
+      carouselWrapper.appendChild(nextButton);
+      sectionElement.appendChild(carouselWrapper);
 
       contentGrid.appendChild(sectionElement);
 
-      // Render the sites within the newly created section
-      renderSection(`${section.id}-grid`, sectionData[section.id] || []);
+      renderSection(`${section.id}-grid`, sectionData[section.id] || [], section.label);
+
+      // Add section title as a tile at the beginning (inside the grid)
+      if (typeof sectionLabel !== 'undefined' && sectionLabel) {
+        const titleTile = document.createElement('div');
+        titleTile.className = 'site section-title-tile';
+        titleTile.innerHTML = `<span class="section-title-text">${sectionLabel}</span>`;
+        container.appendChild(titleTile);
+      }
+
+      // After rendering, setup the carousel functionality
+      setupCarousel(gridDiv, prevButton, nextButton);
     }
   });
-  applySectionVisibility(); // Apply visibility after rendering
+  applySectionVisibility();
   updateFavoriteStars();
 }
 
-function sortSectionsAlphabetically() {
-  console.log('Sorting sections alphabetically...');
-  for (const sectionId in sectionData) {
-    if (sectionData.hasOwnProperty(sectionId) && Array.isArray(sectionData[sectionId])) {
-      sectionData[sectionId].sort((a, b) => a.name.localeCompare(b.name));
-    }
+// Minimal placeholder for setupCarousel to prevent ReferenceError
+function setupCarousel(gridDiv, prevButton, nextButton) {
+  if (!gridDiv || !prevButton || !nextButton) return;
+  // Amount to scroll: width of 2 tiles or 80% of grid
+  function getScrollAmount() {
+    const tile = gridDiv.querySelector('.site:not(.section-title-tile)');
+    if (tile) return tile.offsetWidth * 2;
+    return Math.floor(gridDiv.offsetWidth * 0.8);
   }
-  renderSectionsInOrder(); // Re-render sections after sorting
+  prevButton.onclick = function(e) {
+    e.preventDefault();
+    gridDiv.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+  };
+  nextButton.onclick = function(e) {
+    e.preventDefault();
+    gridDiv.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+  };
+  // Show/hide buttons based on scroll position
+  function updateButtons() {
+    prevButton.disabled = gridDiv.scrollLeft <= 10;
+    nextButton.disabled = gridDiv.scrollLeft + gridDiv.offsetWidth >= gridDiv.scrollWidth - 10;
+  }
+  gridDiv.addEventListener('scroll', updateButtons);
+  window.addEventListener('resize', updateButtons);
+  setTimeout(updateButtons, 100); // Initial state
 }
 
 function setupEventListeners() {
@@ -573,25 +969,36 @@ function setupEventListeners() {
   const saveEditLinkButton = document.getElementById('save-edit-link');
   const cancelEditLinkButton = document.getElementById('cancel-edit-link');
   const sectionVisibilityOptions = document.getElementById('section-visibility-options');
-  const sectionOrderList = document.getElementById('section-order-list');
 
-  // Settings Modal
+  // Ensure settings modal is hidden by default even if missing the .modal class
+  if (settingsModal) {
+    settingsModal.style.display = 'none';
+  }
+
+  // Turn the settings button into a hamburger menu and open a windowed flyout
   if (settingsButton) {
+    settingsButton.textContent = '☰';
+    settingsButton.title = 'Menu';
+    settingsButton.setAttribute('aria-label', 'Open menu');
+
     settingsButton.addEventListener('click', () => {
-      settingsModal.style.display = 'flex';
+      // open as flyout
+      showSettingsWindow(settingsModal, settingsButton);
       populateSettings();
     });
   }
 
   if (closeSettingsButton) {
+    // keep close button support (closes flyout)
     closeSettingsButton.addEventListener('click', () => {
-      settingsModal.style.display = 'none';
+      hideSettingsWindow(settingsModal);
     });
   }
 
   window.addEventListener('click', (event) => {
+    // do not auto-close on overlay click anymore (handled by flyout logic)
     if (event.target === settingsModal) {
-      settingsModal.style.display = 'none';
+      // no-op: overlay is transparent/pointer-events none
     }
   });
 
@@ -625,7 +1032,7 @@ function setupEventListeners() {
         searchResultsSection.style.display = 'flex';
 
         const filteredSites = allSites.filter(site => site.name.toLowerCase().includes(searchTerm));
-        renderSection('search-results-grid', filteredSites);
+        renderSection('search-results-grid', filteredSites, 'Search Results');
       } else {
         searchResultsSection.style.display = 'none';
         applySectionVisibility();
@@ -699,37 +1106,158 @@ function setupEventListeners() {
       }
     });
   }
-  
-    // Drag and drop for section order
-    let draggedItem = null;
-    sectionOrderList.addEventListener('dragstart', (e) => {
-        draggedItem = e.target;
-        setTimeout(() => {
-            e.target.classList.add('dragging');
-        }, 0);
-    });
+}
 
-    sectionOrderList.addEventListener('dragend', (e) => {
-        setTimeout(() => {
-            e.target.classList.remove('dragging');
-            draggedItem = null;
-        }, 0);
-        
-        const newOrder = [...sectionOrderList.querySelectorAll('li')].map(li => li.dataset.sectionId);
-        sectionOrder = newOrder;
-        localStorage.setItem('sectionOrder', JSON.stringify(sectionOrder));
-        renderSectionsInOrder();
-    });
+// Inject small runtime CSS tweaks (header transparent, align rows, snap)
+function injectRuntimeOverrides() {
+  if (document.getElementById('runtime-overrides')) return;
+  const css = `
+    header { background: transparent !important; box-shadow: none !important; }
+    .content-grid { padding-left: 24px !important; }
+    .category { margin-top: 8px !important; }
+    .category > .grid, .category > .slider {
+      padding-left: 24px !important;
+      scroll-snap-type: x proximity !important;
+    }
+    .category > .grid .site, .category > .slider .site {
+      scroll-snap-align: start !important;
+    }
+    .category > .grid .site:not(.section-title-tile), .category > .slider .site:not(.section-title-tile) {
+      min-width: 220px;
+    }
+    /* --- Search bar style and positioning overrides --- */
+    #search-bar {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      outline: none !important;
+      padding: 6px 12px !important;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: 6px;
+      margin: 0 0 0 12px !important;
+      min-width: 180px;
+      width: 220px;
+      transition: background 0.2s;
+    }
+    #search-bar:focus {
+      background: rgba(255,255,255,0.08) !important;
+    }
+    /* Move search bar to the right, next to settings button */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    #settings-button {
+      margin-left: 16px;
+    }
+    /* Ensure search bar and settings button are on the same row */
+    #search-bar, #settings-button {
+      vertical-align: middle;
+      display: inline-block;
+    }
 
-    sectionOrderList.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        const afterElement = getDragAfterElement(sectionOrderList, e.clientY);
-        if (afterElement == null) {
-            sectionOrderList.appendChild(draggedItem);
-        } else {
-            sectionOrderList.insertBefore(draggedItem, afterElement);
-        }
-    });
+    .grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      gap: 28px;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding-bottom: 8px;
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+    }
+    @media (max-width: 1200px) {
+      .grid {
+        gap: 20px;
+      }
+    }
+    @media (max-width: 720px) {
+      .grid {
+        gap: 12px;
+      }
+    }
+
+    .category > .grid .site:not(.section-title-tile) {
+      /* Website tile styles (keep as before) */
+      scroll-snap-align: start !important;
+      /* Add any other tile-specific styles here if needed */
+    }
+
+    .section-title-tile {
+      width: 120px;
+      min-width: 120px;
+      max-width: 120px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      align-self: stretch;
+      justify-self: start;
+      padding: 12px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 1200px) {
+      .section-title-tile {
+        width: 120px;
+        height: 64px;
+        border-radius: 8px;
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
+    @media (max-width: 720px) {
+      .section-title-tile {
+        width: 120px;
+        height: 64px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        padding: 8px;
+      }
+    }
+
+    .grid::-webkit-scrollbar, .slider::-webkit-scrollbar {
+      height: 10px;
+      background: transparent;
+    }
+    .grid::-webkit-scrollbar-thumb, .slider::-webkit-scrollbar-thumb {
+      background: rgba(120,92,230,0.22);
+      border-radius: 8px;
+    }
+    .grid::-webkit-scrollbar-track, .slider::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid::-webkit-scrollbar-button, .slider::-webkit-scrollbar-button {
+      display: none;
+    }
+    /* For Firefox */
+    .grid, .slider {
+      scrollbar-color: rgba(120,92,230,0.22) transparent;
+      scrollbar-width: thin;
+    }
+  `;
+  const style = document.createElement('style');
+  style.id = 'runtime-overrides';
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+}
+
+// Parallax-like movement for the background glow while scrolling
+function updateGlowOnScroll() {
+  const y = window.scrollY || document.documentElement.scrollTop || 0;
+  const belowTilesY = 420 + y * 0.25; // glow under tiles
+  const topGlowY = 8 + y * 0.12;      // top glow
+  document.body.style.backgroundPosition =
+    `50% ${belowTilesY}px, 50% ${topGlowY}px, 85% 20%, 0 0`;
 }
 
 function populateSettings() {
@@ -746,93 +1274,7 @@ function populateSettings() {
     sectionVisibilityOptions.appendChild(label);
   });
 
-  // Populate Section Order
-  const sectionOrderList = document.getElementById('section-order-list');
-  sectionOrderList.innerHTML = '';
-  sectionOrder.forEach(sectionId => {
-    const section = SECTIONS.find(s => s.id === sectionId);
-    if (section) {
-      const li = document.createElement('li');
-      li.dataset.sectionId = section.id;
-      li.draggable = true;
-      li.textContent = section.label;
-      sectionOrderList.appendChild(li);
-    }
-  });
-}
-
-function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
-
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child };
-        } else {
-            return closest;
-        }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
-
-function applySectionVisibility() {
-  sectionOrder.forEach(sectionId => {
-    const sectionElement = document.getElementById(sectionId);
-    if (sectionElement) {
-      if (sectionVisibility[sectionId]) {
-        sectionElement.style.display = 'flex';
-      } else {
-        sectionElement.style.display = 'none';
-      }
-    }
-  });
-}
-
-// Custom Links functionality
-
-function renderCustomLinks() {
-  const customLinksList = document.getElementById('custom-links-list');
-  if (!customLinksList) return;
-
-  customLinksList.innerHTML = '';
-
-  myCustomLinks.forEach((link, index) => {
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `
-      <span>${link.name}</span>
-      <div>
-        <button class="edit-custom-link" data-index="${index}">Edit</button>
-        <button class="delete-custom-link" data-index="${index}">Delete</button>
-      </div>
-    `;
-    customLinksList.appendChild(listItem);
-  });
-
-  // Update sectionData and render the 'my-links' section
-  sectionData['my-links'] = myCustomLinks;
-  renderSection('my-links-grid', myCustomLinks);
-}
-
-function addCustomLink(name, url) {
-  if (name && url) {
-    myCustomLinks.push({ name, url });
-    localStorage.setItem(MY_LINKS_KEY, JSON.stringify(myCustomLinks));
-    renderCustomLinks(); // This will re-render the list in the modal and the section on the page
-  }
-}
-
-function deleteCustomLink(index) {
-  myCustomLinks.splice(index, 1);
-  localStorage.setItem(MY_LINKS_KEY, JSON.stringify(myCustomLinks));
-  renderCustomLinks();
-}
-
-function editCustomLink(index, newName, newUrl) {
-  if (newName && newUrl) {
-    myCustomLinks[index] = { name: newName, url: newUrl };
-    localStorage.setItem(MY_LINKS_KEY, JSON.stringify(myCustomLinks));
-    renderCustomLinks();
-  }
+  // Remove section order population
 }
 
 // Cache Notice Logic
@@ -847,28 +1289,680 @@ document.addEventListener('DOMContentLoaded', () => {
   const noticeDismissed = localStorage.getItem('cacheNoticeDismissed');
   const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
-  if (!noticeDismissed || (Date.now() - noticeDismissed > oneWeek)) {
-    cacheNotice.style.display = 'block';
+  // Do NOT auto-show the notice; keep it hidden unless explicitly opened
+  if (cacheNotice) {
+    cacheNotice.style.display = 'none';
   }
 
-  closeButton.addEventListener('click', () => {
-    cacheNotice.style.display = 'none';
-    localStorage.setItem('cacheNoticeDismissed', Date.now());
+  // Optional trigger to open the notice if you add a button with this id in your UI
+  const openCacheNoticeBtn = document.getElementById('open-cache-notice');
+  if (openCacheNoticeBtn && cacheNotice) {
+    openCacheNoticeBtn.addEventListener('click', () => {
+      cacheNotice.style.display = 'block';
+    });
+  }
+
+  if (closeButton && cacheNotice) {
+    closeButton.addEventListener('click', () => {
+      cacheNotice.style.display = 'none';
+      localStorage.setItem('cacheNoticeDismissed', Date.now());
+    });
+  }
+
+  if (langEnButton && langFrButton && enInstructions && frInstructions) {
+    langEnButton.addEventListener('click', () => {
+      enInstructions.style.display = 'block';
+      frInstructions.style.display = 'none';
+      langEnButton.classList.add('active');
+      langFrButton.classList.remove('active');
+    });
+
+    langFrButton.addEventListener('click', () => {
+      enInstructions.style.display = 'none';
+      frInstructions.style.display = 'block';
+      langFrButton.classList.add('active');
+      langEnButton.classList.remove('active');
+    });
+  }
+});
+
+// Netflix-like loading overlay: inject styles and DOM
+function injectLoadingStyles() {
+  if (document.getElementById('fmhy-loading-styles')) return;
+  const css = `
+    .fmhy-loading-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
+      background-size: cover, cover, cover;
+      background-color: #181820;
+      z-index: 99999;
+      flex-direction: column;
+      color: white;
+      transition: opacity 450ms ease;
+      opacity: 1;
+    }
+    .fmhy-loading-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .fmhy-loading-inner {
+      text-align: center;
+    }
+
+    /* slowed logo pulse for drama - adjusted to avoid snapping back to scale(1) while opaque */
+    .fmhy-loading-logo {
+      width: 220px;
+      max-width: 60vw;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.6));
+      transform-origin: center;
+      animation: fmhy-logo-pulse 3.5s ease;
+    }
+    @keyframes fmhy-logo-pulse {
+      0% { transform: scale(2); opacity: 0.7; }
+      65% { transform: scale(4); opacity: 1; }
+      95% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    } 
+
+    /* when overlay is being removed, force the logo to stay hidden (prevents any brief visual jump) */
+    .fmhy-loading-overlay.fade-out .fmhy-loading-logo {
+      opacity: 0 !important;
+      transform: scale(0.8) !important;
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+
+    /* loader / progress bar removed - no .loader rules here */
+
+    /* Text fallback (Netflix-like wordmark) */
+    .fmhy-loading-text {
+      font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 64px;
+      letter-spacing: 6px;
+      color: #e50914;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 6px;
+      display: none;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    @media (max-width: 480px) {
+      .fmhy-loading-text { font-size: 36px; letter-spacing: 3px; }
+      .fmhy-loading-logo { width: 140px; }
+    }
+  `;
+  const style = document.createElement('style');
+  style.id = 'fmhy-loading-styles';
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+}
+
+let _fmhyLoadingOverlay = null;
+let _fmhyLoadingShownAt = 0;
+const FMHY_MIN_LOADING_MS = 3500; // keep overlay at least 2.5s for drama
+
+function findPageLogoSrc() {
+  // Try common selectors for the existing top-left logo used by the page.
+  const selectors = [
+    '#logo img',
+    '.brand img',
+    '.site-logo',               // matches other uses on page
+    'header img[alt*="logo" i]',
+    'img[alt*="logo" i]',
+    'img[src*="/assets/"]',
+    'img[src*="logo"]'
+  ];
+  for (const sel of selectors) {
+    const el = document.querySelector(sel);
+    if (el && el.tagName === 'IMG' && el.src) {
+      // return absolute src
+      return el.src;
+    }
+  }
+  return null;
+}
+
+function createLoadingScreen() {
+  if (_fmhyLoadingOverlay) return;
+  injectLoadingStyles();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'fmhy-loading-overlay';
+  overlay.id = 'fmhy-loading-overlay';
+  overlay.style.display = 'none';
+
+  const inner = document.createElement('div');
+  inner.className = 'fmhy-loading-inner';
+
+  const logoImg = document.createElement('img');
+
+  // Build candidates: prefer the actual page logo if present
+  const pageLogo = findPageLogoSrc();
+  const candidateLogos = [];
+  if (pageLogo) {
+    candidateLogos.push(pageLogo);
+    console.info('Using page logo for loader:', pageLogo);
+  }
+  candidateLogos.push('/assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png', `${LOGO_BASE_PATH}/loader-logo.png`, `${LOGO_BASE_PATH}/default.png`);
+
+  let _logoIndex = 0;
+  logoImg.className = 'fmhy-loading-logo';
+  logoImg.alt = 'Loading';
+  logoImg.src = candidateLogos[_logoIndex];
+
+  // Text fallback element (hidden by default)
+  const textFallback = document.createElement('div');
+  textFallback.className = 'fmhy-loading-text';
+  textFallback.textContent = 'FMHY';
+
+  // On successful load, ensure text fallback is hidden
+  logoImg.onload = () => {
+    console.info('Loader image loaded from', logoImg.src);
+    textFallback.style.display = 'none';
+  };
+
+  // On error, try next candidate; if exhausted, show text fallback
+  logoImg.onerror = () => {
+    console.warn('Loader image failed to load:', candidateLogos[_logoIndex]);
+    _logoIndex++;
+    if (_logoIndex < candidateLogos.length) {
+      setTimeout(() => { logoImg.src = candidateLogos[_logoIndex]; }, 60);
+    } else {
+      logoImg.style.display = 'none';
+      textFallback.style.display = 'block';
+      console.warn('All loader image candidates failed, showing text fallback.');
+    }
+  };
+
+  // NOTE: loader/progress element removed — do not create or append a .loader element
+  inner.appendChild(logoImg);
+  inner.appendChild(textFallback);
+  overlay.appendChild(inner);
+  document.body.appendChild(overlay);
+  _fmhyLoadingOverlay = overlay;
+}
+
+function showLoadingScreen() {
+  try {
+    createLoadingScreen();
+    if (_fmhyLoadingOverlay) {
+      _fmhyLoadingOverlay.style.display = 'flex';
+      // ensure fully visible (remove fade-out if set)
+      _fmhyLoadingOverlay.classList.remove('fade-out');
+    }
+    _fmhyLoadingShownAt = Date.now();
+    // prevent body scroll/interaction while loading
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  } catch (e) {
+    // noop
+  }
+}
+
+function hideLoadingScreen() {
+  try {
+    const hide = () => {
+      if (!_fmhyLoadingOverlay) return;
+      // fade and remove after transition
+      _fmhyLoadingOverlay.classList.add('fade-out');
+      setTimeout(() => {
+        try {
+          if (_fmhyLoadingOverlay && _fmhyLoadingOverlay.parentNode) {
+            _fmhyLoadingOverlay.parentNode.removeChild(_fmhyLoadingOverlay);
+          }
+        } catch (e) {}
+        _fmhyLoadingOverlay = null;
+      }, 500); // match CSS transition ~450ms
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+
+    const elapsed = Date.now() - (_fmhyLoadingShownAt || 0);
+    if (elapsed < FMHY_MIN_LOADING_MS) {
+      setTimeout(hide, FMHY_MIN_LOADING_MS - elapsed);
+    } else {
+      hide();
+    }
+  } catch (e) {
+    // noop
+  }
+}
+
+// ---- NEW: homepage TV-style styles + renderer ----
+function injectHomepageStyles() {
+  if (document.getElementById('fmhy-homepage-styles')) return;
+  const css = `
+    /* TV-like centered screen + ambient room glow */
+    .homepage-tv {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 18px;
+      background: radial-gradient(1200px 400px at 50% 10%, rgba(120,92,230,0.12), transparent 25%),
+                  radial-gradient(800px 300px at 85% 20%, rgba(90,160,255,0.06), transparent 20%),
+                  linear-gradient(180deg,#08080a 0%, #050506 100%);
+      min-height: 360px;
+    }
+
+    .tv-frame {
+      width: 94%;
+      max-width: 1500px;
+      background: transparent;
+      border-radius: 12px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.75);
+    }
+
+    .tv-screen {
+      background: linear-gradient(180deg,#0b1013, #061017);
+      border-radius: 12px;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      min-height: 380px;
+      box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    .tv-screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 260px rgba(147,112,219,0.06);
+      border-radius: 12px;
+    }
+
+    /* Rectangular TV app tiles: wider min width -> app-like layout */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* wider tiles */
+      gap: 28px; /* more spacing like TV rows */
+      align-items: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .app-tile {
+      height: 180px;                /* rectangular, TV-app feel */
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03); /* subtle card */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+      padding: 18px;
+      backdrop-filter: blur(4px);   /* slightly glassy */
+    }
+    .app-tile:hover {
+      transform: translateY(-14px) scale(1.03);
+      box-shadow: 0 40px 90px rgba(0,0,0,0.75), 0 0 40px rgba(147,112,219,0.08);
+    }
+
+    .app-logo {
+      width: 68%;
+      height: 72%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.65));
+    }
+
+    .app-label {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      text-align: center;
+      font-size: 13px;
+      color: #ffffff;
+      opacity: 0.95;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+
+    .ambient-backdrop {
+      position: absolute;
+      width: 66%;
+      height: 220px;
+      right: -8%;
+      bottom: -80px;
+      background: radial-gradient(circle at center, rgba(147,112,219,0.16), transparent 42%);
+      filter: blur(72px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* responsive - keep rectangular but scale down */
+    @media (max-width: 1200px) {
+      .app-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+      .app-tile { height: 150px; padding: 14px; border-radius: 12px; }
+      .app-logo { width: 72%; height: 68%; filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6)); }
+       }
+    @media (max-width: 720px) {
+      .app-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+      .app-tile { height: 92px; padding: 8px; border-radius: 10px; }
+      .app-logo { width: 78%; height: 60%; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.45)); }
+      .tv-screen { min-height: 220px; padding: 12px; }
+    }
+
+    .section-title-tile {
+      width: 120px;
+      min-width: 120px;
+      max-width: 120px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      align-self: stretch;
+      justify-self: start;
+      padding: 12px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 1200px) {
+      .section-title-tile {
+        width: 120px;
+        height: 64px;
+        border-radius: 8px;
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
+    @media (max-width: 720px) {
+      .section-title-tile {
+        width: 120px;
+        height: 64px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        padding: 8px;
+      }
+    }
+
+    .grid::-webkit-scrollbar, .slider::-webkit-scrollbar {
+      height: 10px;
+      background: transparent;
+    }
+    .grid::-webkit-scrollbar-thumb, .slider::-webkit-scrollbar-thumb {
+      background: rgba(120,92,230,0.22);
+      border-radius: 8px;
+    }
+    .grid::-webkit-scrollbar-track, .slider::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .grid::-webkit-scrollbar-button, .slider::-webkit-scrollbar-button {
+      display: none;
+    }
+    /* For Firefox */
+    .grid, .slider {
+      scrollbar-color: rgba(120,92,230,0.22) transparent;
+      scrollbar-width: thin;
+    }
+  `;
+  const style = document.createElement('style');
+  style.id = 'fmhy-homepage-styles';
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+}
+
+function renderAppGrid() {
+  const contentGrid = document.querySelector('.content-grid') || document.body;
+  // remove existing homepage-tv if present
+  const existing = document.getElementById('homepage-tv');
+  if (existing) existing.remove();
+
+  const homepage = document.createElement('div');
+  homepage.id = 'homepage-tv';
+  homepage.className = 'homepage-tv';
+
+  const frame = document.createElement('div');
+  frame.className = 'tv-frame';
+
+  const screen = document.createElement('div');
+  screen.className = 'tv-screen';
+
+  const ambient = document.createElement('div');
+  ambient.className = 'ambient-backdrop';
+
+  const grid = document.createElement('div');
+  grid.className = 'app-grid';
+
+  // Pick a compact curated list (you can adjust order/content)
+  const curatedNames = [
+    'Netflix','Prime Video','Spotify','Vevo','BBC iPlayer',
+    'ITV Hub','My5','YouTube','Disney+','Amazon Prime'
+  ];
+
+  curatedNames.forEach(name => {
+    // try to find a matching entry in your TRADITIONAL_WEBSITES or loaded data
+    let siteObj = TRADITIONAL_WEBSITES.find(s => s.name && s.name.toLowerCase() === name.toLowerCase());
+    if (!siteObj) {
+      // try to search loaded data for same name
+      for (const sectionId in loadedFMHYData) {
+        if (!loadedFMHYData.hasOwnProperty(sectionId)) continue;
+        const arr = loadedFMHYData[sectionId];
+        if (Array.isArray(arr)) {
+          const found = arr.find(i => i.name && i.name.toLowerCase() === name.toLowerCase());
+          if (found) { siteObj = found; break; }
+        } else if (typeof arr === 'object' && arr !== null) {
+          for (const sub in arr) {
+            if (!arr.hasOwnProperty(sub)) continue;
+            const subarr = arr[sub];
+            if (Array.isArray(subarr)) {
+              const found = subarr.find(i => i.name && i.name.toLowerCase() === name.toLowerCase());
+              if (found) { siteObj = found; break; }
+            }
+          }
+          if (siteObj) break;
+        }
+      }
+    }
+    // fallback minimal object
+    if (!siteObj) siteObj = { name: name, url: '#' };
+
+    const tile = document.createElement('div');
+    tile.className = 'app-tile';
+    tile.title = siteObj.name || '';
+
+    const logoDiv = document.createElement('div');
+    logoDiv.className = 'app-logo';
+
+    // Resolve logo using existing helper (falls back gracefully)
+    const logoInfo = (typeof getWebsiteLogo === 'function') ? getWebsiteLogo(siteObj) : { src: getLogoUrlForSite(siteObj) };
+    const logoSrc = (logoInfo && logoInfo.src) ? logoInfo.src : getLogoUrlForSite(siteObj);
+
+    // set background image
+
+    logoDiv.style.backgroundImage = `url("${logoSrc}")`;
+
+    const label = document.createElement('div');
+    label.className = 'app-label';
+    label.textContent = siteObj.name;
+
+    // click behavior
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (siteObj && siteObj.url && siteObj.url !== '#') {
+        window.open(siteObj.url, '_blank');
+      }
+    });
+
+    tile.appendChild(logoDiv);
+    tile.appendChild(label);
+    grid.appendChild(tile);
   });
 
-  langEnButton.addEventListener('click', () => {
-    enInstructions.style.display = 'block';
-    frInstructions.style.display = 'none';
-    langEnButton.classList.add('active');
-    langFrButton.classList.remove('active');
-  });
+  screen.appendChild(grid);
+  screen.appendChild(ambient);
+  frame.appendChild(screen);
+  homepage.appendChild(frame);
 
-  langFrButton.addEventListener('click', () => {
-    enInstructions.style.display = 'none';
-    frInstructions.style.display = 'block';
-    langFrButton.classList.add('active');
-    langEnButton.classList.remove('active');
-  });
+  // Insert at top of content grid so it appears like hero area
+  if (contentGrid && contentGrid.firstChild) {
+    contentGrid.insertBefore(homepage, contentGrid.firstChild);
+  } else {
+    (document.body || document.documentElement).appendChild(homepage);
+  }
+}
+
+// ---- END NEW additions ----
+
+// Ensure manifest is loaded before the main initialization run in the DOMContentLoaded handler
+document.addEventListener('DOMContentLoaded', async () => {
+    const loadingIndicator = document.getElementById('loading-indicator');
+
+    // Show loading overlay
+    showLoadingScreen();
+    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+
+    // Also make sure settings modal starts hidden
+    const sm = document.getElementById('settings-modal');
+    if (sm) sm.style.display = 'none';
+
+    // Inject runtime style overrides (header transparent, aligned rows, snap)
+    injectRuntimeOverrides();
+
+    // Make background glow move on scroll
+    updateGlowOnScroll();
+    window.addEventListener('scroll', updateGlowOnScroll, { passive: true });
+
+    // Initialize small utilities
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Initialize section data
+    sectionData['favorites'] = favorites;
+    sectionData['my-links'] = myCustomLinks;
+    sectionData['traditional-websites'] = TRADITIONAL_WEBSITES;
+
+    // Load manifest and local FMHY data (best-effort)
+    await loadLocalLogoManifest();
+    await loadLocalFMHYData();
+
+    // Inject homepage styles and render the TV-style app grid hero
+    injectHomepageStyles();
+    try { renderAppGrid(); } catch (e) { console.warn('renderAppGrid failed', e); }
+
+    // Render the rest of the sections as before
+    renderSectionsInOrder();
+
+    // Collect all sites for search functionality (unchanged logic)
+    allSites = [];
+    for (const sectionId in loadedFMHYData) {
+         if (loadedFMHYData.hasOwnProperty(sectionId) && Array.isArray(loadedFMHYData[sectionId])) {
+             loadedFMHYData[sectionId].forEach(site => {
+                 if (site && site.name && site.url && !allSites.some(s => s.url === site.url)) {
+                     allSites.push({ name: site.name, url: site.url });
+                 }
+             });
+         } else if (
+             loadedFMHYData.hasOwnProperty(sectionId) &&
+             typeof loadedFMHYData[sectionId] === 'object' &&
+             loadedFMHYData[sectionId] !== null
+         ) {
+             for (const subSectionName in loadedFMHYData[sectionId]) {
+                 if (
+                     loadedFMHYData[sectionId].hasOwnProperty(subSectionName) &&
+                     Array.isArray(loadedFMHYData[sectionId][subSectionName])
+                 ) {
+                     loadedFMHYData[sectionId][subSectionName].forEach(site => {
+                         if (site && site.name && site.url && !allSites.some(s => s.url === site.url)) {
+                             allSites.push({ name: site.name, url: site.url });
+                         }
+                     });
+                 }
+             }
+         }
+     }
+
+    // Finalize UI
+    setupEventListeners();
+
+    if (loadingIndicator) loadingIndicator.style.display = 'none';
+    hideLoadingScreen();
+    document.body.classList.add('loaded');
 });
 
 
+(function() {
+  function showAccessOverlay() {
+    const overlay = document.getElementById('access-overlay');
+    if (!overlay) return;
+    overlay.classList.add('visible');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const loading = document.getElementById('loading-indicator');
+    // If body already marked loaded, show overlay immediately
+    if (document.body.classList.contains('loaded')) {
+      showAccessOverlay();
+      return;
+    }
+
+    if (loading) {
+      // Watch for the 'loaded' class to be added to body
+      const observer = new MutationObserver(function(mutations) {
+        if (document.body.classList.contains('loaded')) {
+          showAccessOverlay();
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+      // Fallback: show overlay after 2 seconds if loading doesn't finish
+      setTimeout(function() {
+        if (!document.body.classList.contains('loaded')) {
+          showAccessOverlay();
+        }
+      }, 2000);
+    } else {
+      // No loading indicator present; show overlay after short delay
+      setTimeout(showAccessOverlay, 100);
+    }
+  });
+})();
+
+// Minimal modal open/close for settings
+function showSettingsWindow(modal, button) {
+  if (!modal) return;
+  modal.style.display = 'flex';
+  modal.classList.add('open');
+  // Optionally focus the modal for accessibility
+  modal.setAttribute('tabindex', '-1');
+  modal.focus();
+}
+function hideSettingsWindow(modal) {
+  if (!modal) return;
+  modal.style.display = 'none';
+  modal.classList.remove('open');
+}
+
+// Apply section visibility based on user settings
+function applySectionVisibility() {
+  if (typeof sectionVisibility !== 'object') return;
+  (sectionOrder || []).forEach(sectionId => {
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      if (sectionVisibility[sectionId] !== false) {
+        sectionElement.style.display = 'block';
+      } else {
+        sectionElement.style.display = 'none';
+      }
+    }
+  });
+}
