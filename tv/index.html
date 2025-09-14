@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ateaish TV</title>
+<title>WITV Player</title>
 <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
 <style>
   html, body {
@@ -46,18 +46,6 @@
     border: none;
     z-index: 1;
   }
-  #loading-indicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-    width: 150px; /* Example size, adjust if needed */
-    height: 150px;
-  }
-  #loading-indicator.hidden {
-    display: none;
-  }
 </style>
 </head>
 <body>
@@ -71,13 +59,10 @@
   <button id="switch-server-btn" style="display: none;">Switch Server</button>
 </div>
 
-<img id="loading-indicator" class="hidden" src="assets/static.gif" alt="Loading..." />
-
 <iframe id="player-iframe"></iframe>
 
 <script>
   const controls = document.getElementById('controls');
-  const loadingIndicator = document.getElementById('loading-indicator');
   const channelSelect = document.getElementById('channel-select');
   const playerIframe = document.getElementById('player-iframe');
   const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
@@ -150,6 +135,11 @@
 
     if (url) {
       playerIframe.src = url;
+      // Re-initialize playerjs.Player after iframe src changes
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+      }, 500); // Delay to allow iframe to load
     }
 
     if (tutvliveSource && witvSource) {
@@ -162,19 +152,17 @@
   function addPlayerListeners() {
     player.on('ready', () => {
       console.log('Player is ready!');
-      loadingIndicator.classList.add('hidden');
       player.play();
       player.getPaused(paused => { playPauseBtn.textContent = paused ? 'Play' : 'Pause'; });
       player.getMuted(muted => { muteUnmuteBtn.textContent = muted ? 'Unmute' : 'Mute'; });
     });
 
     player.on('play', () => {
-      loadingIndicator.classList.add('hidden');
       playPauseBtn.textContent = 'Pause';
     });
     player.on('pause', () => { playPauseBtn.textContent = 'Play'; });
-    player.on('buffering', () => { loadingIndicator.classList.remove('hidden'); });
-    player.on('buffered', () => { loadingIndicator.classList.add('hidden'); });
+    player.on('buffering', () => { });
+    player.on('buffered', () => { });
   }
 
   channelSelect.addEventListener('change', (event) => {
