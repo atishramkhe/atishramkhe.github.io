@@ -2,67 +2,223 @@
 <html>
 <head>
 <title>WITV Player</title>
+<script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
 <style>
   html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100vh; /* Use viewport height to ensure it fills the screen */
-    overflow: hidden; /* Hide scrollbars on the main page */
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Make body fill the html tag */
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+    background-color: #000;
   }
   #controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     padding: 10px;
-    background-color: #f0f0f0;
-    flex-shrink: 0; /* Prevent controls from shrinking */
+    box-sizing: border-box;
+    background-color: rgba(30, 30, 30, 0.75);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 0.5s ease-in-out;
+    color: white;
+  }
+  #controls.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #controls select, #controls button {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
   }
   #player-iframe {
-    flex-grow: 1; /* Allow the iframe to grow and fill available space */
-    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 1;
+  }
+  #loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    width: 150px; /* Example size, adjust if needed */
+    height: 150px;
+  }
+  #loading-indicator.hidden {
+    display: none;
   }
 </style>
 </head>
 <body>
 
 <div id="controls">
-  <label for="channel-select">Select Channel:</label>
+  <label for="channel-select">Channel:</label>
   <select id="channel-select"></select>
+  <button id="play-pause-btn">Play</button>
+  <button id="mute-unmute-btn">Mute</button>
+  <button id="fullscreen-btn">Fullscreen</button>
+  <button id="switch-server-btn" style="display: none;">Switch Server</button>
 </div>
+
+<img id="loading-indicator" class="hidden" src="assets/static.gif" alt="Loading..." />
 
 <iframe id="player-iframe"></iframe>
 
 <script>
+  const controls = document.getElementById('controls');
+  const loadingIndicator = document.getElementById('loading-indicator');
   const channelSelect = document.getElementById('channel-select');
   const playerIframe = document.getElementById('player-iframe');
-  const baseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
+  const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
+  const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
 
-  // Populate the dropdown
-  for (let i = 1; i <= 300; i++) {
-    const option = document.createElement('option');
-    option.value = i;
-    option.textContent = 'Channel ' + i;
-    channelSelect.appendChild(option);
+  const playPauseBtn = document.getElementById('play-pause-btn');
+  const muteUnmuteBtn = document.getElementById('mute-unmute-btn');
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const switchServerBtn = document.getElementById('switch-server-btn');
+
+  let channels = [];
+  let player;
+  let currentChannelIndex = 0;
+  let currentSourceType = 'witv';
+
+  fetch('channels.json')
+    .then(response => response.json())
+    .then(data => {
+      channels = data;
+      populateChannelSelect();
+      channelSelect.value = currentChannelIndex;
+      updatePlayer(currentChannelIndex);
+
+      player = new playerjs.Player(playerIframe);
+      addPlayerListeners();
+    });
+
+  function populateChannelSelect() {
+    channels.forEach((channel, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = channel.name;
+      channelSelect.appendChild(option);
+    });
   }
 
-  // Function to update the iframe source
-  function updatePlayer(channelId) {
-    playerIframe.src = baseUrl + channelId;
+  function updatePlayer(channelIndex, sourceType) {
+    currentChannelIndex = channelIndex;
+    const channel = channels[currentChannelIndex];
+
+    if (!channel || !channel.sources || channel.sources.length === 0) {
+      console.error('Invalid channel data:', channel);
+      return;
+    }
+
+    const tutvliveSource = channel.sources.find(s => s.type === 'tutvlive');
+    const witvSource = channel.sources.find(s => s.type === 'witv');
+
+    let source;
+    if (sourceType) {
+      source = channel.sources.find(s => s.type === sourceType);
+    } else {
+      source = tutvliveSource || witvSource;
+    }
+
+    if (!source) {
+      console.error('No suitable source found for channel:', channel);
+      return;
+    }
+
+    currentSourceType = source.type;
+
+    let url;
+    if (source.type === 'witv') {
+      url = witvBaseUrl + source.id + '&q=1080';
+    } else if (source.type === 'tutvlive') {
+      const server = source.servers[0]; // For now, just use the first server
+      url = `${tutvliveBaseUrl}${server}/${source.id}`;
+    }
+
+    if (url) {
+      playerIframe.src = url;
+    }
+
+    if (tutvliveSource && witvSource) {
+      switchServerBtn.style.display = 'inline-block';
+    } else {
+      switchServerBtn.style.display = 'none';
+    }
   }
 
-  // Event listener for the dropdown
+  function addPlayerListeners() {
+    player.on('ready', () => {
+      console.log('Player is ready!');
+      loadingIndicator.classList.add('hidden');
+      player.play();
+      player.getPaused(paused => { playPauseBtn.textContent = paused ? 'Play' : 'Pause'; });
+      player.getMuted(muted => { muteUnmuteBtn.textContent = muted ? 'Unmute' : 'Mute'; });
+    });
+
+    player.on('play', () => {
+      loadingIndicator.classList.add('hidden');
+      playPauseBtn.textContent = 'Pause';
+    });
+    player.on('pause', () => { playPauseBtn.textContent = 'Play'; });
+    player.on('buffering', () => { loadingIndicator.classList.remove('hidden'); });
+    player.on('buffered', () => { loadingIndicator.classList.add('hidden'); });
+  }
+
   channelSelect.addEventListener('change', (event) => {
     updatePlayer(event.target.value);
   });
 
-  // Initial load
-  const initialChannel = 246; // The original channel
-  channelSelect.value = initialChannel;
-  updatePlayer(initialChannel);
+  switchServerBtn.addEventListener('click', () => {
+    const newSourceType = currentSourceType === 'witv' ? 'tutvlive' : 'witv';
+    updatePlayer(currentChannelIndex, newSourceType);
+  });
+
+  playPauseBtn.addEventListener('click', () => {
+    player.getPaused(paused => { if (paused) player.play(); else player.pause(); });
+  });
+
+  muteUnmuteBtn.addEventListener('click', () => {
+    player.getMuted(muted => {
+      if (muted) {
+        player.unmute();
+        muteUnmuteBtn.textContent = 'Mute';
+      } else {
+        player.mute();
+        muteUnmuteBtn.textContent = 'Unmute';
+      }
+    });
+  });
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (playerIframe.requestFullscreen) playerIframe.requestFullscreen();
+    else if (playerIframe.mozRequestFullScreen) playerIframe.mozRequestFullScreen();
+    else if (playerIframe.webkitRequestFullscreen) playerIframe.webkitRequestFullscreen();
+    else if (playerIframe.msRequestFullscreen) playerIframe.msRequestFullscreen();
+  });
+
+  let hideTimeout;
+  function showControls() {
+    controls.classList.remove('hidden');
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      controls.classList.add('hidden');
+    }, 5000);
+  }
+  document.addEventListener('mousemove', showControls);
+  showControls();
 </script>
 
 </body>
