@@ -1,4 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap");
+@font-face {
+  font-family: 'Ouma Latin VF';
+  src: url('./fonts/OumaTrial-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ouma Latin VF Light';
+  src: url('./fonts/OumaTrial-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Optionally remove or comment out the Ubuntu import if not needed */
+/* @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap"); */
 
 body {
   background:
@@ -7,7 +23,7 @@ body {
     radial-gradient(ellipse 800px 380px at 85% 20%, rgba(90,160,255,0.04), transparent 18%),
     linear-gradient(180deg,#060607 0%, #050506 100%);
   color: #e6e6e6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ouma Latin VF', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6;
@@ -24,9 +40,36 @@ body.pink-theme { background-color: #ffe4e1; color: #1a1a1a; }
   background: rgba(0,0,0,0.9);
   display: flex; justify-content: center; align-items: center;
   z-index: 1002; flex-direction: column; gap: 20px;
-  transition: opacity 0.5s, visibility 0.5s;
+  transition: opacity 0.7s cubic-bezier(.4,.2,.2,1), visibility 0.7s cubic-bezier(.4,.2,.2,1);
+  overflow: hidden;
 }
-body.loaded #loading-indicator { opacity: 0; visibility: hidden; pointer-events: none; }
+
+#loading-indicator::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120,92,230,0.33) 0%, rgba(90,160,255,0.18) 60%, transparent 100%);
+  filter: blur(32px);
+  z-index: 0;
+  transition: opacity 0.7s cubic-bezier(.4,.2,.2,1);
+  opacity: 1;
+}
+
+body.loaded #loading-indicator {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.loaded #loading-indicator::before {
+  opacity: 0;
+}
+
 .loader {
   border: 6px solid rgba(255,255,255,0.2);
   border-top: 6px solid #8a2be2;
@@ -46,6 +89,11 @@ header {
   outline: none; padding: 6px 12px; font-size: 1rem; color: #fff;
   border-radius: 6px; min-width: 180px; width: 220px; transition: background 0.2s;
 }
+#search-bar::placeholder {
+  font-family: 'Ouma Latin VF Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 300;
+  color: #bbb; /* Optional: lighter color for placeholder */
+}
 #search-bar:focus { background: rgba(255,255,255,0.08); }
 #settings-button, .icon-button {
   background: none; border: none; color: #fff; font-size: 2.1rem; padding: 0 8px;
@@ -60,6 +108,103 @@ header {
   #search-bar { margin: 0 0 8px 0; width: 200px; max-width: 90vw; }
 }
 
+/* Mobile-first improvements for vertical screens */
+@media (max-width: 540px) {
+  body {
+    font-size: 0.97rem;
+    padding: 0;
+  }
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 0.5rem 0.2rem;
+  }
+  #logo {
+    width: 90px;
+    margin-bottom: 4px;
+  }
+  #search-bar {
+    width: 97vw;
+    font-size: 0.97rem;
+    margin: 0 0 6px 0;
+    padding: 7px 8px;
+  }
+  .content-grid {
+    padding: 0.1rem 1px;
+    padding-left: 80px !important;
+  }
+  .category {
+    /* Height: title (30px) + 6 tiles (50px each + 2px gap) */
+    height: calc(30px + 6 * 52px);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 16px;
+    background: transparent;
+    padding: 0;
+    display: block;
+    pointer-events: none; /* Prevent scroll/touch on the section itself */
+  }
+  .grid, .slider {
+    flex-direction: column !important;
+    gap: 2px !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: calc(6 * 52px) !important; /* 6 tiles visible */
+    align-items: center !important;
+    width: 65vw !important;    /* Match the tile width */
+    margin: 0 auto !important; /* Center the grid */
+    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    background: transparent;
+    pointer-events: auto; /* Allow scroll/touch only on the grid */
+  }
+  .grid::-webkit-scrollbar, .slider::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+  }
+  .grid::-webkit-scrollbar-thumb, .slider::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 2px;
+  }
+
+  .site, .site.placeholder-tile {
+    width: 65vw !important;
+    min-width: 0 !important;
+    max-width: 92vw !important;
+    height: 50px !important;
+    font-size: 0.89rem !important;
+    padding: 1px 2px !important;
+    margin: 0 auto 2px auto !important;
+    border-radius: 6px !important;
+  }
+
+  .site.section-title-tile {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 2 !important;
+    background: #111 !important;
+    min-width: 40px !important;
+    max-width: 80vw !important;
+    font-size: 0.98rem !important;
+    height: 30px !important;
+    border-radius: 7px !important;
+    margin-bottom: 0 !important;
+    left: 0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hide carousel buttons on mobile */
+  .carousel-btn {
+    display: none !important;
+  }
+}
+
 .content-grid {
   display: block;
   width: 100%;
@@ -72,11 +217,13 @@ header {
   margin-bottom: 0;
 }
 .grid, .slider {
-  display: flex; flex-direction: row; gap: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* <-- Change from flex-start to center */
+  gap: 16px;
   padding: 12px;
   overflow: hidden;
   flex-wrap: nowrap;
-  align-items: flex-start;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   box-sizing: border-box;
@@ -97,6 +244,7 @@ header {
   transition: transform 0.18s, box-shadow 0.18s;
   box-shadow: 0 6px 18px rgba(0,0,0,0.35);
   position: relative;
+  z-index: 1; /* keep moving tiles under the title */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,7 +285,7 @@ header {
 .site.section-title-tile {
     background: #111;
     color: #fff;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Ouma Latin VF', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 700;
     font-size: 1.3rem;
     min-width: 90px;
@@ -155,7 +303,7 @@ header {
     transition: none;
     position: sticky;
     left: 0;
-    z-index: 2;
+    z-index: 50; /* raise above tiles and arrows */
 }
 
 .site.placeholder-tile {
@@ -214,6 +362,16 @@ header {
 #settings-modal .close-btn:hover {
   color: #e57373;
 }
+#settings-modal .modal-content,
+#settings-modal label,
+#settings-modal select,
+#settings-modal h2,
+#settings-modal h3,
+#settings-modal input,
+#settings-modal button {
+  font-family: 'Ouma Latin VF Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 300;
+}
 
 /* Carousel Styles */
 .carousel-wrapper {
@@ -225,7 +383,7 @@ header {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 60; /* below the sticky title */
   background-color: rgba(20, 20, 20, 0.7);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -253,7 +411,14 @@ header {
 }
 
 .carousel-btn.prev {
+  position: absolute;
   left: 0;
+  right: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.carousel-btn.prev:hover {
+  color: #5c86c0;
 }
 
 .carousel-btn.next {
@@ -343,4 +508,137 @@ header {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-family: 'Ouma Latin VF', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+}
+
+/* Search results as a responsive grid (not horizontal carousel) */
+#search-results {
+  display: none; /* toggled via JS */
+  padding: 0.1rem 4px;
+}
+#search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px 16px;
+  padding: 12px;
+  overflow: visible;
+}
+#search-results-grid .site {
+  width: 100%;
+  min-width: 0;
+  height: 64px;
+  border-radius: 8px;
+}
+#search-results-grid .section-title-tile {
+  grid-column: 1 / -1;       /* span full width */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 8px;
+}
+
+/* Clear (×) button inside the search bar */
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.search-wrapper #search-bar {
+  padding-right: 32px; /* room for clear button */
+}
+#clear-search {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #bbb;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+.search-wrapper.has-value #clear-search {
+  opacity: 1;
+  pointer-events: auto;
+}
+#clear-search:hover {
+  background: rgba(255,255,255,0.08);
+  color: #e0e0e0;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
+}
+
+/* Mobile tweak: denser grid */
+@media (max-width: 540px) {
+  #search-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px 10px;
+    padding: 8px;
+  }
+}
+
+#access-overlay-unlock {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10100;
+}
+
+#access-overlay-unlock button {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#access-overlay-unlock button:hover {
+  background: #444;
+}
+
+#access-overlay-unlock input[type="password"] {
+  background: #18181c;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 1rem;
+  outline: none;
+  margin-left: 8px;
+  display: none;
+}
+
+#access-overlay-unlock input[type="password"].active {
+  display: inline-block;
+}
+
+#access-overlay-unlock .error {
+  color: #e57373;
+  font-size: 0.97rem;
+  margin-left: 8px;
+  display: none;
 }

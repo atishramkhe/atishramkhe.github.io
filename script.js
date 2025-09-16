@@ -1966,3 +1966,38 @@ function applySectionVisibility() {
     }
   });
 }
+
+const unlockBtn = document.getElementById('access-overlay-unlock-btn');
+const passwordInput = document.getElementById('access-overlay-password');
+const errorMsg = document.getElementById('access-overlay-error');
+const overlay = document.getElementById('access-overlay');
+
+// SHA256 using Web Crypto API
+async function sha256(str) {
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error('SHA256 not supported: crypto.subtle is unavailable (use HTTPS or localhost)');
+  }
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+// Show password input when button is clicked
+unlockBtn.addEventListener('click', async () => {
+  passwordInput.classList.add('active');
+  passwordInput.style.display = 'inline-block';
+  passwordInput.focus();
+
+  // If password input is already visible and has a value, check it
+  if (passwordInput.value) {
+    errorMsg.style.display = 'none';
+    const hash = await sha256(passwordInput.value);
+    if (hash === '54722333c835fbe09662429888218ccef678d4e59a89031dfe29aac3692b9493') {
+      overlay.classList.remove('visible');
+      overlay.style.opacity = 0;
+      overlay.style.pointerEvents = 'none';
+      overlay.style.visibility = 'hidden';
+    } else {
+      errorMsg.style.display = 'inline-block';
+    }
+  }
+});

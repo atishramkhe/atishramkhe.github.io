@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ateaish Streaming</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="stylesheet" href="style.css">
@@ -134,19 +134,28 @@
     <div class="content-grid" id="main-content">
       <!-- Favorites Section -->
       <div id="favorites" class="category">
-        <h2>⭐ Favorites</h2>
+        <div class="section-header">
+          <h2>⭐ Favorites</h2>
+          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+        </div>
         <div class="grid" id="favorites-grid"></div>
       </div>
 
       <!-- Traditional Websites Section -->
       <div id="traditional-websites" class="category">
-        <h2>🌐 Traditional Websites</h2>
+        <div class="section-header">
+          <h2>🌐 Traditional Websites</h2>
+          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+        </div>
         <div class="grid" id="traditional-websites-grid"></div>
       </div>
 
       <!-- Search Results Section (initially hidden) -->
       <div id="search-results" class="category" style="display: none;">
-        <h2>🔍 Search Results</h2>
+        <div class="section-header">
+          <h2>🔍 Search Results</h2>
+          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+        </div>
         <div class="grid" id="search-results-grid"></div>
       </div>
 
@@ -164,6 +173,11 @@
     <div id="access-message">
       <div style="font-size: 5rem;">🔒</div>
       <div>Website Locked!</div>
+    </div>
+    <div id="access-overlay-unlock">
+      <button id="access-overlay-unlock-btn"> </button>
+      <input type="password" id="access-overlay-password" placeholder="" />
+      <span class="error" id="access-overlay-error">Incorrect password</span>
     </div>
   </div>
 
