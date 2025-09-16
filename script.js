@@ -1991,7 +1991,7 @@ unlockBtn.addEventListener('click', async () => {
   if (passwordInput.value) {
     errorMsg.style.display = 'none';
     const hash = await sha256(passwordInput.value);
-    if (hash === '54722333c835fbe09662429888218ccef678d4e59a89031dfe29aac3692b9493') {
+    if (hash === '564c6c20f643a4e38e665382ce043b6927b4ed55548e9d411296b963668bc56f') {
       overlay.classList.remove('visible');
       overlay.style.opacity = 0;
       overlay.style.pointerEvents = 'none';
