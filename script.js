@@ -801,7 +801,7 @@ function renderSectionsInOrder() {
             dataToRender = newCartoonSites;
 
           } else if (section.id === 'live-sports') {
-            const featuredSportsNames = ['Streamed 2', 'PPV.TO', 'MrGamingStreams', 'TimStreams'];
+            const featuredSportsNames = ['Streamed 2', 'PPV.TO', 'MrGamingStreams', 'DaddyLive','TimStreams'];
             const newSportsSites = [];
             
             featuredSportsNames.forEach(featuredName => {
