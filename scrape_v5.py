@@ -7,7 +7,7 @@ from urllib.parse import urljoin
 
 # --- Configuration ---
 BASE_URL = "https://fmhy.net/"
-JSON_OUTPUT_FILE = "/home/akr/Desktop/scripts/scraper/links.v5.json"
+JSON_OUTPUT_FILE = "links.v5.json"
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
