@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ateaish Radio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Load local fonts (place fonts in /fonts/ at server root) */
+    @font-face {
+      font-family: 'OumaTrialBold';
+      src: url('fonts/OumaTrial-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'OumaTrialLight';
+      src: url('fonts/OumaTrial-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      background: #181818;
+      color: #eee;
+      /* use light font for general text */
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    /* Make container take available vertical space so we can let the stations list scroll */
+    .container {
+      max-width: 600px;
+      margin: 24px auto;
+      background: #232323;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px #000a;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      /* Height uses the viewport so the stations list can fill remaining space */
+      height: calc(100vh - 48px);
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #fff;
+      letter-spacing: 1px;
+      /* titles use bold font */
+      font-family: 'OumaTrialBold', 'Segoe UI', Arial, sans-serif;
+    }
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 12px;
+      flex: 0 0 auto; /* keep player size fixed, don't shrink/grow */
+    }
+    .station-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #222;
+      border: 2px solid #333;
+    }
+    .station-title {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      color: #fff;
+      font-family: 'OumaTrialBold', 'Segoe UI', Arial, sans-serif;
+    }
+    .custom-audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #222;
+      border-radius: 8px;
+      padding: 10px 18px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 6px #0004;
+      position: relative;
+      width: 100%;
+      justify-content: center; /* Center controls horizontally */
+    }
+    .custom-btn {
+      background: #333;
+      border: none;
+      color: #eee;
+      font-size: 1.5em;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+      z-index: 1;
+      margin: 0; /* Remove any default margin */
+    }
+    .custom-btn.loading {
+      animation: pulse 1s infinite;
+      color: #6cf;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 #6cf4; }
+      50% { box-shadow: 0 0 0 8px #6cf2; }
+      100% { box-shadow: 0 0 0 0 #6cf4; }
+    }
+    .custom-volume {
+      width: 100px;
+      accent-color: #fff; /* Changed to white */
+      background: #fff;   /* Changed to white */
+      border-radius: 6px;
+      height: 6px;
+      margin-left: 8px;
+      border: none;
+    }
+    .station-link {
+      color: #6cf;
+      font-size: 0.95em;
+      text-decoration: none;
+      margin-top: 6px;
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* controls bar under player */
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 8px 0;
+      width: 100%;
+    }
+    .country-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px;
+      border-radius: 8px;
+      background: #202020;
+      flex: 1 1 auto;
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+    }
+    .country-item {
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: transparent;
+      color: #ddd;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 0.95em;
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+    }
+    .country-item.selected {
+      background: #2b2b2b;
+      border-color: #6cf;
+      color: #fff;
+      font-family: 'OumaTrialBold', 'Segoe UI', Arial, sans-serif;
+    }
+    .toggle-list-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1px solid transparent;
+      flex: 0 0 auto;
+      margin-left: 8px;
+    }
+    .toggle-list-btn:hover { border-color: rgba(255,255,255,0.06); }
+    .toggle-arrow {
+      display: inline-block;
+      transition: transform 0.22s ease;
+      color: #ddd;
+      font-size: 18px;
+    }
+
+    /* Stations list should scroll independently and fill remaining vertical space */
+    .stations-list {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      flex: 1 1 auto;      /* allow list to grow and take remaining space */
+      overflow: auto;     /* enable scrollbar when content overflows */
+      padding-right: 6px; /* space for scrollbar, prevents layout shift */
+      box-sizing: border-box;
+    }
+    /* Optional: nicer thin scrollbar */
+    .stations-list::-webkit-scrollbar { width: 10px; }
+    .stations-list::-webkit-scrollbar-track { background: transparent; }
+    .stations-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 6px; }
+    .stations-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+    .station-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 8px;
+      border-radius: 10px;
+      background: #222;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 6px #0002;
+      border: 2px solid transparent;
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+    }
+    .station-item:hover, .station-item.active {
+      background: #333;
+      border-color: #6cf;
+    }
+    .station-thumb {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff; /* thumbnail background */
+      border: 1px solid #444;
+      margin-bottom: 8px;
+    }
+    .station-name {
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 2px;
+      text-align: center;
+      font-family: 'OumaTrialBold', 'Segoe UI', Arial, sans-serif;
+    }
+    .station-link-grid {
+      color: #6cf;
+      font-size: 0.93em;
+      text-decoration: none;
+      text-align: center;
+      word-break: break-all;
+      font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+    }
+    #screensaver {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #111;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s;
+    }
+    #screensaver.active {
+      display: flex;
+      opacity: 1;
+    }
+    #screensaver-logo {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.08;
+      pointer-events: none;
+      width: 220px;
+      max-width: 40vw;
+    }
+
+    /* Loading overlay */
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f10;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 450ms ease;
+      pointer-events: none;
+    }
+    #loading-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loading-logo {
+      width: 180px;
+      max-width: 60vw;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+      transition: opacity 450ms ease, transform 450ms cubic-bezier(.2,.9,.3,1);
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+    }
+    #loading-overlay.visible .loading-logo {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Zoom in/out keyframes used before fading overlay */
+    @keyframes logo-zoom {
+      0%   { transform: translateY(-10px) scale(0.95); }
+      40%  { transform: translateY(-4px)  scale(1.10); }
+      70%  { transform: translateY(-6px)  scale(0.98); }
+      100% { transform: translateY(0)      scale(1);      }
+    }
+    .loading-logo.zoom {
+      animation: logo-zoom 900ms cubic-bezier(.2,.9,.3,1) both;
+    }
+  </style>
+</head>
+<body>
+  <!-- loading overlay (visible by default) -->
+  <div id="loading-overlay" class="visible" aria-hidden="true">
+    <img class="loading-logo" src="assets/ateaish_radio_blanc_150ppi.png" alt="loading">
+  </div>
+
+  <div class="container">
+    <div style="text-align:center; margin-bottom:12px;">
+      <img src="assets/ateaish_radio_blanc_150ppi.png" alt="ateaish Radio" style="height:56px;">
+    </div>
+    <div class="player" id="player">
+      <!-- Player UI will be injected here -->
+    </div>
+
+    <!-- Controls bar: country menu (left) + toggle (right) -->
+    <div class="controls-bar">
+      <div class="country-menu" id="country-menu" title="Select country (scroll)">
+        <!-- country items injected here -->
+      </div>
+      <div class="toggle-list-btn" id="toggle-list-btn" title="Show / hide stations list">
+        <span class="toggle-arrow" id="toggle-arrow">&#9660;</span>
+      </div>
+    </div>
+
+    <div class="stations-list" id="stations-list">
+      <!-- Station list will be injected here -->
+    </div>
+  </div>
+
+  <div id="screensaver">
+    <img id="screensaver-logo" src="assets/ateaish_radio_blanc_150ppi.png" alt="ateaish Radio">
+  </div>
+
+  <script>
+    let stations = {};
+    let currentStationId = null;
+    let audioEl = null;
+    let loadingTimeout = null;
+    let streamIndex = 0;
+    let currentStreams = [];
+    let selectedCountry = null;
+    let stationsVisible = true;
+    let metadataPollHandle = null;
+    let playState = 'play'; // 'play' | 'loading' | 'playing'
+
+    function clearMetadataPoll() {
+      if (metadataPollHandle) {
+        clearInterval(metadataPollHandle);
+        metadataPollHandle = null;
+      }
+    }
+
+    /* show/hide loading overlay */
+    function showLoadingOverlay() {
+      const ov = document.getElementById('loading-overlay');
+      if (!ov) return;
+      // ensure logo has no pending zoom class
+      const logo = ov.querySelector('.loading-logo');
+      if (logo) logo.classList.remove('zoom');
+
+      ov.style.display = 'flex';
+      // allow layout then show
+      requestAnimationFrame(() => ov.classList.add('visible'));
+      ov.classList.remove('hidden');
+    }
+    function hideLoadingOverlay() {
+      const ov = document.getElementById('loading-overlay');
+      if (!ov) return;
+      const logo = ov.querySelector('.loading-logo');
+      // play zoom animation, then fade overlay
+      if (logo) {
+        // ensure visible state so animation is seen
+        ov.classList.add('visible');
+        // play zoom; on animation end fade
+        logo.classList.add('zoom');
+        logo.addEventListener('animationend', () => {
+          ov.classList.remove('visible');
+          ov.classList.add('hidden');
+          setTimeout(() => { if (ov) ov.style.display = 'none'; }, 500);
+        }, { once: true });
+      } else {
+        // fallback: immediate fade
+        ov.classList.remove('visible');
+        ov.classList.add('hidden');
+        setTimeout(() => { if (ov) ov.style.display = 'none'; }, 500);
+      }
+    }
+
+    // call show at script start so overlay is present while assets load
+    showLoadingOverlay();
+
+    // Load stations from JSON file
+    async function loadStations() {
+      showLoadingOverlay();
+      try {
+        const response = await fetch('radios_france_with_icons.json');
+        const data = await response.json();
+        const rawStations = data.stations || {};
+
+        // Normalize/check icons (existing logic)
+        const ids = Object.keys(rawStations);
+        for (const id of ids) {
+          const st = rawStations[id];
+          if (!st) continue;
+          let img = st.image;
+          if (img) {
+            img = img.replace(/^file:\/+/, '').replace(/^\/+/, '');
+            st.image = img;
+            try {
+              let ok = false;
+              try {
+                const head = await fetch(img, { method: 'HEAD' });
+                ok = head.ok;
+              } catch (_) {
+                const get = await fetch(img, { method: 'GET' });
+                ok = get.ok;
+              }
+              if (!ok) st.image = null;
+            } catch (err) { st.image = null; }
+          } else {
+            st.image = null;
+          }
+        }
+
+        // Filter to only stations with streams (existing logic)
+        const filtered = {};
+        for (const [id, st] of Object.entries(rawStations)) {
+          const s = st && st.streams;
+          let hasStreams = false;
+          if (Array.isArray(s)) hasStreams = s.length > 0;
+          else if (s && typeof s === 'object') hasStreams = Object.values(s).filter(v => !!v).length > 0;
+          if (hasStreams) filtered[id] = st;
+        }
+        stations = filtered;
+
+        // build country list and select default
+        const countries = new Set();
+        for (const st of Object.values(stations)) {
+          if (st && st.country) countries.add(st.country);
+        }
+        const countryList = Array.from(countries);
+        // default to France if present, else first
+        selectedCountry = countryList.includes('France') ? 'France' : (countryList[0] || null);
+        renderCountryMenu(countryList);
+
+        // restore last played station if it still exists and matches selected country
+        const lastId = localStorage.getItem('lastStationId');
+        if (lastId && stations[lastId] && (!selectedCountry || stations[lastId].country === selectedCountry)) {
+          currentStationId = lastId;
+        } else {
+          currentStationId = Object.keys(stations).find(id => {
+            const s = stations[id];
+            return s && (!selectedCountry || s.country === selectedCountry);
+          }) || null;
+        }
+
+        renderStationList();
+        if (currentStationId) renderPlayer(currentStationId);
+        resetScreensaverTimer();
+        // allow a short hold so user sees ease-out
+        setTimeout(hideLoadingOverlay, 220);
+      } catch (e) {
+        console.error("Failed to load stations JSON", e);
+        // hide overlay even on error
+        setTimeout(hideLoadingOverlay, 220);
+      }
+    }
+
+    function renderCountryMenu(countryList) {
+      const menu = document.getElementById('country-menu');
+      menu.innerHTML = '';
+      if (!countryList || countryList.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'country-item';
+        empty.textContent = 'All';
+        menu.appendChild(empty);
+        return;
+      }
+      // include "All" option
+      const allItem = document.createElement('div');
+      allItem.className = 'country-item' + (selectedCountry === null ? ' selected' : '');
+      allItem.textContent = 'All';
+      allItem.onclick = () => {
+        selectedCountry = null;
+        // prefer last played if present
+        const lastId = localStorage.getItem('lastStationId');
+        if (lastId && stations[lastId]) currentStationId = lastId;
+        else currentStationId = Object.keys(stations).find(id => !!stations[id]) || null;
+        renderCountryMenu(countryList);
+        renderStationList();
+        if (currentStationId) renderPlayer(currentStationId);
+      };
+      menu.appendChild(allItem);
+
+      countryList.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'country-item' + (c === selectedCountry ? ' selected' : '');
+        el.textContent = c;
+        el.onclick = () => {
+          selectedCountry = c;
+          // prefer last played if it belongs to this country
+          const lastId = localStorage.getItem('lastStationId');
+          if (lastId && stations[lastId] && stations[lastId].country === c) {
+            currentStationId = lastId;
+          } else {
+            currentStationId = Object.keys(stations).find(id => stations[id].country === c) || null;
+          }
+          renderCountryMenu(countryList);
+          renderStationList();
+          if (currentStationId) renderPlayer(currentStationId);
+        };
+        menu.appendChild(el);
+      });
+    }
+
+    // toggle show/hide stations list completely
+    function toggleStationsList() {
+      const list = document.getElementById('stations-list');
+      const arrow = document.getElementById('toggle-arrow');
+      stationsVisible = !stationsVisible;
+      if (stationsVisible) {
+        list.style.display = '';
+        arrow.innerHTML = '&#9660;'; // down
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        list.style.display = 'none';
+        arrow.innerHTML = '&#9650;'; // up
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    document.getElementById('toggle-list-btn').addEventListener('click', toggleStationsList);
+
+    function setNowPlaying(text, offline = false) {
+      const nowPlayingDiv = document.getElementById('nowPlaying');
+      const nowPlayingText = document.getElementById('nowPlayingText');
+      if (nowPlayingText) nowPlayingText.textContent = text;
+      if (nowPlayingDiv) {
+        if (offline) nowPlayingDiv.classList.add('offline');
+        else nowPlayingDiv.classList.remove('offline');
+      }
+    }
+
+    function setPlayButtonState(state) {
+      // remember desired state even if DOM not present yet
+      playState = state;
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playPauseIcon = document.getElementById('playPauseIcon');
+      if (!playPauseBtn || !playPauseIcon) return;
+      playPauseBtn.classList.remove('loading');
+      if (state === 'loading') {
+        playPauseBtn.classList.add('loading');
+        playPauseIcon.innerHTML = '<svg width="24" height="24" style="vertical-align:middle;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke="#6cf" stroke-width="2" fill="none" stroke-dasharray="40" stroke-dashoffset="10"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></circle></svg>';
+      } else if (state === 'playing') {
+        playPauseIcon.innerHTML = '&#10074;&#10074;'; // Pause icon
+      } else {
+        playPauseIcon.innerHTML = '&#9654;'; // Play icon
+      }
+    }
+
+    function playStreamList(streams, idx = 0) {
+      if (!streams || streams.length === 0) {
+        setPlayButtonState('play');
+        setNowPlaying('Offline', true);
+        return;
+      }
+      streamIndex = idx;
+      currentStreams = streams;
+      if (audioEl) {
+        audioEl.pause();
+        audioEl.remove();
+        audioEl = null;
+      }
+      audioEl = document.createElement('audio');
+      audioEl.src = streams[idx];
+      audioEl.autoplay = true;
+      audioEl.volume = 1;
+      audioEl.style.display = 'none';
+      document.body.appendChild(audioEl);
+
+      // Ensure UI shows loading state
+      setPlayButtonState('loading');
+      setNowPlaying('Loading...', false);
+
+      if (loadingTimeout) clearTimeout(loadingTimeout);
+      let loaded = false;
+      loadingTimeout = setTimeout(() => {
+        if (!loaded) {
+          if (idx + 1 < streams.length) {
+            playStreamList(streams, idx + 1);
+          } else {
+            setPlayButtonState('play');
+            setNowPlaying('Offline', true);
+          }
+        }
+      }, 10000);
+
+      audioEl.addEventListener('playing', async () => {
+        loaded = true;
+        setPlayButtonState('playing');
+        // remove radio name from "currently playing" — show nothing until metadata is available
+        setNowPlaying('', false);
+        clearTimeout(loadingTimeout);
+
+        // try fetch metadata once, then poll every 15s (CORS permitting)
+        clearMetadataPoll();
+        const attemptUpdate = async () => {
+          try {
+            const meta = await fetchStreamMetadata(audioEl.src);
+            if (meta) setNowPlaying(meta, false);
+          } catch (_) {}
+        };
+        // first immediate attempt
+        attemptUpdate();
+        // poll
+        metadataPollHandle = setInterval(attemptUpdate, 15000);
+      });
+
+      audioEl.addEventListener('pause', () => {
+        setPlayButtonState('play');
+        clearMetadataPoll();
+      });
+
+      audioEl.addEventListener('waiting', () => {
+        setPlayButtonState('loading');
+        setNowPlaying('Loading...', false);
+      });
+
+      audioEl.addEventListener('error', () => {
+        clearTimeout(loadingTimeout);
+        clearMetadataPoll();
+        // Try next stream if available
+        if (idx + 1 < streams.length) {
+          playStreamList(streams, idx + 1);
+        } else {
+          setPlayButtonState('play');
+          setNowPlaying('Offline', true);
+        }
+      });
+
+      // Play/Pause button logic
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      if (playPauseBtn) {
+        playPauseBtn.onclick = () => {
+          if (audioEl.paused) {
+            setPlayButtonState('loading');
+            audioEl.play();
+          } else {
+            audioEl.pause();
+          }
+        };
+      }
+
+      // Volume slider logic
+      const volumeSlider = document.getElementById('volumeSlider');
+      if (volumeSlider) {
+        volumeSlider.value = audioEl.volume;
+        volumeSlider.oninput = (e) => {
+          audioEl.volume = e.target.value;
+        };
+      }
+    }
+
+    function renderPlayer(stationId) {
+      const station = stations[stationId];
+      const playerDiv = document.getElementById('player');
+      if (!playerDiv) return;
+      playerDiv.innerHTML = `
+        ${station.image ? `<img class="station-img" src="${station.image}" alt="${station.title}">` : ''}
+        <div class="station-title">${station.title}</div>
+        <div class="custom-audio-controls">
+          <button class="custom-btn" id="playPauseBtn" title="Play/Pause">
+            <span id="playPauseIcon">&#10074;&#10074;</span>
+          </button>
+          <input type="range" min="0" max="1" step="0.01" value="1" class="custom-volume" id="volumeSlider" title="Volume">
+          <div id="nowPlaying">
+            Currently playing: <span id="nowPlayingText"></span>
+          </div>
+        </div>
+      `;
+
+      // ensure play button reflects current desired state (fixes missing loading icon)
+      setPlayButtonState(playState);
+      // Prepare streams array (support both array and object)
+      let streams = [];
+      if (Array.isArray(station.streams)) {
+        streams = station.streams;
+      } else if (typeof station.streams === "object") {
+        streams = Object.values(station.streams);
+      }
+      playStreamList(streams, 0);
+      resetScreensaverTimer();
+    }
+
+    function renderStationList() {
+      const stationsListDiv = document.getElementById('stations-list');
+      if (!stationsListDiv) return;
+      stationsListDiv.innerHTML = '';
+
+      Object.keys(stations).forEach(stationId => {
+        const station = stations[stationId];
+        if (selectedCountry && station.country !== selectedCountry) return;
+
+        const stationItem = document.createElement('div');
+        stationItem.className = 'station-item' + (stationId === currentStationId ? ' active' : '');
+        stationItem.style.flexDirection = 'row'; // Make it horizontal
+        stationItem.style.alignItems = 'center';
+        stationItem.style.justifyContent = 'flex-start';
+
+        stationItem.innerHTML = `
+          ${station.image ? `<img class="station-thumb" src="${station.image}" alt="${station.title}" style="width:32px;height:32px;margin-right:12px;">` : `<span style="display:inline-block;width:32px;height:32px;margin-right:12px;"></span>`}
+          <div class="station-name" style="flex:1;text-align:left;">${station.title}</div>
+        `;
+        stationItem.onclick = () => {
+          currentStationId = stationId;
+          // remember last played station
+          try { localStorage.setItem('lastStationId', stationId); } catch (e) {}
+          renderPlayer(stationId);
+          document.querySelectorAll('.station-item').forEach(item => item.classList.remove('active'));
+          stationItem.classList.add('active');
+        };
+        stationsListDiv.appendChild(stationItem);
+      });
+
+      resetScreensaverTimer();
+    }
+
+    // Screensaver logic (no visualizer)
+    let screensaverTimeout;
+    let screensaverActive = false;
+    const screensaver = document.getElementById('screensaver');
+
+    function resetScreensaverTimer() {
+      if (screensaverTimeout) clearTimeout(screensaverTimeout);
+      if (screensaverActive) hideScreensaver();
+      screensaverTimeout = setTimeout(showScreensaver, 30000);
+    }
+
+    function showScreensaver() {
+      screensaver.classList.add('active');
+      screensaverActive = true;
+    }
+
+    function hideScreensaver() {
+      screensaver.classList.remove('active');
+      screensaverActive = false;
+    }
+
+    // Listen for mouse movement, keydown, touchstart to hide screensaver
+    ['mousemove', 'mousedown', 'keydown', 'touchstart'].forEach(evt =>
+      document.addEventListener(evt, () => {
+        if (screensaverActive) hideScreensaver();
+        resetScreensaverTimer();
+      })
+    );
+
+    // Initial load
+    loadStations();
+  </script>
+</body>
+</html>
+
