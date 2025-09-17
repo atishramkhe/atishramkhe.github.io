@@ -819,16 +819,21 @@ function renderSectionsInOrder() {
             dataToRender = newSportsSites;
 
           } else if (section.id === 'francais') {
-            const featuredFrenchNames = ['cinepulse', 'xalaflix', 'cinestream', 'anime-sama', 'oohquelbut'];
+            const featuredFrenchNames = ['cinepulse', 'xalaflix', 'cinestream', 'anime-sama', 'Sadisflix', 'oohquelbut'];
             const newFrenchSites = [];
-            
+
+            // Add featured sites in the specified order
             featuredFrenchNames.forEach(featuredName => {
                 const foundSite = collectedLinks.find(site => site.name === featuredName);
                 if (foundSite) {
                     newFrenchSites.push({ ...foundSite, featured: true });
+                } else if (featuredName === 'Sadisflix') {
+                    // If Sadisflix is missing, add it with the correct URL
+                    newFrenchSites.push({ name: 'Sadisflix', url: 'https://sadisflix.online/', featured: true });
                 }
             });
 
+            // Add the rest of the sites (non-featured)
             collectedLinks.forEach(site => {
                 if (!newFrenchSites.some(s => s.url === site.url)) {
                     newFrenchSites.push(site);
