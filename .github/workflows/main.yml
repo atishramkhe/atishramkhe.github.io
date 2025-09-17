@@ -1,6 +1,6 @@
 name: Scrape and Update Links
 
-  on:
+on:
   schedule:
     - cron: '0 4 * * *' # Runs every day at 4 am UTC
     workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
