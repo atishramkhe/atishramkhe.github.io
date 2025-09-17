@@ -8,6 +8,8 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Grant write permissions to the workflow
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
