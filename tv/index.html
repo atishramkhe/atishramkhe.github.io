@@ -3,21 +3,28 @@
 <head>
 <title>ateaish TV</title>
 <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script type="text/javascript" src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <style>
   html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    box-sizing: border-box;
     font-family: sans-serif;
     background-color: #000;
+    overflow: hidden;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
   #controls {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     padding: 10px;
     box-sizing: border-box;
     background-color: rgba(30, 30, 30, 0.75);
@@ -37,34 +44,60 @@
     border: 1px solid #ccc;
     padding: 5px;
   }
-  #player-iframe {
+  #app-wrapper {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  #player-container {
     position: absolute;
-    top: 0;
+    top: 48px;
     left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 48px);
+    overflow: hidden;
+    z-index: 1;
+  }
+  #player-iframe, #player-video {
     width: 100%;
     height: 100%;
     border: none;
     z-index: 1;
+    background: #000;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  #player-iframe.active, #player-video.active {
+    display: block;
   }
 </style>
 </head>
 <body>
-
-<div id="controls">
-  <label for="channel-select">Channel:</label>
-  <select id="channel-select"></select>
-  <button id="play-pause-btn">Play</button>
-  <button id="mute-unmute-btn">Mute</button>
-  <button id="fullscreen-btn">Fullscreen</button>
-  <button id="switch-server-btn" style="display: none;">Switch Server</button>
+<div id="app-wrapper">
+  <div id="controls">
+    <label for="channel-select">Channel:</label>
+    <select id="channel-select"></select>
+    <button id="play-pause-btn">Play</button>
+    <button id="mute-unmute-btn">Mute</button>
+    <button id="fullscreen-btn">Fullscreen</button>
+    <select id="server-select" style="display:none;"></select>
+    <button id="switch-server-btn" style="display: none;">Switch Source</button>
+  </div>
+  <div id="player-container">
+    <iframe id="player-iframe"></iframe>
+    <video id="player-video" controls></video>
+  </div>
 </div>
-
-<iframe id="player-iframe"></iframe>
-
 <script>
   const controls = document.getElementById('controls');
   const channelSelect = document.getElementById('channel-select');
   const playerIframe = document.getElementById('player-iframe');
+  const playerVideo = document.getElementById('player-video');
   const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
   const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
 
@@ -72,11 +105,15 @@
   const muteUnmuteBtn = document.getElementById('mute-unmute-btn');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const switchServerBtn = document.getElementById('switch-server-btn');
+  const serverSelect = document.getElementById('server-select');
 
   let channels = [];
   let player;
   let currentChannelIndex = 0;
-  let currentSourceType = 'witv';
+  let currentSourceType = '';
+  let currentServerIndex = 0;
+  let m3u8Timeout = null;
+  let m3u8Tried = false;
 
   fetch('channels.json')
     .then(response => response.json())
@@ -85,12 +122,12 @@
       populateChannelSelect();
       channelSelect.value = currentChannelIndex;
       updatePlayer(currentChannelIndex);
-
       player = new playerjs.Player(playerIframe);
       addPlayerListeners();
     });
 
   function populateChannelSelect() {
+    channelSelect.innerHTML = '';
     channels.forEach((channel, index) => {
       const option = document.createElement('option');
       option.value = index;
@@ -99,79 +136,225 @@
     });
   }
 
-  function updatePlayer(channelIndex, sourceType) {
-    currentChannelIndex = channelIndex;
-    const channel = channels[currentChannelIndex];
+  function populateServerSelect(servers) {
+    serverSelect.innerHTML = '';
+    servers.forEach((server, idx) => {
+      const option = document.createElement('option');
+      option.value = idx;
+      option.textContent = 'Server ' + (idx + 1);
+      serverSelect.appendChild(option);
+    });
+    serverSelect.style.display = servers.length > 1 ? 'inline-block' : 'none';
+  }
 
+  function tryNextSource(channelIndex, triedSources) {
+    const channel = channels[channelIndex];
+    const sources = channel.sources || [];
+    // Priority: m3u8, mpd, tutvlive, witv
+    let nextSource = null;
+    if (!triedSources.includes('m3u8')) {
+      nextSource = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
+      if (nextSource) return updatePlayer(channelIndex, 'm3u8', 0, triedSources.concat('m3u8'));
+    }
+    if (!triedSources.includes('mpd')) {
+      nextSource = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
+      if (nextSource) return updatePlayer(channelIndex, 'mpd', 0, triedSources.concat('mpd'));
+    }
+    if (!triedSources.includes('tutvlive')) {
+      nextSource = sources.find(s => s.type === 'tutvlive');
+      if (nextSource) return updatePlayer(channelIndex, 'tutvlive', 0, triedSources.concat('tutvlive'));
+    }
+    if (!triedSources.includes('witv')) {
+      nextSource = sources.find(s => s.type === 'witv');
+      if (nextSource) return updatePlayer(channelIndex, 'witv', 0, triedSources.concat('witv'));
+    }
+    // No more sources
+    alert('No working stream found for this channel.');
+  }
+
+  function updatePlayer(channelIndex, sourceType, serverIdx = 0, triedSources = []) {
+    currentChannelIndex = channelIndex;
+    currentServerIndex = serverIdx;
+    const channel = channels[currentChannelIndex];
     if (!channel || !channel.sources || channel.sources.length === 0) {
       console.error('Invalid channel data:', channel);
       return;
     }
-
-    const tutvliveSource = channel.sources.find(s => s.type === 'tutvlive');
-    const witvSource = channel.sources.find(s => s.type === 'witv');
-
-    let source;
-    if (sourceType) {
-      source = channel.sources.find(s => s.type === sourceType);
-    } else {
-      source = tutvliveSource || witvSource;
+    // Stop and cleanup previous video/iframe
+    if (window.hls) {
+      window.hls.destroy();
+      window.hls = null;
     }
-
+    playerVideo.pause();
+    playerVideo.removeAttribute('src');
+    playerVideo.load();
+    playerVideo.style.display = 'none';
+    playerIframe.src = '';
+    playerIframe.style.display = 'none';
+    serverSelect.style.display = 'none';
+    if (m3u8Timeout) {
+      clearTimeout(m3u8Timeout);
+      m3u8Timeout = null;
+    }
+    const sources = channel.sources;
+    let source = null;
+    if (sourceType) {
+      if (sourceType === 'm3u8') {
+        source = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
+      } else if (sourceType === 'mpd') {
+        source = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
+      } else if (sourceType === 'tutvlive') {
+        source = sources.find(s => s.type === 'tutvlive');
+      } else if (sourceType === 'witv') {
+        source = sources.find(s => s.type === 'witv');
+      }
+    } else {
+      source = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
+        || sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')))
+        || sources.find(s => s.type === 'tutvlive')
+        || sources.find(s => s.type === 'witv');
+      sourceType = source ? source.type : '';
+    }
     if (!source) {
       console.error('No suitable source found for channel:', channel);
       return;
     }
-
-    currentSourceType = source.type;
-
-    let url;
-    if (source.type === 'witv') {
-      url = witvBaseUrl + source.id + '&q=1080';
-    } else if (source.type === 'tutvlive') {
-      const server = source.servers[0]; // For now, just use the first server
-      url = `${tutvliveBaseUrl}${server}/${source.id}`;
+    currentSourceType = sourceType;
+    // Show server select for tutvlive
+    if (sourceType === 'tutvlive' && source.servers && source.servers.length > 1) {
+      populateServerSelect(source.servers);
+      serverSelect.value = serverIdx;
+      serverSelect.style.display = 'inline-block';
+    } else {
+      serverSelect.style.display = 'none';
     }
-
-    if (url) {
+    let url;
+    if (sourceType === 'witv') {
+      url = witvBaseUrl + source.id + '&q=1080';
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
       playerIframe.src = url;
-      // Re-initialize playerjs.Player after iframe src changes
       setTimeout(() => {
         player = new playerjs.Player(playerIframe);
         addPlayerListeners();
-      }, 500); // Delay to allow iframe to load
+        player.play();
+        player.unmute();
+      }, 500);
+    } else if (sourceType === 'tutvlive') {
+      const server = source.servers[serverIdx] || source.servers[0];
+      url = `${tutvliveBaseUrl}${server}/${source.id}`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+        player.play();
+        player.unmute();
+      }, 500);
+    } else if (sourceType === 'm3u8') {
+      url = source.url || source;
+      playerVideo.classList.add('active');
+      playerVideo.style.display = 'block';
+      playerVideo.src = '';
+      let played = false;
+      if (Hls.isSupported()) {
+        if (window.hls) { window.hls.destroy(); }
+        window.hls = new Hls();
+        window.hls.loadSource(url);
+        window.hls.attachMedia(playerVideo);
+        window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          playerVideo.play();
+        });
+        window.hls.on(Hls.Events.ERROR, function(event, data) {
+          if (data.fatal && !m3u8Tried) {
+            m3u8Tried = true;
+            tryNextSource(channelIndex, triedSources.concat('m3u8'));
+          }
+        });
+      } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
+        playerVideo.src = url;
+        playerVideo.addEventListener('loadedmetadata', function() {
+          playerVideo.play();
+        });
+      }
+      // Fallback: if not playing after 10s, try next source
+      m3u8Timeout = setTimeout(() => {
+        if (playerVideo.paused && !m3u8Tried) {
+          m3u8Tried = true;
+          tryNextSource(channelIndex, triedSources.concat('m3u8'));
+        }
+      }, 10000);
+      // Dummy player object for controls compatibility
+      player = {
+        play: () => playerVideo.play(),
+        pause: () => playerVideo.pause(),
+        getPaused: cb => cb(playerVideo.paused),
+        mute: () => { playerVideo.muted = true; },
+        unmute: () => { playerVideo.muted = false; },
+        getMuted: cb => cb(playerVideo.muted)
+      };
+      addPlayerListeners();
+      player.unmute();
+    } else if (sourceType === 'mpd') {
+      url = source.url || source;
+      playerVideo.classList.add('active');
+      playerVideo.style.display = 'block';
+      playerVideo.src = '';
+      if (window.dashjsPlayer) {
+        window.dashjsPlayer.reset();
+        window.dashjsPlayer = null;
+      }
+      window.dashjsPlayer = dashjs.MediaPlayer().create();
+      window.dashjsPlayer.initialize(playerVideo, url, true);
+      // Dummy player object for controls compatibility
+      player = {
+        play: () => playerVideo.play(),
+        pause: () => playerVideo.pause(),
+        getPaused: cb => cb(playerVideo.paused),
+        mute: () => { playerVideo.muted = true; },
+        unmute: () => { playerVideo.muted = false; },
+        getMuted: cb => cb(playerVideo.muted)
+      };
+      addPlayerListeners();
+      player.unmute();
     }
-
-    if (tutvliveSource && witvSource) {
-      switchServerBtn.style.display = 'inline-block';
-    } else {
-      switchServerBtn.style.display = 'none';
-    }
+    // Show switch source if more than one type
+    const hasM3u8 = sources.some(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
+    const hasMpd = sources.some(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
+    const hasTutvlive = sources.some(s => s.type === 'tutvlive');
+    const hasWitv = sources.some(s => s.type === 'witv');
+    let count = [hasM3u8, hasMpd, hasTutvlive, hasWitv].filter(Boolean).length;
+    switchServerBtn.style.display = count > 1 ? 'inline-block' : 'none';
   }
 
-  function addPlayerListeners() {
-    player.on('ready', () => {
-      console.log('Player is ready!');
-      player.play();
-      player.getPaused(paused => { playPauseBtn.textContent = paused ? 'Play' : 'Pause'; });
-      player.getMuted(muted => { muteUnmuteBtn.textContent = muted ? 'Unmute' : 'Mute'; });
-    });
-
-    player.on('play', () => {
-      playPauseBtn.textContent = 'Pause';
-    });
-    player.on('pause', () => { playPauseBtn.textContent = 'Play'; });
-    player.on('buffering', () => { });
-    player.on('buffered', () => { });
-  }
+  serverSelect.addEventListener('change', (event) => {
+    if (currentSourceType === 'tutvlive') {
+      updatePlayer(currentChannelIndex, 'tutvlive', parseInt(event.target.value));
+    }
+  });
 
   channelSelect.addEventListener('change', (event) => {
+    m3u8Tried = false;
     updatePlayer(event.target.value);
   });
 
   switchServerBtn.addEventListener('click', () => {
-    const newSourceType = currentSourceType === 'witv' ? 'tutvlive' : 'witv';
-    updatePlayer(currentChannelIndex, newSourceType);
+    // Switch between available source types in priority order
+    const channel = channels[currentChannelIndex];
+    const sources = channel.sources || [];
+    let nextType = '';
+    if (currentSourceType === 'm3u8') {
+      nextType = sources.find(s => s.type === 'tutvlive') ? 'tutvlive' : (sources.find(s => s.type === 'witv') ? 'witv' : '');
+    } else if (currentSourceType === 'tutvlive') {
+      nextType = sources.find(s => s.type === 'witv') ? 'witv' : (sources.find(s => s.type === 'm3u8') ? 'm3u8' : '');
+    } else if (currentSourceType === 'witv') {
+      nextType = sources.find(s => s.type === 'm3u8') ? 'm3u8' : (sources.find(s => s.type === 'tutvlive') ? 'tutvlive' : '');
+    }
+    if (nextType) {
+      m3u8Tried = false;
+      updatePlayer(currentChannelIndex, nextType);
+    }
   });
 
   playPauseBtn.addEventListener('click', () => {

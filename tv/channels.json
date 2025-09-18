@@ -3,6 +3,7 @@
     "name": "TF1",
     "id_api": "TF1.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -12,9 +13,20 @@
   },
   {
     "name": "France 2",
-    "id_api": "France2.fr",
-    "categories": [],
+    "id_api": "France2.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/France_2_2018.svg/512px-France_2_2018.svg.png",
     "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france2hd/browser-dash/france2hd.mpd"
+      },
+      {
+        "type": "m3u8",
+        "url": "http://69.64.57.208/france2/mono.m3u8"
+      },
       {
         "type": "witv",
         "id": 137
@@ -25,6 +37,7 @@
     "name": "France 3",
     "id_api": "France3.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -36,6 +49,7 @@
     "name": "Canal+",
     "id_api": "CanalPlus.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -54,16 +68,17 @@
     ]
   },
   {
-    "name": "France 5",
-    "id_api": "France5.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
     "name": "M6",
     "id_api": "M6.fr",
-    "categories": [],
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/7GVp3fW.png",
     "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8"
+      },
       {
         "type": "witv",
         "id": 102
@@ -73,11 +88,18 @@
   {
     "name": "Arte",
     "id_api": "Arte.fr",
-    "categories": [],
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/ecXMjNl.png",
     "sources": [
       {
         "type": "witv",
         "id": 234
+      },
+      {
+        "type": "m3u8",
+        "url": "https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8"
       }
     ]
   },
@@ -85,6 +107,7 @@
     "name": "W9",
     "id_api": "W9.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -96,6 +119,7 @@
     "name": "TMC",
     "id_api": "TMC.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -106,34 +130,34 @@
   {
     "name": "TFX",
     "id_api": "NT1.fr",
-    "categories": [],
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/d91GcVf.png",
     "sources": [
       {
         "type": "witv",
         "id": 77
+      },
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/nt1/browser-HLS8/nt1.m3u8"
       }
     ]
-  },
-  {
-    "name": "LCP",
-    "id_api": "LaChaineParlementaire.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
-    "name": "France 4",
-    "id_api": "France4.fr",
-    "categories": [],
-    "sources": []
   },
   {
     "name": "BFM TV",
     "id_api": "BFMTV.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
         "id": 169
+      },
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
       }
     ]
   },
@@ -141,6 +165,7 @@
     "name": "CNews",
     "id_api": "CNews.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -152,6 +177,7 @@
     "name": "CStar",
     "id_api": "CStar.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -163,6 +189,7 @@
     "name": "Gulli",
     "id_api": "Gulli.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -174,6 +201,7 @@
     "name": "TF1 Séries-Films",
     "id_api": "TF1SeriesFilms.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -185,11 +213,8 @@
     "name": "La chaine l'Équipe",
     "id_api": "LEquipe21.fr",
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 113
-      },
       {
         "type": "tutvlive",
         "id": 19,
@@ -199,17 +224,28 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 113
       }
     ]
   },
   {
     "name": "6ter",
-    "id_api": "6ter.fr",
-    "categories": [],
+    "id_api": "6ter.fr@SD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/2nd5Cox.png",
     "sources": [
       {
         "type": "witv",
         "id": 159
+      },
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
       }
     ]
   },
@@ -217,6 +253,7 @@
     "name": "RMC STORY",
     "id_api": "Numero23.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -228,6 +265,7 @@
     "name": "RMC Découverte",
     "id_api": "RMCDecouverte.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -236,15 +274,10 @@
     ]
   },
   {
-    "name": "Chérie 25",
-    "id_api": "Cherie25.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
     "name": "LCI",
     "id_api": "LCI.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -253,26 +286,11 @@
     ]
   },
   {
-    "name": "franceinfo:",
-    "id_api": "FranceInfo.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
-    "name": "Paris Première",
-    "id_api": "ParisPremiere.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
     "name": "Canal+ Sport",
     "id_api": "CanalPlusSport.fr",
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 54
-      },
       {
         "type": "tutvlive",
         "id": 13,
@@ -282,6 +300,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 54
       }
     ]
   },
@@ -289,6 +311,7 @@
     "name": "Canal+ Cinema",
     "id_api": "CanalPlusCinema.fr",
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -297,20 +320,11 @@
     ]
   },
   {
-    "name": "Planete+",
-    "id_api": "PlanetePlus.fr",
-    "categories": [],
-    "sources": []
-  },
-  {
     "name": "RMC Sport 1",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 33
-      },
       {
         "type": "tutvlive",
         "id": 17,
@@ -320,6 +334,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 33
       }
     ]
   },
@@ -327,11 +345,8 @@
     "name": "RMC Sport 2",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 40
-      },
       {
         "type": "tutvlive",
         "id": 18,
@@ -341,17 +356,10 @@
           3,
           4
         ]
-      }
-    ]
-  },
-  {
-    "name": "RMC Sport 3",
-    "id_api": null,
-    "categories": [],
-    "sources": [
+      },
       {
         "type": "witv",
-        "id": 42
+        "id": 40
       }
     ]
   },
@@ -359,11 +367,8 @@
     "name": "Bein Sport 1",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 44
-      },
       {
         "type": "tutvlive",
         "id": 1,
@@ -373,6 +378,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 44
       }
     ]
   },
@@ -380,11 +389,8 @@
     "name": "Bein Sport 2",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 49
-      },
       {
         "type": "tutvlive",
         "id": 2,
@@ -394,6 +400,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 49
       }
     ]
   },
@@ -401,11 +411,8 @@
     "name": "Canal+ Sport 360",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 56
-      },
       {
         "type": "tutvlive",
         "id": 14,
@@ -415,6 +422,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 56
       }
     ]
   },
@@ -422,11 +433,8 @@
     "name": "Eurosport 1",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 59
-      },
       {
         "type": "tutvlive",
         "id": 15,
@@ -436,6 +444,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 59
       }
     ]
   },
@@ -443,11 +455,8 @@
     "name": "Eurosport 2",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 60
-      },
       {
         "type": "tutvlive",
         "id": 16,
@@ -457,6 +466,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 60
       }
     ]
   },
@@ -464,6 +477,7 @@
     "name": "Cartoon Network",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -475,6 +489,7 @@
     "name": "National Geographic",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -486,6 +501,7 @@
     "name": "NAT GEO Wild",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -497,11 +513,8 @@
     "name": "Canal+ Foot",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 88
-      },
       {
         "type": "tutvlive",
         "id": 12,
@@ -511,6 +524,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 88
       }
     ]
   },
@@ -518,6 +535,7 @@
     "name": "Mangas",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -529,6 +547,7 @@
     "name": "Novelas",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -540,6 +559,7 @@
     "name": "GameONE",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -551,6 +571,7 @@
     "name": "NRJ Hits",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -562,6 +583,7 @@
     "name": "M6 Music",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -573,6 +595,7 @@
     "name": "MTV",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -584,6 +607,7 @@
     "name": "Canal+ Séries",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -595,11 +619,8 @@
     "name": "Ligue 1+ DAZN 2",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
-      {
-        "type": "witv",
-        "id": 151
-      },
       {
         "type": "tutvlive",
         "id": 21,
@@ -609,6 +630,10 @@
           3,
           4
         ]
+      },
+      {
+        "type": "witv",
+        "id": 151
       }
     ]
   },
@@ -616,6 +641,7 @@
     "name": "Euronews",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -627,6 +653,7 @@
     "name": "France 24",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -638,6 +665,7 @@
     "name": "JONE",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -649,6 +677,7 @@
     "name": "TIJI",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -660,6 +689,7 @@
     "name": "Nickelodeon",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -671,6 +701,7 @@
     "name": "Canal J",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -682,6 +713,7 @@
     "name": "Boomerang",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -693,6 +725,7 @@
     "name": "Warner Bros TV",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -704,6 +737,7 @@
     "name": "Toute l'histoire",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -715,6 +749,7 @@
     "name": "TLC",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -726,6 +761,7 @@
     "name": "Discovery Channel",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -737,6 +773,7 @@
     "name": "Planête+ Aventure",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -748,6 +785,7 @@
     "name": "Cine+ Premier",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -759,6 +797,7 @@
     "name": "Cine+ Classic",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -770,6 +809,7 @@
     "name": "Cine+ Emotion",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -781,6 +821,7 @@
     "name": "Cine+ Frisson",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -792,6 +833,7 @@
     "name": "Cartoonito",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -803,6 +845,7 @@
     "name": "Disney Channel",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -814,6 +857,7 @@
     "name": "Gong",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -825,6 +869,7 @@
     "name": "Gametoon",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -836,6 +881,7 @@
     "name": "MCM",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -847,6 +893,7 @@
     "name": "Science & Vie TV",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -858,6 +905,7 @@
     "name": "MTV Hits",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -869,6 +917,7 @@
     "name": "Télétoon+",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -880,6 +929,7 @@
     "name": "RTL9",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -889,12 +939,19 @@
   },
   {
     "name": "Animaux",
-    "id_api": null,
-    "categories": [],
+    "id_api": "Animaux.fr@SD",
+    "categories": [
+      "Education"
+    ],
+    "logo": "https://i.imgur.com/FM9FVAG.png",
     "sources": [
       {
         "type": "witv",
         "id": 239
+      },
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/animaux/browser-HLS8/animaux.m3u8"
       }
     ]
   },
@@ -902,6 +959,7 @@
     "name": "13ème Rue",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -913,6 +971,7 @@
     "name": "Paramount",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -924,6 +983,7 @@
     "name": "Seasons",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -935,6 +995,7 @@
     "name": "Sérieclub",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -946,6 +1007,7 @@
     "name": "Warner Bros TV Next",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -957,6 +1019,7 @@
     "name": "RMC Mystère",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -968,6 +1031,7 @@
     "name": "RMC Info Talk Sport",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "witv",
@@ -979,6 +1043,7 @@
     "name": "Bein Sport 3",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -996,6 +1061,7 @@
     "name": "Bein Sport 4",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1013,6 +1079,7 @@
     "name": "Bein Sport 5",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1030,6 +1097,7 @@
     "name": "Bein Sport 6",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1047,6 +1115,7 @@
     "name": "Bein Sport 7",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1064,6 +1133,7 @@
     "name": "Bein Sport 8",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1081,6 +1151,7 @@
     "name": "Bein Sport 9",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1098,6 +1169,7 @@
     "name": "Bein Sport 10",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1115,6 +1187,7 @@
     "name": "Ligue 1+ DAZN 1",
     "id_api": null,
     "categories": [],
+    "logo": null,
     "sources": [
       {
         "type": "tutvlive",
@@ -1125,6 +1198,1778 @@
           3,
           4
         ]
+      }
+    ]
+  },
+  {
+    "name": "20 Minutes TV",
+    "id_api": "20MinutesTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/20_Minutes_TV_IDF_logo_%282023%29.png/320px-20_Minutes_TV_IDF_logo_%282023%29.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-20minutestv.digiteka.com/1961167769/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "AB1",
+    "id_api": "AB1.fr@SD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/9C7UsOe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/ab1/browser-HLS8/ab1.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "ADN TV+",
+    "id_api": "ADNTVPlus.fr@SD",
+    "categories": [
+      "Animation"
+    ],
+    "logo": "https://i.imgur.com/HQZQyWt.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d3b73b34o7cvkq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gz2sgqzp076kf/adn.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Africa 24",
+    "id_api": "Africa24.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.postimg.cc/ZY9Y3vnk/africa24.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Africa 24 Sport",
+    "id_api": "Africa24Sport.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/YWIJdai.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Alpe d’Huez TV",
+    "id_api": "AlpedHuezTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/090tCQ5.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Antenne Réunion",
+    "id_api": "AntenneReunion.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/EPIMMaB.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-antenne-reunion.zeop.tv/live/c3eds/antreunihd/hls_fta/antreunihd.m3u8?location=ZEOP01"
+      }
+    ]
+  },
+  {
+    "name": "Assemblée Nationale",
+    "id_api": "AssembleeNationale.fr",
+    "categories": [
+      "Legislative"
+    ],
+    "logo": "https://i.imgur.com/Eta6gUq.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://anorigin.vodalys.com/live/live36/index36_12856975.m3u8?DVR="
+      }
+    ]
+  },
+  {
+    "name": "Avatar",
+    "id_api": "Avatar.us@France",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://i.imgur.com/2ijwlnR.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60b4c17a81e29300071d3a39/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e05edb7-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=640a4092-5016-4d01-bcbf-d66e4f7aa21d"
+      }
+    ]
+  },
+  {
+    "name": "BBC Drama",
+    "id_api": "BBCDrama.uk@France",
+    "categories": [
+      "Series"
+    ],
+    "logo": "https://i.postimg.cc/dtGKJ8HB/bbcdrama.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60d35a74c63c3c0008df6a90/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e0614c5-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=eff52b4b-c804-4f5a-968a-d48a2898e184"
+      }
+    ]
+  },
+  {
+    "name": "BET CLASSICS Pluto TV",
+    "id_api": "BETClassicsPlutoTV.us@France",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/pyqZgU7.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5f92b5ba040eaa0007074d0a/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e059f90-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=f90dc5f8-5a4a-4bbd-bb99-e092a9625269"
+      }
+    ]
+  },
+  {
+    "name": "BFM2",
+    "id_api": "BFM2.fr@HD",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.postimg.cc/PrbrSsjT/bfm2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM Alsace",
+    "id_api": "BFMAlsace.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/iRsbEpg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_ALSACE/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Business",
+    "id_api": "BFMBusiness.fr",
+    "categories": [
+      "Business",
+      "News"
+    ],
+    "logo": "https://i.imgur.com/psqIHn4.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-stream-euw1.bfmb.bct.nextradiotv.com/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM DICI Alpes du Sud",
+    "id_api": "BFMDICIAlpesduSud.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/bV77l68.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_DICI_ALPESDUSUD/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM DICI Haute-Provence",
+    "id_api": "BFMDICIHauteProvence.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/bV77l68.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_DICI_HAUTEPROVENCE/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Grand Lille",
+    "id_api": "BFMGrandLille.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/HE5xP0r.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFMGRANDLILLE/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Grand Littoral",
+    "id_api": "BFMGrandLittoral.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/j7F9MwH.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFMGRANDLITTORAL/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Lyon",
+    "id_api": "BFMLyon.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/0uiiZRo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmtvlyo-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM Marseille",
+    "id_api": "BFMMarseille.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/h7t0l6q.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_MARSEILLEPROV/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Nice Côte d'Azur",
+    "id_api": "BFMCotedAzur.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/iiVFvIw.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_NICECOTEDAZUR/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Normandie",
+    "id_api": "BFMNormandie.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/WWWQ44G.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_NORMANDIE/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Paris Île-de-France",
+    "id_api": "BFMParisIledeFrance.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/WJuJkag.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_PARIS/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Tech & Co",
+    "id_api": "BFMTechCo.fr",
+    "categories": [
+      "News",
+      "Science"
+    ],
+    "logo": "https://i.imgur.com/FQ0FpXV.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TECHANDCO/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Toulon Var",
+    "id_api": "BFMVar.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/vp1oVj3.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TOULONVAR/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BIP TV",
+    "id_api": "BIPTV.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/YQjm4U5.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://www.biptv.tv/live/biptvstream.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Brionnais TV",
+    "id_api": "BrionnaisTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/y94bhqX.jpg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream2.mandarine.media/brionnaistv/brionnaistv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "C Star",
+    "id_api": "CStar.fr",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/w4kAX1V.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/d17/browser-HLS8/d17.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Caillou",
+    "id_api": "Caillou.fr@SD",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/RgKaoe4.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://do7nccdsswstc.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-1aso0bc668saa/a5233c83-f772-4a81-959a-45ec7877ef61/5.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Canal 32",
+    "id_api": "Canal32.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/lAsE6kN.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://event.vedge.infomaniak.com/livecast/ik:canal32_4/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Canal J HD",
+    "id_api": "CanalJ.fr@HD",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Canal_J_2019_Logo.png/512px-Canal_J_2019_Logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/canalj/browser-HLS8/canalj.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Cannes Lérins TV",
+    "id_api": "CannesLerinsTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/atlgnum.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://vdo2.pro-fhi.net:3628/live/uppodsfqlive.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Carac 5",
+    "id_api": "Carac5.ch@HD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/giDfku4.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/teleswizz/browser-HLS8/teleswizz.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Carac 5 SD",
+    "id_api": "Carac5.ch@SD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/giDfku4.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/teleswizz/browser-dash/teleswizz.mpd"
+      }
+    ]
+  },
+  {
+    "name": "Chérie 25",
+    "id_api": "Cherie25.fr@SD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Logo_Ch%C3%A9rie_25.svg/512px-Logo_Ch%C3%A9rie_25.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cherie25.nrjaudio.fm/hls/live/2038375/c25/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Clubbing TV France",
+    "id_api": "ClubbingTV.us@France",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/MyiA92q.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1j2csarxnwazk.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-uze1m6xh4fiyr-ssai-prd/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "CNews (m3u8)",
+    "id_api": "CNews.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/sSNhk2g.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/LeBazarDeBryan/XTVZ_/main/Stream/Live/CNews.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "DBM TV",
+    "id_api": "DBMTV.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/ab6p2SW.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://dbmtv.vedge.infomaniak.com/livecast/dbmtv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Equidia",
+    "id_api": "Equidia.fr@SD",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/QPpbRcZ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Ère TV",
+    "id_api": "EreTV.fr",
+    "categories": [
+      "Religious"
+    ],
+    "logo": "https://i.imgur.com/utMKPpl.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://mn-nl.mncdn.com/awraastv/awraastv_hd.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Euronews (Pluto)",
+    "id_api": "EuronewsFrench.fr@SD",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/8t9mdg9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60d35bcaf1ff4a00078af0a6/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e0614c6-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=90bc590c-c00a-4ff4-b9e2-ad20ea686992"
+      }
+    ]
+  },
+  {
+    "name": "Euronews French HD",
+    "id_api": "EuronewsFrench.fr@HD",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/8t9mdg9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/euronews/browser-HLS8/euronews.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Fashion TV Paris",
+    "id_api": "FashionTVParis.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Fashion_TV_logo.svg/512px-Fashion_TV_logo.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://fash1043.cloudycdn.services/slive/ftv_paris_adaptive.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Fashion TV PG16",
+    "id_api": "FashionTVPG16.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://i.imgur.com/GFTAN5Q.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://fash1043.cloudycdn.services/slive/ftv_pg16_adaptive.smil/media.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Fashion TV UHD",
+    "id_api": "FashionTVUHD.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://i.imgur.com/vQuyyWO.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://fash2043.cloudycdn.services/slive/ftv_ftv_4k_hevc_73d_42080_default_466_hls.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "France 3 (m3u8)",
+    "id_api": "France3.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france3.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "France 3 HD",
+    "id_api": "France3.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france3hd/browser-dash/france3hd.mpd"
+      }
+    ]
+  },
+  {
+    "name": "France 4 (m3u8)",
+    "id_api": "France4.fr",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france4.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "France 4 HD",
+    "id_api": "France4.fr@HD",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france4hd/browser-dash/france4hd.mpd"
+      }
+    ]
+  },
+  {
+    "name": "France 5 (m3u8)",
+    "id_api": "France5.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://69.64.57.208/france5/mono.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "France 5 HD",
+    "id_api": "France5.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france5hd/browser-dash/france5hd.mpd"
+      }
+    ]
+  },
+  {
+    "name": "France 24 French",
+    "id_api": "France24.fr@French",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/u8N6uoj.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Francophonie",
+    "id_api": "Francophonie24.fr",
+    "categories": [
+      "Documentary"
+    ],
+    "logo": "https://i.imgur.com/uM1v1sd.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://mv2.tvfrancophonie.org/live/Stream1/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Fun Radio",
+    "id_api": "FunRadio.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/wgxuYsQ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://livevideo.infomaniak.com/streaming/livecast/funradiovisionhd/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Generations TV",
+    "id_api": "GenerationsTV.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/NgBrDMe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://event.vedge.infomaniak.com/livecast/ik:generation-tv/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Gulli (SD)",
+    "id_api": "Gulli.fr@SD",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://i.imgur.com/kqYssbW.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/c65696b42ca34e97a9b5f54758d6dd50/cmaf/hlsfmp4_short_q2hyb21h_gulli_sd_index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "HANDICAP TV France",
+    "id_api": "HANDICAPTV.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://i.imgur.com/vXbAeD0.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://srv.webtvmanager.fr:3697/stream/play.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Hélène et les garçons",
+    "id_api": "Heleneetlesgarcons.us@France",
+    "categories": [
+      "Series"
+    ],
+    "logo": "https://i.imgur.com/EjjzjF9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/604f8de01b479400078fb1e7/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e05c6a0-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=081319e1-aad5-46bc-a821-8d7f431286e4"
+      }
+    ]
+  },
+  {
+    "name": "ILTV",
+    "id_api": "ILTV.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/fVhrJHK.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.creacast.com/iltv/smil:iltv.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Inazuma Eleven",
+    "id_api": "InazumaEleven.us@France",
+    "categories": [
+      "Kids",
+      "Series"
+    ],
+    "logo": "https://i.imgur.com/pLv0T3D.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/611e75226b7f420007c3f319/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e063bd2-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=80879397-91d6-4d71-9c36-ad9f3ac25c0e"
+      }
+    ]
+  },
+  {
+    "name": "Instant Saga",
+    "id_api": "InstantSaga.us@France",
+    "categories": [
+      "Series"
+    ],
+    "logo": "https://i.imgur.com/PMpwaQN.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60549e98061b5f000776866a/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e05c6a3-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=16bbfa2e-016b-4b40-921e-897d0f478a5e"
+      }
+    ]
+  },
+  {
+    "name": "Juste pour Rire",
+    "id_api": "JustepourRire.us@France",
+    "categories": [
+      "Comedy"
+    ],
+    "logo": "https://i.imgur.com/m5lO27j.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60afa1508284e60007163c08/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e05edb3-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=a0ee8bde-7a09-45e2-b51d-4cf3012304cd"
+      }
+    ]
+  },
+  {
+    "name": "Kozoom TV",
+    "id_api": "KozoomTV.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/M1Ee79b.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/fdd6f243-f971-4a1a-9510-97ac01d6b37f/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "KTO",
+    "id_api": "KTO.fr",
+    "categories": [
+      "Religious"
+    ],
+    "logo": "https://i.imgur.com/EY6TsdV.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-kto.akamaized.net/hls/live/2033284/KTO/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe",
+    "id_api": "LEquipe.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/t35zhM9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live1",
+    "id_api": "LEquipe.fr@Live1",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/t35zhM9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live2",
+    "id_api": "LEquipe.fr@Live2",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/t35zhM9.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "L'Esprit Sorcier TV",
+    "id_api": "LEspritSorcierTV.fr",
+    "categories": [
+      "Documentary",
+      "Education"
+    ],
+    "logo": "https://i.imgur.com/zyh8yub.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://194270.global.ssl.fastly.net/63b43410861d94a9eee067fb/live_947330308dd911edb85c8181cb9b11a8/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "LCI (m3u8)",
+    "id_api": "LCI.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/DED8EXs.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/btv/py/lci1.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "LCI HD",
+    "id_api": "LCI.fr@HD",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.imgur.com/DED8EXs.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/lci/browser-HLS8/lci.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "LCP",
+    "id_api": "LCP.fr@SD",
+    "categories": [
+      "Legislative"
+    ],
+    "logo": "https://i.imgur.com/k7UImOJ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/lcp/browser-HLS8/lcp.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Le Figaro IDF",
+    "id_api": "LeFigaroTVIledeFrance.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/a8RuRUQ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://figarotv-live.freecaster.com/live/freecaster/figarotv.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Littoral FM",
+    "id_api": "LittoralFMTV.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/DCZKAQ1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.creacast.com/littoralfm-ch1/stream/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "MDL",
+    "id_api": "MDL.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/REN30bx.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://tv.mondeduloisir.fr:1935/tixtv/smil:web.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Monte Carlo Digital Television",
+    "id_api": "MonteCarloDigitalTelevision.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://i.imgur.com/99h8F1y.jpeg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://fl718492-exthls-p1.flovp.com/fl718492/live/live.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Museum TV",
+    "id_api": "MuseumTVFrench.fr",
+    "categories": [
+      "Culture"
+    ],
+    "logo": "https://i.imgur.com/WbjURLo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live2.creacast.com/museum-france/smil:museum-france.smil/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "MyZen TV",
+    "id_api": "MyZenTV.fr",
+    "categories": [
+      "Relax"
+    ],
+    "logo": "https://i.imgur.com/fIi8o0C.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "NLM TV",
+    "id_api": "NLMTV.fr",
+    "categories": [
+      "Religious"
+    ],
+    "logo": "https://i.postimg.cc/7YbGVvr5/nlmtv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ktismaservers.in:3394/stream/play.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "P2M TV",
+    "id_api": "P2MTV.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/TrecSeG.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://vdo2.pro-fhi.net:3207/stream/play.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Puissance TV",
+    "id_api": "PuissanceTV.fr@SD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://pbs.twimg.com/profile_images/1274572654016675842/A6v8Qo_X_400x400.jpg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://event.vedge.infomaniak.com/livecast/ik:puissancetelevision/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Qwest TV Jazz & Beyond",
+    "id_api": "QwestTVJazzBeyond.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/89yWH5L.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/qwestAAAA-qwestjazz-uk-samsungtv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "RMC Découverte (m3u8)",
+    "id_api": "RMCDecouverte.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/fr/thumb/b/b3/RMC_D%C3%A9couverte_logo_2017.svg/langfr-350px-RMC_D%C3%A9couverte_logo_2017.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d2mt8for1pddy4.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-6uronj7gzvy4j/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "RMC Story (m3u8)",
+    "id_api": "RMCStory.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.postimg.cc/MpjZFqGF/rmcstory.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d36bxc1bknkxrk.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-3ewcp19zjaxpt/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "RT France",
+    "id_api": "RTFrance.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/RT-France-logo.svg/512px-RT-France-logo.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://rt-fra.rttv.com/dvr/rtfrance/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "RTL9 (m3u8)",
+    "id_api": "RTL9.lu@SD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/nFqjVNW.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/rtl9/browser-HLS8/rtl9.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Souvenirs from Earth TV",
+    "id_api": "SouvenirsfromEarthTV.de",
+    "categories": [
+      "Culture"
+    ],
+    "logo": "https://i.ibb.co/Qf1Ys8S/SOUVENIRS-FROM-EARTH.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.castr.com/615c867def76d75817460129/live_f3bc1800279a11ec89f80341acd6773a/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Sport En France",
+    "id_api": "SportenFrance.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/1IXQoWq.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://sp1564435593.mytvchain.info/live/sp1564435593/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "T18",
+    "id_api": "T18.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Logo_de_la_chaine_T18.svg/langfr-512px-Logo_de_la_chaine_T18.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/t18/t18-dm.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Tébéo TV",
+    "id_api": "TebeoTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/WdZWBEd.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://start-1.direct.live/hls/tebeo.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TébéSud",
+    "id_api": "TebeSud.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.postimg.cc/sX3jnL1Q/tebesud.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://start-2.direct.live/hls/tebesud.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TéléGohelle",
+    "id_api": "TeleGohelle.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/Oa3Pwbf.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://videas.agglo-lenslievin.fr/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Télénantes",
+    "id_api": "Telenantes.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/G1SCqNI.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/azgaresncf/strm2hls/main/streams/Telenantes.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TF1 HD",
+    "id_api": "TF1.fr@HD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/QxHt9NC.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
+      }
+    ]
+  },
+  {
+    "name": "TF1 Series Films",
+    "id_api": "TF1SeriesFilms.fr@SD",
+    "categories": [
+      "Movies"
+    ],
+    "logo": "https://i.imgur.com/4CJIDKQ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TiVi5 Monde",
+    "id_api": "TiVi5Monde.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.postimg.cc/L8kHKJv7/tivi5monde.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(tivi5)/variant.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TMC HD",
+    "id_api": "TMC.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/TMC_logo.svg/512px-TMC_logo.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TRACE Brazuca",
+    "id_api": "TraceBrazuca.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/DFBocPu.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg01131-tracetv-amg01131c4-stirr-us-4390.playouts.now.amagi.tv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Trace Latina",
+    "id_api": "TraceLatina.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/CUVAi4u.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01131-tracetv-tracelatinait-samsungit/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Trace Sport Stars",
+    "id_api": "TraceSportStars.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "https://i.imgur.com/FabFP5A.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Trace Urban",
+    "id_api": "TraceUrban.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/DLIbUMx.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lightning-traceurban-samsungau.amagi.tv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV3V",
+    "id_api": "TV3V.fr@SD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.ibb.co/X2yd0zL/logo-tv3v.jpg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://tv3v.live-kd.com/live/tv3v/livestream/index.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV5Monde FBS",
+    "id_api": "TV5MondeFranceBelgiumSwitzerlandMonaco.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/WmRbudc.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(fbs)/variant.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV5Monde FBS HD",
+    "id_api": "TV5MondeFranceBelgiumSwitzerlandMonaco.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/WmRbudc.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tv5mondefbs/browser-HLS8/tv5mondefbs.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV5Monde Info",
+    "id_api": "TV5MondeInfo.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "https://i.postimg.cc/zfSny3Qs/tv5mondeinfo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(info)/variant.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV5Monde Style",
+    "id_api": "TV5MondeStyle.fr",
+    "categories": [
+      "Lifestyle"
+    ],
+    "logo": "https://i.imgur.com/cwC7Q2V.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(style1)/variant.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV7 Bordeaux",
+    "id_api": "TV7Bordeaux.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/lJdlu2r.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.digiteka.com/1/RVNZMmJtUURmd09I/U0dNU0tk/hls/live/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV7 Colmar",
+    "id_api": "TV7Colmar.fr@SD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/kSdGi43.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://tv7.live-kd.com/live/tv7/livestream/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV78",
+    "id_api": "TV78.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/stzE1Ij.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streamtv.cdn.dvmr.fr/TV78/ngrp:tv78.stream_all/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV Finance",
+    "id_api": "TVFinance.fr",
+    "categories": [
+      "Business"
+    ],
+    "logo": "https://i.imgur.com/G3qimo4.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://strhlslb01.streamakaci.tv/str_tvfinance_tvfinance/str_tvfinance_multi/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV Monaco",
+    "id_api": "TVMonaco.mc@SD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.postimg.cc/3wfrndKv/tvmonaco.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://production-fast-mcrtv.content.okast.tv/channels/2116dc08-1959-465d-857f-3619daefb66b/b702b2b9-aebd-436c-be69-2118f56f3d86/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV Tarn",
+    "id_api": "TVTarn.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/MJdY1m3.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.creacast.com/albi-tv-ch1/stream/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TV Vendée",
+    "id_api": "TVVendee.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/YW7JKcw.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/azgaresncf/strm2hls/main/streams/TVVendee.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TVR (Bretagne)",
+    "id_api": "TVR.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.postimg.cc/pTftFT18/tvr.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streamtv.cdn.dvmr.fr/TVR/ngrp:tvr.stream_all/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TZiK",
+    "id_api": "TZiK.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "https://i.imgur.com/TAagRkn.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://54627d4fc5996.streamlock.net/tzik/tzik/chunklist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "ViàMatélé",
+    "id_api": "ViaMatele.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/XVCV9rj.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://5dd226f8f01e8.streamlock.net/via-matele-live/matelelive_1080/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "viàMoselleTV",
+    "id_api": "MoselleTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.postimg.cc/8km61C52/moselletv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.creacast.com/mirabelletv/smil:mirabelletv.smil/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "viàOccitanie",
+    "id_api": "ViaOccitanie.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/NzuKt1R.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streamer01.myvideoplace.tv/streamer02/hls/MDS_VIA_PAD_301117.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "viàTéléPaese",
+    "id_api": "viaTelePaese.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/TLZsAKK.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.creacast.com/tvpaese/smil:tvpaese.smil/playlist.m3u8"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://srv.webtvmanager.fr:3970/live/viatelepaeselive.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "W9 (m3u8)",
+    "id_api": "W9.fr",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/8km61C52/moselletv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/LeBazarDeBryan/XTVZ_/main/Stream/Live/W9.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Victorious",
+    "id_api": "Victorious.us@France",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/7fzlbi2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/64bab8830e086a0009d44273/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e06ff27-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=d562924d-7b50-4dfa-bcf9-0cb983d72a29"
+      }
+    ]
+  },
+  {
+    "name": "Vosges Télévision",
+    "id_api": "VosgesTV.fr",
+    "categories": [
+      "Undefined"
+    ],
+    "logo": "https://i.imgur.com/7y7ancc.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://vosgestv.live-kd.com/live/vosgestv/vosgestv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Wéo (Hauts-de-France)",
+    "id_api": "Weo.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/qtpclVj.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.digiteka.com/1/WGQ1NnhEN0lzM0NU/dk1EOHhw/hls/live/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "XilamTV",
+    "id_api": "XilamTV.fr",
+    "categories": [
+      "Animation"
+    ],
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_k6spR1AVLZ0ISqrFP-Z9JeBMHPpAc9T-pmFlG6_lSkNw=s160-c-k-c0x00ffffff-no-rj",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://xilam-animation-1-fr.samsung.wurl.tv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Y'a que la vérité qui compte",
+    "id_api": "Yaquelaveritequicompte.us@France",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/MDHN2Vc.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/612e044c970e6f00083bcf3b/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e063bd6-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=2371cf64-2e91-492c-9f0c-c88a7f973944"
+      }
+    ]
+  },
+  {
+    "name": "Walker Texas Ranger",
+    "id_api": "WalkerTexasRanger.us@France",
+    "categories": [
+      "Series"
+    ],
+    "logo": "https://i.imgur.com/0N7EhuD.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60afa749ac7f3200078adb40/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e05edb4-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=53334da2-2bf6-4492-9d72-20248eaff31c"
+      }
+    ]
+  },
+  {
+    "name": "Wild Side TV",
+    "id_api": "WildSideTV.fr",
+    "categories": [
+      "Movies"
+    ],
+    "logo": "https://i.imgur.com/cQkfRhH.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/60b4d6c806ad2a00073b3108/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e0614c0-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=d329ef28-8c5a-4451-bc8a-ab7d7083f320"
       }
     ]
   }
