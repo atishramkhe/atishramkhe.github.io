@@ -6,14 +6,27 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script type="text/javascript" src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 <style>
+  @font-face {
+    font-family: 'OumaBold';
+    src: url('fonts/OumaTrial-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'OumaLight';
+    src: url('fonts/OumaTrial-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   html, body {
+    font-family: 'OumaLight', sans-serif;
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
     min-height: 100vh;
     box-sizing: border-box;
-    font-family: sans-serif;
     background-color: #000;
     overflow: hidden;
   }
@@ -52,6 +65,7 @@
     padding: 5px;
   }
   #fullscreen-btn {
+    font-family: 'OumaLight', sans-serif;
     margin-left: auto; /* push to right */
     background-color: #000; /* black button */
     color: #fff; /* white text */
@@ -116,6 +130,10 @@
   }
   .channel-item.active {
     background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  h2, #current-channel-name {
+    font-family: 'OumaBold', sans-serif;
   }
 </style>
 </head>
