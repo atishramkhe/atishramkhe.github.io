@@ -6,6 +6,10 @@
     "logo": null,
     "sources": [
       {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
+      },
+      {
         "type": "witv",
         "id": 87
       }
@@ -37,8 +41,16 @@
     "name": "France 3",
     "id_api": "France3.fr",
     "categories": [],
-    "logo": null,
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
     "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france3hd/browser-dash/france3hd.mpd"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france3.m3u8"
+      },
       {
         "type": "witv",
         "id": 138
@@ -46,24 +58,38 @@
     ]
   },
   {
-    "name": "Canal+",
-    "id_api": "CanalPlus.fr",
-    "categories": [],
-    "logo": null,
+    "name": "France 4",
+    "id_api": "France4.fr",
+    "categories": [
+      "Kids"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
     "sources": [
       {
-        "type": "tutvlive",
-        "id": 11,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france4hd/browser-dash/france4hd.mpd"
       },
       {
-        "type": "witv",
-        "id": 106
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france4.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "France 5",
+    "id_api": "France5.fr@HD",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/france5hd/browser-dash/france5hd.mpd"
+      },
+      {
+        "type": "m3u8",
+        "url": "http://69.64.57.208/france5/mono.m3u8"
       }
     ]
   },
@@ -119,8 +145,12 @@
     "name": "TMC",
     "id_api": "TMC.fr",
     "categories": [],
-    "logo": null,
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/TMC_logo.svg/512px-TMC_logo.svg.png",
     "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8"
+      },
       {
         "type": "witv",
         "id": 78
@@ -174,50 +204,14 @@
     ]
   },
   {
-    "name": "CStar",
-    "id_api": "CStar.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "witv",
-        "id": 204
-      }
-    ]
-  },
-  {
-    "name": "Gulli",
-    "id_api": "Gulli.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "witv",
-        "id": 208
-      }
-    ]
-  },
-  {
-    "name": "TF1 Séries-Films",
-    "id_api": "TF1SeriesFilms.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "witv",
-        "id": 154
-      }
-    ]
-  },
-  {
-    "name": "La chaine l'Équipe",
-    "id_api": "LEquipe21.fr",
+    "name": "Canal+",
+    "id_api": "CanalPlus.fr",
     "categories": [],
     "logo": null,
     "sources": [
       {
         "type": "tutvlive",
-        "id": 19,
+        "id": 11,
         "servers": [
           1,
           2,
@@ -227,61 +221,29 @@
       },
       {
         "type": "witv",
-        "id": 113
+        "id": 106
       }
     ]
   },
   {
-    "name": "6ter",
-    "id_api": "6ter.fr@SD",
-    "categories": [
-      "Entertainment"
-    ],
-    "logo": "https://i.imgur.com/2nd5Cox.png",
+    "name": "Canal+ Foot",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
     "sources": [
       {
-        "type": "witv",
-        "id": 159
+        "type": "tutvlive",
+        "id": 12,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
       },
       {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "RMC STORY",
-    "id_api": "Numero23.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
         "type": "witv",
-        "id": 80
-      }
-    ]
-  },
-  {
-    "name": "RMC Découverte",
-    "id_api": "RMCDecouverte.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "witv",
-        "id": 90
-      }
-    ]
-  },
-  {
-    "name": "LCI",
-    "id_api": "LCI.fr",
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "witv",
-        "id": 209
+        "id": 88
       }
     ]
   },
@@ -308,14 +270,93 @@
     ]
   },
   {
-    "name": "Canal+ Cinema",
-    "id_api": "CanalPlusCinema.fr",
+    "name": "Canal+ Sport 360",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 14,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 56
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 15,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 59
+      }
+    ]
+  },
+
+  {
+    "name": "CStar",
+    "id_api": "CStar.fr",
     "categories": [],
     "logo": null,
     "sources": [
       {
         "type": "witv",
-        "id": 139
+        "id": 204
+      }
+    ]
+  },
+  {
+    "name": "Gulli",
+    "id_api": "Gulli.fr",
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "witv",
+        "id": 208
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 16,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 60
       }
     ]
   },
@@ -408,58 +449,176 @@
     ]
   },
   {
-    "name": "Canal+ Sport 360",
+    "name": "Bein Sport 3",
     "id_api": null,
     "categories": [],
     "logo": null,
     "sources": [
       {
         "type": "tutvlive",
-        "id": 14,
+        "id": 3,
         "servers": [
           1,
           2,
           3,
           4
         ]
-      },
-      {
-        "type": "witv",
-        "id": 56
       }
     ]
   },
   {
-    "name": "Eurosport 1",
+    "name": "Bein Sport 4",
     "id_api": null,
     "categories": [],
     "logo": null,
     "sources": [
       {
         "type": "tutvlive",
-        "id": 15,
+        "id": 4,
         "servers": [
           1,
           2,
           3,
           4
         ]
-      },
-      {
-        "type": "witv",
-        "id": 59
       }
     ]
   },
   {
-    "name": "Eurosport 2",
+    "name": "Bein Sport 5",
     "id_api": null,
     "categories": [],
     "logo": null,
     "sources": [
       {
         "type": "tutvlive",
-        "id": 16,
+        "id": 5,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bein Sport 6",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 6,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bein Sport 7",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 7,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bein Sport 8",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 8,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bein Sport 9",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 9,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bein Sport 10",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 10,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 1",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 20,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 2",
+    "id_api": null,
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 21,
         "servers": [
           1,
           2,
@@ -469,7 +628,120 @@
       },
       {
         "type": "witv",
-        "id": 60
+        "id": 151
+      }
+    ]
+  },
+  {
+    "name": "La chaine l'Équipe",
+    "id_api": "LEquipe21.fr",
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 19,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 113
+      }
+    ]
+  },
+  {
+    "name": "TF1 Séries-Films",
+    "id_api": "TF1SeriesFilms.fr",
+    "categories": [],
+    "logo": "https://i.imgur.com/4CJIDKQ.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8"
+      },
+      {
+        "type": "witv",
+        "id": 154
+      }
+    ]
+  },
+  
+  {
+    "name": "6ter",
+    "id_api": "6ter.fr@SD",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "https://i.imgur.com/2nd5Cox.png",
+    "sources": [
+      {
+        "type": "witv",
+        "id": 159
+      },
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "RMC STORY",
+    "id_api": "Numero23.fr",
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "witv",
+        "id": 80
+      }
+    ]
+  },
+  {
+    "name": "RMC Découverte",
+    "id_api": "RMCDecouverte.fr",
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "witv",
+        "id": 90
+      }
+    ]
+  },
+  {
+    "name": "LCI",
+    "id_api": "LCI.fr",
+    "categories": [],
+    "logo": "https://i.imgur.com/DED8EXs.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/lci/browser-HLS8/lci.m3u8"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/btv/py/lci1.m3u8"
+      },
+      {
+        "type": "witv",
+        "id": 209
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Cinema",
+    "id_api": "CanalPlusCinema.fr",
+    "categories": [],
+    "logo": null,
+    "sources": [
+      {
+        "type": "witv",
+        "id": 139
       }
     ]
   },
@@ -506,28 +778,6 @@
       {
         "type": "witv",
         "id": 82
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Foot",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 12,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 88
       }
     ]
   },
@@ -615,28 +865,7 @@
       }
     ]
   },
-  {
-    "name": "Ligue 1+ DAZN 2",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 21,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 151
-      }
-    ]
-  },
+  
   {
     "name": "Euronews",
     "id_api": null,
@@ -701,8 +930,12 @@
     "name": "Canal J",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Canal_J_2019_Logo.png/512px-Canal_J_2019_Logo.png",
     "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/canalj/browser-HLS8/canalj.m3u8"
+      },
       {
         "type": "witv",
         "id": 179
@@ -929,8 +1162,12 @@
     "name": "RTL9",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "https://i.imgur.com/nFqjVNW.png",
     "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/rtl9/browser-HLS8/rtl9.m3u8"
+      },
       {
         "type": "witv",
         "id": 237
@@ -1039,168 +1276,7 @@
       }
     ]
   },
-  {
-    "name": "Bein Sport 3",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 3,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 4",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 4,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 5",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 5,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 6",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 6,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 7",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 7,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 8",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 8,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 9",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 9,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Bein Sport 10",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 10,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Ligue 1+ DAZN 1",
-    "id_api": null,
-    "categories": [],
-    "logo": null,
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 20,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
+  
   {
     "name": "20 Minutes TV",
     "id_api": "20MinutesTV.fr",
@@ -1624,20 +1700,6 @@
     ]
   },
   {
-    "name": "Canal J HD",
-    "id_api": "CanalJ.fr@HD",
-    "categories": [
-      "Kids"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Canal_J_2019_Logo.png/512px-Canal_J_2019_Logo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/canalj/browser-HLS8/canalj.m3u8"
-      }
-    ]
-  },
-  {
     "name": "Cannes Lérins TV",
     "id_api": "CannesLerinsTV.fr",
     "categories": [
@@ -1832,91 +1894,7 @@
         "url": "https://fash2043.cloudycdn.services/slive/ftv_ftv_4k_hevc_73d_42080_default_466_hls.smil/playlist.m3u8"
       }
     ]
-  },
-  {
-    "name": "France 3 (m3u8)",
-    "id_api": "France3.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france3.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "France 3 HD",
-    "id_api": "France3.fr@HD",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
-    "sources": [
-      {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/france3hd/browser-dash/france3hd.mpd"
-      }
-    ]
-  },
-  {
-    "name": "France 4 (m3u8)",
-    "id_api": "France4.fr",
-    "categories": [
-      "Kids"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/francetv/france4.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "France 4 HD",
-    "id_api": "France4.fr@HD",
-    "categories": [
-      "Kids"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
-    "sources": [
-      {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/france4hd/browser-dash/france4hd.mpd"
-      }
-    ]
-  },
-  {
-    "name": "France 5 (m3u8)",
-    "id_api": "France5.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "http://69.64.57.208/france5/mono.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "France 5 HD",
-    "id_api": "France5.fr@HD",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
-    "sources": [
-      {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/france5hd/browser-dash/france5hd.mpd"
-      }
-    ]
-  },
+  },  
   {
     "name": "France 24 French",
     "id_api": "France24.fr@French",
@@ -2158,34 +2136,6 @@
     ]
   },
   {
-    "name": "LCI (m3u8)",
-    "id_api": "LCI.fr",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.imgur.com/DED8EXs.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/btv/py/lci1.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "LCI HD",
-    "id_api": "LCI.fr@HD",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.imgur.com/DED8EXs.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/lci/browser-HLS8/lci.m3u8"
-      }
-    ]
-  },
-  {
     "name": "LCP",
     "id_api": "LCP.fr@SD",
     "categories": [
@@ -2382,20 +2332,6 @@
     ]
   },
   {
-    "name": "RTL9 (m3u8)",
-    "id_api": "RTL9.lu@SD",
-    "categories": [
-      "Entertainment"
-    ],
-    "logo": "https://i.imgur.com/nFqjVNW.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/rtl9/browser-HLS8/rtl9.m3u8"
-      }
-    ]
-  },
-  {
     "name": "Souvenirs from Earth TV",
     "id_api": "SouvenirsfromEarthTV.de",
     "categories": [
@@ -2494,34 +2430,6 @@
     ]
   },
   {
-    "name": "TF1 HD",
-    "id_api": "TF1.fr@HD",
-    "categories": [
-      "Entertainment"
-    ],
-    "logo": "https://i.imgur.com/QxHt9NC.png",
-    "sources": [
-      {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
-      }
-    ]
-  },
-  {
-    "name": "TF1 Series Films",
-    "id_api": "TF1SeriesFilms.fr@SD",
-    "categories": [
-      "Movies"
-    ],
-    "logo": "https://i.imgur.com/4CJIDKQ.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8"
-      }
-    ]
-  },
-  {
     "name": "TiVi5 Monde",
     "id_api": "TiVi5Monde.fr",
     "categories": [
@@ -2532,20 +2440,6 @@
       {
         "type": "m3u8",
         "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(tivi5)/variant.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TMC HD",
-    "id_api": "TMC.fr@HD",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/TMC_logo.svg/512px-TMC_logo.svg.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8"
       }
     ]
   },
