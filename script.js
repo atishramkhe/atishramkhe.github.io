@@ -372,6 +372,7 @@ const SECTIONS = [
 
 // Predefined list of traditional websites
 const TRADITIONAL_WEBSITES = [
+  { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio' },
   { name: 'YouTube', url: 'https://www.youtube.com' },
   { name: 'YouTube Music', url: 'https://music.youtube.com' },
   { name: 'Netflix', url: 'https://www.netflix.com' },
