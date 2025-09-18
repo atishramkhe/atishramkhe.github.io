@@ -10,9 +10,9 @@
       "streams": [
         "https://start-adofm.ice.infomaniak.ch/start-adofm-high.mp3",
         "http://broadcast.infomaniak.ch/start-adofm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/start-adofm/start-adofm-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000000.ico"
@@ -27,9 +27,9 @@
       "streams": [
         "https://african1paris.ice.infomaniak.ch/african1paris-128.mp3",
         "http://broadcast.infomaniak.ch/african1paris-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/african1paris/african1paris-128.mp3/playlist.asx"
       ],
       "image": null
@@ -53,11 +53,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Beur_FM",
       "streams": [
         "http://broadcast.infomaniak.ch/beurfm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.pls",
+        "http://broadcast.infomaniak.ch/beurfm-high.aac",
         "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.asx",
-        "http://broadcast.infomaniak.ch/beurfm-high.aac"
+        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/beurfm/beurfm-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000003.ico"
     },
@@ -104,12 +104,12 @@
       "website": "http://www.chantefrance.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Chante_France",
       "streams": [
-        "https://chantefrance.ice.infomaniak.ch/chantefrance-128.mp3",
-        "https://stream1.chantefrance.com/Chante_France",
         "https://stream2.chantefrance.com/Chante_France",
         "https://stream1.evasionfm.com/Chante_France.m3u",
+        "https://stream1.evasionfm.com/Chante_France-32k.m3u",
         "https://stream1.evasionfm.com/Chante_France-32k",
-        "https://stream1.evasionfm.com/Chante_France-32k.m3u"
+        "https://stream1.chantefrance.com/Chante_France",
+        "https://chantefrance.ice.infomaniak.ch/chantefrance-128.mp3"
       ],
       "image": "station_icons/000007.ico"
     },
@@ -162,8 +162,8 @@
       "website": "http://www.europe1.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Europe_1",
       "streams": [
-        "https://europe1.lmn.fm/europe1.mp3",
         "https://stream.europe1.fr/europe1.mp3",
+        "https://europe1.lmn.fm/europe1.mp3",
         "https://europe1.lmn.fm/europe1.aac",
         "https://stream.europe1.fr/europe1.aac"
       ],
@@ -177,8 +177,8 @@
       "website": "https://www.europe2.fr/",
       "wikipedia": "https://fr.wikipedia.org/wiki/Europe_2",
       "streams": [
-        "https://europe2.lmn.fm/europe2.mp3",
-        "https://europe2.lmn.fm/europe2.aac"
+        "https://europe2.lmn.fm/europe2.aac",
+        "https://europe2.lmn.fm/europe2.mp3"
       ],
       "image": "station_icons/000012.ico"
     },
@@ -200,10 +200,10 @@
       "website": "http://www.fipradio.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/FIP_%28radio%29",
       "streams": [
-        "https://icecast.radiofrance.fr/fip-hifi.aac",
-        "https://direct.fipradio.fr/live/fip-hifi.aac",
         "https://icecast.radiofrance.fr/fip-midfi.mp3",
         "https://direct.fipradio.fr/live/fip-midfi.mp3",
+        "https://icecast.radiofrance.fr/fip-hifi.aac",
+        "https://direct.fipradio.fr/live/fip-hifi.aac",
         "https://icecast.radiofrance.fr/fip-midfi.aac",
         "https://direct.fipradio.fr/live/fip-midfi.aac"
       ],
@@ -218,9 +218,9 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/France_Culture",
       "streams": [
         "https://icecast.radiofrance.fr/franceculture-hifi.aac",
-        "https://direct.franceculture.fr/live/franceculture-hifi.aac",
         "https://icecast.radiofrance.fr/franceculture-midfi.mp3",
         "https://direct.franceculture.fr/live/franceculture-midfi.mp3",
+        "https://direct.franceculture.fr/live/franceculture-hifi.aac",
         "https://icecast.radiofrance.fr/franceculture-midfi.aac",
         "https://direct.franceculture.fr/live/franceculture-midfi.aac"
       ],
@@ -234,12 +234,12 @@
       "website": "http://www.franceinfo.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/France_Info",
       "streams": [
-        "https://icecast.radiofrance.fr/franceinfo-hifi.aac",
         "https://direct.franceinfo.fr/live/franceinfo-hifi.aac",
         "https://icecast.radiofrance.fr/franceinfo-midfi.mp3",
         "https://direct.franceinfo.fr/live/franceinfo-midfi.mp3",
-        "https://icecast.radiofrance.fr/franceinfo-midfi.aac",
-        "https://direct.franceinfo.fr/live/franceinfo-midfi.aac"
+        "https://icecast.radiofrance.fr/franceinfo-hifi.aac",
+        "https://direct.franceinfo.fr/live/franceinfo-midfi.aac",
+        "https://icecast.radiofrance.fr/franceinfo-midfi.aac"
       ],
       "image": "station_icons/000016.png"
     },
@@ -255,8 +255,8 @@
         "https://direct.franceinter.fr/live/franceinter-hifi.aac",
         "https://icecast.radiofrance.fr/franceinter-midfi.mp3",
         "https://direct.franceinter.fr/live/franceinter-midfi.mp3",
-        "https://icecast.radiofrance.fr/franceinter-midfi.aac",
-        "https://direct.franceinter.fr/live/franceinter-midfi.aac"
+        "https://direct.franceinter.fr/live/franceinter-midfi.aac",
+        "https://icecast.radiofrance.fr/franceinter-midfi.aac"
       ],
       "image": "station_icons/000017.png"
     },
@@ -270,9 +270,9 @@
       "streams": [
         "https://francemaghreb2.ice.infomaniak.ch/francemaghreb2-high.mp3",
         "http://broadcast.infomaniak.ch/francemaghreb2-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/francemaghreb2/francemaghreb2-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000018.ico"
@@ -286,11 +286,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/France_Musique",
       "streams": [
         "https://icecast.radiofrance.fr/francemusique-hifi.aac",
-        "https://direct.franceinter.fr/live/francemusique-hifi.aac",
         "https://icecast.radiofrance.fr/francemusique-midfi.mp3",
         "https://direct.francemusique.fr/live/francemusique-midfi.mp3",
-        "https://icecast.radiofrance.fr/francemusique-midfi.aac",
-        "https://direct.francemusique.fr/live/francemusique-midfi.aac"
+        "https://direct.francemusique.fr/live/francemusique-midfi.aac",
+        "https://direct.franceinter.fr/live/francemusique-hifi.aac",
+        "https://icecast.radiofrance.fr/francemusique-midfi.aac"
       ],
       "image": "station_icons/000019.png"
     },
@@ -302,12 +302,12 @@
       "website": "http://www.funradio.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Fun_Radio",
       "streams": [
-        "https://icecast.funradio.fr/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "https://icecast.rtl.fr/fun-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "https://icecast.rtl.fr/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "http://streaming.radio.funradio.fr/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "https://icecast.funradio.fr/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "http://streaming.radio.funradio.fr:80/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "https://icecast.funradio.fr/fun-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "https://icecast.rtl.fr/fun-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg"
+        "http://streaming.radio.funradio.fr/fun-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "https://icecast.funradio.fr/fun-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg"
       ],
       "image": "station_icons/000020.ico"
     },
@@ -321,9 +321,9 @@
       "streams": [
         "https://generationfm.ice.infomaniak.ch/generationfm-high.mp3",
         "http://broadcast.infomaniak.ch/generationfm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/generationfm/generationfm-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000021.ico"
@@ -338,9 +338,9 @@
       "streams": [
         "https://radiosun.ice.infomaniak.ch/radiosun-high.mp3",
         "http://broadcast.infomaniak.ch/radiosun-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radiosun/radiosun-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000022.ico"
@@ -364,11 +364,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Jazz_Radio",
       "streams": [
         "https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.pls",
+        "http://broadcast.infomaniak.ch/jazzradio-high.mp3",
         "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.asx",
-        "http://broadcast.infomaniak.ch/jazzradio-high.mp3"
+        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/jazzradio/jazzradio-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000024.ico"
     },
@@ -394,9 +394,9 @@
       "streams": [
         "https://start-latina.ice.infomaniak.ch/start-latina-high.mp3",
         "http://broadcast.infomaniak.ch/start-latina-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/start-latina/start-latina-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000026.ico"
@@ -411,9 +411,9 @@
       "streams": [
         "https://mfm.ice.infomaniak.ch/mfm-128.mp3",
         "http://broadcast.infomaniak.ch/mfm-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/mfm/mfm-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000027.ico"
@@ -436,12 +436,12 @@
       "website": "http://www.lemouv.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Le_Mouv%27",
       "streams": [
-        "https://icecast.radiofrance.fr/mouv-hifi.aac",
         "https://direct.mouv.fr/live/mouv-hifi.aac",
-        "https://icecast.radiofrance.fr/mouv-midfi.mp3",
+        "https://icecast.radiofrance.fr/mouv-hifi.aac",
         "https://direct.mouv.fr/live/mouv-midfi.mp3",
-        "https://icecast.radiofrance.fr/mouv-midfi.aac",
-        "https://direct.mouv.fr/live/mouv-midfi.aac"
+        "https://icecast.radiofrance.fr/mouv-midfi.mp3",
+        "https://direct.mouv.fr/live/mouv-midfi.aac",
+        "https://icecast.radiofrance.fr/mouv-midfi.aac"
       ],
       "image": "station_icons/000029.png"
     },
@@ -481,9 +481,9 @@
       "streams": [
         "https://ouifm.ice.infomaniak.ch/ouifm-high.mp3",
         "http://broadcast.infomaniak.ch/ouifm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/ouifm/ouifm-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000032.ico"
@@ -497,11 +497,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Phare_FM",
       "streams": [
         "https://str0.creacast.com/pharefm",
-        "https://players.creacast.com/creacast/pharefm/playlist.m3u",
-        "https://players.creacast.com/creacast/pharefm/playlist.pls",
+        "https://players.creacast.com/creacast/pharefm/playlist.smi",
         "https://players.creacast.com/creacast/pharefm/playlist.ram",
-        "https://players.creacast.com/creacast/pharefm/playlist.asx",
-        "https://players.creacast.com/creacast/pharefm/playlist.smi"
+        "https://players.creacast.com/creacast/pharefm/playlist.pls",
+        "https://players.creacast.com/creacast/pharefm/playlist.m3u",
+        "https://players.creacast.com/creacast/pharefm/playlist.asx"
       ],
       "image": "station_icons/000033.png"
     },
@@ -514,11 +514,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_Classique",
       "streams": [
         "http://radioclassique.ice.infomaniak.ch/radioclassique-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.pls",
+        "http://radioclassique.ice.infomaniak.ch/radioclassique-high.aac",
         "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.asx",
-        "http://radioclassique.ice.infomaniak.ch/radioclassique-high.aac"
+        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/radioclassique/radioclassique-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000034.png"
     },
@@ -530,8 +530,8 @@
       "website": "http://www.radiofg.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_FG",
       "streams": [
-        "http://fg.impek.com/listen.pls",
-        "https://radiofg.impek.com/fg64.aac"
+        "https://radiofg.impek.com/fg64.aac",
+        "http://fg.impek.com/listen.pls"
       ],
       "image": "station_icons/000035.ico"
     },
@@ -564,11 +564,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_Nova",
       "streams": [
         "http://radionova.ice.infomaniak.ch/radionova-256.aac",
-        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.pls",
+        "https://novazz.ice.infomaniak.ch/novazz-128.mp3",
         "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.asx",
-        "https://novazz.ice.infomaniak.ch/novazz-128.mp3"
+        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/radionova/radionova-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000038.png"
     },
@@ -580,9 +580,9 @@
       "website": "http://www.novaplanet.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_Nova",
       "streams": [
-        "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/snb/snb-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000039.ico"
@@ -619,12 +619,12 @@
       "website": "http://www.rfi.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_France_internationale",
       "streams": [
-        "http://live02.rfi.fr/rfimonde-96k.mp3",
-        "https://live-reflector.ice.infomaniak.ch/rfimonde-96k.mp3",
         "https://rfimonde64k.ice.infomaniak.ch/rfimonde-96k.mp3",
-        "http://live02.rfi.fr/rfimonde-64.mp3",
+        "https://live-reflector.ice.infomaniak.ch/rfimonde-96k.mp3",
+        "http://live02.rfi.fr/rfimonde-96k.mp3",
+        "https://rfimonde64k.ice.infomaniak.ch/rfimonde-64.mp3",
         "https://live-reflector.ice.infomaniak.ch/rfimonde-64.mp3",
-        "https://rfimonde64k.ice.infomaniak.ch/rfimonde-64.mp3"
+        "http://live02.rfi.fr/rfimonde-64.mp3"
       ],
       "image": "station_icons/000042.ico"
     },
@@ -636,12 +636,12 @@
       "website": "http://www.rfimusique.com/",
       "wikipedia": null,
       "streams": [
+        "http://rfimonde64k.ice.infomaniak.ch/rfimusiquemonde-96k.mp3",
         "http://live02.rfi.fr/rfimusiquemonde-96k.mp3",
         "http://live-reflector.ice.infomaniak.ch/rfimusiquemonde-96k.mp3",
-        "http://rfimonde64k.ice.infomaniak.ch/rfimusiquemonde-96k.mp3",
+        "http://rfimonde64k.ice.infomaniak.ch/rfimusiquemonde-64k.mp3",
         "http://live02.rfi.fr/rfimusiquemonde-64k.mp3",
-        "http://live-reflector.ice.infomaniak.ch/rfimusiquemonde-64k.mp3",
-        "http://rfimonde64k.ice.infomaniak.ch/rfimusiquemonde-64k.mp3"
+        "http://live-reflector.ice.infomaniak.ch/rfimusiquemonde-64k.mp3"
       ],
       "image": "station_icons/000043.ico"
     },
@@ -653,10 +653,10 @@
       "website": "http://www.rfm.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/RFM",
       "streams": [
-        "https://rfm.lmn.fm/rfm.mp3",
-        "https://stream.rfm.fr/rfm.mp3",
+        "https://stream.rfm.fr/rfm.aac",
         "https://rfm.lmn.fm/rfm.aac",
-        "https://stream.rfm.fr/rfm.aac"
+        "https://stream.rfm.fr/rfm.mp3",
+        "https://rfm.lmn.fm/rfm.mp3"
       ],
       "image": "station_icons/000044.png"
     },
@@ -695,11 +695,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/RTL",
       "streams": [
         "https://icecast.rtl.fr/rtl-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "http://streaming.radio.rtl.fr/rtl-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "http://streaming.radio.rtl.fr:80/rtl-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "http://streaming.radio.rtl.fr:80/rtl-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "https://icecast.rtl.fr/rtl-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "http://streaming.radio.rtl.fr/rtl-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "http://streaming.radio.rtl.fr:80/rtl-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg"
+        "http://streaming.radio.rtl.fr/rtl-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "https://icecast.rtl.fr/rtl-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg"
       ],
       "image": "station_icons/000047.ico"
     },
@@ -713,8 +713,8 @@
       "streams": [
         "https://icecast.rtl2.fr/rtl2-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "https://icecast.rtl.fr/rtl2-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
-        "http://streaming.radio.rtl2.fr/rtl2-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "http://streaming.radio.rtl2.fr:80/rtl2-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
+        "http://streaming.radio.rtl2.fr/rtl2-1-44-128?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "https://icecast.rtl2.fr/rtl2-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg",
         "https://icecast.rtl.fr/rtl2-1-44-64?listen=webCwsBCggNCQgLDQUGBAcGBg"
       ],
@@ -728,12 +728,12 @@
       "website": "http://skyrock.fm/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Skyrock",
       "streams": [
+        "https://www.skyrock.fm/stream.php/tunein16_64aac.aac",
         "https://icecast.skyrock.net/s/natio_aac_128k",
-        "https://icecast.skyrock.net/s/natio_mp3_128k",
-        "https://www.skyrock.fm/stream.php/tunein16_128mp3.mp3",
-        "https://icecast.skyrock.net/s/natio_aac_96k",
         "https://icecast.skyrock.net/s/natio_aac_64k",
-        "https://www.skyrock.fm/stream.php/tunein16_64aac.aac"
+        "https://icecast.skyrock.net/s/natio_aac_96k",
+        "https://www.skyrock.fm/stream.php/tunein16_128mp3.mp3",
+        "https://icecast.skyrock.net/s/natio_mp3_128k"
       ],
       "image": "station_icons/000049.ico"
     },
@@ -745,12 +745,12 @@
       "website": "http://www.sudradio.fr",
       "wikipedia": "http://fr.wikipedia.org/wiki/Sud_Radio_%28France%29",
       "streams": [
-        "https://ice.creacast.com/sudradio",
         "https://start-sud.ice.infomaniak.ch/start-sud-high.mp3",
+        "https://ice.creacast.com/sudradio",
         "http://broadcast.infomaniak.ch/start-sud-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-sud/start-sud-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/start-sud/start-sud-high.mp3/playlist.ram",
         "https://statslive.infomaniak.ch/playlist/start-sud/start-sud-high.mp3/playlist.pls",
-        "https://statslive.infomaniak.ch/playlist/start-sud/start-sud-high.mp3/playlist.ram"
+        "https://statslive.infomaniak.ch/playlist/start-sud/start-sud-high.mp3/playlist.m3u"
       ],
       "image": "station_icons/000050.png"
     },
@@ -764,9 +764,9 @@
       "streams": [
         "https://tsfjazz.ice.infomaniak.ch/tsfjazz-high.mp3",
         "http://broadcast.infomaniak.ch/tsfjazz-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/tsfjazz/tsfjazz-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000051.png"
@@ -796,9 +796,9 @@
       "streams": [
         "https://alouette.ice.infomaniak.ch/alouette-high.mp3",
         "http://broadcast.infomaniak.ch/alouette-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/alouette/alouette-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000053.ico"
@@ -1028,9 +1028,9 @@
       "streams": [
         "https://alpes1gap.ice.infomaniak.ch/alpes1gap-high.mp3",
         "http://broadcast.infomaniak.ch/alpes1gap-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/alpes1gap/alpes1gap-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000072.ico"
@@ -1045,9 +1045,9 @@
       "streams": [
         "https://alpes1grenoble.ice.infomaniak.ch/alpes1grenoble-high.mp3",
         "http://broadcast.infomaniak.ch/alpes1grenoble-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/alpes1grenoble/alpes1grenoble-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000073.ico"
@@ -1117,9 +1117,9 @@
       "website": "http://www.azur-fm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Azur_FM",
       "streams": [
-        "http://live.radioking.fr/azur-fm-68",
         "https://www.radioking.com/play/azur-fm-68/112165",
-        "https://listen.radioking.com/radio/74176/stream/112165"
+        "https://listen.radioking.com/radio/74176/stream/112165",
+        "http://live.radioking.fr/azur-fm-68"
       ],
       "image": "station_icons/000079.ico"
     },
@@ -1143,9 +1143,9 @@
       "website": "http://www.azur-fm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Azur_FM",
       "streams": [
-        "http://live.radioking.fr/azur-fm-67",
         "https://www.radioking.com/play/azur-fm-67/112156",
-        "https://listen.radioking.com/radio/74173/stream/112150"
+        "https://listen.radioking.com/radio/74173/stream/112150",
+        "http://live.radioking.fr/azur-fm-67"
       ],
       "image": "station_icons/000081.ico"
     },
@@ -1273,10 +1273,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://chalons.ice.infomaniak.ch/chalons-128.mp3",
-        "http://broadcast.infomaniak.ch/chalons-128.mp3",
         "https://chalons.ice.infomaniak.ch/chalons-64.aac",
-        "http://broadcast.infomaniak.ch/chalons-64.aac"
+        "https://chalons.ice.infomaniak.ch/chalons-128.mp3",
+        "http://broadcast.infomaniak.ch/chalons-64.aac",
+        "http://broadcast.infomaniak.ch/chalons-128.mp3"
       ],
       "image": "station_icons/000092.ico"
     },
@@ -1288,10 +1288,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://chateauthierry.ice.infomaniak.ch/chateauthierry-128.mp3",
-        "http://broadcast.infomaniak.ch/chateauthierry-128.mp3",
         "https://chateauthierry.ice.infomaniak.ch/chateauthierry-64.aac",
-        "http://broadcast.infomaniak.ch/chateauthierry-64.aac"
+        "https://chateauthierry.ice.infomaniak.ch/chateauthierry-128.mp3",
+        "http://broadcast.infomaniak.ch/chateauthierry-64.aac",
+        "http://broadcast.infomaniak.ch/chateauthierry-128.mp3"
       ],
       "image": "station_icons/000093.ico"
     },
@@ -1303,10 +1303,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://charleville.ice.infomaniak.ch/charleville-128.mp3",
-        "http://broadcast.infomaniak.ch/charleville-128.mp3",
         "https://charleville.ice.infomaniak.ch/charleville-64.aac",
-        "http://broadcast.infomaniak.ch/charleville-64.aac"
+        "https://charleville.ice.infomaniak.ch/charleville-128.mp3",
+        "http://broadcast.infomaniak.ch/charleville-64.aac",
+        "http://broadcast.infomaniak.ch/charleville-128.mp3"
       ],
       "image": "station_icons/000094.ico"
     },
@@ -1318,10 +1318,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://epernay.ice.infomaniak.ch/epernay-128.mp3",
-        "http://broadcast.infomaniak.ch/epernay-128.mp3",
         "https://epernay.ice.infomaniak.ch/epernay-64.aac",
-        "http://broadcast.infomaniak.ch/epernay-64.aac"
+        "https://epernay.ice.infomaniak.ch/epernay-128.mp3",
+        "http://broadcast.infomaniak.ch/epernay-64.aac",
+        "http://broadcast.infomaniak.ch/epernay-128.mp3"
       ],
       "image": "station_icons/000095.ico"
     },
@@ -1333,10 +1333,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://reims.ice.infomaniak.ch/reims-128.mp3",
-        "http://broadcast.infomaniak.ch/reims-128.mp3",
         "https://reims.ice.infomaniak.ch/reims-64.aac",
-        "http://broadcast.infomaniak.ch/reims-64.aac"
+        "https://reims.ice.infomaniak.ch/reims-128.mp3",
+        "http://broadcast.infomaniak.ch/reims-64.aac",
+        "http://broadcast.infomaniak.ch/reims-128.mp3"
       ],
       "image": "station_icons/000096.ico"
     },
@@ -1348,10 +1348,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://rethel.ice.infomaniak.ch/rethel-128.mp3",
-        "http://broadcast.infomaniak.ch/rethel-128.mp3",
         "https://rethel.ice.infomaniak.ch/rethel-64.aac",
-        "http://broadcast.infomaniak.ch/rethel-64.aac"
+        "https://rethel.ice.infomaniak.ch/rethel-128.mp3",
+        "http://broadcast.infomaniak.ch/rethel-64.aac",
+        "http://broadcast.infomaniak.ch/rethel-128.mp3"
       ],
       "image": "station_icons/000097.ico"
     },
@@ -1363,10 +1363,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://vitry-stdizier.ice.infomaniak.ch/vitry-stdizier-128.mp3",
-        "http://broadcast.infomaniak.ch/vitry-stdizier-128.mp3",
         "https://vitry-stdizier.ice.infomaniak.ch/vitry-stdizier-64.aac",
-        "http://broadcast.infomaniak.ch/vitry-stdizier-64.aac"
+        "https://vitry-stdizier.ice.infomaniak.ch/vitry-stdizier-128.mp3",
+        "http://broadcast.infomaniak.ch/vitry-stdizier-64.aac",
+        "http://broadcast.infomaniak.ch/vitry-stdizier-128.mp3"
       ],
       "image": "station_icons/000098.ico"
     },
@@ -1378,10 +1378,10 @@
       "website": "http://www.champagnefm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Champagne_FM",
       "streams": [
-        "https://troyes.ice.infomaniak.ch/troyes-128.mp3",
-        "http://broadcast.infomaniak.ch/troyes-128.mp3",
         "https://troyes.ice.infomaniak.ch/troyes-64.aac",
-        "http://broadcast.infomaniak.ch/troyes-64.aac"
+        "https://troyes.ice.infomaniak.ch/troyes-128.mp3",
+        "http://broadcast.infomaniak.ch/troyes-64.aac",
+        "http://broadcast.infomaniak.ch/troyes-128.mp3"
       ],
       "image": "station_icons/000099.ico"
     },
@@ -1497,12 +1497,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion91.ice.infomaniak.ch/evasion91-128.mp3",
-        "https://stream1.evasionfm.com/Essonne",
-        "https://stream1.evasionfm.com/Essonne.m3u",
         "https://stream1.evasionfm.com/Essonne-32k",
-        "https://stream1.evasionfm.com/Essonne-32k.m3u",
-        "https://evasion91.ice.infomaniak.ch/evasion91-96.aac"
+        "https://stream1.evasionfm.com/Essonne",
+        "https://evasion91.ice.infomaniak.ch/evasion91-128.mp3",
+        "https://evasion91.ice.infomaniak.ch/evasion91-96.aac",
+        "https://stream1.evasionfm.com/Essonne.m3u",
+        "https://stream1.evasionfm.com/Essonne-32k.m3u"
       ],
       "image": "station_icons/000110.ico"
     },
@@ -1514,12 +1514,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion77n.ice.infomaniak.ch/evasion77n-128.mp3",
-        "https://stream1.evasionfm.com/Nord77",
-        "https://stream1.evasionfm.com/Nord77.m3u",
         "https://stream1.evasionfm.com/Nord77-32k",
-        "https://stream1.evasionfm.com/Nord77-32k.m3u",
-        "https://evasion77n.ice.infomaniak.ch/evasion77n-96.aac"
+        "https://stream1.evasionfm.com/Nord77",
+        "https://evasion77n.ice.infomaniak.ch/evasion77n-128.mp3",
+        "https://evasion77n.ice.infomaniak.ch/evasion77n-96.aac",
+        "https://stream1.evasionfm.com/Nord77.m3u",
+        "https://stream1.evasionfm.com/Nord77-32k.m3u"
       ],
       "image": "station_icons/000111.ico"
     },
@@ -1531,12 +1531,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion78n.ice.infomaniak.ch/evasion78n-128.mp3",
-        "https://stream1.evasionfm.com/Nord78",
-        "https://stream1.evasionfm.com/Nord78.m3u",
         "https://stream1.evasionfm.com/Nord78-32k",
-        "https://stream1.evasionfm.com/Nord78-32k.m3u",
-        "https://evasion78n.ice.infomaniak.ch/evasion78n-96.aac"
+        "https://stream1.evasionfm.com/Nord78",
+        "https://evasion78n.ice.infomaniak.ch/evasion78n-128.mp3",
+        "https://evasion78n.ice.infomaniak.ch/evasion78n-96.aac",
+        "https://stream1.evasionfm.com/Nord78.m3u",
+        "https://stream1.evasionfm.com/Nord78-32k.m3u"
       ],
       "image": "station_icons/000112.ico"
     },
@@ -1548,12 +1548,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion60e.ice.infomaniak.ch/evasion60e-128.mp3",
-        "https://stream1.evasionfm.com/Oise",
-        "https://stream1.evasionfm.com/Oise.m3u",
         "https://stream1.evasionfm.com/Oise-32k",
-        "https://stream1.evasionfm.com/Oise-32k.m3u",
-        "https://evasion60e.ice.infomaniak.ch/evasion60e-96.aac"
+        "https://stream1.evasionfm.com/Oise",
+        "https://evasion60e.ice.infomaniak.ch/evasion60e-128.mp3",
+        "https://evasion60e.ice.infomaniak.ch/evasion60e-96.aac",
+        "https://stream1.evasionfm.com/Oise.m3u",
+        "https://stream1.evasionfm.com/Oise-32k.m3u"
       ],
       "image": "station_icons/000113.ico"
     },
@@ -1565,11 +1565,11 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion75.ice.infomaniak.ch/evasion75-128.mp3",
-        "https://stream1.evasionfm.com/Paris",
         "https://stream2.evasionfm.com/Paris",
-        "https://stream1.evasionfm.com/Paris.m3u",
         "https://stream1.evasionfm.com/Paris-32k",
+        "https://stream1.evasionfm.com/Paris",
+        "https://evasion75.ice.infomaniak.ch/evasion75-128.mp3",
+        "https://stream1.evasionfm.com/Paris.m3u",
         "https://stream1.evasionfm.com/Paris-32k.m3u"
       ],
       "image": "station_icons/000114.ico"
@@ -1582,12 +1582,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion80.ice.infomaniak.ch/evasion80-128.mp3",
-        "https://stream1.evasionfm.com/Somme",
-        "https://stream1.evasionfm.com/Somme.m3u",
         "https://stream1.evasionfm.com/Somme-32k",
-        "https://stream1.evasionfm.com/Somme-32k.m3u",
-        "https://evasion80.ice.infomaniak.ch/evasion80-96.aac"
+        "https://stream1.evasionfm.com/Somme",
+        "https://evasion80.ice.infomaniak.ch/evasion80-128.mp3",
+        "https://evasion80.ice.infomaniak.ch/evasion80-96.aac",
+        "https://stream1.evasionfm.com/Somme.m3u",
+        "https://stream1.evasionfm.com/Somme-32k.m3u"
       ],
       "image": "station_icons/000115.ico"
     },
@@ -1599,12 +1599,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion77s.ice.infomaniak.ch/evasion77s-128.mp3",
-        "https://stream1.evasionfm.com/Sud77",
-        "https://stream1.evasionfm.com/Sud77.m3u",
         "https://stream1.evasionfm.com/Sud77-32k",
-        "https://stream1.evasionfm.com/Sud77-32k.m3u",
-        "https://evasion77s.ice.infomaniak.ch/evasion77s-96.aac"
+        "https://stream1.evasionfm.com/Sud77",
+        "https://evasion77s.ice.infomaniak.ch/evasion77s-128.mp3",
+        "https://evasion77s.ice.infomaniak.ch/evasion77s-96.aac",
+        "https://stream1.evasionfm.com/Sud77.m3u",
+        "https://stream1.evasionfm.com/Sud77-32k.m3u"
       ],
       "image": "station_icons/000116.ico"
     },
@@ -1616,12 +1616,12 @@
       "website": "http://www.evasionfm.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/%C3%89vasion_FM",
       "streams": [
-        "https://evasion78s.ice.infomaniak.ch/evasion78s-128.mp3",
-        "https://stream1.evasionfm.com/Yvelines",
-        "https://stream1.evasionfm.com/Yvelines.m3u",
         "https://stream1.evasionfm.com/Yvelines-32k",
-        "https://stream1.evasionfm.com/Yvelines-32k.m3u",
-        "https://evasion78s.ice.infomaniak.ch/evasion78s-96.aac"
+        "https://stream1.evasionfm.com/Yvelines",
+        "https://evasion78s.ice.infomaniak.ch/evasion78s-128.mp3",
+        "https://evasion78s.ice.infomaniak.ch/evasion78s-96.aac",
+        "https://stream1.evasionfm.com/Yvelines.m3u",
+        "https://stream1.evasionfm.com/Yvelines-32k.m3u"
       ],
       "image": "station_icons/000117.ico"
     },
@@ -1635,9 +1635,9 @@
       "streams": [
         "https://fcradio.ice.infomaniak.ch/fcradio-128.mp3",
         "http://broadcast.infomaniak.ch/fcradio-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/fcradio/fcradio-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000118.ico"
@@ -1692,9 +1692,9 @@
       "streams": [
         "https://start-forum.ice.infomaniak.ch/start-forum-high.mp3",
         "http://broadcast.infomaniak.ch/start-forum-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/start-forum/start-forum-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000123.ico"
@@ -1707,8 +1707,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-angers.ice.infomaniak.ch/webfor-angers-128.mp3",
-        "https://webfor-angers.ice.infomaniak.ch/webfor-angers-64.aac"
+        "https://webfor-angers.ice.infomaniak.ch/webfor-angers-64.aac",
+        "https://webfor-angers.ice.infomaniak.ch/webfor-angers-128.mp3"
       ],
       "image": "station_icons/000124.ico"
     },
@@ -1720,8 +1720,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-angouleme.ice.infomaniak.ch/webfor-angouleme-128.mp3",
-        "https://webfor-angouleme.ice.infomaniak.ch/webfor-angouleme-64.aac"
+        "https://webfor-angouleme.ice.infomaniak.ch/webfor-angouleme-64.aac",
+        "https://webfor-angouleme.ice.infomaniak.ch/webfor-angouleme-128.mp3"
       ],
       "image": "station_icons/000125.ico"
     },
@@ -1733,8 +1733,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-blois.ice.infomaniak.ch/webfor-blois-128.mp3",
-        "https://webfor-blois.ice.infomaniak.ch/webfor-blois-64.aac"
+        "https://webfor-blois.ice.infomaniak.ch/webfor-blois-64.aac",
+        "https://webfor-blois.ice.infomaniak.ch/webfor-blois-128.mp3"
       ],
       "image": "station_icons/000126.ico"
     },
@@ -1746,8 +1746,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-chateauroux.ice.infomaniak.ch/webfor-chateauroux-128.mp3",
-        "https://webfor-chateauroux.ice.infomaniak.ch/webfor-chateauroux-64.aac"
+        "https://webfor-chateauroux.ice.infomaniak.ch/webfor-chateauroux-64.aac",
+        "https://webfor-chateauroux.ice.infomaniak.ch/webfor-chateauroux-128.mp3"
       ],
       "image": "station_icons/000127.ico"
     },
@@ -1759,8 +1759,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-niort.ice.infomaniak.ch/webfor-niort-128.mp3",
-        "https://webfor-niort.ice.infomaniak.ch/webfor-niort-64.aac"
+        "https://webfor-niort.ice.infomaniak.ch/webfor-niort-64.aac",
+        "https://webfor-niort.ice.infomaniak.ch/webfor-niort-128.mp3"
       ],
       "image": "station_icons/000128.ico"
     },
@@ -1772,8 +1772,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-orleans.ice.infomaniak.ch/webfor-orleans-128.mp3",
-        "https://webfor-orleans.ice.infomaniak.ch/webfor-orleans-64.aac"
+        "https://webfor-orleans.ice.infomaniak.ch/webfor-orleans-64.aac",
+        "https://webfor-orleans.ice.infomaniak.ch/webfor-orleans-128.mp3"
       ],
       "image": "station_icons/000129.ico"
     },
@@ -1785,8 +1785,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-poitiers.ice.infomaniak.ch/webfor-poitiers-128.mp3",
-        "https://webfor-poitiers.ice.infomaniak.ch/webfor-poitiers-64.aac"
+        "https://webfor-poitiers.ice.infomaniak.ch/webfor-poitiers-64.aac",
+        "https://webfor-poitiers.ice.infomaniak.ch/webfor-poitiers-128.mp3"
       ],
       "image": "station_icons/000130.ico"
     },
@@ -1798,8 +1798,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-romorantin.ice.infomaniak.ch/webfor-romorantin-128.mp3",
-        "https://webfor-romorantin.ice.infomaniak.ch/webfor-romorantin-64.aac"
+        "https://webfor-romorantin.ice.infomaniak.ch/webfor-romorantin-64.aac",
+        "https://webfor-romorantin.ice.infomaniak.ch/webfor-romorantin-128.mp3"
       ],
       "image": "station_icons/000131.ico"
     },
@@ -1811,8 +1811,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-tours.ice.infomaniak.ch/webfor-tours-128.mp3",
-        "https://webfor-tours.ice.infomaniak.ch/webfor-tours-64.aac"
+        "https://webfor-tours.ice.infomaniak.ch/webfor-tours-64.aac",
+        "https://webfor-tours.ice.infomaniak.ch/webfor-tours-128.mp3"
       ],
       "image": "station_icons/000132.ico"
     },
@@ -1824,8 +1824,8 @@
       "website": "http://www.forum.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Forum_%28radio%29",
       "streams": [
-        "https://webfor-vendome.ice.infomaniak.ch/webfor-vendome-128.mp3",
-        "https://webfor-vendome.ice.infomaniak.ch/webfor-vendome-64.aac"
+        "https://webfor-vendome.ice.infomaniak.ch/webfor-vendome-64.aac",
+        "https://webfor-vendome.ice.infomaniak.ch/webfor-vendome-128.mp3"
       ],
       "image": "station_icons/000133.ico"
     },
@@ -1852,9 +1852,9 @@
       "streams": [
         "https://freqplus.ice.infomaniak.ch/freqplus-high.mp3",
         "http://broadcast.infomaniak.ch/freqplus-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/freqplus/freqplus-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000135.png"
@@ -1999,9 +1999,9 @@
       "streams": [
         "https://frequenceplus71.ice.infomaniak.ch/frequenceplus71-128.mp3",
         "http://broadcast.infomaniak.ch/frequenceplus71-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/frequenceplus71/frequenceplus71-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000146.png"
@@ -2539,11 +2539,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Kiss_FM_%28Nice%29",
       "streams": [
         "https://kissfmcannes.ice.infomaniak.ch/kissfmcannes-128.mp3",
-        "http://broadcast.infomaniak.ch/kissfmcannes-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.asx"
+        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/kissfmcannes/kissfmcannes-128.mp3/playlist.asx",
+        "http://broadcast.infomaniak.ch/kissfmcannes-128.mp3"
       ],
       "image": "station_icons/000196.png"
     },
@@ -2557,9 +2557,9 @@
       "streams": [
         "https://kissfmvarest.ice.infomaniak.ch/kissfmvarest-128.mp3",
         "https://kissfm2.ice.infomaniak.ch/kissfmvarest-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/kissfmvarest/kissfmvarest-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000197.png"
@@ -2573,11 +2573,11 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Kiss_FM_%28Nice%29",
       "streams": [
         "https://kissfm.ice.infomaniak.ch/kissfm-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.pls",
+        "https://kissfm.ice.infomaniak.ch/kissfm-64.aac",
         "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.asx",
-        "https://kissfm.ice.infomaniak.ch/kissfm-64.aac"
+        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/kissfm/kissfm-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000198.png"
     },
@@ -2590,9 +2590,9 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Kiss_FM_%28Nice%29",
       "streams": [
         "https://kissfm2.ice.infomaniak.ch/kissfm2-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/kissfm2/kissfm2-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000199.png"
@@ -2617,9 +2617,9 @@
       "streams": [
         "https://lalaradio.ice.infomaniak.ch/lalaradio-high.mp3",
         "http://broadcast.infomaniak.ch/lalaradio-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/lalaradio/lalaradio-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000201.ico"
@@ -2634,9 +2634,9 @@
       "streams": [
         "https://laradioplus.ice.infomaniak.ch/laradioplus-high.mp3",
         "http://broadcast.infomaniak.ch/laradioplus-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/laradioplus/laradioplus-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000202.ico"
@@ -2740,11 +2740,11 @@
       "website": "http://www.magnumlaradio.com/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Magnum_la_radio",
       "streams": [
-        "https://str0.creacast.com/magnum",
         "https://str0.creacast.com:80/magnum",
-        "https://players.creacast.com/creacast/magnum/playlist.m3u",
-        "https://players.creacast.com/creacast/magnum/playlist.pls",
+        "https://str0.creacast.com/magnum",
         "https://players.creacast.com/creacast/magnum/playlist.ram",
+        "https://players.creacast.com/creacast/magnum/playlist.pls",
+        "https://players.creacast.com/creacast/magnum/playlist.m3u",
         "https://players.creacast.com/creacast/magnum/playlist.asx"
       ],
       "image": "station_icons/000210.png"
@@ -2873,9 +2873,9 @@
       "streams": [
         "https://mistralfmaubagne.ice.infomaniak.ch/mistralfmaubagne-128.mp3",
         "http://broadcast.infomaniak.ch/mistralfmaubagne-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/mistralfmaubagne/mistralfmaubagne-128.mp3/playlist.asxx"
       ],
       "image": "station_icons/000221.ico"
@@ -2902,11 +2902,11 @@
       "wikipedia": null,
       "streams": [
         "http://mistralfm.ice.infomaniak.ch/mistralfm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.pls",
+        "http://mistralfm.ice.infomaniak.ch/mistralfm-high.aac",
         "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.asx",
-        "http://mistralfm.ice.infomaniak.ch/mistralfm-high.aac"
+        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/mistralfm/mistralfm-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000223.ico"
     },
@@ -2933,9 +2933,9 @@
         "http://montagnealb.ice.infomaniak.ch/montagnealb-128.mp3",
         "https://montagnefm.ice.infomaniak.ch/montagnefm-96.mp3",
         "http://broadcast.infomaniak.ch/montagnefm-96.mp3",
-        "https://statslive.infomaniak.ch/playlist/montagnefm/montagnefm-96.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/montagnefm/montagnefm-96.mp3/playlist.ral",
         "https://statslive.infomaniak.ch/playlist/montagnefm/montagnefm-96.mp3/playlist.pls",
-        "https://statslive.infomaniak.ch/playlist/montagnefm/montagnefm-96.mp3/playlist.ral"
+        "https://statslive.infomaniak.ch/playlist/montagnefm/montagnefm-96.mp3/playlist.m3u"
       ],
       "image": "station_icons/000225.png"
     },
@@ -2948,9 +2948,9 @@
       "wikipedia": null,
       "streams": [
         "http://radiomti.ice.infomaniak.ch/radiomti.mp3",
-        "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radiomti/radiomti.mp3/playlist.asx"
       ],
       "image": "station_icons/000226.ico"
@@ -2963,10 +2963,10 @@
       "website": "http://www.nradio.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/N%27Radio",
       "streams": [
-        "http://nradio.ice.infomaniak.ch/nradio-128.mp3",
-        "http://broadcast.infomaniak.ch/nradio-128.mp3",
         "https://radio.ice.infomaniak.ch/nradio-48aac.aac",
         "http://broadcast.infomaniak.ch/nradio-48aac.aac",
+        "http://nradio.ice.infomaniak.ch/nradio-128.mp3",
+        "http://broadcast.infomaniak.ch/nradio-128.mp3",
         "http://nradio.ice.infomaniak.ch/nradio-32.aac",
         "http://broadcast.infomaniak.ch/nradio-32.aac"
       ],
@@ -2980,12 +2980,12 @@
       "website": "http://www.oceanefm.com/",
       "wikipedia": null,
       "streams": [
-        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.pls",
-        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.ram",
-        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.asx",
+        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-64.aac/playlist.pls",
         "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-64.aac/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-64.aac/playlist.pls"
+        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.m3u",
+        "https://statslive.infomaniak.com/playlist/oceanefm/oceanefm-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000228.ico"
     },
@@ -3192,9 +3192,9 @@
       "streams": [
         "https://ods.ice.infomaniak.ch/ods-high.mp3",
         "http://broadcast.infomaniak.ch/ods-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/ods/ods-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000248.ico"
@@ -3439,9 +3439,9 @@
       "wikipedia": null,
       "streams": [
         "https://pleincoeur.ice.infomaniak.ch/pleincoeur-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/pleincoeur/pleincoeur-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000268.png"
@@ -3454,8 +3454,8 @@
       "website": "http://pyreneesfm.com/",
       "wikipedia": null,
       "streams": [
-        "http://antenne.pyreneesfm.com/direct.mp3",
-        "http://radiomontaillou.com:8000/direct.mp3"
+        "http://radiomontaillou.com:8000/direct.mp3",
+        "http://antenne.pyreneesfm.com/direct.mp3"
       ],
       "image": "station_icons/000269.webp"
     },
@@ -3492,9 +3492,9 @@
       "streams": [
         "https://radio6-boulognesurmer.ice.infomaniak.ch/radio6-boulognesurmer-128.mp3",
         "http://broadcast.infomaniak.ch/radio6-boulognesurmer-128.mp3",
-        "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/radio6-boulognesurmer/radio6-boulognesurmer-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000272.ico"
@@ -3509,9 +3509,9 @@
       "streams": [
         "https://radio6-calais.ice.infomaniak.ch/radio6-calais-128.mp3",
         "http://broadcast.infomaniak.ch/radio6-calais-128.mp3",
-        "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/radio6-calais/radio6-calais-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000273.ico"
@@ -3539,9 +3539,9 @@
       "streams": [
         "https://radio6-dunkerque.ice.infomaniak.ch/radio6-dunkerque-128.mp3",
         "http://broadcast.infomaniak.ch/radio6-dunkerque-128.mp3",
-        "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/radio6-dunkerque/radio6-dunkerque-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000275.ico"
@@ -3579,9 +3579,9 @@
       "streams": [
         "https://radio6-montreuilsurmer.ice.infomaniak.ch/radio6-montreuilsurmer-128.mp3",
         "http://broadcast.infomaniak.ch/radio6-montreuilsurmer-128.mp3",
-        "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/radio6-montreuilsurmer/radio6-montreuilsurmer-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000278.ico"
@@ -3630,9 +3630,9 @@
       "streams": [
         "https://radioespace.ice.infomaniak.ch/radioespace-high.mp3",
         "http://broadcast.infomaniak.ch/radioespace-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radioespace/radioespace-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000282.ico"
@@ -3646,10 +3646,10 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_Esp%C3%A9rance",
       "streams": [
         "https://esperance.streamakaci.com/esperance.mp3",
-        "https://www.streamakaci.com/radios/esperance.asx",
         "https://www.streamakaci.com/radios/esperance.ram",
+        "https://www.streamakaci.com/radios/esperance.pls",
         "https://www.streamakaci.com/radios/esperance.m3u",
-        "https://www.streamakaci.com/radios/esperance.pls"
+        "https://www.streamakaci.com/radios/esperance.asx"
       ],
       "image": "station_icons/000283.png"
     },
@@ -3673,9 +3673,9 @@
       "streams": [
         "https://radioisagrenoble.ice.infomaniak.ch/radioisagrenoble-128.mp3",
         "http://broadcast.infomaniak.ch/radioisagrenoble-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radioisagrenoble/radioisagrenoble-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000285.ico"
@@ -3690,9 +3690,9 @@
       "streams": [
         "https://radioisa.ice.infomaniak.ch/radioisa-128.mp3",
         "http://broadcast.infomaniak.ch/radioisa-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radioisa/radioisa-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000286.ico"
@@ -3707,9 +3707,9 @@
       "streams": [
         "https://radioisapdb.ice.infomaniak.ch/radioisapdb-128.mp3",
         "http://broadcast.infomaniak.ch/radioisapdb-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radioisapdb/radioisapdb-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000287.ico"
@@ -3724,9 +3724,9 @@
       "streams": [
         "https://radioisavoiron.ice.infomaniak.ch/radioisavoiron-128.mp3",
         "http://broadcast.infomaniak.ch/radioisavoiron-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radioisavoiron/radioisavoiron-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000288.ico"
@@ -3753,9 +3753,9 @@
       "streams": [
         "https://radiomenergy.ice.infomaniak.ch/radiomenergy-128.mp3",
         "http://broadcast.infomaniak.ch/radiomenergy-128.mp3",
-        "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/radiomenergy/radiomenergy-128.mp3/playlist.asxx"
       ],
       "image": "station_icons/000290.png"
@@ -3770,9 +3770,9 @@
       "streams": [
         "https://radiono1.ice.infomaniak.ch/radiono1-128.mp3",
         "http://broadcast.infomaniak.ch/radiono1-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radiono1/radiono1-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000291.ico"
@@ -3893,9 +3893,9 @@
       "streams": [
         "https://rva.ice.infomaniak.ch/rva-high.mp3",
         "http://broadcast.infomaniak.ch/rva-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/rva/rva-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000301.ico"
@@ -3933,8 +3933,8 @@
       "streams": [
         "https://radioscoopaubenas.ice.infomaniak.ch/radioscoop-aubenas-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-aubenas-128.mp3",
-        "https://radioscoopaubenas.ice.infomaniak.ch/radioscoop-aubenas-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-aubenas-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-aubenas-64.aac",
+        "https://radioscoopaubenas.ice.infomaniak.ch/radioscoop-aubenas-64.aac"
       ],
       "image": "station_icons/000304.ico"
     },
@@ -3948,8 +3948,8 @@
       "streams": [
         "https://radioscoopbellegarde.ice.infomaniak.ch/radioscoop-bellegarde-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-bellegarde-128.mp3",
-        "https://radioscoopbellegarde.ice.infomaniak.ch/radioscoop-bellegarde-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-bellegarde-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-bellegarde-64.aac",
+        "https://radioscoopbellegarde.ice.infomaniak.ch/radioscoop-bellegarde-64.aac"
       ],
       "image": "station_icons/000305.ico"
     },
@@ -3978,8 +3978,8 @@
       "streams": [
         "https://radioscoopclermont-ferrand.ice.infomaniak.ch/radioscoop-clermont-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-clermont-128.mp3",
-        "https://radioscoopclermont-ferrand.ice.infomaniak.ch/radioscoop-clermont-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-clermont-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-clermont-64.aac",
+        "https://radioscoopclermont-ferrand.ice.infomaniak.ch/radioscoop-clermont-64.aac"
       ],
       "image": "station_icons/000307.ico"
     },
@@ -4006,8 +4006,8 @@
       "streams": [
         "https://radioscooplepuy-en-velay.ice.infomaniak.ch/radioscoop-lepuy-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-lepuy-128.mp3",
-        "https://radioscooplepuy-en-velay.ice.infomaniak.ch/radioscoop-lepuy-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-lepuy-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-lepuy-64.aac",
+        "https://radioscooplepuy-en-velay.ice.infomaniak.ch/radioscoop-lepuy-64.aac"
       ],
       "image": "station_icons/000309.ico"
     },
@@ -4036,8 +4036,8 @@
       "streams": [
         "https://radioscoopmacon.ice.infomaniak.ch/radioscoop-macon-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-macon-128.mp3",
-        "https://radioscoopmacon.ice.infomaniak.ch/radioscoop-macon-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-macon-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-macon-64.aac",
+        "https://radioscoopmacon.ice.infomaniak.ch/radioscoop-macon-64.aac"
       ],
       "image": "station_icons/000311.ico"
     },
@@ -4096,8 +4096,8 @@
       "streams": [
         "https://radioscoopvienne.ice.infomaniak.ch/radioscoop-vienne-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-vienne-128.mp3",
-        "https://radioscoopvienne.ice.infomaniak.ch/radioscoop-vienne-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-vienne-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-vienne-64.aac",
+        "https://radioscoopvienne.ice.infomaniak.ch/radioscoop-vienne-64.aac"
       ],
       "image": "station_icons/000315.ico"
     },
@@ -4111,8 +4111,8 @@
       "streams": [
         "https://radioscoopyssingeaux.ice.infomaniak.ch/radioscoop-yssingeaux-128.mp3",
         "http://broadcast.infomaniak.ch/radioscoop-yssingeaux-128.mp3",
-        "https://radioscoopyssingeaux.ice.infomaniak.ch/radioscoop-yssingeaux-64.aac",
-        "http://broadcast.infomaniak.ch/radioscoop-yssingeaux-64.aac"
+        "http://broadcast.infomaniak.ch/radioscoop-yssingeaux-64.aac",
+        "https://radioscoopyssingeaux.ice.infomaniak.ch/radioscoop-yssingeaux-64.aac"
       ],
       "image": "station_icons/000316.ico"
     },
@@ -4125,9 +4125,9 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Radio_Star_%28Montb%C3%A9liard%29",
       "streams": [
         "https://radiostar.ice.infomaniak.ch/radiostar-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/radiostar/radiostar-128.mp3/playlist.asx"
       ],
       "image": null
@@ -4198,9 +4198,9 @@
       "streams": [
         "https://rajeavignon.ice.infomaniak.ch/rajeavignon-128.mp3",
         "http://broadcast.infomaniak.ch/rajeavignon-128.mp3",
-        "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/rajeavignon/rajeavignon-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000323.png"
@@ -4215,9 +4215,9 @@
       "streams": [
         "https://rajenimes.ice.infomaniak.ch/rajenimes-128.mp3",
         "http://broadcast.infomaniak.ch/rajenimes-128.mp3",
-        "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.pls",
         "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.com/playlist/rajenimes/rajenimes-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000324.png"
@@ -4953,9 +4953,9 @@
       "streams": [
         "https://tonicradiobourgoin.ice.infomaniak.ch/tonicradiobourgoin.mp3",
         "http://broadcast.infomaniak.ch/tonicradiobourgoin.mp3",
-        "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/tonicradiobourgoin/tonicradiobourgoin.mp3/playlist.asx"
       ],
       "image": "station_icons/000390.png"
@@ -5010,9 +5010,9 @@
         "https://tonicradiolyondab.ice.infomaniak.ch/tonicradiolyondab-128.mp3",
         "https://hit-sport.ice.infomaniak.ch/hit-sport-high.mp3",
         "http://broadcast.infomaniak.ch/hit-sport-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/hit-sport/hit-sport-high.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/hit-sport/hit-sport-high.mp3/playlist.ram",
         "https://statslive.infomaniak.ch/playlist/hit-sport/hit-sport-high.mp3/playlist.pls",
-        "https://statslive.infomaniak.ch/playlist/hit-sport/hit-sport-high.mp3/playlist.ram"
+        "https://statslive.infomaniak.ch/playlist/hit-sport/hit-sport-high.mp3/playlist.m3u"
       ],
       "image": "station_icons/000394.png"
     },
@@ -5026,9 +5026,9 @@
       "streams": [
         "https://tonicradiohd.ice.infomaniak.ch/tonicradiohd-128.mp3",
         "http://broadcast.infomaniak.ch/tonicradiohd-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/tonicradiohd/tonicradiohd-128.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/tonicradiohd/tonicradiohd-128.mp3/playlist.ram",
         "https://statslive.infomaniak.ch/playlist/tonicradiohd/tonicradiohd-128.mp3/playlist.pls",
-        "https://statslive.infomaniak.ch/playlist/tonicradiohd/tonicradiohd-128.mp3/playlist.ram"
+        "https://statslive.infomaniak.ch/playlist/tonicradiohd/tonicradiohd-128.mp3/playlist.m3u"
       ],
       "image": "station_icons/000395.png"
     },
@@ -5068,9 +5068,9 @@
       "streams": [
         "https://tonicradiovillefranche.ice.infomaniak.ch/tonicradiovillefranche.mp3",
         "http://broadcast.infomaniak.ch/tonicradiovillefranche.mp3",
-        "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/tonicradiovillefranche/tonicradiovillefranche.mp3/playlist.asx"
       ],
       "image": "station_icons/000398.png"
@@ -5357,9 +5357,9 @@
       "streams": [
         "https://vibration.ice.infomaniak.ch/vibration-high.mp3",
         "http://broadcast.infomaniak.ch/vibration-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/vibration/vibration-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000422.ico"
@@ -5372,8 +5372,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-auxerre.ice.infomaniak.ch/webvib-auxerre-128.mp3",
-        "https://webvib-auxerre.ice.infomaniak.ch/webvib-auxerre-64.aac"
+        "https://webvib-auxerre.ice.infomaniak.ch/webvib-auxerre-64.aac",
+        "https://webvib-auxerre.ice.infomaniak.ch/webvib-auxerre-128.mp3"
       ],
       "image": "station_icons/000423.ico"
     },
@@ -5398,8 +5398,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-bourges.ice.infomaniak.ch/webvib-bourges-128.mp3",
-        "https://webvib-bourges.ice.infomaniak.ch/webvib-bourges-64.aac"
+        "https://webvib-bourges.ice.infomaniak.ch/webvib-bourges-64.aac",
+        "https://webvib-bourges.ice.infomaniak.ch/webvib-bourges-128.mp3"
       ],
       "image": "station_icons/000425.ico"
     },
@@ -5411,8 +5411,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-chateauroux.ice.infomaniak.ch/webvib-chateauroux-128.mp3",
-        "https://webvib-chateauroux.ice.infomaniak.ch/webvib-chateauroux-64.aac"
+        "https://webvib-chateauroux.ice.infomaniak.ch/webvib-chateauroux-64.aac",
+        "https://webvib-chateauroux.ice.infomaniak.ch/webvib-chateauroux-128.mp3"
       ],
       "image": "station_icons/000426.ico"
     },
@@ -5436,8 +5436,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-lemans.ice.infomaniak.ch/webvib-lemans-128.mp3",
-        "https://webvib-lemans.ice.infomaniak.ch/webvib-lemans-64.aac"
+        "https://webvib-lemans.ice.infomaniak.ch/webvib-lemans-64.aac",
+        "https://webvib-lemans.ice.infomaniak.ch/webvib-lemans-128.mp3"
       ],
       "image": "station_icons/000428.ico"
     },
@@ -5449,8 +5449,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-montargis.ice.infomaniak.ch/webvib-montargis-128.mp3",
-        "https://webvib-montargis.ice.infomaniak.ch/webvib-montargis-64.aac"
+        "https://webvib-montargis.ice.infomaniak.ch/webvib-montargis-64.aac",
+        "https://webvib-montargis.ice.infomaniak.ch/webvib-montargis-128.mp3"
       ],
       "image": "station_icons/000429.ico"
     },
@@ -5462,8 +5462,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-nevers.ice.infomaniak.ch/webvib-nevers-128.mp3",
-        "https://webvib-nevers.ice.infomaniak.ch/webvib-nevers-64.aac"
+        "https://webvib-nevers.ice.infomaniak.ch/webvib-nevers-64.aac",
+        "https://webvib-nevers.ice.infomaniak.ch/webvib-nevers-128.mp3"
       ],
       "image": "station_icons/000430.ico"
     },
@@ -5475,8 +5475,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-pithiviers.ice.infomaniak.ch/webvib-pithiviers-128.mp3",
-        "https://webvib-pithiviers.ice.infomaniak.ch/webvib-pithiviers-64.aac"
+        "https://webvib-pithiviers.ice.infomaniak.ch/webvib-pithiviers-64.aac",
+        "https://webvib-pithiviers.ice.infomaniak.ch/webvib-pithiviers-128.mp3"
       ],
       "image": "station_icons/000431.ico"
     },
@@ -5488,8 +5488,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-romorantin.ice.infomaniak.ch/webvib-romorantin-128.mp3",
-        "https://webvib-romorantin.ice.infomaniak.ch/webvib-romorantin-64.aac"
+        "https://webvib-romorantin.ice.infomaniak.ch/webvib-romorantin-64.aac",
+        "https://webvib-romorantin.ice.infomaniak.ch/webvib-romorantin-128.mp3"
       ],
       "image": "station_icons/000432.ico"
     },
@@ -5501,8 +5501,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-tours.ice.infomaniak.ch/webvib-tours-128.mp3",
-        "https://webvib-tours.ice.infomaniak.ch/webvib-tours-64.aac"
+        "https://webvib-tours.ice.infomaniak.ch/webvib-tours-64.aac",
+        "https://webvib-tours.ice.infomaniak.ch/webvib-tours-128.mp3"
       ],
       "image": "station_icons/000433.ico"
     },
@@ -5514,8 +5514,8 @@
       "website": "http://www.vibration.fr/",
       "wikipedia": "http://fr.wikipedia.org/wiki/Vibration_%28radio%29",
       "streams": [
-        "https://webvib-vendome.ice.infomaniak.ch/webvib-vendome-128.mp3",
-        "https://webvib-vendome.ice.infomaniak.ch/webvib-vendome-64.aac"
+        "https://webvib-vendome.ice.infomaniak.ch/webvib-vendome-64.aac",
+        "https://webvib-vendome.ice.infomaniak.ch/webvib-vendome-128.mp3"
       ],
       "image": "station_icons/000434.ico"
     },
@@ -5542,9 +5542,9 @@
       "streams": [
         "https://start-voltage.ice.infomaniak.ch/start-voltage-high.mp3",
         "http://broadcast.infomaniak.ch/start-voltage-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/start-voltage/start-voltage-high.mp3/playlist.asx"
       ],
       "image": "station_icons/000436.ico"
@@ -5559,10 +5559,10 @@
       "streams": [
         "https://start-witfm.ice.infomaniak.ch/start-witfm-high.mp3",
         "http://broadcast.infomaniak.ch/start-witfm-high.mp3",
-        "https://statslive.infomaniak.ch/playlist/start-witfm/start-witfm-high.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/start-witfm/start-witfm-high.mp3/playlist.pls",
+        "https://start-witfm.ice.infomaniak.ch/start-witfm-high.aac",
         "https://statslive.infomaniak.ch/playlist/start-witfm/start-witfm-high.mp3/playlist.ram",
-        "https://start-witfm.ice.infomaniak.ch/start-witfm-high.aac"
+        "https://statslive.infomaniak.ch/playlist/start-witfm/start-witfm-high.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/start-witfm/start-witfm-high.mp3/playlist.m3u"
       ],
       "image": "station_icons/000437.ico"
     },
@@ -5576,8 +5576,8 @@
       "streams": [
         "https://witarcachon.ice.infomaniak.ch/witarcachon.mp3",
         "http://broadcast.infomaniak.ch/witarcachon.mp3",
-        "https://witarcachon.ice.infomaniak.ch/witarcachon.aac",
-        "http://broadcast.infomaniak.ch/witarcachon.aac"
+        "http://broadcast.infomaniak.ch/witarcachon.aac",
+        "https://witarcachon.ice.infomaniak.ch/witarcachon.aac"
       ],
       "image": "station_icons/000438.ico"
     },
@@ -5590,8 +5590,8 @@
       "wikipedia": "http://fr.wikipedia.org/wiki/Wit_FM",
       "streams": [
         "https://witbordeaux.ice.infomaniak.ch/witbordeaux.mp3",
-        "https://witbordeaux.ice.infomaniak.ch/witbordeaux.aac",
-        "http://broadcast.infomaniak.ch/witbordeaux.aac"
+        "http://broadcast.infomaniak.ch/witbordeaux.aac",
+        "https://witbordeaux.ice.infomaniak.ch/witbordeaux.aac"
       ],
       "image": "station_icons/000439.ico"
     },
@@ -5630,9 +5630,9 @@
       "streams": [
         "https://100radio-albi.ice.infomaniak.ch/100radio-albi-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-albi-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-albi/100radio-albi-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000442.ico"
@@ -5647,9 +5647,9 @@
       "streams": [
         "https://100radio-auch.ice.infomaniak.ch/100radio-auch-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-auch-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-auch/100radio-auch-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000443.ico"
@@ -5679,9 +5679,9 @@
       "streams": [
         "https://100radio-carcassonne.ice.infomaniak.ch/100radio-carcassonne-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-carcassonne-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-carcassonne/100radio-carcassonne-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000445.ico"
@@ -5696,9 +5696,9 @@
       "streams": [
         "https://100radio-castres.ice.infomaniak.ch/100radio-castres-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-castres-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-castres/100radio-castres-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000446.ico"
@@ -5713,9 +5713,9 @@
       "streams": [
         "https://100radio-foix.ice.infomaniak.ch/100radio-foix-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-foix-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-foix/100radio-foix-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000447.ico"
@@ -5743,9 +5743,9 @@
       "streams": [
         "https://100radio-montauban.ice.infomaniak.ch/100radio-montauban-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-montauban-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-montauban/100radio-montauban-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000449.ico"
@@ -5759,11 +5759,11 @@
       "wikipedia": null,
       "streams": [
         "https://100radio-pau.ice.infomaniak.ch/100radio-pau-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.pls",
+        "https://100radio-pau.ice.infomaniak.ch/100radio-pau-64.aac",
         "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.ram",
-        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.asx",
-        "https://100radio-pau.ice.infomaniak.ch/100radio-pau-64.aac"
+        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.m3u",
+        "https://statslive.infomaniak.ch/playlist/100radio-pau/100radio-pau-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000450.ico"
     },
@@ -5777,9 +5777,9 @@
       "streams": [
         "https://100radio-perpignan.ice.infomaniak.ch/100radio-perpignan-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-perpignan-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-perpignan/100radio-perpignan-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000451.ico"
@@ -5794,9 +5794,9 @@
       "streams": [
         "https://100radio-stgaudens.ice.infomaniak.ch/100radio-stgaudens-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-stgaudens-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-stgaudens/100radio-stgaudens-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000452.ico"
@@ -5811,9 +5811,9 @@
       "streams": [
         "https://100radio-tarbes.ice.infomaniak.ch/100radio-tarbes-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-tarbes-128.mp3",
-        "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.m3u",
-        "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.pls",
         "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.ram",
+        "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.pls",
+        "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.m3u",
         "https://statslive.infomaniak.ch/playlist/100radio-tarbes/100radio-tarbes-128.mp3/playlist.asx"
       ],
       "image": "station_icons/000453.ico"
@@ -5828,8 +5828,8 @@
       "streams": [
         "https://100radio-toulouse.ice.infomaniak.ch/100radio-toulouse-128.mp3",
         "http://broadcast.infomaniak.ch/100radio-toulouse-128.mp3",
-        "https://100radio-toulouse.ice.infomaniak.ch/100radio-toulouse-64.aac",
-        "http://broadcast.infomaniak.ch/100radio-toulouse-64.aac"
+        "http://broadcast.infomaniak.ch/100radio-toulouse-64.aac",
+        "https://100radio-toulouse.ice.infomaniak.ch/100radio-toulouse-64.aac"
       ],
       "image": "station_icons/000454.ico"
     },
