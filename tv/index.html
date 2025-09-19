@@ -52,7 +52,7 @@
     align-items: center;
     gap: 10px;
     color: white;
-    border-bottom: 2px solid #222;
+    border-bottom: 1px solid #222;
     transition: none;
   }
   #controls.hidden {
@@ -69,13 +69,13 @@
     margin-left: auto; /* push to right */
     background-color: #000; /* black button */
     color: #fff; /* white text */
-    border: 1px solid #444;
+    border: 1px solid #222;
     border-radius: 4px;
     padding: 5px 12px;
     cursor: pointer;
   }
   #fullscreen-btn:hover {
-    background-color: #222;
+    background-color: #96509a;
   }
   #main-layout {
     display: flex;
@@ -114,19 +114,44 @@
   }
   #menu-section {
     width: 30%;
-    padding: 10px;
+    /* padding: 10px; */
     color: white;
     overflow-y: auto;
+    border-left: 1px solid #222;
   }
+
+  /* Custom scrollbar for #menu-section */
+  #menu-section::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+
+  #menu-section::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15); /* transparent white */
+    border-radius: 4px;
+  }
+
+  #menu-section::-webkit-scrollbar-button {
+    display: none; /* hides arrows */
+  }
+
+  /* For Firefox */
+  #menu-section {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+
   .channel-item {
     padding: 10px;
-    border: 1px solid #444;
-    margin: 5px 0;
+    border-top: 1px solid #222;
+    border-right: 1px solid #222;
+    /*border-bottom: 1px solid #222; */
+    /* border-left removed */
     cursor: pointer;
     transition: background-color 0.3s;
   }
   .channel-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #96509a;
   }
   .channel-item.active {
     background-color: rgba(255, 255, 255, 0.2);
@@ -134,6 +159,7 @@
 
   h2, #current-channel-name {
     font-family: 'OumaBold', sans-serif;
+    font-size: 1.2em;
   }
 </style>
 </head>
@@ -162,7 +188,7 @@
       </div>
     </div>
     <div id="menu-section">
-      <h2 style="color:white; margin:10px;">Channels</h2>
+      <h2 style="color:white; margin:15px;">Channels</h2>
       <div id="channel-list"></div>
     </div>
   </div>
