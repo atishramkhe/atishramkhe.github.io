@@ -220,6 +220,7 @@
   const playerVideo = document.getElementById('player-video');
   const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
   const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
+  const directfrBaseUrl = 'https://directfr.lat/player/player.php?id=';
 
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const switchServerBtn = document.getElementById('switch-server-btn');
@@ -271,15 +272,19 @@
   function tryNextSource(channelIndex, triedSources) {
     const channel = channels[channelIndex];
     const sources = channel.sources || [];
-    // Priority: m3u8, mpd, tutvlive, witv
+    // Priority: mpd, m3u8, directfr, tutvlive, witv
     let nextSource = null;
+    if (!triedSources.includes('mpd')) {
+      nextSource = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
+      if (nextSource) return updatePlayer(channelIndex, 'mpd', 0, triedSources.concat('mpd'));
+    }
     if (!triedSources.includes('m3u8')) {
       nextSource = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
       if (nextSource) return updatePlayer(channelIndex, 'm3u8', 0, triedSources.concat('m3u8'));
     }
-    if (!triedSources.includes('mpd')) {
-      nextSource = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
-      if (nextSource) return updatePlayer(channelIndex, 'mpd', 0, triedSources.concat('mpd'));
+    if (!triedSources.includes('directfr')) {
+      nextSource = sources.find(s => s.type === 'directfr');
+      if (nextSource) return updatePlayer(channelIndex, 'directfr', 0, triedSources.concat('directfr'));
     }
     if (!triedSources.includes('tutvlive')) {
       nextSource = sources.find(s => s.type === 'tutvlive');
@@ -296,7 +301,7 @@
   function updatePlayer(channelIndex, sourceType, serverIdx = 0, triedSources = []) {
     currentChannelIndex = channelIndex;
     currentServerIndex = serverIdx;
-    switchServerBtn.style.display = 'none'; // Always hide at start
+    // switchServerBtn.style.display = 'none'; // REMOVE THIS LINE
     const channel = channels[currentChannelIndex];
     // Update channel name in controls bar
     document.getElementById('current-channel-name').textContent = channel ? channel.name : '';
@@ -331,10 +336,14 @@
         source = sources.find(s => s.type === 'tutvlive');
       } else if (sourceType === 'witv') {
         source = sources.find(s => s.type === 'witv');
+      } else if (sourceType === 'directfr') {
+        source = sources.find(s => s.type === 'directfr');
       }
     } else {
-      source = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
-        || sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')))
+      // default selection order: mpd, m3u8, directfr, tutvlive, witv
+      source = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')))
+        || sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
+        || sources.find(s => s.type === 'directfr')
         || sources.find(s => s.type === 'tutvlive')
         || sources.find(s => s.type === 'witv');
       sourceType = source ? source.type : '';
@@ -442,14 +451,20 @@
       };
       addPlayerListeners();
       player.unmute();
+    } else if (sourceType === 'directfr') {
+      url = directfrBaseUrl + source.id;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+        player.play();
+        player.unmute();
+      }, 500);
     }
-    // Show switch source if more than one type
-    const hasM3u8 = sources.some(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
-    const hasMpd = sources.some(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
-    const hasTutvlive = sources.some(s => s.type === 'tutvlive');
-    const hasWitv = sources.some(s => s.type === 'witv');
-    let count = [hasM3u8, hasMpd, hasTutvlive, hasWitv].filter(Boolean).length;
-    switchServerBtn.style.display = count > 1 ? 'inline-block' : 'none';
+    // Show switch source if channel has more than 1 source
+    switchServerBtn.style.display = sources.length > 1 ? 'inline-block' : 'none';
     populateChannelList();
   }
 
@@ -460,20 +475,18 @@
   });
 
   switchServerBtn.addEventListener('click', () => {
-    // Switch between available source types in priority order
+    // Cycle to next available source type using new priority order
     const channel = channels[currentChannelIndex];
     const sources = channel.sources || [];
-    let nextType = '';
-    if (currentSourceType === 'm3u8') {
-      nextType = sources.find(s => s.type === 'tutvlive') ? 'tutvlive' : (sources.find(s => s.type === 'witv') ? 'witv' : '');
-    } else if (currentSourceType === 'tutvlive') {
-      nextType = sources.find(s => s.type === 'witv') ? 'witv' : (sources.find(s => s.type === 'm3u8') ? 'm3u8' : '');
-    } else if (currentSourceType === 'witv') {
-      nextType = sources.find(s => s.type === 'm3u8') ? 'm3u8' : (sources.find(s => s.type === 'tutvlive') ? 'tutvlive' : '');
-    }
-    if (nextType) {
-      m3u8Tried = false;
-      updatePlayer(currentChannelIndex, nextType);
+    const priority = ['mpd', 'm3u8', 'directfr', 'tutvlive', 'witv'];
+    let idx = priority.indexOf(currentSourceType);
+    for (let i = 1; i <= priority.length; i++) {
+      const candidate = priority[(idx + i) % priority.length];
+      if (sources.find(s => s.type === candidate)) {
+        m3u8Tried = false;
+        updatePlayer(currentChannelIndex, candidate);
+        break;
+      }
     }
   });
 
