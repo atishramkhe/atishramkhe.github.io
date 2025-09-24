@@ -216,6 +216,10 @@
       {
         "type": "m3u8",
         "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+      }, 
+      { 
+        "type": "directfr",
+        "id": 89
       }
     ]
   },
@@ -1161,7 +1165,7 @@
     "sources": [
       {
         "type": "directfr",
-        "id": 119
+        "id": 121
       },
       {
         "type": "witv",
@@ -2376,22 +2380,6 @@
       {
         "type": "m3u8",
         "url": "https://live-kto.akamaized.net/hls/live/2033284/KTO/master.m3u8"
-      }
-    ]
-  },
-  
-  {
-    "name": "L'Esprit Sorcier TV",
-    "id_api": "LEspritSorcierTV.fr",
-    "categories": [
-      "Documentary",
-      "Education"
-    ],
-    "logo": "https://i.imgur.com/zyh8yub.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://194270.global.ssl.fastly.net/63b43410861d94a9eee067fb/live_947330308dd911edb85c8181cb9b11a8/index.m3u8"
       }
     ]
   },
