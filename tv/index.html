@@ -128,11 +128,43 @@
     display: block;
   }
   #menu-section {
+    position: relative; /* Needed for overlay positioning */
     width: 30%;
-    /* padding: 10px; */
+    height: 100%; /* <-- Add this */
+    display: flex; /* <-- Add this */
+    flex-direction: column; /* <-- Add this */
     color: white;
     overflow-y: auto;
     border-left: 1px solid #222;
+  }
+
+  /* make menu-content the positioning context for the overlay
+     so the overlay's height follows the whole scrollable content */
+  #menu-content {
+    position: relative;
+    transition: filter 0.5s;
+  }
+
+  /* overlay that covers the entire menu content height (and will scroll with it) */
+  #menu-content .menu-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;                /* match full content height */
+    background: rgba(0,0,0,0.90);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s;
+    z-index: 100;
+  }
+
+  /* show overlay when menu-section has overlay-active */
+  #menu-section.overlay-active #menu-content .menu-overlay {
+    opacity: 1;
+  }
+
+  /* keep greyscale rule intact */
+  #menu-section.overlay-active #menu-content {
+    filter: grayscale(1);
   }
 
   /* Custom scrollbar for #menu-section */
@@ -156,26 +188,67 @@
     scrollbar-color: rgba(255,255,255,0.15) transparent;
   }
 
-  .channel-item {
+  #channel-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
     padding: 10px;
-    border-top: 1px solid #222;
-    border-right: 1px solid #222;
-    /*border-bottom: 1px solid #222; */
-    /* border-left removed */
+  }
+
+  .channel-item {
+    padding: 12px 8px;
+    border: 1px solid #222;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
     cursor: pointer;
-    transition: background-color 0.3s;
+    text-align: center;
+    font-size: 1em;
+    min-height: 120px;           /* Set a fixed minimum height */
+    height: 120px;               /* Set a fixed height for all tiles */
+    display: flex;
+    flex-direction: column;      /* Stack logo and title vertically */
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+    color: #fff;
+    font-family: 'OumaBold', sans-serif;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
   }
   .channel-item:hover {
     background-color: #96509a;
+    color: #fff;
   }
   .channel-item.active {
     background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
   }
 
   h2, #current-channel-name {
     font-family: 'OumaBold', sans-serif;
     font-size: 1.2em;
   }
+
+  .channel-item img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 60px;
+    height: auto;
+    display: block;
+    margin: 0 auto 6px auto;
+    object-fit: contain;
+  }
+
+  body.hide-cursor {
+    cursor: none !important;
+  }
+
+  /* Ensure children (tiles, buttons, svgs, inputs, etc.) also hide the cursor.
+     This overrides .channel-item { cursor: pointer } while hide-cursor is active. */
+  body.hide-cursor,
+  body.hide-cursor * {
+    cursor: none !important;
+  }
+  body.hide-cursor .keep-cursor { cursor: default !important; }
 </style>
 </head>
 <body>
@@ -206,15 +279,18 @@
       </div>
     </div>
     <div id="menu-section">
-      <h2 style="color:white; margin:15px;">Channels</h2>
-      <div id="channel-list"></div>
+      <div id="menu-content">
+        <div class="menu-overlay"></div>
+        <h2 style="color:white; margin:15px;">Channels</h2>
+        <div id="channel-list"></div>
+      </div>
     </div>
   </div>
 </div>
 <script>
   const controls = document.getElementById('controls');
   const playerIframe = document.getElementById('player-iframe');
-  const playerVideo = document.getElementById('player-video');
+  let playerVideo = document.getElementById('player-video');
   const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
   const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
   const directfrBaseUrl = 'https://directfr.lat/player/player.php?id=';
@@ -241,16 +317,62 @@
       addPlayerListeners();
     });
 
+  function sanitizeChannelName(name) {
+    // Remove accents, replace spaces and special chars for file path
+    return name
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+      .replace(/[^a-zA-Z0-9]/g, "_"); // replace non-alphanum with _
+  }
+
   function populateChannelList() {
     const channelList = document.getElementById('channel-list');
     channelList.innerHTML = '';
     channels.forEach((channel, index) => {
       const div = document.createElement('div');
-      div.className = 'channel-item'; // No active highlight
-      div.textContent = channel.name;
+      div.className = 'channel-item';
       div.onclick = () => {
         updatePlayer(index);
       };
+
+      // Determine logo path
+      const logoPath = channel.logo
+        ? channel.logo
+        : `/logos/${sanitizeChannelName(channel.name)}.png`;
+
+      // Only add <img> if logo is present (not null/empty)
+      if (channel.logo || logoPath.endsWith('.png')) {
+        const img = document.createElement('img');
+        img.src = logoPath;
+        img.alt = channel.name + " logo";
+        img.style.maxWidth = "80px";      // Increased width
+        img.style.maxHeight = "60px";     // Optionally increase height
+        img.style.display = "block";
+        img.style.margin = "0 auto 6px auto";
+        img.onerror = function() {
+          this.style.display = "none";
+          // Show name if logo fails to load and title not already present
+          if (!div.querySelector('.channel-title')) {
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = channel.name;
+            nameDiv.className = 'channel-title';
+            nameDiv.style.fontSize = "0.95em";
+            nameDiv.style.wordBreak = "break-word";
+            div.appendChild(nameDiv);
+          }
+        };
+        div.appendChild(img);
+      }
+
+      // If no logo, show title only once
+      if (!channel.logo && (!logoPath || logoPath === '/logos/undefined.png')) {
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = channel.name;
+        nameDiv.className = 'channel-title';
+        nameDiv.style.fontSize = "0.95em";
+        nameDiv.style.wordBreak = "break-word";
+        div.appendChild(nameDiv);
+      }
+
       channelList.appendChild(div);
     });
   }
@@ -295,33 +417,81 @@
     alert('No working stream found for this channel.');
   }
 
+  // --- Helper: Remove all event listeners from playerVideo ---
+  function removeAllVideoListeners() {
+    const oldVideo = document.getElementById('player-video');
+    const clone = oldVideo.cloneNode(true);
+    oldVideo.parentNode.replaceChild(clone, oldVideo);
+    // Update all references
+    window.playerVideo = clone;
+    // Also update the local variable if declared with let/var
+    playerVideo = clone;
+  }
+
+  // --- Helper: Cleanup all players and timeouts ---
+  function cleanupPlayers() {
+    // Destroy HLS
+    if (window.hls) {
+      window.hls.destroy();
+      window.hls = null;
+    }
+    // Destroy DASH
+    if (window.dashjsPlayer) {
+      window.dashjsPlayer.reset();
+      window.dashjsPlayer = null;
+    }
+    // Remove video listeners
+    removeAllVideoListeners();
+    // Pause and reset video
+    playerVideo.pause();
+    playerVideo.removeAttribute('src');
+    playerVideo.load();
+    playerVideo.classList.remove('active');
+    playerVideo.style.display = 'none';
+    // Reset iframe
+    playerIframe.src = '';
+    playerIframe.classList.remove('active');
+    playerIframe.style.display = 'none';
+    // Clear timeouts
+    if (m3u8Timeout) {
+      clearTimeout(m3u8Timeout);
+      m3u8Timeout = null;
+    }
+    m3u8Tried = false;
+  }
+
+  // Add a minimal addPlayerListeners function so calls to it don't error.
+  // This safely wires up basic handlers if the player supports them.
+  function addPlayerListeners() {
+    if (!player) return;
+    try {
+      // playerjs exposes .on; attach lightweight handlers if available
+      if (typeof player.on === 'function') {
+        player.on('ready', () => {});
+        player.on('play', () => {});
+        player.on('pause', () => {});
+        player.on('error', () => {});
+      }
+    } catch (e) {
+      // swallow any errors to avoid breaking player flow
+      console.error('addPlayerListeners error', e);
+    }
+  }
+
+  // --- Main updatePlayer function ---
   function updatePlayer(channelIndex, sourceType, serverIdx = 0, triedSources = []) {
     currentChannelIndex = channelIndex;
     currentServerIndex = serverIdx;
-    // switchServerBtn.style.display = 'none'; // REMOVE THIS LINE
     const channel = channels[currentChannelIndex];
-    // Update channel name in controls bar
     document.getElementById('current-channel-name').textContent = channel ? channel.name : '';
     if (!channel || !channel.sources || channel.sources.length === 0) {
       console.error('Invalid channel data:', channel);
       return;
     }
-    // Stop and cleanup previous video/iframe
-    if (window.hls) {
-      window.hls.destroy();
-      window.hls = null;
-    }
-    playerVideo.pause();
-    playerVideo.removeAttribute('src');
-    playerVideo.load();
-    playerVideo.style.display = 'none';
-    playerIframe.src = '';
-    playerIframe.style.display = 'none';
-    serverSelect.style.display = 'none';
-    if (m3u8Timeout) {
-      clearTimeout(m3u8Timeout);
-      m3u8Timeout = null;
-    }
+
+    // --- CLEANUP PREVIOUS PLAYERS ---
+    cleanupPlayers();
+
     const sources = channel.sources;
     let source = null;
     if (sourceType) {
@@ -337,7 +507,6 @@
         source = sources.find(s => s.type === 'directfr');
       }
     } else {
-      // default selection order: mpd, m3u8, directfr, tutvlive, witv
       source = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')))
         || sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
         || sources.find(s => s.type === 'directfr')
@@ -350,6 +519,7 @@
       return;
     }
     currentSourceType = sourceType;
+
     // Show server select for tutvlive
     if (sourceType === 'tutvlive' && source.servers && source.servers.length > 1) {
       populateServerSelect(source.servers);
@@ -358,6 +528,7 @@
     } else {
       serverSelect.style.display = 'none';
     }
+
     let url;
     if (sourceType === 'witv') {
       url = witvBaseUrl + source.id + '&q=1080';
@@ -386,10 +557,7 @@
       url = source.url || source;
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
-      playerVideo.src = '';
-      let played = false;
       if (Hls.isSupported()) {
-        if (window.hls) { window.hls.destroy(); }
         window.hls = new Hls();
         window.hls.loadSource(url);
         window.hls.attachMedia(playerVideo);
@@ -406,7 +574,7 @@
         playerVideo.src = url;
         playerVideo.addEventListener('loadedmetadata', function() {
           playerVideo.play();
-        });
+        }, { once: true });
       }
       // Fallback: if not playing after 10s, try next source
       m3u8Timeout = setTimeout(() => {
@@ -430,14 +598,15 @@
       url = source.url || source;
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
-      playerVideo.src = '';
-      if (window.dashjsPlayer) {
-        window.dashjsPlayer.reset();
-        window.dashjsPlayer = null;
-      }
       window.dashjsPlayer = dashjs.MediaPlayer().create();
+      window.dashjsPlayer.updateSettings({
+        streaming: {
+          text: {
+            enabled: false
+          }
+        }
+      });
       window.dashjsPlayer.initialize(playerVideo, url, true);
-      // Dummy player object for controls compatibility
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
@@ -488,31 +657,97 @@
   });
 
   fullscreenBtn.addEventListener('click', () => {
-    // Determine which player is visible
+    // Determine which player is visible and request fullscreen accordingly
     if (playerVideo.classList.contains('active') && playerVideo.style.display === 'block') {
-      if (playerVideo.requestFullscreen) playerVideo.requestFullscreen();
-      else if (playerVideo.mozRequestFullScreen) playerVideo.mozRequestFullScreen();
-      else if (playerVideo.webkitRequestFullscreen) playerVideo.webkitRequestFullscreen();
-      else if (playerVideo.msRequestFullscreen) playerVideo.msRequestFullscreen();
+      if (playerVideo.requestFullscreen) {
+        playerVideo.requestFullscreen();
+      } else if (playerVideo.mozRequestFullScreen) {
+        playerVideo.mozRequestFullScreen();
+      } else if (playerVideo.webkitRequestFullscreen) {
+        playerVideo.webkitRequestFullscreen();
+      } else if (playerVideo.msRequestFullscreen) {
+        playerVideo.msRequestFullscreen();
+      }
     } else if (playerIframe.classList.contains('active') && playerIframe.style.display === 'block') {
-      if (playerIframe.requestFullscreen) playerIframe.requestFullscreen();
-      else if (playerIframe.mozRequestFullScreen) playerIframe.mozRequestFullScreen();
-      else if (playerIframe.webkitRequestFullscreen) playerIframe.webkitRequestFullscreen();
-      else if (playerIframe.msRequestFullscreen) playerIframe.msRequestFullscreen();
+      if (playerIframe.requestFullscreen) {
+        playerIframe.requestFullscreen();
+      } else if (playerIframe.mozRequestFullScreen) {
+        playerIframe.mozRequestFullScreen();
+      } else if (playerIframe.webkitRequestFullscreen) {
+        playerIframe.webkitRequestFullscreen();
+      } else if (playerIframe.msRequestFullscreen) {
+        playerIframe.msRequestFullscreen();
+      }
     }
+    // menu-section reference for overlay logic
+    const menuSection = document.getElementById('menu-section');
   });
 
+  // --- Overlay logic for menu-section ---
+  const menuSection = document.getElementById('menu-section');
+  let overlayTimeout;
+
+  function showMenuOverlay() {
+    menuSection.classList.add('overlay-active');
+  }
+  function hideMenuOverlay() {
+    menuSection.classList.remove('overlay-active');
+  }
+  function resetMenuOverlayTimer() {
+    hideMenuOverlay();
+    if (overlayTimeout) clearTimeout(overlayTimeout);
+    overlayTimeout = setTimeout(showMenuOverlay, 5000);
+  }
+
+  // Controls logic
   let hideTimeout;
   function showControls() {
     controls.classList.remove('hidden');
     clearTimeout(hideTimeout);
     hideTimeout = setTimeout(() => {
       controls.classList.add('hidden');
+      showMenuOverlay();
+    }, 5000);
+    hideMenuOverlay();
+  }
+
+  // Mouse cursor hide logic
+  let cursorTimeout;
+
+  // central setter that toggles both the CSS class and explicit element cursor styles
+  function setCursorHidden(hidden) {
+    document.body.classList.toggle('hide-cursor', hidden);
+    const value = hidden ? 'none' : '';
+    // apply explicit cursor style to elements that can otherwise show it (iframe/video/controls/menu)
+    document.body.style.cursor = value;
+    if (playerIframe) playerIframe.style.cursor = value;
+    if (playerVideo) playerVideo.style.cursor = value;
+    if (controls) controls.style.cursor = value;
+    if (menuSection) menuSection.style.cursor = value;
+    // also try the root element
+    document.documentElement.style.cursor = value;
+  }
+
+  function showCursor() {
+    // show immediately and restart hide timer
+    setCursorHidden(false);
+    if (cursorTimeout) clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(() => {
+      setCursorHidden(true);
     }, 5000);
   }
-  document.addEventListener('mousemove', showControls);
-  showControls();
-</script>
 
+  // Listen for mouse movement to reset all timers
+  document.addEventListener('mousemove', () => {
+    resetMenuOverlayTimer();
+    showControls();
+    showCursor();
+  });
+
+  // Start timers on load
+  resetMenuOverlayTimer();
+  showControls();
+  showCursor();
+</script>
 </body>
 </html>

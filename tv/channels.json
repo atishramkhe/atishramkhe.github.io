@@ -3,7 +3,7 @@
     "name": "TF1",
     "id_api": "TF1.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/TF1.png",
     "sources": [
       {
         "type": "mpd",
@@ -25,7 +25,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/France_2_2018.svg/512px-France_2_2018.svg.png",
+    "logo": "logos/France 2.png",
     "sources": [
       {
         "type": "mpd",
@@ -49,7 +49,7 @@
     "name": "France 3",
     "id_api": "France3.fr",
     "categories": [],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/France_3_2018.svg/512px-France_3_2018.svg.png",
+    "logo": "logos/France 3.png",
     "sources": [
       {
         "type": "mpd",
@@ -75,7 +75,7 @@
     "categories": [
       "Kids"
     ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/France_4_2018.svg/512px-France_4_2018.svg.png",
+    "logo": "logos/France 4.png",
     "sources": [
       {
         "type": "mpd",
@@ -93,7 +93,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/France_5_2018.svg/512px-France_5_2018.svg.png",
+    "logo": "logos/France 5.png",
     "sources": [
       {
         "type": "mpd",
@@ -111,7 +111,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/7GVp3fW.png",
+    "logo": "logos/M6.png",
     "sources": [
       {
         "type": "m3u8",
@@ -133,7 +133,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/ecXMjNl.png",
+    "logo": "logos/Arte.png",
     "sources": [
       {
         "type": "witv",
@@ -149,7 +149,7 @@
     "name": "W9",
     "id_api": "W9.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/W9.png",
     "sources": [
       {
         "type": "directfr",
@@ -165,7 +165,7 @@
     "name": "TMC",
     "id_api": "TMC.fr",
     "categories": [],
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/TMC_logo.svg/512px-TMC_logo.svg.png",
+    "logo": "logos/TMC.png",
     "sources": [
       {
         "type": "m3u8",
@@ -187,7 +187,7 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "https://i.imgur.com/d91GcVf.png",
+    "logo": "logos/TFX.png",
     "sources": [
       {
         "type": "directfr",
@@ -207,7 +207,7 @@
     "name": "BFM TV",
     "id_api": "BFMTV.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/BFM TV.png",
     "sources": [
       {
         "type": "witv",
@@ -227,7 +227,7 @@
     "name": "CNews",
     "id_api": "CNews.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/CNews.png",
     "sources": [
       {
         "type": "witv",
@@ -239,7 +239,7 @@
     "name": "Canal+",
     "id_api": "CanalPlus.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+.png",
     "sources": [
       {
         "type": "directfr",
@@ -265,7 +265,7 @@
     "name": "Canal+ Foot",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+ Foot.png",
     "sources": [
       {
         "type": "directfr",
@@ -291,7 +291,7 @@
     "name": "Canal+ Sport",
     "id_api": "CanalPlusSport.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+ Sport.png",
     "sources": [
       {
         "type": "directfr",
@@ -317,7 +317,7 @@
     "name": "Canal+ Sport 360",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+ Sport 360.png",
     "sources": [
       {
         "type": "directfr",
@@ -343,7 +343,7 @@
     "name": "Eurosport 1",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Eurosport 1.png",
     "sources": [
       {
         "type": "directfr",
@@ -369,7 +369,7 @@
     "name": "Eurosport 2",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Eurosport 2.png",
     "sources": [
       {
         "type": "directfr",
@@ -395,7 +395,7 @@
     "name": "RMC Sport 1",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Sport 1.png",
     "sources": [
       {
         "type": "directfr",
@@ -421,7 +421,7 @@
     "name": "RMC Sport 2",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Sport 2.png",
     "sources": [
       {
         "type": "directfr",
@@ -447,7 +447,7 @@
     "name": "RMC Sport 3",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Sport 3.png",
     "sources": [
       {
         "type": "directfr",
@@ -456,10 +456,10 @@
     ]
   },
   {
-    "name": "Bein Sport 1",
+    "name": "beIN Sports 1",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 1.png",
     "sources": [
       {
         "type": "directfr",
@@ -482,10 +482,10 @@
     ]
   },
   {
-    "name": "Bein Sport 2",
+    "name": "beIN Sports 2",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 2.png",
     "sources": [
       {
         "type": "directfr",
@@ -508,10 +508,10 @@
     ]
   },
   {
-    "name": "Bein Sport 3",
+    "name": "beIN Sports 3",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 3.png",
     "sources": [
       {
         "type": "directfr",
@@ -530,10 +530,10 @@
     ]
   },
   {
-    "name": "Bein Sport 4",
+    "name": "beIN Sports 4",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 4.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -548,10 +548,10 @@
     ]
   },
   {
-    "name": "Bein Sport 5",
+    "name": "beIN Sports 5",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 5.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -566,10 +566,10 @@
     ]
   },
   {
-    "name": "Bein Sport 6",
+    "name": "beIN Sports 6",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 6.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -584,10 +584,10 @@
     ]
   },
   {
-    "name": "Bein Sport 7",
+    "name": "beIN Sports 7",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 7.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -602,10 +602,10 @@
     ]
   },
   {
-    "name": "Bein Sport 8",
+    "name": "beIN Sports 8",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 8.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -620,10 +620,10 @@
     ]
   },
   {
-    "name": "Bein Sport 9",
+    "name": "beIN Sports 9",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 9.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -638,10 +638,10 @@
     ]
   },
   {
-    "name": "Bein Sport 10",
+    "name": "beIN Sports 10",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/beIN Sports 10.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -659,7 +659,7 @@
     "name": "Ligue 1+ DAZN 1",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/DAZN 1.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -677,7 +677,7 @@
     "name": "Ligue 1+ DAZN 2",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/DAZN 2.png",
     "sources": [
       {
         "type": "tutvlive",
@@ -699,7 +699,7 @@
     "name": "La chaine l'Équipe",
     "id_api": "LEquipe21.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/La chaîne L'Équipe.png",
     "sources": [
       {
         "type": "directfr",
@@ -729,7 +729,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/2nd5Cox.png",
+    "logo": "logos/6ter.png",
     "sources": [
       {
         "type": "directfr",
@@ -751,7 +751,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/w4kAX1V.png",
+    "logo": "logos/CStar.png",
     "sources": [
       {
         "type": "m3u8",
@@ -767,7 +767,7 @@
     "name": "RMC STORY",
     "id_api": "Numero23.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Story.png",
     "sources": [
       {
         "type": "witv",
@@ -776,10 +776,10 @@
     ]
   },
   {
-    "name": "Warner Bros TV",
+    "name": "Warner TV",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Warner TV.png",
     "sources": [
       {
         "type": "directfr",
@@ -795,7 +795,7 @@
     "name": "TLC",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/TLC.png",
     "sources": [
       {
         "type": "directfr",
@@ -811,7 +811,7 @@
     "name": "RTL9",
     "id_api": null,
     "categories": [],
-    "logo": "https://i.imgur.com/nFqjVNW.png",
+    "logo": "logos/RTL9.png",
     "sources": [
       {
         "type": "m3u8",
@@ -831,7 +831,7 @@
     "name": "Sérieclub",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/serieclub.webp",
     "sources": [
       {
         "type": "directfr",
@@ -847,7 +847,7 @@
     "name": "Novelas",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/novelas.webp",
     "sources": [
       {
         "type": "directfr",
@@ -862,6 +862,7 @@
     {
     "name": "SYFY",
     "id_api": "SYFY",
+    "logo": "logos/Syfy.png",
     "categories": [
       "Entertainment"
     ],
@@ -878,7 +879,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/giDfku4.png",
+    "logo": "logos/Carac 5.png",
     "sources": [
       {
         "type": "m3u8",
@@ -892,7 +893,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.imgur.com/EPIMMaB.png",
+    "logo": "logos/Antenne Reunion.png",
     "sources": [
       {
         "type": "m3u8",
@@ -901,10 +902,10 @@
     ]
   },
   {
-    "name": "TF1 Séries-Films",
+    "name": "TF1 Séries Films",
     "id_api": "TF1SeriesFilms.fr",
     "categories": [],
-    "logo": "https://i.imgur.com/4CJIDKQ.png",
+    "logo": "logos/TF1 Séries Films.png",
     "sources": [
       {
         "type": "m3u8",
@@ -921,10 +922,10 @@
     ]
   },
   {
-    "name": "Canal+ Cinema",
+    "name": "Canal+ Cinéma",
     "id_api": "CanalPlusCinema.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+ Cinéma.png",
     "sources": [
       {
         "type": "directfr",
@@ -940,7 +941,7 @@
     "name": "Canal+ Séries",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Canal+ Séries.png",
     "sources": [
       {
         "type": "directfr",
@@ -953,10 +954,10 @@
     ]
   },
   {
-    "name": "Cine+ Premier",
+    "name": "Ciné+ OCS",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/OCS.png",
     "sources": [
       {
         "type": "witv",
@@ -965,10 +966,10 @@
     ]
   },
   {
-    "name": "Cine+ Family",
+    "name": "Ciné+ Family",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Ciné+ Family.png",
     "sources": [
       {
         "type": "directfr",
@@ -977,10 +978,10 @@
     ]
   },
   {
-    "name": "Cine+ Classic",
+    "name": "Ciné+ Classic",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Ciné+ Classic.png",
     "sources": [
       {
         "type": "directfr",
@@ -993,10 +994,10 @@
     ]
   },
   {
-    "name": "Cine+ Emotion",
+    "name": "Ciné+ Emotion",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Ciné+ Émotion.png",
     "sources": [
       {
         "type": "directfr",
@@ -1009,10 +1010,10 @@
     ]
   },
   {
-    "name": "Cine+ Frisson",
+    "name": "Ciné+ Frisson",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Ciné+ Frisson.png",
     "sources": [
       {
         "type": "directfr",
@@ -1025,10 +1026,10 @@
     ]
   },
   {
-    "name": "Cine+ Festival",
+    "name": "Ciné+ Festival",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Ciné+ Festival.png",
     "sources": [
       {
         "type": "directfr",
@@ -1040,7 +1041,7 @@
     "name": "13ème Rue",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/13ème Rue.png",
     "sources": [
       {
         "type": "witv",
@@ -1052,7 +1053,7 @@
     "name": "Paramount Network",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Paramount Network.png",
     "sources": [
       {
         "type": "directfr",
@@ -1070,6 +1071,7 @@
     "categories": [
       "Movies"
     ],
+    "logo": "logos/TCM Cinéma.png",
     "sources": [
       {
         "type": "directfr",
@@ -1081,7 +1083,7 @@
     "name": "RMC Découverte",
     "id_api": "RMCDecouverte.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Découverte.png",
     "sources": [
       {
         "type": "directfr",
@@ -1097,7 +1099,7 @@
     "name": "National Geographic",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/National Geographic.png",
     "sources": [
       {
         "type": "directfr",
@@ -1110,10 +1112,10 @@
     ]
   },
   {
-    "name": "NAT GEO Wild",
+    "name": "Nat Geo Wild",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Nat Geo Wild.png",
     "sources": [
       {
         "type": "directfr",
@@ -1129,7 +1131,7 @@
     "name": "Discovery Channel",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Discovery Channel.png",
     "sources": [
       {
         "type": "directfr",
@@ -1142,10 +1144,10 @@
     ]
   },
   {
-    "name": "Planête+ Aventure",
+    "name": "Planète+ Aventure",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Planète+ Aventure.png",
     "sources": [
       {
         "type": "directfr",
@@ -1161,7 +1163,7 @@
     "name": "Science & Vie TV",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Science & Vie TV.png",
     "sources": [
       {
         "type": "directfr",
@@ -1177,7 +1179,7 @@
     "name": "Toute l'histoire",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Toute l'Histoire.png",
     "sources": [
       {
         "type": "directfr",
@@ -1195,7 +1197,7 @@
     "categories": [
       "Education"
     ],
-    "logo": "https://i.imgur.com/FM9FVAG.png",
+    "logo": "logos/Animaux.png",
     "sources": [
       {
         "type": "witv",
@@ -1211,7 +1213,7 @@
     "name": "Seasons",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Seasons.png",
     "sources": [
       {
         "type": "witv",
@@ -1223,7 +1225,7 @@
     "name": "RMC Mystère",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "null",
     "sources": [
       {
         "type": "witv",
@@ -1237,7 +1239,7 @@
     "categories": [
       "Culture"
     ],
-    "logo": "https://i.imgur.com/WbjURLo.png",
+    "logo": "logos/Museum TV.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1249,7 +1251,7 @@
     "name": "Gulli",
     "id_api": "Gulli.fr",
     "categories": [],
-    "logo": null,
+    "logo": "logos/Gulli.png",
     "sources": [
       {
         "type": "witv",
@@ -1263,7 +1265,7 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "https://i.imgur.com/RgKaoe4.png",
+    "logo": "logos/Caillou.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1272,10 +1274,10 @@
     ]
   },
   {
-    "name": "TIJI",
+    "name": "TiJi",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/TiJi.png",
     "sources": [
       {
         "type": "directfr",
@@ -1291,7 +1293,7 @@
     "name": "Cartoonito",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Cartoonito.png",
     "sources": [
       {
         "type": "witv",
@@ -1303,7 +1305,7 @@
     "name": "Cartoon Network",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Cartoon Network.webp",
     "sources": [
       {
         "type": "directfr",
@@ -1319,7 +1321,7 @@
     "name": "Boomerang",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Boomerang.png",
     "sources": [
       {
         "type": "directfr",
@@ -1335,7 +1337,7 @@
     "name": "Télétoon+",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Télétoon+.png",
     "sources": [
       {
         "type": "directfr",
@@ -1351,7 +1353,7 @@
     "name": "Nickelodeon",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Nickelodeon.png",
     "sources": [
       {
         "type": "directfr",
@@ -1367,7 +1369,7 @@
     "name": "Canal J",
     "id_api": null,
     "categories": [],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Canal_J_2019_Logo.png/512px-Canal_J_2019_Logo.png",
+    "logo": "logos/Canal J.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1387,7 +1389,7 @@
     "name": "Disney Channel",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Disney Channel.png",
     "sources": [
       {
         "type": "directfr",
@@ -1405,7 +1407,7 @@
     "categories": [
       "Animation"
     ],
-    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_k6spR1AVLZ0ISqrFP-Z9JeBMHPpAc9T-pmFlG6_lSkNw=s160-c-k-c0x00ffffff-no-rj",
+    "logo": "logos/Xilam TV.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1417,7 +1419,7 @@
     "name": "Warner Bros TV Next",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Warner TV Next.png",
     "sources": [
       {
         "type": "witv",
@@ -1431,7 +1433,7 @@
     "categories": [
       "Animation"
     ],
-    "logo": "https://i.imgur.com/HQZQyWt.png",
+    "logo": "logos/ADN TV+.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -1443,7 +1445,7 @@
     "name": "GameONE",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Game One.png",
     "sources": [
       {
         "type": "directfr",
@@ -1459,7 +1461,7 @@
     "name": "JONE",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/J-One.png",
     "sources": [
       {
         "type": "directfr",
@@ -1475,7 +1477,7 @@
     "name": "Mangas",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Mangas.png",
     "sources": [
       {
         "type": "directfr",
@@ -1491,7 +1493,7 @@
     "name": "Gong",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Gong.png",
     "sources": [
       {
         "type": "directfr",
@@ -1509,7 +1511,7 @@
     "categories": [
       "Entertainment"
     ],
-    "logo": "https://i.imgur.com/9C7UsOe.png",
+    "logo": "logos/AB1.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1521,7 +1523,7 @@
     "name": "Gametoon",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Gametoon.png",
     "sources": [
       {
         "type": "witv",
@@ -1533,7 +1535,7 @@
     "name": "RMC Info Talk Sport",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/RMC Info Talk Sport.png",
     "sources": [
       {
         "type": "witv",
@@ -1547,7 +1549,7 @@
     "categories": [
       "Sports"
     ],
-    "logo": "https://i.imgur.com/YWIJdai.png",
+    "logo": "logos/Africa 24 Sport.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1561,7 +1563,7 @@
     "categories": [
       "Sports"
     ],
-    "logo": "https://i.imgur.com/QPpbRcZ.png",
+    "logo": "logos/Equidia.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1575,7 +1577,7 @@
     "categories": [
       "Sports"
     ],
-    "logo": "https://i.imgur.com/t35zhM9.png",
+    "logo": "logos/L'équipe.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1589,7 +1591,7 @@
     "categories": [
       "Sports"
     ],
-    "logo": "https://i.imgur.com/t35zhM9.png",
+    "logo": "logos/L'équipe.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1607,7 +1609,7 @@
     "categories": [
       "Sports"
     ],
-    "logo": "https://i.imgur.com/t35zhM9.png",
+    "logo": "logos/L'équipe.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1623,7 +1625,7 @@
     "name": "NRJ Hits",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/NRJ Hits.png",
     "sources": [
       {
         "type": "directfr",
@@ -1639,7 +1641,7 @@
     "name": "M6 Music",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/M6 Music.png",
     "sources": [
       {
         "type": "directfr",
@@ -1655,7 +1657,7 @@
     "name": "MTV",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/MTV.png",
     "sources": [
       {
         "type": "directfr",
@@ -1671,7 +1673,7 @@
     "name": "MCM",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/MCM.png",
     "sources": [
       {
         "type": "witv",
@@ -1684,7 +1686,7 @@
     "name": "MTV Hits",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/MTV Hits.png",
     "sources": [
       {
         "type": "directfr",
@@ -1702,11 +1704,26 @@
     "categories": [
       "General"
     ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Logo_Ch%C3%A9rie_25.svg/512px-Logo_Ch%C3%A9rie_25.svg.png",
+    "logo": "logos/Chérie 25.png",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://cherie25.nrjaudio.fm/hls/live/2038375/c25/master.m3u8"
+      }
+    ]
+  },
+
+  {
+    "name": "DBM TV",
+    "id_api": "DBMTV.fr",
+    "categories": [
+      "Music"
+    ],
+    "logo": "logos/DBM.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://dbmtv.vedge.infomaniak.com/livecast/dbmtv/playlist.m3u8"
       }
     ]
   },
@@ -1716,7 +1733,7 @@
     "categories": [
       "Music"
     ],
-    "logo": "https://i.imgur.com/MyiA92q.png",
+    "logo": "logos/Clubbing TV.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1730,7 +1747,7 @@
     "categories": [
       "Music"
     ],
-    "logo": "https://i.imgur.com/wgxuYsQ.png",
+    "logo": "logos/Fun Radio.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1745,7 +1762,7 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "https://i.imgur.com/NgBrDMe.png",
+    "logo": "logos/Generations.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1760,7 +1777,7 @@
     "categories": [
       "Lifestyle"
     ],
-    "logo": "https://i.imgur.com/vXbAeD0.png",
+    "logo": "logos/handicap.avif",
     "sources": [
       {
         "type": "m3u8",
@@ -1774,7 +1791,7 @@
     "categories": [
       "Music"
     ],
-    "logo": "https://i.imgur.com/DCZKAQ1.png",
+    "logo": "logos/littoral fm.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1783,66 +1800,10 @@
     ]
   },
   {
-    "name": "TRACE Brazuca",
-    "id_api": "TraceBrazuca.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/DFBocPu.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg01131-tracetv-amg01131c4-stirr-us-4390.playouts.now.amagi.tv/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Trace Latina",
-    "id_api": "TraceLatina.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/CUVAi4u.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01131-tracetv-tracelatinait-samsungit/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Trace Sport Stars",
-    "id_api": "TraceSportStars.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "https://i.imgur.com/FabFP5A.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Trace Urban",
-    "id_api": "TraceUrban.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/DLIbUMx.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lightning-traceurban-samsungau.amagi.tv/playlist.m3u8"
-      }
-    ]
-  },
-  {
     "name": "LCI",
     "id_api": "LCI.fr",
     "categories": [],
-    "logo": "https://i.imgur.com/DED8EXs.png",
+    "logo": "logos/LCI.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1866,7 +1827,7 @@
     "name": "Euronews",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/Euronews.png",
     "sources": [
       {
         "type": "witv",
@@ -1878,7 +1839,7 @@
     "name": "France 24",
     "id_api": null,
     "categories": [],
-    "logo": null,
+    "logo": "logos/France 24.png",
     "sources": [
       {
         "type": "directfr",
@@ -1897,7 +1858,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/20_Minutes_TV_IDF_logo_%282023%29.png/320px-20_Minutes_TV_IDF_logo_%282023%29.png",
+    "logo": "logos/20 Minutes TV.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1911,7 +1872,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.postimg.cc/ZY9Y3vnk/africa24.png",
+    "logo": "logos/Africa 24.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1925,7 +1886,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.postimg.cc/PrbrSsjT/bfm2.png",
+    "logo": "logos/BFM2.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -1939,7 +1900,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.imgur.com/iRsbEpg.png",
+    "logo": "logos/BFM Alsace.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1954,7 +1915,7 @@
       "Business",
       "News"
     ],
-    "logo": "https://i.imgur.com/psqIHn4.png",
+    "logo": "logos/BFM Business.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1968,7 +1929,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/bV77l68.png",
+    "logo": "logos/BFM DICI.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1982,7 +1943,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/bV77l68.png",
+    "logo": "logos/BFM DICI.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1996,7 +1957,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/HE5xP0r.png",
+    "logo": "logos/BFM Lille.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2010,7 +1971,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/j7F9MwH.png",
+    "logo": "logos/BFM Littoral.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2024,7 +1985,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/0uiiZRo.png",
+    "logo": "logos/BFM Lyon.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2038,7 +1999,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/h7t0l6q.png",
+    "logo": "logos/BFM Marseille.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2052,7 +2013,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/iiVFvIw.png",
+    "logo": "logos/BFM Côte d'Azur.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2066,7 +2027,7 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/WWWQ44G.png",
+    "logo": "logos/BFM Normandie.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2080,11 +2041,25 @@
     "categories": [
       "News"
     ],
-    "logo": "https://i.imgur.com/WJuJkag.png",
+    "logo": "logos/BFM Paris.png",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_PARIS/index.m3u8?end=END&start=LIVE"
+      }
+    ]
+  },
+  {
+    "name": "BFM Toulon Var",
+    "id_api": "BFMVar.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "logos/BFM Var.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TOULONVAR/index.m3u8?end=END&start=LIVE"
       }
     ]
   },
@@ -2095,25 +2070,11 @@
       "News",
       "Science"
     ],
-    "logo": "https://i.imgur.com/FQ0FpXV.png",
+    "logo": "logos/Tech & Co.png",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TECHANDCO/index.m3u8?end=END&start=LIVE"
-      }
-    ]
-  },
-  {
-    "name": "BFM Toulon Var",
-    "id_api": "BFMVar.fr",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.imgur.com/vp1oVj3.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TOULONVAR/index.m3u8?end=END&start=LIVE"
       }
     ]
   },
@@ -2296,20 +2257,7 @@
   },
 
   
-  {
-    "name": "DBM TV",
-    "id_api": "DBMTV.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/ab6p2SW.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://dbmtv.vedge.infomaniak.com/livecast/dbmtv/playlist.m3u8"
-      }
-    ]
-  },
+  
   
   {
     "name": "Ère TV",
