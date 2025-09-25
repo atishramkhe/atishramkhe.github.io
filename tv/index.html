@@ -269,7 +269,7 @@
 <body>
 <div id="app-wrapper">
   <!-- loading splash video (plays once then removed) -->
-  <video id="loading-video" src="assets/v2_background_tv_.mp4" autoplay muted playsinline></video>
+  <video id="loading-video" src="assets/v2_background_tv_.mp4" autoplay muted playsinline preload="auto"></video>
 
   <div id="main-layout">
     <div id="player-section">
@@ -773,7 +773,7 @@
     if (!loadingVideo) return;
 
     // Ensure playsInline & muted for autoplay policies
-    loadingVideo.muted = false;
+    loadingVideo.muted = true;
     loadingVideo.playsInline = true;
 
     // Try to play (some environments require explicit play())
