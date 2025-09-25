@@ -249,10 +249,28 @@
     cursor: none !important;
   }
   body.hide-cursor .keep-cursor { cursor: default !important; }
+
+  /* Loading / splash video */
+  #loading-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 9999;
+    background: #000;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* allow clicks through if needed */
+  }
 </style>
 </head>
 <body>
 <div id="app-wrapper">
+  <!-- loading splash video (plays once then removed) -->
+  <video id="loading-video" src="assets/v2_background_tv_.mp4" autoplay muted playsinline></video>
+
   <div id="main-layout">
     <div id="player-section">
       <div id="controls">
@@ -748,6 +766,38 @@
   resetMenuOverlayTimer();
   showControls();
   showCursor();
+
+  // Loading-screen logic: remove the loading video after it plays once
+  (function() {
+    const loadingVideo = document.getElementById('loading-video');
+    if (!loadingVideo) return;
+
+    // Ensure playsInline & muted for autoplay policies
+    loadingVideo.muted = false;
+    loadingVideo.playsInline = true;
+
+    // Try to play (some environments require explicit play())
+    loadingVideo.play().catch(() => { /* ignore autoplay rejection */ });
+
+    function removeLoadingVideo() {
+      if (!loadingVideo.parentNode) return;
+      loadingVideo.style.opacity = '0';
+      setTimeout(() => {
+        if (loadingVideo.parentNode) loadingVideo.parentNode.removeChild(loadingVideo);
+      }, 600);
+    }
+
+    loadingVideo.addEventListener('ended', removeLoadingVideo, { once: true });
+
+    // Fallback: remove after a maximum duration in case 'ended' doesn't fire
+    const MAX_FALLBACK_MS = 30000;
+    setTimeout(() => {
+      if (document.getElementById('loading-video')) removeLoadingVideo();
+    }, MAX_FALLBACK_MS);
+
+    // Optional: allow click to skip the loading video (unobtrusive)
+    loadingVideo.addEventListener('click', removeLoadingVideo);
+  })();
 </script>
 </body>
 </html>
