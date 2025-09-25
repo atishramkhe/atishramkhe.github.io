@@ -802,7 +802,7 @@ function renderSectionsInOrder() {
             dataToRender = newCartoonSites;
 
           } else if (section.id === 'live-sports') {
-            const featuredSportsNames = ['Streamed 2', 'PPV.TO', 'MrGamingStreams', 'DaddyLive','TimStreams'];
+            const featuredSportsNames = ['Streamed 2', 'PPV.TO', 'MrGamingStreams', 'DaddyLive Dad','TimStreams'];
             const newSportsSites = [];
             
             featuredSportsNames.forEach(featuredName => {
@@ -843,7 +843,7 @@ function renderSectionsInOrder() {
             dataToRender = newFrenchSites;
 
           } else if (section.id === 'live-tv') {
-            const featuredLiveTVNames = ['ateaish TV', 'AlienFlix TV', 'NTV', 'DaddyLive TV', 'WiTV','DistroTV'];
+            const featuredLiveTVNames = ['ateaish TV', 'AlienFlix TV', 'NTV', 'DaddyLive TV Dad', 'WiTV','DistroTV'];
             const sitesToRemoveNames = ['KCNA', 'Titan TV'];
             const newLiveTVSites = [];
 
