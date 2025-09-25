@@ -316,12 +316,12 @@
 <body>
   <!-- loading overlay (visible by default) -->
   <div id="loading-overlay" class="visible" aria-hidden="true">
-    <img class="loading-logo" src="assets/ateaish_radio_blanc_150ppi_beta.png" alt="loading">
+    <img class="loading-logo" src="assets/ateaish_radio_blanc_150ppi.png" alt="loading">
   </div>
 
   <div class="container">
     <div style="text-align:center; margin-bottom:12px;">
-      <img src="assets/ateaish_radio_blanc_150ppi_beta.png" alt="ateaish Radio" style="height:56px;">
+      <img src="assets/ateaish_radio_blanc_150ppi.png" alt="ateaish Radio" style="height:56px;">
     </div>
     <div class="player" id="player">
       <!-- Player UI will be injected here -->
@@ -357,6 +357,7 @@
     let stationsVisible = true;
     let metadataPollHandle = null;
     let playState = 'play'; // 'play' | 'loading' | 'playing'
+    let stationsPreloaded = false;
 
     function clearMetadataPoll() {
       if (metadataPollHandle) {
@@ -404,79 +405,74 @@
     // call show at script start so overlay is present while assets load
     showLoadingOverlay();
 
-    // Load stations from JSON file
-    async function loadStations() {
-      showLoadingOverlay();
-      try {
-        const response = await fetch('radios_france_with_icons.json');
-        const data = await response.json();
-        const rawStations = data.stations || {};
+    let allStations = {};
+    let countryStations = {};
+    let allCountries = [];
 
-        // Normalize/check icons (existing logic)
-        const ids = Object.keys(rawStations);
-        for (const id of ids) {
-          const st = rawStations[id];
-          if (!st) continue;
-          let img = st.image;
-          if (img) {
-            img = img.replace(/^file:\/+/, '').replace(/^\/+/, '');
-            st.image = img;
-            try {
-              let ok = false;
-              try {
-                const head = await fetch(img, { method: 'HEAD' });
-                ok = head.ok;
-              } catch (_) {
-                const get = await fetch(img, { method: 'GET' });
-                ok = get.ok;
-              }
-              if (!ok) st.image = null;
-            } catch (err) { st.image = null; }
-          } else {
-            st.image = null;
+    async function preloadStations() {
+      // Load all country JSON files
+      const files = [
+        { country: 'France', file: 'radios_france_with_icons.json' },
+        { country: 'Mauritius', file: 'radios_mauritius_with_icons.json' },
+        { country: 'Madagascar', file: 'radios_madagascar_with_icons.json' }
+      ];
+      allStations = {};
+      countryStations = {};
+      const countriesSet = new Set(['Mauritius', 'Madagascar']); // Always include these
+
+      for (const { country, file } of files) {
+        try {
+          const response = await fetch(file);
+          const data = await response.json();
+          const rawStations = data.stations || {};
+          for (const [id, st] of Object.entries(rawStations)) {
+            if (!st || !st.country) continue;
+            allStations[id] = st;
+            if (!countryStations[st.country]) countryStations[st.country] = {};
+            countryStations[st.country][id] = st;
+            countriesSet.add(st.country);
           }
-        }
+        } catch (e) { /* ignore file errors */ }
+      }
+      allCountries = Array.from(countriesSet);
+    }
 
-        // Filter to only stations with streams (existing logic)
-        const filtered = {};
-        for (const [id, st] of Object.entries(rawStations)) {
-          const s = st && st.streams;
-          let hasStreams = false;
-          if (Array.isArray(s)) hasStreams = s.length > 0;
-          else if (s && typeof s === 'object') hasStreams = Object.values(s).filter(v => !!v).length > 0;
-          if (hasStreams) filtered[id] = st;
+    async function loadStations(country = null) {
+      // Only show loading overlay on first load
+      if (!stationsPreloaded) showLoadingOverlay();
+      try {
+        if (Object.keys(allStations).length === 0) {
+          await preloadStations();
+          stationsPreloaded = true;
         }
-        stations = filtered;
+        selectedCountry = country;
+        stations = country ? (countryStations[country] || {}) : allStations;
+        renderCountryMenu(allCountries);
 
-        // build country list and select default
-        const countries = new Set();
-        for (const st of Object.values(stations)) {
-          if (st && st.country) countries.add(st.country);
-        }
-        const countryList = Array.from(countries);
-        // default to France if present, else first
-        selectedCountry = countryList.includes('France') ? 'France' : (countryList[0] || null);
-        renderCountryMenu(countryList);
-
-        // restore last played station if it still exists and matches selected country
-        const lastId = localStorage.getItem('lastStationId');
-        if (lastId && stations[lastId] && (!selectedCountry || stations[lastId].country === selectedCountry)) {
-          currentStationId = lastId;
-        } else {
+        // Only change currentStationId if it's not in the new country
+        if (
+          !currentStationId ||
+          !stations[currentStationId] ||
+          (selectedCountry && stations[currentStationId].country !== selectedCountry)
+        ) {
           currentStationId = Object.keys(stations).find(id => {
             const s = stations[id];
             return s && (!selectedCountry || s.country === selectedCountry);
           }) || null;
+          // Only update localStorage if user actually picks a new station
+          try { localStorage.setItem('lastStationId', currentStationId); } catch (e) {}
+          renderPlayer(currentStationId);
+          // ensure station list is rendered on first load
+          renderStationList();
+        } else {
+          // If current station is still valid, just update the station
+          renderStationList();
         }
 
-        renderStationList();
-        if (currentStationId) renderPlayer(currentStationId);
         resetScreensaverTimer();
-        // allow a short hold so user sees ease-out
         setTimeout(hideLoadingOverlay, 220);
       } catch (e) {
         console.error("Failed to load stations JSON", e);
-        // hide overlay even on error
         setTimeout(hideLoadingOverlay, 220);
       }
     }
@@ -497,13 +493,7 @@
       allItem.textContent = 'All';
       allItem.onclick = () => {
         selectedCountry = null;
-        // prefer last played if present
-        const lastId = localStorage.getItem('lastStationId');
-        if (lastId && stations[lastId]) currentStationId = lastId;
-        else currentStationId = Object.keys(stations).find(id => !!stations[id]) || null;
-        renderCountryMenu(countryList);
-        renderStationList();
-        if (currentStationId) renderPlayer(currentStationId);
+        loadStations(null);
       };
       menu.appendChild(allItem);
 
@@ -513,16 +503,7 @@
         el.textContent = c;
         el.onclick = () => {
           selectedCountry = c;
-          // prefer last played if it belongs to this country
-          const lastId = localStorage.getItem('lastStationId');
-          if (lastId && stations[lastId] && stations[lastId].country === c) {
-            currentStationId = lastId;
-          } else {
-            currentStationId = Object.keys(stations).find(id => stations[id].country === c) || null;
-          }
-          renderCountryMenu(countryList);
-          renderStationList();
-          if (currentStationId) renderPlayer(currentStationId);
+          loadStations(c);
         };
         menu.appendChild(el);
       });
@@ -770,7 +751,7 @@
     );
 
     // Initial load
-    loadStations();
+    loadStations('France');
   </script>
 </body>
 </html>
