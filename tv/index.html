@@ -264,6 +264,19 @@
     transition: opacity 0.5s ease;
     pointer-events: none; /* allow clicks through if needed */
   }
+
+  /* Overlay to cover the injected top-right icon inside cross-origin iframe players (e.g. directfr).
+     Adjust top/right/width/height if positioning needs fine-tuning. */
+  #player-container .iframe-blocker {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 67px;
+    height: 40px;
+    background: #000;     /* match player background so the icon is visually hidden */
+    z-index: 9999;        /* above the iframe */
+    pointer-events: auto; /* capture clicks so the icon can't be interacted with */
+  }
 </style>
 </head>
 <body>
@@ -299,7 +312,26 @@
     <div id="menu-section">
       <div id="menu-content">
         <div class="menu-overlay"></div>
-        <h2 style="color:white; margin:15px;">Channels</h2>
+        <h2 style="color:white; margin:15px; display: flex; align-items: center; justify-content: space-between;">
+          <span>Channels</span>
+          <select id="country-select"
+            style="
+              font-family: 'OumaLight', sans-serif;
+              background-color: #000;
+              color: #FFF;
+              border: 1px solid #222;
+              border-radius: 4px;
+              padding: 5px 12px;
+              cursor: pointer;
+              font-size: 1em;
+              min-width: 110px;
+              margin-left: 16px;
+            ">
+            <option value="France" selected>France</option>
+            <option value="UK">UK</option>
+            <!-- Add more countries as needed -->
+          </select>
+        </h2>
         <div id="channel-list"></div>
       </div>
     </div>
@@ -316,6 +348,7 @@
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const switchServerBtn = document.getElementById('switch-server-btn');
   const serverSelect = document.getElementById('server-select');
+  const countrySelect = document.getElementById('country-select');
 
   let channels = [];
   let player;
@@ -324,8 +357,9 @@
   let currentServerIndex = 0;
   let m3u8Timeout = null;
   let m3u8Tried = false;
+  let bufferCleanupInterval = null;
 
-  fetch('channels.json')
+  fetch('channels/France.json')
     .then(response => response.json())
     .then(data => {
       channels = data;
@@ -334,6 +368,39 @@
       player = new playerjs.Player(playerIframe);
       addPlayerListeners();
     });
+
+  // Dynamically populate country menu from channels folder
+  function populateCountryMenu() {
+    fetch('channels/index.json')
+      .then(response => response.json())
+      .then(files => {
+        // files should be an array of filenames like ["France.json", "Germany.json", ...]
+        countrySelect.innerHTML = '';
+        files.forEach(file => {
+          const country = file.replace('.json', '');
+          const option = document.createElement('option');
+          option.value = country;
+          option.textContent = country;
+          if (country === 'France') option.selected = true;
+          countrySelect.appendChild(option);
+        });
+      });
+  }
+
+  // Call this on page load
+  populateCountryMenu();
+
+  countrySelect.addEventListener('change', (event) => {
+    const country = event.target.value;
+    fetch(`channels/${country}.json`)
+      .then(response => response.json())
+      .then(data => {
+        channels = data;
+        currentChannelIndex = 0;
+        populateChannelList();
+        updatePlayer(currentChannelIndex);
+      });
+  });
 
   function sanitizeChannelName(name) {
     // Remove accents, replace spaces and special chars for file path
@@ -458,8 +525,18 @@
       window.dashjsPlayer.reset();
       window.dashjsPlayer = null;
     }
+    // Remove buffer cleanup interval
+    if (bufferCleanupInterval) {
+      clearInterval(bufferCleanupInterval);
+      bufferCleanupInterval = null;
+    }
     // Remove video listeners
     removeAllVideoListeners();
+
+    // Remove any iframe blocker overlay we added
+    const existingBlocker = document.getElementById('iframe-blocker');
+    if (existingBlocker && existingBlocker.parentNode) existingBlocker.parentNode.removeChild(existingBlocker);
+
     // Pause and reset video
     playerVideo.pause();
     playerVideo.removeAttribute('src');
@@ -529,7 +606,8 @@
         || sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
         || sources.find(s => s.type === 'directfr')
         || sources.find(s => s.type === 'tutvlive')
-        || sources.find(s => s.type === 'witv');
+        || sources.find(s => s.type === 'witv')
+        || sources.find(s => s.type === 'daddylive'); // <-- add this line
       sourceType = source ? source.type : '';
     }
     if (!source) {
@@ -588,6 +666,16 @@
             tryNextSource(channelIndex, triedSources.concat('m3u8'));
           }
         });
+        // Periodic buffer cleanup for Hls.js
+        bufferCleanupInterval = setInterval(() => {
+          if (window.hls && playerVideo && playerVideo.buffered.length) {
+            const currentTime = playerVideo.currentTime;
+            // Remove buffer older than 2 minutes
+            try {
+              window.hls.cleanBuffer(currentTime - 120);
+            } catch (e) {}
+          }
+        }, 60000); // every 60 seconds
       } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
         playerVideo.src = url;
         playerVideo.addEventListener('loadedmetadata', function() {
@@ -625,6 +713,14 @@
         }
       });
       window.dashjsPlayer.initialize(playerVideo, url, true);
+      // Periodic buffer cleanup for dash.js
+      bufferCleanupInterval = setInterval(() => {
+        if (window.dashjsPlayer && playerVideo) {
+          try {
+            window.dashjsPlayer.getBuffer().pruneBuffer(playerVideo.currentTime - 120);
+          } catch (e) {}
+        }
+      }, 60000); // every 60 seconds
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
@@ -646,6 +742,17 @@
         player.play();
         player.unmute();
       }, 500);
+    } else if (source.type === "daddylive" && source.channel_id) {
+      // Only use 'stream' type for daddylive
+      const streamUrl = `https://dlhd.dad/stream/stream-${source.channel_id}.php`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('loading', 'lazy');
+      if (playerVideo) playerVideo.style.display = 'none';
+      // No fallback to other types
+      return;
     }
     // Show switch source if channel has more than 1 source
     switchServerBtn.style.display = sources.length > 1 ? 'inline-block' : 'none';
