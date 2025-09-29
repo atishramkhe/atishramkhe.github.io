@@ -1155,6 +1155,18 @@
     ]
   },
   {
+    "name": "Planète+",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Planète+.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/planeteplus/browser-HLS8/planeteplus.m3u8"
+      }
+    ]
+  },
+  {
     "name": "Planète+ Aventure",
     "id_api": null,
     "categories": [],
@@ -1236,11 +1248,11 @@
     "name": "RMC Mystère",
     "id_api": null,
     "categories": [],
-    "logo": "null",
+    "logo": "https://tvpnlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/FR300006GF_20241106T142644SQUARE.png",
     "sources": [
       {
-        "type": "witv",
-        "id": 252
+        "type": "m3u8",
+        "url": "https://jmp2.uk/stvp-FR300006GF"
       }
     ]
   },
