@@ -359,6 +359,21 @@
   let m3u8Tried = false;
   let bufferCleanupInterval = null;
 
+  // --- Added: HLS buffer control constants & helper ---
+  const HLS_BACK_BUFFER_SECONDS = 60;        // keep last 60s behind playhead
+  const HLS_MAX_BUFFER_LENGTH = 30;          // target forward buffer
+  const HLS_MAX_MAX_BUFFER_LENGTH = 60;      // hard cap forward buffer
+
+  function logApproxVideoBuffered() {
+    if (!playerVideo) return;
+    const ranges = playerVideo.buffered;
+    let total = 0;
+    for (let i = 0; i < ranges.length; i++) {
+      total += (ranges.end(i) - ranges.start(i));
+    }
+    // console.debug('[Buffer]', total.toFixed(1) + 's');
+  }
+
   fetch('channels/France.json')
     .then(response => response.json())
     .then(data => {
@@ -515,17 +530,14 @@
 
   // --- Helper: Cleanup all players and timeouts ---
   function cleanupPlayers() {
-    // Destroy HLS
     if (window.hls) {
-      window.hls.destroy();
+      try { window.hls.destroy(); } catch(e) {}
       window.hls = null;
     }
-    // Destroy DASH
     if (window.dashjsPlayer) {
-      window.dashjsPlayer.reset();
+      try { window.dashjsPlayer.reset(); } catch(e) {}
       window.dashjsPlayer = null;
     }
-    // Remove buffer cleanup interval
     if (bufferCleanupInterval) {
       clearInterval(bufferCleanupInterval);
       bufferCleanupInterval = null;
@@ -555,25 +567,84 @@
     m3u8Tried = false;
   }
 
-  // Add a minimal addPlayerListeners function so calls to it don't error.
-  // This safely wires up basic handlers if the player supports them.
-  function addPlayerListeners() {
-    if (!player) return;
-    try {
-      // playerjs exposes .on; attach lightweight handlers if available
-      if (typeof player.on === 'function') {
-        player.on('ready', () => {});
-        player.on('play', () => {});
-        player.on('pause', () => {});
-        player.on('error', () => {});
+  // --- New helper: init HLS with sane buffer limits & pruning ---
+  function initHls(url) {
+    window.hls = new Hls({
+      enableWorker: true,
+      lowLatencyMode: true,
+      backBufferLength: HLS_BACK_BUFFER_SECONDS,
+      maxBufferLength: HLS_MAX_BUFFER_LENGTH,
+      maxMaxBufferLength: HLS_MAX_MAX_BUFFER_LENGTH,
+      maxBufferSize: 30 * 1000 * 1000,     // ~30MB safety
+      maxBufferHole: 0.5,
+      liveSyncDuration: 4,
+      liveMaxLatencyDuration: 10
+    });
+    window.hls.loadSource(url);
+    window.hls.attachMedia(playerVideo);
+
+    window.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      playerVideo.play().catch(()=>{});
+    });
+
+    window.hls.on(Hls.Events.ERROR, (evt, data) => {
+      if (data.fatal) {
+        if (!m3u8Tried) {
+          m3u8Tried = true;
+          tryNextSource(currentChannelIndex, ['m3u8']);
+        }
       }
-    } catch (e) {
-      // swallow any errors to avoid breaking player flow
-      console.error('addPlayerListeners error', e);
-    }
+    });
+
+    // Manual periodic pruning (defensive in case backBufferLength not strictly enforced)
+    bufferCleanupInterval = setInterval(() => {
+      if (!window.hls || !playerVideo || playerVideo.readyState === 0) return;
+      const current = playerVideo.currentTime;
+      const pruneBefore = current - HLS_BACK_BUFFER_SECONDS;
+      if (pruneBefore <= 0) return;
+      const buffered = playerVideo.buffered;
+      for (let i = 0; i < buffered.length; i++) {
+        const start = buffered.start(i);
+        const end = buffered.end(i);
+        // Fully behind window
+        if (end < pruneBefore) {
+          window.hls.remove(start, end);
+        } else if (start < pruneBefore && end > pruneBefore) {
+          window.hls.remove(start, pruneBefore - 2); // leave tiny safety gap
+        }
+      }
+      logApproxVideoBuffered();
+    }, 15000);
   }
 
-  // --- Main updatePlayer function ---
+  // --- New helper: init DASH with buffer constraints ---
+  function initDash(url) {
+    window.dashjsPlayer = dashjs.MediaPlayer().create();
+    window.dashjsPlayer.updateSettings({
+      streaming: {
+        abr: { limitBitrateByPortal: true },
+        lowLatencyEnabled: true,
+        buffer: {
+          fastSwitchEnabled: true,
+          bufferToKeep: 20,                // seconds retained behind
+          stableBufferTime: 12,
+          bufferTimeAtTopQuality: 20,
+          bufferTimeAtTopQualityLongForm: 20,
+          longFormContentDurationThreshold: 0
+        },
+        liveCatchUp: { enabled: true, playbackRate: 0.5, maxDrift: 0.5, minDrift: 0.02 }
+      }
+    });
+    window.dashjsPlayer.initialize(playerVideo, url, true);
+
+    // Optional extra prune (usually settings are enough)
+    bufferCleanupInterval = setInterval(() => {
+      if (!playerVideo) return;
+      logApproxVideoBuffered();
+    }, 30000);
+  }
+
+  // --- Main updatePlayer function (only replace HLS & DASH branches) ---
   function updatePlayer(channelIndex, sourceType, serverIdx = 0, triedSources = []) {
     currentChannelIndex = channelIndex;
     currentServerIndex = serverIdx;
@@ -653,43 +724,21 @@
       url = source.url || source;
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
+
       if (Hls.isSupported()) {
-        window.hls = new Hls();
-        window.hls.loadSource(url);
-        window.hls.attachMedia(playerVideo);
-        window.hls.on(Hls.Events.MANIFEST_PARSED, function() {
-          playerVideo.play();
-        });
-        window.hls.on(Hls.Events.ERROR, function(event, data) {
-          if (data.fatal && !m3u8Tried) {
-            m3u8Tried = true;
-            tryNextSource(channelIndex, triedSources.concat('m3u8'));
-          }
-        });
-        // Periodic buffer cleanup for Hls.js
-        bufferCleanupInterval = setInterval(() => {
-          if (window.hls && playerVideo && playerVideo.buffered.length) {
-            const currentTime = playerVideo.currentTime;
-            // Remove buffer older than 2 minutes
-            try {
-              window.hls.cleanBuffer(currentTime - 120);
-            } catch (e) {}
-          }
-        }, 60000); // every 60 seconds
+        initHls(url);
       } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
         playerVideo.src = url;
-        playerVideo.addEventListener('loadedmetadata', function() {
-          playerVideo.play();
-        }, { once: true });
+        playerVideo.addEventListener('loadedmetadata', () => playerVideo.play(), { once: true });
       }
-      // Fallback: if not playing after 10s, try next source
+
       m3u8Timeout = setTimeout(() => {
         if (playerVideo.paused && !m3u8Tried) {
           m3u8Tried = true;
           tryNextSource(channelIndex, triedSources.concat('m3u8'));
         }
       }, 10000);
-      // Dummy player object for controls compatibility
+
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
@@ -704,23 +753,8 @@
       url = source.url || source;
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
-      window.dashjsPlayer = dashjs.MediaPlayer().create();
-      window.dashjsPlayer.updateSettings({
-        streaming: {
-          text: {
-            enabled: false
-          }
-        }
-      });
-      window.dashjsPlayer.initialize(playerVideo, url, true);
-      // Periodic buffer cleanup for dash.js
-      bufferCleanupInterval = setInterval(() => {
-        if (window.dashjsPlayer && playerVideo) {
-          try {
-            window.dashjsPlayer.getBuffer().pruneBuffer(playerVideo.currentTime - 120);
-          } catch (e) {}
-        }
-      }, 60000); // every 60 seconds
+      initDash(url);
+
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
