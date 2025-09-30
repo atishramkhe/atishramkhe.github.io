@@ -242,16 +242,94 @@
     cursor: none !important;
   }
 
-  /* Ensure media fills fullscreen cleanly */
-  #player-container:fullscreen,
-  #player-container:-webkit-full-screen,
-  #player-video:fullscreen,
-  #player-video:-webkit-full-screen,
-  #player-iframe:fullscreen,
-  #player-iframe:-webkit-full-screen {
+  /* Ensure children (tiles, buttons, svgs, inputs, etc.) also hide the cursor.
+     This overrides .channel-item { cursor: pointer } while hide-cursor is active. */
+  body.hide-cursor,
+  body.hide-cursor * {
+    cursor: none !important;
+  }
+  body.hide-cursor .keep-cursor { cursor: default !important; }
+
+  /* Loading / splash video */
+  #loading-video {
+    position: fixed;
+    inset: 0;
     width: 100%;
     height: 100%;
-    background:#000;
+    object-fit: cover;
+    z-index: 9999;
+    background: #000;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* allow clicks through if needed */
+  }
+
+  /* Overlay to cover the injected top-right icon inside cross-origin iframe players (e.g. directfr).
+     Adjust top/right/width/height if positioning needs fine-tuning. */
+  #player-container .iframe-blocker {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 67px;
+    height: 40px;
+    background: #000;     /* match player background so the icon is visually hidden */
+    z-index: 9999;        /* above the iframe */
+    pointer-events: auto; /* capture clicks so the icon can't be interacted with */
+  }
+
+  /* Server indicators */
+  #server-indicators {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-right: 4px;
+  }
+  #server-indicators .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #222;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  #server-indicators .indicator.active {
+    background: #29c742;
+    box-shadow: 0 0 4px #29c742;
+  }
+  #server-indicators .indicator:hover {
+    transform: scale(1.3);
+  }
+
+  /* Inactivity dim (when channel menu overlay shows) */
+  body.overlay-dim #server-indicators .indicator {
+    background: #444;
+    box-shadow: none;
+    filter: grayscale(1) brightness(.75);
+  }
+  body.overlay-dim #server-indicators .indicator.active {
+    background: #666;
+  }
+
+  /* Volume OSD */
+  #volume-osd {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-family: 'OumaBold', sans-serif;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    letter-spacing: .5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+    z-index: 5000;
+  }
+  #volume-osd.show {
+    opacity: 1;
   }
 </style>
 </head>
@@ -962,15 +1040,12 @@
      document.mozCancelFullScreen)?.call(document);
   }
   function toggleFullscreen() {
-    const activeEl =
-      (playerVideo && playerVideo.classList.contains('active')) ? playerVideo :
-      (playerIframe && playerIframe.classList.contains('active')) ? playerIframe :
-      document.getElementById('player-container');
-
     if (isFullscreen()) {
       exitAnyFullscreen();
     } else {
-      requestAnyFullscreen(activeEl);
+      // Prefer making the player section fullscreen; fallback to documentElement
+      const target = document.getElementById('player-section') || document.documentElement;
+      requestAnyFullscreen(target);
     }
   }
   fullscreenBtn.addEventListener('click', toggleFullscreen);
