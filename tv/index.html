@@ -361,7 +361,7 @@
       </div>
       <div id="player-container">
         <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
-        <video id="player-video" controls></video>
+        <video id="player-video" controls autoplay playsinline></video>
         <div id="volume-osd"></div>
       </div>
     </div>
@@ -487,14 +487,14 @@
     cleanupStreamOnly('hls');
     const cfg = {
       backBufferLength: HLS_BACK_BUFFER_SECONDS,
-      maxBufferLength: HLS_INITIAL_BUFFER_LENGTH,   // start conservative
+      maxBufferLength: HLS_INITIAL_BUFFER_LENGTH,
       maxMaxBufferLength: HLS_MAX_MAX_BUFFER_LENGTH,
       maxBufferSize: HLS_MAX_BUFFER_SIZE_BYTES,
       liveSyncDuration: 4,
       liveMaxLatencyDuration: 18,
       liveDurationInfinity: true,
       enableWorker: true,
-      lowLatencyMode: false, // set to true if you prefer lower latency over stability
+      lowLatencyMode: false,
       fragLoadingTimeOut: 20000,
       manifestLoadingTimeOut: 15000
     };
@@ -502,16 +502,44 @@
 
     let stallCount = 0;
 
+    function attemptAutoplay(retryDelay = 600, retries = 3) {
+      const p = playerVideo.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          if (retries > 0) {
+            setTimeout(() => attemptAutoplay(retryDelay, retries - 1), retryDelay);
+          }
+        });
+      }
+    }
+
+    function disableAllTextTracks() {
+      if (!playerVideo || !playerVideo.textTracks) return;
+      for (const track of playerVideo.textTracks) {
+        track.mode = 'disabled';
+      }
+    }
+
     hlsInstance.on(Hls.Events.LEVEL_LOADED, () => {
-      // After first level load, allow a bit more headroom (but not full max yet)
       if (hlsInstance.config.maxBufferLength < HLS_MAX_BUFFER_LENGTH) {
         hlsInstance.config.maxBufferLength = HLS_MAX_BUFFER_LENGTH;
       }
     });
 
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+      // Disable Hls.js subtitle tracks if any
+      try {
+        if (hlsInstance.subtitleTracks && hlsInstance.subtitleTracks.length) {
+          hlsInstance.subtitleTrack = -1; // no subtitle
+        }
+      } catch(_) {}
+      // Also disable any native text tracks
+      disableAllTextTracks();
+      attemptAutoplay();
+    });
+
     hlsInstance.on(Hls.Events.BUFFER_STALLED, () => {
       stallCount++;
-      // Gradually grow buffer target if recurring stalls (network jitter)
       if (stallCount <= 4) {
         const cur = hlsInstance.config.maxBufferLength;
         const next = Math.min(cur + 10, HLS_MAX_MAX_BUFFER_LENGTH);
@@ -536,6 +564,8 @@
 
     hlsInstance.loadSource(url);
     hlsInstance.attachMedia(playerVideo);
+    // Early attempt before manifest (some browsers allow it)
+    attemptAutoplay(800, 2);
   }
 
   function initDash(url) {
@@ -860,7 +890,18 @@
         initHls(url);
       } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
         playerVideo.src = url;
-        playerVideo.addEventListener('loadedmetadata', () => playerVideo.play(), { once: true });
+        // Disable native (Safari) text tracks once metadata is ready
+        playerVideo.addEventListener('loadedmetadata', () => {
+          if (playerVideo.textTracks) {
+            for (const t of playerVideo.textTracks) t.mode = 'disabled';
+          }
+          playerVideo.play().catch(()=>{ setTimeout(()=>playerVideo.play().catch(()=>{}), 600); });
+        }, { once: true });
+        // Fallback immediate attempt + proactive track disable (in case tracks already present)
+        if (playerVideo.textTracks) {
+          for (const t of playerVideo.textTracks) t.mode = 'disabled';
+        }
+        playerVideo.play().catch(()=>{ setTimeout(()=>playerVideo.play().catch(()=>{}), 600); });
       }
       m3u8Timeout = setTimeout(() => {
         if (playerVideo.paused && !m3u8Tried) {
