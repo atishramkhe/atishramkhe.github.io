@@ -242,40 +242,16 @@
     cursor: none !important;
   }
 
-  /* Ensure children (tiles, buttons, svgs, inputs, etc.) also hide the cursor.
-     This overrides .channel-item { cursor: pointer } while hide-cursor is active. */
-  body.hide-cursor,
-  body.hide-cursor * {
-    cursor: none !important;
-  }
-  body.hide-cursor .keep-cursor { cursor: default !important; }
-
-  /* Loading / splash video */
-  #loading-video {
-    position: fixed;
-    inset: 0;
+  /* Ensure media fills fullscreen cleanly */
+  #player-container:fullscreen,
+  #player-container:-webkit-full-screen,
+  #player-video:fullscreen,
+  #player-video:-webkit-full-screen,
+  #player-iframe:fullscreen,
+  #player-iframe:-webkit-full-screen {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: 9999;
-    background: #000;
-    display: block;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-    pointer-events: none; /* allow clicks through if needed */
-  }
-
-  /* Overlay to cover the injected top-right icon inside cross-origin iframe players (e.g. directfr).
-     Adjust top/right/width/height if positioning needs fine-tuning. */
-  #player-container .iframe-blocker {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 67px;
-    height: 40px;
-    background: #000;     /* match player background so the icon is visually hidden */
-    z-index: 9999;        /* above the iframe */
-    pointer-events: auto; /* capture clicks so the icon can't be interacted with */
+    background:#000;
   }
 </style>
 </head>
@@ -294,8 +270,9 @@
           <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:inline-block;"></div>
         </div>
         <div style="display:flex; align-items:center; flex:1; justify-content:flex-end; gap:10px;">
-          <select id="server-select" style="display:none;"></select>
-          <button id="switch-server-btn" style="display: none;">Switch Source</button>
+          <div id="server-indicators"></div>
+          <!-- Removed server-select dropdown -->
+          <button id="switch-server-btn" style="display: none;">Switch Server</button>
           <button id="fullscreen-btn">
             Fullscreen
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" style="vertical-align:middle; margin-left:6px;" class="bi bi-fullscreen" viewBox="0 0 16 16" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -305,32 +282,47 @@
         </div>
       </div>
       <div id="player-container">
-        <iframe id="player-iframe"></iframe>
+        <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
         <video id="player-video" controls></video>
+        <div id="volume-osd"></div>
       </div>
     </div>
     <div id="menu-section">
       <div id="menu-content">
         <div class="menu-overlay"></div>
         <h2 style="color:white; margin:15px; display: flex; align-items: center; justify-content: space-between;">
-          <span>Channels</span>
-          <select id="country-select"
-            style="
-              font-family: 'OumaLight', sans-serif;
-              background-color: #000;
-              color: #FFF;
-              border: 1px solid #222;
-              border-radius: 4px;
-              padding: 5px 12px;
-              cursor: pointer;
-              font-size: 1em;
-              min-width: 110px;
-              margin-left: 16px;
-            ">
-            <option value="France" selected>France</option>
-            <option value="UK">UK</option>
-            <!-- Add more countries as needed -->
-          </select>
+          <span style="flex:0 0 auto;">Channels</span>
+          <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
+            <!-- Removed the visible 'Sports' text span -->
+            <button id="sports-toggle-btn" title="Show only Sports channels"
+              style="background: none; border: none; cursor: pointer; padding: 0; display:none;">
+              <span id="sports-toggle-icon" class="keep-cursor">
+                <!-- Default: toggle-off SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                  <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div style="flex:0 0 auto; margin-left:auto;">
+            <select id="country-select"
+              style="
+                font-family: 'OumaLight', sans-serif;
+                background-color: #000;
+                color: #FFF;
+                border: 1px solid #222;
+                border-radius: 4px;
+                padding: 5px 12px;
+                cursor: pointer;
+                font-size: 1em;
+                min-width: 110px;
+                margin-left: 0;
+              ">
+              <option value="France" selected>France</option>
+              <option value="UK">UK</option>
+              <!-- Add more countries as needed -->
+            </select>
+          </div>
         </h2>
         <div id="channel-list"></div>
       </div>
@@ -347,31 +339,159 @@
 
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const switchServerBtn = document.getElementById('switch-server-btn');
-  const serverSelect = document.getElementById('server-select');
   const countrySelect = document.getElementById('country-select');
 
   let channels = [];
   let player;
   let currentChannelIndex = 0;
-  let currentSourceType = '';
-  let currentServerIndex = 0;
+  let currentFlattenedIndex = 0;
+  let flattenedSources = [];
+
   let m3u8Timeout = null;
   let m3u8Tried = false;
   let bufferCleanupInterval = null;
 
-  // --- Added: HLS buffer control constants & helper ---
-  const HLS_BACK_BUFFER_SECONDS = 60;        // keep last 60s behind playhead
-  const HLS_MAX_BUFFER_LENGTH = 30;          // target forward buffer
-  const HLS_MAX_MAX_BUFFER_LENGTH = 60;      // hard cap forward buffer
+  // HLS / DASH tuning constants (retuned for smoother playback + low RAM)
+  // Back buffer kept small to reduce memory, forward buffer moderately larger for stability.
+  const HLS_BACK_BUFFER_SECONDS = 12;   // how much history to retain (lower = less RAM)
+  const HLS_MAX_BUFFER_LENGTH = 75;     // target forward buffer (was 60)
+  const HLS_MAX_MAX_BUFFER_LENGTH = 140; // absolute cap (was 120)
+  const HLS_INITIAL_BUFFER_LENGTH = 30; // initial cap before adaptive growth
+  const HLS_MAX_BUFFER_SIZE_BYTES = 55 * 1000 * 1000; // ~55MB safety cap
 
-  function logApproxVideoBuffered() {
-    if (!playerVideo) return;
-    const ranges = playerVideo.buffered;
-    let total = 0;
-    for (let i = 0; i < ranges.length; i++) {
-      total += (ranges.end(i) - ranges.start(i));
+  // If you want to be defensive (avoid redefinition), you could wrap:
+  // window.HLS_BACK_BUFFER_SECONDS ??= 30;
+
+  // ADD: playback helper state & functions
+  let hlsInstance = null;
+  let dashPlayer = null;
+
+  function cleanupPlayers() {
+    if (m3u8Timeout) { clearTimeout(m3u8Timeout); m3u8Timeout = null; }
+    if (bufferCleanupInterval) { clearInterval(bufferCleanupInterval); bufferCleanupInterval = null; }
+
+    // HLS
+    if (hlsInstance) {
+      try { hlsInstance.destroy(); } catch(_) {}
+      hlsInstance = null;
     }
-    // console.debug('[Buffer]', total.toFixed(1) + 's');
+    // DASH
+    if (dashPlayer) {
+      try { dashPlayer.reset(); } catch(_) {}
+      dashPlayer = null;
+    }
+    // HTML5 video
+    if (playerVideo) {
+      try {
+        playerVideo.pause();
+        playerVideo.removeAttribute('src');
+        playerVideo.load();
+      } catch(_) {}
+      playerVideo.classList.remove('active');
+      playerVideo.style.display = 'none';
+    }
+    // Iframe
+    if (playerIframe) {
+      playerIframe.classList.remove('active');
+      playerIframe.style.display = 'none';
+      // Stop previous iframe stream (blank it)
+      try { playerIframe.src = 'about:blank'; } catch(_) {}
+    }
+    player = null;
+  }
+
+  function addPlayerListeners() {
+    // Optional placeholder for uniform interface
+    // Extend if you need events (play/pause/error) later.
+  }
+
+  function initHls(url) {
+    cleanupStreamOnly('hls');
+    const cfg = {
+      backBufferLength: HLS_BACK_BUFFER_SECONDS,
+      maxBufferLength: HLS_INITIAL_BUFFER_LENGTH,   // start conservative
+      maxMaxBufferLength: HLS_MAX_MAX_BUFFER_LENGTH,
+      maxBufferSize: HLS_MAX_BUFFER_SIZE_BYTES,
+      liveSyncDuration: 4,
+      liveMaxLatencyDuration: 18,
+      liveDurationInfinity: true,
+      enableWorker: true,
+      lowLatencyMode: false, // set to true if you prefer lower latency over stability
+      fragLoadingTimeOut: 20000,
+      manifestLoadingTimeOut: 15000
+    };
+    hlsInstance = new Hls(cfg);
+
+    let stallCount = 0;
+
+    hlsInstance.on(Hls.Events.LEVEL_LOADED, () => {
+      // After first level load, allow a bit more headroom (but not full max yet)
+      if (hlsInstance.config.maxBufferLength < HLS_MAX_BUFFER_LENGTH) {
+        hlsInstance.config.maxBufferLength = HLS_MAX_BUFFER_LENGTH;
+      }
+    });
+
+    hlsInstance.on(Hls.Events.BUFFER_STALLED, () => {
+      stallCount++;
+      // Gradually grow buffer target if recurring stalls (network jitter)
+      if (stallCount <= 4) {
+        const cur = hlsInstance.config.maxBufferLength;
+        const next = Math.min(cur + 10, HLS_MAX_MAX_BUFFER_LENGTH);
+        hlsInstance.config.maxBufferLength = next;
+      }
+    });
+
+    hlsInstance.on(Hls.Events.ERROR, (_, data) => {
+      if (data.fatal) {
+        switch (data.type) {
+          case Hls.ErrorTypes.NETWORK_ERROR:
+            hlsInstance.startLoad();
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            hlsInstance.recoverMediaError();
+            break;
+          default:
+            tryNextSource();
+        }
+      }
+    });
+
+    hlsInstance.loadSource(url);
+    hlsInstance.attachMedia(playerVideo);
+  }
+
+  function initDash(url) {
+    if (dashPlayer) { try { dashPlayer.reset(); } catch(_) {} dashPlayer = null; }
+    dashPlayer = dashjs.MediaPlayer().create();
+    dashPlayer.updateSettings({
+      'streaming': {
+        'fastSwitchEnabled': true,
+        'abr': {
+          'autoSwitchBitrate': { 'video': true },
+          'limitBitrateByPortal': true,
+          'initialBitrate': { 'video': 2800 }
+        },
+        'buffer': {
+          // Stable forward buffer; dash.js internally evicts behind current time.
+          'stableBufferTime': 22,
+          'bufferTimeAtTopQuality': 32,
+          'bufferToKeep': 12   // back buffer retention (smaller = lower RAM)
+        },
+        'liveDelay': 6
+      }
+    });
+    dashPlayer.initialize(playerVideo, url, true);
+  }
+
+  function cleanupStreamOnly(type) {
+    if (type === 'hls' && hlsInstance) {
+      try { hlsInstance.destroy(); } catch(_) {}
+      hlsInstance = null;
+    }
+    if (type === 'dash' && dashPlayer) {
+      try { dashPlayer.reset(); } catch(_) {}
+      dashPlayer = null;
+    }
   }
 
   fetch('channels/France.json')
@@ -424,33 +544,105 @@
       .replace(/[^a-zA-Z0-9]/g, "_"); // replace non-alphanum with _
   }
 
+  // --- Sports toggle logic ---
+  let sportsOnly = false;
+  const sportsToggleBtn = document.getElementById('sports-toggle-btn');
+  const sportsToggleIcon = document.getElementById('sports-toggle-icon');
+
+  // NEW: robust sports detector
+  function isSportsChannel(channel) {
+    const candidates = [];
+
+    // Collect possible fields
+    if (channel.category !== undefined) candidates.push(channel.category);
+    if (channel.categories !== undefined) candidates.push(channel.categories);
+    if (channel.genre !== undefined) candidates.push(channel.genre);
+    if (channel.genres !== undefined) candidates.push(channel.genres);
+    if (channel.tags !== undefined) candidates.push(channel.tags);
+
+    // Flatten & normalize
+    const tokens = [];
+    candidates.forEach(entry => {
+      if (entry == null) return;
+      if (Array.isArray(entry)) {
+        entry.forEach(v => {
+          if (v == null) return;
+            // Support objects like { name: "Sports" }
+            if (typeof v === 'object') {
+              if (v.name) tokens.push(String(v.name));
+            } else {
+              tokens.push(String(v));
+            }
+        });
+      } else if (typeof entry === 'object') {
+        // Object with name
+        if (entry.name) tokens.push(String(entry.name));
+      } else if (typeof entry === 'string') {
+        // Split on common delimiters
+        entry.split(/[,;/|]/).forEach(part => tokens.push(part));
+      } else {
+        tokens.push(String(entry));
+      }
+    });
+
+    const normalized = tokens
+      .map(t => t.toLowerCase().trim())
+      .filter(Boolean);
+
+    // Direct exact matches
+    if (normalized.some(t => t === 'sport' || t === 'sports')) return true;
+
+    // Substring fallback (avoid false positives like "Esports" unless you want it)
+    if (normalized.some(t => /\bsports?\b/.test(t))) return true;
+
+    return false;
+  }
+
+  function updateSportsToggleIcon() {
+    sportsToggleIcon.innerHTML = sportsOnly
+      ? `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-on" viewBox="0 0 16 16">
+          <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+        </svg>`
+      : `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-off" viewBox="0 0 16 16">
+          <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+        </svg>`;
+  }
+
+  sportsToggleBtn.addEventListener('click', () => {
+    sportsOnly = !sportsOnly;
+    updateSportsToggleIcon();
+    populateChannelList();
+  });
+
   function populateChannelList() {
     const channelList = document.getElementById('channel-list');
     channelList.innerHTML = '';
-    channels.forEach((channel, index) => {
+    let filteredChannels = channels;
+    if (sportsOnly) {
+      filteredChannels = channels.filter(isSportsChannel);
+    }
+    filteredChannels.forEach((channel, index) => {
       const div = document.createElement('div');
       div.className = 'channel-item';
       div.onclick = () => {
-        updatePlayer(index);
+        const realIndex = channels.indexOf(channel);
+        updatePlayer(realIndex);
       };
 
-      // Determine logo path
       const logoPath = channel.logo
         ? channel.logo
         : `/logos/${sanitizeChannelName(channel.name)}.png`;
 
-      // Only add <img> if logo is present (not null/empty)
       if (channel.logo || logoPath.endsWith('.png')) {
         const img = document.createElement('img');
         img.src = logoPath;
         img.alt = channel.name + " logo";
-        img.style.maxWidth = "80px";      // Increased width
-        img.style.maxHeight = "60px";     // Optionally increase height
+        img.style.maxWidth = "80px";
+        img.style.maxHeight = "60px";
         img.style.display = "block";
         img.style.margin = "0 auto 6px auto";
         img.onerror = function() {
           this.style.display = "none";
-          // Show name if logo fails to load and title not already present
           if (!div.querySelector('.channel-title')) {
             const nameDiv = document.createElement('div');
             nameDiv.textContent = channel.name;
@@ -463,7 +655,6 @@
         div.appendChild(img);
       }
 
-      // If no logo, show title only once
       if (!channel.logo && (!logoPath || logoPath === '/logos/undefined.png')) {
         const nameDiv = document.createElement('div');
         nameDiv.textContent = channel.name;
@@ -477,227 +668,92 @@
     });
   }
 
-  function populateServerSelect(servers) {
-    serverSelect.innerHTML = '';
-    servers.forEach((server, idx) => {
-      const option = document.createElement('option');
-      option.value = idx;
-      option.textContent = 'Server ' + (idx + 1);
-      serverSelect.appendChild(option);
-    });
-    serverSelect.style.display = servers.length > 1 ? 'inline-block' : 'none';
-  }
-
-  function tryNextSource(channelIndex, triedSources) {
-    const channel = channels[channelIndex];
-    const sources = channel.sources || [];
-    // Priority: mpd, m3u8, directfr, tutvlive, witv
-    let nextSource = null;
-    if (!triedSources.includes('mpd')) {
-      nextSource = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
-      if (nextSource) return updatePlayer(channelIndex, 'mpd', 0, triedSources.concat('mpd'));
-    }
-    if (!triedSources.includes('m3u8')) {
-      nextSource = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
-      if (nextSource) return updatePlayer(channelIndex, 'm3u8', 0, triedSources.concat('m3u8'));
-    }
-    if (!triedSources.includes('directfr')) {
-      nextSource = sources.find(s => s.type === 'directfr');
-      if (nextSource) return updatePlayer(channelIndex, 'directfr', 0, triedSources.concat('directfr'));
-    }
-    if (!triedSources.includes('tutvlive')) {
-      nextSource = sources.find(s => s.type === 'tutvlive');
-      if (nextSource) return updatePlayer(channelIndex, 'tutvlive', 0, triedSources.concat('tutvlive'));
-    }
-    if (!triedSources.includes('witv')) {
-      nextSource = sources.find(s => s.type === 'witv');
-      if (nextSource) return updatePlayer(channelIndex, 'witv', 0, triedSources.concat('witv'));
-    }
-    // No more sources
-    alert('No working stream found for this channel.');
-  }
-
-  // --- Helper: Remove all event listeners from playerVideo ---
-  function removeAllVideoListeners() {
-    const oldVideo = document.getElementById('player-video');
-    const clone = oldVideo.cloneNode(true);
-    oldVideo.parentNode.replaceChild(clone, oldVideo);
-    // Update all references
-    window.playerVideo = clone;
-    // Also update the local variable if declared with let/var
-    playerVideo = clone;
-  }
-
-  // --- Helper: Cleanup all players and timeouts ---
-  function cleanupPlayers() {
-    if (window.hls) {
-      try { window.hls.destroy(); } catch(e) {}
-      window.hls = null;
-    }
-    if (window.dashjsPlayer) {
-      try { window.dashjsPlayer.reset(); } catch(e) {}
-      window.dashjsPlayer = null;
-    }
-    if (bufferCleanupInterval) {
-      clearInterval(bufferCleanupInterval);
-      bufferCleanupInterval = null;
-    }
-    // Remove video listeners
-    removeAllVideoListeners();
-
-    // Remove any iframe blocker overlay we added
-    const existingBlocker = document.getElementById('iframe-blocker');
-    if (existingBlocker && existingBlocker.parentNode) existingBlocker.parentNode.removeChild(existingBlocker);
-
-    // Pause and reset video
-    playerVideo.pause();
-    playerVideo.removeAttribute('src');
-    playerVideo.load();
-    playerVideo.classList.remove('active');
-    playerVideo.style.display = 'none';
-    // Reset iframe
-    playerIframe.src = '';
-    playerIframe.classList.remove('active');
-    playerIframe.style.display = 'none';
-    // Clear timeouts
-    if (m3u8Timeout) {
-      clearTimeout(m3u8Timeout);
-      m3u8Timeout = null;
-    }
-    m3u8Tried = false;
-  }
-
-  // --- New helper: init HLS with sane buffer limits & pruning ---
-  function initHls(url) {
-    window.hls = new Hls({
-      enableWorker: true,
-      lowLatencyMode: true,
-      backBufferLength: HLS_BACK_BUFFER_SECONDS,
-      maxBufferLength: HLS_MAX_BUFFER_LENGTH,
-      maxMaxBufferLength: HLS_MAX_MAX_BUFFER_LENGTH,
-      maxBufferSize: 30 * 1000 * 1000,     // ~30MB safety
-      maxBufferHole: 0.5,
-      liveSyncDuration: 4,
-      liveMaxLatencyDuration: 10
-    });
-    window.hls.loadSource(url);
-    window.hls.attachMedia(playerVideo);
-
-    window.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      playerVideo.play().catch(()=>{});
-    });
-
-    window.hls.on(Hls.Events.ERROR, (evt, data) => {
-      if (data.fatal) {
-        if (!m3u8Tried) {
-          m3u8Tried = true;
-          tryNextSource(currentChannelIndex, ['m3u8']);
-        }
+  // Build flattened list of all playable links for a channel
+  function flattenSources(channel) {
+    const flat = [];
+    if (!channel || !Array.isArray(channel.sources)) return flat;
+    channel.sources.forEach(src => {
+      if (Array.isArray(src.servers) && src.servers.length > 0) {
+        src.servers.forEach((_, idx) => {
+          flat.push({ source: src, serverIdx: idx, type: src.type });
+        });
+      } else {
+        flat.push({ source: src, serverIdx: 0, type: src.type });
       }
     });
-
-    // Manual periodic pruning (defensive in case backBufferLength not strictly enforced)
-    bufferCleanupInterval = setInterval(() => {
-      if (!window.hls || !playerVideo || playerVideo.readyState === 0) return;
-      const current = playerVideo.currentTime;
-      const pruneBefore = current - HLS_BACK_BUFFER_SECONDS;
-      if (pruneBefore <= 0) return;
-      const buffered = playerVideo.buffered;
-      for (let i = 0; i < buffered.length; i++) {
-        const start = buffered.start(i);
-        const end = buffered.end(i);
-        // Fully behind window
-        if (end < pruneBefore) {
-          window.hls.remove(start, end);
-        } else if (start < pruneBefore && end > pruneBefore) {
-          window.hls.remove(start, pruneBefore - 2); // leave tiny safety gap
-        }
-      }
-      logApproxVideoBuffered();
-    }, 15000);
+    return flat;
   }
 
-  // --- New helper: init DASH with buffer constraints ---
-  function initDash(url) {
-    window.dashjsPlayer = dashjs.MediaPlayer().create();
-    window.dashjsPlayer.updateSettings({
-      streaming: {
-        abr: { limitBitrateByPortal: true },
-        lowLatencyEnabled: true,
-        buffer: {
-          fastSwitchEnabled: true,
-          bufferToKeep: 20,                // seconds retained behind
-          stableBufferTime: 12,
-          bufferTimeAtTopQuality: 20,
-          bufferTimeAtTopQualityLongForm: 20,
-          longFormContentDurationThreshold: 0
-        },
-        liveCatchUp: { enabled: true, playbackRate: 0.5, maxDrift: 0.5, minDrift: 0.02 }
-      }
+  const serverIndicators = document.getElementById('server-indicators');
+
+  function updateServerIndicators() {
+    serverIndicators.innerHTML = '';
+    if (!flattenedSources || flattenedSources.length < 2) {
+      serverIndicators.style.display = 'none';
+      return;
+    }
+    serverIndicators.style.display = 'flex';
+    flattenedSources.forEach((entry, idx) => {
+      const dot = document.createElement('span');
+      dot.className = 'indicator' + (idx === currentFlattenedIndex ? ' active' : '');
+      dot.title = `Link ${idx + 1} (${entry.type}${entry.source.servers && entry.source.servers.length > 1 ? ' S'+(entry.serverIdx+1) : ''})`;
+      dot.addEventListener('click', () => {
+        if (idx === currentFlattenedIndex) return;
+        playFlattenedIndex(idx);
+      });
+      serverIndicators.appendChild(dot);
     });
-    window.dashjsPlayer.initialize(playerVideo, url, true);
-
-    // Optional extra prune (usually settings are enough)
-    bufferCleanupInterval = setInterval(() => {
-      if (!playerVideo) return;
-      logApproxVideoBuffered();
-    }, 30000);
   }
 
-  // --- Main updatePlayer function (only replace HLS & DASH branches) ---
-  function updatePlayer(channelIndex, sourceType, serverIdx = 0, triedSources = []) {
+  function cycleNextFlattened() {
+    if (!flattenedSources.length) return;
+    const next = (currentFlattenedIndex + 1) % flattenedSources.length;
+    playFlattenedIndex(next);
+  }
+
+  // Replace old tryNextSource with flattened fallback
+  function tryNextSource() {
+    cycleNextFlattened();
+  }
+
+  function playFlattenedIndex(flatIndex) {
+    currentFlattenedIndex = flatIndex;
+    const entry = flattenedSources[flatIndex];
+    if (!entry) return;
+    const { source, serverIdx, type } = entry;
+    playSourceObject(source, type, serverIdx);
+    updateServerIndicators();
+  }
+
+  // Main channel load (rebuild flattened list then play first or keep index if possible)
+  function updatePlayer(channelIndex, preservedFlatIndex = 0) {
     currentChannelIndex = channelIndex;
-    currentServerIndex = serverIdx;
     const channel = channels[currentChannelIndex];
     document.getElementById('current-channel-name').textContent = channel ? channel.name : '';
-    if (!channel || !channel.sources || channel.sources.length === 0) {
-      console.error('Invalid channel data:', channel);
-      return;
-    }
+    if (!channel) return;
 
-    // --- CLEANUP PREVIOUS PLAYERS ---
+    flattenedSources = flattenSources(channel);
+    if (!flattenedSources.length) return;
+
+    // Clamp preserved index
+    if (preservedFlatIndex >= flattenedSources.length) preservedFlatIndex = 0;
+    playFlattenedIndex(preservedFlatIndex);
+    populateChannelList(); // keep highlighting logic consistent
+  }
+
+  // Core playback logic (adapted from previous branches)
+  function playSourceObject(source, sourceType, serverIdx = 0) {
     cleanupPlayers();
 
-    const sources = channel.sources;
-    let source = null;
-    if (sourceType) {
-      if (sourceType === 'm3u8') {
-        source = sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')));
-      } else if (sourceType === 'mpd') {
-        source = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')));
-      } else if (sourceType === 'tutvlive') {
-        source = sources.find(s => s.type === 'tutvlive');
-      } else if (sourceType === 'witv') {
-        source = sources.find(s => s.type === 'witv');
-      } else if (sourceType === 'directfr') {
-        source = sources.find(s => s.type === 'directfr');
-      }
-    } else {
-      source = sources.find(s => s.type === 'mpd' || (s.url && s.url.endsWith('.mpd')))
-        || sources.find(s => s.type === 'm3u8' || (s.url && s.url.endsWith('.m3u8')))
-        || sources.find(s => s.type === 'directfr')
-        || sources.find(s => s.type === 'tutvlive')
-        || sources.find(s => s.type === 'witv')
-        || sources.find(s => s.type === 'daddylive'); // <-- add this line
-      sourceType = source ? source.type : '';
-    }
-    if (!source) {
-      console.error('No suitable source found for channel:', channel);
-      return;
-    }
-    currentSourceType = sourceType;
-
-    // Show server select for tutvlive
-    if (sourceType === 'tutvlive' && source.servers && source.servers.length > 1) {
-      populateServerSelect(source.servers);
-      serverSelect.value = serverIdx;
-      serverSelect.style.display = 'inline-block';
-    } else {
-      serverSelect.style.display = 'none';
-    }
-
     let url;
-    if (sourceType === 'witv') {
+    if (sourceType === 'iframe') {
+      url = source.url;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      player = { play:()=>{}, pause:()=>{}, getPaused:cb=>cb(false), mute:()=>{}, unmute:()=>{}, getMuted:cb=>cb(false) };
+      addPlayerListeners();
+    } else if (sourceType === 'witv') {
       url = witvBaseUrl + source.id + '&q=1080';
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
@@ -705,11 +761,10 @@
       setTimeout(() => {
         player = new playerjs.Player(playerIframe);
         addPlayerListeners();
-        player.play();
-        player.unmute();
+        player.play(); player.unmute();
       }, 500);
     } else if (sourceType === 'tutvlive') {
-      const server = source.servers[serverIdx] || source.servers[0];
+      const server = (source.servers && source.servers[serverIdx]) || (source.servers && source.servers[0]);
       url = `${tutvliveBaseUrl}${server}/${source.id}`;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
@@ -717,28 +772,24 @@
       setTimeout(() => {
         player = new playerjs.Player(playerIframe);
         addPlayerListeners();
-        player.play();
-        player.unmute();
+        player.play(); player.unmute();
       }, 500);
     } else if (sourceType === 'm3u8') {
       url = source.url || source;
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
-
       if (Hls.isSupported()) {
         initHls(url);
       } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
         playerVideo.src = url;
         playerVideo.addEventListener('loadedmetadata', () => playerVideo.play(), { once: true });
       }
-
       m3u8Timeout = setTimeout(() => {
         if (playerVideo.paused && !m3u8Tried) {
           m3u8Tried = true;
-          tryNextSource(channelIndex, triedSources.concat('m3u8'));
+          tryNextSource();
         }
       }, 10000);
-
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
@@ -754,7 +805,6 @@
       playerVideo.classList.add('active');
       playerVideo.style.display = 'block';
       initDash(url);
-
       player = {
         play: () => playerVideo.play(),
         pause: () => playerVideo.pause(),
@@ -773,73 +823,26 @@
       setTimeout(() => {
         player = new playerjs.Player(playerIframe);
         addPlayerListeners();
-        player.play();
-        player.unmute();
+        player.play(); player.unmute();
       }, 500);
-    } else if (source.type === "daddylive" && source.channel_id) {
-      // Only use 'stream' type for daddylive
+    } else if (sourceType === 'daddylive' && source.channel_id) {
       const streamUrl = `https://dlhd.dad/stream/stream-${source.channel_id}.php`;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
       playerIframe.src = streamUrl;
       playerIframe.setAttribute('allowfullscreen', 'true');
       playerIframe.setAttribute('loading', 'lazy');
-      if (playerVideo) playerVideo.style.display = 'none';
-      // No fallback to other types
       return;
     }
-    // Show switch source if channel has more than 1 source
-    switchServerBtn.style.display = sources.length > 1 ? 'inline-block' : 'none';
-    populateChannelList();
+
+    // Always show single unified button
+    switchServerBtn.textContent = 'Switch Server';
+    switchServerBtn.style.display = flattenedSources.length > 1 ? 'inline-block' : 'none';
   }
 
-  serverSelect.addEventListener('change', (event) => {
-    if (currentSourceType === 'tutvlive') {
-      updatePlayer(currentChannelIndex, 'tutvlive', parseInt(event.target.value));
-    }
-  });
-
+  // Button: cycle to next flattened link
   switchServerBtn.addEventListener('click', () => {
-    // Cycle to next available source type using new priority order
-    const channel = channels[currentChannelIndex];
-    const sources = channel.sources || [];
-    const priority = ['mpd', 'm3u8', 'directfr', 'tutvlive', 'witv'];
-    let idx = priority.indexOf(currentSourceType);
-    for (let i = 1; i <= priority.length; i++) {
-      const candidate = priority[(idx + i) % priority.length];
-      if (sources.find(s => s.type === candidate)) {
-        m3u8Tried = false;
-        updatePlayer(currentChannelIndex, candidate);
-        break;
-      }
-    }
-  });
-
-  fullscreenBtn.addEventListener('click', () => {
-    // Determine which player is visible and request fullscreen accordingly
-    if (playerVideo.classList.contains('active') && playerVideo.style.display === 'block') {
-      if (playerVideo.requestFullscreen) {
-        playerVideo.requestFullscreen();
-      } else if (playerVideo.mozRequestFullScreen) {
-        playerVideo.mozRequestFullScreen();
-      } else if (playerVideo.webkitRequestFullscreen) {
-        playerVideo.webkitRequestFullscreen();
-      } else if (playerVideo.msRequestFullscreen) {
-        playerVideo.msRequestFullscreen();
-      }
-    } else if (playerIframe.classList.contains('active') && playerIframe.style.display === 'block') {
-      if (playerIframe.requestFullscreen) {
-        playerIframe.requestFullscreen();
-      } else if (playerIframe.mozRequestFullScreen) {
-        playerIframe.mozRequestFullScreen();
-      } else if (playerIframe.webkitRequestFullscreen) {
-        playerIframe.webkitRequestFullscreen();
-      } else if (playerIframe.msRequestFullscreen) {
-        playerIframe.msRequestFullscreen();
-      }
-    }
-    // menu-section reference for overlay logic
-    const menuSection = document.getElementById('menu-section');
+    cycleNextFlattened();
   });
 
   // --- Overlay logic for menu-section ---
@@ -848,9 +851,11 @@
 
   function showMenuOverlay() {
     menuSection.classList.add('overlay-active');
+    document.body.classList.add('overlay-dim');   // dim server indicators
   }
   function hideMenuOverlay() {
     menuSection.classList.remove('overlay-active');
+    document.body.classList.remove('overlay-dim'); // restore indicators
   }
   function resetMenuOverlayTimer() {
     hideMenuOverlay();
@@ -939,6 +944,50 @@
     // Optional: allow click to skip the loading video (unobtrusive)
     loadingVideo.addEventListener('click', removeLoadingVideo);
   })();
+
+  // --- Fullscreen support (added) ---
+  function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+  }
+  function requestAnyFullscreen(el) {
+    (el.requestFullscreen ||
+     el.webkitRequestFullscreen ||
+     el.msRequestFullscreen ||
+     el.mozRequestFullScreen)?.call(el);
+  }
+  function exitAnyFullscreen() {
+    (document.exitFullscreen ||
+     document.webkitExitFullscreen ||
+     document.msExitFullscreen ||
+     document.mozCancelFullScreen)?.call(document);
+  }
+  function toggleFullscreen() {
+    const activeEl =
+      (playerVideo && playerVideo.classList.contains('active')) ? playerVideo :
+      (playerIframe && playerIframe.classList.contains('active')) ? playerIframe :
+      document.getElementById('player-container');
+
+    if (isFullscreen()) {
+      exitAnyFullscreen();
+    } else {
+      requestAnyFullscreen(activeEl);
+    }
+  }
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+  // Optional: update button label/state
+  function updateFullscreenButton() {
+    if (!fullscreenBtn) return;
+    // Keep icon; just adjust text before it if desired
+    // Assuming firstChild is a text node "Fullscreen"
+    if (isFullscreen()) {
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Exit Fullscreen ');
+    } else {
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Fullscreen ');
+    }
+  }
+  ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange']
+    .forEach(evt => document.addEventListener(evt, updateFullscreenButton));
 </script>
 </body>
 </html>
