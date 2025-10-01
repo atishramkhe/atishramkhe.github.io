@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- ADD: viewport so mobile width reports actual device width -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>ateaish TV</title>
 <link rel="icon" type="image/png" href="assets/favicon_tv_150ppi.png">
 <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
@@ -331,6 +333,58 @@
   #volume-osd.show {
     opacity: 1;
   }
+
+  /* MOBILE: fixed player, scrolling channel list */
+  @media (max-width: 900px) {
+    :root { --player-mobile-h: 46vh; }
+
+    html, body {
+      height: 100vh;
+      overflow: hidden;          /* prevent body scroll */
+    }
+    #app-wrapper, #main-layout {
+      height: 100vh;
+      overflow: hidden;
+    }
+    #main-layout {
+      flex-direction: column;
+    }
+    #player-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--player-mobile-h);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      background: #000;
+    }
+    #controls {
+      position: relative;        /* stays inside fixed player */
+      top: 0;
+      z-index: 1001;
+      flex: 0 0 auto;
+    }
+    #player-container {
+      flex: 1 1 auto;
+      height: auto;
+    }
+    #menu-section {
+      position: relative;
+      width: 100%;
+      margin-top: var(--player-mobile-h);          /* push below fixed player */
+      height: calc(100vh - var(--player-mobile-h));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      border-left: none;
+      border-top: 1px solid #222;
+    }
+    #channel-list {
+      grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+      padding-bottom: 40px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -349,14 +403,8 @@
         </div>
         <div style="display:flex; align-items:center; flex:1; justify-content:flex-end; gap:10px;">
           <div id="server-indicators"></div>
-          <!-- Removed server-select dropdown -->
           <button id="switch-server-btn" style="display: none;">Switch Server</button>
-          <button id="fullscreen-btn">
-            Fullscreen
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" style="vertical-align:middle; margin-left:6px;" class="bi bi-fullscreen" viewBox="0 0 16 16" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5"/>
-            </svg>
-          </button>
+          <button id="fullscreen-btn" title="Toggle fullscreen">Fullscreen</button>
         </div>
       </div>
       <div id="player-container">
@@ -408,6 +456,60 @@
   </div>
 </div>
 <script>
+(function patchPlayerDebug(){
+  const MAX_HISTORY = 200;      // keep only most recent N entries
+  const RETRY_MS = [0, 1000, 3000, 6000]; // retry in case library not ready yet
+
+  function apply() {
+    const dbg = window.DEBUG || (window.playerjs && window.playerjs.DEBUG);
+    if (!dbg || !dbg.log) return false;
+
+    // If library stores history on dbg.log.history (common pattern)
+    const hist = dbg.log.history;
+    // Wrap original logger (if it is a function)
+    if (!dbg.__patched && typeof dbg.log === 'function') {
+      const orig = dbg.log;
+      dbg.log = function () {
+        // Optional: drop the noisy Player.receive spam entirely
+        const first = arguments[0];
+        if (typeof first === 'string' && first.indexOf('Player.receive') !== -1) {
+          // skip storing/logging these; comment out next line if you still want them in console
+          // return;
+        }
+        // Call original logger (still goes to console)
+        try { orig.apply(dbg, arguments); } catch(e){}
+
+        // Ring buffer maintenance
+        if (hist && Array.isArray(hist)) {
+          if (hist.length > MAX_HISTORY) {
+            hist.splice(0, hist.length - MAX_HISTORY);
+          }
+        }
+      };
+      dbg.__patched = true;
+      // Immediately purge existing huge history
+      if (hist && Array.isArray(hist)) hist.length = 0;
+
+      // Background trim just in case original code still pushes directly
+      setInterval(() => {
+        if (hist && hist.length > MAX_HISTORY) {
+          hist.splice(0, hist.length - MAX_HISTORY);
+        }
+      }, 10000);
+
+      // Helper for manual clearing from console
+      window.clearPlayerDebugHistory = () => { if (hist) hist.length = 0; };
+      console.info('[patch] Player DEBUG history capped at', MAX_HISTORY);
+      return true;
+    }
+    return dbg.__patched || false;
+  }
+
+  // Try a few times (script might load async)
+  RETRY_MS.forEach(delay => setTimeout(apply, delay));
+})();
+</script>
+<script>
   const controls = document.getElementById('controls');
   const playerIframe = document.getElementById('player-iframe');
   let playerVideo = document.getElementById('player-video');
@@ -415,7 +517,7 @@
   const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
   const directfrBaseUrl = 'https://directfr.lat/player/player.php?id=';
 
-  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const fullscreenBtn = document.getElementById('fullscreen-btn') || null;
   const switchServerBtn = document.getElementById('switch-server-btn');
   const countrySelect = document.getElementById('country-select');
 
@@ -970,11 +1072,11 @@
 
   function showMenuOverlay() {
     menuSection.classList.add('overlay-active');
-    document.body.classList.add('overlay-dim');   // dim server indicators
+    document.body.classList.add('overlay-dim');
   }
   function hideMenuOverlay() {
     menuSection.classList.remove('overlay-active');
-    document.body.classList.remove('overlay-dim'); // restore indicators
+    document.body.classList.remove('overlay-dim');
   }
   function resetMenuOverlayTimer() {
     hideMenuOverlay();
@@ -1032,6 +1134,29 @@
   showControls();
   showCursor();
 
+  /* NEW: treat scroll / touch as user activity (hide overlay while scrolling) */
+  (function addActivityListeners(){
+    let lastActivity = 0;
+    function handleActivity() {
+      const now = performance.now();
+      if (now - lastActivity < 120) return; // throttle
+      lastActivity = now;
+      resetMenuOverlayTimer();
+      showControls();
+      showCursor();
+    }
+    const passive = { passive: true };
+    // Scroll on the channel list
+    menuSection.addEventListener('scroll', handleActivity, passive);
+    // Touch interactions (mobile)
+    document.addEventListener('touchstart', handleActivity, passive);
+    document.addEventListener('touchmove', handleActivity, passive);
+    // Wheel (desktop trackpads)
+    menuSection.addEventListener('wheel', handleActivity, passive);
+    // Keyboard (if user navigates with keys)
+    document.addEventListener('keydown', handleActivity);
+  })();
+
   // Loading-screen logic: remove the loading video after it plays once
   (function() {
     const loadingVideo = document.getElementById('loading-video');
@@ -1084,18 +1209,16 @@
     if (isFullscreen()) {
       exitAnyFullscreen();
     } else {
-      // Prefer making the player section fullscreen; fallback to documentElement
       const target = document.getElementById('player-section') || document.documentElement;
       requestAnyFullscreen(target);
     }
   }
-  fullscreenBtn.addEventListener('click', toggleFullscreen);
-
-  // Optional: update button label/state
+  // Only bind if button exists (now null)
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
   function updateFullscreenButton() {
-    if (!fullscreenBtn) return;
-    // Keep icon; just adjust text before it if desired
-    // Assuming firstChild is a text node "Fullscreen"
+    if (!fullscreenBtn) return; // no-op (button removed)
     if (isFullscreen()) {
       fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Exit Fullscreen ');
     } else {
@@ -1104,6 +1227,13 @@
   }
   ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange']
     .forEach(evt => document.addEventListener(evt, updateFullscreenButton));
+
+  // NEW: keyboard shortcut (press "f") to toggle fullscreen
+  document.addEventListener('keydown', e => {
+    if (e.key === 'f' || e.key === 'F') {
+      toggleFullscreen();
+    }
+  });
 </script>
 </body>
 </html>
