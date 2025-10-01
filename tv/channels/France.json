@@ -1959,8 +1959,12 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "logos/France/Caillou.png",
+    "logo": "https://image.xumo.com/v1/channels/channel/99992103/600x200.png?type=white_cropped",
     "sources": [
+{
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992103&ads.xumo_streamId=99992103&ads.channelId=99992103&ads.ad_tag_id=103692&ads.csid=lgchannels_fr_caillou_ssai&ads.channelName=caillou_fr&ads.xumo_contentName=WildbrainFrance&ads.xumo_contentId=3900&ads.xumo_providerName=WildbrainFrance&ads.xumo_providerId=3900&ads.content_category=IAB1-6&ads.content_genre=kids&ads.content_language=fr&ads.content_rating=tv-g&ads.coppa=1&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      },
       {
         "type": "m3u8",
         "url": "https://do7nccdsswstc.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-1aso0bc668saa/a5233c83-f772-4a81-959a-45ec7877ef61/5.m3u8"
@@ -2006,20 +2010,6 @@
       {
         "type": "m3u8",
         "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13170&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_uk&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Caillou",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992103/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992103&ads.xumo_streamId=99992103&ads.channelId=99992103&ads.ad_tag_id=103692&ads.csid=lgchannels_fr_caillou_ssai&ads.channelName=caillou_fr&ads.xumo_contentName=WildbrainFrance&ads.xumo_contentId=3900&ads.xumo_providerName=WildbrainFrance&ads.xumo_providerId=3900&ads.content_category=IAB1-6&ads.content_genre=kids&ads.content_language=fr&ads.content_rating=tv-g&ads.coppa=1&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
       }
     ]
   },
