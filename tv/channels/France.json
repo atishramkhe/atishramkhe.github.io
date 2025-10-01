@@ -136,13 +136,14 @@
     "logo": "logos/France/Arte.png",
     "sources": [
       {
-        "type": "witv",
-        "id": 234
-      },
-      {
         "type": "m3u8",
         "url": "https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8"
+      }, 
+      {
+        "type": "witv",
+        "id": 234
       }
+      
     ]
   },
   {
@@ -210,9 +211,9 @@
     "logo": "logos/France/BFM TV.png",
     "sources": [
       {
-        "type": "witv",
-        "id": 169
-      },
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmtv-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMTV_all-LG_smartTV-Live&ads.devicemodel=[DEVICE_MODEL]&content_id=bfmtv_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
       {
         "type": "m3u8",
         "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
@@ -220,6 +221,10 @@
       { 
         "type": "directfr",
         "id": 89
+      }, 
+      {
+        "type": "witv",
+        "id": 169
       }
     ]
   },
@@ -229,6 +234,10 @@
     "categories": [],
     "logo": "logos/France/CNews.png",
     "sources": [
+      {
+        "type" : "directfr", 
+        "id" : 87
+      },
       {
         "type": "witv",
         "id": 171
@@ -744,6 +753,10 @@
     ],
     "logo": "logos/France/6ter.png",
     "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
+      },
       {
         "type": "directfr",
         "id": 70
@@ -751,11 +764,8 @@
       {
         "type": "witv",
         "id": 159
-      },
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
       }
+      
     ]
   },
   {
@@ -782,6 +792,14 @@
     "categories": [],
     "logo": "logos/France/RMC Story.png",
     "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmcstor-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCStory_all-LG_smartTV-Live&content_id=rmc_story_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {	
+      	"type" : "directfr", 
+      	"id" : 19
+      },
       {
         "type": "witv",
         "id": 80
@@ -1013,6 +1031,19 @@
     ]
   },
   {
+    "name": "Carac 1",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "logos/France/Carac 1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge16.vedge.infomaniak.com/livecast/ik:rougetv/chunklist_w1283858564_b1600000.m3u8?spark=085c91d5-dfad-4d92-9433-668d9085170b&token="
+      }
+    ]
+  },
+  {
     "name": "Carac 5",
     "id_api": "Carac5.ch@HD",
     "categories": [
@@ -1103,18 +1134,6 @@
       {
         "type": "witv",
         "id": 141
-      }
-    ]
-  },
-  {
-    "name": "Ciné+ OCS",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/OCS.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 198
       }
     ]
   },
@@ -1544,6 +1563,10 @@
     "logo": "logos/France/RMC Découverte.png",
     "sources": [
       {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmcdeco-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCDecouverte_all-LG_smartTV-Live&content_id=rmc_decouverte_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      },
+      {
         "type": "directfr",
         "id": 26
       },
@@ -1691,30 +1714,28 @@
       }
     ]
   },
-  {
-    "name": "RMC Mystère",
-    "id_api": null,
-    "categories": [],
-    "logo": "https://tvpnlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/FR300006GF_20241106T142644SQUARE.png",
+{
+    "name": "RMC Mecanic",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://static-cdn.tv.sfr.net/data/img/apps/chaines/logos/img300RMCMECANICmono.png",
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://jmp2.uk/stvp-FR300006GF"
+        "url": "https://live-cdn-rmcmeca-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCMecanic_all-LG_smartTV-Fast&content_id=rmc_mecanic&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
       }
     ]
   },
   {
-    "name": "Museum TV",
-    "id_api": "MuseumTVFrench.fr",
-    "categories": [
-      "Culture"
-    ],
-    "logo": "logos/France/Museum TV.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live2.creacast.com/museum-france/smil:museum-france.smil/master.m3u8"
-      }
+    "name" : "AUTOMOTO La Chaîne",
+    "logo" : "logos/France/Automoto La Chaîne.png",
+    "sources" : [ 
+     {
+     	"type" : "directfr", 
+     	"id" : 68 
+     }
     ]
   },
   {
@@ -1993,6 +2014,10 @@
     "categories": [],
     "logo": "logos/France/Cartoonito.png",
     "sources": [
+      {
+      	"type" : "directfr", 
+      	"id" : 110 
+      },
       {
         "type": "witv",
         "id": 203
@@ -2347,6 +2372,10 @@
     "categories": [],
     "logo": "logos/France/RMC Info Talk Sport.png",
     "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
       {
         "type": "witv",
         "id": 256
@@ -2867,6 +2896,9 @@
     "categories": [],
     "logo": "logos/France/Euronews.png",
     "sources": [
+      { "type" : "directfr", 
+      	"id" : 88 
+      },
       {
         "type": "witv",
         "id": 170
@@ -2928,6 +2960,10 @@
     "sources": [
       {
         "type": "m3u8",
+        "url": "https://live-cdn-bfm2-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFM2_all-LG_smartTV-Live&content_id=bfm_2_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemake=[DEVICE_MAKE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      },
+      {
+        "type": "m3u8",
         "url": "https://d1ib1gsg71oarf.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-scp7wda722jph/BFM2_FR.m3u8"
       }
     ]
@@ -2955,6 +2991,10 @@
     ],
     "logo": "logos/France/BFM Business.png",
     "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmbusiness-lg-fr-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMBusiness_all-LG_smartTV-Live&content_id=bfmbusiness_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      },
       {
         "type": "m3u8",
         "url": "https://live-cdn-stream-euw1.bfmb.bct.nextradiotv.com/master.m3u8"
@@ -3112,6 +3152,10 @@
     "sources": [
       {
         "type": "m3u8",
+        "url": "https://live-cdn-technco-lg-main-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=TechCo_all-LG_smartTV-Live&content_id=tech_co_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ads.devicemodel=[DEVICE_MODEL]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      },
+      {
+        "type": "m3u8",
         "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TECHANDCO/index.m3u8?end=END&start=LIVE"
       }
     ]
@@ -3216,6 +3260,20 @@
       {
         "type": "m3u8",
         "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(info)/variant.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Africanews",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://images-3.rakuten.tv/storage/global-live-channel/translation/logo-2-1/800a1b6a-dd78-43cb-88b0-04e9e8d700f0-width400-height200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://2767164d5ee04887b96812a9eea74d32.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6573/bitok/eyJzdGlkIjoiMjQ0ZWI3MWMtOWEzYy00ZWViLWI5ZmYtYzViOGM5ZGVhNjI2IiwibWt0IjoiZnIiLCJjaCI6NjU3MywicHRmIjoyfQ==/26037/africanews-fr.m3u8"
       }
     ]
   },
@@ -3852,34 +3910,7 @@
       }
     ]
   },
-  {
-    "name": "RMC Story",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-RMCSTORY.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmcstor-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCStory_all-LG_smartTV-Live&content_id=rmc_story_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "RMC Meca",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-RMCSMECANIC.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmcmeca-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCMecanic_all-LG_smartTV-Fast&content_id=rmc_mecanic&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
+  
   {
     "name": "Top Gear",
     "id_api": "",
@@ -4191,20 +4222,6 @@
     ]
   },
   {
-    "name": "RMC Decouverte",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-RMCDECOUVERTE.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmcdeco-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCDecouverte_all-LG_smartTV-Live&content_id=rmc_decouverte_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
     "name": "MTRSPT1",
     "id_api": "",
     "categories": [
@@ -4215,20 +4232,6 @@
       {
         "type": "m3u8",
         "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&coppa=0&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "RMC Talk Sport",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-RMCTALKSPORT.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
       }
     ]
   },
@@ -4383,76 +4386,6 @@
       {
         "type": "m3u8",
         "url": "https://d29h829bjuxghm.cloudfront.net/hls/billi.m3u8?ads.xumo_channelId=99992209&ads.xumo_streamId=99992209&ads.channelId=99992209&ads.csid=lgchannels_fr_triplebmediabilliard_ssai&ads.channelName=triplebmediabilliard_fr&ads.xumo_contentName=TripleBMediaBilliard&ads.xumo_contentId=2728&ads.xumo_providerName=TripleBMediaBilliard&ads.xumo_providerId=2728&ads.content_category=IAB17&ads.content_genre=sports&ads.content_language=en&ads.content_rating=tv-y&ads.coppa=0&ads.did=[IFA]&ads.is_lat=[LMT]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.appName=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_version=[APP_VERSION]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },  
-  {
-    "name": "Africanews",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://images-3.rakuten.tv/storage/global-live-channel/translation/logo-2-1/800a1b6a-dd78-43cb-88b0-04e9e8d700f0-width400-height200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://2767164d5ee04887b96812a9eea74d32.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6573/bitok/eyJzdGlkIjoiMjQ0ZWI3MWMtOWEzYy00ZWViLWI5ZmYtYzViOGM5ZGVhNjI2IiwibWt0IjoiZnIiLCJjaCI6NjU3MywicHRmIjoyfQ==/26037/africanews-fr.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Tech & Co",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d2mxb63djushzm.cloudfront.net/images/techco_400x200.jpg",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-technco-lg-main-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=TechCo_all-LG_smartTV-Live&content_id=tech_co_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ads.devicemodel=[DEVICE_MODEL]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "BFM Business",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-BFMBUSINESS.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-bfmbusiness-lg-fr-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMBusiness_all-LG_smartTV-Live&content_id=bfmbusiness_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "BFM2",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-BFM2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-bfm2-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFM2_all-LG_smartTV-Live&content_id=bfm_2_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemake=[DEVICE_MAKE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "BFMTV",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Altice/Images/logos-chaines-200-BFMTV.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-bfmtv-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMTV_all-LG_smartTV-Live&ads.devicemodel=[DEVICE_MODEL]&content_id=bfmtv_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
       }
     ]
   }
