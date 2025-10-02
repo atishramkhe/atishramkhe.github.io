@@ -3190,6 +3190,21 @@
     ]
   },
   {
+    "name": "Assemblée Nationale",
+    "id_api": "AssembleeNationale.fr",
+    "categories": [
+      "Legislative"
+    ],
+    "logo": "https://i.imgur.com/Eta6gUq.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://anorigin.vodalys.com/live/live36/index36_12856975.m3u8?DVR="
+      }
+    ]
+  },
+
+  {
     "name": "Le Figaro IDF",
     "id_api": "LeFigaroTVIledeFrance.fr",
     "categories": [
@@ -3249,20 +3264,7 @@
       }
     ]
   },
-  {
-    "name": "TV5Monde Info",
-    "id_api": "TV5MondeInfo.fr",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.postimg.cc/zfSny3Qs/tv5mondeinfo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(info)/variant.m3u8"
-      }
-    ]
-  },
+
   {
     "name": "Africanews",
     "id_api": "",
@@ -3277,20 +3279,7 @@
       }
     ]
   },
-  {
-    "name": "Assemblée Nationale",
-    "id_api": "AssembleeNationale.fr",
-    "categories": [
-      "Legislative"
-    ],
-    "logo": "https://i.imgur.com/Eta6gUq.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "http://anorigin.vodalys.com/live/live36/index36_12856975.m3u8?DVR="
-      }
-    ]
-  },
+
 
   
   {
@@ -3351,54 +3340,6 @@
       }
     ]
   },
-
-  
-  
-  
-  {
-    "name": "Ère TV",
-    "id_api": "EreTV.fr",
-    "categories": [
-      "Religious"
-    ],
-    "logo": "https://i.imgur.com/utMKPpl.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://mn-nl.mncdn.com/awraastv/awraastv_hd.smil/playlist.m3u8"
-      }
-    ]
-  },
-
-  
-  {
-    "name": "Francophonie",
-    "id_api": "Francophonie24.fr",
-    "categories": [
-      "Documentary"
-    ],
-    "logo": "https://i.imgur.com/uM1v1sd.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "http://mv2.tvfrancophonie.org/live/Stream1/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "ILTV",
-    "id_api": "ILTV.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.imgur.com/fVhrJHK.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live.creacast.com/iltv/smil:iltv.smil/playlist.m3u8"
-      }
-    ]
-  },
   {
     "name": "Kozoom TV",
     "id_api": "KozoomTV.fr",
@@ -3424,21 +3365,6 @@
       {
         "type": "m3u8",
         "url": "https://live-kto.akamaized.net/hls/live/2033284/KTO/master.m3u8"
-      }
-    ]
-  },
-  
-  {
-    "name": "MDL",
-    "id_api": "MDL.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.imgur.com/REN30bx.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "http://tv.mondeduloisir.fr:1935/tixtv/smil:web.smil/playlist.m3u8"
       }
     ]
   },
@@ -3472,20 +3398,6 @@
     ]
   },
   {
-    "name": "NLM TV",
-    "id_api": "NLMTV.fr",
-    "categories": [
-      "Religious"
-    ],
-    "logo": "https://i.postimg.cc/7YbGVvr5/nlmtv.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ktismaservers.in:3394/stream/play.m3u8"
-      }
-    ]
-  },
-  {
     "name": "P2M TV",
     "id_api": "P2MTV.fr",
     "categories": [
@@ -3513,18 +3425,6 @@
       }
     ]
   },
-  {
-    "name": "Qwest TV Jazz & Beyond",
-    "id_api": "QwestTVJazzBeyond.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/89yWH5L.png",
-    "sources": [
-      
-    ]
-  },
-
 
   {
     "name": "RT France",
@@ -3541,105 +3441,6 @@
     ]
   },
   {
-    "name": "Souvenirs from Earth TV",
-    "id_api": "SouvenirsfromEarthTV.de",
-    "categories": [
-      "Culture"
-    ],
-    "logo": "https://i.ibb.co/Qf1Ys8S/SOUVENIRS-FROM-EARTH.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.castr.com/615c867def76d75817460129/live_f3bc1800279a11ec89f80341acd6773a/index.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Sport En France",
-    "id_api": "SportenFrance.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "https://i.imgur.com/1IXQoWq.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://sp1564435593.mytvchain.info/live/sp1564435593/index.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "T18",
-    "id_api": "T18.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Logo_de_la_chaine_T18.svg/langfr-512px-Logo_de_la_chaine_T18.svg.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/t18/t18-dm.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Tébéo TV",
-    "id_api": "TebeoTV.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/WdZWBEd.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://start-1.direct.live/hls/tebeo.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TébéSud",
-    "id_api": "TebeSud.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.postimg.cc/sX3jnL1Q/tebesud.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://start-2.direct.live/hls/tebesud.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TéléGohelle",
-    "id_api": "TeleGohelle.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/Oa3Pwbf.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://videas.agglo-lenslievin.fr/index.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Télénantes",
-    "id_api": "Telenantes.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.imgur.com/G1SCqNI.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/azgaresncf/strm2hls/main/streams/Telenantes.m3u8"
-      }
-    ]
-  },
-
-  {
     "name": "TV3V",
     "id_api": "TV3V.fr@SD",
     "categories": [
@@ -3653,34 +3454,7 @@
       }
     ]
   },
-  {
-    "name": "TV5Monde Style",
-    "id_api": "TV5MondeStyle.fr",
-    "categories": [
-      "Lifestyle"
-    ],
-    "logo": "https://i.imgur.com/cwC7Q2V.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ott.tv5monde.com/Content/HLS/Live/channel(style1)/variant.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TV7 Bordeaux",
-    "id_api": "TV7Bordeaux.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.imgur.com/lJdlu2r.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live.digiteka.com/1/RVNZMmJtUURmd09I/U0dNU0tk/hls/live/playlist.m3u8"
-      }
-    ]
-  },
+
   {
     "name": "TV7 Colmar",
     "id_api": "TV7Colmar.fr@SD",
@@ -3692,34 +3466,6 @@
       {
         "type": "m3u8",
         "url": "https://tv7.live-kd.com/live/tv7/livestream/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TV78",
-    "id_api": "TV78.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.imgur.com/stzE1Ij.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://streamtv.cdn.dvmr.fr/TV78/ngrp:tv78.stream_all/master.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TV Finance",
-    "id_api": "TVFinance.fr",
-    "categories": [
-      "Business"
-    ],
-    "logo": "https://i.imgur.com/G3qimo4.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://strhlslb01.streamakaci.tv/str_tvfinance_tvfinance/str_tvfinance_multi/playlist.m3u8"
       }
     ]
   },
@@ -3752,48 +3498,6 @@
     ]
   },
   {
-    "name": "TV Vendée",
-    "id_api": "TVVendee.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/YW7JKcw.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/azgaresncf/strm2hls/main/streams/TVVendee.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TVR (Bretagne)",
-    "id_api": "TVR.fr",
-    "categories": [
-      "Undefined"
-    ],
-    "logo": "https://i.postimg.cc/pTftFT18/tvr.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://streamtv.cdn.dvmr.fr/TVR/ngrp:tvr.stream_all/master.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TZiK",
-    "id_api": "TZiK.fr",
-    "categories": [
-      "Music"
-    ],
-    "logo": "https://i.imgur.com/TAagRkn.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://54627d4fc5996.streamlock.net/tzik/tzik/chunklist.m3u8"
-      }
-    ]
-  },
-  {
     "name": "ViàMatélé",
     "id_api": "ViaMatele.fr",
     "categories": [
@@ -3822,20 +3526,6 @@
     ]
   },
   {
-    "name": "viàOccitanie",
-    "id_api": "ViaOccitanie.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/NzuKt1R.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://streamer01.myvideoplace.tv/streamer02/hls/MDS_VIA_PAD_301117.m3u8"
-      }
-    ]
-  },
-  {
     "name": "viàTéléPaese",
     "id_api": "viaTelePaese.fr",
     "categories": [
@@ -3843,14 +3533,15 @@
     ],
     "logo": "https://i.imgur.com/TLZsAKK.png",
     "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://srv.webtvmanager.fr:3970/live/viatelepaeselive.m3u8"
+      }, 
       {
         "type": "m3u8",
         "url": "https://live.creacast.com/tvpaese/smil:tvpaese.smil/playlist.m3u8"
-      },
-      {
-        "type": "m3u8",
-        "url": "https://srv.webtvmanager.fr:3970/live/viatelepaeselive.m3u8"
       }
+      
     ]
   },
   {
@@ -3867,21 +3558,6 @@
       }
     ]
   },
-  {
-    "name": "Wéo (Hauts-de-France)",
-    "id_api": "Weo.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/qtpclVj.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live.digiteka.com/1/WGQ1NnhEN0lzM0NU/dk1EOHhw/hls/live/playlist.m3u8"
-      }
-    ]
-  }, 
-
   {
     "name": "Nashville",
     "id_api": "",
@@ -4204,20 +3880,6 @@
       {
         "type": "m3u8",
         "url": "https://0ef4d427cd1a4785a51d1ce13f9f0017.mediatailor.us-east-1.amazonaws.com/v1/master/0fb304b2320b25f067414d481a779b77db81760d/LG-fr_TheBoatShow/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Television Concientes",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3ihz2t21utd2c.cloudfront.net/Images/S3/LG/Logo_A_TVC_100x100.jpg",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://television-concientes-lgfr.amagi.tv/hls/amagi_hls_data_fractalme-fractal-televison-concientes-lgfr/CDN/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
       }
     ]
   },
