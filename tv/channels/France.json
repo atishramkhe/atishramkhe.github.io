@@ -10,6 +10,10 @@
         "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
       },
       {
+        "type": "daddylive",
+        "channel_id": "469"
+      },
+      {
         "type": "directfr",
         "id": 27
       },
@@ -118,6 +122,10 @@
         "url": "https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8"
       },
       {
+        "type": "daddylive",
+        "channel_id": "470"
+      },
+      {
         "type": "directfr",
         "id": 39
       },
@@ -139,6 +147,10 @@
         "type": "m3u8",
         "url": "https://artesimulcast.akamaized.net/hls/live/2031003/artelive_fr/index.m3u8"
       }, 
+      {
+        "type": "daddylive",
+        "channel_id": "958"
+      },
       {
         "type": "witv",
         "id": 234
@@ -217,6 +229,10 @@
       {
         "type": "m3u8",
         "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "957"
       }, 
       { 
         "type": "directfr",
@@ -229,22 +245,6 @@
     ]
   },
   {
-    "name": "CNews",
-    "id_api": "CNews.fr",
-    "categories": [],
-    "logo": "logos/France/CNews.png",
-    "sources": [
-      {
-        "type" : "directfr", 
-        "id" : 87
-      },
-      {
-        "type": "witv",
-        "id": 171
-      }
-    ]
-  },
-  {
     "name": "Canal+",
     "id_api": "CanalPlus.fr",
     "categories": ["Sports"],
@@ -253,6 +253,10 @@
       {
         "type": "directfr",
         "id": 40
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "121"
       },
       {
         "type": "tutvlive",
@@ -276,6 +280,10 @@
     "categories": [],
     "logo": "logos/France/Canal+ Foot.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "463"
+      },
       {
         "type": "directfr",
         "id": 6
@@ -302,6 +310,10 @@
     "categories": [],
     "logo": "logos/France/Canal+ Sport.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "122"
+      },
       {
         "type": "directfr",
         "id": 12
@@ -349,11 +361,29 @@
     ]
   },
   {
+    "name": "Canal+ MotoGP France",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+MotoGP.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "271"
+      }
+    ]
+  },
+  {
     "name": "Eurosport 1",
     "id_api": null,
     "categories": [],
     "logo": "logos/France/Eurosport 1.png",
     "sources": [
+     {
+        "type": "daddylive",
+        "channel_id": "772"
+      },
       {
         "type": "directfr",
         "id": 14
@@ -381,6 +411,10 @@
     "logo": "logos/France/Eurosport 2.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "773"
+      }, 
+      {
         "type": "directfr",
         "id": 15
       },
@@ -407,6 +441,10 @@
     "logo": "logos/France/RMC Sport 1.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "119"
+      },
+      {
         "type": "directfr",
         "id": 1
       },
@@ -432,6 +470,10 @@
     "categories": [],
     "logo": "logos/France/RMC Sport 2.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "120"
+      },
       {
         "type": "directfr",
         "id": 2
@@ -471,6 +513,10 @@
     "logo": "logos/France/beIN Sports 1.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "116"
+      },
+      {
         "type": "directfr",
         "id": 8
       },
@@ -496,6 +542,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 2.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "117"
+      },
       {
         "type": "directfr",
         "id": 9
@@ -523,6 +573,10 @@
     "logo": "logos/France/beIN Sports 3.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "118"
+      },
+      {
         "type": "directfr",
         "id": 11
       },
@@ -545,6 +599,10 @@
     "logo": "logos/France/beIN Sports 4.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "494"
+      },
+      {
         "type": "tutvlive",
         "id": 4,
         "servers": [
@@ -562,6 +620,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 5.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "495"
+      },
       {
         "type": "tutvlive",
         "id": 5,
@@ -581,6 +643,10 @@
     "logo": "logos/France/beIN Sports 6.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "496"
+      },
+      {
         "type": "tutvlive",
         "id": 6,
         "servers": [
@@ -598,6 +664,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 7.png",
     "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "497"
+      },
       {
         "type": "tutvlive",
         "id": 7,
@@ -617,6 +687,10 @@
     "logo": "logos/France/beIN Sports 8.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "498"
+      },
+      {
         "type": "tutvlive",
         "id": 8,
         "servers": [
@@ -635,6 +709,10 @@
     "logo": "logos/France/beIN Sports 9.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "499"
+      },
+      {
         "type": "tutvlive",
         "id": 9,
         "servers": [
@@ -652,6 +730,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 10.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "500"
+      },
       {
         "type": "tutvlive",
         "id": 10,
@@ -731,6 +813,74 @@
     ]
   },
   {
+    "name": "L'Equipe",
+    "id_api": "LEquipe.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
+      }, 
+      {
+        "type": "daddylive",
+        "channel_id": "645"
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live1",
+    "id_api": "LEquipe.fr@Live1",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 79
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live2",
+    "id_api": "LEquipe.fr@Live2",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 80
+      }
+    ]
+  },
+  {
+    "name": "Africa 24 Sport",
+    "id_api": "Africa24Sport.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Africa 24 Sport.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
+      }
+    ]
+  },
+  {
     "name": "FIFA+",
     "id_api": "",
     "categories": [
@@ -743,7 +893,21 @@
         "url": "https://becfa822.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfRklGQVBsdXNGcmVuY2hfSExT/playlist.m3u8"
       }
     ]
-  },  
+  },
+  {
+    "name": "Equidia",
+    "id_api": "Equidia.fr@SD",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Equidia.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
+      }
+    ]
+  }, 
   
   {
     "name": "6ter",
@@ -756,6 +920,10 @@
      {
         "type": "m3u8",
         "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "963"
       },
       {
         "type": "directfr",
@@ -905,7 +1073,7 @@
     ]
   },
   {
-    "name": "Boys Over Flowers",
+    "name": "Rakuten Viki",
     "id_api": "",
     "categories": [
       "France"
@@ -1429,7 +1597,7 @@
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://thriller-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6479/6f1575db-66c7-4255-aa1f-c6f089d6ca2d/4.m3u8"
+        "url": "https://thriller-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6479/d98d69cb-383b-47fa-9c6e-6e9443bf5867/4.m3u8"
       }
     ]
   },
@@ -1443,7 +1611,7 @@
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://romance-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6195/29ec724f-d500-421e-bee0-37466e71ab0a/4.m3u8"
+        "url": "https://romance-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6195/4c98dc29-ea69-41f8-baf2-c8a5466777eb/4.m3u8"
       }
     ]
   },
@@ -1458,18 +1626,6 @@
       {
         "type": "m3u8",
         "url": "https://f396f4db84a54f7bb496b2541477b626.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6095/master.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "13ème Rue",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/13ème Rue.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 244
       }
     ]
   },
@@ -1693,32 +1849,12 @@
     "logo": "logos/France/Animaux.png",
     "sources": [
       {
-        "type": "witv",
-        "id": 239
-      },
-      {
         "type": "m3u8",
         "url": "https://viamotionhsi.netplus.ch/live/eds/animaux/browser-HLS8/animaux.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Seasons",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Seasons.png",
-    "sources": [
-      {
-        "type" : "m3u8", 
-        "url" : "https://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/lHejLZomLL9sNMg9MR8NH-PMaI0PYNtYlf6QI-BBmzseKg2ycl5imhjzf1W-KILen2kCViIujNeHzQQLcca9U_f3F0KghYjajA02Qf32MHJC2ZTjNDdn0oG0qoeaAwUEeKG6vzbpu_h5cAWYPGoGng2CjYnrMjnpPJ739qRpnz8/hls/index.m3u8"
-      },
-      {
-        "type" : "m3u8", 
-        "url" : "https://mjkskdvpfpb1fbv.ngolpdkyoctjcddxshli469r.org/sunshine/atUEnFYDQelHZUwTejJAtCPKZvxSvXseasAAUB60RJuyOoi44VYuH5rkIeWRodnPBtGqvtOrpmaYeme2tI9cillgUl_2-zXMNIS_agz8Vu7Y-c48ZQYP3Qb1VRuWYjF7A3_TOXm975C4YxFZv0vgVJyHOboA47CQnT9qaQrnQO4/hls/index.m3u8"
       }, 
       {
         "type": "witv",
-        "id": 246
+        "id": 239
       }
     ]
   },
@@ -1971,18 +2107,6 @@
     ]
   },
   {
-    "name": "Gulli",
-    "id_api": "Gulli.fr",
-    "categories": [],
-    "logo": "logos/France/Gulli.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 208
-      }
-    ]
-  },
-  {
     "name": "Caillou",
     "id_api": "Caillou.fr@SD",
     "categories": [
@@ -2203,18 +2327,6 @@
     ]
   },
   {
-    "name": "Warner Bros TV Next",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Warner TV Next.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 251
-      }
-    ]
-  },
-  {
     "name": "ADN TV+",
     "id_api": "ADNTVPlus.fr@SD",
     "categories": [
@@ -2390,84 +2502,7 @@
       }
     ]
   },
-  {
-    "name": "Africa 24 Sport",
-    "id_api": "Africa24Sport.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/Africa 24 Sport.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Equidia",
-    "id_api": "Equidia.fr@SD",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/Equidia.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe",
-    "id_api": "LEquipe.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe Live1",
-    "id_api": "LEquipe.fr@Live1",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
-      },
-      {
-        "type": "directfr",
-        "id": 79
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe Live2",
-    "id_api": "LEquipe.fr@Live2",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
-      },
-      {
-        "type": "directfr",
-        "id": 80
-      }
-    ]
-  },
+  
   {
     "name": "NRJ Hits",
     "id_api": null,
