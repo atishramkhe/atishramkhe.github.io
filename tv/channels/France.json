@@ -341,6 +341,10 @@
     "logo": "logos/France/Canal+ Sport 360.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "464"
+      }, 
+      {
         "type": "directfr",
         "id": 5
       },
@@ -361,16 +365,30 @@
     ]
   },
   {
-    "name": "Canal+ MotoGP France",
+    "name": "Canal+ Live 1",
     "id_api": null,
     "categories": [
       "France"
     ],
-    "logo": "logos/France/Canal+MotoGP.svg",
+    "logo": "logos/France/Canal+ Live.png",
     "sources": [
       {
         "type": "daddylive",
         "channel_id": "271"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Live 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "273"
       }
     ]
   },

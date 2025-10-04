@@ -126,6 +126,34 @@
     ]
   },
   {
+    "name": "ABC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "51"
+      }
+    ]
+  },
+  {
+    "name": "ABC NY USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "766"
+      }
+    ]
+  },
+  {
     "name": "NBC News NOW",
     "id_api": "",
     "categories": [
@@ -136,6 +164,48 @@
       {
         "type": "m3u8",
         "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99992212/hls/master.m3u8?ads.xumo_channelId=99992212&ads.asnw=169843&ads.afid=137704898&ads.sfid=16373024&ads.csid=lgchannels_us_nbcnewsnow_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB12&ads._fw_content_genre=News&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=1828&ads.xumo_contentName=NBCNewsNOW&ads.xumo_providerId=1828&ads.xumo_providerName=NBCNewsNOW&ads.channelId=99992212&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "CNBC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "309"
+      }
+    ]
+  },
+  {
+    "name": "MSNBC",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "327"
+      }
+    ]
+  },
+  {
+    "name": "CNN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "345"
       }
     ]
   },
@@ -182,7 +252,21 @@
     ]
   },
   {
-    "name": "136 Scripps News",
+    "name": "BBC News Channel HD",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "349"
+      }
+    ]
+  },
+  {
+    "name": "Scripps News",
     "id_api": "",
     "categories": [
       "US"
@@ -206,6 +290,34 @@
       {
         "type": "m3u8",
         "url": "https://4fb3f38a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQkJDTmV3cy0xX0hMUw/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Fox News",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "347"
+      }
+    ]
+  },
+  {
+    "name": "Fox Business",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "297"
       }
     ]
   },
@@ -252,6 +364,20 @@
     ]
   },
   {
+    "name": "Fox Weather Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "775"
+      }
+    ]
+  },
+  {
     "name": "AccuWeather",
     "id_api": "",
     "categories": [
@@ -262,6 +388,20 @@
       {
         "type": "m3u8",
         "url": "https://accuweatherx-lg.amagi.tv/hls/amagi_hls_data_accuweath-accuweather-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+      }
+    ]
+  },
+  {
+    "name": "The Weather Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "394"
       }
     ]
   },
@@ -350,6 +490,48 @@
     ]
   },
   {
+    "name": "Investigation Discovery (ID USA)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "324"
+      }
+    ]
+  },
+  {
+    "name": "Law & Crime Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "278"
+      }
+    ]
+  },
+  {
+    "name": "Crime+ Investigation USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "669"
+      }
+    ]
+  },
+  {
     "name": "Unsolved Mysteries",
     "id_api": "",
     "categories": [
@@ -377,17 +559,186 @@
       }
     ]
   },
-  {
-    "name": "Pluto TV Crime Drama",
-    "id_api": "",
+ 	{
+    "name": "A&E USA",
+    "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": "https://images.pluto.tv/channels/5f31fd1b4c510e00071c3103/logo.png?w=380&h=110&trim=auto&trim-sd=10&trim-md=0&fit=clip&fm=png",
+    "logo": null,
     "sources": [
       {
-        "type": "m3u8",
-        "url": "https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5f31fd1b4c510e00071c3103/master.m3u8?advertisingId=&appName=web&appVersion=unknown&appStoreUrl=&architecture=&buildVersion=&clientTime=0&deviceDNT=0&deviceId=424e55da-1dda-11f0-ab45-a30a4ae8334b&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&sid=1626e761-a9fe-491b-a8fc-b0150ac1b02e&userId=&serverSideAds=true"
+        "type": "daddylive",
+        "channel_id": "302"
+      }
+    ]
+  },
+  {
+    "name": "AMC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "303"
+      }
+    ]
+  },
+  {
+    "name": "CW USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "300"
+      }
+    ]
+  },
+  {
+    "name": "FX USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "317"
+      }
+    ]
+  },
+  {
+    "name": "FXX USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "298"
+      }
+    ]
+  },
+{
+    "name": "HBO USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "321"
+      }
+    ]
+  },
+  {
+    "name": "HBO2 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "689"
+      }
+    ]
+  },
+  {
+    "name": "HBO Comedy USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "690"
+      }
+    ]
+  },
+  {
+    "name": "HBO Family USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "691"
+      }
+    ]
+  },
+  {
+    "name": "HBO Latino USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "692"
+      }
+    ]
+  },
+  {
+    "name": "HBO Signature USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "693"
+      }
+    ]
+  },
+  {
+    "name": "HBO Zone USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "694"
+      }
+    ]
+  },
+
+  {
+    "name": "Cinemax USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "374"
       }
     ]
   },
@@ -882,6 +1233,20 @@
     ]
   },
   {
+    "name": "History USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "322"
+      }
+    ]
+  },
+  {
     "name": "Historian",
     "id_api": "",
     "categories": [
@@ -1005,6 +1370,20 @@
       {
         "type": "m3u8",
         "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993014/hls/master.m3u8?ads.xumo_channelId=99993014&ads.asnw=169843&ads.afid=347195519&ads.sfid=18538483&ads.csid=lgchannels_us_nbcumilliondollarlisting_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=2780&ads.xumo_contentName=NBCUMillionDollarListing&ads.xumo_providerId=2780&ads.xumo_providerName=NBCUMillionDollarListing&ads.channelId=99993014&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "E! Entertainment Television",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "315"
       }
     ]
   },
@@ -2955,6 +3334,2092 @@
       {
         "type": "m3u8",
         "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992069&ads.xumo_streamId=99992069&ads.channelId=99992069&ads.ad_tag_id=9321&ads.csid=lgchannels_us_stingray_ssai&ads.channelName=stingrayqello_us&ads.xumo_contentName=Stingray&ads.xumo_contentId=187&ads.xumo_providerName=Stingray&ads.xumo_providerId=187&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "ACC Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "664"
+      }
+    ]
+  },
+  {
+    "name": "AXS TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "742"
+      }
+    ]
+  },
+
+  {
+    "name": "BeIN SPORTS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "425"
+      }
+    ]
+  },
+  {
+    "name": "BET USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "306"
+      }
+    ]
+  },
+  {
+    "name": "Bravo USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "307"
+      }
+    ]
+  },
+  {
+    "name": "CW PIX 11 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "280"
+      }
+    ]
+  },
+  {
+    "name": "CBS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "52"
+      }
+    ]
+  },
+  {
+    "name": "Court TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "281"
+      }
+    ]
+  },
+
+  {
+    "name": "COZI TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "748"
+      }
+    ]
+  },
+  {
+    "name": "CMT USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "647"
+      }
+    ]
+  },
+
+  {
+    "name": "Comet USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "696"
+      }
+    ]
+  },
+  {
+    "name": "Cooking Channel USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "697"
+      }
+    ]
+  },
+  {
+    "name": "CBSNY USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "767"
+      }
+    ]
+  },
+  {
+    "name": "ESPN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "44"
+      }
+    ]
+  },
+  {
+    "name": "ESPN2 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "45"
+      }
+    ]
+  },
+  {
+    "name": "ESPNU USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "316"
+      }
+    ]
+  },
+  {
+    "name": "FUSE TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "279"
+      }
+    ]
+  },
+  {
+    "name": "Fox Sports 1 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "39"
+      }
+    ]
+  },
+  {
+    "name": "Fox Sports 2 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "758"
+      }
+    ]
+  },
+  {
+    "name": "FOX Deportes USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "643"
+      }
+    ]
+  },
+  {
+    "name": "FOX USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "54"
+      }
+    ]
+  },
+
+  {
+    "name": "FOXNY USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "768"
+      }
+    ]
+  },
+  {
+    "name": "GOLF Channel USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "318"
+      }
+    ]
+  },
+  {
+    "name": "GOLTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "597"
+      }
+    ]
+  },
+  {
+    "name": "Galavisi\u8d38n USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "743"
+      }
+    ]
+  },
+  
+
+  {
+    "name": "ION USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "325"
+      }
+    ]
+  },
+  {
+    "name": "IFC TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "656"
+      }
+    ]
+  },
+  {
+    "name": "Logo TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "849"
+      }
+    ]
+  },
+  {
+    "name": "MSG USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "765"
+      }
+    ]
+  },
+  {
+    "name": "MTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "371"
+      }
+    ]
+  },
+  {
+    "name": "MAVTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "646"
+      }
+    ]
+  },
+  {
+    "name": "MLB Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "399"
+      }
+    ]
+  },
+  {
+    "name": "MASN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "829"
+      }
+    ]
+  },
+  {
+    "name": "MY9TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "654"
+      }
+    ]
+  },
+  {
+    "name": "METV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "662"
+      }
+    ]
+  },
+  {
+    "name": "NHL Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "663"
+      }
+    ]
+  },
+  {
+    "name": "NESN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "762"
+      }
+    ]
+  },
+  {
+    "name": "NBC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "53"
+      }
+    ]
+  },
+  {
+    "name": "NBA TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "404"
+      }
+    ]
+  },
+  {
+    "name": "NBCNY USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "769"
+      }
+    ]
+  },
+  {
+    "name": "Newsmax USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "613"
+      }
+    ]
+  },
+  {
+    "name": "Nat Geo Wild USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "745"
+      }
+    ]
+  },
+  {
+    "name": "Outdoor Channel USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "848"
+      }
+    ]
+  },
+  {
+    "name": "POP TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "653"
+      }
+    ]
+  },
+  {
+    "name": "Pac-12 Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "287"
+      }
+    ]
+  },
+  {
+    "name": "PBS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "210"
+      }
+    ]
+  },
+  {
+    "name": "Spectrum SportsNet USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "982"
+      }
+    ]
+  },
+  {
+    "name": "SEC Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "385"
+      }
+    ]
+  },
+  {
+    "name": "Showtime USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "333"
+      }
+    ]
+  },
+  {
+    "name": "SYFY USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "373"
+      }
+    ]
+  },
+  {
+    "name": "Showtime 2 USA (SHO2) USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "792"
+      }
+    ]
+  },
+  {
+    "name": "Showtime Showcase USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "793"
+      }
+    ]
+  },
+  {
+    "name": "Showtime Extreme USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "794"
+      }
+    ]
+  },
+  {
+    "name": "Showtime Family Zone (SHO Family Zone) USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "795"
+      }
+    ]
+  },
+  {
+    "name": "Showtime Next (SHO Next) USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "796"
+      }
+    ]
+  },
+  {
+    "name": "Showtime Women USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "797"
+      }
+    ]
+  },
+  {
+    "name": "TUDN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "66"
+      }
+    ]
+  },
+  {
+    "name": "TBS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "336"
+      }
+    ]
+  },
+  {
+    "name": "TNT USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "338"
+      }
+    ]
+  },
+  {
+    "name": "TruTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "341"
+      }
+    ]
+  },
+  {
+    "name": "TCM USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "644"
+      }
+    ]
+  },
+  {
+    "name": "TMC Channel USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "698"
+      }
+    ]
+  },
+  {
+    "name": "TV ONE USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "660"
+      }
+    ]
+  },
+  {
+    "name": "Universal Kids USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "668"
+      }
+    ]
+  },
+  {
+    "name": "VH1 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "344"
+      }
+    ]
+  },
+  {
+    "name": "WETV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "655"
+      }
+    ]
+  },
+  {
+    "name": "YES Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "763"
+      }
+    ]
+  },
+  {
+    "name": "5 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "360"
+      }
+    ]
+  },
+  {
+    "name": "Animal Planet",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "304"
+      }
+    ]
+  },
+  {
+    "name": "Adult Swim",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "295"
+      }
+    ]
+  },
+  {
+    "name": "Boomerang",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "648"
+      }
+    ]
+  },
+  {
+    "name": "BBC America (BBCA)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "305"
+      }
+    ]
+  },
+
+  {
+    "name": "BIG TEN Network (BTN USA)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "397"
+      }
+    ]
+  },
+  {
+    "name": "Comedy Central",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "310"
+      }
+    ]
+  },
+  {
+    "name": "Cartoon Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "339"
+      }
+    ]
+  },
+  {
+    "name": "CBS Sports Network (CBSSN)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "308"
+      }
+    ]
+  },
+  {
+    "name": "C SPAN 1",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "750"
+      }
+    ]
+  },
+  {
+    "name": "Chicago Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "776"
+      }
+    ]
+  },
+  {
+    "name": "CBS Sports Golazo",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "910"
+      }
+    ]
+  },
+  {
+    "name": "Discovery Life Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "311"
+      }
+    ]
+  },
+  {
+    "name": "Disney Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "312"
+      }
+    ]
+  },
+  {
+    "name": "Discovery Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "313"
+      }
+    ]
+  },
+  {
+    "name": "Discovery Family",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "657"
+      }
+    ]
+  },
+  {
+    "name": "Disney XD",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "314"
+      }
+    ]
+  },
+  {
+    "name": "Destination America",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "651"
+      }
+    ]
+  },
+  {
+    "name": "Disney JR",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "652"
+      }
+    ]
+  },
+  
+  {
+    "name": "FOX Soccer Plus",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "756"
+      }
+    ]
+  },
+  {
+    "name": "Fox Cricket",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "369"
+      }
+    ]
+  },
+  {
+    "name": "Fight Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "757"
+      }
+    ]
+  },
+
+  {
+    "name": "Freeform",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "301"
+      }
+    ]
+  },
+
+  {
+    "name": "FX Movie Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "381"
+      }
+    ]
+  },
+  {
+    "name": "FYI",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "665"
+      }
+    ]
+  },
+  {
+    "name": "Fashion TV",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "744"
+      }
+    ]
+  },
+  {
+    "name": "FETV - Family Entertainment Television",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "751"
+      }
+    ]
+  },
+
+  {
+    "name": "FanDuel Sports Network Arizona",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "890"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Detroit",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "891"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Florida",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "892"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Great Lakes",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "893"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Indiana",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "894"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Kansas City",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "895"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Midwest",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "896"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network New Orleans",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "897"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network North",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "898"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Ohio",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "899"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Oklahoma",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "900"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network SoCal",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "902"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network South",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "903"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Southeast",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "904"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Sun",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "905"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network West",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "906"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Wisconsin",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "907"
+      }
+    ]
+  },
+  {
+    "name": "Game Show Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "319"
+      }
+    ]
+  },
+  {
+    "name": "The Hallmark Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "320"
+      }
+    ]
+  },
+  {
+    "name": "Hallmark Movies & Mysterie",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "296"
+      }
+    ]
+  },
+  {
+    "name": "Headline News",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "323"
+      }
+    ]
+  },
+  {
+    "name": "HGTV",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "382"
+      }
+    ]
+  },
+
+
+  {
+    "name": "Marquee Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "770"
+      }
+    ]
+  },
+  {
+    "name": "Motor Trend",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "661"
+      }
+    ]
+  },
+  {
+    "name": "Monumental Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "778"
+      }
+    ]
+  },
+  {
+    "name": "MGM+ USA / Epix",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "791"
+      }
+    ]
+  },
+  {
+    "name": "NBC10 Philadelphia",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "277"
+      }
+    ]
+  },
+  {
+    "name": "NFL RedZone",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "667"
+      }
+    ]
+  },
+  {
+    "name": "Nick Music",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "666"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports Philadelphia",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "777"
+      }
+    ]
+  },
+  {
+    "name": "NFL Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "405"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports Bay Area",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "753"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports Boston",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "754"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports California",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "755"
+      }
+    ]
+  },
+  {
+    "name": "National Geographic (NGC)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "328"
+      }
+    ]
+  },
+  {
+    "name": "NICK JR",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "329"
+      }
+    ]
+  },
+  {
+    "name": "NICK",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "330"
+      }
+    ]
+  },
+  {
+    "name": "Nicktoons",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "649"
+      }
+    ]
+  },
+  {
+    "name": "OnTime Sports",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "611"
+      }
+    ]
+  },
+  {
+    "name": "Oprah Winfrey Network (OWN)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "331"
+      }
+    ]
+  },
+  {
+    "name": "Oxygen True Crime",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "332"
+      }
+    ]
+  },
+  {
+    "name": "Paramount Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "334"
+      }
+    ]
+  },
+  {
+    "name": "Science Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "294"
+      }
+    ]
+  },
+  {
+    "name": "Sundance TV",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "658"
+      }
+    ]
+  },
+  {
+    "name": "Smithsonian Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "603"
+      }
+    ]
+  },
+  {
+    "name": "Tennis Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "40"
+      }
+    ]
+  },
+  {
+    "name": "TLC",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "337"
+      }
+    ]
+  },
+  {
+    "name": "Travel Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "340"
+      }
+    ]
+  },
+  {
+    "name": "TVLAND",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "342"
+      }
+    ]
+  },
+  {
+    "name": "The Food Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "384"
+      }
+    ]
+  },
+
+  {
+    "name": "TeenNick",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "650"
+      }
+    ]
+  },
+  {
+    "name": "USA Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "343"
+      }
+    ]
+  },
+  {
+    "name": "VICE TV",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "659"
+      }
+    ]
+  },
+  {
+    "name": "WWE Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "376"
       }
     ]
   }
