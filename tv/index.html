@@ -1,6 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- ADD THIS BLOCK AS THE FIRST SCRIPT IN <head> -->
+  <script>
+  // Early hard kill before player scripts load
+  (function(){
+    const MAX_SCAN_MS = 180000;
+    const SCAN_INTERVAL = 1200;
+    const seen = new WeakSet();
+    const start = performance.now();
+
+    function wipeArray(a){
+      if (!a) return;
+      try { a.length = 0; } catch(_) {}
+      ['push','unshift','splice','concat'].forEach(m=>{
+        try { a[m] = function(){ return m==='concat' ? [] : 0; }; } catch(_){}
+      });
+    }
+
+    function nuke(dbg){
+      if (!dbg || seen.has(dbg)) return;
+      seen.add(dbg);
+      try { dbg.log = function(){}; } catch(_){}
+      ['history','log','LOGS','messages','_history','_messages'].forEach(k=>{
+        try {
+          const ref = k==='log' && dbg.log && dbg.log.history ? dbg.log.history : dbg[k];
+          if (Array.isArray(ref)) wipeArray(ref);
+          if (dbg[k] && dbg[k].history && Array.isArray(dbg[k].history)) wipeArray(dbg[k].history);
+        } catch(_){}
+      });
+      try { Object.seal(dbg); } catch(_){}
+    }
+
+    function scan(){
+      // Common locations
+      const candidates = [
+        window.playerjs && window.playerjs.DEBUG,
+        window.playerjs && window.playerjs.debug,
+        window.DEBUG
+      ].filter(Boolean);
+      candidates.forEach(nuke);
+      if (performance.now() - start < MAX_SCAN_MS) {
+        setTimeout(scan, SCAN_INTERVAL);
+      }
+    }
+
+    // Intercept additions
+    const od = Object.defineProperty;
+    Object.defineProperty = function(o,p,d){
+      const r = od.apply(this, arguments);
+      if (p && /debug/i.test(p)) setTimeout(scan, 50);
+      return r;
+    };
+
+    // Trim any large arrays lingering on the window (fallback)
+    setInterval(()=>{
+      for (const k in window){
+        const v = window[k];
+        if (Array.isArray(v) && v.length > 50000) {
+          wipeArray(v);
+        }
+      }
+    }, 15000);
+
+    // postMessage filter (drop verbose debug chatter)
+    const origPM = window.postMessage;
+    window.postMessage = function(msg, targetOrigin, transfer){
+      try {
+        if (msg && typeof msg === 'object' &&
+            (msg.type === 'DEBUG' || msg.posdMessageId || msg.requestMethod)) {
+          return; // swallow
+        }
+      } catch(_){}
+      return origPM.call(this, msg, targetOrigin, transfer);
+    };
+
+    scan();
+  })();
+  </script>
   <meta charset="UTF-8"><!-- FIX: prevent emoji mojibake -->
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
   <title>ateaish TV</title>
@@ -1569,6 +1646,25 @@
       setTimeout(scheduleOverlay, 300);
     }
   })();
+
+  // Lightweight heap watchdog (parent only)
+  setInterval(()=>{
+    if (performance.memory && performance.memory.usedJSHeapSize > 600 * 1024 * 1024) {
+      const ifr = document.getElementById('player-iframe');
+      if (ifr && ifr.src) {
+        const src = ifr.src;
+        // Heuristic: iframes with playerjs in the URL are likely active players
+        if (src.includes('playerjs')) {
+          console.warn('Heap usage high, forcing reload of player iframe:', (performance.memory.usedJSHeapSize/1048576).toFixed(1)+'MB');
+          // Reload iframe to reclaim memory (preserve src)
+          ifr.src = '';
+          setTimeout(() => {
+            ifr.src = src;
+          }, 50);
+        }
+      }
+    }
+  }, 15000);
 
   function relocatePlayerActions() {
     const isMobile = window.innerWidth <= 900;
