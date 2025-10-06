@@ -131,7 +131,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ABC.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -145,7 +145,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ABC.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -159,7 +159,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992212/600x200.png?type=white_cropped",
+    "logo": "logos/US/NBC_News_Now.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -173,7 +173,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CNBC.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -182,12 +182,12 @@
     ]
   },
   {
-    "name": "MSNBC",
+    "name": "MSNBC / MS NOW",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MS_NOW.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -201,7 +201,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CNN.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -252,20 +252,6 @@
     ]
   },
   {
-    "name": "BBC News Channel HD",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": null,
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "349"
-      }
-    ]
-  },
-  {
     "name": "Scripps News",
     "id_api": "",
     "categories": [
@@ -285,11 +271,15 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1655/lg/9ba693/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/BBC_News.svg",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://4fb3f38a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQkJDTmV3cy0xX0hMUw/playlist.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "349"
       }
     ]
   },
@@ -299,7 +289,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fox_News.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -313,7 +303,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FOXBusiness.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -369,7 +359,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FOX_weather.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -397,7 +387,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/The_Weather_Channel.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -411,7 +401,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/foxdigital/WTTG/206072_FOX5-WTTG_LG-Launch_Logo_800x200_001.png",
+    "logo": "logos/US/fox5_wdc.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -495,7 +485,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ID.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -509,11 +499,15 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Law&Crime.webp",
     "sources": [
       {
         "type": "daddylive",
         "channel_id": "278"
+      }, 
+      {
+        "type": "m3u8",
+        "url": "https://37699f7d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGF3YW5kQ3JpbWVfSExT/playlist.m3u8"
       }
     ]
   },
@@ -565,7 +559,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/A&E.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -579,7 +573,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/AMC.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -593,7 +587,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CW.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -607,7 +601,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FX.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -621,7 +615,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FXX.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -635,7 +629,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -649,7 +643,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO2.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -663,7 +657,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO_comedy.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -677,7 +671,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO_family.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -691,7 +685,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO_latino.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -705,7 +699,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO_Signature.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -714,12 +708,12 @@
     ]
   },
   {
-    "name": "HBO Zone USA",
+    "name": "HBO Movies USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HBO_movies.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -734,7 +728,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/cinemax.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -1238,7 +1232,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/history.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -1379,7 +1373,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/E!.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -1393,7 +1387,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993011/600x200.png?type=white_cropped",
+    "logo": "logos/US/E!Keepingup.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1663,7 +1657,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1467/lg/c26078/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/crunchyroll.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1864,20 +1858,6 @@
       {
         "type": "m3u8",
         "url": "https://78bf3d85d8174a0b80cc1d82a3940110.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG_Jail/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Law&Crime",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/226/lg/649349/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://37699f7d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGF3YW5kQ3JpbWVfSExT/playlist.m3u8"
       }
     ]
   },
@@ -2223,7 +2203,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993016/600x200.png?type=white_cropped",
+    "logo": "logos/US/NBC_Comedy_Vault_wallpaper.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -3357,7 +3337,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/AXS_TV.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3372,7 +3352,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/BeIN_Sports_2017_flat.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3386,7 +3366,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/BET_2021.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3400,7 +3380,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Bravo_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3414,7 +3394,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/PIX11_2017.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -3428,7 +3408,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CBS_2020.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3442,7 +3422,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Court_TV_2019.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -3457,7 +3437,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Cozi_TV_2018.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3471,7 +3451,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CMT_logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3486,7 +3466,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Comet_2020_green.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3500,7 +3480,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Cooking_Channel.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3528,7 +3508,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ESPN.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3542,7 +3522,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ESPN2.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3556,7 +3536,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/ESPN_U.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3570,7 +3550,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fuse_2015_orange.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3584,7 +3564,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FS1_New_Logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3598,7 +3578,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FS2_logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3612,7 +3592,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fox_Deportes_2021.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3626,7 +3606,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fox_2019.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3655,7 +3635,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fox_2019.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3669,7 +3649,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/GOL_TV_Stacked.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3678,12 +3658,12 @@
     ]
   },
   {
-    "name": "Galavisi\u8d38n USA",
+    "name": "Galavisión USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Galavision_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3699,7 +3679,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Ion_Television_(2021).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3713,7 +3693,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/IFC_Logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3727,7 +3707,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Logo_TV_2015.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3741,7 +3721,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MSG_Network.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -3755,7 +3735,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MTV_2021_Retro.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3764,12 +3744,12 @@
     ]
   },
   {
-    "name": "MAVTV USA",
+    "name": "MAVTV / Racer Network",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Racer_Network_2025.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -3783,7 +3763,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MLB_Network.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3797,7 +3777,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Mid-Atlantic_Sports_Network_2005.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3806,12 +3786,12 @@
     ]
   },
   {
-    "name": "MY9TV USA",
+    "name": "MY9nj USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/WWOR-TV_logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3820,12 +3800,12 @@
     ]
   },
   {
-    "name": "METV USA",
+    "name": "MeTV USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MeTV_logo_2014.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3839,7 +3819,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NHL_Network_2012.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3853,7 +3833,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NESN_2019_Stacked.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3867,7 +3847,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3881,7 +3861,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBA_TV_2017.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3895,7 +3875,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_4_New_York.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3909,7 +3889,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Newsmax_2021.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3923,7 +3903,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Nat Geo Wild.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3937,7 +3917,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/OC_Logo2017_Primary_REV.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3965,7 +3945,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Pac-12_Network_2012.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -3979,7 +3959,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/PBS_2019.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -3993,7 +3973,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Spectrum_Sportsnet_LA.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4007,7 +3987,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/SEC_Network_(2024).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4021,7 +4001,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_1997.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4035,7 +4015,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Syfy_(2017).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4049,7 +4029,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_2.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4063,7 +4043,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_Showcase.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4077,7 +4057,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_Extreme.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4091,7 +4071,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_Family_Zone.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4105,7 +4085,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_Next_(2022-).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4119,7 +4099,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Showtime_Women_(2022-).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4133,7 +4113,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TUDN.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4147,7 +4127,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TBS_2015.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4161,7 +4141,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TNT.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4175,7 +4155,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TruTV_2014.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4189,7 +4169,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Turner_Classic_Movies_2021.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4198,12 +4178,12 @@
     ]
   },
   {
-    "name": "TMC Channel USA",
+    "name": "The Movie Channel USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/The_Movie_Channel_2006.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4217,25 +4197,11 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TV_One_watermark_logo.webp",
     "sources": [
       {
         "type": "daddylive",
         "channel_id": "660"
-      }
-    ]
-  },
-  {
-    "name": "Universal Kids USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": null,
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "668"
       }
     ]
   },
@@ -4245,7 +4211,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/VH1_2013_(Print).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4259,7 +4225,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/WE_TV_logo_(2024).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4273,7 +4239,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Yes.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4282,12 +4248,12 @@
     ]
   },
   {
-    "name": "5 USA",
+    "name": "5USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/5USA_2016.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4301,7 +4267,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Animal_Planet_2018.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4315,7 +4281,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Adult_Swim.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4329,7 +4295,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Boomerang_2015.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4343,7 +4309,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/BBC_America_logo_2022.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4358,7 +4324,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Big_Ten_Network_(2020).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4372,7 +4338,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Comedy_Central_2018.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4386,7 +4352,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Cartoon_Network_2010.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4400,7 +4366,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CBS_Sports_Network_2021_(Blue).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4414,7 +4380,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/CSPAN_Navy-and-Cobalt.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4428,7 +4394,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Chicago_Sports_Network_Logo.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4442,7 +4408,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Golazo_Network_logo.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4456,7 +4422,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Discovery_Life_2016_logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4470,7 +4436,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/DISNEYCHANNEL2025.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4484,7 +4450,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Discovery_Channel_2019.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4498,7 +4464,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Discovery_Family.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4512,7 +4478,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Logo_disney_xd.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4526,7 +4492,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Destination_America_2017_(White).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4540,7 +4506,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/DisneyJr3Dver.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4555,7 +4521,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fox_Soccer_Plus_(Flat).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4569,7 +4535,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FoxCricket.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4583,7 +4549,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fight_Network_(2011).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4598,7 +4564,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Freeform_2022.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4613,7 +4579,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FX_Movie_Channel.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4627,7 +4593,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FYI,_logo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4641,7 +4607,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FASHION_TV_2017.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4655,7 +4621,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Fetv_in_screen_bug_form.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4684,7 +4650,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Detroit_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4698,7 +4664,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Florida_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4712,7 +4678,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Great_Lakes_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4726,7 +4692,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Indiana_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4740,7 +4706,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Kansas_City_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4754,7 +4720,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Midwest_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4768,7 +4734,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_New_Orleans_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4782,7 +4748,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_North_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4796,7 +4762,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Ohio_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4810,7 +4776,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Oklahoma_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4824,7 +4790,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_SoCal_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4838,7 +4804,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_South_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4852,7 +4818,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Southeast_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4866,7 +4832,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Sun_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4880,7 +4846,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_West_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4894,7 +4860,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FanDuel_Sports_Network_Wisconsin_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4908,7 +4874,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/GSN_Horizontal_2018.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -4922,7 +4888,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Hallmark_Channel_2022.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4931,12 +4897,12 @@
     ]
   },
   {
-    "name": "Hallmark Movies & Mysterie",
+    "name": "Hallmark Mystery",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Hallmark_Mystery_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4950,7 +4916,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HLN_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4964,7 +4930,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/HGTV_2010.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4980,7 +4946,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Marquee_Sports_Network.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -4994,7 +4960,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Motor_Trend_2018_red.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5008,7 +4974,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Monumental_Sports_Network.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5022,7 +4988,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/MGM+.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5036,7 +5002,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/WCAU_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5050,7 +5016,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Nfl-redzone-gold-2015.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -5059,12 +5025,12 @@
     ]
   },
   {
-    "name": "Nick Music",
+    "name": "NickMusic",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NickMusic.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5078,7 +5044,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_Sports_Philadelphia_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5092,7 +5058,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NFL_Network_(Gold).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5106,7 +5072,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_Sports_Bay_Area_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5120,7 +5086,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_Sports_Boston_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5134,7 +5100,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/NBC_Sports_California_2023.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5143,12 +5109,12 @@
     ]
   },
   {
-    "name": "National Geographic (NGC)",
+    "name": "National Geographic",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/National Geographic.png",
     "sources": [
       {
         "type": "daddylive",
@@ -5162,7 +5128,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Nick_Jr..svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5176,7 +5142,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Nickelodeon_(2009).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5190,7 +5156,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Nicktoons_Splat_2023_Outline.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -5198,27 +5164,14 @@
       }
     ]
   },
-  {
-    "name": "OnTime Sports",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": null,
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "611"
-      }
-    ]
-  },
+
   {
     "name": "Oprah Winfrey Network (OWN)",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Oprah_Winfrey_Network.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5232,7 +5185,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/oxygen_truecrime.png",
     "sources": [
       {
         "type": "daddylive",
@@ -5246,7 +5199,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Paramount_Network_2024.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5260,7 +5213,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Science_2016_(full_version).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5274,7 +5227,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/SundanceTV_2022.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5288,7 +5241,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Smithsonian_Channel_(Stacked).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5302,7 +5255,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Tennis_Channel_2022.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5316,7 +5269,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TLC_(2006).svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5330,7 +5283,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Travel_Channel_2018_full.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -5339,12 +5292,12 @@
     ]
   },
   {
-    "name": "TVLAND",
+    "name": "TV Land",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TV_Land_2015.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5358,7 +5311,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/FoodNetLogo.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5373,7 +5326,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/TeenNick_2023.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -5387,7 +5340,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/USA_Network_2005.svg",
     "sources": [
       {
         "type": "daddylive",
@@ -5401,7 +5354,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/Vice_TV.webp",
     "sources": [
       {
         "type": "daddylive",
@@ -5415,7 +5368,7 @@
     "categories": [
       "US"
     ],
-    "logo": null,
+    "logo": "logos/US/WWE_Network.svg",
     "sources": [
       {
         "type": "daddylive",
