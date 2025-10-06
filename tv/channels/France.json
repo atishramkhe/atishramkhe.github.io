@@ -904,7 +904,7 @@
     "categories": [
       "France", "Sport"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1778/lg/14667d/LG-Logo-PNG-100x100_v2.png",
+    "logo": "logos/France/fifa+.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1569,7 +1569,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://images-0.rakuten.tv/storage/global-live-channel/translation/logo-2-1/7e3f6e9b-7114-4d01-b506-a909c987494d-width400-height200.png",
+    "logo": "logos/France/top_films.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2046,7 +2046,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d2y67h7360vjl7.cloudfront.net/NatureTime_LG_EMEA_ChannelAssetLogo.png",
+    "logo": "logos/France/nature_time.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2060,7 +2060,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d2rx6itp6voihr.cloudfront.net/LG_Ch_Logo_100x100.png",
+    "logo": "logos/France/wildearth.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2102,11 +2102,25 @@
     "categories": [
       "France"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1143/lg/d69ea1/LG-Logo-PNG-100x100_v2.png",
+    "logo": "logos/France/weather_spy.webp",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://ef22d7d8.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfV2VhdGhlclNweV9ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "MyZen TV",
+    "id_api": "MyZenTV.fr",
+    "categories": [
+      "Relax"
+    ],
+    "logo": "https://i.imgur.com/fIi8o0C.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8"
       }
     ]
   },
@@ -2130,7 +2144,7 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992103/600x200.png?type=white_cropped",
+    "logo": "logos/France/caillou.webp",
     "sources": [
 {
         "type": "m3u8",
@@ -2175,12 +2189,12 @@
     ]
   },
   {
-    "name": "ducktv",
+    "name": "Duck TV",
     "id_api": "",
     "categories": [
       "France"
     ],
-    "logo": "https://eic-ngfts.lge.com/fts/gftsDownload.lge?biz_code=CDP&func_code=METADATA_FILE&file_path=/cdp/resize_image/20250428/channel_600x200_e9d34211-143f-4a79-8da8-12ba9285de93.png",
+    "logo": "logos/France/Duck_TV.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -2194,7 +2208,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992132/600x200.png?type=white_cropped",
+    "logo": "logos/France/baby_einstein.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -2208,7 +2222,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99983002/600x200.png?type=white_cropped",
+    "logo": "logos/France/charlotte.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2222,7 +2236,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d2yv6y0n3qsl5c.cloudfront.net/MBEAN/MrBEAN_800x200.png",
+    "logo": "logos/France/Mr_Bean.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2359,6 +2373,20 @@
     ]
   },
   {
+    "name": "Japanim TV",
+    "id_api": null,
+    "categories": [
+      "Animation"
+    ],
+    "logo": "logos/France/japanimtv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://foxkidstv.be:3369/stream/play.m3u8"
+      }
+    ]
+  },
+  {
     "name": "GameONE",
     "id_api": null,
     "categories": [],
@@ -2412,7 +2440,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://eic-ngfts.lge.com/fts/gftsDownload.lge?biz_code=CDP&func_code=METADATA_FILE&file_path=/cdp/resize_image/20250617/channel_600x200_a14ad8ba-c96d-403e-80c3-74ff552f2bc2.png",
+    "logo": "logos/France/wasabi.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2426,7 +2454,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d2mxb63djushzm.cloudfront.net/images/Yugioh_LG_400_200_logo.jpg",
+    "logo": "logos/France/yugioh.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2484,7 +2512,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99983001/600x200.png?type=white_cropped",
+    "logo": "logos/France/degrassi.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3003,7 +3031,7 @@
     "categories": [
       "News"
     ],
-    "logo": "logos/France/Africa 24.png",
+    "logo": "logos/France/africa24.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -3221,21 +3249,6 @@
       }
     ]
   },
-  
-  {
-    "name": "Alpe d’Huez TV",
-    "id_api": "AlpedHuezTV.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/090tCQ5.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8"
-      }
-    ]
-  },
   {
     "name": "LCP",
     "id_api": "LCP.fr@SD",
@@ -3340,16 +3353,27 @@
       }
     ]
   },
-
-
-  
+  {
+    "name": "Alpe d’Huez TV",
+    "id_api": "AlpedHuezTV.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "https://i.imgur.com/090tCQ5.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8"
+      }
+    ]
+  },  
   {
     "name": "BIP TV",
     "id_api": "BIPTV.fr",
     "categories": [
       "Undefined"
     ],
-    "logo": "https://i.imgur.com/YQjm4U5.png",
+    "logo": "logos/France/biptv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3374,12 +3398,12 @@
   
   
   {
-    "name": "Canal 32",
+    "name": "Canal 32 - TV TROYES ET AUBE",
     "id_api": "Canal32.fr",
     "categories": [
       "General"
     ],
-    "logo": "https://i.imgur.com/lAsE6kN.png",
+    "logo": "logos/France/canal32.jpeg",
     "sources": [
       {
         "type": "m3u8",
@@ -3402,26 +3426,12 @@
     ]
   },
   {
-    "name": "Kozoom TV",
-    "id_api": "KozoomTV.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "https://i.imgur.com/M1Ee79b.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/fdd6f243-f971-4a1a-9510-97ac01d6b37f/manifest.m3u8"
-      }
-    ]
-  },
-  {
     "name": "KTO",
     "id_api": "KTO.fr",
     "categories": [
       "Religious"
     ],
-    "logo": "https://i.imgur.com/EY6TsdV.png",
+    "logo": "logos/France/ktotv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3435,7 +3445,7 @@
     "categories": [
       "Lifestyle"
     ],
-    "logo": "https://i.imgur.com/99h8F1y.jpeg",
+    "logo": "logos/France/montecarlo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3444,27 +3454,14 @@
     ]
   },
   
-  {
-    "name": "MyZen TV",
-    "id_api": "MyZenTV.fr",
-    "categories": [
-      "Relax"
-    ],
-    "logo": "https://i.imgur.com/fIi8o0C.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01255-secomcofites-my-myzen-en-plex/playlist.m3u8"
-      }
-    ]
-  },
+
   {
     "name": "P2M TV",
     "id_api": "P2MTV.fr",
     "categories": [
       "Music"
     ],
-    "logo": "https://i.imgur.com/TrecSeG.png",
+    "logo": "logos/France/p2mtv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3478,7 +3475,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://pbs.twimg.com/profile_images/1274572654016675842/A6v8Qo_X_400x400.jpg",
+    "logo": "logos/France/ptv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3507,7 +3504,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.ibb.co/X2yd0zL/logo-tv3v.jpg",
+    "logo": "logos/France/tv3v.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3522,7 +3519,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.imgur.com/kSdGi43.png",
+    "logo": "logos/France/tv7.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3536,7 +3533,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.postimg.cc/3wfrndKv/tvmonaco.png",
+    "logo": "logos/France/tvmonaco.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3578,7 +3575,7 @@
     "categories": [
       "General"
     ],
-    "logo": "https://i.postimg.cc/8km61C52/moselletv.png",
+    "logo": "logos/France/moselletv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3611,7 +3608,7 @@
     "categories": [
       "Undefined"
     ],
-    "logo": "https://i.imgur.com/7y7ancc.png",
+    "logo": "logos/France/vosgestv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3668,7 +3665,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://lge-static.ottera.tv/prod/mvg/linear_channel/logo/714x400/mv_select_kopie_2_0_2.png",
+    "logo": "logos/France/motorvision.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3696,7 +3693,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://lge-static.ottera.tv/prod/wbd/linear_channel/logo/711x400/xiaomi_popularrow_epicurieux.png",
+    "logo": "logos/France/epicurieux.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3766,7 +3763,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/CPUB-400x225.png",
+    "logo": "logos/France/culturepub.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3794,7 +3791,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/Logo_QVGDM_484x141.png",
+    "logo": "logos/France/qvgdm.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3808,7 +3805,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/Logo_LesZamours_484x141.png",
+    "logo": "logos/France/LesZamours.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3894,7 +3891,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/Logo_LesAnges_484x141.png",
+    "logo": "logos/France/lesanges.png",
     "sources": [
       {
         "type": "m3u8",
@@ -3978,7 +3975,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d2mxb63djushzm.cloudfront.net/images/LG_top_barca1.png",
+    "logo": "logos/France/barcatv.png",
     "sources": [
       {
         "type": "m3u8",
@@ -4034,7 +4031,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://media.tvup.cloud/canales/generic_cd_6294d284c044ca001e71987d.png?width=200&height=200",
+    "logo": "logos/France/mmatv.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -4062,7 +4059,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://eic-ngfts.lge.com/fts/gftsDownload.lge?biz_code=CDP&func_code=METADATA_FILE&file_path=/cdp/resize_image/20250903/channel_600x200_48f592a3-f0b9-4095-a6c1-9406128e32a4.jpeg",
+    "logo": "logos/France/unbeaten.png",
     "sources": [
       {
         "type": "m3u8",
@@ -4081,6 +4078,20 @@
       {
         "type": "m3u8",
         "url": "https://amg12058-c15studio-amg12058c9-lg-fr-8408.playouts.now.amagi.tv/playlist/amg12058-c15medianetworkslimitedfast-tritonpokercc-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Kozoom TV",
+    "id_api": "KozoomTV.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/kozoomtv.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/fdd6f243-f971-4a1a-9510-97ac01d6b37f/manifest.m3u8"
       }
     ]
   },
