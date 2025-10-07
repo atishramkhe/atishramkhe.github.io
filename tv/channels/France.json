@@ -251,12 +251,12 @@
     "logo": "logos/France/Canal+.png",
     "sources": [
       {
-        "type": "directfr",
-        "id": 40
-      },
-      {
         "type": "daddylive",
         "channel_id": "121"
+      },
+      {
+        "type": "directfr",
+        "id": 40
       },
       {
         "type": "tutvlive",
@@ -1230,6 +1230,45 @@
     ]
   },
   {
+    "name": "Carac 2",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "logos/France/Carac 2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge21.vedge.infomaniak.com/livecast/ik:onefmmd/chunklist_w2000576182_b1600720.m3u8?spark=2cdb0e81-bfee-4945-8598-db7fe3f520c2&token="
+      }
+    ]
+  },
+  {
+    "name": "Carac 3",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "logos/France/Carac 3.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge20.vedge.infomaniak.com/livecast/ik:lfmmd/chunklist_w982466731_b1600000.m3u8?spark=10839f04-54ec-4b70-a239-8b0c5186db9c&token="
+      }
+    ]
+  },
+  {
+    "name": "Carac 4",
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "logos/France/Carac 4.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://edge17.vedge.infomaniak.com/livecast/ik:compack_media_1/chunklist_w310094666_b1600000.m3u8?spark=da2a776e-9a6d-4b4e-90c3-8e76e9859426&token="
+      }
+    ]
+  },
+  {
     "name": "Carac 5",
     "id_api": "Carac5.ch@HD",
     "categories": [
@@ -1239,7 +1278,7 @@
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/teleswizz/browser-HLS8/teleswizz.m3u8"
+        "url": "https://edge18.vedge.infomaniak.com/livecast/ik:carac5/chunklist_w1239805166_b1800720.m3u8?spark=ab2cbf8b-1dd6-4c93-8b72-9097c018893d&token="
       }
     ]
   },
@@ -1499,7 +1538,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d1biytugnv36sr.cloudfront.net/resize?width=400&height=200&url=https://static.frequency.com/studio/sony/channels/FR_LG_FAST_ComedyHits_ChannelLogo_Horizontal.png",
+    "logo": "logos/France/sony_one_hit_comedie.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1708,7 +1747,7 @@
     "categories": [
       "France"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/zylo-CineNanar/images/LG_Logo_220x200.png",
+    "logo": "logos/France/Logo-Cine-Nanar.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1722,7 +1761,7 @@
     "categories": [
       "France"
     ],
-    "logo": "logos/France/Allocine.svg",
+    "logo": "logos/France/Allocine.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1873,6 +1912,20 @@
       {
         "type": "witv",
         "id": 239
+      }
+    ]
+  },
+  {
+    "name": "Seasons",
+    "id_api": "",
+    "categories": [
+      "Education"
+    ],
+    "logo": "logos/France/Seasons.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/5ogZ87gaChEzRFJiic83Of_vv6QhRCqlWUcdPLuqMmR3pqKCu41nMPdUvX7aJXzzp7TNasjTE-ydiv_ZMvT-6QtcES6-AieBrWJN3ix8a7rREdQhlV7AF1IrcxEpSij_Y59GkU8PdNUKWIRWtqlVWgupR7_EjnIPQNzhKgD8DzQ/hls/index.m3u8"
       }
     ]
   },
@@ -2466,8 +2519,12 @@
     "name": "Gong",
     "id_api": null,
     "categories": [],
-    "logo": "logos/France/Gong.png",
+    "logo": "logos/France/gong.png",
     "sources": [
+      {
+        "type" : "m3u8", 
+        "url": "https://amg01596-gongnetworks-gong-ono-vh5f2.amagi.tv/1080p-vtt/index.m3u8"	
+      },
       {
         "type": "directfr",
         "id": 113
@@ -2705,7 +2762,7 @@
     "categories": [
       "Lifestyle"
     ],
-    "logo": "logos/France/handicap.avif",
+    "logo": "logos/France/handicap.png",
     "sources": [
       {
         "type": "m3u8",
