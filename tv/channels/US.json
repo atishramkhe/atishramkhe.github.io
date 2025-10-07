@@ -204,6 +204,10 @@
     "logo": "logos/US/CNN.svg",
     "sources": [
       {
+      	"type" : "m3u8", 
+      	"url": "https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8"
+      },
+      {
         "type": "daddylive",
         "channel_id": "345"
       }
