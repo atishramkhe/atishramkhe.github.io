@@ -597,7 +597,14 @@
 <body>
 <div id="app-wrapper">
   <!-- loading splash video (plays once then removed) -->
-  <video id="loading-video" src="assets/v2_background_tv_.mp4" autoplay muted playsinline preload="auto"></video>
+  <script>
+  // Detect mobile device (basic check)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const loadingSrc = isMobile ? 'assets/loading_mobile.mp4' : 'assets/loading_desktop.mp4';
+  document.write(
+    `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto"></video>`
+  );
+  </script>
 
   <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
   <div id="access-overlay">
