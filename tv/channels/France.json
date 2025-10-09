@@ -2298,6 +2298,18 @@
     ]
   },
   {
+    "name": "Gulli",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Gulli.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/gulli/browser-dash/gulli.mpd"
+      }
+    ]
+  },
+  {
     "name": "Cartoon Network",
     "id_api": null,
     "categories": [],
@@ -2445,6 +2457,10 @@
     "categories": [],
     "logo": "logos/France/Game One.png",
     "sources": [
+      {
+      	"type": "m3u8", 
+      	"url": "https://viamotionhsi.netplus.ch/live/eds/gameone/browser-HLS8/gameone.m3u8"
+      },
       {
         "type": "directfr",
         "id": 10
