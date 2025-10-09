@@ -56,20 +56,6 @@
     ]
   },
   {
-    "name": "B4U Bhojpuri",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/B4U_Bhojpuri_logo_2022.jpg",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8"
-      }
-    ]
-  },
-  {
     "name": "B4U Kadak",
     "id_api": "",
     "categories": [
@@ -98,16 +84,16 @@
     ]
   },
   {
-    "name": "B4U Music",
+    "name": "B4U Bhojpuri",
     "id_api": "",
     "categories": [
       "India"
     ],
-    "logo": "logos/India/B4U_Music_logo_2014.webp",
+    "logo": "logos/India/B4U_Bhojpuri_logo_2022.jpg",
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8"
+        "url": "https://cdnb4u.wiseplayout.com/B4U_Bhojpuri/master.m3u8"
       }
     ]
   },
@@ -122,6 +108,91 @@
       {
         "type": "m3u8",
         "url": "https://live-bhojpuri.akamaized.net/liveabr/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Filamchi Bhojpuri",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/filamchi.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://epiconvh.akamaized.net/live/filamchi/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Pitaara",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/Pitaara_2.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://vg-pitaaratvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-583798/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "B4U Music",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/B4U_Music_logo_2014.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdnb4u.wiseplayout.com/B4U_Music/master.m3u8"
+      }
+    ]
+  },  
+  {
+    "name": "Mastiii",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/Mastiii_2016.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://sablive-ddpb.akamaized.net/mastii/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Epic TV",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/epic.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://epiconvh.akamaized.net/live/epic/master.m3u8"
+      }
+    ]
+  },
+  
+  {
+    "name": "Nick HD+",
+    "id_api": "",
+    "categories": [
+      "India"
+    ],
+    "logo": "logos/India/Nick_HD+.svg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_NickHD/JCHLS/index.m3u8"
       }
     ]
   },
@@ -168,30 +239,16 @@
     ]
   },
   {
-    "name": "Epic TV",
+    "name": "NDTV India",
     "id_api": "",
     "categories": [
       "India"
     ],
-    "logo": "logos/India/epic.png",
+    "logo": "logos/India/Ndtvindialogo.webp",
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://epiconvh.akamaized.net/live/epic/master.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Filamchi Bhojpuri",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/filamchi.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://epiconvh.akamaized.net/live/filamchi/master.m3u8"
+        "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8"
       }
     ]
   },
@@ -220,62 +277,6 @@
       {
         "type": "m3u8",
         "url": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/living-india-news/index.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Mastiii",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/Mastiii_2016.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://sablive-ddpb.akamaized.net/mastii/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "NDTV India",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/Ndtvindialogo.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Nick HD+",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/Nick_HD+.svg",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://nonprod-sports-cohort.jiocinema.com/bpk-tv/JC_NickHD/JCHLS/index.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Pitaara",
-    "id_api": "",
-    "categories": [
-      "India"
-    ],
-    "logo": "logos/India/Pitaara_2.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://vg-pitaaratvlive.akamaized.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/vglive-sk-583798/playlist.m3u8"
       }
     ]
   }
