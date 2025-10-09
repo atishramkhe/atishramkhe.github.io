@@ -149,7 +149,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/389/lg/6f2a84/LG-Logo-PNG-100x100_v3.png",
+    "logo": "logos/US/Bloomberg_Television_logo.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -1094,7 +1094,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d1biytugnv36sr.cloudfront.net/resize?width=400&height=200&url=https://static.frequency.com/studio/redbull/channels/MediaBull_Logo_single_vec_hor_RGB_400x200.png",
+    "logo": "logos/US/redbulltv.avif",
     "sources": [
       {
         "type": "m3u8",
@@ -1108,7 +1108,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1102/lg/129bb3/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/SCL-logo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1122,7 +1122,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1872/lg/c984c0/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/rugbypass_tv.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1136,7 +1136,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/160/lg/651255/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/stadium.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1150,7 +1150,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://lge-static.ottera.tv/prod/bbb/linear_channel/anamorphic-logo/400x200/pll_400x200.png",
+    "logo": "logos/US/PLL_network.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1192,7 +1192,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993009/600x200.png?type=white_cropped",
+    "logo": "logos/US/golfpass.svg",
     "sources": [
       {
         "type": "m3u8",
@@ -1342,6 +1342,164 @@
     ]
   },
   {
+    "name": "POP TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Pop_channel_blue.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "653"
+      }
+    ]
+  },
+  
+  {
+    "name": "PBS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/PBS_2019.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "210"
+      }
+    ]
+  },
+  
+  
+  {
+    "name": "TUDN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TUDN.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "66"
+      }
+    ]
+  },
+  {
+    "name": "TBS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TBS_2015.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "336"
+      }
+    ]
+  },
+  {
+    "name": "TNT USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TNT.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "338"
+      }
+    ]
+  },
+  {
+    "name": "TruTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TruTV_2014.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "341"
+      }
+    ]
+  },
+  
+  {
+    "name": "TV ONE USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TV_One_watermark_logo.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "660"
+      }
+    ]
+  },
+  {
+    "name": "VH1 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/VH1_2013_(Print).png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "344"
+      }
+    ]
+  },
+  {
+    "name": "WETV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/WE_TV_logo_(2024).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "655"
+      }
+    ]
+  },
+  {
+    "name": "YES Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Yes.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "763"
+      }
+    ]
+  },
+  {
+    "name": "5USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/5USA_2016.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "360"
+      }
+    ]
+  },
+  {
     "name": "Comedy Central",
     "id_api": null,
     "categories": [
@@ -1412,6 +1570,20 @@
     ]
   },
   {
+    "name": "Destination America",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Destination_America_2017_(White).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "651"
+      }
+    ]
+  },
+  {
     "name": "BET USA",
     "id_api": null,
     "categories": [
@@ -1431,7 +1603,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d3rimcir91uaav.cloudfront.net/FOX-SOUL_800x200_white.png",
+    "logo": "logos/US/Fox-Soul-logo-network.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1824,7 +1996,7 @@
     "categories": [
       "US"
     ],
-    "logo": "logos/US/Paramount_Network_2024.png",
+    "logo": "logos/US/Paramount Network.png",
     "sources": [
       {
         "type": "daddylive",
@@ -1880,7 +2052,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d23edfjfpc1xrv.cloudfront.net/MyTime_Logo_300x200.png",
+    "logo": "logos/US/mytime_movie_network.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1908,7 +2080,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://db6iftd8li11q.cloudfront.net/Moviesphere/MovieSphere_LG_White_800x200.png",
+    "logo": "logos/US/movie-sphere-large-logo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1922,7 +2094,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993051/600x200.png?type=white_cropped",
+    "logo": "logos/US/universal_movies.png.png",
     "sources": [
       {
         "type": "m3u8",
@@ -1950,7 +2122,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/691/lg/e11147/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/cinevault_master_logo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2352,6 +2524,90 @@
     ]
   },
   {
+    "name": "Dinos 24/7",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d2i0hcnfudruct.cloudfront.net/Dinos/LG_Dinos/LG_DINOS_247_CHANNEL_ASSETSLG-Logo-PNG-800x200-(REV).png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg00793-amg00793c35-lg-us-6412.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-dinospluto-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&givn=[NONCE]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "BBC Earth",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/BBC_Earth_circle.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg00793-bbcstudios-amg00793c3-lg-us-2528.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-bbcearta-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Love Nature",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d190bhqtoid3b.cloudfront.net/Images/S3/LG_Artwork/LoveNature_AllWhite_Logo_800x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://bamus-lovenature-lg.amagi.tv/hls/amagi_hls_data_bamusaAAA-bamus-lovenature-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Naturescape",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992068/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992068&ads.xumo_streamId=99992068&ads.channelId=99992068&ads.ad_tag_id=9333&ads.csid=lgchannels_us_stingrayambiance_ssai&ads.channelName=stingraynaturescape_us&ads.xumo_contentName=StingrayAmbiance&ads.xumo_contentId=188&ads.xumo_providerName=StingrayAmbiance&ads.xumo_providerId=188&ads.content_category=IAB1-2&ads.content_genre=lifestyle&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "NatureVision",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992106/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992106&ads.xumo_streamId=99992106&ads.channelId=99992106&ads.ad_tag_id=9320&ads.csid=lgchannels_us_naturevision_ssai&ads.channelName=naturevision_us&ads.xumo_contentName=NatureVisionTV&ads.xumo_contentId=133&ads.xumo_providerName=NatureVisionTV&ads.xumo_providerId=133&ads.content_category=IAB1-7&ads.content_genre=lifestyle&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "ZENLife By Stingray",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992099/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992099&ads.xumo_streamId=99992099&ads.channelId=99992099&ads.ad_tag_id=36042&ads.csid=lgchannels_us_stingrayzenlife_ssai&ads.channelName=stingrayzenlife_us&ads.xumo_contentName=StingrayZenlifeUS&ads.xumo_contentId=3975&ads.xumo_providerName=StingrayZenlifeUS&ads.xumo_providerId=3975&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
     "name": "Outdoor Channel USA",
     "id_api": null,
     "categories": [
@@ -2362,6 +2618,48 @@
       {
         "type": "daddylive",
         "channel_id": "848"
+      }
+    ]
+  },
+  {
+    "name": "Declassified",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/declassified.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "History USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/history.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "322"
+      }
+    ]
+  },
+  {
+    "name": "Historian",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1908/lg/b7ee6a/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://3a542e42.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSGlzdG9yaWFuX0hMUw/playlist.m3u8"
       }
     ]
   },
@@ -2404,6 +2702,48 @@
       {
         "type": "m3u8",
         "url": "https://6b67fe6100b140a68b0783918ae96ce8.mediatailor.us-east-1.amazonaws.com/v1/master/0fb304b2320b25f067414d481a779b77db81760d/LG_MajordomoMedia/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Tastemade",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/tastemade/Logo_WordmarkLogo_800x200px.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadefreetv16-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Hungry",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/140/lg/efd2cc/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurljansonmedia.global.transmit.live/hls/67dd78702f042c9565eb1cfe/v1/food/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=140&wurl_name=Hungry&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Tastemade Travel",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/tastemade-travel/Logo_TravelLogo_569x200px.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
       }
     ]
   },
@@ -2760,6 +3100,734 @@
     ]
   },
 
+  
+  {
+    "name": "Investigation Discovery (ID USA)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ID.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "324"
+      }
+    ]
+  },
+  {
+    "name": "Law & Crime Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Law&Crime.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "278"
+      }, 
+      {
+        "type": "m3u8",
+        "url": "https://37699f7d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGF3YW5kQ3JpbWVfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Crime+ Investigation USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Crime_+_Investigation_(2017)_(Print).png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "669"
+      }
+    ]
+  },
+  {
+    "name": "Unsolved Mysteries",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992257/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992257&ads.xumo_streamId=99992257&ads.channelId=99992257&ads.ad_tag_id=10505&ads.csid=lgchannels_us_filmriseunsolvedmysteries_ssai&ads.channelName=filmriseunsolvedmysteries_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=Crime%2520TV&ads.content_language=en&ads.content_rating=TV-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Forensic Files",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992255/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992255&ads.xumo_streamId=99992255&ads.channelId=99992255&ads.ad_tag_id=10504&ads.csid=lgchannels_us_forensicfiles_ssai&ads.channelName=forensicfiles_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=Crime%2520TV&ads.content_language=en&ads.content_rating=TV-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Haunt TV US",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d2y2gft5545ze9.cloudfront.net/HauntTV_200pxHigh_LG_ChannelAssets_White.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-haunttv-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "FilmRise UFO Encounters",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993059/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993059&ads.xumo_streamId=99993059&ads.channelId=99993059&ads.ad_tag_id=122597&ads.csid=lgchannels_us_ufoencounters_ssai&ads.channelName=ufoencounters_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=television&ads.content_language=en&ads.content_rating=tv-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Ancient Aliens",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1852/lg/1164e6/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://f733e539.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQW5jaWVudEFsaWVuc19ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "UnXplained Zone",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1018/lg/264964/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://463f4288.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfVW5YcGxhaW5lZFpvbmVfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Modern Marvels",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1040/lg/d5193a/LG-Logo-PNG-100x100_v3.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://a272554f.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTW9kZXJuTWFydmVsc19ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  
+  
+  {
+    "name": "Las Vegas",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993015/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993015/hls/master.m3u8?ads.xumo_channelId=99993015&ads.asnw=169843&ads.afid=380736666&ads.sfid=17537925&ads.csid=lgchannels_us_nbcutopchefvault_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB8&ads._fw_content_genre=foodanddrink&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3932&ads.xumo_contentName=NBCUTopChefVault&ads.xumo_providerId=3932&ads.xumo_providerName=NBCUTopChefVault&ads.channelId=99993015&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Universal Crime",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993021/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993021/hls/master.m3u8?ads.xumo_channelId=99993021&ads.asnw=169843&ads.afid=380752676&ads.sfid=17556671&ads.csid=lgchannels_us_nbcuuniversalcrime_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3939&ads.xumo_contentName=NBCUUniversalCrime&ads.xumo_providerId=3939&ads.xumo_providerName=NBCUUniversalCrime&ads.channelId=99993021&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Crime ThrillHer",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1056/lg/28d4f8/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://28caa756.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3JpbWVUaHJpbGxIZXJfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Murder, She Wrote",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993020/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993020/hls/master.m3u8?ads.xumo_channelId=99993020&ads.asnw=169843&ads.afid=380744959&ads.sfid=17538085&ads.csid=lgchannels_us_nbcumurdershewrote_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tvg&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3927&ads.xumo_contentName=NBCUMurderSheWrote&ads.xumo_providerId=3927&ads.xumo_providerName=NBCUMurderSheWrote&ads.channelId=99993020&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "ION Mystery",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ion_mystery.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://5d8e88ed.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSU9OTXlzdGVyeV9ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "American Crimes",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993013/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993013/hls/master.m3u8?ads.xumo_channelId=99993013&ads.xumo_streamId=99993013&ads.channelId=99993013&ads.asnw=535279&ads.afid=440668677&ads.sfid=23817261&ads.csid=lgchannels_us_versantamericancrimes_ssai_cro&ads._fw_coppa=0&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=TV-14&ads.xumo_contentId=4291&ads.xumo_contentName=VersantAmericanCrimes&ads.xumo_providerId=4291&ads.xumo_providerName=VersantAmericanCrimes&ads.appName=lgchannels&ads._fw_deviceType=3-Connected_TV&ads._fw_vcid2=512116:[IFA]&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_ifa_type=dpid&ads._fw_did=[IFA]&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads.appVersion=[APP_VERSION]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Oxygen True Crime",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/oxygen_truecrime.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "332"
+      }
+    ]
+  },
+  {
+    "name": "Oxygen True Crime Archives",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993018/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993018/hls/master.m3u8?ads.xumo_channelId=99993018&ads.xumo_streamId=99993018&ads.channelId=99993018&ads.asnw=535279&ads.afid=440665815&ads.sfid=23858601&ads.csid=lgchannels_us_versantoxygentruecrimearchives_ssai_cro&ads._fw_coppa=0&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=TV-14&ads.xumo_contentId=4300&ads.xumo_contentName=VersantOxygenTrueCrime&ads.xumo_providerId=4300&ads.xumo_providerName=VersantOxygenTrueCrime&ads.appName=lgchannels&ads._fw_deviceType=3-Connected_TV&ads._fw_vcid2=512116:[IFA]&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_ifa_type=dpid&ads._fw_did=[IFA]&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads.appVersion=[APP_VERSION]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "First 48",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1853/lg/b95848/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ef4385a5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfRmlyc3Q0OF9ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  
+  {
+    "name": "Dateline 24/7",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993007/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993007/hls/master.m3u8?ads.xumo_channelId=99993007&ads.asnw=169843&ads.afid=322036060&ads.sfid=16772619&ads.csid=lgchannels_us_nbcudateline_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-g&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=2679&ads.xumo_contentName=NBCUDateline&ads.xumo_providerId=2679&ads.xumo_providerName=NBCUDateline&ads.channelId=99993007&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "A&E Crime 360",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/393/lg/9045f5/LG-Logo-PNG-100x100_v2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://3fbf38fe.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3JpbWUzNjBfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Crimes Cults Killers  by A&E",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1055/lg/22f210/LG-Logo-PNG-100x100_v2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://9b55463a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfS3JpbWluYWxfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "World's Most Evil Killers",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993006/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993006&ads.xumo_streamId=99993006&ads.channelId=99993006&ads.ad_tag_id=95744&ads.csid=lgchannels_us_worldsmostevilkillers_ssai&ads.channelName=worldsmostevilkillers_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=television&ads.content_language=en&ads.content_rating=tv-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "JAIL",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1201/lg/371c00/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://78bf3d85d8174a0b80cc1d82a3940110.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG_Jail/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Court TV",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Court_TV_2019.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cd63c9a2.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ291cnRUVl9ITFM/playlist.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "281"
+      }
+    ]
+  },
+  {
+    "name": "Divorce Court",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1590/lg/eae45d/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://0cc3f4c420a2420187b8b3c9f35615b7.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG_DivorceCourt/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TMZ",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d2mxb63djushzm.cloudfront.net/images/tmz/the-tmz-channel-logo-800x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-tmz-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "MTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/MTV_2021_Retro.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "371"
+      }
+    ]
+  },
+  
+  {
+    "name": "Stingray Greatest Hits",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992066/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992066&ads.xumo_streamId=99992066&ads.channelId=99992066&ads.ad_tag_id=9328&ads.csid=lgchannels_us_stingraygreatesthits_ssai&ads.channelName=stingraygreatesthits_us&ads.xumo_contentName=StingrayGreatestHits&ads.xumo_contentId=1857&ads.xumo_providerName=StingrayGreatestHits&ads.xumo_providerId=1857&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "TikTok Radio",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993050/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993050&ads.xumo_streamId=99993050&ads.channelId=99993050&ads.ad_tag_id=102191&ads.csid=lgchannels_us_stingraytiktok_ssai&ads.channelName=stingraytiktok_us&ads.xumo_contentName=StingrayTikTok&ads.xumo_contentId=3813&ads.xumo_providerName=StingrayTikTok&ads.xumo_providerId=3813&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Country Greats",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993049/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993049&ads.xumo_streamId=99993049&ads.channelId=99993049&ads.ad_tag_id=102187&ads.csid=lgchannels_us_stingraycountrygreats_ssai&ads.channelName=stingraycountrygreats_us&ads.xumo_contentName=StingrayCountryHits&ads.xumo_contentId=4179&ads.xumo_providerName=StingrayCountryHits&ads.xumo_providerId=4179&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Hot Country",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992087/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992087&ads.xumo_streamId=99992087&ads.channelId=99992087&ads.ad_tag_id=9331&ads.csid=lgchannels_us_stingrayhotcountry_ssai&ads.channelName=stingrayhotcountry_us&ads.xumo_contentName=StingrayHotCountry&ads.xumo_contentId=1859&ads.xumo_providerName=StingrayHotCountry&ads.xumo_providerId=1859&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Classic Rock",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992057/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992057&ads.xumo_streamId=99992057&ads.channelId=99992057&ads.ad_tag_id=9323&ads.csid=lgchannels_us_stingrayclassicrock_ssai&ads.channelName=stingrayclassicrock_us&ads.xumo_contentName=StingrayClassicRock&ads.xumo_contentId=1856&ads.xumo_providerName=StingrayClassicRock&ads.xumo_providerId=1856&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Flashback 70s",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993048/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993048&ads.xumo_streamId=99993048&ads.channelId=99993048&ads.ad_tag_id=102190&ads.csid=lgchannels_us_stingrayflashback70s_ssai&ads.channelName=stingrayflashback70s_us&ads.xumo_contentName=StingrayFlashback&ads.xumo_contentId=4177&ads.xumo_providerName=StingrayFlashback&ads.xumo_providerId=4177&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Remember the 80s",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992097/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992097&ads.xumo_streamId=99992097&ads.channelId=99992097&ads.ad_tag_id=9326&ads.csid=lgchannels_us_stingrayeverything80s_ssai&ads.channelName=stingrayeverything80s_us&ads.xumo_contentName=StingrayEverything80s&ads.xumo_contentId=2184&ads.xumo_providerName=StingrayEverything80s&ads.xumo_providerId=2184&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Pop Adult",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992108/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992108&ads.xumo_streamId=99992108&ads.channelId=99992108&ads.ad_tag_id=15725&ads.csid=lgchannels_us_stingraypopadult_ssai&ads.channelName=stingraypopadult_us&ads.xumo_contentName=StingrayPopAdult&ads.xumo_contentId=3197&ads.xumo_providerName=StingrayPopAdult&ads.xumo_providerId=3197&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=TV-PG&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Hip Hop",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992116/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992116&ads.xumo_streamId=99992116&ads.channelId=99992116&ads.ad_tag_id=9329&ads.csid=lgchannels_us_stingrayhiphop_ssai&ads.channelName=stingrayhiphop_br&ads.xumo_contentName=StingrayHipHop&ads.xumo_contentId=3195&ads.xumo_providerName=StingrayHipHop&ads.xumo_providerId=3195&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Today's Latin Pop",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/190ADS/lg-direct/Channel_Logo_296x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lotus.stingray.com/ads/ose-190ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Soul Storm",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/134ADS/lg-direct/Channel_Logo_296x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lotus.stingray.com/ads/ose-134ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Smooth Jazz",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992016/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992016&ads.xumo_streamId=99992016&ads.channelId=99992016&ads.ad_tag_id=9336&ads.csid=lgchannels_us_stingraysmoothjazz_ssai&ads.channelName=stingraysmoothjazz_us&ads.xumo_contentName=StingraySmoothJazz&ads.xumo_contentId=3538&ads.xumo_providerName=StingraySmoothJazz&ads.xumo_providerId=3538&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Easy Listening",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992000/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992000&ads.xumo_streamId=99992000&ads.channelId=99992000&ads.ad_tag_id=9324&ads.csid=lgchannels_us_stingrayeasylistening_ssai&ads.channelName=stingrayeasylistening_us&ads.xumo_contentName=StingrayEasyListening&ads.xumo_contentId=3539&ads.xumo_providerName=StingrayEasyListening&ads.xumo_providerId=3539&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Nothin' but '90s",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992040/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992040&ads.xumo_streamId=99992040&ads.channelId=99992040&ads.ad_tag_id=9334&ads.csid=lgchannels_us_stingray90s_ssai&ads.channelName=stingray90s_us&ads.xumo_contentName=Stingray90sUS&ads.xumo_contentId=3760&ads.xumo_providerName=Stingray90sUS&ads.xumo_providerId=3760&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray 2000s",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/232ADS/lg-direct/Channel_Logo_296x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lotus.stingray.com/ads/ose-232ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Karaoke",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/KAR000/lg-direct/Channel_Logo_740x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lotus.stingray.com/ads/karaoke-kar000-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Today's K-Pop",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/317ADS/lg-direct/Channel_Logo_296x200.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://lotus.stingray.com/ads/ose-317ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
+      }
+    ]
+  },
+  {
+    "name": "Movie Music By Stingray",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993046/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993046&ads.xumo_streamId=99993046&ads.channelId=99993046&ads.ad_tag_id=102188&ads.csid=lgchannels_us_stingraymoviemusic_ssai&ads.channelName=stingraymoviemusic_us&ads.xumo_contentName=StingrayMovieMusic&ads.xumo_contentId=4178&ads.xumo_providerName=StingrayMovieMusic&ads.xumo_providerId=4178&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray SPA",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992008/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992008&ads.xumo_streamId=99992008&ads.channelId=99992008&ads.ad_tag_id=9338&ads.csid=lgchannels_us_stingrayspa_ssai&ads.channelName=stingrayspa_us&ads.xumo_contentName=StingraySpa&ads.xumo_contentId=3537&ads.xumo_providerName=StingraySpa&ads.xumo_providerId=3537&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Cozy Cafe",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99993047/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993047&ads.xumo_streamId=99993047&ads.channelId=99993047&ads.ad_tag_id=102189&ads.csid=lgchannels_us_stingraycozycafe_ssai&ads.channelName=stingraycozycafe_us&ads.xumo_contentName=StingrayCozyCafe&ads.xumo_contentId=4180&ads.xumo_providerName=StingrayCozyCafe&ads.xumo_providerId=4180&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Stingray Holidayscapes",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992518/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992518&ads.xumo_streamId=99992518&ads.channelId=99992518&ads.ad_tag_id=31258&ads.csid=lgchannels_us_stingrayholidayscape_ssai&ads.channelName=stingrayholidayscape_us&ads.xumo_contentName=StingrayHolidayscape&ads.xumo_contentId=3996&ads.xumo_providerName=StingrayHolidayscape&ads.xumo_providerId=3996&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "Qello Concerts by Stingray",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://image.xumo.com/v1/channels/channel/99992069/600x200.png?type=white_cropped",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992069&ads.xumo_streamId=99992069&ads.channelId=99992069&ads.ad_tag_id=9321&ads.csid=lgchannels_us_stingray_ssai&ads.channelName=stingrayqello_us&ads.xumo_contentName=Stingray&ads.xumo_contentId=187&ads.xumo_providerName=Stingray&ads.xumo_providerId=187&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  }, 
+  {
+    "name": "NEW KPOP",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://cdn88-accio.its-newid.net/channel/newid_001/lg_channels/img/channel_logo/default/channel_logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=newkpop&channel_id=newid_001&mpf=b9b84d50-39af1962-3d59bb44&apikey=48230e6b-1cea0097-15975f93-39af1962&auth=5555ff2b-8870b9b2-25c0f07d-ff00231e&ads.live=[CONTENT_LIVE]&ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.us_privacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+ 	
   {
     "name": "Law & Order",
     "id_api": "",
@@ -2925,96 +3993,6 @@
     ]
   },
   {
-    "name": "CSI",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://images.pluto.tv/channels/5efbd29e4aa26700076c0d06/logo.png?w=380&h=110&trim=auto&trim-sd=10&trim-md=0&fit=clip&fm=png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5efbd29e4aa26700076c0d06/master.m3u8?advertisingId=&appName=web&appVersion=unknown&appStoreUrl=&architecture=&buildVersion=&clientTime=0&deviceDNT=0&deviceId=424e55da-1dda-11f0-ab45-a30a4ae8334b&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&sid=1626e761-a9fe-491b-a8fc-b0150ac1b02e&userId=&serverSideAds=true"
-      }
-    ]
-  },
-  {
-    "name": "Investigation Discovery (ID USA)",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/ID.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "324"
-      }
-    ]
-  },
-  {
-    "name": "Law & Crime Network",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Law&Crime.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "278"
-      }, 
-      {
-        "type": "m3u8",
-        "url": "https://37699f7d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGF3YW5kQ3JpbWVfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Crime+ Investigation USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Crime_+_Investigation_(2017)_(Print).png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "669"
-      }
-    ]
-  },
-  {
-    "name": "Unsolved Mysteries",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992257/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992257&ads.xumo_streamId=99992257&ads.channelId=99992257&ads.ad_tag_id=10505&ads.csid=lgchannels_us_filmriseunsolvedmysteries_ssai&ads.channelName=filmriseunsolvedmysteries_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=Crime%2520TV&ads.content_language=en&ads.content_rating=TV-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Forensic Files",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992255/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992255&ads.xumo_streamId=99992255&ads.channelId=99992255&ads.ad_tag_id=10504&ads.csid=lgchannels_us_forensicfiles_ssai&ads.channelName=forensicfiles_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=Crime%2520TV&ads.content_language=en&ads.content_rating=TV-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
- 	
-  
-  {
     "name": "The Beverly Hillbillies",
     "id_api": "",
     "categories": [
@@ -3173,90 +4151,7 @@
     ]
   },
   
-  {
-    "name": "Ancient Aliens",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1852/lg/1164e6/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://f733e539.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQW5jaWVudEFsaWVuc19ITFM/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "UnXplained Zone",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1018/lg/264964/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://463f4288.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfVW5YcGxhaW5lZFpvbmVfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Modern Marvels",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1040/lg/d5193a/LG-Logo-PNG-100x100_v3.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://a272554f.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTW9kZXJuTWFydmVsc19ITFM/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Declassified",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d190bhqtoid3b.cloudfront.net/Images/S3/LG_Artwork/Declassified_800x200_Logo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-historytime-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "History USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/history.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "322"
-      }
-    ]
-  },
-  {
-    "name": "Historian",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1908/lg/b7ee6a/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://3a542e42.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSGlzdG9yaWFuX0hMUw/playlist.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "Dance Moms",
     "id_api": "",
@@ -3544,20 +4439,6 @@
     ]
   },
   {
-    "name": "Bachelor Nation",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d1zn8lvr9xwhp4.cloudfront.net/LG_Logo_700x200_BachelorNation.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg00136-wbd-amg00136c28-lg-us-1932.playouts.now.amagi.tv/playlist/amg00136-warnerbrothersdiscovery-warnerbrostvbachelornation-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
     "name": "Hell's Kitchen",
     "id_api": "",
     "categories": [
@@ -3586,259 +4467,7 @@
       }
     ]
   },
-  {
-    "name": "Haunt TV US",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d2y2gft5545ze9.cloudfront.net/HauntTV_200pxHigh_LG_ChannelAssets_White.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00090-blueantllc-haunttv-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "FilmRise UFO Encounters",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993059/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993059&ads.xumo_streamId=99993059&ads.channelId=99993059&ads.ad_tag_id=122597&ads.csid=lgchannels_us_ufoencounters_ssai&ads.channelName=ufoencounters_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=television&ads.content_language=en&ads.content_rating=tv-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
   
-  {
-    "name": "Las Vegas",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993015/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993015/hls/master.m3u8?ads.xumo_channelId=99993015&ads.asnw=169843&ads.afid=380736666&ads.sfid=17537925&ads.csid=lgchannels_us_nbcutopchefvault_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB8&ads._fw_content_genre=foodanddrink&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3932&ads.xumo_contentName=NBCUTopChefVault&ads.xumo_providerId=3932&ads.xumo_providerName=NBCUTopChefVault&ads.channelId=99993015&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Universal Crime",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993021/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993021/hls/master.m3u8?ads.xumo_channelId=99993021&ads.asnw=169843&ads.afid=380752676&ads.sfid=17556671&ads.csid=lgchannels_us_nbcuuniversalcrime_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3939&ads.xumo_contentName=NBCUUniversalCrime&ads.xumo_providerId=3939&ads.xumo_providerName=NBCUUniversalCrime&ads.channelId=99993021&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Crime ThrillHer",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1056/lg/28d4f8/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://28caa756.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3JpbWVUaHJpbGxIZXJfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Murder, She Wrote",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993020/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993020/hls/master.m3u8?ads.xumo_channelId=99993020&ads.asnw=169843&ads.afid=380744959&ads.sfid=17538085&ads.csid=lgchannels_us_nbcumurdershewrote_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tvg&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3927&ads.xumo_contentName=NBCUMurderSheWrote&ads.xumo_providerId=3927&ads.xumo_providerName=NBCUMurderSheWrote&ads.channelId=99993020&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "ION Mystery",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1206/lg/4adf47/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://5d8e88ed.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSU9OTXlzdGVyeV9ITFM/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "American Crimes",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993013/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993013/hls/master.m3u8?ads.xumo_channelId=99993013&ads.xumo_streamId=99993013&ads.channelId=99993013&ads.asnw=535279&ads.afid=440668677&ads.sfid=23817261&ads.csid=lgchannels_us_versantamericancrimes_ssai_cro&ads._fw_coppa=0&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=TV-14&ads.xumo_contentId=4291&ads.xumo_contentName=VersantAmericanCrimes&ads.xumo_providerId=4291&ads.xumo_providerName=VersantAmericanCrimes&ads.appName=lgchannels&ads._fw_deviceType=3-Connected_TV&ads._fw_vcid2=512116:[IFA]&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_ifa_type=dpid&ads._fw_did=[IFA]&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads.appVersion=[APP_VERSION]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "First 48",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1853/lg/b95848/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ef4385a5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfRmlyc3Q0OF9ITFM/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Oxygen True Crime Archives",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993018/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993018/hls/master.m3u8?ads.xumo_channelId=99993018&ads.xumo_streamId=99993018&ads.channelId=99993018&ads.asnw=535279&ads.afid=440665815&ads.sfid=23858601&ads.csid=lgchannels_us_versantoxygentruecrimearchives_ssai_cro&ads._fw_coppa=0&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=TV-14&ads.xumo_contentId=4300&ads.xumo_contentName=VersantOxygenTrueCrime&ads.xumo_providerId=4300&ads.xumo_providerName=VersantOxygenTrueCrime&ads.appName=lgchannels&ads._fw_deviceType=3-Connected_TV&ads._fw_vcid2=512116:[IFA]&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_ifa_type=dpid&ads._fw_did=[IFA]&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads.appVersion=[APP_VERSION]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Dateline 24/7",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993007/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993007/hls/master.m3u8?ads.xumo_channelId=99993007&ads.asnw=169843&ads.afid=322036060&ads.sfid=16772619&ads.csid=lgchannels_us_nbcudateline_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-g&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=2679&ads.xumo_contentName=NBCUDateline&ads.xumo_providerId=2679&ads.xumo_providerName=NBCUDateline&ads.channelId=99993007&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "A&E Crime 360",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/393/lg/9045f5/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://3fbf38fe.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3JpbWUzNjBfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Crimes Cults Killers  by A&E",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1055/lg/22f210/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://9b55463a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfS3JpbWluYWxfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "World's Most Evil Killers",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993006/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993006&ads.xumo_streamId=99993006&ads.channelId=99993006&ads.ad_tag_id=95744&ads.csid=lgchannels_us_worldsmostevilkillers_ssai&ads.channelName=worldsmostevilkillers_us&ads.xumo_contentName=FilmRise&ads.xumo_contentId=260&ads.xumo_providerName=FilmRise&ads.xumo_providerId=260&ads.content_category=IAB1-7&ads.content_genre=television&ads.content_language=en&ads.content_rating=tv-14&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "JAIL",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1201/lg/371c00/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://78bf3d85d8174a0b80cc1d82a3940110.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG_Jail/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Court TV",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1516/lg/0f59a3/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cd63c9a2.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ291cnRUVl9ITFM/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Divorce Court",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1590/lg/eae45d/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://0cc3f4c420a2420187b8b3c9f35615b7.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG_DivorceCourt/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "TMZ",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d2mxb63djushzm.cloudfront.net/images/tmz/the-tmz-channel-logo-800x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-tmz-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
   
   {
     "name": "FIFA+",
@@ -3988,48 +4617,7 @@
     ]
   },
   
-  {
-    "name": "Tastemade",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/tastemade/Logo_WordmarkLogo_800x200px.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadefreetv16-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "709 Hungry",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/140/lg/efd2cc/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://wurljansonmedia.global.transmit.live/hls/67dd78702f042c9565eb1cfe/v1/food/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=140&wurl_name=Hungry&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Tastemade Travel",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/tastemade-travel/Logo_TravelLogo_569x200px.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00047-tastemade-tastemadetravel-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
-      }
-    ]
-  },
+  
   {
     "name": "People Are Awesome",
     "id_api": "",
@@ -4072,90 +4660,7 @@
       }
     ]
   },
-  {
-    "name": "Dinos 24/7",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d2i0hcnfudruct.cloudfront.net/Dinos/LG_Dinos/LG_DINOS_247_CHANNEL_ASSETSLG-Logo-PNG-800x200-(REV).png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg00793-amg00793c35-lg-us-6412.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-dinospluto-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&givn=[NONCE]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "BBC Earth",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/BBC_Earth_circle.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg00793-bbcstudios-amg00793c3-lg-us-2528.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-bbcearta-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Love Nature",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://d190bhqtoid3b.cloudfront.net/Images/S3/LG_Artwork/LoveNature_AllWhite_Logo_800x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://bamus-lovenature-lg.amagi.tv/hls/amagi_hls_data_bamusaAAA-bamus-lovenature-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Naturescape",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992068/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992068&ads.xumo_streamId=99992068&ads.channelId=99992068&ads.ad_tag_id=9333&ads.csid=lgchannels_us_stingrayambiance_ssai&ads.channelName=stingraynaturescape_us&ads.xumo_contentName=StingrayAmbiance&ads.xumo_contentId=188&ads.xumo_providerName=StingrayAmbiance&ads.xumo_providerId=188&ads.content_category=IAB1-2&ads.content_genre=lifestyle&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "NatureVision",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992106/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992106&ads.xumo_streamId=99992106&ads.channelId=99992106&ads.ad_tag_id=9320&ads.csid=lgchannels_us_naturevision_ssai&ads.channelName=naturevision_us&ads.xumo_contentName=NatureVisionTV&ads.xumo_contentId=133&ads.xumo_providerName=NatureVisionTV&ads.xumo_providerId=133&ads.content_category=IAB1-7&ads.content_genre=lifestyle&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "ZENLife By Stingray",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992099/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992099&ads.xumo_streamId=99992099&ads.channelId=99992099&ads.ad_tag_id=36042&ads.csid=lgchannels_us_stingrayzenlife_ssai&ads.channelName=stingrayzenlife_us&ads.xumo_contentName=StingrayZenlifeUS&ads.xumo_contentId=3975&ads.xumo_providerName=StingrayZenlifeUS&ads.xumo_providerId=3975&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
+  
   {
     "name": "At Home with Family Handyman",
     "id_api": "",
@@ -4527,20 +5032,7 @@
     ]
   },
   
-  {
-    "name": "Court TV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Court_TV_2019.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "281"
-      }
-    ]
-  },
+  
 
   {
     "name": "COZI TV USA",
@@ -4676,20 +5168,7 @@
       }
     ]
   },
-  {
-    "name": "MTV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/MTV_2021_Retro.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "371"
-      }
-    ]
-  },
+  
   
   {
     "name": "MASN USA",
@@ -4750,184 +5229,8 @@
   },
   
   
-  {
-    "name": "POP TV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Pop_channel_blue.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "653"
-      }
-    ]
-  },
   
-  {
-    "name": "PBS USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/PBS_2019.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "210"
-      }
-    ]
-  },
-  
-  
-  {
-    "name": "TUDN USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TUDN.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "66"
-      }
-    ]
-  },
-  {
-    "name": "TBS USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TBS_2015.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "336"
-      }
-    ]
-  },
-  {
-    "name": "TNT USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TNT.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "338"
-      }
-    ]
-  },
-  {
-    "name": "TruTV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TruTV_2014.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "341"
-      }
-    ]
-  },
-  
-  {
-    "name": "TV ONE USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TV_One_watermark_logo.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "660"
-      }
-    ]
-  },
-  {
-    "name": "VH1 USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/VH1_2013_(Print).png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "344"
-      }
-    ]
-  },
-  {
-    "name": "WETV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/WE_TV_logo_(2024).svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "655"
-      }
-    ]
-  },
-  {
-    "name": "YES Network USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Yes.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "763"
-      }
-    ]
-  },
-  {
-    "name": "5USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/5USA_2016.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "360"
-      }
-    ]
-  },
     
-  
-
-  
-  
-  
-  {
-    "name": "Destination America",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Destination_America_2017_(White).svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "651"
-      }
-    ]
-  },
   
 
   
@@ -5040,20 +5343,7 @@
       }
     ]
   },
-  {
-    "name": "Oxygen True Crime",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/oxygen_truecrime.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "332"
-      }
-    ]
-  },
+  
   
   
   {
@@ -5087,333 +5377,12 @@
         "channel_id": "342"
       }
     ]
-  },
+  }
   
 
  
   
   
   
-  {
-    "name": "Stingray Greatest Hits",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992066/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992066&ads.xumo_streamId=99992066&ads.channelId=99992066&ads.ad_tag_id=9328&ads.csid=lgchannels_us_stingraygreatesthits_ssai&ads.channelName=stingraygreatesthits_us&ads.xumo_contentName=StingrayGreatestHits&ads.xumo_contentId=1857&ads.xumo_providerName=StingrayGreatestHits&ads.xumo_providerId=1857&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "TikTok Radio",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993050/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993050&ads.xumo_streamId=99993050&ads.channelId=99993050&ads.ad_tag_id=102191&ads.csid=lgchannels_us_stingraytiktok_ssai&ads.channelName=stingraytiktok_us&ads.xumo_contentName=StingrayTikTok&ads.xumo_contentId=3813&ads.xumo_providerName=StingrayTikTok&ads.xumo_providerId=3813&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Country Greats",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993049/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993049&ads.xumo_streamId=99993049&ads.channelId=99993049&ads.ad_tag_id=102187&ads.csid=lgchannels_us_stingraycountrygreats_ssai&ads.channelName=stingraycountrygreats_us&ads.xumo_contentName=StingrayCountryHits&ads.xumo_contentId=4179&ads.xumo_providerName=StingrayCountryHits&ads.xumo_providerId=4179&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Hot Country",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992087/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992087&ads.xumo_streamId=99992087&ads.channelId=99992087&ads.ad_tag_id=9331&ads.csid=lgchannels_us_stingrayhotcountry_ssai&ads.channelName=stingrayhotcountry_us&ads.xumo_contentName=StingrayHotCountry&ads.xumo_contentId=1859&ads.xumo_providerName=StingrayHotCountry&ads.xumo_providerId=1859&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Classic Rock",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992057/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992057&ads.xumo_streamId=99992057&ads.channelId=99992057&ads.ad_tag_id=9323&ads.csid=lgchannels_us_stingrayclassicrock_ssai&ads.channelName=stingrayclassicrock_us&ads.xumo_contentName=StingrayClassicRock&ads.xumo_contentId=1856&ads.xumo_providerName=StingrayClassicRock&ads.xumo_providerId=1856&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Flashback 70s",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993048/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993048&ads.xumo_streamId=99993048&ads.channelId=99993048&ads.ad_tag_id=102190&ads.csid=lgchannels_us_stingrayflashback70s_ssai&ads.channelName=stingrayflashback70s_us&ads.xumo_contentName=StingrayFlashback&ads.xumo_contentId=4177&ads.xumo_providerName=StingrayFlashback&ads.xumo_providerId=4177&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Remember the 80s",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992097/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992097&ads.xumo_streamId=99992097&ads.channelId=99992097&ads.ad_tag_id=9326&ads.csid=lgchannels_us_stingrayeverything80s_ssai&ads.channelName=stingrayeverything80s_us&ads.xumo_contentName=StingrayEverything80s&ads.xumo_contentId=2184&ads.xumo_providerName=StingrayEverything80s&ads.xumo_providerId=2184&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Pop Adult",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992108/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992108&ads.xumo_streamId=99992108&ads.channelId=99992108&ads.ad_tag_id=15725&ads.csid=lgchannels_us_stingraypopadult_ssai&ads.channelName=stingraypopadult_us&ads.xumo_contentName=StingrayPopAdult&ads.xumo_contentId=3197&ads.xumo_providerName=StingrayPopAdult&ads.xumo_providerId=3197&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=TV-PG&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Hip Hop",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992116/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992116&ads.xumo_streamId=99992116&ads.channelId=99992116&ads.ad_tag_id=9329&ads.csid=lgchannels_us_stingrayhiphop_ssai&ads.channelName=stingrayhiphop_br&ads.xumo_contentName=StingrayHipHop&ads.xumo_contentId=3195&ads.xumo_providerName=StingrayHipHop&ads.xumo_providerId=3195&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Today's Latin Pop",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/190ADS/lg-direct/Channel_Logo_296x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lotus.stingray.com/ads/ose-190ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Soul Storm",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/134ADS/lg-direct/Channel_Logo_296x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lotus.stingray.com/ads/ose-134ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Smooth Jazz",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992016/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992016&ads.xumo_streamId=99992016&ads.channelId=99992016&ads.ad_tag_id=9336&ads.csid=lgchannels_us_stingraysmoothjazz_ssai&ads.channelName=stingraysmoothjazz_us&ads.xumo_contentName=StingraySmoothJazz&ads.xumo_contentId=3538&ads.xumo_providerName=StingraySmoothJazz&ads.xumo_providerId=3538&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Easy Listening",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992000/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992000&ads.xumo_streamId=99992000&ads.channelId=99992000&ads.ad_tag_id=9324&ads.csid=lgchannels_us_stingrayeasylistening_ssai&ads.channelName=stingrayeasylistening_us&ads.xumo_contentName=StingrayEasyListening&ads.xumo_contentId=3539&ads.xumo_providerName=StingrayEasyListening&ads.xumo_providerId=3539&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Nothin' but '90s",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992040/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992040&ads.xumo_streamId=99992040&ads.channelId=99992040&ads.ad_tag_id=9334&ads.csid=lgchannels_us_stingray90s_ssai&ads.channelName=stingray90s_us&ads.xumo_contentName=Stingray90sUS&ads.xumo_contentId=3760&ads.xumo_providerName=Stingray90sUS&ads.xumo_providerId=3760&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray 2000s",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/232ADS/lg-direct/Channel_Logo_296x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lotus.stingray.com/ads/ose-232ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Karaoke",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/KAR000/lg-direct/Channel_Logo_740x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lotus.stingray.com/ads/karaoke-kar000-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Today's K-Pop",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://stingray-epg.s3.us-east-1.amazonaws.com/IMAGE/317ADS/lg-direct/Channel_Logo_296x200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://lotus.stingray.com/ads/ose-317ads-montreal/lgchannels/master.m3u8?ads.ip=[IP]&ads.ua=[UA]&ads.targetad=[TARGETAD_ALLOWED]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.deviceid=[DEVICE_ID]&ads.gdprconsent=[GDPR_CONSENT]&ads.gdpr=[GDPR]&ads.usprivacy=[US_PRIVACY]&ads.lat=[LMT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.ifatype=[IFA_TYPE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.ifa=[IFA]&ads.lmt=[LMT]&ads.dns=[DNS]"
-      }
-    ]
-  },
-  {
-    "name": "Movie Music By Stingray",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993046/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993046&ads.xumo_streamId=99993046&ads.channelId=99993046&ads.ad_tag_id=102188&ads.csid=lgchannels_us_stingraymoviemusic_ssai&ads.channelName=stingraymoviemusic_us&ads.xumo_contentName=StingrayMovieMusic&ads.xumo_contentId=4178&ads.xumo_providerName=StingrayMovieMusic&ads.xumo_providerId=4178&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray SPA",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992008/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992008&ads.xumo_streamId=99992008&ads.channelId=99992008&ads.ad_tag_id=9338&ads.csid=lgchannels_us_stingrayspa_ssai&ads.channelName=stingrayspa_us&ads.xumo_contentName=StingraySpa&ads.xumo_contentId=3537&ads.xumo_providerName=StingraySpa&ads.xumo_providerId=3537&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Cozy Cafe",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993047/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99993047&ads.xumo_streamId=99993047&ads.channelId=99993047&ads.ad_tag_id=102189&ads.csid=lgchannels_us_stingraycozycafe_ssai&ads.channelName=stingraycozycafe_us&ads.xumo_contentName=StingrayCozyCafe&ads.xumo_contentId=4180&ads.xumo_providerName=StingrayCozyCafe&ads.xumo_providerId=4180&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Stingray Holidayscapes",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992518/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992518&ads.xumo_streamId=99992518&ads.channelId=99992518&ads.ad_tag_id=31258&ads.csid=lgchannels_us_stingrayholidayscape_ssai&ads.channelName=stingrayholidayscape_us&ads.xumo_contentName=StingrayHolidayscape&ads.xumo_contentId=3996&ads.xumo_providerName=StingrayHolidayscape&ads.xumo_providerId=3996&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  },
-  {
-    "name": "Qello Concerts by Stingray",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992069/600x200.png?type=white_cropped",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99992069&ads.xumo_streamId=99992069&ads.channelId=99992069&ads.ad_tag_id=9321&ads.csid=lgchannels_us_stingray_ssai&ads.channelName=stingrayqello_us&ads.xumo_contentName=Stingray&ads.xumo_contentId=187&ads.xumo_providerName=Stingray&ads.xumo_providerId=187&ads.content_category=IAB1-6&ads.content_genre=music&ads.content_language=en&ads.content_rating=tv-g&ads.coppa=0&ads.livestream=0&ads.prodq=1&ads.did=[IFA]&ads.lmt=[LMT]&ads.dnt=[DNS]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.country=[COUNTRY]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_name=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
-  }, 
-  {
-    "name": "NEW KPOP",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://cdn88-accio.its-newid.net/channel/newid_001/lg_channels/img/channel_logo/default/channel_logo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=newkpop&channel_id=newid_001&mpf=b9b84d50-39af1962-3d59bb44&apikey=48230e6b-1cea0097-15975f93-39af1962&auth=5555ff2b-8870b9b2-25c0f07d-ff00231e&ads.live=[CONTENT_LIVE]&ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.us_privacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
-      }
-    ]
-  }
+  
 ]
