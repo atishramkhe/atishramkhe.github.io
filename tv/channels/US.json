@@ -55,20 +55,7 @@
       }
     ]
   },
-  {
-    "name": "Newsmax USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Newsmax_2021.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "613"
-      }
-    ]
-  },
+  
 {
     "name": "CNBC USA",
     "id_api": null,
@@ -121,7 +108,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d3rimcir91uaav.cloudfront.net/196481_LG_LiveNow_Logo_White_800x200_001.png",
+    "logo": "logos/US/livenow_from_fox.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -130,12 +117,26 @@
     ]
   },
   {
-    "name": "Newsmax N2",
+    "name": "Newsmax USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Newsmax_2021.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "613"
+      }
+    ]
+  },
+  {
+    "name": "Newsmax 2",
     "id_api": "",
     "categories": [
       "US"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/newsmax/N2_Channel_Logo_200x400.png",
+    "logo": "logos/US/Newsmax2.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -149,7 +150,7 @@
     "categories": [
       "US"
     ],
-    "logo": "logos/US/Bloomberg_Television_logo.svg",
+    "logo": "logos/US/Bloomberg_Television_logo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -177,7 +178,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1149/lg/d696f2/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/scripps_news.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -569,6 +570,21 @@
       }
     ]
   },
+  
+  {
+    "name": "FOX Soccer Plus",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fox_Soccer_Plus_(Flat).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "756"
+      }
+    ]
+  },
   {
     "name": "FOX Deportes USA",
     "id_api": null,
@@ -584,16 +600,16 @@
     ]
   },
   {
-    "name": "FOX Soccer Plus",
+    "name": "GOLTV USA",
     "id_api": null,
     "categories": [
       "US"
     ],
-    "logo": "logos/US/Fox_Soccer_Plus_(Flat).svg",
+    "logo": "logos/US/GOL_TV_Stacked.svg",
     "sources": [
       {
         "type": "daddylive",
-        "channel_id": "756"
+        "channel_id": "597"
       }
     ]
   },
@@ -673,7 +689,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993008/600x200.png?type=white_cropped",
+    "logo": "logos/US/nbc_sports_now.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1080,7 +1096,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1693/lg/b8ed98/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/Monster_Jam_New_Logo.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -1428,6 +1444,38 @@
       }
     ]
   },
+  {
+    "name": "ION USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Ion_Television_(2021).png",
+    "sources": [
+    {
+        "type": "m3u8",
+        "url": "https://d3732c9c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSU9OX0hMUw/playlist.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "325"
+      }
+    ]
+  },
+  {
+    "name": "ION Plus",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ion_plus.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ad6cad3b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSW9uUGx1c19ITFM/playlist.m3u8"
+      }
+    ]
+  },
   
   {
     "name": "TV ONE USA",
@@ -1533,11 +1581,39 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/830/lg/fb8c5c/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/get_comedy.png",
     "sources": [
       {
         "type": "m3u8",
         "url": "https://3baa26d3.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ2luZXZhdWx0TXVyZGVyQW5kTWF5aGVtX0hMUw/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Laff More",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/laffmore.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://4783fbd6.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGFmZk1vcmVfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "WITZ-Comedy TV",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/witz_comedy.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurlbesteverchannels.global.transmit.live/hls/67a3a1377796545fc40611c5/v1/bec_witz_1/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=59414&wurl_name=WITZComedyTV&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
       }
     ]
   },
@@ -1654,6 +1730,20 @@
     ]
   },
   {
+    "name": "Sundance TV",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/SundanceTV_2022.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "658"
+      }
+    ]
+  },
+  {
     "name": "AMC USA",
     "id_api": null,
     "categories": [
@@ -1696,6 +1786,35 @@
     ]
   },
   {
+    "name": "CW PIX 11 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/PIX11_2017.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "280"
+      }
+    ]
+  },
+  {
+    "name": "Bravo USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Bravo_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "307"
+      }
+    ]
+  },
+  
+  {
     "name": "SYFY USA",
     "id_api": null,
     "categories": [
@@ -1706,6 +1825,34 @@
       {
         "type": "daddylive",
         "channel_id": "373"
+      }
+    ]
+  },
+  {
+    "name": "Comet USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Comet_2020_green.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "696"
+      }
+    ]
+  },
+  {
+    "name": "MGM+ USA / Epix",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/MGM+.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "791"
       }
     ]
   },
@@ -2108,7 +2255,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992272/600x200.png?type=white_cropped",
+    "logo": "logos/US/filmrise_freemovies.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2130,20 +2277,7 @@
       }
     ]
   },
-  {
-    "name": "CINEVAULT: Classics",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1043/lg/374298/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://75943f25.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ2luZXZhdWx0Q2xhc3NpY3NfSExT/playlist.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "Xumo Free Action Movies",
     "id_api": "",
@@ -2164,7 +2298,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99993045/600x200.png?type=white_cropped",
+    "logo": "logos/US/universal_action.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2206,7 +2340,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/999/lg/2c7884/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/movies_favorites.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2220,7 +2354,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/images/hersphere/HerSphere_LGLaunch_Guide_Logo_White_Stacked_800x200.png",
+    "logo": "logos/US/hersphere-large-logo.png",
     "sources": [
       {
         "type": "m3u8",
@@ -2332,7 +2466,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://image.xumo.com/v1/channels/channel/99992520/600x200.png?type=white_cropped",
+    "logo": "logos/US/western_bound.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2346,7 +2480,7 @@
     "categories": [
       "US"
     ],
-    "logo": "https://img.platform.wurl.dev/channel/1208/lg/049016/LG-Logo-PNG-100x100_v1.png",
+    "logo": "logos/US/grit_xtra.webp",
     "sources": [
       {
         "type": "m3u8",
@@ -2365,6 +2499,48 @@
       {
         "type": "daddylive",
         "channel_id": "644"
+      }
+    ]
+  },
+  {
+    "name": "TV Land",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/TV_Land_2015.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "342"
+      }
+    ]
+  },
+  {
+    "name": "CINEVAULT: Classics",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/cinevault_classics.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://75943f25.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ2luZXZhdWx0Q2xhc3NpY3NfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "FETV - Family Entertainment Television",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fetv_in_screen_bug_form.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "751"
       }
     ]
   },
@@ -3532,6 +3708,20 @@
       }
     ]
   },
+  {
+    "name": "FUSE TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fuse_2015_orange.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "279"
+      }
+    ]
+  },
   
   {
     "name": "Stingray Greatest Hits",
@@ -3992,34 +4182,7 @@
       }
     ]
   },
-  {
-    "name": "ION",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1116/lg/c1228b/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d3732c9c.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSU9OX0hMUw/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "ION Plus",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/378/lg/165a68/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ad6cad3b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfSW9uUGx1c19ITFM/playlist.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "The Beverly Hillbillies",
     "id_api": "",
@@ -4571,21 +4734,7 @@
       }
     ]
   },
-  {
-    "name": "Laff More",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1498/lg/d22c6a/LG-Logo-PNG-100x100_v1.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://4783fbd6.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTGFmZk1vcmVfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  
+   
   
   {
     "name": "Saved by the Bell",
@@ -4630,20 +4779,7 @@
       }
     ]
   },
-  {
-    "name": "WITZ-Comedy TV",
-    "id_api": "",
-    "categories": [
-      "US"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1197/lg/4bbe15/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://wurlbesteverchannels.global.transmit.live/hls/67a3a1377796545fc40611c5/v1/bec_witz_1/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=59414&wurl_name=WITZComedyTV&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
-      }
-    ]
-  },
+  
   
   
   {
@@ -5031,34 +5167,7 @@
   
   
   
-  {
-    "name": "Bravo USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Bravo_2024.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "307"
-      }
-    ]
-  },
-  {
-    "name": "CW PIX 11 USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/PIX11_2017.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "280"
-      }
-    ]
-  },
+  
   
   
 
@@ -5091,52 +5200,13 @@
     ]
   },
 
-  {
-    "name": "Comet USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Comet_2020_green.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "696"
-      }
-    ]
-  },
   
   
   
-  {
-    "name": "FUSE TV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Fuse_2015_orange.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "279"
-      }
-    ]
-  },
   
-  {
-    "name": "GOLTV USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/GOL_TV_Stacked.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "597"
-      }
-    ]
-  },
+  
+  
+  
   {
     "name": "Galavisión USA",
     "id_api": null,
@@ -5153,20 +5223,7 @@
   },
   
 
-  {
-    "name": "ION USA",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Ion_Television_(2021).png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "325"
-      }
-    ]
-  },
+  
   
   {
     "name": "Logo TV USA",
@@ -5278,22 +5335,6 @@
     ]
   },
   {
-    "name": "FETV - Family Entertainment Television",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/Fetv_in_screen_bug_form.webp",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "751"
-      }
-    ]
-  },
-
-  
-  {
     "name": "Game Show Network",
     "id_api": null,
     "categories": [
@@ -5335,28 +5376,7 @@
         "channel_id": "382"
       }
     ]
-  },
-
-
-  
-  {
-    "name": "MGM+ USA / Epix",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/MGM+.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "791"
-      }
-    ]
-  },
-  
-  
-  
-  
+  }, 
   {
     "name": "Oprah Winfrey Network (OWN)",
     "id_api": null,
@@ -5370,47 +5390,6 @@
         "channel_id": "331"
       }
     ]
-  },
-  
-  
-  
-  {
-    "name": "Sundance TV",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/SundanceTV_2022.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "658"
-      }
-    ]
-  },
-  
-  
-  
-  
-  {
-    "name": "TV Land",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/TV_Land_2015.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "342"
-      }
-    ]
   }
-  
-
- 
-  
-  
-  
   
 ]
