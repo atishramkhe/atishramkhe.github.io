@@ -1915,20 +1915,6 @@
       }
     ]
   },
-  {
-    "name": "Seasons",
-    "id_api": "",
-    "categories": [
-      "Education"
-    ],
-    "logo": "logos/France/Seasons.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/5ogZ87gaChEzRFJiic83Of_vv6QhRCqlWUcdPLuqMmR3pqKCu41nMPdUvX7aJXzzp7TNasjTE-ydiv_ZMvT-6QtcES6-AieBrWJN3ix8a7rREdQhlV7AF1IrcxEpSij_Y59GkU8PdNUKWIRWtqlVWgupR7_EjnIPQNzhKgD8DzQ/hls/index.m3u8"
-      }
-    ]
-  },
 {
     "name": "RMC Mecanic",
     "id_api": "",
@@ -2303,6 +2289,10 @@
     "categories": [],
     "logo": "logos/France/Gulli.png",
     "sources": [
+    {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/gulli/browser-HLS8/gulli.m3u8"
+      },
       {
         "type": "mpd",
         "url": "https://viamotionhsi.netplus.ch/live/eds/gulli/browser-dash/gulli.mpd"
