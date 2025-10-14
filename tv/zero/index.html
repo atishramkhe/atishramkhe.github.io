@@ -674,8 +674,7 @@
                 min-width: 110px;
                 margin-left: 0;
               ">
-              <option value="France" selected>France</option>
-              <option value="UK">UK</option>
+              <option value=" ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵" selected> ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵</option>
               <!-- Add more countries as needed -->
             </select>
           </div>
@@ -1024,7 +1023,7 @@
     }
   }
 
-  fetch('channels/France.json')
+  fetch('channels/ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵.json')
     .then(response => response.json())
     .then(data => {
       channels = data;
@@ -1046,7 +1045,7 @@
           const option = document.createElement('option');
           option.value = country;
           option.textContent = country;
-          if (country === 'France') option.selected = true;
+          if (country === ' ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵') option.selected = true;
           countrySelect.appendChild(option);
         });
       });
