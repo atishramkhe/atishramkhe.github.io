@@ -1,0 +1,429 @@
+[
+{
+    "name": "LCI",
+    "id_api": "LCI.fr",
+    "categories": [],
+    "logo": "logos/France/LCI.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/lci/browser-HLS8/lci.m3u8"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/master/ressources/btv/py/lci1.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 117
+      },
+      {
+        "type": "witv",
+        "id": 209
+      }
+    ]
+  },
+  {
+    "name": "France Info",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/France Info.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x4rdeu6"
+      },
+      {
+        "type": "youtube",
+        "video_id": "Z-Nwo-ypKtM"
+      }   
+    ]
+  },
+  {
+    "name": "CNews",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/CNews.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x3b68jn"
+      }
+    ]
+  },
+  {
+    "name": "France 24",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/France 24.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 85
+      },
+      {
+        "type": "witv",
+        "id": 173
+      }
+    ]
+  },
+  
+  {
+    "name": "Euronews",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/euronews.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/euronews/browser-HLS8/euronews.m3u8"
+      },
+      { "type" : "directfr", 
+      	"id" : 88 
+      },
+      {
+        "type": "witv",
+        "id": 170
+      }
+    ]
+  },
+  {
+    "name": "Africanews",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/africanews_fr.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://2767164d5ee04887b96812a9eea74d32.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6573/bitok/eyJzdGlkIjoiMjQ0ZWI3MWMtOWEzYy00ZWViLWI5ZmYtYzViOGM5ZGVhNjI2IiwibWt0IjoiZnIiLCJjaCI6NjU3MywicHRmIjoyfQ==/26037/africanews-fr.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Africa 24",
+    "id_api": "Africa24.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "logos/France/africa24.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM TV",
+    "id_api": "BFMTV.fr",
+    "categories": [],
+    "logo": "logos/France/BFM TV.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmtv-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMTV_all-LG_smartTV-Live&ads.devicemodel=[DEVICE_MODEL]&content_id=bfmtv_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "957"
+      }, 
+      { 
+        "type": "directfr",
+        "id": 89
+      }, 
+      {
+        "type": "witv",
+        "id": 169
+      }
+    ]
+  }, 
+  {
+    "name": "BBC News",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/BBC_News.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://4fb3f38a.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQkJDTmV3cy0xX0hMUw/playlist.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "349"
+      }
+    ]
+  },
+  {
+    "name": "SkyNews",
+    "id_api": null,
+    "categories": [
+      "United Kingdom"
+    ],
+    "logo": "logos/UK/Sky_News_Logo_Dark.svg",
+    "sources": [
+      {
+        "type": "youtube",
+        "video_id": "YDvsBbKfLPA"
+      }
+    ]
+  },
+  {
+    "name": "NBC News NOW",
+    "id_api": "NBCNewsNOW.us",
+    "categories": [
+      "United Kingdom"
+    ],
+    "logo": "logos/UK/NBC_News_Now.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5df97894467dfa00091c873c/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=6c2a5101-30d3-11ef-9cf5-e9ddff8ff496&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=f97284ae-c6d0-447a-b3ee-5be284830e0b"
+      }
+    ]
+  },
+  {
+    "name": "GB News",
+    "id_api": "GBNews.uk",
+    "categories": [
+      "United Kingdom"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/GB_News_Logo.svg/512px-GB_News_Logo.svg.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-apse1-prod.tsv2.amagi.tv/linear/amg01076-lightningintern-gbnewsnz-samsungnz/playlist.m3u8"
+      }
+    ]
+  },
+{
+    "name": "Bloomberg TV+",
+    "id_api": "",
+    "categories": [
+      "UK"
+    ],
+    "logo": "logos/UK/Bloomberg_Television_logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://66e4bbba.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZ2JfQmxvb21iZXJnVFZQbHVzX0hMUw/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Moconomy - Economy & Finance Infotainment",
+    "id_api": "",
+    "categories": [
+      "UK"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1252/lg/8d143b/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ac9e22050ddc40cd9497590e06790bf1.mediatailor.us-east-1.amazonaws.com/v1/master/f4e8c53a8367a5b58e20ce054ea3ce25a3e904d3/LG-gb_Moconomy/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Africanews",
+    "id_api": "",
+    "categories": [
+      "UK"
+    ],
+    "logo": "logos/UK/africa_news.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://c3c275b999764df8a2dd55ffe2996818.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6576/bitok/eyJzdGlkIjoiMzU3YjE5ZWUtYjJhYS00ZjY1LWI2NjctNzVkMWEwYTllYjRmIiwibWt0IjoidWsiLCJjaCI6NjU3NiwicHRmIjoyfQ==/26036/africanews-en.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "CNBC UK",
+    "id_api": "",
+    "categories": [
+      "UK"
+    ],
+    "logo": "logos/UK/CNBC.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg01079-nbcuuk-amg01079c2-lg-gb-2030.playouts.now.amagi.tv/playlist/amg01079-nbcuukfast-cnbcuk-lggb/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  }, 
+  {
+    "name": "NBC News NOW",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_News_Now.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99992212/hls/master.m3u8?ads.xumo_channelId=99992212&ads.asnw=169843&ads.afid=137704898&ads.sfid=16373024&ads.csid=lgchannels_us_nbcnewsnow_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB12&ads._fw_content_genre=News&ads._fw_content_language=en&ads._fw_content_rating=&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=1828&ads.xumo_contentName=NBCNewsNOW&ads.xumo_providerId=1828&ads.xumo_providerName=NBCNewsNOW&ads.channelId=99992212&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "NBC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_2023.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "53"
+      }
+    ]
+  },
+  
+{
+    "name": "CNBC USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/CNBC.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "309"
+      }
+    ]
+  },
+  {
+    "name": "MSNBC / MS NOW",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/MS_NOW.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "327"
+      }
+    ]
+  },
+  {
+    "name": "CNN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/CNN.svg",
+    "sources": [
+      {
+      	"type" : "m3u8", 
+      	"url": "https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "345"
+      }
+    ]
+  },
+  {
+    "name": "LiveNOW from FOX",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/livenow_from_fox.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-livenowbyfox-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Newsmax USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Newsmax_2021.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "613"
+      }
+    ]
+  },
+  {
+    "name": "Newsmax 2",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Newsmax2.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg00217-newsmax-amg00217c3-lg-us-4270.playouts.now.amagi.tv/playlist/amg00217-newsmaxmediafast-newsmaxottall-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Bloomberg TV+",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Bloomberg_Television_logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://86ebec83.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0Jsb29tYmVyZ1RWUGx1c19ITFM/a859fae0-b84c-4caf-924b-a1996771c525/0.m3u8"
+      }
+    ]
+  },
+
+  {
+    "name": "Fox News",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fox_News.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "347"
+      }
+    ]
+  },
+  {
+    "name": "Fox Business",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FOXBusiness.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "297"
+      }
+    ]
+  }
+ 
+
+
+]
