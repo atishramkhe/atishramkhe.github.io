@@ -217,34 +217,6 @@
     ]
   },
   {
-    "name": "BFM TV",
-    "id_api": "BFMTV.fr",
-    "categories": [],
-    "logo": "logos/France/BFM TV.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-bfmtv-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMTV_all-LG_smartTV-Live&ads.devicemodel=[DEVICE_MODEL]&content_id=bfmtv_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }, 
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
-      },
-      {
-        "type": "daddylive",
-        "channel_id": "957"
-      }, 
-      { 
-        "type": "directfr",
-        "id": 89
-      }, 
-      {
-        "type": "witv",
-        "id": 169
-      }
-    ]
-  },
-  {
     "name": "Canal+",
     "id_api": "CanalPlus.fr",
     "categories": ["Sports"],
@@ -805,11 +777,37 @@
     ]
   },
   {
+    "name": "Sport en France",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sport_en_france.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x8sayn8"
+      }
+    ]
+  },
+  {
     "name": "La chaine l'Équipe",
     "id_api": "LEquipe21.fr",
     "categories": [],
     "logo": "logos/France/La chaîne L'Équipe.png",
     "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x2lefik"
+      },  
+      {
+        "type": "m3u8",
+        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
+      }, 
+      {
+        "type": "daddylive",
+        "channel_id": "645"
+      },
       {
         "type": "directfr",
         "id": 71
@@ -827,24 +825,6 @@
       {
         "type": "witv",
         "id": 113
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe",
-    "id_api": "LEquipe.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
-      }, 
-      {
-        "type": "daddylive",
-        "channel_id": "645"
       }
     ]
   },
@@ -881,6 +861,22 @@
       {
         "type": "directfr",
         "id": 80
+      }
+    ]
+  },
+  {
+    "name": "RMC Info Talk Sport",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Info Talk Sport.png",
+    "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {
+        "type": "witv",
+        "id": 256
       }
     ]
   },
@@ -954,6 +950,21 @@
       
     ]
   },
+  {
+    "name": "T18",
+    "id_api": null,
+    "categories": [
+      "Entertainment"
+    ],
+    "logo": "logos/France/T18.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x9jhhyc"
+      }
+    ]
+  },
+
   {
     "name": "NOVO 19",
     "id_api": null,
@@ -1212,7 +1223,7 @@
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://crime-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6214/0ccfb9d7-f823-43ac-a8ad-c48a7722949d/4.m3u8"
+        "url": "https://crime-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6214/5abf7b51-f98e-4150-b766-d5f5ee449e70/4.m3u8"
       }
     ]
   },
@@ -2038,6 +2049,20 @@
     ]
   },
   {
+    "name": "Maison&Travaux TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "http://tv.maison-travaux.fr/wp-content/uploads/2024/08/COULEUR_250x250_BORD-2.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x85e5l8"
+      }
+    ]
+  },
+  {
     "name": "GoUSA TV",
     "id_api": "",
     "categories": [
@@ -2317,7 +2342,7 @@
     "name": "Cartoon Network",
     "id_api": null,
     "categories": [],
-    "logo": "logos/France/Cartoon Network.webp",
+    "logo": "logos/France/Cartoon_Network_2010.png",
     "sources": [
       {
         "type": "directfr",
@@ -2598,35 +2623,6 @@
     ]
   },
   {
-    "name": "Gametoon",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Gametoon.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 207
-      }
-    ]
-  },
-  {
-    "name": "RMC Info Talk Sport",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/RMC Info Talk Sport.png",
-    "sources": [
-     {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }, 
-      {
-        "type": "witv",
-        "id": 256
-      }
-    ]
-  },
-  
-  {
     "name": "NRJ Hits",
     "id_api": null,
     "categories": [],
@@ -2673,20 +2669,7 @@
         "id": 111
       }
     ]
-  },
-  {
-    "name": "MCM",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/MCM.png",
-    "sources": [
-      {
-        "type": "witv",
-        "id": 210
-      }
-    ]
-  },
-  
+  },  
   {
     "name": "MTV Hits",
     "id_api": null,
@@ -2755,8 +2738,8 @@
     "logo": "logos/France/Fun Radio.png",
     "sources": [
       {
-        "type": "m3u8",
-        "url": "https://livevideo.infomaniak.com/streaming/livecast/funradiovisionhd/playlist.m3u8"
+        "type": "dailymotion",
+        "video_id": "xxtuy6"
       }
     ]
   },
@@ -2801,6 +2784,80 @@
       {
         "type": "m3u8",
         "url": "https://live.creacast.com/littoralfm-ch1/stream/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "SBS Inkigayo",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/SBS_Inkigayo_2022.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=sbsinkigayo&channel_id=newid_157&mpf=2c6e7617-39af1962-2ac934df&apikey=48230e6b-1cea0097-15975f93-39af1962&auth=3d523ed6-829b82eb-c2d30d57-f5eb1847&ads.live=[CONTENT_LIVE]&ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.us_privacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Qwest TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/qwest_tv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://qwest-jazz-lg.amagi.tv/hls/amagi_hls_data_qwestAAAA-qwest-jazz-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/qwestAAAA-qwestjazz-uk-samsungtv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "TRACE BRAZUCA",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/trace_brazuca.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://trace-brazuca-lg-fr.amagi.tv/hls/amagi_hls_data_tracetvAA-trace-brazuca-lg-fr/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Now 70s",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/now_70s.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg01076-lightning-amg01076c1-lg-fr-3974.playouts.now.amagi.tv/playlist/amg01076-lightning-now70s-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Now 80s",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/now_80s.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg01076-lightning-amg01076c2-lg-fr-4084.playouts.now.amagi.tv/playlist/amg01076-lightning-now80s-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
       }
     ]
   },
@@ -2958,77 +3015,62 @@
       }
     ]
   },
+  
   {
-    "name": "SBS Inkigayo",
-    "id_api": "",
+    "name": "LCP",
+    "id_api": "LCP.fr@SD",
     "categories": [
-      "France"
+      "Legislative"
     ],
-    "logo": "logos/France/SBS_Inkigayo_2022.webp",
+    "logo": "https://i.imgur.com/k7UImOJ.png",
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://ads.its-newid.net/api/manifest.m3u8?tp=lg_channels&channel_name=sbsinkigayo&channel_id=newid_157&mpf=2c6e7617-39af1962-2ac934df&apikey=48230e6b-1cea0097-15975f93-39af1962&auth=3d523ed6-829b82eb-c2d30d57-f5eb1847&ads.live=[CONTENT_LIVE]&ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.us_privacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+        "url": "https://viamotionhsi.netplus.ch/live/eds/lcp/browser-HLS8/lcp.m3u8"
+      }
+    ]
+  },
+  
+  {
+    "name": "LCP - Assemblée nationale",
+    "id_api": "LCP.fr@SD",
+    "categories": [
+      "Legislative"
+    ],
+    "logo": "logos/France/LCP - Assemblée nationale.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "xgepjr"
       }
     ]
   },
   {
-    "name": "Qwest TV",
-    "id_api": "",
+    "name": "Public Sénat",
+    "id_api": null,
     "categories": [
-      "France"
+      "Legislative"
     ],
-    "logo": "logos/France/qwest_tv.png",
+    "logo": "logos/France/Public Sénat.png",
     "sources": [
       {
-        "type": "m3u8",
-        "url": "https://qwest-jazz-lg.amagi.tv/hls/amagi_hls_data_qwestAAAA-qwest-jazz-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      },
-      {
-        "type": "m3u8",
-        "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/qwestAAAA-qwestjazz-uk-samsungtv/playlist.m3u8"
+        "type": "dailymotion",
+        "video_id": "xkxbzc"
       }
     ]
   },
+  
   {
-    "name": "TRACE BRAZUCA",
-    "id_api": "",
+    "name": "Assemblée Nationale",
+    "id_api": "AssembleeNationale.fr",
     "categories": [
-      "France"
+      "Legislative"
     ],
-    "logo": "logos/France/trace_brazuca.webp",
+    "logo": "logos/France/assemblee_nationale.png",
     "sources": [
       {
         "type": "m3u8",
-        "url": "https://trace-brazuca-lg-fr.amagi.tv/hls/amagi_hls_data_tracetvAA-trace-brazuca-lg-fr/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Now 70s",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/WHITELOGO_NOW70s.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg01076-lightning-amg01076c1-lg-fr-3974.playouts.now.amagi.tv/playlist/amg01076-lightning-now70s-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Now 80s",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://d3bd0tgyk368z1.cloudfront.net/feeds/Images/WHITELOGO_NOW80s.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg01076-lightning-amg01076c2-lg-fr-4084.playouts.now.amagi.tv/playlist/amg01076-lightning-now80s-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+        "url": "https://anorigin.vodalys.com/live/live36/stream36_2_17418375.m3u8"
       }
     ]
   },
@@ -3057,17 +3099,30 @@
     ]
   },
   {
-    "name": "Euronews",
+    "name": "France Info",
     "id_api": null,
     "categories": [],
-    "logo": "logos/France/Euronews.png",
+    "logo": "logos/France/France Info.png",
     "sources": [
-      { "type" : "directfr", 
-      	"id" : 88 
-      },
       {
-        "type": "witv",
-        "id": 170
+        "type": "youtube",
+        "video_id": "Z-Nwo-ypKtM"
+      }, 
+      {
+        "type": "dailymotion",
+        "video_id": "x4rdeu6"
+      }
+    ]
+  },
+  {
+    "name": "CNews",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/CNews.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x3b68jn"
       }
     ]
   },
@@ -3078,6 +3133,10 @@
     "logo": "logos/France/France 24.png",
     "sources": [
       {
+        "type": "m3u8",
+        "url": "https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8"
+      },
+      {
         "type": "directfr",
         "id": 85
       },
@@ -3087,7 +3146,20 @@
       }
     ]
   },
-
+  {
+    "name": "Le Figaro IDF",
+    "id_api": "LeFigaroTVIledeFrance.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "logos/France/figaro.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://figarotv-live.freecaster.com/live/freecaster/figarotv.m3u8"
+      }
+    ]
+  },
   {
     "name": "20 Minutes TV",
     "id_api": "20MinutesTV.fr",
@@ -3102,6 +3174,40 @@
       }
     ]
   },
+  
+  {
+    "name": "Euronews",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/euronews.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/euronews/browser-HLS8/euronews.m3u8"
+      },
+      { "type" : "directfr", 
+      	"id" : 88 
+      },
+      {
+        "type": "witv",
+        "id": 170
+      }
+    ]
+  },
+  {
+    "name": "Africanews",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/africanews_fr.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://2767164d5ee04887b96812a9eea74d32.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6573/bitok/eyJzdGlkIjoiMjQ0ZWI3MWMtOWEzYy00ZWViLWI5ZmYtYzViOGM5ZGVhNjI2IiwibWt0IjoiZnIiLCJjaCI6NjU3MywicHRmIjoyfQ==/26037/africanews-fr.m3u8"
+      }
+    ]
+  },
   {
     "name": "Africa 24",
     "id_api": "Africa24.fr",
@@ -3113,6 +3219,67 @@
       {
         "type": "m3u8",
         "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM TV",
+    "id_api": "BFMTV.fr",
+    "categories": [],
+    "logo": "logos/France/BFM TV.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmtv-lg-fr-euw1.bfmtv.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMTV_all-LG_smartTV-Live&ads.devicemodel=[DEVICE_MODEL]&content_id=bfmtv_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "957"
+      }, 
+      { 
+        "type": "directfr",
+        "id": 89
+      }, 
+      {
+        "type": "witv",
+        "id": 169
+      }
+    ]
+  },
+  {
+    "name": "BFM Business",
+    "id_api": "BFMBusiness.fr",
+    "categories": [
+      "Business",
+      "News"
+    ],
+    "logo": "logos/France/BFM Business.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-bfmbusiness-lg-fr-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMBusiness_all-LG_smartTV-Live&content_id=bfmbusiness_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://live-cdn-stream-euw1.bfmb.bct.nextradiotv.com/master.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "BFM Paris Île-de-France",
+    "id_api": "BFMParisIledeFrance.fr",
+    "categories": [
+      "News"
+    ],
+    "logo": "logos/France/BFM Paris.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_PARIS/index.m3u8?end=END&start=LIVE"
       }
     ]
   },
@@ -3148,25 +3315,7 @@
       }
     ]
   },
-  {
-    "name": "BFM Business",
-    "id_api": "BFMBusiness.fr",
-    "categories": [
-      "Business",
-      "News"
-    ],
-    "logo": "logos/France/BFM Business.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-bfmbusiness-lg-fr-euw1.bfmb.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=BFMBusiness_all-LG_smartTV-Live&content_id=bfmbusiness_live_24_7&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&ads.devicemodel=[DEVICE_MODEL]&app_name=[APP_NAME]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      },
-      {
-        "type": "m3u8",
-        "url": "https://live-cdn-stream-euw1.bfmb.bct.nextradiotv.com/master.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "BFM DICI Alpes du Sud",
     "id_api": "BFMDICIAlpesduSud.fr",
@@ -3279,20 +3428,7 @@
       }
     ]
   },
-  {
-    "name": "BFM Paris Île-de-France",
-    "id_api": "BFMParisIledeFrance.fr",
-    "categories": [
-      "News"
-    ],
-    "logo": "logos/France/BFM Paris.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_PARIS/index.m3u8?end=END&start=LIVE"
-      }
-    ]
-  },
+  
   {
     "name": "BFM Toulon Var",
     "id_api": "BFMVar.fr",
@@ -3326,77 +3462,9 @@
       }
     ]
   },
-  {
-    "name": "LCP",
-    "id_api": "LCP.fr@SD",
-    "categories": [
-      "Legislative"
-    ],
-    "logo": "https://i.imgur.com/k7UImOJ.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/lcp/browser-HLS8/lcp.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Assemblée Nationale",
-    "id_api": "AssembleeNationale.fr",
-    "categories": [
-      "Legislative"
-    ],
-    "logo": "https://i.imgur.com/Eta6gUq.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "http://anorigin.vodalys.com/live/live36/index36_12856975.m3u8?DVR="
-      }
-    ]
-  },
+  
 
-  {
-    "name": "Le Figaro IDF",
-    "id_api": "LeFigaroTVIledeFrance.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "https://i.imgur.com/a8RuRUQ.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://figarotv-live.freecaster.com/live/freecaster/figarotv.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Euronews French",
-    "id_api": "EuronewsFrench.fr@HD",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.imgur.com/8t9mdg9.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/euronews/browser-HLS8/euronews.m3u8"
-      }
-    ]
-  }, 
-  {
-    "name": "France 24 French",
-    "id_api": "France24.fr@French",
-    "categories": [
-      "News"
-    ],
-    "logo": "https://i.imgur.com/u8N6uoj.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "TV5Monde FBS",
     "id_api": "TV5MondeFranceBelgiumSwitzerlandMonaco.fr",
@@ -3416,20 +3484,7 @@
     ]
   },
 
-  {
-    "name": "Africanews",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://images-3.rakuten.tv/storage/global-live-channel/translation/logo-2-1/800a1b6a-dd78-43cb-88b0-04e9e8d700f0-width400-height200.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://2767164d5ee04887b96812a9eea74d32.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6573/bitok/eyJzdGlkIjoiMjQ0ZWI3MWMtOWEzYy00ZWViLWI5ZmYtYzViOGM5ZGVhNjI2IiwibWt0IjoiZnIiLCJjaCI6NjU3MywicHRmIjoyfQ==/26037/africanews-fr.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "Alpe d’Huez TV",
     "id_api": "AlpedHuezTV.fr",
@@ -3690,6 +3745,20 @@
       {
         "type": "m3u8",
         "url": "https://vosgestv.live-kd.com/live/vosgestv/vosgestv/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name" : "8 Mont Blanc",
+    "id_api": "8MontBlanc.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "logos/France/logo-8montblanc.svg",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x3wqv8b"
       }
     ]
   },
