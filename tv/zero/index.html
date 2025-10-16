@@ -132,7 +132,7 @@
       align-items: center;
       gap: 10px;
       color: white;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #000;
       transition: none;
     }
     #controls.hidden {
@@ -214,7 +214,7 @@
       flex-direction: column; /* <-- Add this */
       color: white;
       overflow-y: auto;
-      border-left: 1px solid #222;
+      border-left: 1px solid #000;
     }
 
     /* make menu-content the positioning context for the overlay
@@ -276,9 +276,9 @@
 
     .channel-item {
       padding: 12px 8px;
-      border: 1px solid #222;
+      border: 1px solid #000;
       border-radius: 6px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(0,0,0);
       cursor: pointer;
       text-align: center;
       font-size: 1em;
@@ -455,7 +455,7 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         border-left: none;
-        border-top: 1px solid #222;
+        border-top: 1px solid #000;
       }
       #channel-list {
         grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
@@ -573,8 +573,8 @@
       width: 100%;
       background: #000;
       padding: 8px 12px;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
       gap: 10px;
       align-items: center;
       justify-content: flex-end;
@@ -647,7 +647,7 @@
         <!-- Mobile actions bar (populated via JS on small screens) -->
         <div id="mobile-player-actions"></div>
         <h2 style="color:white; margin:15px; display: flex; align-items: center; justify-content: space-between;">
-          <span style="flex:0 0 auto;">Channels</span>
+          <!--span style="flex:0 0 auto;">Channels</span-->
           <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
             <!-- Removed the visible 'Sports' text span -->
             <button id="sports-toggle-btn" title="Show only Sports channels"
