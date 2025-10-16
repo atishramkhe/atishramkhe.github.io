@@ -85,6 +85,7 @@
   <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script type="text/javascript" src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <script src="https://geo.dmcdn.net/player.js"></script>
   <style>
     @font-face {
       font-family: 'OumaBold';
@@ -1287,7 +1288,7 @@
       player = { play:()=>{}, pause:()=>{}, getPaused:cb=>cb(false), mute:()=>{}, unmute:()=>{}, getMuted:cb=>cb(false) };
       addPlayerListeners();
     } else if (sourceType === 'witv') {
-      url = witvBaseUrl + source.id + '&q=1080';
+      url = witvBaseUrl + source.id;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
       playerIframe.src = url;
@@ -1376,6 +1377,29 @@
       playerIframe.src = streamUrl;
       playerIframe.setAttribute('allowfullscreen', 'true');
       // playerIframe.setAttribute('loading', 'lazy');
+      return;
+    } else if (sourceType === 'youtube' && source.video_id) {
+      const streamUrl = `https://www.youtube.com/embed/${source.video_id}?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      return;
+    } else if (sourceType === 'dailymotion' && source.video_id) {
+      const streamUrl = `https://geo.dailymotion.com/player.html?video=${source.video_id}`; //?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      playerIframe.setAttribute('rel', '0');
+      playerIframe.setAttribute('playsinline', '1');
+      playerIframe.setAttribute('modestbranding', '1');
       return;
     }
 
