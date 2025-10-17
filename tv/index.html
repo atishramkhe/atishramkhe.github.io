@@ -285,9 +285,9 @@
 
     .channel-item {
       padding: 12px 8px;
-      border: 1px solid #000;
+      /* border: 1px solid #000; */
       border-radius: 6px;
-      background: rgba(0,0,0);
+      background: rgba(0,0,0,0.0);
       cursor: pointer;
       text-align: center;
       font-size: 1em;
@@ -298,15 +298,15 @@
       align-items: center;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
-      color: #fff;
+      /* color: #fff; */
       font-family: 'OumaBold', sans-serif;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+      /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
     }
     .channel-item:hover {
       /* border: 1px solid #FFF; */
       /* box-shadow: 0px 0px 10px 5px rgba(235, 190, 255, 0.882);*/
       box-shadow: rgba(125, 39, 211, 0.641) 0px 22px 70px 4px, rgba(231, 230, 232, 0.641) 0px -3px 20px 4px;    
-      color: #fff;
+      /* color: #fff; */
     }
     .channel-item.active {
       border: 1px solid #333;
@@ -471,6 +471,18 @@
         grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
         padding-bottom: 40px;
       }
+
+      #controls img {
+        margin: 0 auto 0 auto !important;
+        display: block !important;
+        height: 32px;
+      }
+      #controls > div:first-child {
+        justify-content: center !important;
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
     }
 
     /* === Access Overlay (SHA256 + localStorage) === */
@@ -603,6 +615,30 @@
       flex: 0 0 auto;
       align-items: center;
     }
+
+    /* Add or update these styles in your <style> block */
+
+    #desktop-player-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* <-- ensures left and right are at edges */
+      width: 100%;
+    }
+
+    .desktop-actions-left {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .desktop-actions-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+      align-items: center;
+      margin-left: auto; /* <-- pushes it to the right */
+    }
   </style>
 </head>
 <body>
@@ -650,7 +686,7 @@
     </div>
     <div id="menu-section">
       <!-- Move h2 here, outside #menu-content -->
-      <h2 style="color:white; margin:0px; display: flex; align-items: center; justify-content: space-between;" id="menu-header">
+      <h2 style="color:white; margin:0px; align-items: center; justify-content: space-between;" id="menu-header">
         <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
           <button id="sports-toggle-btn" title="Show only Sports channels"
             style="background: none; border: none; cursor: pointer; padding: 0; display:none;">
@@ -687,7 +723,7 @@
             <div id="server-indicators"></div>
           </div>
         </div>
-        <div style="flex:0 0 auto; margin-left:auto;">
+        <div style=" margin-left:auto;">
           <select id="country-select"
             style="
               font-family: 'OumaLight', sans-serif;
@@ -699,7 +735,8 @@
               cursor: pointer;
               font-size: 1em;
               min-width: 110px;
-              margin-left: 0;
+              margin-right: 4px;
+              margin-left: 4px;
             ">
             <option value="France" selected>France</option>
             <option value="UK">UK</option>
@@ -1744,7 +1781,7 @@
     const indicators = document.getElementById('server-indicators');
     const fullscreen = document.getElementById('fullscreen-btn');
 
-    // Create or get containers for mobile layout
+    // Mobile containers
     let left = mobileBar.querySelector('.mobile-actions-left');
     let right = mobileBar.querySelector('.mobile-actions-right');
     if (!left) {
@@ -1764,25 +1801,43 @@
       mobileBar.appendChild(right);
     }
 
+    // Desktop containers (add if missing)
+    let dLeft = desktopBar.querySelector('.desktop-actions-left');
+    let dRight = desktopBar.querySelector('.desktop-actions-right');
+    if (!dLeft) {
+      dLeft = document.createElement('div');
+      dLeft.className = 'desktop-actions-left';
+      dLeft.style.display = 'flex';
+      dLeft.style.gap = '2px';
+      dLeft.style.flex = '1';
+      desktopBar.appendChild(dLeft);
+    }
+    if (!dRight) {
+      dRight = document.createElement('div');
+      dRight.className = 'desktop-actions-right';
+      dRight.style.display = 'flex';
+      dRight.style.justifyContent = 'flex-end';
+      dRight.style.flex = '0 0 auto';
+      desktopBar.appendChild(dRight);
+    }
+
     if (isMobile) {
-      // Clear containers
       left.innerHTML = '';
       right.innerHTML = '';
-      // Left: country, switch, indicators
       [country, switchServer, indicators].forEach(el => { if (el) left.appendChild(el); });
-      // Right: fullscreen
       if (fullscreen) right.appendChild(fullscreen);
-      // Show mobile bar
       mobileBar.style.display = 'flex';
+      desktopBar.style.display = 'none';
     } else {
-      // Restore to desktop bar
-      [country, switchServer, indicators, fullscreen].forEach(el => {
-        if (el && el.parentNode !== desktopBar) desktopBar.appendChild(el);
-      });
-      // Hide mobile bar
+      dLeft.innerHTML = '';
+      dRight.innerHTML = '';
+      if (country) dRight.appendChild(country);
+      [fullscreen, switchServer, indicators].forEach(el => { if (el) dLeft.appendChild(el); });
       mobileBar.style.display = 'none';
+      desktopBar.style.display = 'flex';
     }
   }
+  
 
   // Call on load and on resize
   window.addEventListener('resize', relocatePlayerActions);
