@@ -152,6 +152,7 @@
       /* border: 1px solid #ccc; */
       padding: 5px;
     }
+
     #fullscreen-btn,
     #switch-server-btn,
     #server-select {
@@ -729,7 +730,7 @@
               font-family: 'OumaLight', sans-serif;
               background-color: #000;
               color: #FFF;
-              border: 1px solid #222;
+              border: 1px solid transparent;
               border-radius: 4px;
               padding: 5px 12px;
               cursor: pointer;
@@ -737,6 +738,7 @@
               min-width: 110px;
               margin-right: 4px;
               margin-left: 4px;
+              border-right: 15px solid transparent;
             ">
             <option value="France" selected>France</option>
             <option value="UK">UK</option>
@@ -1645,9 +1647,9 @@
   function updateFullscreenButton() {
     if (!fullscreenBtn) return; // no-op (button removed)
     if (isFullscreen()) {
-      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Exit Fullscreen ');
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
     } else {
-      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Fullscreen ');
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
     }
   }
   ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange']
