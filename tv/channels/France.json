@@ -203,17 +203,18 @@
     "logo": "logos/France/TFX.png",
     "sources": [
       {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/nt1/browser-HLS8/nt1.m3u8"
+      },
+      {
         "type": "directfr",
         "id": 16
       },
       {
         "type": "witv",
         "id": 77
-      },
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/nt1/browser-HLS8/nt1.m3u8"
       }
+      
     ]
   },
   {
@@ -951,7 +952,7 @@
     ]
   },
   {
-    "name": "T18",
+    "name": "T18 (à voir sur Dailymotion)",
     "id_api": null,
     "categories": [
       "Entertainment"
