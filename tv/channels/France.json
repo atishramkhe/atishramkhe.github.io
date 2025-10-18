@@ -247,682 +247,7 @@
       }
     ]
   },
-  {
-    "name": "Canal+ Foot",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Canal+ Foot.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "463"
-      },
-      {
-        "type": "directfr",
-        "id": 6
-      },
-      {
-        "type": "tutvlive",
-        "id": 12,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 88
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Sport",
-    "id_api": "CanalPlusSport.fr",
-    "categories": [],
-    "logo": "logos/France/Canal+ Sport.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "122"
-      },
-      {
-        "type": "directfr",
-        "id": 12
-      },
-      {
-        "type": "tutvlive",
-        "id": 13,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 54
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Sport 360",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Canal+ Sport 360.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "464"
-      }, 
-      {
-        "type": "directfr",
-        "id": 5
-      },
-      {
-        "type": "tutvlive",
-        "id": 14,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 56
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Live 1",
-    "id_api": null,
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/Canal+ Live.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "271"
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Live 2",
-    "id_api": null,
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/Canal+ Live.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "273"
-      }
-    ]
-  },
-  {
-    "name": "Eurosport 1",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Eurosport 1.png",
-    "sources": [
-     {
-        "type": "daddylive",
-        "channel_id": "772"
-      },
-      {
-        "type": "directfr",
-        "id": 14
-      },
-      {
-        "type": "tutvlive",
-        "id": 15,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 59
-      }
-    ]
-  },
-  {
-    "name": "Eurosport 2",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Eurosport 2.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "773"
-      }, 
-      {
-        "type": "directfr",
-        "id": 15
-      },
-      {
-        "type": "tutvlive",
-        "id": 16,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 60
-      }
-    ]
-  },
-  {
-    "name": "RMC Sport 1",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/RMC Sport 1.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "119"
-      },
-      {
-        "type": "directfr",
-        "id": 1
-      },
-      {
-        "type": "tutvlive",
-        "id": 17,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 33
-      }
-    ]
-  },
-  {
-    "name": "RMC Sport 2",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/RMC Sport 2.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "120"
-      },
-      {
-        "type": "directfr",
-        "id": 2
-      },
-      {
-        "type": "tutvlive",
-        "id": 18,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 40
-      }
-    ]
-  },
-  {
-    "name": "RMC Sport 3",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/RMC Sport 3.png",
-    "sources": [
-      {
-        "type": "directfr",
-        "id": 4
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 1",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 1.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "116"
-      },
-      {
-        "type": "directfr",
-        "id": 8
-      },
-      {
-        "type": "tutvlive",
-        "id": 1,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 44
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 2",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 2.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "117"
-      },
-      {
-        "type": "directfr",
-        "id": 9
-      },
-      {
-        "type": "tutvlive",
-        "id": 2,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 49
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 3",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 3.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "118"
-      },
-      {
-        "type": "directfr",
-        "id": 11
-      },
-      {
-        "type": "tutvlive",
-        "id": 3,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 4",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 4.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "494"
-      },
-      {
-        "type": "tutvlive",
-        "id": 4,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 5",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 5.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "495"
-      },
-      {
-        "type": "tutvlive",
-        "id": 5,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 6",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 6.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "496"
-      },
-      {
-        "type": "tutvlive",
-        "id": 6,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 7",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 7.png",
-    "sources": [
-    {
-        "type": "daddylive",
-        "channel_id": "497"
-      },
-      {
-        "type": "tutvlive",
-        "id": 7,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 8",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 8.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "498"
-      },
-      {
-        "type": "tutvlive",
-        "id": 8,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 9",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 9.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "499"
-      },
-      {
-        "type": "tutvlive",
-        "id": 9,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "beIN Sports 10",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/beIN Sports 10.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "500"
-      },
-      {
-        "type": "tutvlive",
-        "id": 10,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Ligue 1+ DAZN 1",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/DAZN 1.png",
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 20,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Ligue 1+ DAZN 2",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/DAZN 2.png",
-    "sources": [
-      {
-        "type": "tutvlive",
-        "id": 21,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 151
-      }
-    ]
-  },
-  {
-    "name": "Sport en France",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/sport_en_france.png",
-    "sources": [
-      {
-        "type": "dailymotion",
-        "video_id": "x8sayn8"
-      }
-    ]
-  },
-  {
-    "name": "La chaine l'Équipe",
-    "id_api": "LEquipe21.fr",
-    "categories": [],
-    "logo": "logos/France/La chaîne L'Équipe.png",
-    "sources": [
-      {
-        "type": "dailymotion",
-        "video_id": "x2lefik"
-      },  
-      {
-        "type": "m3u8",
-        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
-      }, 
-      {
-        "type": "daddylive",
-        "channel_id": "645"
-      },
-      {
-        "type": "directfr",
-        "id": 71
-      },
-      {
-        "type": "tutvlive",
-        "id": 19,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 113
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe Live1",
-    "id_api": "LEquipe.fr@Live1",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
-      },
-      {
-        "type": "directfr",
-        "id": 79
-      }
-    ]
-  },
-  {
-    "name": "L'Equipe Live2",
-    "id_api": "LEquipe.fr@Live2",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/L'équipe.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
-      },
-      {
-        "type": "directfr",
-        "id": 80
-      }
-    ]
-  },
-  {
-    "name": "RMC Info Talk Sport",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/RMC Info Talk Sport.png",
-    "sources": [
-     {
-        "type": "m3u8",
-        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }, 
-      {
-        "type": "witv",
-        "id": 256
-      }
-    ]
-  },
-  {
-    "name": "Africa 24 Sport",
-    "id_api": "Africa24Sport.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/Africa 24 Sport.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "FIFA+",
-    "id_api": "",
-    "categories": [
-      "France", "Sport"
-    ],
-    "logo": "logos/France/fifa+.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://becfa822.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfRklGQVBsdXNGcmVuY2hfSExT/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Equidia",
-    "id_api": "Equidia.fr@SD",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/Equidia.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
-      }
-    ]
-  }, 
+  
   
   {
     "name": "6ter",
@@ -1071,6 +396,40 @@
     ]
   },
   {
+    "name": "TF1 Séries Films",
+    "id_api": "TF1SeriesFilms.fr",
+    "categories": [],
+    "logo": "logos/France/TF1 Séries Films.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 122
+      },
+      {
+        "type": "witv",
+        "id": 154
+      }
+    ]
+  },
+  {
+    "name": "Antenne Réunion",
+    "id_api": "AntenneReunion.fr",
+    "categories": [
+      "General"
+    ],
+    "logo": "logos/France/Antenne Reunion.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://live-antenne-reunion.zeop.tv/live/c3eds/antreunihd/hls_fta/antreunihd.m3u8?location=ZEOP01"
+      }
+    ]
+  },
+  {
     "name": "Sérieclub",
     "id_api": null,
     "categories": [],
@@ -1086,22 +445,7 @@
       }
     ]
   },
-  {
-    "name": "Novelas",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/novelas.webp",
-    "sources": [
-      {
-        "type": "directfr",
-        "id": 3
-      },
-      {
-        "type": "witv",
-        "id": 103
-      }
-    ]
-  },
+  
     {
     "name": "SYFY",
     "id_api": "SYFY",
@@ -1116,20 +460,7 @@
       }
     ]
   },
-  {
-    "name": "Rakuten Viki",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://cdn88-accio.its-newid.net/channel/newid_159/lg_channels/img/channel_logo/default/channel_logo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://fd18f1cadd404894a31a3362c5f319bd.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_RakutenViki-1/93c27b72-3349-453e-8b80-98770f6d7510/2.m3u8"
-      }
-    ]
-  },
+  
   {
     "name": "Sony One | Séries Thriller",
     "id_api": "",
@@ -1228,6 +559,38 @@
       }
     ]
   },
+  
+  
+  {
+    "name": "BBC Séries",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://eic-ngfts.lge.com/fts/gftsDownload.lge?biz_code=CDP&func_code=METADATA_FILE&file_path=/cdp/resize_image/20250617/channel_600x200_05ce144b-f8cf-4768-a8a5-fa41e7b05216.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg00793-amg00793c42-lg-fr-7739.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-bbcdramafrance-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.coppa=0&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Novelas",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/novelas.webp",
+    "sources": [
+      {
+        "type": "directfr",
+        "id": 3
+      },
+      {
+        "type": "witv",
+        "id": 103
+      }
+    ]
+  },
   {
     "name": "Fréquence Novelas",
     "id_api": "",
@@ -1239,6 +602,20 @@
       {
         "type": "m3u8",
         "url": "https://amg00711-zylo-amg00711c4-lg-fr-8104.playouts.now.amagi.tv/playlist/amg00711-zylofast-frequencenovelas-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.coppa=0&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Rakuten Viki",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://cdn88-accio.its-newid.net/channel/newid_159/lg_channels/img/channel_logo/default/channel_logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://fd18f1cadd404894a31a3362c5f319bd.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_RakutenViki-1/93c27b72-3349-453e-8b80-98770f6d7510/2.m3u8"
       }
     ]
   },
@@ -1308,51 +685,20 @@
       }
     ]
   },
+  
   {
-    "name": "Antenne Réunion",
-    "id_api": "AntenneReunion.fr",
-    "categories": [
-      "General"
-    ],
-    "logo": "logos/France/Antenne Reunion.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://live-antenne-reunion.zeop.tv/live/c3eds/antreunihd/hls_fta/antreunihd.m3u8?location=ZEOP01"
-      }
-    ]
-  },
-  {
-    "name": "TF1 Séries Films",
-    "id_api": "TF1SeriesFilms.fr",
+    "name": "Canal+ Séries",
+    "id_api": null,
     "categories": [],
-    "logo": "logos/France/TF1 Séries Films.png",
+    "logo": "logos/France/Canal+ Séries.png",
     "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/hd1/browser-HLS8/hd1.m3u8"
-      },
       {
         "type": "directfr",
-        "id": 122
+        "id": 52
       },
       {
         "type": "witv",
-        "id": 154
-      }
-    ]
-  },
-  {
-    "name": "BBC Séries",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://eic-ngfts.lge.com/fts/gftsDownload.lge?biz_code=CDP&func_code=METADATA_FILE&file_path=/cdp/resize_image/20250617/channel_600x200_05ce144b-f8cf-4768-a8a5-fa41e7b05216.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg00793-amg00793c42-lg-fr-7739.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-bbcdramafrance-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.coppa=0&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+        "id": 141
       }
     ]
   },
@@ -1372,22 +718,7 @@
       }
     ]
   },
-  {
-    "name": "Canal+ Séries",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Canal+ Séries.png",
-    "sources": [
-      {
-        "type": "directfr",
-        "id": 52
-      },
-      {
-        "type": "witv",
-        "id": 141
-      }
-    ]
-  },
+  
   {
     "name": "Ciné+ Family",
     "id_api": null,
@@ -1457,174 +788,6 @@
       {
         "type": "directfr",
         "id": 106
-      }
-    ]
-  },
-  {
-    "name": "Rakuten TV - Famille",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/rakuten_famille.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://family-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6206/334c6944-ec3e-4554-ac47-f38ef5cfc10f/4.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Family Club",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/family_club.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12975&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-{
-    "name": "LG 1",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://lge-static.ottera.tv/prod/lge/linear_channel/logo/1600x400/lg1_800x200_white_5.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12782&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "LG 1 +1",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://lge-static.ottera.tv/prod/lge/linear_channel/logo/1600x400/lg1_800x200_white_6.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12780&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "LG 1: Film",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/lg1film.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13954&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "LG 1: Spotlight",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/lg1spotlight.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13956&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
- {
-    "name": "Sony One | HITS Action",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/sony_one_hit_actions.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://5098a8b860504a3690fd2e7c0a18d68f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-817-FR-SONYONEHITSACTION-LG_FR/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Sony One | HITS Comédie",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/sony_one_hit_comedie.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://7aa9671895264ec9a384dfed1b992171.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-818-FR-SONYONEHITSCOMDIE-LG_FR/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Brefcinema",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/BrefCinema.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://2bd8203ef4654f7eba4a6aecba00ce4b.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG-fr_Brefcinema/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Runtime",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/runtime.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13237&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Emotion'L",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/EmotionaL.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://zylo-emotional-lg.amagi.tv/hls/amagi_hls_data_zyloAAAAA-zylo-emotional-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
-      }
-    ]
-  },
-  {
-    "name": "Scream IN",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/ScreamIN.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://zylo-screamin-lg.amagi.tv/hls/amagi_hls_data_zyloAAAAA-zylo-screamin-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
       }
     ]
   },
@@ -1713,6 +876,150 @@
     ]
   },
   {
+    "name": "Rakuten TV - Famille",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/rakuten_famille.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://family-rakuten-tv-fr.fast.rakuten.tv/v1/manifest/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6206/334c6944-ec3e-4554-ac47-f38ef5cfc10f/4.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Emotion'L",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/EmotionaL.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://zylo-emotional-lg.amagi.tv/hls/amagi_hls_data_zyloAAAAA-zylo-emotional-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+      }
+    ]
+  },
+  {
+    "name": "Scream IN",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/ScreamIN.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://zylo-screamin-lg.amagi.tv/hls/amagi_hls_data_zyloAAAAA-zylo-screamin-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]"
+      }
+    ]
+  },
+  {
+    "name": "Sony One | HITS Action",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sony_one_hit_actions.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://5098a8b860504a3690fd2e7c0a18d68f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-817-FR-SONYONEHITSACTION-LG_FR/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Sony One | HITS Comédie",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sony_one_hit_comedie.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://7aa9671895264ec9a384dfed1b992171.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-818-FR-SONYONEHITSCOMDIE-LG_FR/playlist.m3u8"
+      }
+    ]
+  },
+{
+    "name": "LG 1",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://lge-static.ottera.tv/prod/lge/linear_channel/logo/1600x400/lg1_800x200_white_5.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12782&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "LG 1 +1",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://lge-static.ottera.tv/prod/lge/linear_channel/logo/1600x400/lg1_800x200_white_6.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12780&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "LG 1: Film",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/lg1film.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13954&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "LG 1: Spotlight",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/lg1spotlight.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13956&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+ 
+  
+  
+  
+  {
+    "name": "Family Club",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/family_club.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=12975&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
     "name": "Action",
     "categories": [],
     "logo": "logos/France/Action.png",
@@ -1764,6 +1071,34 @@
       {
         "type": "m3u8",
         "url": "https://amg00711-zylo-amg00711c8-lg-fr-8020.playouts.now.amagi.tv/playlist/amg00711-zylofast-cinewestern-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.coppa=0&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Brefcinema",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/BrefCinema.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://2bd8203ef4654f7eba4a6aecba00ce4b.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/LG-fr_Brefcinema/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Runtime",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/runtime.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=13237&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_fr&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
       }
     ]
   },
@@ -3764,6 +3099,864 @@
     ]
   },
   {
+    "name": "Canal+ Foot",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Canal+ Foot.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "463"
+      },
+      {
+        "type": "directfr",
+        "id": 6
+      },
+      {
+        "type": "tutvlive",
+        "id": 12,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 88
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport",
+    "id_api": "CanalPlusSport.fr",
+    "categories": [],
+    "logo": "logos/France/Canal+ Sport.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "122"
+      },
+      {
+        "type": "directfr",
+        "id": 12
+      },
+      {
+        "type": "tutvlive",
+        "id": 13,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 54
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 360",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Canal+ Sport 360.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "464"
+      }, 
+      {
+        "type": "directfr",
+        "id": 5
+      },
+      {
+        "type": "tutvlive",
+        "id": 14,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 56
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Live 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "271"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Live 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "273"
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 1.png",
+    "sources": [
+     {
+        "type": "daddylive",
+        "channel_id": "772"
+      },
+      {
+        "type": "directfr",
+        "id": 14
+      },
+      {
+        "type": "tutvlive",
+        "id": 15,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 59
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "773"
+      }, 
+      {
+        "type": "directfr",
+        "id": 15
+      },
+      {
+        "type": "tutvlive",
+        "id": 16,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 60
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "119"
+      },
+      {
+        "type": "directfr",
+        "id": 1
+      },
+      {
+        "type": "tutvlive",
+        "id": 17,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 33
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "120"
+      },
+      {
+        "type": "directfr",
+        "id": 2
+      },
+      {
+        "type": "tutvlive",
+        "id": 18,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 40
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 3",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 3.png",
+    "sources": [
+      {
+        "type": "directfr",
+        "id": 4
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "116"
+      },
+      {
+        "type": "directfr",
+        "id": 8
+      },
+      {
+        "type": "tutvlive",
+        "id": 1,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 44
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "117"
+      },
+      {
+        "type": "directfr",
+        "id": 9
+      },
+      {
+        "type": "tutvlive",
+        "id": 2,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 49
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 3",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 3.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "118"
+      },
+      {
+        "type": "directfr",
+        "id": 11
+      },
+      {
+        "type": "tutvlive",
+        "id": 3,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 4",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 4.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "494"
+      },
+      {
+        "type": "tutvlive",
+        "id": 4,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 5",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 5.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "495"
+      },
+      {
+        "type": "tutvlive",
+        "id": 5,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 6",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 6.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "496"
+      },
+      {
+        "type": "tutvlive",
+        "id": 6,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 7",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 7.png",
+    "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "497"
+      },
+      {
+        "type": "tutvlive",
+        "id": 7,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 8",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 8.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "498"
+      },
+      {
+        "type": "tutvlive",
+        "id": 8,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 9",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 9.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "499"
+      },
+      {
+        "type": "tutvlive",
+        "id": 9,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 10",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 10.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "500"
+      },
+      {
+        "type": "tutvlive",
+        "id": 10,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/DAZN 1.png",
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 20,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/DAZN 2.png",
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 21,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 151
+      }
+    ]
+  },
+  {
+    "name": "Sport en France",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sport_en_france.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x8sayn8"
+      }
+    ]
+  },
+  {
+    "name": "La chaine l'Équipe",
+    "id_api": "LEquipe21.fr",
+    "categories": [],
+    "logo": "logos/France/La chaîne L'Équipe.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x2lefik"
+      },  
+      {
+        "type": "m3u8",
+        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
+      }, 
+      {
+        "type": "daddylive",
+        "channel_id": "645"
+      },
+      {
+        "type": "directfr",
+        "id": 71
+      },
+      {
+        "type": "tutvlive",
+        "id": 19,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 113
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live1",
+    "id_api": "LEquipe.fr@Live1",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 79
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live2",
+    "id_api": "LEquipe.fr@Live2",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 80
+      }
+    ]
+  },
+  {
+    "name": "RMC Info Talk Sport",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Info Talk Sport.png",
+    "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {
+        "type": "witv",
+        "id": 256
+      }
+    ]
+  },
+  {
+    "name": "Africa 24 Sport",
+    "id_api": "Africa24Sport.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Africa 24 Sport.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "FIFA+",
+    "id_api": "",
+    "categories": [
+      "France", "Sport"
+    ],
+    "logo": "logos/France/fifa+.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://becfa822.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfRklGQVBsdXNGcmVuY2hfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Equidia",
+    "id_api": "Equidia.fr@SD",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Equidia.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "MTRSPT1",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Logo-mtrspt.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&coppa=0&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "FUEL TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/fuel_tv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01074-fueltv-fueltvemeafr-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "TOP BARCA",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/barcatv.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg17560-fcb-amg17560c1-lg-fr-7353.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "Tennis Channel",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Tennis_Channel_2022.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg01444-amg01444c7-lg-fr-8031.playouts.now.amagi.tv/playlist/amg01444-tennischannelfast-tennischannelfrance-lgfr/playlist.m3u8?ads.deviceid=%5BDEVICE_ID%5D&ads.ifa=%5BIFA%5D&ads.ifatype=%5BIFA_TYPE%5D&ads.lat=%5BLMT%5D&ads.donotsell=%5BDNS%5D&ads.ua=%5BUA%5D&ads.ip=%5BIP%5D&ads.gdpr=%5BGDPR%5D&ads.gdprconsent=%5BGDPR_CONSENT%5D&ads.country=%5BCOUNTRY%5D&ads.usprivacy=%5BUS_PRIVACY%5D&ads.appstoreurl=%5BAPP_STOREURL%5D&ads.bundleid=%5BAPP_BUNDLE%5D&ads.appname=%5BAPP_NAME%5D&ads.appversion=%5BAPP_VERSION%5D&ads.devicetype=%5BDEVICE_TYPE%5D&ads.devicemake=%5BDEVICE_MAKE%5D&ads.devicemodel=%5BDEVICE_MODEL%5D&ads.targetad=%5BTARGETAD_ALLOWED%5D&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "GLORY Kickboxing",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1360/lg/e8ee82/LG-Logo-PNG-100x100_v2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://3afbdc65.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfR2xvcnlLaWNrYm94aW5nX0hMUw/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "PFL MMA",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/ProfessionalFightersLeagueShieldLogo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://33e6b5d8.wurl.com/TEctZnJfUEZMTU1BX0hMUw/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "MMA TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/mmatv.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://daiconnect.com/live/hls/tvup/lg-mma/.m3u8?DID=[DEVICE_ID]&DAdID=[IFA]&DAdIDT=[IFA_TYPE]&ULAdT=[LMT]&UDNS=[DNS]&UUA=[UA]&UIP=[IP]&UGDPR=[GDPR]&USrGDPRC=[GDPR_CONSENT]&Ucntr=[COUNTRY]&UPP=[US_PRIVACY]&ApStURL=[APP_STOREURL]&ApBdl=[APP_BUNDLE]&ApNm=[APP_NAME]&ApV=[APP_VERSION]&DT=[DEVICE_TYPE]&DMk=[DEVICE_MAKE]&DMdl=[DEVICE_MODEL]&VwSz=[VIEWSIZE]&FCK=[FCK]"
+      }
+    ]
+  },
+  {
+    "name": "SportsGrid",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sportgridlive.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://sportsgrid-lg.amagi.tv/hls/amagi_hls_data_sportsgri-sportsgrid-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Unbeaten",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/unbeaten.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00721-inverleigh-unbeaten-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]&content_type_id=[CTI]&content_genre=[CG]&content_categories=[CC]&ads.live=[CONTENT_LIVESTREAM]&as.content_network=[CONTENT_NETWORK]"
+      }
+    ]
+  },
+  {
+    "name": "Triton Poker",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/triton_poker.svg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://amg12058-c15studio-amg12058c9-lg-fr-8408.playouts.now.amagi.tv/playlist/amg12058-c15medianetworkslimitedfast-tritonpokercc-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Kozoom TV",
+    "id_api": "KozoomTV.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/kozoomtv.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/fdd6f243-f971-4a1a-9510-97ac01d6b37f/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "World Billiards TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "https://cdn88-accio.its-newid.net/channel/newid_003/lg_channels/img/default/channel_logo/channel_logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://9a81dd4ee3884d0dbcacafaf0d81327a.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_BilliardsTV/4dc7d4d3-2dd2-46cf-a84a-1dc376a68ca3/2.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Billiard TV",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/billiard_tv.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d29h829bjuxghm.cloudfront.net/hls/billi.m3u8?ads.xumo_channelId=99992209&ads.xumo_streamId=99992209&ads.channelId=99992209&ads.csid=lgchannels_fr_triplebmediabilliard_ssai&ads.channelName=triplebmediabilliard_fr&ads.xumo_contentName=TripleBMediaBilliard&ads.xumo_contentId=2728&ads.xumo_providerName=TripleBMediaBilliard&ads.xumo_providerId=2728&ads.content_category=IAB17&ads.content_genre=sports&ads.content_language=en&ads.content_rating=tv-y&ads.coppa=0&ads.did=[IFA]&ads.is_lat=[LMT]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.appName=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_version=[APP_VERSION]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_storeurl=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
     "name": "Nashville",
     "id_api": "",
     "categories": [
@@ -4087,188 +4280,7 @@
         "url": "https://0ef4d427cd1a4785a51d1ce13f9f0017.mediatailor.us-east-1.amazonaws.com/v1/master/0fb304b2320b25f067414d481a779b77db81760d/LG-fr_TheBoatShow/playlist.m3u8"
       }
     ]
-  },
-  {
-    "name": "MTRSPT1",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/Logo-mtrspt.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&coppa=0&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "FUEL TV",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/fuel_tv.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01074-fueltv-fueltvemeafr-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "TOP BARCA",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/barcatv.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg17560-fcb-amg17560c1-lg-fr-7353.playouts.now.amagi.tv/playlist/amg17560-fcbarcelona-topbarcaenglish-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "Tennis Channel",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/Tennis_Channel_2022.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg01444-amg01444c7-lg-fr-8031.playouts.now.amagi.tv/playlist/amg01444-tennischannelfast-tennischannelfrance-lgfr/playlist.m3u8?ads.deviceid=%5BDEVICE_ID%5D&ads.ifa=%5BIFA%5D&ads.ifatype=%5BIFA_TYPE%5D&ads.lat=%5BLMT%5D&ads.donotsell=%5BDNS%5D&ads.ua=%5BUA%5D&ads.ip=%5BIP%5D&ads.gdpr=%5BGDPR%5D&ads.gdprconsent=%5BGDPR_CONSENT%5D&ads.country=%5BCOUNTRY%5D&ads.usprivacy=%5BUS_PRIVACY%5D&ads.appstoreurl=%5BAPP_STOREURL%5D&ads.bundleid=%5BAPP_BUNDLE%5D&ads.appname=%5BAPP_NAME%5D&ads.appversion=%5BAPP_VERSION%5D&ads.devicetype=%5BDEVICE_TYPE%5D&ads.devicemake=%5BDEVICE_MAKE%5D&ads.devicemodel=%5BDEVICE_MODEL%5D&ads.targetad=%5BTARGETAD_ALLOWED%5D&fck=[FCK]&viewsize=[VIEWSIZE]"
-      }
-    ]
-  },
-  {
-    "name": "GLORY Kickboxing",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://img.platform.wurl.dev/channel/1360/lg/e8ee82/LG-Logo-PNG-100x100_v2.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://3afbdc65.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfR2xvcnlLaWNrYm94aW5nX0hMUw/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "PFL MMA",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/ProfessionalFightersLeagueShieldLogo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://33e6b5d8.wurl.com/TEctZnJfUEZMTU1BX0hMUw/playlist.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "MMA TV",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/mmatv.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://daiconnect.com/live/hls/tvup/lg-mma/.m3u8?DID=[DEVICE_ID]&DAdID=[IFA]&DAdIDT=[IFA_TYPE]&ULAdT=[LMT]&UDNS=[DNS]&UUA=[UA]&UIP=[IP]&UGDPR=[GDPR]&USrGDPRC=[GDPR_CONSENT]&Ucntr=[COUNTRY]&UPP=[US_PRIVACY]&ApStURL=[APP_STOREURL]&ApBdl=[APP_BUNDLE]&ApNm=[APP_NAME]&ApV=[APP_VERSION]&DT=[DEVICE_TYPE]&DMk=[DEVICE_MAKE]&DMdl=[DEVICE_MODEL]&VwSz=[VIEWSIZE]&FCK=[FCK]"
-      }
-    ]
-  },
-  {
-    "name": "SportsGrid",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/sportgridlive.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://sportsgrid-lg.amagi.tv/hls/amagi_hls_data_sportsgri-sportsgrid-lg/CDN/master.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Unbeaten",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/unbeaten.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00721-inverleigh-unbeaten-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]&content_type_id=[CTI]&content_genre=[CG]&content_categories=[CC]&ads.live=[CONTENT_LIVESTREAM]&as.content_network=[CONTENT_NETWORK]"
-      }
-    ]
-  },
-  {
-    "name": "Triton Poker",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/triton_poker.svg",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://amg12058-c15studio-amg12058c9-lg-fr-8408.playouts.now.amagi.tv/playlist/amg12058-c15medianetworkslimitedfast-tritonpokercc-lgfr/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]"
-      }
-    ]
-  },
-  {
-    "name": "Kozoom TV",
-    "id_api": "KozoomTV.fr",
-    "categories": [
-      "Sports"
-    ],
-    "logo": "logos/France/kozoomtv.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/fdd6f243-f971-4a1a-9510-97ac01d6b37f/manifest.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "World Billiards TV",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "https://cdn88-accio.its-newid.net/channel/newid_003/lg_channels/img/default/channel_logo/channel_logo.png",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://9a81dd4ee3884d0dbcacafaf0d81327a.mediatailor.us-east-1.amazonaws.com/v1/manifest/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_BilliardsTV/4dc7d4d3-2dd2-46cf-a84a-1dc376a68ca3/2.m3u8"
-      }
-    ]
-  },
-  {
-    "name": "Billiard TV",
-    "id_api": "",
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/billiard_tv.webp",
-    "sources": [
-      {
-        "type": "m3u8",
-        "url": "https://d29h829bjuxghm.cloudfront.net/hls/billi.m3u8?ads.xumo_channelId=99992209&ads.xumo_streamId=99992209&ads.channelId=99992209&ads.csid=lgchannels_fr_triplebmediabilliard_ssai&ads.channelName=triplebmediabilliard_fr&ads.xumo_contentName=TripleBMediaBilliard&ads.xumo_contentId=2728&ads.xumo_providerName=TripleBMediaBilliard&ads.xumo_providerId=2728&ads.content_category=IAB17&ads.content_genre=sports&ads.content_language=en&ads.content_rating=tv-y&ads.coppa=0&ads.did=[IFA]&ads.is_lat=[LMT]&ads.us_privacy=[US_PRIVACY]&ads.gdpr=[GDPR]&ads.gdpr_consent=[GDPR_CONSENT]&ads.devicemake=[DEVICE_MAKE]&ads.appName=[APP_NAME]&ads.app_bundle=[APP_BUNDLE]&ads.app_version=[APP_VERSION]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]&ads.app_storeurl=[APP_STOREURL]"
-      }
-    ]
   }
+  
   
 ]
