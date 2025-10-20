@@ -192,11 +192,11 @@ async function initHomepage() {
 // If you already have a DOMContentLoaded initializer, call initHomepage() inside it.
 // Otherwise you may add:
 document.addEventListener('DOMContentLoaded', async () => {
-    const loadingIndicator = document.getElementById('loading-indicator');
+    // const loadingIndicator = document.getElementById('loading-indicator');
 
     // Show loading overlay
-    showLoadingScreen();
-    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+    // showLoadingScreen();
+    // if (loadingIndicator) loadingIndicator.style.display = 'flex';
 
     // Also make sure settings modal starts hidden
     const sm = document.getElementById('settings-modal');
@@ -261,8 +261,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Finalize UI
     setupEventListeners();
 
-    if (loadingIndicator) loadingIndicator.style.display = 'none';
-    hideLoadingScreen();
+    // if (loadingIndicator) loadingIndicator.style.display = 'none';
+    // hideLoadingScreen();
     document.body.classList.add('loaded');
 });
 
@@ -334,7 +334,7 @@ const SECTIONS = [
   ] },
   { id: 'live-sports', label: 'Sports', type: 'h2', defaultVisible: true, order: 3, sourceSectionId: 'video', sourceSubSectionNames: ['Live Sports'], sitesToRemove: [
     '/sport calendars/', '/sport calendars/ 2', 'r/rugbystreams', 'Live Snooker Guide', 
-    'WatchSports', 'DaddyLive Self-Hosted Proxy', 'Sport7', 'StreamEast', 'LiveTV', 
+    'WatchSports', 'DaddyLive Self-Hosted Proxy',
     'VIP Box Sports', 'VIP Box Sports Mirrors', 'TimStreams Status', 'TotalSportek.to', 
     'TotalSportek.to 2', 'CricHD.to', 'SportOnTv 2', 'Sports Plus', 'CrackStreams', '720pStream', 
     '⁠GoalieTrend', 'BuffStream', 'Boxing-100', 'Soccerdoge', 'OnHockey', 'MLB24ALL', 'MLB24ALL NHL24ALL', 
@@ -1332,85 +1332,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Netflix-like loading overlay: inject styles and DOM
-function injectLoadingStyles() {
-  if (document.getElementById('fmhy-loading-styles')) return;
-  const css = `
-    .fmhy-loading-overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url('assets/background_5280px.png') no-repeat center center fixed, radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.95) 60%), #000;
-      background-size: cover, cover, cover;
-      background-color: #181820;
-      z-index: 99999;
-      flex-direction: column;
-      color: white;
-      transition: opacity 450ms ease;
-      opacity: 1;
-    }
-    .fmhy-loading-overlay.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .fmhy-loading-inner {
-      text-align: center;
-    }
 
-    /* slowed logo pulse for drama - adjusted to avoid snapping back to scale(1) while opaque */
-    .fmhy-loading-logo {
-      width: 220px;
-      max-width: 60vw;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.6));
-      transform-origin: center;
-      animation: fmhy-logo-pulse 3.5s ease;
-    }
-    @keyframes fmhy-logo-pulse {
-      0% { transform: scale(2); opacity: 0.7; }
-      65% { transform: scale(4); opacity: 1; }
-      95% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0; }
-    } 
-
-    /* when overlay is being removed, force the logo to stay hidden (prevents any brief visual jump) */
-    .fmhy-loading-overlay.fade-out .fmhy-loading-logo {
-      opacity: 0 !important;
-      transform: scale(0.8) !important;
-      transition: opacity 320ms ease, transform 320ms ease;
-    }
-
-    /* loader / progress bar removed - no .loader rules here */
-
-    /* Text fallback (Netflix-like wordmark) */
-    .fmhy-loading-text {
-      font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-      font-weight: 700;
-      font-size: 64px;
-      letter-spacing: 6px;
-      color: #e50914;
-      text-transform: uppercase;
-      text-align: center;
-      margin-top: 6px;
-      display: none;
-      text-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    }
-
-    @media (max-width: 480px) {
-      .fmhy-loading-text { font-size: 36px; letter-spacing: 3px; }
-      .fmhy-loading-logo { width: 140px; }
-    }
-  `;
-  const style = document.createElement('style');
-  style.id = 'fmhy-loading-styles';
-  style.appendChild(document.createTextNode(css));
-  document.head.appendChild(style);
-}
-
-let _fmhyLoadingOverlay = null;
-let _fmhyLoadingShownAt = 0;
-const FMHY_MIN_LOADING_MS = 3500; // keep overlay at least 2.5s for drama
 
 function findPageLogoSrc() {
   // Try common selectors for the existing top-left logo used by the page.
@@ -1514,6 +1436,23 @@ function hideLoadingScreen() {
   try {
     const hide = () => {
       if (!_fmhyLoadingOverlay) return;
+
+      // Pause/cleanup any videos inside the overlay so they stop playing and free resources
+      try {
+        const vids = _fmhyLoadingOverlay.querySelectorAll('video');
+        vids.forEach(v => {
+          try {
+            v.pause();
+            v.currentTime = 0;
+            // remove src and reload to fully stop network activity
+            v.removeAttribute('src');
+            v.load();
+          } catch (e) { /* ignore per-video errors */ }
+        });
+      } catch (e) {
+        // ignore
+      }
+
       // fade and remove after transition
       _fmhyLoadingOverlay.classList.add('fade-out');
       setTimeout(() => {
@@ -1529,7 +1468,7 @@ function hideLoadingScreen() {
     };
 
     const elapsed = Date.now() - (_fmhyLoadingShownAt || 0);
-    if (elapsed < FMHY_MIN_LOADING_MS) {
+    if (typeof FMHY_MIN_LOADING_MS === 'number' && elapsed < FMHY_MIN_LOADING_MS) {
       setTimeout(hide, FMHY_MIN_LOADING_MS - elapsed);
     } else {
       hide();
@@ -1833,8 +1772,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingIndicator = document.getElementById('loading-indicator');
 
     // Show loading overlay
-    showLoadingScreen();
-    if (loadingIndicator) loadingIndicator.style.display = 'flex';
+    // showLoadingScreen();
+    // if (loadingIndicator) loadingIndicator.style.display = 'flex';
 
     // Also make sure settings modal starts hidden
     const sm = document.getElementById('settings-modal');
@@ -1899,11 +1838,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Finalize UI
     setupEventListeners();
 
-    if (loadingIndicator) loadingIndicator.style.display = 'none';
-    hideLoadingScreen();
+    // if (loadingIndicator) loadingIndicator.style.display = 'none';
+    // hideLoadingScreen();
     document.body.classList.add('loaded');
 });
 
+// Loading-screen logic: remove the loading video after it plays once
+  (function() {
+    const loadingVideo = document.getElementById('loading-video');
+    if (!loadingVideo) return;
+
+    // Ensure playsInline & muted for autoplay policies
+    loadingVideo.muted = true;
+    loadingVideo.playsInline = true;
+
+    // Try to play (some environments require explicit play())
+    loadingVideo.play().catch(() => { /* ignore autoplay rejection */ });
+
+    function removeLoadingVideo() {
+      if (!loadingVideo.parentNode) return;
+      loadingVideo.style.opacity = '0';
+      setTimeout(() => {
+        if (loadingVideo.parentNode) loadingVideo.parentNode.removeChild(loadingVideo);
+      }, 600);
+    }
+
+    loadingVideo.addEventListener('ended', removeLoadingVideo, { once: true });
+
+    // Fallback: remove after a maximum duration in case 'ended' doesn't fire
+    const MAX_FALLBACK_MS = 30000;
+    setTimeout(() => {
+      if (document.getElementById('loading-video')) removeLoadingVideo();
+    }, MAX_FALLBACK_MS);
+
+    // Optional: allow click to skip the loading video (unobtrusive)
+    loadingVideo.addEventListener('click', removeLoadingVideo);
+  })();
 
 (function() {
   function showAccessOverlay() {
@@ -1913,33 +1883,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    const loading = document.getElementById('loading-indicator');
+    // const loading = document.getElementById('loading-indicator');
     // If body already marked loaded, show overlay immediately
     if (document.body.classList.contains('loaded')) {
       showAccessOverlay();
       return;
     }
 
-    if (loading) {
-      // Watch for the 'loaded' class to be added to body
-      const observer = new MutationObserver(function(mutations) {
-        if (document.body.classList.contains('loaded')) {
-          showAccessOverlay();
-          observer.disconnect();
-        }
-      });
-      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-      // Fallback: show overlay after 2 seconds if loading doesn't finish
-      setTimeout(function() {
-        if (!document.body.classList.contains('loaded')) {
-          showAccessOverlay();
-        }
-      }, 2000);
-    } else {
-      // No loading indicator present; show overlay after short delay
-      setTimeout(showAccessOverlay, 100);
-    }
+    
   });
 })();
 

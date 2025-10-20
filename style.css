@@ -34,6 +34,21 @@ body.dark-theme { background-color: #0a0a0a; color: #e0e0e0; }
 body.white-theme { background-color: #ffffff; color: #1a1a1a; }
 body.pink-theme { background-color: #ffe4e1; color: #1a1a1a; }
 
+/* Loading / splash video */
+    #loading-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 9999;
+      background: #000;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      pointer-events: none; /* allow clicks through if needed */
+    }
+    
 #loading-indicator {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;

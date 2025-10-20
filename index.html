@@ -13,31 +13,23 @@
   <!--div id="loading-indicator"-->
     <!--div class="loader"></div-->
   <!--/div-->
+  <!-- loading splash video (plays once then removed) -->
+  <script>
+  // Detect mobile device (basic check)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const loadingSrc = isMobile ? 'assets/INTRO_ATEAISH_3_mobile.mp4' : 'assets/INTRO_ATEAISH_3.mp4';
+  document.write(
+    `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto"></video>`
+  );
+  </script>
 
   <!-- Settings Modal -->
   <div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
     <div class="modal-content">
       <h2 id="settings-modal-title">Settings</h2>
-      <div>
-        <label for="theme-select">Theme:</label>
-        <select id="theme-select" aria-label="Select theme">
-          <option value="dark">Dark</option>
-          <option value="white">White</option>
-          <option value="pink">Pink</option>
-        </select>
-      </div>
-      <div style="margin-top: 1rem;">
-        <button id="sort-alphabetically" aria-label="Sort all sections alphabetically">
-          Sort All Sections Alphabetically
-        </button>
-      </div>
       <div class="settings-section">
         <h3>Section Visibility</h3>
         <div id="section-visibility-options"></div>
-      </div>
-      <div class="settings-section">
-        <h3>Section Order</h3>
-        <ul id="section-order-list"></ul>
       </div>
       <div class="settings-section">
         <h3>Custom Links</h3>
