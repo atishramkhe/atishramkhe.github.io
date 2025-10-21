@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ateaish movies (beta)</title>
+    <link rel="icon" type="image/png" href="assets/favicon_ateaish_movie_150ppi.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face{font-family:'OumaTrialBold';src:url('fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+        @font-face{font-family:'OumaTrialLight';src:url('fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+        body {
+            background: #000;
+            color: #fff;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            border-bottom: 1px solid #000;
+            font-family:'OumaTrialBold','Segoe UI',Arial,sans-serif;
+        }
+        .logo-placeholder {
+            width: 180px;
+            height: 180px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            padding: 40px;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+        .poster {
+            cursor: pointer;
+            border-radius: 0px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px #000a;
+            transition: transform 0.15s;
+            background: #000;
+        }
+        .poster:hover {
+            transform: scale(1.04);
+        }
+        .poster img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+        
+        ::-webkit-scrollbar {
+        width: 8px;
+        background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.15); /* transparent white */
+        border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-button {
+        display: none; /* hides arrows */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-placeholder">
+            <img src="assets/ateaish_movie_blanc_150ppi.png" alt="ateaish movies">
+        </div>        
+    </header>
+    <div style="text-align: center;font-family: 'OumaTrialBold', sans-serif;">Kdrama en version française (beta)</div>
+    <main>
+        <div class="grid" id="showsGrid"></div>
+    </main>
+    <script>
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        fetch('shows.json')
+            .then(res => res.json())
+            .then(shows => {
+                shuffle(shows); // Shuffle the array
+                const grid = document.getElementById('showsGrid');
+                shows.forEach(show => {
+                    if (!show.tmdb_id || !show.poster) return;
+                    const posterDiv = document.createElement('div');
+                    posterDiv.className = 'poster';
+                    posterDiv.onclick = () => {
+                        window.open(`https://movix.website/tv/${show.tmdb_id}`, '_blank');
+                    };
+                    const img = document.createElement('img');
+                    img.src = show.poster;
+                    img.alt = show.title;
+                    posterDiv.appendChild(img);
+                    grid.appendChild(posterDiv);
+                });
+            });
+    </script>
+</body>
+</html>
