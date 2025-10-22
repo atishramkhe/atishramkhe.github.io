@@ -489,7 +489,7 @@ header {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity .45s ease, visibility .45s ease;
+      transition: opacity .15s ease, visibility .05s ease;
     }
     
     #access-overlay.visible {
