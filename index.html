@@ -23,6 +23,20 @@
   );
   </script>
 
+  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
+  <div id="access-overlay">
+    <div id="access-message">
+      <div class="lock-emoji">🔒</div>
+      <div>Website Locked!</div>
+    </div>
+    <div id="access-overlay-unlock">
+      <!-- Blank button (first click reveals input, second attempts unlock) -->
+      <button id="access-overlay-unlock-btn" aria-label="Unlock"></button>
+      <input type="password" id="access-overlay-password" placeholder="" />
+      <span class="error" id="access-overlay-error">Incorrect password</span>
+    </div>
+  </div>
+
   <!-- Settings Modal -->
   <div id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
     <div class="modal-content">
@@ -95,18 +109,7 @@
     </footer>
   </main>
 
-  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
-  <div id="access-overlay">
-    <div id="access-message">
-      <div style="font-size: 5rem;">🔒</div>
-      <div>Website Locked!</div>
-    </div>
-    <div id="access-overlay-unlock">
-      <button id="access-overlay-unlock-btn"> </button>
-      <input type="password" id="access-overlay-password" placeholder="" />
-      <span class="error" id="access-overlay-error">Incorrect password</span>
-    </div>
-  </div>
+  
 
   <script src="script.js"></script>
 </body>

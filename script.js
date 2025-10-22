@@ -1771,7 +1771,98 @@ function renderAppGrid() {
 // Ensure manifest is loaded before the main initialization run in the DOMContentLoaded handler
 document.addEventListener('DOMContentLoaded', async () => {
     const loadingIndicator = document.getElementById('loading-indicator');
+  /* === Access Overlay Logic (SHA256 + localStorage) === */
+  (function(){
+    const overlay = document.getElementById('access-overlay');
+    const unlockBtn = document.getElementById('access-overlay-unlock-btn');
+    const passwordInput = document.getElementById('access-overlay-password');
+    const errorMsg = document.getElementById('access-overlay-error');
+    const STORAGE_KEY = 'ateaish_tv_access_unlocked';
+    const TARGET_HASH = '564c6c20f643a4e38e665382ce043b6927b4ed55548e9d411296b963668bc56f';
 
+    if (!overlay || !unlockBtn || !passwordInput) return;
+
+    // Ensure hidden state clean
+    errorMsg.classList.remove('show');
+
+    async function sha256(str){
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+
+    function showOverlay() {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+      overlay.classList.add('visible');
+    }
+
+    function hideOverlay() {
+      overlay.classList.remove('visible');
+      overlay.style.pointerEvents = 'none';
+      overlay.style.opacity = 0;
+      overlay.style.visibility = 'hidden';
+    }
+
+    async function attemptUnlock() {
+      if (!passwordInput.value) {
+        errorMsg.classList.add('show');
+        setTimeout(()=>errorMsg.classList.remove('show'), 1500);
+        return;
+      }
+      errorMsg.classList.remove('show');
+      try {
+        const hash = await sha256(passwordInput.value);
+        if (hash === TARGET_HASH) {
+          localStorage.setItem(STORAGE_KEY, '1');
+          hideOverlay();
+        } else {
+          errorMsg.classList.add('show');
+          setTimeout(()=>errorMsg.classList.remove('show'), 2000);
+        }
+      } catch {
+        errorMsg.classList.add('show');
+      }
+    }
+
+    unlockBtn.addEventListener('click', () => {
+      if (!passwordInput.classList.contains('active')) {
+        passwordInput.classList.add('active');
+        passwordInput.focus();
+        return;
+      }
+      attemptUnlock();
+    });
+
+    passwordInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') attemptUnlock();
+    });
+
+    function scheduleOverlay() {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+      setTimeout(showOverlay, 400);
+    }
+
+    const loadingVideo = document.getElementById('loading-video');
+    if (localStorage.getItem(STORAGE_KEY) === '1') {
+      hideOverlay();
+      return;
+    }
+
+    if (loadingVideo) {
+      loadingVideo.addEventListener('ended', scheduleOverlay, { once:true });
+      const obs = new MutationObserver(() => {
+        if (!document.getElementById('loading-video')) {
+          obs.disconnect();
+          scheduleOverlay();
+        }
+      });
+      obs.observe(document.body, { childList:true, subtree:true });
+      setTimeout(() => {
+        if (!overlay.classList.contains('visible')) scheduleOverlay();
+      }, 25000);
+    } else {
+      setTimeout(scheduleOverlay, 300);
+    }
+  })();
     // Show loading overlay
     // showLoadingScreen();
     // if (loadingIndicator) loadingIndicator.style.display = 'flex';
@@ -1876,12 +1967,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadingVideo.addEventListener('click', removeLoadingVideo);
   })();
 
-(function() {
-  function showAccessOverlay() {
-    const overlay = document.getElementById('access-overlay');
-    if (!overlay) return;
-    overlay.classList.add('visible');
-  }
+
 
   document.addEventListener('DOMContentLoaded', function() {
     // const loading = document.getElementById('loading-indicator');
@@ -1893,7 +1979,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
   });
-})();
+
 
 // Minimal modal open/close for settings
 function showSettingsWindow(modal, button) {
