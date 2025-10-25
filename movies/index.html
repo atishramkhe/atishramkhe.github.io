@@ -6,13 +6,13 @@
     <link rel="icon" type="image/png" href="assets/favicon_ateaish_movie_150ppi.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        @font-face{font-family:'OumaTrialBold';src:url('fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+    	@font-face{font-family:'OumaTrialBold';src:url('fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
         @font-face{font-family:'OumaTrialLight';src:url('fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
         body {
             background: #000;
             color: #fff;
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
         }
         header {
             display: flex;
@@ -20,7 +20,7 @@
             align-items: center;
             height: 80px;
             border-bottom: 1px solid #000;
-            font-family:'OumaTrialBold','Segoe UI',Arial,sans-serif;
+            font-family:'OumaTrialBold','OumaTrialLight';
         }
         .logo-placeholder {
             width: 180px;
@@ -39,6 +39,87 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+        #search-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: none;
+            position: relative;
+        }
+        #search-container > div {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 90%;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 0.5em 2.5em 0.5em 0.5em; /* right padding for button */
+            font-size: 1.2em;
+            background: #000;
+            color: #fff;
+            font-family: 'OumaTrialLight';
+            border: 1px solid #222;
+            border-radius: 4px;
+        }
+        #results {
+            margin-top: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1em;
+        }
+        .result-item {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            width: 100px;
+        }
+        .result-item img {
+            width: 92px;
+            height: 138px;
+            margin-bottom: 0.5em;
+        }
+        .result-item span {
+            text-align: center;
+        }
+        
+        #player-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 100;
+        }
+        #player-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+        }
+        #close-player {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+        }
+        
+        h2 {
+            padding-left: 40px;
+            margin-block-end: 0;
+            margin-block-end: 0;
         }
         .grid {
             display: grid;
@@ -79,6 +160,63 @@
         ::-webkit-scrollbar-button {
         display: none; /* hides arrows */
         }
+        #clear-search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            z-index: 2;
+            display: none;
+        }
+
+        #posterPreview {
+            background: #000;
+            border-radius: 0px;
+            box-shadow: 0 4px 32px #000a;
+            padding: 16px 16px 10px 16px;
+            min-width: 220px;
+            max-width: 260px;
+            color: #fff;
+            font-family: inherit;
+            pointer-events: none;
+            transition: opacity 0.15s;
+        }
+        #posterPreview img {
+            width: 100%;
+            border-radius: 0px;
+            margin-bottom: 8px;
+            object-fit: cover;
+            aspect-ratio: 2/3;
+            box-shadow: 0 2px 12px #000a;
+            transform: scale(1.05);
+        }
+        #posterPreview .preview-title {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        #posterPreview .preview-year {
+            float: right;
+            font-size: 1em;
+            opacity: 0.7;
+        }
+        #posterPreview .preview-overview {
+            margin: 12px 0 8px 0;
+            font-size: 0.98em;
+            line-height: 1.4;
+        }
+        #posterPreview .preview-tvinfo {
+            font-size: 0.95em;
+            color: #e02735;
+            margin-top: 8px;
+            text-align: center;
+}
     </style>
 </head>
 <body>
@@ -87,37 +225,60 @@
             <img src="assets/ateaish_movie_blanc_150ppi.png" alt="ateaish movies">
         </div>        
     </header>
-    <div style="text-align: center;font-family: 'OumaTrialBold', sans-serif;">Kdrama en version française (beta)</div>
+    <!-- <div style="text-align: center;font-family: 'OumaTrialBold', sans-serif;">Movie and TV Show Catalogue</div> -->
+   
+
+   
     <main>
+        <div id="search-container">
+            <div style="position:relative; width:30%;">
+                <input type="text" id="search-input" placeholder="Search for movies and TV shows..." style="width:100%;">
+                <button id="clear-search-btn" style="display:none;">&times;</button>
+            </div>
+            <div id="results"></div>
+        </div>
         <div class="grid" id="showsGrid"></div>
     </main>
+    
+    <div id="player-container">
+        <span id="close-player">&times;</span>
+        <div id="player-content"></div>
+    </div>
+    
+    <section>
+      <h2>Trending</h2>
+      <div class="grid" id="trendingGrid"></div>
+    </section>
+    <section>
+      <h2>Continue Watching</h2>
+      <div class="grid" id="continueGrid"></div>
+    </section>
+    <section>
+      <h2>New Releases</h2>
+      <div class="grid" id="newGrid"></div>
+    </section>
+    
+    <!-- Add more sections as needed -->
+    
+    <script src="search.js"></script>
+    <div id="posterPreview" style="display:none;position:absolute;z-index:1000;"></div>
     <script>
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+    const results = document.getElementById('results');
 
-        fetch('shows.json')
-            .then(res => res.json())
-            .then(shows => {
-                shuffle(shows); // Shuffle the array
-                const grid = document.getElementById('showsGrid');
-                shows.forEach(show => {
-                    if (!show.tmdb_id || !show.poster) return;
-                    const posterDiv = document.createElement('div');
-                    posterDiv.className = 'poster';
-                    posterDiv.onclick = () => {
-                        window.open(`https://movix.club/tv/${show.tmdb_id}`, '_blank');
-                    };
-                    const img = document.createElement('img');
-                    img.src = show.poster;
-                    img.alt = show.title;
-                    posterDiv.appendChild(img);
-                    grid.appendChild(posterDiv);
-                });
-            });
-    </script>
+    searchInput.addEventListener('input', function() {
+        clearBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        results.innerHTML = '';
+        searchInput.focus();
+    });
+});
+</script>
 </body>
 </html>
