@@ -85,29 +85,38 @@ function displayResults(results) {
                 <div class="preview-title">${title}
                     <span class="preview-year">${year}</span>
                 </div>
-                <div class="preview-overview">${overview}</div>
+                <div class="preview-overview">${truncateOverview(overview)}</div>
                 ${isTV && lastSeasonNum ? `<div class="preview-tvinfo">Season ${lastSeasonNum}, ${lastSeasonEpisodes} Episodes</div>` : ''}
             `;
             preview.style.display = 'block';
             preview.style.opacity = '1';
+            preview.style.width = '260px';
+            preview.style.maxWidth = '260px';
+            preview.style.position = 'absolute';
 
-            // Position logic
-            const rect = e.target.getBoundingClientRect();
-            const previewWidth = 260; // match your max-width in CSS
-            const margin = 16;
-            const windowWidth = window.innerWidth;
+            setTimeout(() => {
+                const posterRect = resultItem.getBoundingClientRect();
+                const previewRect = preview.getBoundingClientRect();
+                const scrollX = window.scrollX;
+                const scrollY = window.scrollY;
+                const margin = 8;
 
-            let left;
-            if (rect.right + previewWidth + margin > windowWidth) {
-                // Not enough space on right, show on left
-                left = rect.left - previewWidth - margin + window.scrollX;
-            } else {
-                // Default: show on right
-                left = rect.right + margin + window.scrollX;
-            }
-            preview.style.left = `${left}px`;
-            preview.style.top = `${rect.top + window.scrollY}px`;
+                // Center preview horizontally above poster
+                let left = posterRect.left + scrollX + (posterRect.width / 2) - (previewRect.width / 2);
+                let top = posterRect.top + scrollY - previewRect.height - margin;
+
+                // Prevent overflow left
+                left = Math.max(scrollX + margin, left);
+                // Prevent overflow right
+                left = Math.min(scrollX + window.innerWidth - previewRect.width - margin, left);
+                // Prevent preview going above viewport
+                top = Math.max(scrollY + margin, top);
+
+                preview.style.left = `${left}px`;
+                preview.style.top = `${top}px`;
+            }, 0);
         });
+
         resultItem.addEventListener('mouseleave', () => {
             const preview = document.getElementById('posterPreview');
             preview.style.display = 'none';
@@ -123,7 +132,7 @@ function openPlayer(type, id, last_season = 1) {
     const progressData = localStorage.getItem(`progress_${id}_${type}`);
     let season = last_season;
     let episode = 1;
-    let progress = null;
+    let timestamp = null;
 
     if (progressData) {
         try {
@@ -132,7 +141,7 @@ function openPlayer(type, id, last_season = 1) {
                 season = saved.season || last_season;
                 episode = saved.episode || 1;
             }
-            progress = saved.currentTime || null;
+            timestamp = saved.timestamp || null;
         } catch (e) {
             // Ignore parse errors
         }
@@ -140,26 +149,124 @@ function openPlayer(type, id, last_season = 1) {
 
     let embedUrl;
     if (type === 'movie') {
-        embedUrl = `https://www.vidking.net/embed/movie/${id}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true`;
+        embedUrl = `https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+        // https://www.vidking.net/embed/movie/
+        // ?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true
         //if (progress) {
         //    embedUrl += `&progress=${Math.floor(progress)}`;
         //}
     } else { // tv
-        embedUrl = `https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true`;
+        embedUrl = `https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+        // https://www.vidking.net/embed/tv/
         //if (progress) {
         //    embedUrl += `&progress=${Math.floor(progress)}`;
         //}
     }
 
-    playerContent.innerHTML = `<iframe src="${embedUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay"></iframe>`;
+    playerContent.innerHTML = `<iframe src="${embedUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>`;
     playerContainer.style.display = 'block';
     searchContainer.style.display = 'none';
 }
+
+// Replace the existing window.message handler with this more robust version
+
+function tryParseJSON(str) {
+    try {
+        return JSON.parse(str);
+    } catch (e) {
+        // try to extract JSON-looking substring if double-encoded or wrapped
+        const first = str.indexOf('{');
+        const last = str.lastIndexOf('}');
+        if (first !== -1 && last !== -1 && last > first) {
+            try {
+                return JSON.parse(str.slice(first, last + 1));
+            } catch (e2) {
+                return null;
+            }
+        }
+        return null;
+    }
+}
+
+function extractPayload(obj) {
+    // Some players wrap the useful data under .data, .payload, or .message
+    if (!obj || typeof obj !== 'object') return null;
+    if (obj.payload && typeof obj.payload === 'object') return obj.payload;
+    if (obj.data && typeof obj.data === 'object') return obj.data;
+    if (obj.message && typeof obj.message === 'object') return obj.message;
+    return obj;
+}
+
+window.addEventListener("message", function (event) {
+    try {
+        let parsed;
+        if (typeof event.data === "string") {
+            parsed = tryParseJSON(event.data) || event.data;
+        } else {
+            parsed = event.data;
+        }
+
+        if (typeof parsed === 'string') {
+            parsed = tryParseJSON(parsed) || parsed;
+        }
+
+        parsed = extractPayload(parsed);
+
+        console.debug("[player message] raw:", event.data, "parsed:", parsed);
+
+        if (!parsed || typeof parsed !== 'object') return;
+
+        const id = parsed.id ?? parsed.contentId ?? parsed.content_id;
+        const type = parsed.type ?? parsed.mediaType ?? parsed.media_type;
+        const progressNum = (typeof parsed.progress === 'number') ? parsed.progress
+                          : (typeof parsed.percent === 'number' ? parsed.percent : null);
+        const timestamp = (typeof parsed.timestamp === 'number') ? parsed.timestamp
+                          : (typeof parsed.currentTime === 'number' ? parsed.currentTime : null);
+
+        if (!id || !type || (progressNum === null && timestamp === null)) return;
+
+        const toStore = {
+            id: id,
+            type: type,
+            mediaType: type,
+            progress: progressNum,
+            timestamp: timestamp,
+            duration: parsed.duration ?? parsed.totalDuration ?? null,
+            season: parsed.season ?? parsed.season_number ?? null,
+            episode: parsed.episode ?? parsed.episode_number ?? null,
+            title: parsed.title ?? parsed.name ?? null,
+            poster_path: parsed.poster_path ?? parsed.posterPath ?? parsed.poster ?? null,
+            updatedAt: Date.now()
+        };
+
+        const key = `progress_${id}_${type}`;
+        localStorage.setItem(key, JSON.stringify(toStore));
+        console.debug("[player message] saved localStorage key:", key, toStore);
+
+        // NOTE: Do NOT refresh the continue-watching UI here while the player is open.
+        // Frequent refreshes cause visual/jank issues. The UI will be updated on page load
+        // and when the player is closed (see closePlayer handler).
+    } catch (e) {
+        console.warn("[player message] parse/save error:", e);
+    }
+});
 
 closePlayer.addEventListener('click', () => {
     playerContainer.style.display = 'none';
     searchContainer.style.display = 'flex'; // or 'grid', depending on your CSS
     playerContent.innerHTML = '';
+
+    // Give the message handler a moment to finish writing final progress to localStorage,
+    // then refresh the continue watching UI.
+    setTimeout(() => {
+        try {
+            if (typeof loadContinueWatching === 'function') {
+                loadContinueWatching();
+            }
+        } catch (e) {
+            console.warn('Error refreshing continue watching:', e);
+        }
+    }, 100);
 });
 
 function shuffle(array) {
@@ -176,6 +283,7 @@ function loadGrid(jsonPath, gridId) {
             const shows = [...(data.movies || []), ...(data.tv_shows || [])];
             shuffle(shows);
             const grid = document.getElementById(gridId);
+            if (!grid) return; // guard if element not in DOM
             grid.innerHTML = '';
             shows.forEach(show => {
                 const tmdb_id = show.id;
@@ -191,11 +299,13 @@ function loadGrid(jsonPath, gridId) {
                 const lastSeasonEpisodes = lastSeason?.episode_count || '';
 
                 if (!tmdb_id) return;
+                if (!poster || poster === 'https://via.placeholder.com/92x138.png?text=No+Image') return; // Skip if no poster
+
                 const posterDiv = document.createElement('div');
                 posterDiv.className = 'poster';
                 posterDiv.onclick = () => {
                     const last_season = show.seasons ? show.seasons[show.seasons.length - 1]?.season_number || 1 : 1;
-                    openPlayer(show.media_type, tmdb_id, last_season);
+                    openPlayer(show.media_type || 'tv', tmdb_id, last_season);
                 };
                 const img = document.createElement('img');
                 img.src = poster;
@@ -211,29 +321,38 @@ function loadGrid(jsonPath, gridId) {
                             <div class="preview-title">${title}
                                 <span class="preview-year">${year}</span>
                             </div>
-                            <div class="preview-overview">${overview}</div>
+                            <div class="preview-overview">${truncateOverview(overview)}</div>
                             ${isTV && lastSeasonNum ? `<div class="preview-tvinfo">Season ${lastSeasonNum}, ${lastSeasonEpisodes} Episodes</div>` : ''}
                         `;
                         preview.style.display = 'block';
                         preview.style.opacity = '1';
+                        preview.style.width = '260px';
+                        preview.style.maxWidth = '260px';
+                        preview.style.position = 'absolute';
 
-                        // Position logic
-                        const rect = e.target.getBoundingClientRect();
-                        const previewWidth = 260; // match your max-width in CSS
-                        const margin = 16;
-                        const windowWidth = window.innerWidth;
+                        setTimeout(() => {
+                            const posterRect = posterDiv.getBoundingClientRect();
+                            const previewRect = preview.getBoundingClientRect();
+                            const scrollX = window.scrollX;
+                            const scrollY = window.scrollY;
+                            const margin = 8;
 
-                        let left;
-                        if (rect.right + previewWidth + margin > windowWidth) {
-                            // Not enough space on right, show on left
-                            left = rect.left - previewWidth - margin + window.scrollX;
-                        } else {
-                            // Default: show on right
-                            left = rect.right + margin + window.scrollX;
-                        }
-                        preview.style.left = `${left}px`;
-                        preview.style.top = `${rect.top + window.scrollY}px`;
+                            // Center preview horizontally above poster
+                            let left = posterRect.left + scrollX + (posterRect.width / 2) - (previewRect.width / 2);
+                            let top = posterRect.top + scrollY - previewRect.height - margin;
+
+                            // Prevent overflow left
+                            left = Math.max(scrollX + margin, left);
+                            // Prevent overflow right
+                            left = Math.min(scrollX + window.innerWidth - previewRect.width - margin, left);
+                            // Prevent preview going above viewport
+                            top = Math.max(scrollY + margin, top);
+
+                            preview.style.left = `${left}px`;
+                            preview.style.top = `${top}px`;
+                        }, 0);
                     });
+
                     posterDiv.addEventListener('mouseleave', () => {
                         const preview = document.getElementById('posterPreview');
                         preview.style.display = 'none';
@@ -247,6 +366,8 @@ function loadGrid(jsonPath, gridId) {
 }
 loadGrid('titles/trending.json', 'trendingGrid');
 loadGrid('titles/new.json', 'newGrid');
+loadGrid('titles/bollywood.json', 'bollywoodGrid');
+loadGrid('titles/kdramas.json', 'kdramasGrid');
 
 function loadContinueWatching() {
     const continueGrid = document.getElementById('continueGrid');
@@ -258,8 +379,9 @@ function loadContinueWatching() {
         const key = localStorage.key(i);
         if (key.startsWith('progress_')) {
             try {
-                const data = JSON.parse(localStorage.getItem(key));
-                continueItems.push(data);
+                const raw = JSON.parse(localStorage.getItem(key));
+                const norm = normalizeProgress(raw);
+                if (norm && norm.id && norm.mediaType) continueItems.push(norm);
             } catch (e) {}
         }
     }
@@ -317,16 +439,15 @@ function loadContinueWatching() {
 
     Promise.all(posterPromises).then(items => {
         items.forEach(({ data, poster, title }) => {
+            if (!poster || poster === placeholderImage) return; // Skip if no poster
             addContinueItem(continueGrid, data, poster, title);
         });
         // Fill with dummy posters if less than 7 (dummies go to the right)
-        for (let i = items.length; i < 7; i++) {
+        for (let i = continueGrid.children.length; i < 7; i++) {
             addDummyContinueItem(continueGrid);
         }
     });
 }
-
-
 
 function addContinueItem(grid, data, poster, title) {
     const div = document.createElement('div');
@@ -335,8 +456,10 @@ function addContinueItem(grid, data, poster, title) {
 
     // Calculate progress percentage
     let percent = 0;
-    if (data.duration && data.currentTime) {
-        percent = Math.min(100, Math.round((data.currentTime / data.duration) * 100));
+    if (typeof data.progress === "number") {
+        percent = Math.min(100, Math.round(data.progress));
+    } else if (data.duration && data.timestamp) {
+        percent = Math.min(100, Math.round((data.timestamp / data.duration) * 100));
     }
 
     // Remove button (hidden by default, shown on hover)
@@ -367,7 +490,9 @@ function addContinueItem(grid, data, poster, title) {
     // Remove from localStorage on click
     removeBtn.onclick = (e) => {
         e.stopPropagation();
+        // remove both possible key variants to be safe
         localStorage.removeItem(`progress_${data.id}_${data.mediaType}`);
+        localStorage.removeItem(`progress_${data.id}_${data.type || data.mediaType}`);
         loadContinueWatching(); // Refresh the grid to fill up to 7 items
     };
 
@@ -396,36 +521,78 @@ function addDummyContinueItem(grid) {
 }
 
 // Call on page load
-document.addEventListener('DOMContentLoaded', loadContinueWatching);
-
-window.addEventListener("message", function (event) {
-    try {
-        const msg = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
-        if (msg.type === "PLAYER_EVENT" && msg.data && msg.data.id && msg.data.mediaType) {
-            msg.data.updatedAt = Date.now();
-            localStorage.setItem(
-                `progress_${msg.data.id}_${msg.data.mediaType}`,
-                JSON.stringify(msg.data)
-            );
-        }
-        // Optionally display message
-        if (typeof event.data === "string") {
-            var messageArea = document.querySelector("#messageArea");
-            if (messageArea) {
-                messageArea.innerText = event.data;
-                messageArea.style.display = "block";
-            }
-        }
-    } catch (e) {
-        console.warn("Could not parse message from player:", event.data);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    loadGrid('titles/trending.json', 'trendingGrid');
+    loadGrid('titles/new.json', 'newGrid');
+    loadGrid('titles/bollywood.json', 'bollywoodGrid');
+    loadGrid('titles/kdramas.json', 'kdramaGrid');
+    loadContinueWatching();
 });
 
-// Example function to update continue watching
-function updateContinueWatching(item) {
-    let continueData = JSON.parse(localStorage.getItem('continueWatching')) || [];
-    // Remove existing entry if present
-    continueData = continueData.filter(i => i.id !== item.id);
-    continueData.unshift(item); // Add to front
-    localStorage.setItem('continueWatching', JSON.stringify(continueData));
+function normalizeProgress(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const id = raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId;
+    const mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
+    const progress = (typeof raw.progress === 'number') ? raw.progress
+        : (typeof raw.percent === 'number' ? raw.percent
+        : (raw.progressPercent ?? null));
+    const timestamp = raw.timestamp ?? raw.currentTime ?? raw.position ?? null;
+    const duration = raw.duration ?? raw.totalDuration ?? raw.length ?? null;
+    const season = raw.season ?? raw.season_number ?? raw.lastSeason ?? 1;
+    const episode = raw.episode ?? raw.episode_number ?? raw.ep ?? 1;
+    const title = raw.title ?? raw.name ?? raw.movie_title ?? null;
+    const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
+    const updatedAt = raw.updatedAt ?? raw.updated_at ?? raw.lastUpdated ?? Date.now();
+
+    return {
+        id,
+        mediaType,
+        progress,
+        timestamp,
+        duration,
+        season,
+        episode,
+        title,
+        poster_path,
+        updatedAt
+    };
+}
+
+function showPosterPreview(e, posterData) {
+    const preview = document.getElementById('posterPreview');
+    preview.style.display = 'block';
+    preview.innerHTML = `
+        <img src="${posterData.img}" alt="${posterData.title}">
+        <div class="preview-title">${posterData.title}</div>
+        <div class="preview-year">${posterData.year || ''}</div>
+        <div class="preview-overview">${posterData.overview || ''}</div>
+        ${posterData.tvinfo ? `<div class="preview-tvinfo">${posterData.tvinfo}</div>` : ''}
+    `;
+
+    // Calculate position
+    const padding = 16;
+    const previewRect = preview.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    let left = e.clientX + padding;
+    let top = e.clientY + padding;
+
+    // Adjust if preview would overflow right edge
+    if (left + previewRect.width > viewportWidth) {
+        left = viewportWidth - previewRect.width - padding;
+    }
+    // Adjust if preview would overflow bottom edge
+    if (top + previewRect.height > viewportHeight) {
+        top = viewportHeight - previewRect.height - padding;
+    }
+
+    preview.style.left = left + 'px';
+    preview.style.top = top + 'px';
+}
+
+function truncateOverview(text, maxLength = 120) {
+    if (!text) return '';
+    return text.length > maxLength
+        ? text.slice(0, maxLength).trim() + '...'
+        : text;
 }
