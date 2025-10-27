@@ -106,12 +106,12 @@
     }
     .custom-btn.loading {
       animation: pulse 1s infinite;
-      color: #6cf;
+      color: #ffff00;
     }
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 #6cf4; }
-      50% { box-shadow: 0 0 0 8px #6cf2; }
-      100% { box-shadow: 0 0 0 0 #6cf4; }
+      0% { box-shadow: 0 0 0 0 #ffff00; }
+      50% { box-shadow: 0 0 0 8px #ffff00; }
+      100% { box-shadow: 0 0 0 0 #ffff00; }
     }
     .custom-volume {
       width: 100px;
@@ -312,6 +312,32 @@
     .loading-logo.zoom {
       animation: logo-zoom 900ms cubic-bezier(.2,.9,.3,1) both;
     }
+    .top-bar{
+      height:240px;
+      background:#000;
+      border-bottom:1px solid #1e1e1f;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      box-shadow:0 4px 18px rgba(0,0,0,.6);
+      border-radius:0 0 18px 18px;
+    }
+
+    .top-bar::before{
+    content:"";
+    position:absolute;
+    left:10px;right:10px;top:15px;bottom:10px;height:40px;
+    background-image:radial-gradient(circle at 8px 8px,rgba(190, 177, 177, 0.709) 2px,transparent 3px);
+    background-size:14px 14px;
+    opacity:.18;
+    border-radius:8px;
+    pointer-events:none;
+    filter:blur(.4px);
+    }
+
+    .top-logo img{height:60px}
+    
   </style>
 </head>
 <body>
@@ -321,8 +347,10 @@
   </div>
 
   <div class="container">
-    <div style="text-align:center; margin-bottom:12px;">
-      <img src="assets/ateaish_radio_blanc_150ppi.png" alt="ateaish Radio" style="height:56px;">
+    <div class="top-bar" style="text-align:center; margin-bottom:12px;">
+      <div class="top-logo">
+        <img src="assets/ateaish_radio_blanc_150ppi.png" alt="ateaish Radio" > 
+      </div>
     </div>
     <div class="player" id="player">
       <!-- Player UI will be injected here -->
