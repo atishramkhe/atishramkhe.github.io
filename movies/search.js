@@ -512,7 +512,7 @@ function addDummyContinueItem(grid) {
     const div = document.createElement('div');
     div.className = 'poster';
     div.innerHTML = `
-        <img src="https://via.placeholder.com/92x138.png?text=No+Image" alt="No Image">
+        <img src="assets/no_poster.png" alt="No Image">
         <div style="width:100%;height:0px;background:#000;margin-top:4px;overflow:hidden;">
             <div style="width:0%;height:100%;background:#e02735;"></div>
         </div>
