@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- ADD THIS BLOCK AS THE FIRST SCRIPT IN <head> -->
+  <script>
+  // Early hard kill before player scripts load
+  (function(){
+    const MAX_SCAN_MS = 180000;
+    const SCAN_INTERVAL = 1200;
+    const seen = new WeakSet();
+    const start = performance.now();
+
+    function wipeArray(a){
+      if (!a) return;
+      try { a.length = 0; } catch(_) {}
+      ['push','unshift','splice','concat'].forEach(m=>{
+        try { a[m] = function(){ return m==='concat' ? [] : 0; }; } catch(_){}
+      });
+    }
+
+    function nuke(dbg){
+      if (!dbg || seen.has(dbg)) return;
+      seen.add(dbg);
+      try { dbg.log = function(){}; } catch(_){}
+      ['history','log','LOGS','messages','_history','_messages'].forEach(k=>{
+        try {
+          const ref = k==='log' && dbg.log && dbg.log.history ? dbg.log.history : dbg[k];
+          if (Array.isArray(ref)) wipeArray(ref);
+          if (dbg[k] && dbg[k].history && Array.isArray(dbg[k].history)) wipeArray(dbg[k].history);
+        } catch(_){}
+      });
+      try { Object.seal(dbg); } catch(_){}
+    }
+
+    function scan(){
+      // Common locations
+      const candidates = [
+        window.playerjs && window.playerjs.DEBUG,
+        window.playerjs && window.playerjs.debug,
+        window.DEBUG
+      ].filter(Boolean);
+      candidates.forEach(nuke);
+      if (performance.now() - start < MAX_SCAN_MS) {
+        setTimeout(scan, SCAN_INTERVAL);
+      }
+    }
+
+    // Intercept additions
+    const od = Object.defineProperty;
+    Object.defineProperty = function(o,p,d){
+      const r = od.apply(this, arguments);
+      if (p && /debug/i.test(p)) setTimeout(scan, 50);
+      return r;
+    };
+
+    // Trim any large arrays lingering on the window (fallback)
+    setInterval(()=>{
+      for (const k in window){
+        const v = window[k];
+        if (Array.isArray(v) && v.length > 50000) {
+          wipeArray(v);
+        }
+      }
+    }, 15000);
+
+    // postMessage filter (drop verbose debug chatter)
+    const origPM = window.postMessage;
+    window.postMessage = function(msg, targetOrigin, transfer){
+      try {
+        if (msg && typeof msg === 'object' &&
+            (msg.type === 'DEBUG' || msg.posdMessageId || msg.requestMethod)) {
+          return; // swallow
+        }
+      } catch(_){}
+      return origPM.call(this, msg, targetOrigin, transfer);
+    };
+
+    scan();
+  })();
+  </script>
+  <meta charset="UTF-8"><!-- FIX: prevent emoji mojibake -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>ateaish Sport</title>
+  <link rel="icon" type="image/png" href="assets/favicon_ateaish__sport_150ppi.png">
+  <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script type="text/javascript" src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <script src="https://geo.dmcdn.net/player.js"></script>
+  <style>
+    @font-face {
+      font-family: 'OumaBold';
+      src: url('fonts/OumaTrial-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'OumaLight';
+      src: url('fonts/OumaTrial-Light.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html, body {
+      font-family: 'OumaLight', sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      min-height: 100vh;
+      box-sizing: border-box;
+      background-color: #000;
+      overflow: hidden;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    #app-wrapper {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #controls {
+      position: static;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      /* background-color: #000; /* solid black */
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      border-bottom: 1px solid #000;
+      transition: none;
+    }
+    #controls.hidden {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #controls select,
+    #controls button {
+      font-size: 0.8rem;
+      height: 28px;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      border-radius: 4px;
+      /* border: 1px solid #ccc; */
+      padding: 5px;
+    }
+
+    #fullscreen-btn,
+    #switch-server-btn,
+    #server-select {
+      font-family: 'OumaLight', sans-serif;
+      background-color: #000;
+      color: #222;
+      border: 1px solid #000;
+      border-radius: 4px;
+      padding: 5px 12px;
+      cursor: pointer;
+    }
+    #switch-server-btn {
+      /*min-width: 110px; */
+      /*padding-left: 16px;*/
+      /*padding-right: 16px;*/
+    }
+    #fullscreen-btn:hover,
+    #switch-server-btn:hover {
+      background-color: #66c8f3;
+    }
+    #main-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 48px);
+      width: 100vw;
+    }
+    #player-section {
+      position: relative;
+      width: 70%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    #player-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      overflow: hidden;
+      z-index: 1;
+    }
+    #player-iframe, #player-video {
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1;
+      background: #000;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #player-iframe.active, #player-video.active {
+      display: block;
+    }
+    #menu-section {
+      position: relative; /* Needed for overlay positioning */
+      width: 30%;
+      height: 100%; /* <-- Add this */
+      display: flex; /* <-- Add this */
+      flex-direction: column; /* <-- Add this */
+      color: white;
+      overflow-y: auto;
+      border-left: 1px solid #000;
+    }
+    #menu-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #000;
+      border-bottom: 1px solid #000;
+      padding-bottom: 5px;
+      padding-top: 5px;
+    }
+    /* make menu-content the positioning context for the overlay
+       so the overlay's height follows the whole scrollable content */
+    #menu-content {
+      position: relative;
+      transition: filter 0.5s;
+    }
+
+    /* overlay that covers the entire menu content height (and will scroll with it) */
+    #menu-content .menu-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100%;                /* match full content height */
+      background: rgba(0,0,0,0.90);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1s;
+      z-index: 100;
+    }
+
+    /* show overlay when menu-section has overlay-active */
+    #menu-section.overlay-active #menu-content .menu-overlay {
+      opacity: 1;
+    }
+
+    /* keep greyscale rule intact */
+    #menu-section.overlay-active #menu-content {
+      filter: grayscale(1);
+    }
+
+    /* Custom scrollbar for #menu-section */
+    #menu-section::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+
+    #menu-section::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.15); /* transparent white */
+      border-radius: 4px;
+    }
+
+    #menu-section::-webkit-scrollbar-button {
+      display: none; /* hides arrows */
+    }
+
+    /* For Firefox */
+    #menu-section {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+    }
+
+    #channel-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .channel-item {
+      padding: 12px 8px;
+      /* border: 1px solid #000; */
+      border-radius: 6px;
+      background: rgba(0,0,0,0.0);
+      cursor: pointer;
+      text-align: center;
+      font-size: 1em;
+      min-height: 120px;           /* Set a fixed minimum height */
+      height: 120px;               /* Set a fixed height for all tiles */
+      display: flex;
+      flex-direction: column;      /* Stack logo and title vertically */
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      /* color: #fff; */
+      font-family: 'OumaBold', sans-serif;
+      /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
+    }
+    .channel-item:hover {
+      /* border: 1px solid #FFF; */
+      /* box-shadow: 0px 0px 10px 5px rgba(235, 190, 255, 0.882);*/
+      box-shadow: rgba(26, 175, 238, 0.615) 0px 10px 70px 4px, rgba(231, 230, 232, 0.4) 0px -3px 20px 4px; 
+      transform: scale(1.12);
+      /* color: #fff; */
+    }
+    .channel-item.active {
+      border: 1px solid #444;
+    }
+
+    h2, #current-channel-name {
+      font-family: 'OumaBold', sans-serif;
+      font-size: 1.2em;
+    }
+
+    .channel-item img {
+      width: 100%;
+      max-width: 100%;
+      max-height: 60px;
+      height: auto;
+      display: block;
+      margin: 0 auto 6px auto;
+      object-fit: contain;
+    }
+
+    body.hide-cursor {
+      cursor: none !important;
+    }
+
+    /* Ensure children (tiles, buttons, svgs, inputs, etc.) also hide the cursor.
+       This overrides .channel-item { cursor: pointer } while hide-cursor is active. */
+    body.hide-cursor,
+    body.hide-cursor * {
+      cursor: none !important;
+    }
+    body.hide-cursor .keep-cursor { cursor: default !important; }
+
+    /* Loading / splash video */
+    #loading-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 9999;
+      background: #000;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      pointer-events: none; /* allow clicks through if needed */
+    }
+
+    /* Overlay to cover the injected top-right icon inside cross-origin iframe players (e.g. directfr).
+       Adjust top/right/width/height if positioning needs fine-tuning. */
+    #player-container .iframe-blocker {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 67px;
+      height: 40px;
+      background: #000;     /* match player background so the icon is visually hidden */
+      z-index: 9999;        /* above the iframe */
+      pointer-events: auto; /* capture clicks so the icon can't be interacted with */
+    }
+
+    /* Server indicators */
+    #server-indicators {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-right: 4px;
+    }
+    #server-indicators .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #222;
+      cursor: pointer;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    #server-indicators .indicator.active {
+      background: #29c742;
+      box-shadow: 0 0 4px #29c742;
+    }
+    #server-indicators .indicator:hover {
+      transform: scale(1.3);
+    }
+
+    /* Inactivity dim (when channel menu overlay shows) */
+    body.overlay-dim #server-indicators .indicator {
+      background: #444;
+      box-shadow: none;
+      filter: grayscale(1) brightness(.75);
+    }
+    body.overlay-dim #server-indicators .indicator.active {
+      background: #666;
+    }
+
+    /* Volume OSD */
+    #volume-osd {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-family: 'OumaBold', sans-serif;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      letter-spacing: .5px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+      z-index: 5000;
+    }
+    #volume-osd.show {
+      opacity: 1;
+    }
+
+    /* MOBILE: fixed player, scrolling channel list */
+    @media (max-width: 900px) {
+      :root { --player-mobile-h: 46vh; }
+
+      html, body {
+        height: 100vh;
+        overflow: hidden;          /* prevent body scroll */
+      }
+      #app-wrapper, #main-layout {
+        height: 100vh;
+        overflow: hidden;
+      }
+      #main-layout {
+        flex-direction: column;
+      }
+      #player-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--player-mobile-h);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        background: #000;
+      }
+      #controls {
+        position: sticky;        /* stays inside fixed player */
+        top: 0;
+        z-index: 1001;
+        flex: 0 0 auto;
+      }
+      #player-container {
+        flex: 1 1 auto;
+        height: auto;
+      }
+      #menu-section {
+        position: relative;
+        width: 100%;
+        margin-top: var(--player-mobile-h);          /* push below fixed player */
+        height: calc(100vh - var(--player-mobile-h));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        border-left: none;
+        border-top: 1px solid #000;
+      }
+      #channel-list {
+        grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+        padding-bottom: 40px;
+      }
+
+      #controls img {
+        margin: 0 auto 0 auto !important;
+        display: block !important;
+        height: 32px;
+      }
+      #controls > div:first-child {
+        justify-content: center !important;
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    /* === Access Overlay (SHA256 + localStorage) === */
+    #access-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+      background: rgba(0,0,0,0.94);
+      z-index: 10000;
+      font-family: 'OumaBold', sans-serif;
+      color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+    #access-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #access-message {
+      text-align: center;
+      font-size: 2.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      letter-spacing: .6px;
+    }
+    #access-message .lock-emoji {
+      font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla","EmojiOne Color",system-ui,sans-serif;
+      font-size:5rem;
+      line-height:1;
+    }
+
+    /* Reposition/minimize unlock control (bottom-right, subtle) */
+    #access-overlay-unlock {
+      position: fixed;
+      bottom: 14px;
+      right: 16px;
+      flex-direction: row;
+      gap: 6px;
+      min-width: unset;
+      background: transparent;
+      align-items: center;
+      padding: 0;
+    }
+    #access-overlay-unlock-btn {
+      padding: 4px 8px;
+      font-size: 0.70rem;
+      line-height: 1;
+      background: rgba(150,80,154,0.4);
+      border: 1px solid #784379;
+      border-radius: 4px;
+      color: #fff;
+      opacity: 0.55;
+      transition: opacity .25s, background .25s, transform .25s;
+    }
+    #access-overlay-unlock-btn:hover,
+    #access-overlay-unlock-btn:focus {
+      opacity: 0.9;
+      background: rgba(150,80,154,0.65);
+      transform: translateY(-1px);
+    }
+    /* Compact password input beside the small button */
+    #access-overlay-password {
+      padding: 6px 8px;
+      font-size: 0.65rem;
+      width: 110px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid #444;
+      border-radius: 4px;
+      display: none; /* HIDDEN until first button click */
+    }
+    #access-overlay-password.active {
+      display: inline-block;
+    }
+    #access-overlay .error {
+      position: fixed;
+      bottom: 46px;
+      right: 16px;
+      font-size: 0.60rem;
+      background: rgba(0,0,0,0.75);
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: none; /* HIDDEN by default */
+    }
+    #access-overlay .error.show {
+      display: inline-block;
+    }
+
+    /* Fullscreen only the media element (video or iframe), not the controls bar */
+    #player-video:fullscreen,
+    #player-iframe:fullscreen,
+    #player-video:-webkit-full-screen,
+    #player-iframe:-webkit-full-screen {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      object-fit: contain;
+    }
+
+    /* Mobile player actions bar (hidden desktop) */
+    #mobile-player-actions {
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      background: #000;
+      display: none; /* shown only on mobile via JS */
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 25px 0 15px 0px;
+      /*border-bottom: 1px solid #111; */
+    }
+    .mobile-actions-left {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      align-items: center;
+    }
+    .mobile-actions-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+      align-items: center;
+    }
+
+    /* Add or update these styles in your <style> block */
+
+    #desktop-player-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* <-- ensures left and right are at edges */
+      width: 100%;
+    }
+
+    .desktop-actions-left {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .desktop-actions-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+      align-items: center;
+      margin-left: auto; /* <-- pushes it to the right */
+    }
+  </style>
+</head>
+<body>
+<div id="app-wrapper">
+  <!-- loading splash video (plays once then removed) -->
+  <script>
+  // Detect mobile device (basic check)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const loadingSrc = isMobile ? 'assets/loading_mobile.mp4' : 'assets/loading_desktop.mp4';
+  document.write(
+    `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto"></video>`
+  );
+  </script>
+
+  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
+  <div id="access-overlay">
+    <div id="access-message">
+      <div class="lock-emoji">🔒</div>
+      <div>Website Locked!</div>
+    </div>
+    <div id="access-overlay-unlock">
+      <!-- Blank button (first click reveals input, second attempts unlock) -->
+      <button id="access-overlay-unlock-btn" aria-label="Unlock"></button>
+      <input type="password" id="access-overlay-password" placeholder="" />
+      <span class="error" id="access-overlay-error">Incorrect password</span>
+    </div>
+  </div>
+
+  <div id="main-layout">
+    <div id="player-section">
+      <div id="controls">
+        <div style="display:flex; align-items:center; flex:1;">
+          <img src="assets/ateaish_sport_blanc_150ppi.png" alt="ateaish Sport" style="height:32px; margin-right:16px;">
+        </div>
+        <div style="flex:2; text-align:center;">
+          <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:none ;"></div> <!-- display: inline-block -->
+        </div>
+        
+      </div>
+      <div id="player-container">
+        <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
+        <video id="player-video" controls autoplay playsinline></video>
+        <div id="volume-osd"></div>
+      </div>
+    </div>
+    <div id="menu-section">
+      <!-- Move h2 here, outside #menu-content -->
+      <h2 style="color:white; margin:0px; align-items: center; justify-content: space-between;" id="menu-header">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
+          <button id="sports-toggle-btn" title="Show only Sports channels"
+            style="background: none; border: none; cursor: pointer; padding: 0; display:none;">
+            <span id="sports-toggle-icon" class="keep-cursor">
+              <!-- Default: toggle-off SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#66c8f3" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+              </svg>
+            </span>
+          </button>
+          <div style="display:flex; align-items:center; flex:1; justify-content:flex-end; gap:4px;" id="desktop-player-actions">
+            <button id="fullscreen-btn" title="Toggle fullscreen">
+              <svg fill="#333" height="14px" width="14px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384.97 384.97" xml:space="preserve">
+                <g>
+                  <g id="Fullscreen_1_">
+                    <path d="M372.939,216.545c-6.123,0-12.03,5.269-12.03,12.03v132.333H24.061V24.061h132.333c6.388,0,12.03-5.642,12.03-12.03
+                      S162.409,0,156.394,0H24.061C10.767,0,0,10.767,0,24.061v336.848c0,13.293,10.767,24.061,24.061,24.061h336.848
+                      c13.293,0,24.061-10.767,24.061-24.061V228.395C384.97,221.731,380.085,216.545,372.939,216.545z"/>
+                    <path d="M372.939,0H252.636c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h91.382L99.635,268.432
+                      c-4.668,4.668-4.668,12.235,0,16.903c4.668,4.668,12.235,4.668,16.891,0L360.909,40.951v91.382c0,6.641,5.39,12.03,12.03,12.03
+                      s12.03-5.39,12.03-12.03V12.03l0,0C384.97,5.558,379.412,0,372.939,0z"/>
+                  </g><g></g><g></g><g></g><g></g>
+                  <g></g><g></g>
+                </g>
+                </svg>
+            </button>
+        
+            <button id="switch-server-btn" title="Switch server">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="#333" class="bi bi-cloud" viewBox="0 0 16 16">
+                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+              </svg>
+            </button>
+            
+            <div id="server-indicators"></div>
+          </div>
+        </div>
+        <div style=" margin-left:auto;">
+          <select id="country-select"
+            style="
+ display: none;
+              font-family: 'OumaLight', sans-serif;
+              background-color: #000;
+              color: #FFF;
+              border: 1px solid transparent;
+              border-radius: 4px;
+              padding: 5px 12px;
+              cursor: pointer;
+              font-size: 1em;
+              min-width: 110px;
+              margin-right: 4px;
+              margin-left: 4px;
+              border-right: 15px solid transparent;
+            ">
+            <option value="France" selected>France</option>
+            <option value="UK">UK</option>
+            <!-- Add more countries as needed -->
+          </select>
+        </div>
+      </h2>
+
+      <!-- MOVE THIS BAR HERE -->
+      <div id="mobile-player-actions"></div>
+
+      <div id="menu-content">
+        <div class="menu-overlay"></div>
+        
+        <div id="channel-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+/*
+  Hard kill playerjs DEBUG logging to stop RAM blow-up.
+  - Replaces DEBUG.log with no-op
+  - Replaces history with a tiny ring buffer (size=0 by default)
+  - Strips message/event tracking arrays if present
+  - Watches for late creation up to 2 minutes
+*/
+(function killPlayerJsDebug(){
+  const MAX_HISTORY = 0;          // set >0 if you want a few recent entries
+  const SCAN_INTERVAL_MS = 1500;
+  const STOP_AFTER_MS = 120000;   // 2 min safety
+  let applied = false;
+  let scanCount = 0;
+  const seenObjs = new WeakSet();
+
+  function nullArray(arr){
+    if (!arr) return;
+    // Replace with new minimal array so old large array can GC
+    try {
+      const tiny = [];
+      if (MAX_HISTORY > 0) tiny.max = MAX_HISTORY;
+      // Overwrite in place (some code may hold ref)
+      arr.length = 0;
+      // Return new tiny for property replacement
+      return tiny;
+    } catch(_) {}
+  }
+
+  function neuterDebug(dbg){
+    if (!dbg || seenObjs.has(dbg)) return false;
+    seenObjs.add(dbg);
+
+    // Kill log function
+    try {
+      dbg.__originalLog = dbg.log;
+      dbg.log = function(){};
+    } catch(_) {}
+
+    // History handling (various libs use dbg.log.history or dbg.history)
+    const histCandidates = [
+      dbg.history,
+      dbg.log && dbg.log.history,
+      dbg.LOGS,
+      dbg.messages
+    ].filter(Boolean);
+
+    histCandidates.forEach(h => {
+      const tiny = nullArray(h);
+      // Try to sever mutation methods
+      try {
+        Object.keys(h).forEach(k => { delete h[k]; });
+      } catch(_) {}
+      ['push','unshift','splice','concat'].forEach(fn=>{
+        try {
+          h[fn] = function(){ return fn==='concat' ? [] : 0; };
+        } catch(_) {}
+      });
+      // Replace property if common paths
+      if (dbg.history === h) try { dbg.history = tiny || []; } catch(_) {}
+      if (dbg.log && dbg.log.history === h) try { dbg.log.history = tiny || []; } catch(_) {}
+      if (dbg.LOGS === h) try { dbg.LOGS = tiny || []; } catch(_) {}
+      if (dbg.messages === h) try { dbg.messages = tiny || []; } catch(_) {}
+    });
+
+    // Remove debug-only postMessage listeners (best-effort)
+    try {
+      // If library saved a reference like dbg.listener
+      if (dbg.listener && window.removeEventListener) {
+        window.removeEventListener('message', dbg.listener);
+      }
+    } catch(_) {}
+
+    // Flag
+    dbg.__RAM_PATCH_APPLIED = true;
+    console.info('[playerjs-debug] logging disabled to prevent memory growth');
+    applied = true;
+    return true;
+  }
+
+  function scan() {
+    scanCount++;
+    const candidates = [
+      window.playerjs && window.playerjs.DEBUG,
+      window.DEBUG,
+      window.playerjs && window.playerjs.debug,
+      window.playerjs && window.playerjs._debug
+    ].filter(Boolean);
+
+    candidates.forEach(neuterDebug);
+
+    if (!applied && scanCount * SCAN_INTERVAL_MS < STOP_AFTER_MS) {
+      setTimeout(scan, SCAN_INTERVAL_MS);
+    }
+  }
+
+  // Immediate + periodic scan
+  scan();
+
+  // Failsafe: if a new script defines DEBUG later via defineProperty
+  const origDefine = Object.defineProperty;
+  Object.defineProperty = function(o, p, d) {
+    try {
+      const res = origDefine.apply(this, arguments);
+      if ((p === 'DEBUG' || p === 'debug') && /player/i.test((o && o.constructor && o.constructor.name) || '')) {
+        setTimeout(scan, 50);
+      }
+      return res;
+    } catch(e) {
+      return origDefine.apply(this, arguments);
+    }
+  };
+
+  // Optional: expose manual purge
+  window.purgePlayerDebug = function(){
+    let reclaimed = 0;
+    const dbg = (window.playerjs && window.playerjs.DEBUG) || window.DEBUG;
+    if (dbg) {
+      ['history','messages','LOGS'].forEach(k=>{
+        if (Array.isArray(dbg[k]) && dbg[k].length) {
+          reclaimed += dbg[k].length;
+          dbg[k].length = 0;
+        }
+      });
+      if (dbg.log && Array.isArray(dbg.log.history)) {
+        reclaimed += dbg.log.history.length;
+        dbg.log.history.length = 0;
+      }
+      console.info('[playerjs-debug] purged entries:', reclaimed);
+    }
+  };
+
+  // (Chrome only) lightweight periodic memory sample
+  if (performance && performance.memory) {
+    setInterval(()=>{
+      const m = performance.memory;
+      console.info('[mem]', (m.usedJSHeapSize/1048576).toFixed(1)+'MB',
+                             '/', (m.totalJSHeapSize/1048576).toFixed(1)+'MB');
+    }, 15000);
+  }
+})();
+</script>
+<script>
+  const controls = document.getElementById('controls');
+  const playerIframe = document.getElementById('player-iframe');
+  let playerVideo = document.getElementById('player-video');
+  const playerContainer = document.getElementById('player-container'); // added
+  const witvBaseUrl = 'https://witv.soccer/player/playerjs/witv-player.php?id=';
+  const tutvliveBaseUrl = 'https://tutvlive.ru/player/';
+  const directfrBaseUrl = 'https://directfr.lat/player/player.php?id=';
+
+  const fullscreenBtn = document.getElementById('fullscreen-btn') || null;
+  const switchServerBtn = document.getElementById('switch-server-btn');
+  const countrySelect = document.getElementById('country-select');
+  const mobileActionsBar = document.getElementById('mobile-player-actions');
+
+  let channels = [];
+  let player;
+  let currentChannelIndex = 0;
+  let currentFlattenedIndex = 0;
+  let flattenedSources = [];
+
+  let m3u8Timeout = null;
+  let m3u8Tried = false;
+  let bufferCleanupInterval = null;
+
+  // HLS / DASH tuning constants (retuned for smoother playback + low RAM)
+  // Back buffer kept small to reduce memory, forward buffer moderately larger for stability.
+  const HLS_BACK_BUFFER_SECONDS = 12;   // how much history to retain (lower = less RAM)
+  const HLS_MAX_BUFFER_LENGTH = 75;     // target forward buffer (was 60)
+  const HLS_MAX_MAX_BUFFER_LENGTH = 140; // absolute cap (was 120)
+  const HLS_INITIAL_BUFFER_LENGTH = 30; // initial cap before adaptive growth
+  const HLS_MAX_BUFFER_SIZE_BYTES = 55 * 1000 * 1000; // ~55MB safety cap
+
+  // If you want to be defensive (avoid redefinition), you could wrap:
+  // window.HLS_BACK_BUFFER_SECONDS ??= 30;
+
+  // ADD: playback helper state & functions
+  let hlsInstance = null;
+  let dashPlayer = null;
+
+  function cleanupPlayers() {
+    if (m3u8Timeout) { clearTimeout(m3u8Timeout); m3u8Timeout = null; }
+    if (bufferCleanupInterval) { clearInterval(bufferCleanupInterval); bufferCleanupInterval = null; }
+
+    // HLS
+    if (hlsInstance) {
+      try { hlsInstance.destroy(); } catch(_) {}
+      hlsInstance = null;
+    }
+    // DASH
+    if (dashPlayer) {
+      try { dashPlayer.reset(); } catch(_) {}
+      dashPlayer = null;
+    }
+    // HTML5 video
+    if (playerVideo) {
+      try {
+        playerVideo.pause();
+        playerVideo.removeAttribute('src');
+        playerVideo.load();
+      } catch(_) {}
+      playerVideo.classList.remove('active');
+      playerVideo.style.display = 'none';
+    }
+    // Iframe
+    if (playerIframe) {
+      playerIframe.classList.remove('active');
+      playerIframe.style.display = 'none';
+      // Stop previous iframe stream (blank it)
+      try { playerIframe.src = 'about:blank'; } catch(_) {}
+    }
+    player = null;
+  }
+
+  function addPlayerListeners() {
+    // Optional placeholder for uniform interface
+    // Extend if you need events (play/pause/error) later.
+  }
+
+  function initHls(url) {
+    cleanupStreamOnly('hls');
+    const cfg = {
+      backBufferLength: HLS_BACK_BUFFER_SECONDS,
+      maxBufferLength: HLS_INITIAL_BUFFER_LENGTH,
+      maxMaxBufferLength: HLS_MAX_MAX_BUFFER_LENGTH,
+      maxBufferSize: HLS_MAX_BUFFER_SIZE_BYTES,
+      liveSyncDuration: 4,
+      liveMaxLatencyDuration: 18,
+      liveDurationInfinity: true,
+      enableWorker: true,
+      lowLatencyMode: false,
+      fragLoadingTimeOut: 20000,
+      manifestLoadingTimeOut: 15000
+    };
+    hlsInstance = new Hls(cfg);
+
+    let stallCount = 0;
+
+    function attemptAutoplay(retryDelay = 600, retries = 3) {
+      const p = playerVideo.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          if (retries > 0) {
+            setTimeout(() => attemptAutoplay(retryDelay, retries - 1), retryDelay);
+          }
+        });
+      }
+    }
+
+    function disableAllTextTracks() {
+      if (!playerVideo || !playerVideo.textTracks) return;
+      for (const track of playerVideo.textTracks) {
+        track.mode = 'disabled';
+      }
+    }
+
+    hlsInstance.on(Hls.Events.LEVEL_LOADED, () => {
+      if (hlsInstance.config.maxBufferLength < HLS_MAX_BUFFER_LENGTH) {
+        hlsInstance.config.maxBufferLength = HLS_MAX_BUFFER_LENGTH;
+      }
+    });
+
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+      // Disable Hls.js subtitle tracks if any
+      try {
+        if (hlsInstance.subtitleTracks && hlsInstance.subtitleTracks.length) {
+          hlsInstance.subtitleTrack = -1; // no subtitle
+        }
+      } catch(_) {}
+      // Also disable any native text tracks
+      disableAllTextTracks();
+      attemptAutoplay();
+    });
+
+    hlsInstance.on(Hls.Events.BUFFER_STALLED, () => {
+      stallCount++;
+      if (stallCount <= 4) {
+        const cur = hlsInstance.config.maxBufferLength;
+        const next = Math.min(cur + 10, HLS_MAX_MAX_BUFFER_LENGTH);
+        hlsInstance.config.maxBufferLength = next;
+      }
+    });
+
+    hlsInstance.on(Hls.Events.ERROR, (_, data) => {
+      if (data.fatal) {
+        switch (data.type) {
+          case Hls.ErrorTypes.NETWORK_ERROR:
+            hlsInstance.startLoad();
+            break;
+          case Hls.ErrorTypes.MEDIA_ERROR:
+            hlsInstance.recoverMediaError();
+            break;
+          default:
+            tryNextSource();
+        }
+      }
+    });
+
+    hlsInstance.loadSource(url);
+    hlsInstance.attachMedia(playerVideo);
+    // Early attempt before manifest (some browsers allow it)
+    attemptAutoplay(800, 2);
+  }
+
+  function initDash(url) {
+    if (dashPlayer) { try { dashPlayer.reset(); } catch(_) {} dashPlayer = null; }
+    dashPlayer = dashjs.MediaPlayer().create();
+    dashPlayer.updateSettings({
+      'streaming': {
+        'fastSwitchEnabled': true,
+        'abr': {
+          'autoSwitchBitrate': { 'video': true },
+          'limitBitrateByPortal': true,
+          'initialBitrate': { 'video': 2800 }
+        },
+        'buffer': {
+          // Stable forward buffer; dash.js internally evicts behind current time.
+          'stableBufferTime': 22,
+          'bufferTimeAtTopQuality': 32,
+          'bufferToKeep': 12   // back buffer retention (smaller = lower RAM)
+        },
+        'liveDelay': 6
+      }
+    });
+    dashPlayer.initialize(playerVideo, url, true);
+  }
+
+  function cleanupStreamOnly(type) {
+    if (type === 'hls' && hlsInstance) {
+      try { hlsInstance.destroy(); } catch(_) {}
+      hlsInstance = null;
+    }
+    if (type === 'dash' && dashPlayer) {
+      try { dashPlayer.reset(); } catch(_) {}
+      dashPlayer = null;
+    }
+  }
+
+  fetch('channels/Sports.json')
+    .then(response => response.json())
+    .then(data => {
+      channels = data;
+      populateChannelList();
+      updatePlayer(currentChannelIndex);
+      player = new playerjs.Player(playerIframe);
+      addPlayerListeners();
+    });
+
+  // Dynamically populate country menu from channels folder
+  function populateCountryMenu() {
+    fetch('channels/index.json')
+      .then(response => response.json())
+      .then(files => {
+        // files should be an array of filenames like ["France.json", "Germany.json", ...]
+        countrySelect.innerHTML = '';
+        files.forEach(file => {
+          const country = file.replace('.json', '');
+          const option = document.createElement('option');
+          option.value = country;
+          option.textContent = country;
+          if (country === 'France') option.selected = true;
+          countrySelect.appendChild(option);
+        });
+      });
+  }
+
+  // Call this on page load
+  populateCountryMenu();
+
+  countrySelect.addEventListener('change', (event) => {
+    const country = event.target.value;
+    fetch(`channels/${country}.json`)
+      .then(response => response.json())
+      .then(data => {
+        channels = data;
+        currentChannelIndex = 0;
+        populateChannelList();
+        updatePlayer(currentChannelIndex);
+      });
+  });
+
+  function sanitizeChannelName(name) {
+    // Remove accents, replace spaces and special chars for file path
+    return name
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+      .replace(/[^a-zA-Z0-9]/g, "_"); // replace non-alphanum with _
+  }
+
+  // --- Sports toggle logic ---
+  let sportsOnly = false;
+  const sportsToggleBtn = document.getElementById('sports-toggle-btn');
+  const sportsToggleIcon = document.getElementById('sports-toggle-icon');
+
+  // NEW: robust sports detector
+  function isSportsChannel(channel) {
+    const candidates = [];
+
+    // Collect possible fields
+    if (channel.category !== undefined) candidates.push(channel.category);
+    if (channel.categories !== undefined) candidates.push(channel.categories);
+    if (channel.genre !== undefined) candidates.push(channel.genre);
+    if (channel.genres !== undefined) candidates.push(channel.genres);
+    if (channel.tags !== undefined) candidates.push(channel.tags);
+
+    // Flatten & normalize
+    const tokens = [];
+    candidates.forEach(entry => {
+      if (entry == null) return;
+      if (Array.isArray(entry)) {
+        entry.forEach(v => {
+          if (v == null) return;
+            // Support objects like { name: "Sports" }
+            if (typeof v === 'object') {
+              if (v.name) tokens.push(String(v.name));
+            } else {
+              tokens.push(String(v));
+            }
+        });
+      } else if (typeof entry === 'object') {
+        // Object with name
+        if (entry.name) tokens.push(String(entry.name));
+      } else if (typeof entry === 'string') {
+        // Split on common delimiters
+        entry.split(/[,;/|]/).forEach(part => tokens.push(part));
+      } else {
+        tokens.push(String(entry));
+      }
+    });
+
+    const normalized = tokens
+      .map(t => t.toLowerCase().trim())
+      .filter(Boolean);
+
+    // Direct exact matches
+    if (normalized.some(t => t === 'sport' || t === 'sports')) return true;
+
+    // Substring fallback (avoid false positives like "Esports" unless you want it)
+    if (normalized.some(t => /\bsports?\b/.test(t))) return true;
+
+    return false;
+  }
+
+  function updateSportsToggleIcon() {
+    sportsToggleIcon.innerHTML = sportsOnly
+      ? `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#66c8f3" class="bi bi-toggle-on" viewBox="0 0 16 16">
+          <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
+        </svg>`
+      : `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#66c8f3" class="bi bi-toggle-off" viewBox="0 0 16 16">
+          <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+        </svg>`;
+  }
+
+  sportsToggleBtn.addEventListener('click', () => {
+    sportsOnly = !sportsOnly;
+    updateSportsToggleIcon();
+    populateChannelList();
+  });
+
+  function populateChannelList() {
+    const channelList = document.getElementById('channel-list');
+    channelList.innerHTML = '';
+    let filteredChannels = channels;
+    if (sportsOnly) {
+      filteredChannels = channels.filter(isSportsChannel);
+    }
+    filteredChannels.forEach((channel, index) => {
+      const div = document.createElement('div');
+      div.className = 'channel-item';
+
+      // highlight the currently playing channel
+      if (channels.indexOf(channel) === currentChannelIndex) {
+        div.classList.add('active');
+      }
+      div.onclick = () => {
+        const realIndex = channels.indexOf(channel);
+        updatePlayer(realIndex);
+      };
+
+      const logoPath = channel.logo
+        ? channel.logo
+        : `/logos/${sanitizeChannelName(channel.name)}.png`;
+
+      if (channel.logo || logoPath.endsWith('.png')) {
+        const img = document.createElement('img');
+        img.src = logoPath;
+        img.alt = channel.name + " logo";
+        img.style.maxWidth = "95px";
+        img.style.maxHeight = "60px";
+        img.style.display = "block";
+        img.style.margin = "0 auto 6px auto";
+        img.onerror = function() {
+          this.style.display = "none";
+          if (!div.querySelector('.channel-title')) {
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = channel.name;
+            nameDiv.className = 'channel-title';
+            nameDiv.style.fontSize = "0.95em";
+            nameDiv.style.wordBreak = "break-word";
+            div.appendChild(nameDiv);
+          }
+        };
+        div.appendChild(img);
+      }
+
+      if (!channel.logo && (!logoPath || logoPath === '/logos/undefined.png')) {
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = channel.name;
+        nameDiv.className = 'channel-title';
+        nameDiv.style.fontSize = "0.95em";
+        nameDiv.style.wordBreak = "break-word";
+        div.appendChild(nameDiv);
+      }
+
+      channelList.appendChild(div);
+    });
+  }
+
+  // Build flattened list of all playable links for a channel
+  function flattenSources(channel) {
+    const flat = [];
+    if (!channel || !Array.isArray(channel.sources)) return flat;
+    channel.sources.forEach(src => {
+      if (Array.isArray(src.servers) && src.servers.length > 0) {
+        src.servers.forEach((_, idx) => {
+          flat.push({ source: src, serverIdx: idx, type: src.type });
+        });
+      } else {
+        flat.push({ source: src, serverIdx: 0, type: src.type });
+      }
+    });
+    return flat;
+  }
+
+  const serverIndicators = document.getElementById('server-indicators');
+
+  function updateServerIndicators() {
+    serverIndicators.innerHTML = '';
+    if (!flattenedSources || flattenedSources.length < 2) {
+      serverIndicators.style.display = 'none';
+      // Ensure relocation still runs (may need to hide bar if empty)
+      relocatePlayerActions();
+      return;
+    }
+    serverIndicators.style.display = 'flex';
+    flattenedSources.forEach((entry, idx) => {
+      const dot = document.createElement('span');
+      dot.className = 'indicator' + (idx === currentFlattenedIndex ? ' active' : '');
+      dot.title = `Link ${idx + 1} (${entry.type}${entry.source.servers && entry.source.servers.length > 1 ? ' S'+(entry.serverIdx+1) : ''})`;
+      dot.addEventListener('click', () => {
+        if (idx === currentFlattenedIndex) return;
+        playFlattenedIndex(idx);
+      });
+      serverIndicators.appendChild(dot);
+    });
+    relocatePlayerActions();
+  }
+
+  function cycleNextFlattened() {
+    if (!flattenedSources.length) return;
+    const next = (currentFlattenedIndex + 1) % flattenedSources.length;
+    playFlattenedIndex(next);
+  }
+
+  // Replace old tryNextSource with flattened fallback
+  function tryNextSource() {
+    cycleNextFlattened();
+  }
+
+  function playFlattenedIndex(flatIndex) {
+    currentFlattenedIndex = flatIndex;
+    const entry = flattenedSources[flatIndex];
+    if (!entry) return;
+    const { source, serverIdx, type } = entry;
+    playSourceObject(source, type, serverIdx);
+    updateServerIndicators();
+  }
+
+  // Main channel load (rebuild flattened list then play first or keep index if possible)
+  function updatePlayer(channelIndex, preservedFlatIndex = 0) {
+    currentChannelIndex = channelIndex;
+    const channel = channels[currentChannelIndex];
+    document.getElementById('current-channel-name').textContent = channel ? channel.name : '';
+    if (!channel) return;
+
+    flattenedSources = flattenSources(channel);
+    if (!flattenedSources.length) return;
+
+    // Clamp preserved index
+    if (preservedFlatIndex >= flattenedSources.length) preservedFlatIndex = 0;
+    playFlattenedIndex(preservedFlatIndex);
+    populateChannelList(); // keep highlighting logic consistent
+  }
+
+  // Core playback logic (adapted from previous branches)
+  function playSourceObject(source, sourceType, serverIdx = 0) {
+    cleanupPlayers();
+
+    let url;
+    if (sourceType === 'iframe') {
+      url = source.url;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      player = { play:()=>{}, pause:()=>{}, getPaused:cb=>cb(false), mute:()=>{}, unmute:()=>{}, getMuted:cb=>cb(false) };
+      addPlayerListeners();
+    } else if (sourceType === 'witv') {
+      url = witvBaseUrl + source.id;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+        player.play(); player.unmute();
+      }, 500);
+    } else if (sourceType === 'tutvlive') {
+      const server = (source.servers && source.servers[serverIdx]) || (source.servers && source.servers[0]);
+      url = `${tutvliveBaseUrl}${server}/${source.id}`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+        player.play(); player.unmute();
+      }, 500);
+    } else if (sourceType === 'm3u8') {
+      url = source.url || source;
+      playerVideo.classList.add('active');
+      playerVideo.style.display = 'block';
+      if (Hls.isSupported()) {
+        initHls(url);
+      } else if (playerVideo.canPlayType('application/vnd.apple.mpegurl')) {
+        playerVideo.src = url;
+        // Disable native (Safari) text tracks once metadata is ready
+        playerVideo.addEventListener('loadedmetadata', () => {
+          if (playerVideo.textTracks) {
+            for (const t of playerVideo.textTracks) t.mode = 'disabled';
+          }
+          playerVideo.play().catch(()=>{ setTimeout(()=>playerVideo.play().catch(()=>{}), 600); });
+        }, { once: true });
+        // Fallback immediate attempt + proactive track disable (in case tracks already present)
+        if (playerVideo.textTracks) {
+          for (const t of playerVideo.textTracks) t.mode = 'disabled';
+        }
+        playerVideo.play().catch(()=>{ setTimeout(()=>playerVideo.play().catch(()=>{}), 600); });
+      }
+      m3u8Timeout = setTimeout(() => {
+        if (playerVideo.paused && !m3u8Tried) {
+          m3u8Tried = true;
+          tryNextSource();
+        }
+      }, 10000);
+      player = {
+        play: () => playerVideo.play(),
+        pause: () => playerVideo.pause(),
+        getPaused: cb => cb(playerVideo.paused),
+        mute: () => { playerVideo.muted = true; },
+        unmute: () => { playerVideo.muted = false; },
+        getMuted: cb => cb(playerVideo.muted)
+      };
+      addPlayerListeners();
+      player.unmute();
+    } else if (sourceType === 'mpd') {
+      url = source.url || source;
+      playerVideo.classList.add('active');
+      playerVideo.style.display = 'block';
+      initDash(url);
+      player = {
+        play: () => playerVideo.play(),
+        pause: () => playerVideo.pause(),
+        getPaused: cb => cb(playerVideo.paused),
+        mute: () => { playerVideo.muted = true; },
+        unmute: () => { playerVideo.muted = false; },
+        getMuted: cb => cb(playerVideo.muted)
+      };
+      addPlayerListeners();
+      player.unmute();
+    } else if (sourceType === 'directfr') {
+      url = directfrBaseUrl + source.id;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = url;
+      setTimeout(() => {
+        player = new playerjs.Player(playerIframe);
+        addPlayerListeners();
+        player.play(); player.unmute();
+      }, 500);
+    } else if (sourceType === 'daddylive' && source.channel_id) {
+      const streamUrl = `https://dlhd.dad/stream/stream-${source.channel_id}.php`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      // playerIframe.setAttribute('loading', 'lazy');
+      return;
+    } else if (sourceType === 'youtube' && source.video_id) {
+      const streamUrl = `https://www.youtube.com/embed/${source.video_id}?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      return;
+    } else if (sourceType === 'dailymotion' && source.video_id) {
+      const streamUrl = `https://geo.dailymotion.com/player.html?video=${source.video_id}`; //?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      playerIframe.setAttribute('rel', '0');
+      playerIframe.setAttribute('playsinline', '1');
+      playerIframe.setAttribute('modestbranding', '1');
+      return;
+    }
+
+    // Always show single unified button
+    // switchServerBtn.textContent = 'Switch Server';
+    switchServerBtn.style.display = flattenedSources.length > 1 ? 'inline-block' : 'none';
+  }
+
+  // Button: cycle to next flattened link
+  switchServerBtn.addEventListener('click', () => {
+    cycleNextFlattened();
+  });
+
+  // --- Overlay logic for menu-section ---
+  const menuSection = document.getElementById('menu-section');
+  let overlayTimeout;
+
+  function showMenuOverlay() {
+    menuSection.classList.add('overlay-active');
+    document.body.classList.add('overlay-dim');
+  }
+  function hideMenuOverlay() {
+    menuSection.classList.remove('overlay-active');
+    document.body.classList.remove('overlay-dim');
+  }
+  function resetMenuOverlayTimer() {
+    hideMenuOverlay();
+    if (overlayTimeout) clearTimeout(overlayTimeout);
+    overlayTimeout = setTimeout(showMenuOverlay, 5000);
+  }
+
+  // Controls logic
+  let hideTimeout;
+  function showControls() {
+    controls.classList.remove('hidden');
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      controls.classList.add('hidden');
+      showMenuOverlay();
+    }, 5000);
+    hideMenuOverlay();
+  }
+
+  // Mouse cursor hide logic
+  let cursorTimeout;
+
+  // central setter that toggles both the CSS class and explicit element cursor styles
+  function setCursorHidden(hidden) {
+    document.body.classList.toggle('hide-cursor', hidden);
+    const value = hidden ? 'none' : '';
+    // apply explicit cursor style to elements that can otherwise show it (iframe/video/controls/menu)
+    document.body.style.cursor = value;
+    if (playerIframe) playerIframe.style.cursor = value;
+    if (playerVideo) playerVideo.style.cursor = value;
+    if (controls) controls.style.cursor = value;
+    if (menuSection) menuSection.style.cursor = value;
+    // also try the root element
+    document.documentElement.style.cursor = value;
+  }
+
+  function showCursor() {
+    // show immediately and restart hide timer
+    setCursorHidden(false);
+    if (cursorTimeout) clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(() => {
+      setCursorHidden(true);
+    }, 5000);
+  }
+
+  // Listen for mouse movement to reset all timers
+  document.addEventListener('mousemove', () => {
+    resetMenuOverlayTimer();
+    showControls();
+    showCursor();
+  });
+
+  // Start timers on load
+  resetMenuOverlayTimer();
+  showControls();
+  showCursor();
+
+  /* NEW: treat scroll / touch as user activity (hide overlay while scrolling) */
+  (function addActivityListeners(){
+    let lastActivity = 0;
+    function handleActivity() {
+      const now = performance.now();
+      if (now - lastActivity < 120) return; // throttle
+      lastActivity = now;
+      resetMenuOverlayTimer();
+      showControls();
+      showCursor();
+    }
+    const passive = { passive: true };
+    // Scroll on the channel list
+    menuSection.addEventListener('scroll', handleActivity, passive);
+    // Touch interactions (mobile)
+    document.addEventListener('touchstart', handleActivity, passive);
+    document.addEventListener('touchmove', handleActivity, passive);
+    // Wheel (desktop trackpads)
+    menuSection.addEventListener('wheel', handleActivity, passive);
+    // Keyboard (if user navigates with keys)
+    document.addEventListener('keydown', handleActivity);
+  })();
+
+  // Loading-screen logic: remove the loading video after it plays once
+  (function() {
+    const loadingVideo = document.getElementById('loading-video');
+    if (!loadingVideo) return;
+
+    // Ensure playsInline & muted for autoplay policies
+    loadingVideo.muted = true;
+    loadingVideo.playsInline = true;
+
+    // Try to play (some environments require explicit play())
+    loadingVideo.play().catch(() => { /* ignore autoplay rejection */ });
+
+    function removeLoadingVideo() {
+      if (!loadingVideo.parentNode) return;
+      loadingVideo.style.opacity = '0';
+      setTimeout(() => {
+        if (loadingVideo.parentNode) loadingVideo.parentNode.removeChild(loadingVideo);
+      }, 600);
+    }
+
+    loadingVideo.addEventListener('ended', removeLoadingVideo, { once: true });
+
+    // Fallback: remove after a maximum duration in case 'ended' doesn't fire
+    const MAX_FALLBACK_MS = 30000;
+    setTimeout(() => {
+      if (document.getElementById('loading-video')) removeLoadingVideo();
+    }, MAX_FALLBACK_MS);
+
+    // Optional: allow click to skip the loading video (unobtrusive)
+    loadingVideo.addEventListener('click', removeLoadingVideo);
+  })();
+
+  // --- Fullscreen support (added) ---
+  function isFullscreen() {
+    return !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+  }
+  function requestAnyFullscreen(el) {
+    (el.requestFullscreen ||
+     el.webkitRequestFullscreen ||
+     el.msRequestFullscreen ||
+     el.mozRequestFullScreen)?.call(el);
+  }
+  function exitAnyFullscreen() {
+    (document.exitFullscreen ||
+     document.webkitExitFullscreen ||
+     document.msExitFullscreen ||
+     document.mozCancelFullScreen)?.call(document);
+  }
+  function toggleFullscreen() {
+    const activeEl =
+      playerVideo.classList.contains('active') ? playerVideo :
+      playerIframe.classList.contains('active') ? playerIframe :
+      playerContainer;
+    if (isFullscreen()) {
+      exitAnyFullscreen();
+    } else {
+      requestAnyFullscreen(activeEl);
+    }
+  }
+  // Only bind if button exists (now null)
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
+  function updateFullscreenButton() {
+    if (!fullscreenBtn) return; // no-op (button removed)
+    if (isFullscreen()) {
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
+    } else {
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
+    }
+  }
+  ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange']
+    .forEach(evt => document.addEventListener(evt, updateFullscreenButton));
+
+  // NEW: keyboard shortcut (press "f") to toggle fullscreen
+  document.addEventListener('keydown', e => {
+    if (e.key === 'f' || e.key === 'F') {
+      toggleFullscreen();
+    }
+  });
+
+  /* === Access Overlay Logic (SHA256 + localStorage) === */
+  (function(){
+    const overlay = document.getElementById('access-overlay');
+    const unlockBtn = document.getElementById('access-overlay-unlock-btn');
+    const passwordInput = document.getElementById('access-overlay-password');
+    const errorMsg = document.getElementById('access-overlay-error');
+    const STORAGE_KEY = 'ateaish_tv_access_unlocked';
+    const TARGET_HASH = '564c6c20f643a4e38e665382ce043b6927b4ed55548e9d411296b963668bc56f';
+
+    if (!overlay || !unlockBtn || !passwordInput) return;
+
+    // Ensure hidden state clean
+    errorMsg.classList.remove('show');
+
+    async function sha256(str){
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+
+    function showOverlay() {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+      overlay.classList.add('visible');
+    }
+
+    function hideOverlay() {
+      overlay.classList.remove('visible');
+      overlay.style.pointerEvents = 'none';
+      overlay.style.opacity = 0;
+      overlay.style.visibility = 'hidden';
+    }
+
+    async function attemptUnlock() {
+      if (!passwordInput.value) {
+        errorMsg.classList.add('show');
+        setTimeout(()=>errorMsg.classList.remove('show'), 1500);
+        return;
+      }
+      errorMsg.classList.remove('show');
+      try {
+        const hash = await sha256(passwordInput.value);
+        if (hash === TARGET_HASH) {
+          localStorage.setItem(STORAGE_KEY, '1');
+          hideOverlay();
+        } else {
+          errorMsg.classList.add('show');
+          setTimeout(()=>errorMsg.classList.remove('show'), 2000);
+        }
+      } catch {
+        errorMsg.classList.add('show');
+      }
+    }
+
+    unlockBtn.addEventListener('click', () => {
+      if (!passwordInput.classList.contains('active')) {
+        passwordInput.classList.add('active');
+        passwordInput.focus();
+        return;
+      }
+      attemptUnlock();
+    });
+
+    passwordInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') attemptUnlock();
+    });
+
+    function scheduleOverlay() {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+      setTimeout(showOverlay, 400);
+    }
+
+    const loadingVideo = document.getElementById('loading-video');
+    if (localStorage.getItem(STORAGE_KEY) === '1') {
+      hideOverlay();
+      return;
+    }
+
+    if (loadingVideo) {
+      loadingVideo.addEventListener('ended', scheduleOverlay, { once:true });
+      const obs = new MutationObserver(() => {
+        if (!document.getElementById('loading-video')) {
+          obs.disconnect();
+          scheduleOverlay();
+        }
+      });
+      obs.observe(document.body, { childList:true, subtree:true });
+      setTimeout(() => {
+        if (!overlay.classList.contains('visible')) scheduleOverlay();
+      }, 25000);
+    } else {
+      setTimeout(scheduleOverlay, 300);
+    }
+  })();
+
+  // Lightweight heap watchdog (parent only)
+  setInterval(()=>{
+    if (performance.memory && performance.memory.usedJSHeapSize > 600 * 1024 * 1024) {
+      const ifr = document.getElementById('player-iframe');
+      if (ifr && ifr.src) {
+        const src = ifr.src;
+        // Heuristic: iframes with playerjs in the URL are likely active players
+        if (src.includes('playerjs')) {
+          console.warn('Heap usage high, forcing reload of player iframe:', (performance.memory.usedJSHeapSize/1048576).toFixed(1)+'MB');
+          // Reload iframe to reclaim memory (preserve src)
+          ifr.src = '';
+          setTimeout(() => {
+            ifr.src = src;
+          }, 50);
+        }
+      }
+    }
+  }, 15000);
+
+  function relocatePlayerActions() {
+    const isMobile = window.innerWidth <= 900;
+    const desktopBar = document.getElementById('desktop-player-actions');
+    const mobileBar = document.getElementById('mobile-player-actions');
+    const country = document.getElementById('country-select');
+    const switchServer = document.getElementById('switch-server-btn');
+    const indicators = document.getElementById('server-indicators');
+    const fullscreen = document.getElementById('fullscreen-btn');
+
+    // Mobile containers
+    let left = mobileBar.querySelector('.mobile-actions-left');
+    let right = mobileBar.querySelector('.mobile-actions-right');
+    if (!left) {
+      left = document.createElement('div');
+      left.className = 'mobile-actions-left';
+      left.style.display = 'flex';
+      left.style.gap = '8px';
+      left.style.flex = '1';
+      mobileBar.appendChild(left);
+    }
+    if (!right) {
+      right = document.createElement('div');
+      right.className = 'mobile-actions-right';
+      right.style.display = 'flex';
+      right.style.justifyContent = 'flex-end';
+      right.style.flex = '0 0 auto';
+      mobileBar.appendChild(right);
+    }
+
+    // Desktop containers (add if missing)
+    let dLeft = desktopBar.querySelector('.desktop-actions-left');
+    let dRight = desktopBar.querySelector('.desktop-actions-right');
+    if (!dLeft) {
+      dLeft = document.createElement('div');
+      dLeft.className = 'desktop-actions-left';
+      dLeft.style.display = 'flex';
+      dLeft.style.gap = '2px';
+      dLeft.style.flex = '1';
+      desktopBar.appendChild(dLeft);
+    }
+    if (!dRight) {
+      dRight = document.createElement('div');
+      dRight.className = 'desktop-actions-right';
+      dRight.style.display = 'flex';
+      dRight.style.justifyContent = 'flex-end';
+      dRight.style.flex = '0 0 auto';
+      desktopBar.appendChild(dRight);
+    }
+
+    if (isMobile) {
+      left.innerHTML = '';
+      right.innerHTML = '';
+      [country, switchServer, indicators].forEach(el => { if (el) left.appendChild(el); });
+      if (fullscreen) right.appendChild(fullscreen);
+      mobileBar.style.display = 'flex';
+      desktopBar.style.display = 'none';
+    } else {
+      dLeft.innerHTML = '';
+      dRight.innerHTML = '';
+      if (country) dRight.appendChild(country);
+      [fullscreen, switchServer, indicators].forEach(el => { if (el) dLeft.appendChild(el); });
+      mobileBar.style.display = 'none';
+      desktopBar.style.display = 'flex';
+    }
+  }
+  
+
+  // Call on load and on resize
+  window.addEventListener('resize', relocatePlayerActions);
+  relocatePlayerActions();
+</script>
+</body>
+</html>

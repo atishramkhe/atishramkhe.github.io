@@ -1,0 +1,2611 @@
+[
+ {
+    "name": "France",
+    "sources": [
+
+    ]
+  },
+{
+    "name": "Canal+",
+    "id_api": "CanalPlus.fr",
+    "categories": ["Sports"],
+    "logo": "logos/France/Canal+.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "121"
+      },
+      {
+        "type": "directfr",
+        "id": 40
+      },
+      {
+        "type": "tutvlive",
+        "id": 11,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 106
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Foot",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Canal+ Foot.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "463"
+      },
+      {
+        "type": "directfr",
+        "id": 6
+      },
+      {
+        "type": "tutvlive",
+        "id": 12,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 88
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport",
+    "id_api": "CanalPlusSport.fr",
+    "categories": [],
+    "logo": "logos/France/Canal+ Sport.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "122"
+      },
+      {
+        "type": "directfr",
+        "id": 12
+      },
+      {
+        "type": "tutvlive",
+        "id": 13,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 54
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 360",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Canal+ Sport 360.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "464"
+      }, 
+      {
+        "type": "directfr",
+        "id": 5
+      },
+      {
+        "type": "tutvlive",
+        "id": 14,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 56
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Live 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "271"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Live 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "273"
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 1.png",
+    "sources": [
+     {
+        "type": "daddylive",
+        "channel_id": "772"
+      },
+      {
+        "type": "directfr",
+        "id": 14
+      },
+      {
+        "type": "tutvlive",
+        "id": 15,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 59
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "773"
+      }, 
+      {
+        "type": "directfr",
+        "id": 15
+      },
+      {
+        "type": "tutvlive",
+        "id": 16,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 60
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "119"
+      },
+      {
+        "type": "directfr",
+        "id": 1
+      },
+      {
+        "type": "tutvlive",
+        "id": 17,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 33
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "120"
+      },
+      {
+        "type": "directfr",
+        "id": 2
+      },
+      {
+        "type": "tutvlive",
+        "id": 18,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 40
+      }
+    ]
+  },
+  {
+    "name": "RMC Sport 3",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Sport 3.png",
+    "sources": [
+      {
+        "type": "directfr",
+        "id": 4
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "116"
+      },
+      {
+        "type": "directfr",
+        "id": 8
+      },
+      {
+        "type": "tutvlive",
+        "id": 1,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 44
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "117"
+      },
+      {
+        "type": "directfr",
+        "id": 9
+      },
+      {
+        "type": "tutvlive",
+        "id": 2,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 49
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 3",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 3.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "118"
+      },
+      {
+        "type": "directfr",
+        "id": 11
+      },
+      {
+        "type": "tutvlive",
+        "id": 3,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 4",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 4.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "494"
+      },
+      {
+        "type": "tutvlive",
+        "id": 4,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 5",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 5.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "495"
+      },
+      {
+        "type": "tutvlive",
+        "id": 5,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 6",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 6.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "496"
+      },
+      {
+        "type": "tutvlive",
+        "id": 6,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 7",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 7.png",
+    "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "497"
+      },
+      {
+        "type": "tutvlive",
+        "id": 7,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 8",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 8.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "498"
+      },
+      {
+        "type": "tutvlive",
+        "id": 8,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 9",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 9.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "499"
+      },
+      {
+        "type": "tutvlive",
+        "id": 9,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 10",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/beIN Sports 10.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "500"
+      },
+      {
+        "type": "tutvlive",
+        "id": 10,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/DAZN 1.png",
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 20,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ligue 1+ DAZN 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/DAZN 2.png",
+    "sources": [
+      {
+        "type": "tutvlive",
+        "id": 21,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 151
+      }
+    ]
+  },
+  {
+    "name": "TF1",
+    "id_api": "TF1.fr",
+    "categories": ["General", "Sports"],
+    "logo": "logos/France/TF1.png",
+    "sources": [
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
+      },
+      {
+        "type": "daddylive",
+        "channel_id": "469"
+      },
+      {
+        "type": "directfr",
+        "id": 27
+      },
+      {
+        "type": "witv",
+        "id": 87
+      }
+    ]
+  },
+  {
+    "name": "Sport en France",
+    "id_api": "",
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/sport_en_france.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x8sayn8"
+      }
+    ]
+  },
+  {
+    "name": "La chaine l'Équipe",
+    "id_api": "LEquipe21.fr",
+    "categories": [],
+    "logo": "logos/France/La chaîne L'Équipe.png",
+    "sources": [
+      {
+        "type": "dailymotion",
+        "video_id": "x2lefik"
+      },  
+      {
+        "type": "m3u8",
+        "url": "https://dshn8inoshngm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gac2i63dmu8b7/LEquipe_FR.m3u8"
+      }, 
+      {
+        "type": "daddylive",
+        "channel_id": "645"
+      },
+      {
+        "type": "directfr",
+        "id": 71
+      },
+      {
+        "type": "tutvlive",
+        "id": 19,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 113
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live1",
+    "id_api": "LEquipe.fr@Live1",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d3awaj0f2u3w26.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gy7euubgydp20-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 79
+      }
+    ]
+  },
+  {
+    "name": "L'Equipe Live2",
+    "id_api": "LEquipe.fr@Live2",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/L'équipe.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d2l55nvfkhk4sg.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-jg7go1lqzgpny-ssai-prd/master.m3u8"
+      },
+      {
+        "type": "directfr",
+        "id": 80
+      }
+    ]
+  },
+  {
+    "name": "RMC Info Talk Sport",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/RMC Info Talk Sport.png",
+    "sources": [
+     {
+        "type": "m3u8",
+        "url": "https://live-cdn-rmctspo-lg-fr-euw1.rmc.bct.nextradiotv.com/master.m3u8?position=midroll&content_livestream=1&channel_name=RMCTalkSport_all-LG_smartTV-Fast&content_id=rmc_talk_sport&gdpr=[GDPR]&gdpr_consent=[GDPR_CONSENT]&env=smarttv&device_type=[DEVICE_TYPE]&did=[DEVICE_ID]&userid=[IFA]&ip=[IP]&app_bundle=[APP_BUNDLE]&app_name=[APP_NAME]&ads.devicemodel=[DEVICE_MODEL]&appVersion=[APP_VERSION]&ua=[UA]&url=[APP_STOREURL]&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }, 
+      {
+        "type": "witv",
+        "id": 256
+      }
+    ]
+  },
+  {
+    "name": "Africa 24 Sport",
+    "id_api": "Africa24Sport.fr",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Africa 24 Sport.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "FIFA+",
+    "id_api": "",
+    "categories": [
+      "France", "Sport"
+    ],
+    "logo": "logos/France/fifa+.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://becfa822.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctZnJfRklGQVBsdXNGcmVuY2hfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Equidia",
+    "id_api": "Equidia.fr@SD",
+    "categories": [
+      "Sports"
+    ],
+    "logo": "logos/France/Equidia.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8"
+      }
+    ]
+  }, 
+  {
+    "name": "Canal+ Sport 1 Afrique",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Africa/CANAL+_SPORT_1.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "486"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 2 Afrique",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Africa/CANAL+_SPORT_2.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "487"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 3 Afrique",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Africa/CANAL+_SPORT_3.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "488"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 4 Afrique",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Africa/CANAL+_SPORT_4.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "489"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Sport 5 Afrique",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Africa/CANAL+_SPORT_5.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "490"
+      }
+    ]
+  }, 
+  {
+    "name": "UK",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "DAZN 1 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/DAZN 1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "230"
+      }
+    ]
+  },
+  {
+    "name": "LaLigaTV UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/LaLigaTV.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "276"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports Football UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Football.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "35"
+      }
+    ]
+  },
+  {
+  "name": "Sky Sports+ Plus",
+  "id_api": null,
+  "categories": [],
+  "logo": "logos/UK/Sky Sports+.webp",
+  "sources": [
+    {
+      "type": "daddylive",
+      "channel_id": "36"
+    }
+  ]
+},
+{
+  "name": "Sky Sports Main Event",
+  "id_api": null,
+  "categories": [],
+  "logo": "logos/UK/Sky Sports Main Event.svg",
+  "sources": [
+    {
+      "type": "daddylive",
+      "channel_id": "38"
+    }
+  ]
+},
+{
+  "name": "Sky sports Premier League",
+  "id_api": null,
+  "categories": [],
+  "logo": "logos/UK/Sky Sports Premier League.svg",
+  "sources": [
+    {
+      "type": "daddylive",
+      "channel_id": "130"
+    }
+  ]
+},
+{
+  "name": "Sky Sport Bundesliga 1 HD",
+  "id_api": null,
+  "categories": [],
+  "logo": "logos/UK/Sky Sport Bundesliga.svg",
+  "sources": [
+    {
+      "type": "daddylive",
+      "channel_id": "558"
+    }
+  ]
+},
+{
+  "name": "Sky Sports Cricket",
+  "id_api": null,
+  "categories": [],
+  "logo": "logos/UK/Sky Sports Cricket.svg",
+  "sources": [
+    {
+      "type": "daddylive",
+      "channel_id": "65"
+    }
+  ]
+},
+  {
+    "name": "Sky Sports Action UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Action.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "37"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports Tennis UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Tennis.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "46"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports F1 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports F1.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "60"
+      }
+    ]
+  },
+    {
+    "name": "Sky Sports Racing UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Racing.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "554"
+      }
+    ]
+  },
+    {
+    "name": "Racing Tv UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Racing TV.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "555"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports Golf UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Golf.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "70"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports News UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports News.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "366"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sports MIX UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Sky Sports Mix.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "449"
+      }
+    ]
+  },
+
+ 
+  {
+    "name": "TNT Sports 1 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/TNT Sports 1.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "31"
+      }
+    ]
+  },
+  {
+    "name": "TNT Sports 2 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/TNT Sports 2.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "32"
+      }
+    ]
+  },
+  {
+    "name": "TNT Sports 3 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/TNT Sports 3.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "33"
+      }
+    ]
+  },
+  {
+    "name": "TNT Sports 4 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/TNT Sports 4.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "34"
+      }
+    ]
+  },
+  {
+    "name": "Viaplay Sports 1 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Viaplay Sports 1.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "451"
+      }
+    ]
+  },
+  {
+    "name": "Viaplay Sports 2 UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/Viaplay Sports 2.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "550"
+      }
+    ]
+  },
+  {
+    "name": "MUTV UK",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/UK/MUTV.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "377"
+      }
+    ]
+  },
+    {
+    "name": "New Zealand",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "Sky Sport 1 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_1_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "588"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 2 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_2_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "589"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 3 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_3_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "590"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 4 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_4_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "591"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 5 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_5_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "592"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 6 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_6_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "593"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 7 / beIN Sports NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_7_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "594"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 8 Premier League NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_Premier_League_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "595"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport 9 NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_9_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "596"
+      }
+    ]
+  },
+  {
+    "name": "Sky Sport Select NZ",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/New Zealand/Sky_Sport_Select_NZ.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "587"
+      }
+    ]
+  },
+  {
+    "name": "South Africa",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "SuperSport Grandstand",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/grandstand_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "412"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport PSL",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/psl_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "413"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Premier league",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/premier_league_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "414"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport LaLiga",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/laliga_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "415"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Variety 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/variety1_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "416"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Variety 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/variety2_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "417"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Variety 3",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/variety3_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "418"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Variety 4",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "419"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Action",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/action_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "420"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Rugby",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/rugby_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "421"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Golf",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/golf_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "422"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Tennis",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/tennis_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "423"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Motorsport",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/motorsport_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "424"
+      }
+    ]
+  },
+  {
+    "name": "Supersport Football",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/football_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "56"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport Cricket",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/cricket_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "368"
+      }
+    ]
+  },
+  {
+    "name": "SuperSport MaXimo 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/South Africa/maximo1_100x100.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "572"
+      }
+    ]
+  }, 
+  {
+    "name": "Malaysia",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "Astro Grandstand / Astro SuperSport 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/astro_grandstand.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "123"
+      }
+    ]
+  },
+  {
+    "name": "Astro Football / Astro SuperSport 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/astro_football.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "124"
+      }
+    ]
+  },
+  {
+    "name": "Astro Premier League / Astro SuperSport 3",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/astro_premierleague.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "125"
+      }
+    ]
+  },
+  {
+    "name": "Astro Premier League 2 / Astro SuperSport 4",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/astro_premierleague2.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "126"
+      }
+    ]
+  },
+  {
+    "name": "Astro Cricket",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/astro_cricket.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "370"
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 1 Malaysia",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/bein_sport_1.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "712"
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 2 Malaysia",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/bein_sport_2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "713"
+      }
+    ]
+  },
+  {
+    "name": "beIN Sports 3 Malaysia",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Malaysia/bein_sport_3.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "714"
+      }
+    ]
+  }, 
+  {
+    "name": "US",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "ESPN USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ESPN.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "44"
+      }
+    ]
+  },
+  {
+    "name": "ESPN2 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ESPN2.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "45"
+      }
+    ]
+  },
+  {
+    "name": "ESPNU USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ESPN_U.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "316"
+      }
+    ]
+  },
+  {
+    "name": "Fox Sports 1 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FS1_New_Logo.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "39"
+      }
+    ]
+  },
+  {
+    "name": "Fox Sports 2 USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FS2_logo.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "758"
+      }
+    ]
+  },
+  {
+    "name": "Chicago Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Chicago_Sports_Network_Logo.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "776"
+      }
+    ]
+  },
+  {
+    "name": "CBS Sports Golazo",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Golazo_Network_logo.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "910"
+      }
+    ]
+  },
+  {
+    "name": "Pac-12 Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Pac-12_Network_2012.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "287"
+      }
+    ]
+  },
+  {
+    "name": "AXS TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/AXS_TV.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "742"
+      }
+    ]
+  },
+  {
+    "name": "ACC Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/ACC_Network_ESPN.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "664"
+      }
+    ]
+  },
+  
+
+  {
+    "name": "BeIN SPORTS USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/BeIN_Sports_2017_flat.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "425"
+      }
+    ]
+  },
+  {
+    "name": "MAVTV / Racer Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Racer_Network_2025.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "646"
+      }
+    ]
+  },
+  {
+    "name": "MLB Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/MLB_Network.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "399"
+      }
+    ]
+  },
+  {
+    "name": "NBA TV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBA_TV_2017.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "404"
+      }
+    ]
+  },
+  {
+    "name": "NHL Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NHL_Network_2012.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "663"
+      }
+    ]
+  },
+  {
+    "name": "Spectrum SportsNet USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Spectrum_Sportsnet_LA.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "982"
+      }
+    ]
+  },
+  {
+    "name": "SEC Network USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/SEC_Network_(2024).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "385"
+      }
+    ]
+  },
+  
+  {
+    "name": "FOX Soccer Plus",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fox_Soccer_Plus_(Flat).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "756"
+      }
+    ]
+  },
+  {
+    "name": "FOX Deportes USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fox_Deportes_2021.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "643"
+      }
+    ]
+  },
+  {
+    "name": "GOLTV USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/GOL_TV_Stacked.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "597"
+      }
+    ]
+  },
+  {
+    "name": "Fox Cricket",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FoxCricket.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "369"
+      }
+    ]
+  },
+  {
+    "name": "Fight Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Fight_Network_(2011).png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "757"
+      }
+    ]
+  },
+  {
+    "name": "NFL RedZone",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Nfl-redzone-gold-2015.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "667"
+      }
+    ]
+  },
+  {
+    "name": "NFL Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NFL_Network_(Gold).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "405"
+      }
+    ]
+  },
+  {
+    "name": "CBS Sports Network (CBSSN)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/CBS_Sports_Network_2021_(Blue).svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "308"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports NOW",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/nbc_sports_now.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993008/hls/master.m3u8?ads.xumo_channelId=99993008&ads.asnw=169843&ads.afid=380753925&ads.sfid=17667876&ads.csid=lgchannels_us_nbcusports_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB17&ads._fw_content_genre=sports&ads._fw_content_language=en&ads._fw_content_rating=tv-g&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3929&ads.xumo_contentName=NBCUSports&ads.xumo_providerId=3929&ads.xumo_providerName=NBCUSports&ads.channelId=99993008&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports Philadelphia",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_Sports_Philadelphia_2023.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "777"
+      }
+    ]
+  },
+  
+  {
+    "name": "NBC Sports Bay Area",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_Sports_Bay_Area_2023.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "753"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports Boston",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_Sports_Boston_2023.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "754"
+      }
+    ]
+  },
+  {
+    "name": "NBC Sports California",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/NBC_Sports_California_2023.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "755"
+      }
+    ]
+  },
+{
+    "name": "Monthly Picks: NCAA Channel",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/989/lg/09cf4f/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurllg.global.transmit.live/hls/689628fc4be878ea7aa6ec3e/v1/lg_ncaachannel_1/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=989&wurl_name=NCAAChannel&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Matthew Berry\u2019s Fantasy Life",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://d7xr8zn8daz19.cloudfront.net/FantasyLife-2024-HORIZONTAL-LOGO-Stencil-White.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00497-lgelectronicsus-fantasylife-lgus/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.targetad=[TARGETAD_ALLOWED]&coppa=0&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+{
+    "name": "FanDuel Sports Network Detroit",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Detroit_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "891"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Florida",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Florida_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "892"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Great Lakes",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Great_Lakes_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "893"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Indiana",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Indiana_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "894"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Kansas City",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Kansas_City_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "895"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Midwest",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Midwest_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "896"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network New Orleans",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_New_Orleans_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "897"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network North",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_North_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "898"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Ohio",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Ohio_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "899"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Oklahoma",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Oklahoma_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "900"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network SoCal",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_SoCal_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "902"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network South",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_South_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "903"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Southeast",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Southeast_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "904"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Sun",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Sun_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "905"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network West",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_West_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "906"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel Sports Network Wisconsin",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/FanDuel_Sports_Network_Wisconsin_2024.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "907"
+      }
+    ]
+  },
+  {
+    "name": "FanDuel TV Extra",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1568/lg/f002dc/LG-Logo-PNG-100x100_v2.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d98bad68.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfRmFuRHVlbFRWRXh0cmFfSExT/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Marquee Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Marquee_Sports_Network.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "770"
+      }
+    ]
+  },
+  {
+    "name": "Motor Trend",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Motor_Trend_2018_red.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "661"
+      }
+    ]
+  },
+  {
+    "name": "Monumental Sports Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Monumental_Sports_Network.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "778"
+      }
+    ]
+  },
+{
+    "name": "MSG SportsZone",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1386/lg/dad2b4/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://dce277e4.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTVNHU3BvcnRzWm9uZV9ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "NESN Nation",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://img.platform.wurl.dev/channel/1952/lg/d4cda0/LG-Logo-PNG-100x100_v1.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://227d4274.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfTkVTTk5hdGlvbl9ITFM/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Monster Jam",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Monster_Jam_New_Logo.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurlspacemob.global.transmit.live/hls/6866cf7dd9fb5876ff1673c8/v1/answermedia_monsterjam_1/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=1693&wurl_name=MonsterJam&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Red Bull TV",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/redbulltv.avif",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://0b73ace69ebb45eaa249bb87837cb958.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-644-WORBUSENFAST-LG_US/644/lgtv/hls/master/playlist.m3u8"
+      }
+    ]
+  },
+  {
+    "name": "Strongman Champions League",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/SCL-logo.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurlrightsbooster.global.transmit.live/hls/6823bc03ec440b38950aff0b/playlist.m3u8?wurl_channel=1102&wurl_name=StrongmanChampionsLeague&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "RugbyPass TV",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/rugbypass_tv.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurlworldrugby.global.transmit.live/hls/688cf16a14352f4b8d1bd9ab/v1/world_rugby_rugbypasstv_1/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=1872&wurl_name=RugbyPassTV&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Stadium",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/stadium.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://wurl120sports.global.transmit.live/hls/6863f426233e6604b8b45832/v1/stadium_gracenote/lg_us/latest/main/hls/playlist.m3u8?wurl_channel=160&wurl_name=Stadium&coppa=0&uid=[DEVICE_ID]&rdid=[IFA]&ifatype=[IFA_TYPE]&dnt=[LMT]&donotsell=[DNS]&isgdpr=[GDPR]&gdpr=[GDPR_CONSENT]&country=[COUNTRY]&pr=[US_PRIVACY]&appstoreurl=[APP_STOREURL]&bundleid=[APP_BUNDLE]&appname=[APP_NAME]&appversion=[APP_VERSION]&dt=[DEVICE_TYPE]&make=[DEVICE_MAKE]&model=[DEVICE_MODEL]&targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&nonce=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "PLL Network",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/PLL_network.webp",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=14049&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_us&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  {
+    "name": "BIG TEN Network (BTN USA)",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Big_Ten_Network_(2020).png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "397"
+      }
+    ]
+  },
+  {
+    "name": "WWE Network",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/WWE_Network.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "376"
+      }
+    ]
+  }, 
+  {
+    "name": "GOLFPASS",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/golfpass.svg",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://d4whmvwm0rdvi.cloudfront.net/10007/99993009/hls/master.m3u8?ads.xumo_channelId=99993009&ads.xumo_streamId=99993009&ads.channelId=99993009&ads.asnw=535279&ads.afid=440667964&ads.sfid=23817285&ads.csid=lgchannels_us_versantgolfpass_ssai_cro&ads._fw_coppa=0&ads._fw_content_category=IAB1-7&ads._fw_content_genre=sports&ads._fw_content_language=en&ads._fw_content_rating=TV-14&ads.xumo_contentId=4292&ads.xumo_contentName=VersantGOLFPASS&ads.xumo_providerId=4292&ads.xumo_providerName=VersantGOLFPASS&ads.appName=lgchannels&ads._fw_deviceType=3-Connected_TV&ads._fw_vcid2=512116:[IFA]&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_ifa_type=dpid&ads._fw_did=[IFA]&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads.appVersion=[APP_VERSION]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]"
+      }
+    ]
+  },
+  {
+    "name": "GOLF Channel USA",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Golf_Channel_2014.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "318"
+      }
+    ]
+  },
+  {
+    "name": "Tennis Channel",
+    "id_api": null,
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/Tennis_Channel_2022.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "40"
+      }
+    ]
+  },
+  {
+    "name": "Billiard TV",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "https://lge-static.ottera.tv/prod/bbb/linear_channel/anamorphic-logo/465x200/billiard_.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://stream.ads.ottera.tv/playlist.m3u8?network_id=15270&avod=1&coppa=0&td=6&is_lat=[LMT]&dnt=[DNS]&us_privacy=[US_PRIVACY]&did=[DEVICE_ID]&ip=[IP]&ua=[UA]&ifa_type=[IFA_TYPE]&app_bundle=[APP_BUNDLE]&app_store_url=[APP_STOREURL]&app_name=[APP_NAME]&custom_targeting=html5&custom_4=lg_channels_us&player_height=720&player_width=1280&content_channel=lg_channels&content_dist_name=lg_channels&device_make=[DEVICE_MAKE]&device_model=[DEVICE_MODEL]&device_os=html5&consent=[GDPR_CONSENT]&gdpr=[GDPR]&gender=not_specified&yob=0&livestream=1&custom_param_0=[DEVICE_MODEL]&custom_param_1=tv&custom_param_2=[DEVICE_MAKE]&custom_param_3=[DEVICE_ID]&custom_param_4=lg_channels&custom_param_5=html5&fck=[FCK]&viewsize=[VIEWSIZE]"
+      }
+    ]
+  },
+  
+  {
+    "name": "Women's Sports Network",
+    "id_api": "",
+    "categories": [
+      "US"
+    ],
+    "logo": "logos/US/women_sports network.png",
+    "sources": [
+      {
+        "type": "m3u8",
+        "url": "https://womensnetwork-lg.amagi.tv/hls/amagi_hls_data_lgAAAAAAA-womensnetwork/CDN/playlist.m3u8?ads.deviceid=[DEVICE_ID]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ua=[UA]&ads.ip=[IP]&ads.gdpr=[GDPR]&ads.gdprconsent=[GDPR_CONSENT]&ads.country=[COUNTRY]&ads.usprivacy=[US_PRIVACY]&ads.appstoreurl=[APP_STOREURL]&ads.bundleid=[APP_BUNDLE]&ads.appname=[APP_NAME]&ads.appversion=[APP_VERSION]&ads.devicetype=[DEVICE_TYPE]&ads.devicemake=[DEVICE_MAKE]&ads.devicemodel=[DEVICE_MODEL]&ads.coppa=0&ads.targetad=[TARGETAD_ALLOWED]&fck=[FCK]&viewsize=[VIEWSIZE]&givn=[NONCE]"
+      }
+    ]
+  },
+  {
+    "name": "Canada",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "TSN1 CA",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Canada/TSN1_2014.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "111"
+      }
+    ]
+  },
+  {
+    "name": "TSN2 CA",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Canada/TSN2_2014.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "112"
+      }
+    ]
+  },
+  {
+    "name": "TSN3 CA",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Canada/TSN3_2014.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "113"
+      }
+    ]
+  },
+  {
+    "name": "TSN4 CA",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Canada/TSN4_2014.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "114"
+      }
+    ]
+  },
+  {
+    "name": "TSN5 CA",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Canada/TSN5_2014.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "115"
+      }
+    ]
+  }
+]
