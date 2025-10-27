@@ -302,6 +302,7 @@ const expandedSections = {}; // { '<section-id>-grid': boolean }
 // Default section order (no longer user-customizable)
 const DEFAULT_SECTION_ORDER = [
   'favorites',
+  'ateaish-websites', // <-- new section
   'movies-tv-shows',
   'francais',
   'live-sports',
@@ -319,6 +320,7 @@ let allSites = []; // Global array to store all sites for searching
 let sectionData = {}; // Global object to store data for each section (will be populated by renderSectionsInOrder)
 
 const SECTIONS = [
+  { id: 'ateaish-websites', label: 'ateaish', type: 'h2', defaultVisible: true, order: 0, sitesToRemove: [] },
   { id: 'anime-streaming', label: 'Anime', type: 'h2', defaultVisible: true, order: 1, sourceSectionId: 'video', sourceSubSectionNames: ['Anime Streaming'], sitesToRemove: [
     'Wotaku', 'Wotaku The Index', 'Wotaku Wiki', 'Wotaku EverythingMoe', 'Wotaku 2',
     'AnimeKai Status', 'Official Mirrors', 'Official Mirrors Enhancements', 
@@ -372,8 +374,6 @@ const SECTIONS = [
 
 // Predefined list of traditional websites
 const TRADITIONAL_WEBSITES = [
-  { name: 'ateaish movies', url: 'https://atishramkhe.github.io/movies' },
-  { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio' },
   { name: 'YouTube', url: 'https://www.youtube.com' },
   { name: 'YouTube Music', url: 'https://music.youtube.com' },
   { name: 'Netflix', url: 'https://www.netflix.com' },
@@ -386,6 +386,12 @@ const TRADITIONAL_WEBSITES = [
   { name: 'Arte', url: 'https://www.arte.fr', logo: 'https://upload.wikimedia.org/wikipedia/fr/8/8c/Logo_ARTE.TV_2020.svg' }
 ];
 
+const ATEAISH_WEBSITES = [
+  { name: 'ateaish movies', url: 'https://atishramkhe.github.io/movies' },
+  { name: 'ateaish TV', url: 'https://atishramkhe.github.io/tv' },
+  { name: 'ateaish sport', url: 'https://atishramkhe.github.io/sport' },
+  { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio' }
+];
 // Helper function to safely parse JSON from localStorage
 function safeJsonParse(key, defaultValue) {
   try {
@@ -1886,6 +1892,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     sectionData['favorites'] = favorites;
     sectionData['my-links'] = myCustomLinks;
     sectionData['traditional-websites'] = TRADITIONAL_WEBSITES;
+    sectionData['ateaish-websites'] = ATEAISH_WEBSITES;
 
     // Load manifest and local FMHY data (best-effort)
     await loadLocalLogoManifest();
