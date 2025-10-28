@@ -80,11 +80,12 @@
   </script>
   <meta charset="UTF-8"><!-- FIX: prevent emoji mojibake -->
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-  <title>ateaish TV zero</title>
+  <title>ateaish TV Zero</title>
   <link rel="icon" type="image/png" href="assets/favicon_adult_150ppi.png">
   <script type="text/javascript" src="https://cdn.embed.ly/player-0.1.0.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script type="text/javascript" src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+  <script src="https://geo.dmcdn.net/player.js"></script>
   <style>
     @font-face {
       font-family: 'OumaBold';
@@ -126,7 +127,7 @@
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
-      background-color: #000; /* solid black */
+      /* background-color: #000; /* solid black */
       z-index: 10;
       display: flex;
       align-items: center;
@@ -151,25 +152,26 @@
       /* border: 1px solid #ccc; */
       padding: 5px;
     }
+
     #fullscreen-btn,
     #switch-server-btn,
     #server-select {
       font-family: 'OumaLight', sans-serif;
       background-color: #000;
       color: #222;
-      border: 1px solid #222;
+      border: 1px solid #000;
       border-radius: 4px;
       padding: 5px 12px;
       cursor: pointer;
     }
     #switch-server-btn {
-      min-width: 110px;
-      padding-left: 16px;
-      padding-right: 16px;
+      /*min-width: 110px; */
+      /*padding-left: 16px;*/
+      /*padding-right: 16px;*/
     }
     #fullscreen-btn:hover,
     #switch-server-btn:hover {
-      background-color: #96509a;
+      background-color: #f3c2db;
     }
     #main-layout {
       display: flex;
@@ -216,7 +218,15 @@
       overflow-y: auto;
       border-left: 1px solid #000;
     }
-
+    #menu-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #000;
+      border-bottom: 1px solid #000;
+      padding-bottom: 5px;
+      padding-top: 5px;
+    }
     /* make menu-content the positioning context for the overlay
        so the overlay's height follows the whole scrollable content */
     #menu-content {
@@ -276,9 +286,9 @@
 
     .channel-item {
       padding: 12px 8px;
-      border: 1px solid #000;
+      /* border: 1px solid #000; */
       border-radius: 6px;
-      background: rgba(0,0,0);
+      background: rgba(0,0,0,0.0);
       cursor: pointer;
       text-align: center;
       font-size: 1em;
@@ -289,17 +299,19 @@
       align-items: center;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
-      color: #fff;
+      /* color: #fff; */
       font-family: 'OumaBold', sans-serif;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+      /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
     }
     .channel-item:hover {
-      background-color: #96509a;
-      color: #fff;
+      /* border: 1px solid #FFF; */
+      /* box-shadow: 0px 0px 10px 5px rgba(235, 190, 255, 0.882);*/
+      box-shadow: rgba(175, 21, 101, 0.725) 0px 10px 70px 4px, rgba(231, 230, 232, 0.4) 0px -3px 20px 4px; 
+      transform: scale(1.12);
+      /* color: #fff; */
     }
     .channel-item.active {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: #fff;
+      border: 1px solid #444;
     }
 
     h2, #current-channel-name {
@@ -438,7 +450,7 @@
         background: #000;
       }
       #controls {
-        position: relative;        /* stays inside fixed player */
+        position: sticky;        /* stays inside fixed player */
         top: 0;
         z-index: 1001;
         flex: 0 0 auto;
@@ -461,6 +473,18 @@
         grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
         padding-bottom: 40px;
       }
+
+      #controls img {
+        margin: 0 auto 0 auto !important;
+        display: block !important;
+        height: 32px;
+      }
+      #controls > div:first-child {
+        justify-content: center !important;
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
     }
 
     /* === Access Overlay (SHA256 + localStorage) === */
@@ -472,7 +496,7 @@
       align-items: center;
       justify-content: center;
       gap: 34px;
-      background: #000;
+      background: rgba(0,0,0,0.94);
       z-index: 10000;
       font-family: 'OumaBold', sans-serif;
       color: #fff;
@@ -569,28 +593,53 @@
 
     /* Mobile player actions bar (hidden desktop) */
     #mobile-player-actions {
-      display: none;
-      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 2000;
       background: #000;
-      padding: 8px 12px;
-      border-top: 1px solid #000;
-      border-bottom: 1px solid #000;
-      gap: 10px;
+      display: none; /* shown only on mobile via JS */
+      width: 100%;
       align-items: center;
-      justify-content: flex-end;
-      box-sizing: border-box;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 25px 0 15px 0px;
+      /*border-bottom: 1px solid #111; */
     }
-    @media (max-width: 900px) {
-      #mobile-player-actions {
-        display: flex;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-      }
-      /* Tighten dots & buttons inside mobile bar */
-      #mobile-player-actions #server-indicators {
-        margin-right: 4px;
-      }
+    .mobile-actions-left {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      align-items: center;
+    }
+    .mobile-actions-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+      align-items: center;
+    }
+
+    /* Add or update these styles in your <style> block */
+
+    #desktop-player-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* <-- ensures left and right are at edges */
+      width: 100%;
+    }
+
+    .desktop-actions-left {
+      display: flex;
+      gap: 2px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .desktop-actions-right {
+      display: flex;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+      align-items: center;
+      margin-left: auto; /* <-- pushes it to the right */
     }
   </style>
 </head>
@@ -600,7 +649,7 @@
   <script>
   // Detect mobile device (basic check)
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const loadingSrc = isMobile ? 'assets/loading_mobile.mp4' : 'assets/loading_computer.mp4';
+  const loadingSrc = isMobile ? 'assets/loading_mobile.mp4' : 'assets/loading_desktop.mp4';
   document.write(
     `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto"></video>`
   );
@@ -624,16 +673,12 @@
     <div id="player-section">
       <div id="controls">
         <div style="display:flex; align-items:center; flex:1;">
-          <img src="assets/ateaish_tv_+18_blanc.png" alt="ateaish TV" style="height:32px; margin-right:16px;">
+          <img src="assets/ateaish_tv_+18_blanc.png" alt="ateaish TV Zero" style="height:32px; margin-right:16px;">
         </div>
         <div style="flex:2; text-align:center;">
-          <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:inline-block;"></div>
+          <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:none ;"></div> <!-- display: inline-block -->
         </div>
-        <div style="display:flex; align-items:center; flex:1; justify-content:flex-end; gap:10px;" id="desktop-player-actions">
-          <div id="server-indicators"></div>
-          <button id="switch-server-btn" style="display: none;">Switch Server</button>
-          <button id="fullscreen-btn" title="Toggle fullscreen">Fullscreen</button>
-        </div>
+        
       </div>
       <div id="player-container">
         <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
@@ -642,43 +687,74 @@
       </div>
     </div>
     <div id="menu-section">
+      <!-- Move h2 here, outside #menu-content -->
+      <h2 style="color:white; margin:0px; align-items: center; justify-content: space-between;" id="menu-header">
+        <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
+          <button id="sports-toggle-btn" title="Show only Sports channels"
+            style="background: none; border: none; cursor: pointer; padding: 0; display:none;">
+            <span id="sports-toggle-icon" class="keep-cursor">
+              <!-- Default: toggle-off SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#f3c2db" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
+              </svg>
+            </span>
+          </button>
+          <div style="display:flex; align-items:center; flex:1; justify-content:flex-end; gap:4px;" id="desktop-player-actions">
+            <button id="fullscreen-btn" title="Toggle fullscreen">
+              <svg fill="#333" height="14px" width="14px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384.97 384.97" xml:space="preserve">
+                <g>
+                  <g id="Fullscreen_1_">
+                    <path d="M372.939,216.545c-6.123,0-12.03,5.269-12.03,12.03v132.333H24.061V24.061h132.333c6.388,0,12.03-5.642,12.03-12.03
+                      S162.409,0,156.394,0H24.061C10.767,0,0,10.767,0,24.061v336.848c0,13.293,10.767,24.061,24.061,24.061h336.848
+                      c13.293,0,24.061-10.767,24.061-24.061V228.395C384.97,221.731,380.085,216.545,372.939,216.545z"/>
+                    <path d="M372.939,0H252.636c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h91.382L99.635,268.432
+                      c-4.668,4.668-4.668,12.235,0,16.903c4.668,4.668,12.235,4.668,16.891,0L360.909,40.951v91.382c0,6.641,5.39,12.03,12.03,12.03
+                      s12.03-5.39,12.03-12.03V12.03l0,0C384.97,5.558,379.412,0,372.939,0z"/>
+                  </g><g></g><g></g><g></g><g></g>
+                  <g></g><g></g>
+                </g>
+                </svg>
+            </button>
+        
+            <button id="switch-server-btn" title="Switch server">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="#333" class="bi bi-cloud" viewBox="0 0 16 16">
+                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+              </svg>
+            </button>
+            
+            <div id="server-indicators"></div>
+          </div>
+        </div>
+        <div style=" margin-left:auto;">
+          <select id="country-select"
+            style="
+ display: none;
+              font-family: 'OumaLight', sans-serif;
+              background-color: #000;
+              color: #FFF;
+              border: 1px solid transparent;
+              border-radius: 4px;
+              padding: 5px 12px;
+              cursor: pointer;
+              font-size: 1em;
+              min-width: 110px;
+              margin-right: 4px;
+              margin-left: 4px;
+              border-right: 15px solid transparent;
+            ">
+            <option value="France" selected>France</option>
+            <option value="UK">UK</option>
+            <!-- Add more countries as needed -->
+          </select>
+        </div>
+      </h2>
+
+      <!-- MOVE THIS BAR HERE -->
+      <div id="mobile-player-actions"></div>
+
       <div id="menu-content">
         <div class="menu-overlay"></div>
-        <!-- Mobile actions bar (populated via JS on small screens) -->
-        <div id="mobile-player-actions"></div>
-        <h2 style="color:white; margin:15px; display: flex; align-items: center; justify-content: space-between;">
-          <!--span style="flex:0 0 auto;">Channels</span-->
-          <div style="display: flex; align-items: center; gap: 10px; flex: 0 0 auto;">
-            <!-- Removed the visible 'Sports' text span -->
-            <button id="sports-toggle-btn" title="Show only Sports channels"
-              style="background: none; border: none; cursor: pointer; padding: 0; display:none;">
-              <span id="sports-toggle-icon" class="keep-cursor">
-                <!-- Default: toggle-off SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-off" viewBox="0 0 16 16">
-                  <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
-                </svg>
-              </span>
-            </button>
-          </div>
-          <div style="flex:0 0 auto; margin-left:auto;">
-            <select id="country-select"
-              style="
-                font-family: 'OumaLight', sans-serif;
-                background-color: #000;
-                color: #FFF;
-                border: 1px solid #222;
-                border-radius: 4px;
-                padding: 5px 12px;
-                cursor: pointer;
-                font-size: 1em;
-                min-width: 110px;
-                margin-left: 0;
-              ">
-              <option value=" ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵" selected> ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵</option>
-              <!-- Add more countries as needed -->
-            </select>
-          </div>
-        </h2>
+        
         <div id="channel-list"></div>
       </div>
     </div>
@@ -1045,7 +1121,7 @@
           const option = document.createElement('option');
           option.value = country;
           option.textContent = country;
-          if (country === ' ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵ ̵') option.selected = true;
+          if (country === 'France') option.selected = true;
           countrySelect.appendChild(option);
         });
       });
@@ -1129,10 +1205,10 @@
 
   function updateSportsToggleIcon() {
     sportsToggleIcon.innerHTML = sportsOnly
-      ? `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-on" viewBox="0 0 16 16">
+      ? `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#f3c2db" class="bi bi-toggle-on" viewBox="0 0 16 16">
           <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8"/>
         </svg>`
-      : `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#96509a" class="bi bi-toggle-off" viewBox="0 0 16 16">
+      : `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#f3c2db" class="bi bi-toggle-off" viewBox="0 0 16 16">
           <path d="M11 4a4 4 0 0 1 0 8H8a5 5 0 0 0 2-4 5 5 0 0 0-2-4zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8M0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5"/>
         </svg>`;
   }
@@ -1153,6 +1229,11 @@
     filteredChannels.forEach((channel, index) => {
       const div = document.createElement('div');
       div.className = 'channel-item';
+
+      // highlight the currently playing channel
+      if (channels.indexOf(channel) === currentChannelIndex) {
+        div.classList.add('active');
+      }
       div.onclick = () => {
         const realIndex = channels.indexOf(channel);
         updatePlayer(realIndex);
@@ -1286,7 +1367,7 @@
       player = { play:()=>{}, pause:()=>{}, getPaused:cb=>cb(false), mute:()=>{}, unmute:()=>{}, getMuted:cb=>cb(false) };
       addPlayerListeners();
     } else if (sourceType === 'witv') {
-      url = witvBaseUrl + source.id + '&q=1080';
+      url = witvBaseUrl + source.id;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
       playerIframe.src = url;
@@ -1374,12 +1455,35 @@
       playerIframe.style.display = 'block';
       playerIframe.src = streamUrl;
       playerIframe.setAttribute('allowfullscreen', 'true');
-      //playerIframe.setAttribute('loading', 'lazy');
+      // playerIframe.setAttribute('loading', 'lazy');
+      return;
+    } else if (sourceType === 'youtube' && source.video_id) {
+      const streamUrl = `https://www.youtube.com/embed/${source.video_id}?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      return;
+    } else if (sourceType === 'dailymotion' && source.video_id) {
+      const streamUrl = `https://geo.dailymotion.com/player.html?video=${source.video_id}`; //?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1`;
+      playerIframe.classList.add('active');
+      playerIframe.style.display = 'block';
+      playerIframe.src = streamUrl;
+      playerIframe.setAttribute('allowfullscreen', 'true');
+      playerIframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      playerIframe.setAttribute('autoplay', '1');
+      playerIframe.setAttribute('allow', 'autoplay; fullscreen');
+      playerIframe.setAttribute('rel', '0');
+      playerIframe.setAttribute('playsinline', '1');
+      playerIframe.setAttribute('modestbranding', '1');
       return;
     }
 
     // Always show single unified button
-    switchServerBtn.textContent = 'Switch Server';
+    // switchServerBtn.textContent = 'Switch Server';
     switchServerBtn.style.display = flattenedSources.length > 1 ? 'inline-block' : 'none';
   }
 
@@ -1545,9 +1649,9 @@
   function updateFullscreenButton() {
     if (!fullscreenBtn) return; // no-op (button removed)
     if (isFullscreen()) {
-      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Exit Fullscreen ');
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
     } else {
-      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = 'Fullscreen ');
+      fullscreenBtn.firstChild && (fullscreenBtn.firstChild.textContent = '');
     }
   }
   ['fullscreenchange','webkitfullscreenchange','msfullscreenchange','mozfullscreenchange']
@@ -1676,22 +1780,68 @@
     const isMobile = window.innerWidth <= 900;
     const desktopBar = document.getElementById('desktop-player-actions');
     const mobileBar = document.getElementById('mobile-player-actions');
-    const actions = [
-      document.getElementById('server-indicators'),
-      document.getElementById('switch-server-btn'),
-      document.getElementById('fullscreen-btn')
-    ].filter(Boolean);
+    const country = document.getElementById('country-select');
+    const switchServer = document.getElementById('switch-server-btn');
+    const indicators = document.getElementById('server-indicators');
+    const fullscreen = document.getElementById('fullscreen-btn');
+
+    // Mobile containers
+    let left = mobileBar.querySelector('.mobile-actions-left');
+    let right = mobileBar.querySelector('.mobile-actions-right');
+    if (!left) {
+      left = document.createElement('div');
+      left.className = 'mobile-actions-left';
+      left.style.display = 'flex';
+      left.style.gap = '8px';
+      left.style.flex = '1';
+      mobileBar.appendChild(left);
+    }
+    if (!right) {
+      right = document.createElement('div');
+      right.className = 'mobile-actions-right';
+      right.style.display = 'flex';
+      right.style.justifyContent = 'flex-end';
+      right.style.flex = '0 0 auto';
+      mobileBar.appendChild(right);
+    }
+
+    // Desktop containers (add if missing)
+    let dLeft = desktopBar.querySelector('.desktop-actions-left');
+    let dRight = desktopBar.querySelector('.desktop-actions-right');
+    if (!dLeft) {
+      dLeft = document.createElement('div');
+      dLeft.className = 'desktop-actions-left';
+      dLeft.style.display = 'flex';
+      dLeft.style.gap = '2px';
+      dLeft.style.flex = '1';
+      desktopBar.appendChild(dLeft);
+    }
+    if (!dRight) {
+      dRight = document.createElement('div');
+      dRight.className = 'desktop-actions-right';
+      dRight.style.display = 'flex';
+      dRight.style.justifyContent = 'flex-end';
+      dRight.style.flex = '0 0 auto';
+      desktopBar.appendChild(dRight);
+    }
 
     if (isMobile) {
-      actions.forEach(el => {
-        if (el && el.parentNode !== mobileBar) mobileBar.appendChild(el);
-      });
+      left.innerHTML = '';
+      right.innerHTML = '';
+      [country, switchServer, indicators].forEach(el => { if (el) left.appendChild(el); });
+      if (fullscreen) right.appendChild(fullscreen);
+      mobileBar.style.display = 'flex';
+      desktopBar.style.display = 'none';
     } else {
-      actions.forEach(el => {
-        if (el && el.parentNode !== desktopBar) desktopBar.appendChild(el);
-      });
+      dLeft.innerHTML = '';
+      dRight.innerHTML = '';
+      if (country) dRight.appendChild(country);
+      [fullscreen, switchServer, indicators].forEach(el => { if (el) dLeft.appendChild(el); });
+      mobileBar.style.display = 'none';
+      desktopBar.style.display = 'flex';
     }
   }
+  
 
   // Call on load and on resize
   window.addEventListener('resize', relocatePlayerActions);
