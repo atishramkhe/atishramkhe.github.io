@@ -79,13 +79,75 @@ if (searchContainer) {
     searchContainer.style.position = 'relative';
 }
 
-// Ensure search results use a proper grid layout (bigger cards, aligned)
+// Inject minimal CSS so search posters render like other grids (2:3, cover)
+let _resultsPosterCssInjected = false;
+function ensureResultsPosterCSS() {
+    if (_resultsPosterCssInjected) return;
+    const style = document.createElement('style');
+    style.textContent = `
+        #results.poster-grid-match .poster img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            display: block;
+        }
+    `;
+    document.head.appendChild(style);
+    _resultsPosterCssInjected = true;
+}
+
+let _searchGridRO = null;
+// Ensure search results use the exact same grid sizing as the homepage (Trending)
 function setupResultsGridLayout() {
     if (!resultsContainer) return;
+    ensureResultsPosterCSS();
+    resultsContainer.classList.add('poster-grid-match');
     resultsContainer.style.display = 'grid';
-    resultsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))'; // bigger cards
-    resultsContainer.style.gap = '14px';
-    resultsContainer.style.alignItems = 'start';
+
+    const trending = document.getElementById('trendingGrid');
+
+    const applyFromTrending = () => {
+        if (!trending) return 0;
+
+        // Measure only the first poster (or its img) for precise column width
+        const firstCard = trending.querySelector('.poster') || trending.firstElementChild;
+        const el = firstCard ? (firstCard.querySelector('img') || firstCard) : null;
+        const rect = el ? el.getBoundingClientRect() : null;
+        const w = rect ? Math.round(rect.width) : 0;
+
+        // Copy spacing from Trending
+        const cs = window.getComputedStyle(trending);
+        const gap = cs.gap || cs.columnGap || '14px';
+        const align = cs.alignItems || 'start';
+        resultsContainer.style.gap = gap;
+        resultsContainer.style.alignItems = align;
+
+        if (w > 0 && Number.isFinite(w)) {
+            resultsContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${w}px, 1fr))`;
+            return w;
+        }
+        return 0;
+    };
+
+    // First attempt to apply sizing immediately
+    let appliedWidth = applyFromTrending();
+
+    // If Trending not ready (images not laid out yet), observe and retry once it is
+    if (appliedWidth === 0) {
+        // Fallback so results don't explode in size before Trending resolves
+        resultsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        if (trending && !_searchGridRO) {
+            _searchGridRO = new ResizeObserver(() => {
+                const w = applyFromTrending();
+                if (w > 0) {
+                    _searchGridRO.disconnect();
+                    _searchGridRO = null;
+                }
+            });
+            _searchGridRO.observe(trending);
+        }
+    }
 }
 
 // Wire up search only if input/results exist
