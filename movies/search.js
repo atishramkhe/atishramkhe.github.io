@@ -273,14 +273,14 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                 <button class="watch-later-btn"
                     aria-label="${labelText}"
                     title="${labelText}"
-                    style="position:absolute; right:8px; bottom:8px; width:36px; height:36px; border-radius:50%;
+                    style="position:absolute; right:0px; bottom:8px; width:36px; height:36px; border-radius:50%;
                            background:transparent; color:#e02735; border:2px solid #e02735; display:flex;
                            align-items:center; justify-content:center; font-size:22px; font-weight:700; line-height:1;
                            cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.4);">
                     ${btnSymbol}
                 </button>
                 <span class="watch-later-label"
-                      style="position:absolute; right:52px; bottom:14px; color:#e02735; font-size:12px; font-weight:600;
+                      style="position:absolute; right:44px; bottom:14px; color:#e02735; font-size:12px; font-weight:600;
                              opacity:0; transform:translateX(6px); transition:opacity .15s ease, transform .15s ease;
                              pointer-events:none; white-space:nowrap;">
                     ${labelText}
