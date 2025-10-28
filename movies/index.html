@@ -65,7 +65,7 @@
             border-top: none; 
             border-right: none; 
             border-left: none; 
-            border-bottom: 1px solid #222
+            border-bottom: 1px solid #222;
             border-radius: 4px;
         }
         #results {
@@ -127,30 +127,86 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* increased from 160px */
             gap: 8px;
             padding: 40px;
             max-width: 2000px;
             margin: 0 auto;
+            align-items: start;
         }
+        /* Poster card */
         .poster {
             cursor: pointer;
-            border-radius: 0px;
-            overflow: hidden;
+            border-radius: 0;
+            overflow: visible; /* allow overflow when scaled */
             box-shadow: 0 2px 12px #000a;
-            transition: transform 0.15s;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
             background: #000;
+            position: relative;
+            transform-origin: top center;
+            --hover-scale: 1.5; /* adjust 1.4–1.6 to taste */
         }
+
+        /* Raise & scale the whole card so info width matches the scaled poster */
         .poster:hover {
-            transform: scale(1.04);
+            transform: scale(var(--hover-scale));
+            z-index: 30;
+            box-shadow: 0 8px 32px #000c;
         }
+
+        /* Keep image natural ratio (no per-image scaling anymore) */
         .poster img {
             width: 100%;
+            height: auto;
             display: block;
-            aspect-ratio: 2/3;
-            object-fit: cover;
+            aspect-ratio: 2 / 3;
+            object-fit: contain;
+            background: #000;
         }
-        
+
+        /* Description box sits below the poster and scales with the card */
+        .poster-info {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0px);  /* directly below poster */
+            left: 0;
+            width: 100%;
+            background: #000;
+            color: #fff;
+            padding: 12px 10px;
+            line-height: 1.35;
+            box-sizing: border-box;
+            border: 1px solid #111;
+            margin: 0;              /* no layout shift */
+            z-index: 40;
+        }
+        .poster:hover .poster-info {
+            display: block;
+            font-size: 0.75em;         /* ensure readable; remove previous scaling */
+        }
+
+        /* Continue Watching: no preview or scaling */
+        #continueGrid .poster:hover {
+            transform: none;
+            z-index: auto;
+            box-shadow: 0 2px 12px #000a;
+        }
+        #continueGrid .poster-info,
+        #continueGrid .poster:hover .poster-info {
+            display: none !important;
+        }
+
+        /* Watch Later: no preview or scaling */
+        #watchLaterGrid .poster:hover {
+            transform: none;
+            z-index: auto;
+            box-shadow: 0 2px 12px #000a;
+        }
+        #watchLaterGrid .poster-info,
+        #watchLaterGrid .poster:hover .poster-info {
+            display: none !important;
+        }
+
         ::-webkit-scrollbar {
         width: 8px;
         background: transparent;
@@ -178,86 +234,15 @@
             display: none;
         }
 
-        #posterPreview {
-            background: #000;
-            border-radius: 0px;
-            box-shadow: 0 4px 32px #000a;
-            padding: 16px 16px 10px 16px;
-            min-width: 220px;
-            max-width: 260px;
-            color: #fff;
-            font-family: inherit;
-            pointer-events: none;
-            transition: opacity 0.15s;
-        }
-        #posterPreview img {
-            width: 100%;
-            border-radius: 0px;
-            margin-bottom: 8px;
-            object-fit: cover;
-            aspect-ratio: 2/3;
+        /* Disable preview/hover effects specifically for Continue Watching */
+        #continueGrid .poster:hover {
+            transform: none;
+            z-index: auto;
             box-shadow: 0 2px 12px #000a;
-            transform: scale(1.05);
         }
-        #posterPreview .preview-title {
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        #posterPreview .preview-year {
-            float: right;
-            font-size: 1em;
-            opacity: 0.7;
-        }
-        #posterPreview .preview-overview {
-            margin: 12px 0 8px 0;
-            font-size: 0.98em;
-            line-height: 1.4;
-        }
-        #posterPreview .preview-tvinfo {
-            font-size: 0.95em;
-            color: #e02735;
-            margin-top: 8px;
-            text-align: center;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #000;
-            min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            padding: 8px 0;
-            z-index: 3;
-            right: 0;
-            top: 100%;
-            border-radius: 8px;
-        }
-
-        .dropdown.open .dropdown-content,
-        .dropdown:hover .dropdown-content,
-        .dropdown:focus-within .dropdown-content {
-            display: block;
-        }
-        .dropdown-content a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 0;
-            text-decoration: none;
-            background: none;
-        }
-        .dropdown-content a img {
-            height: 100px;
-            width: 100px;
-            object-fit: contain;
-            margin: 0;
-            padding: 0;
+        #continueGrid .poster-info,
+        #continueGrid .poster:hover .poster-info {
+            display: none !important;
         }
     </style>
 </head>
@@ -295,6 +280,10 @@
       <h2>Continue Watching</h2>
       <div class="grid" id="continueGrid"></div>
     </section>
+    <section id="watchLaterSection" style="display:none;">
+      <h2>Watch Later</h2>
+      <div class="grid" id="watchLaterGrid"></div>
+    </section>
     <section>
       <h2>New Releases</h2>
       <div class="grid" id="newGrid"></div>
@@ -307,11 +296,14 @@
       <h2>Kdramas</h2>
       <div class="grid" id="kdramaGrid"></div>
     </section>
+    <section>
+      <h2>Trending Horror</h2>
+      <div class="grid" id="horrorGrid"></div>
+    </section>
     
     <!-- Add more sections as needed -->
     
     <script src="search.js"></script>
-    <div id="posterPreview" style="display:none;position:absolute;z-index:1000;"></div>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');

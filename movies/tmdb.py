@@ -224,9 +224,54 @@ def main():
     with open(NEW_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(new_titles, f, ensure_ascii=False, indent=2)
 
+    # Trending Horror Movies
+    def fetch_trending_horror(count=50, max_pages=5):
+        collected = []
+        page = 1
+        while len(collected) < count and page <= max_pages:
+            params = {
+                "api_key": apiKey,
+                "with_genres": "27",  # Horror genre id
+                "sort_by": "popularity.desc",
+                "language": "en-US",
+                "page": page,
+            }
+            resp = requests.get(f"{BASE_URL}/discover/movie", params=params)
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if not results:
+                break
+            collected.extend(results)
+            page += 1
+        return collected[:count]
+
+    horror_movies = []
+    seen_horror_ids = set()
+    trending_horror = fetch_trending_horror(count=50, max_pages=5)
+    for movie in trending_horror:
+        mid = movie.get("id")
+        if not mid or mid in seen_horror_ids:
+            continue
+        details = fetch_details("movie", mid)
+        details["media_type"] = "movie"
+        # double-check genre contains Horror
+        genres = details.get("genres") or []
+        if not any((g.get("id") == 27) or (g.get("name", "").strip().lower() == "horror") for g in genres):
+            continue
+        seen_horror_ids.add(mid)
+        horror_movies.append(details)
+        poster_path = details.get("poster_path")
+        if poster_path:
+            poster_filename = f"{POSTERS_DIR}/movie_{mid}.png"
+            download_poster(poster_path, poster_filename)
+
+    # Save Horror movies to JSON
+    with open("titles/horror.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": horror_movies}, f, ensure_ascii=False, indent=2)
+
     # Build set of poster paths that are still in use
     used_posters = set()
-    for m in trending.get("movies", []) + new_titles.get("movies", []) + (bollywood_details or []):
+    for m in trending.get("movies", []) + new_titles.get("movies", []) + (bollywood_details or []) + horror_movies:
         pid = m.get("id")
         if pid and m.get("poster_path"):
             used_posters.add(os.path.abspath(f"{POSTERS_DIR}/movie_{pid}.png"))
