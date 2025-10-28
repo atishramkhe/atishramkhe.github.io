@@ -158,6 +158,67 @@ function extractPayload(obj) {
     if (obj.message && typeof obj.message === 'object') return obj.message;
     return obj;
 }
+// Add TMDB helpers to resolve the last available TV episode (cached for 24h)
+const TV_LAST_CACHE_TTL = 24 * 60 * 60 * 1000;
+async function getTVLastEpisodeInfo(tvId) {
+    const key = `tv_last_${tvId}`;
+    try {
+        const cached = JSON.parse(localStorage.getItem(key) || 'null');
+        if (cached && (Date.now() - (cached.cachedAt || 0)) < TV_LAST_CACHE_TTL) {
+            return cached;
+        }
+    } catch {}
+    const url = `https://api.themoviedb.org/3/tv/${tvId}?api_key=${apiKey}`;
+    try {
+        const res = await fetch(url);
+        if (res.ok) {
+            const j = await res.json();
+            const seasons = (j.seasons || []).filter(s => (s && typeof s.season_number === 'number' && s.season_number > 0));
+            seasons.sort((a, b) => b.season_number - a.season_number);
+            const last = seasons[0] || null;
+            const info = {
+                lastSeason: last?.season_number ?? null,
+                lastEpisode: last?.episode_count ?? null,
+                cachedAt: Date.now()
+            };
+            localStorage.setItem(key, JSON.stringify(info));
+            return info;
+        }
+    } catch {}
+    return { lastSeason: null, lastEpisode: null, cachedAt: Date.now() };
+}
+async function maybeAutoRemoveFromWatchLater(data, frac) {
+    if (!WATCH_LATER_POLICY) return;
+    const threshold = WATCH_LATER_POLICY.removeWhenProgressGte;
+    const onStart = !!WATCH_LATER_POLICY.removeOnStart;
+    const id = data.id;
+    const type = data.mediaType || data.type;
+    if (!id || !type) return;
+    if (!isInWatchLater(id, type)) return;
+
+    if (onStart) { removeFromWatchLater(id, type); return; }
+    if (!(typeof frac === 'number' && frac >= threshold)) return;
+
+    if (type !== 'tv') { removeFromWatchLater(id, type); return; }
+
+    // TV: only remove if last available ep of last season
+    const watchedSeason = data.season ?? data.season_number ?? null;
+    const watchedEpisode = data.episode ?? data.episode_number ?? null;
+    if (!watchedSeason || !watchedEpisode) return;
+
+    // Try hints from the payload first
+    let lastSeason = data.lastSeason ?? data.last_season ?? null;
+    let lastEpisode = data.lastEpisode ?? data.last_episode ?? null;
+
+    if (!lastSeason || !lastEpisode) {
+        const meta = await getTVLastEpisodeInfo(id);
+        lastSeason = lastSeason || meta.lastSeason;
+        lastEpisode = lastEpisode || meta.lastEpisode;
+    }
+    if (lastSeason && lastEpisode && watchedSeason === lastSeason && watchedEpisode === lastEpisode) {
+        removeFromWatchLater(id, type);
+    }
+}
 
 window.addEventListener("message", function (event) {
     try {
@@ -184,6 +245,9 @@ window.addEventListener("message", function (event) {
             duration: parsed.duration ?? parsed.totalDuration ?? null,
             season: parsed.season ?? parsed.season_number ?? null,
             episode: parsed.episode ?? parsed.episode_number ?? null,
+            // optional hints from player if provided
+            lastSeason: parsed.lastSeason ?? parsed.last_season ?? null,
+            lastEpisode: parsed.lastEpisode ?? parsed.last_episode ?? null,
             title: parsed.title ?? parsed.name ?? null,
             poster_path: parsed.poster_path ?? parsed.posterPath ?? parsed.poster ?? null,
             updatedAt: Date.now()
@@ -192,26 +256,19 @@ window.addEventListener("message", function (event) {
         const key = `progress_${id}_${type}`;
         localStorage.setItem(key, JSON.stringify(toStore));
 
-        // Auto-remove from Watch Later if finished per policy
-        if (WATCH_LATER_POLICY.removeOnStart || WATCH_LATER_POLICY.removeWhenProgressGte != null) {
-            const inWL = isInWatchLater(id, type);
-            if (inWL) {
-                if (WATCH_LATER_POLICY.removeOnStart) {
-                    removeFromWatchLater(id, type);
-                } else {
-                    let frac = null;
-                    if (typeof progressNum === 'number') {
-                        // handle 0-100 or 0-1 inputs
-                        frac = progressNum > 1 ? progressNum / 100 : progressNum;
-                    }
-                    if ((frac == null || isNaN(frac)) && toStore.duration && typeof timestamp === 'number' && toStore.duration > 0) {
-                        frac = timestamp / toStore.duration;
-                    }
-                    if (typeof frac === 'number' && frac >= WATCH_LATER_POLICY.removeWhenProgressGte) {
-                        removeFromWatchLater(id, type);
-                    }
-                }
-            }
+        // Compute fractional progress once
+        let frac = null;
+        if (typeof progressNum === 'number') {
+            frac = progressNum > 1 ? progressNum / 100 : progressNum;
+        }
+        if ((frac == null || isNaN(frac)) && toStore.duration && typeof timestamp === 'number' && toStore.duration > 0) {
+            frac = timestamp / toStore.duration;
+        }
+
+        // TV-aware auto-remove policy
+        if (WATCH_LATER_POLICY && (WATCH_LATER_POLICY.removeOnStart || WATCH_LATER_POLICY.removeWhenProgressGte != null)) {
+            // fire-and-forget
+            void maybeAutoRemoveFromWatchLater(toStore, frac);
         }
     } catch (e) {
         console.warn("[player message] parse/save error:", e);
