@@ -18,6 +18,62 @@ const WATCH_LATER_POLICY = {
     removeWhenProgressGte: 0.9   // auto-remove when >= 90% watched
 };
 
+// Max visible items before Show All is needed
+const SECTION_SHOW_LIMIT = 7;
+
+// Helper: truthy check for '1'/'0' or boolean
+function isTrue(v) { return v === true || v === '1' || v === 1; }
+
+// Ensure a toggle button exists in the section header row (creates one if missing)
+function ensureSectionToggleButton(section, config) {
+    if (!section) return null;
+    // Try to use an existing heading; otherwise create a header row
+    let headerRow = section.querySelector('.section-header-row');
+    if (!headerRow) {
+        const heading = section.querySelector('h2, h3, .section-title, .title');
+        headerRow = document.createElement('div');
+        headerRow.className = 'section-header-row';
+        headerRow.style.display = 'flex';
+        headerRow.style.alignItems = 'center';
+        headerRow.style.justifyContent = 'space-between';
+        headerRow.style.marginBottom = '8px';
+        if (heading) {
+            // Insert row before existing heading and move heading into it
+            section.insertBefore(headerRow, heading);
+            heading.style.margin = '0';
+            headerRow.appendChild(heading);
+        } else {
+            // Fallback title
+            const t = document.createElement('span');
+            t.className = 'section-title';
+            t.textContent = config.fallbackTitle || '';
+            t.style.fontWeight = '600';
+            t.style.fontSize = '1.1rem';
+            headerRow.appendChild(t);
+            section.insertBefore(headerRow, section.firstChild);
+        }
+    }
+    let btn = headerRow.querySelector(`#${config.buttonId}`);
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.id = config.buttonId;
+        btn.style.background = 'transparent';
+        btn.style.font = 'inherit';
+        btn.style.marginRight = '40px';
+        btn.style.border = '1px solid #444444ff';
+        btn.style.color = '#444444ff';
+        btn.style.padding = '4px 10px';
+        btn.style.borderRadius = '4px';
+        btn.style.cursor = 'pointer';
+        btn.style.fontSize = '0.9em';
+        btn.addEventListener('click', config.onClick);
+        headerRow.appendChild(btn);
+    }
+    btn.textContent = config.isExpanded ? 'Show Less' : 'Show All';
+    btn.style.display = config.shouldShow ? 'inline-block' : 'none';
+    return btn;
+}
+
 // Optional positioning for search container
 if (searchContainer) {
     searchContainer.style.position = 'relative';
@@ -220,6 +276,36 @@ async function maybeAutoRemoveFromWatchLater(data, frac) {
     }
 }
 
+// Compute fractional progress from stored data (0..1), robust to 0..100 inputs
+function fractionFromProgress(data) {
+    if (!data) return null;
+    const p = data.progress;
+    if (typeof p === 'number') {
+        const f = p > 1 ? p / 100 : p;
+        if (Number.isFinite(f)) return Math.max(0, Math.min(1, f));
+    }
+    const { timestamp, duration } = data;
+    if (Number.isFinite(timestamp) && Number.isFinite(duration) && duration > 0) {
+        const f = timestamp / duration;
+        if (Number.isFinite(f)) return Math.max(0, Math.min(1, f));
+    }
+    return null;
+}
+
+function removeFromContinueWatching(id, type) {
+    if (!id || !type) return;
+    localStorage.removeItem(`progress_${id}_${type}`);
+}
+
+function maybeAutoRemoveFromContinueWatching(data, frac) {
+    const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
+    if (!(typeof threshold === 'number')) return;
+    const f = (typeof frac === 'number') ? frac : fractionFromProgress(data);
+    if (typeof f === 'number' && f >= threshold) {
+        removeFromContinueWatching(data.id, data.mediaType || data.type);
+    }
+}
+
 window.addEventListener("message", function (event) {
     try {
         let parsed = typeof event.data === "string" ? (tryParseJSON(event.data) || event.data) : event.data;
@@ -265,10 +351,15 @@ window.addEventListener("message", function (event) {
             frac = timestamp / toStore.duration;
         }
 
-        // TV-aware auto-remove policy
+        // TV-aware auto-remove policy (Watch Later)
         if (WATCH_LATER_POLICY && (WATCH_LATER_POLICY.removeOnStart || WATCH_LATER_POLICY.removeWhenProgressGte != null)) {
             // fire-and-forget
             void maybeAutoRemoveFromWatchLater(toStore, frac);
+        }
+
+        // Apply same threshold to Continue Watching: remove progress entry when >= threshold
+        if (WATCH_LATER_POLICY && WATCH_LATER_POLICY.removeWhenProgressGte != null) {
+            maybeAutoRemoveFromContinueWatching(toStore, frac);
         }
     } catch (e) {
         console.warn("[player message] parse/save error:", e);
@@ -437,6 +528,7 @@ function loadGrid(jsonPath, gridId) {
 }
 
 function loadContinueWatching() {
+    const section = document.getElementById('continueSection') || document.getElementById('continueWatchingSection') || null;
     const continueGrid = document.getElementById('continueGrid');
     if (!continueGrid) return;
     continueGrid.innerHTML = '';
@@ -450,6 +542,16 @@ function loadContinueWatching() {
             const raw = JSON.parse(localStorage.getItem(key));
             const norm = normalizeProgress(raw);
             if (norm && norm.id && norm.mediaType) {
+                // Auto-remove if progress >= threshold (same as Watch Later policy)
+                const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
+                if (typeof threshold === 'number') {
+                    const frac = fractionFromProgress(norm);
+                    if (frac != null && frac >= threshold) {
+                        try { removeFromContinueWatching(norm.id, norm.mediaType); } catch {}
+                        continue; // skip adding to list
+                    }
+                }
+
                 const k = `${norm.id}:${norm.mediaType}`;
                 const prev = byKey.get(k);
                 if (!prev || (norm.updatedAt || 0) > (prev.updatedAt || 0)) {
@@ -460,38 +562,58 @@ function loadContinueWatching() {
     }
 
     const continueItems = Array.from(byKey.values()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-    const itemsToShow = continueItems.slice(0, 7);
 
-    const posterPromises = itemsToShow.map(async data => {
+    if (continueItems.length === 0) {
+        if (section) section.style.display = 'none';
+        return;
+    }
+    if (section) section.style.display = 'block';
+
+    // Show All / Show Less toggle
+    const expanded = isTrue(localStorage.getItem('continue_show_all'));
+    ensureSectionToggleButton(section, {
+        buttonId: 'continueShowAllBtn',
+        onClick: () => {
+            const now = !isTrue(localStorage.getItem('continue_show_all'));
+            localStorage.setItem('continue_show_all', now ? '1' : '0');
+            loadContinueWatching();
+        },
+        shouldShow: continueItems.length > SECTION_SHOW_LIMIT,
+        isExpanded: expanded,
+        fallbackTitle: 'Continue Watching'
+    });
+
+    const itemsToRender = expanded ? continueItems : continueItems.slice(0, SECTION_SHOW_LIMIT);
+
+    const posterPromises = itemsToRender.map(async data => {
         let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
         let title = data.title || data.name || 'Unknown Title';
 
-        let localPosterExists = await fetch(poster, { method: 'HEAD' }).then(res => res.ok).catch(() => false);
-        if (localPosterExists) return { data, poster, title };
-
-        if (data.poster_path) {
-            poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-            return { data, poster, title };
-        }
-
-        let tmdbUrl = (data.mediaType === 'movie')
-            ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
-            : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
-
-        try {
-            const tmdbRes = await fetch(tmdbUrl);
-            if (tmdbRes.ok) {
-                const tmdbData = await tmdbRes.json();
-                if (tmdbData.poster_path) {
-                    poster = `https://image.tmdb.org/t/p/w500${tmdbData.poster_path}`;
-                } else {
+        const localPosterExists = await fetch(poster, { method: 'HEAD' }).then(res => res.ok).catch(() => false);
+        if (!localPosterExists) {
+            if (data.poster_path) {
+                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            } else {
+                const tmdbUrl = (data.mediaType === 'movie')
+                    ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
+                    : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
+                try {
+                    const tmdbRes = await fetch(tmdbUrl);
+                    if (tmdbRes.ok) {
+                        const tmdbData = await tmdbRes.json();
+                        if (tmdbData.poster_path) {
+                            poster = `https://image.tmdb.org/t/p/w500${tmdbData.poster_path}`;
+                        } else {
+                            poster = placeholderImage;
+                        }
+                        if (tmdbData.title || tmdbData.name) title = tmdbData.title || tmdbData.name;
+                    } else {
+                        poster = placeholderImage;
+                    }
+                } catch {
                     poster = placeholderImage;
                 }
-            } else {
-                poster = placeholderImage;
             }
-        } catch {
-            poster = placeholderImage;
         }
 
         return { data, poster, title };
@@ -551,56 +673,7 @@ function loadContinueWatching() {
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
         });
-
-        // Fill to 7 with dummies
-        for (let i = continueGrid.children.length; i < 7; i++) {
-            const dummy = document.createElement('div');
-            dummy.className = 'poster';
-            dummy.innerHTML = `
-                <img src="assets/no_poster.png" alt="No Image">
-                <div style="width:100%;height:0px;background:#000;margin-top:4px;overflow:hidden;">
-                    <div style="width:0%;height:100%;background:#e02735;"></div>
-                </div>
-            `;
-            continueGrid.appendChild(dummy);
-        }
     });
-}
-
-function normalizeProgress(raw) {
-    if (!raw || typeof raw !== 'object') return null;
-    const id = raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId;
-    const mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
-    const progress = (typeof raw.progress === 'number') ? raw.progress
-        : (typeof raw.percent === 'number' ? raw.percent
-        : (raw.progressPercent ?? null));
-    const timestamp = raw.timestamp ?? raw.currentTime ?? raw.position ?? null;
-    const duration = raw.duration ?? raw.totalDuration ?? raw.length ?? null;
-    const season = raw.season ?? raw.season_number ?? raw.lastSeason ?? 1;
-    const episode = raw.episode ?? raw.episode_number ?? raw.ep ?? 1;
-    const title = raw.title ?? raw.name ?? raw.movie_title ?? null;
-    const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
-    const updatedAt = raw.updatedAt ?? raw.updated_at ?? raw.lastUpdated ?? Date.now();
-
-    return {
-        id,
-        mediaType,
-        progress,
-        timestamp,
-        duration,
-        season,
-        episode,
-        title,
-        poster_path,
-        updatedAt
-    };
-}
-
-function truncateOverview(text, maxLength = 120) {
-    if (!text) return '';
-    return text.length > maxLength
-        ? text.slice(0, maxLength).trim() + '...'
-        : text;
 }
 
 // Single init to avoid double rendering
@@ -638,8 +711,14 @@ function toggleWatchLater(item) {
     const key = `${item.id}:${item.mediaType}`;
     const idx = list.findIndex(x => `${x.id}:${x.mediaType}` === key);
     let added;
-    if (idx >= 0) { list.splice(idx, 1); added = false; }
-    else { list.push(item); added = true; }
+    if (idx >= 0) { 
+        list.splice(idx, 1); 
+        added = false; 
+    } else { 
+        // stamp updatedAt so newest appears on the left
+        list.push({ ...item, updatedAt: Date.now() }); 
+        added = true; 
+    }
     setWatchLater(list);
     // refresh Watch Later section after toggle
     try { loadWatchLater(); } catch {}
@@ -661,20 +740,48 @@ function loadWatchLater() {
     section.style.display = 'block';
     grid.innerHTML = '';
 
-    // Dedupe by id:mediaType, keep first occurrence
+    // Dedupe by id:mediaType, keep most recent by updatedAt
     const map = new Map();
     for (const it of list) {
-        const k = `${it.id}:${it.mediaType}`;
-        if (!map.has(k)) map.set(k, it);
+        const mediaType = it.mediaType || it.type;
+        const id = it.id;
+        if (!id || !mediaType) continue;
+
+        const k = `${id}:${mediaType}`;
+        const prev = map.get(k);
+        const itUpdated = it.updatedAt ?? it.updated_at ?? it.addedAt ?? 0;
+        const prevUpdated = prev ? (prev.updatedAt ?? prev.updated_at ?? prev.addedAt ?? 0) : -1;
+
+        if (!prev || itUpdated > prevUpdated) {
+            map.set(k, { ...it, mediaType, updatedAt: itUpdated });
+        }
     }
-    const items = Array.from(map.values());
 
-    items.forEach(async (data) => {
+    // Sort newest to oldest (left to right)
+    const allItems = Array.from(map.values()).sort(
+        (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
+    );
+
+    // Show All / Show Less toggle
+    const expanded = isTrue(localStorage.getItem('watchlater_show_all'));
+    ensureSectionToggleButton(section, {
+        buttonId: 'watchLaterShowAllBtn',
+        onClick: () => {
+            const now = !isTrue(localStorage.getItem('watchlater_show_all'));
+            localStorage.setItem('watchlater_show_all', now ? '1' : '0');
+            loadWatchLater();
+        },
+        shouldShow: allItems.length > SECTION_SHOW_LIMIT,
+        isExpanded: expanded,
+        fallbackTitle: 'Watch Later'
+    });
+
+    const items = expanded ? allItems : allItems.slice(0, SECTION_SHOW_LIMIT);
+
+    // Resolve posters first to keep DOM insertion order stable
+    const posterPromises = items.map(async (data) => {
         const id = data.id;
-        const mediaType = data.mediaType || data.type;
-        if (!id || !mediaType) return;
-
-        // Prefer local cached poster, else use stored URL, else TMDB
+        const mediaType = data.mediaType;
         let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
         let title = data.title || data.name || 'Unknown Title';
 
@@ -685,7 +792,6 @@ function loadWatchLater() {
             } else if (data.poster_path) {
                 poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
             } else {
-                // fetch TMDB detail to get poster_path
                 const tmdbUrl = (mediaType === 'movie')
                     ? `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
                     : `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`;
@@ -704,44 +810,85 @@ function loadWatchLater() {
             }
         }
 
-        const div = document.createElement('div');
-        div.className = 'poster';
-        div.style.position = 'relative';
-
-        div.innerHTML = `
-            <img src="${poster}" alt="${title}">
-        `;
-        div.onclick = () => openPlayer(mediaType, id, data.season || 1);
-
-        // Remove (X) button like Continue Watching
-        const removeBtn = document.createElement('button');
-        removeBtn.innerHTML = '&times;';
-        removeBtn.title = 'Remove';
-        removeBtn.style.position = 'absolute';
-        removeBtn.style.top = '6px';
-        removeBtn.style.right = '8px';
-        removeBtn.style.background = 'rgba(0,0,0,0.7)';
-        removeBtn.style.color = '#fff';
-        removeBtn.style.border = 'none';
-        removeBtn.style.fontSize = '1.5em';
-        removeBtn.style.cursor = 'pointer';
-        removeBtn.style.padding = '0 6px';
-        removeBtn.style.borderRadius = '50%';
-        removeBtn.style.display = 'none';
-        removeBtn.style.zIndex = '2';
-
-        div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
-        div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
-
-        removeBtn.onclick = (e) => {
-            e.stopPropagation();
-            // remove from watch later
-            const list = getWatchLater().filter(x => !(String(x.id) === String(id) && (x.mediaType || x.type) === mediaType));
-            setWatchLater(list);
-            loadWatchLater();
-        };
-
-        div.appendChild(removeBtn);
-        grid.appendChild(div);
+        return { data, poster, title };
     });
+
+    Promise.all(posterPromises).then(results => {
+        results.forEach(({ data, poster, title }) => {
+            const id = data.id;
+            const mediaType = data.mediaType;
+
+            const div = document.createElement('div');
+            div.className = 'poster';
+            div.style.position = 'relative';
+            div.innerHTML = `<img src="${poster}" alt="${title}">`;
+            div.onclick = () => openPlayer(mediaType, id, data.season || 1);
+
+            // Remove (X) button like Continue Watching
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.title = 'Remove';
+            removeBtn.style.position = 'absolute';
+            removeBtn.style.top = '6px';
+            removeBtn.style.right = '8px';
+            removeBtn.style.background = 'rgba(0,0,0,0.7)';
+            removeBtn.style.color = '#fff';
+            removeBtn.style.border = 'none';
+            removeBtn.style.fontSize = '1.5em';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.style.padding = '0 6px';
+            removeBtn.style.borderRadius = '50%';
+            removeBtn.style.display = 'none';
+            removeBtn.style.zIndex = '2';
+
+            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
+            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
+
+            removeBtn.onclick = (e) => {
+                e.stopPropagation();
+                const filtered = getWatchLater().filter(x => !(String(x.id) === String(id) && (x.mediaType || x.type) === mediaType));
+                setWatchLater(filtered);
+                loadWatchLater();
+            };
+
+            div.appendChild(removeBtn);
+            grid.appendChild(div);
+        });
+    });
+}
+
+function normalizeProgress(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const id = raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId;
+    const mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
+    const progress = (typeof raw.progress === 'number') ? raw.progress
+        : (typeof raw.percent === 'number' ? raw.percent
+        : (raw.progressPercent ?? null));
+    const timestamp = raw.timestamp ?? raw.currentTime ?? raw.position ?? null;
+    const duration = raw.duration ?? raw.totalDuration ?? raw.length ?? null;
+    const season = raw.season ?? raw.season_number ?? raw.lastSeason ?? 1;
+    const episode = raw.episode ?? raw.episode_number ?? raw.ep ?? 1;
+    const title = raw.title ?? raw.name ?? raw.movie_title ?? null;
+    const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
+    const updatedAt = raw.updatedAt ?? raw.updated_at ?? raw.lastUpdated ?? Date.now();
+
+    return {
+        id,
+        mediaType,
+        progress,
+        timestamp,
+        duration,
+        season,
+        episode,
+        title,
+        poster_path,
+        updatedAt
+    };
+}
+
+function truncateOverview(text, maxLength = 120) {
+    if (!text) return '';
+    return text.length > maxLength
+        ? text.slice(0, maxLength).trim() + '...'
+        : text;
 }
