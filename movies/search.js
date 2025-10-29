@@ -480,6 +480,14 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                         Season ${lastSeasonNum}${lastSeasonEpisodes ? `, ${lastSeasonEpisodes} Episodes` : ''}
                     </div>` : ''
                 }
+                
+                <div>
+                    <button class="show-more-poster-info-btn"
+                        style="margin-top:8px;background:none;color:#e02735;border:1px;padding:4px 0px;border-radius:0px;cursor:pointer;font-size:0.95em;">
+                        Show More 
+                    </button>
+                </div>
+                
                 <button class="watch-later-btn"
                     aria-label="${labelText}"
                     title="${labelText}"
@@ -498,6 +506,15 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
             </div>
         `;
         posterDiv.appendChild(infoDiv);
+
+        // Show More button event
+        const showMoreBtn = infoDiv.querySelector('.show-more-poster-info-btn');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showMorePosterInfo({ id, mediaType, poster, title, year, date, overview, isTV });
+            });
+        }
 
         const wlBtn = infoDiv.querySelector('.watch-later-btn');
         const wlLabel = infoDiv.querySelector('.watch-later-label');
@@ -538,6 +555,219 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     return posterDiv;
 }
 
+// Helper to fetch full TMDB details and credits for more poster info
+async function fetchMorePosterInfo(id, mediaType) {
+    const apiType = mediaType === 'tv' ? 'tv' : 'movie';
+    const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`;
+    const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
+
+    let details = {};
+    let credits = {};
+
+    try {
+        const [detailsRes, creditsRes] = await Promise.all([
+            fetch(detailsUrl).then(r => r.json()),
+            fetch(creditsUrl).then(r => r.json())
+        ]);
+        details = detailsRes || {};
+        credits = creditsRes || {};
+    } catch (e) {
+        // fallback: empty objects
+    }
+
+    // Parse genres
+    const genres = (details.genres || []).map(g => g.name).join(', ');
+    // Vote average
+    const voteAverage = details.vote_average || '';
+    // Runtime
+    const runtime = mediaType === 'tv'
+        ? (details.episode_run_time && details.episode_run_time.length ? details.episode_run_time[0] : '')
+        : details.runtime || '';
+    // Seasons/Episodes
+    const numSeasons = details.number_of_seasons || '';
+    const numEpisodes = details.number_of_episodes || '';
+    // Backdrop
+    const backdrop = details.backdrop_path ? `https://image.tmdb.org/t/p/original${details.backdrop_path}` : '';
+    // Cast (first 6)
+    const castArr = (credits.cast || []).slice(0, 6);
+    // Crew (directors/writers)
+    const crew = (credits.crew || []).filter(c => ['Director', 'Writer', 'Screenplay'].includes(c.job)).map(c => `${c.name} (${c.job})`).join(', ');
+
+    return {
+        genres,
+        voteAverage,
+        runtime,
+        numSeasons,
+        numEpisodes,
+        backdrop,
+        castArr,
+        crew
+    };
+}
+
+// Update showMorePosterInfo to style Play button as a red circle and move Watch Later below Play
+async function showMorePosterInfo({ id, mediaType, poster, title, year, date, overview, isTV }) {
+    // Remove any existing modal/dimmer
+    let existing = document.getElementById('more-poster-info-modal');
+    if (existing) existing.remove();
+    let dimmer = document.getElementById('player-dimmer');
+    if (!dimmer) {
+        dimmer = document.createElement('div');
+        dimmer.id = 'player-dimmer';
+        dimmer.style.position = 'fixed';
+        dimmer.style.top = '0';
+        dimmer.style.left = '0';
+        dimmer.style.width = '100vw';
+        dimmer.style.height = '100vh';
+        dimmer.style.background = 'rgba(0,0,0,0.7)';
+        dimmer.style.zIndex = '9998';
+        dimmer.style.transition = 'background 0.2s';
+        document.body.appendChild(dimmer);
+    } else {
+        dimmer.style.display = 'block';
+    }
+
+    // Fetch extra info
+    const extra = await fetchMorePosterInfo(id, mediaType);
+
+    // Modal container
+    const modal = document.createElement('div');
+    modal.id = 'more-poster-info-modal';
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.width = '900px';
+    modal.style.minHeight = '520px';
+    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.style.borderRadius = '0px';
+    modal.style.boxShadow = '0 4px 24px rgba(0,0,0,0.25)';
+    modal.style.padding = '36px 36px 24px 36px';
+    modal.style.overflowY = 'auto';
+    modal.style.zIndex = '9999';
+
+    // Backdrop as background
+    if (extra.backdrop) {
+        modal.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.98)), url('${extra.backdrop}')`;
+        modal.style.backgroundSize = 'cover';
+        modal.style.backgroundPosition = 'center';
+    }
+
+    // Cast HTML
+    let castHtml = '';
+    if (extra.castArr && extra.castArr.length) {
+        castHtml = `<div style="display:flex;gap:24px;margin-top:18px;margin-bottom:8px;">`;
+        extra.castArr.forEach(person => {
+            const face = person.profile_path
+                ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
+                : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(person.name) + '&background=222&color=fff&size=128';
+            castHtml += `
+                <div style="display:flex;flex-direction:column;align-items:center;width:90px;">
+                    <img src="${face}" alt="${person.name}" style="width:68px;height:68px;object-fit:cover;border-radius:50%;border:2px solid #e02735;box-shadow:0 2px 8px #000;">
+                    <div style="margin-top:7px;font-size:0.98em;color:#fff;text-align:center;line-height:1.1;">${person.name}</div>
+                </div>
+            `;
+        });
+        castHtml += `</div>`;
+    }
+
+    // Watch Later button style and label
+    let isSaved = isInWatchLater(id, mediaType);
+    const playBtnId = 'more-poster-play-btn';
+    const wlBtnId = 'more-poster-watchlater-btn';
+    const wlLabelId = 'more-poster-watchlater-label';
+    const wlBtnSymbol = isSaved ? '✓' : '+';
+    const wlLabelText = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+
+    modal.innerHTML = `
+        <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;font-size:2em;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">&times;</button>
+        <div style="display:flex;gap:36px;">
+            <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
+                <img src="${poster}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
+                <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin-top:18px;">
+                    <button id="${playBtnId}"
+                        style="width:36px;height:36px;border-radius:50%;background:transparent;color:#e02735;border:2px solid #e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);margin-bottom:12px;">
+                        ▶
+                    </button>
+                    <div style="display:flex;flex-direction:column;align-items:center;">
+                        <button id="${wlBtnId}"
+                            aria-label="${wlLabelText}"
+                            title="${wlLabelText}"
+                            style="width:36px;height:36px;border-radius:50%;background:transparent;color:#e02735;border:2px solid #e02735;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);">
+                            ${wlBtnSymbol}
+                        </button>
+                        <span id="${wlLabelId}"
+                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;">
+                            ${wlLabelText}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex:1;min-width:0;">
+                <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${title}</div>
+                <div style="color:#e02735;font-weight:600;margin-bottom:6px;font-size:1.1em;">${year || ''} ${isTV ? 'TV Show' : 'Movie'}</div>
+                <div style="margin-bottom:14px;color:#fff;font-size:1.08em;">${overview || 'No description available.'}</div>
+                <div style="font-size:1.08em;color:#FFF;margin-bottom:10px;">
+                    ${extra.genres || 'N/A'}<br>
+                    <br>
+                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}<br>
+                    <br>
+                    ${isTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
+                </div>
+                <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;">
+                    <b>Cast:</b>
+                </div>
+                ${castHtml}
+                <div style="font-size:1.08em;color:#e02735;margin-top:10px;">
+                    ${extra.crew ? `<b>Crew:</b> <span style="color:#FFF">${extra.crew}</span>` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Play button event
+    document.getElementById(playBtnId).onclick = (e) => {
+        e.stopPropagation();
+        modal.remove();
+        if (dimmer) dimmer.style.display = 'none';
+        openPlayer(mediaType, id, 1);
+    };
+
+    // Watch Later button event
+    const wlBtn = document.getElementById(wlBtnId);
+    const wlLabel = document.getElementById(wlLabelId);
+    wlBtn.onclick = (e) => {
+        e.stopPropagation();
+        isSaved = toggleWatchLater({
+            id,
+            mediaType,
+            title,
+            poster,
+            date: date || '',
+            year: year || ''
+        });
+        wlBtn.textContent = isSaved ? '✓' : '+';
+        const text = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+        wlBtn.title = text;
+        wlBtn.setAttribute('aria-label', text);
+        wlLabel.textContent = text;
+        wlBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 200 });
+    };
+
+    // Close button and dimmer click
+    document.getElementById('close-more-poster-info').onclick = () => {
+        modal.remove();
+        if (dimmer) dimmer.style.display = 'none';
+    };
+    dimmer.onclick = () => {
+        modal.remove();
+        if (dimmer) dimmer.style.display = 'none';
+    };
+}
+
+// Load grid data and build poster cards
 function loadGrid(jsonPath, gridId) {
     fetch(jsonPath)
         .then(res => res.json())
