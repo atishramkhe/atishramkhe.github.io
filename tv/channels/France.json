@@ -6,13 +6,14 @@
     "logo": "logos/France/TF1.png",
     "sources": [
       {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
-      },
-      {
         "type": "daddylive",
         "channel_id": "469"
       },
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
+      },
+      
       {
         "type": "directfr",
         "id": 27
@@ -31,6 +32,10 @@
     ],
     "logo": "logos/France/France 2.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "950"
+      },
       {
         "type": "mpd",
         "url": "https://viamotionhsi.netplus.ch/live/eds/france2hd/browser-dash/france2hd.mpd"
@@ -55,6 +60,10 @@
     "categories": [],
     "logo": "logos/France/France 3.png",
     "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "951"
+      },
       {
         "type": "mpd",
         "url": "https://viamotionhsi.netplus.ch/live/eds/france3hd/browser-dash/france3hd.mpd"
@@ -82,6 +91,10 @@
     "logo": "logos/France/France 4.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "952"
+      },
+      {
         "type": "mpd",
         "url": "https://viamotionhsi.netplus.ch/live/eds/france4hd/browser-dash/france4hd.mpd"
       },
@@ -99,6 +112,10 @@
     ],
     "logo": "logos/France/France 5.png",
     "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "953"
+      },
       {
         "type": "mpd",
         "url": "https://viamotionhsi.netplus.ch/live/eds/france5hd/browser-dash/france5hd.mpd"
@@ -117,14 +134,15 @@
     ],
     "logo": "logos/France/M6.png",
     "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "470"
+      },
       {
         "type": "m3u8",
         "url": "https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8"
       },
-      {
-        "type": "daddylive",
-        "channel_id": "470"
-      },
+      
       {
         "type": "directfr",
         "id": 39
@@ -165,6 +183,10 @@
     "logo": "logos/France/W9.png",
     "sources": [
       {
+        "type": "daddylive",
+        "channel_id": "959"
+      },
+      {
         "type": "directfr",
         "id": 18
       },
@@ -181,13 +203,18 @@
     "logo": "logos/France/TMC.png",
     "sources": [
       {
-        "type": "m3u8",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8"
-      },
-      {
         "type": "directfr",
         "id": 17
       },
+      {
+        "type": "daddylive",
+        "channel_id": "955"
+      },
+      {
+        "type": "m3u8",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8"
+      },
+      
       {
         "type": "witv",
         "id": 78
@@ -257,14 +284,15 @@
     ],
     "logo": "logos/France/6ter.png",
     "sources": [
+    {
+        "type": "daddylive",
+        "channel_id": "963"
+      },
      {
         "type": "m3u8",
         "url": "https://viamotionhsi.netplus.ch/live/eds/6ter/browser-HLS8/6ter.m3u8"
       },
-      {
-        "type": "daddylive",
-        "channel_id": "963"
-      },
+      
       {
         "type": "directfr",
         "id": 70
