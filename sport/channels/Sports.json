@@ -1753,6 +1753,34 @@
       }
     ]
   },
+    {
+    "name": "beIN SPORTS XTRA 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/US/bein_sports_xtra.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "100"
+      }
+    ]
+  },
+  {
+    "name": "beIN SPORTS en Espa\u5358ol",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/US/bein_sports_espagnol.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "372"
+      }
+    ]
+  },
   {
     "name": "MAVTV / Racer Network",
     "id_api": null,
@@ -1877,20 +1905,6 @@
       {
         "type": "daddylive",
         "channel_id": "597"
-      }
-    ]
-  },
-  {
-    "name": "Fox Cricket",
-    "id_api": null,
-    "categories": [
-      "US"
-    ],
-    "logo": "logos/US/FoxCricket.svg",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "369"
       }
     ]
   },
@@ -3267,6 +3281,153 @@
       {
         "type": "m3u8",
         "url": "https://proxyv2.utako.moe/ph.php?&isp=1&id=cs03"
+      }
+    ]
+  }, 
+      {
+    "name": "🇦🇺 Australia",
+    "sources": [
+
+    ]
+  },
+  {
+    "name": "beIN SPORTS Australia 1",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "491"
+      }
+    ]
+  },
+  {
+    "name": "beIN SPORTS Australia 2",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "492"
+      }
+    ]
+  },
+  {
+    "name": "beIN SPORTS Australia 3",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "493"
+      }
+    ]
+  },
+  {
+    "name": "Fox Cricket 501 AU",
+    "id_api": null,
+    "categories": [
+      "Australia"
+    ],
+    "logo": "logos/US/FoxCricket.svg",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "369"
+      }
+    ]
+  },
+  
+    {
+    "name": "FOX Sports 502 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Australia/fox_sports_502.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "820"
+      }
+    ]
+  },
+  {
+    "name": "FOX Sports 503 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Australia/FoxSports503_HD.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "821"
+      }
+    ]
+  },
+  {
+    "name": "FOX Sports 504 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "822"
+      }
+    ]
+  },
+  {
+    "name": "FOX Sports 505 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Australia/FoxSports505_HD.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "823"
+      }
+    ]
+  },
+  {
+    "name": "FOX Sports 506 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/Australia/FoxSports506_HD.webp",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "824"
+      }
+    ]
+  },
+  {
+    "name": "FOX Sports 507 AU",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": null,
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "825"
       }
     ]
   }

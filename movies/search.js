@@ -222,6 +222,8 @@ function displayResults(results) {
     });
 }
 
+const voVfToggle = document.getElementById('dn'); // The toggle input
+
 function openPlayer(type, id, last_season = 1) {
     const progressData = localStorage.getItem(`progress_${id}_${type}`);
     let season = last_season;
@@ -242,10 +244,20 @@ function openPlayer(type, id, last_season = 1) {
     }
 
     let embedUrl;
-    if (type === 'movie') {
-        embedUrl = `https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+    if (voVfToggle && voVfToggle.checked) {
+        // VF: frembed source
+        if (type === 'movie') {
+            embedUrl = `https://frembed.mom/api/film.php?id=${id}`;
+        } else {
+            embedUrl = `https://frembed.mom/api/serie.php?id=${id}&sa=${season}&epi=${episode}`;
+        }
     } else {
-        embedUrl = `https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+        // VO: videasy source (existing logic)
+        if (type === 'movie') {
+            embedUrl = `https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+        } else {
+            embedUrl = `https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+        }
     }
 
     if (playerContent) {
@@ -253,6 +265,31 @@ function openPlayer(type, id, last_season = 1) {
     }
     if (playerContainer) playerContainer.style.display = 'block';
     if (searchContainer) searchContainer.style.display = 'none';
+}
+
+// Listen for toggle changes and reload player if open
+if (voVfToggle) {
+    voVfToggle.addEventListener('change', function() {
+        // If player is open, reload with new source
+        if (playerContainer && playerContainer.style.display === 'block') {
+            // Try to extract current id/type/season/episode from the iframe src
+            const iframe = playerContent.querySelector('iframe');
+            if (!iframe) return;
+            const src = iframe.src;
+            let type, id, season = 1, episode = 1;
+            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.mom\/api\/film\.php\?id=(\d+)/.test(src)) {
+                type = 'movie';
+                id = (src.match(/movie\/(\d+)/) || src.match(/film\.php\?id=(\d+)/))[1];
+            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.mom\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
+                type = 'tv';
+                let m = src.match(/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
+                id = m[1];
+                season = m[2];
+                episode = m[3];
+            }
+            if (id && type) openPlayer(type, id, season);
+        }
+    });
 }
 
 // Robust message parsing helpers
@@ -1184,3 +1221,4 @@ function truncateOverview(text, maxLength = 120) {
         ? text.slice(0, maxLength).trim() + '...'
         : text;
 }
+
