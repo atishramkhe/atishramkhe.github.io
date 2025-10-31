@@ -700,7 +700,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(person.name) + '&background=222&color=fff&size=128';
             castHtml += `
                 <div style="display:flex;flex-direction:column;align-items:center;width:90px;">
-                    <img src="${face}" alt="${person.name}" style="width:68px;height:68px;object-fit:cover;border-radius:50%;border:2px solid #e02735;box-shadow:0 2px 8px #000;">
+                    <img src="${face}" alt="${person.name}" style="width:68px;height:68px;object-fit:cover;border-radius:50%;border:0px solid #e02735;box-shadow:0 2px 8px #000;">
                     <div style="margin-top:7px;font-size:0.98em;color:#fff;text-align:center;line-height:1.1;">${person.name}</div>
                 </div>
             `;
