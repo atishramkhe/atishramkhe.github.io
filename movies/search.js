@@ -815,6 +815,9 @@ function loadGrid(jsonPath, gridId) {
             if (!grid) return;
             grid.innerHTML = '';
 
+            const today = new Date();
+            const upcoming = [];
+
             shows.forEach(show => {
                 const tmdb_id = show.id;
                 const mediaType = show.media_type || (show.seasons ? 'tv' : 'movie');
@@ -832,6 +835,15 @@ function loadGrid(jsonPath, gridId) {
 
                 if (!tmdb_id) return;
                 if (!poster || poster === placeholderImage) return; // Skip if no poster
+
+                // Only show if release date is <= today, else collect in upcoming
+                if (date) {
+                    const releaseDate = new Date(date);
+                    if (releaseDate > today) {
+                        upcoming.push(show);
+                        return; // Skip showing in grid
+                    }
+                }
 
                 const last_season = isTV && show.seasons ? (show.seasons[show.seasons.length - 1]?.season_number || 1) : 1;
 
@@ -852,6 +864,9 @@ function loadGrid(jsonPath, gridId) {
 
                 grid.appendChild(card);
             });
+
+            // You can use the upcoming list for a new grid/section later:
+            // window.upcomingList = upcoming;
         })
         .catch(err => console.warn('loadGrid error:', err));
 }
@@ -1010,8 +1025,9 @@ document.addEventListener('DOMContentLoaded', function() {
     loadGrid('titles/trending.json', 'trendingGrid');
     loadGrid('titles/new.json', 'newGrid');
     loadGrid('titles/bollywood.json', 'bollywoodGrid');
-    loadGrid('titles/kdramas.json', 'kdramaGrid'); // HTML id is kdramaGrid
+    loadGrid('titles/kdramas.json', 'kdramaGrid');
     loadGrid('titles/horror.json', 'horrorGrid');
+    loadGrid('titles/animation.json', 'animationGrid'); // <-- Add this line
     loadContinueWatching();
     loadWatchLater();
 });

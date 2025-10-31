@@ -269,9 +269,62 @@ def main():
     with open("titles/horror.json", "w", encoding="utf-8") as f:
         json.dump({"movies": horror_movies}, f, ensure_ascii=False, indent=2)
 
+    # Trending Animation Movies
+    def fetch_trending_animation(count=50, max_pages=5):
+        collected = []
+        page = 1
+        while len(collected) < count and page <= max_pages:
+            params = {
+                "api_key": apiKey,
+                "with_genres": "16",  # Animation genre id
+                "sort_by": "popularity.desc",
+                "language": "en-US",
+                "page": page,
+            }
+            resp = requests.get(f"{BASE_URL}/discover/movie", params=params)
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if not results:
+                break
+            collected.extend(results)
+            page += 1
+        return collected[:count]
+
+    animation_movies = []
+    seen_animation_ids = set()
+    trending_animation = fetch_trending_animation(count=50, max_pages=5)
+    for movie in trending_animation:
+        mid = movie.get("id")
+        if not mid or mid in seen_animation_ids:
+            continue
+        details = fetch_details("movie", mid)
+        details["media_type"] = "movie"
+        # double-check genre contains Animation
+        genres = details.get("genres") or []
+        if not any((g.get("id") == 16) or (g.get("name", "").strip().lower() == "animation") for g in genres):
+            continue
+        seen_animation_ids.add(mid)
+        animation_movies.append(details)
+        poster_path = details.get("poster_path")
+        if poster_path:
+            poster_filename = f"{POSTERS_DIR}/movie_{mid}.png"
+            download_poster(poster_path, poster_filename)
+        else:
+            print(f"No poster for animation movie: {details.get('title', details.get('name', 'Unknown'))} (ID: {mid})")
+
+    # Save Animation movies to JSON
+    with open("titles/animation.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": animation_movies}, f, ensure_ascii=False, indent=2)
+
     # Build set of poster paths that are still in use
     used_posters = set()
-    for m in trending.get("movies", []) + new_titles.get("movies", []) + (bollywood_details or []) + horror_movies:
+    for m in (
+        trending.get("movies", [])
+        + new_titles.get("movies", [])
+        + (bollywood_details or [])
+        + horror_movies
+        + animation_movies  # <-- Add this!
+    ):
         pid = m.get("id")
         if pid and m.get("poster_path"):
             used_posters.add(os.path.abspath(f"{POSTERS_DIR}/movie_{pid}.png"))
