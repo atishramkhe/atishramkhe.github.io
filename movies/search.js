@@ -329,73 +329,35 @@ function openPlayer(type, id, season = 1, episode = 1) {
         () => openPlayer(type, id, last_season, last_episode)
     );
 
-    // Fetch last season/episode info for TV
-    let lastSeason = season, lastEpisode = episode;
+    // Inject iframe only (do not inject duplicate arrow buttons)
+    if (playerContent) {
+        playerContent.innerHTML = `
+            <iframe src="${getEmbedUrl(season, episode)}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        `;
+    }
+
+    // Update arrows based on the current (requested) season/episode.
+    // For TV, fetch the last season/episode info then call updateEpisodeArrows.
     if (type === 'tv') {
         getTVLastEpisodeInfo(id).then(info => {
-            lastSeason = info.lastSeason || season;
-            lastEpisode = info.lastEpisode || episode;
-            updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisode });
+            const lastSeasonVal = info.lastSeason || season;
+            const lastEpisodeVal = info.lastEpisode || episode;
+            updateEpisodeArrows({
+                type,
+                id,
+                season: Number(season),
+                episode: Number(episode),
+                lastSeason: lastSeasonVal,
+                lastEpisode: lastEpisodeVal
+            });
+        }).catch(() => {
+            // Fallback: still call updateEpisodeArrows with what we have
+            updateEpisodeArrows({ type, id, season: Number(season), episode: Number(episode), lastSeason: season, lastEpisode: episode });
         });
     } else {
         updateEpisodeArrows({ type, id });
     }
 
-    // Inject arrows and iframe
-    if (playerContent) {
-        playerContent.innerHTML = `
-            <button id="prev-episode-btn" class="episode-arrow" style="display:none; left:0; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
-                <span class="material-symbols-outlined">arrow_back</span>
-            </button>
-            <button id="next-episode-btn" class="episode-arrow" style="display:none; right:0; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
-                <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
-            <iframe src="${getEmbedUrl(season, episode)}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
-        `;
-
-        // Re-acquire arrow buttons after injection
-        const prevEpisodeBtn = document.getElementById('prev-episode-btn');
-        const nextEpisodeBtn = document.getElementById('next-episode-btn');
-
-        // Fetch last season/episode info for TV and set up arrows
-        if (type === 'tv') {
-            getTVLastEpisodeInfo(id).then(info => {
-                let lastSeason = info.lastSeason || season;
-                let lastEpisode = info.lastEpisode || episode;
-
-                // Previous episode logic
-                let hasPrev = false;
-                let prevSeason = season, prevEp = episode - 1;
-                if (episode > 1) {
-                    hasPrev = true;
-                } else if (season > 1) {
-                    hasPrev = true;
-                    prevSeason = season - 1;
-                    prevEp = lastEpisode; // fallback: last ep of previous season
-                }
-
-                // Next episode logic
-                let hasNext = false;
-                let nextSeason = season, nextEp = episode + 1;
-                if (episode < lastEpisode) {
-                    hasNext = true;
-                } else if (season < lastSeason) {
-                    hasNext = true;
-                    nextSeason = season + 1;
-                    nextEp = 1;
-                }
-
-                if (prevEpisodeBtn) {
-                    prevEpisodeBtn.style.display = hasPrev ? 'flex' : 'none';
-                    prevEpisodeBtn.onclick = () => openPlayer('tv', id, prevSeason, prevEp);
-                }
-                if (nextEpisodeBtn) {
-                    nextEpisodeBtn.style.display = hasNext ? 'flex' : 'none';
-                    nextEpisodeBtn.onclick = () => openPlayer('tv', id, nextSeason, nextEp);
-                }
-            });
-        }
-    }
     if (playerContainer) playerContainer.style.display = 'block';
     if (searchContainer) searchContainer.style.display = 'none';
 }
@@ -613,6 +575,37 @@ window.addEventListener("message", function (event) {
         // Apply same threshold to Continue Watching: remove progress entry when >= threshold
         if (WATCH_LATER_POLICY && WATCH_LATER_POLICY.removeWhenProgressGte != null) {
             maybeAutoRemoveFromContinueWatching(toStore, frac);
+        }
+
+        // If the player is open and this message contains TV season/episode info,
+        // refresh the prev/next arrows so they reflect the current episode.
+        try {
+            const curSeason = toStore.season ? Number(toStore.season) : 1;
+            const curEpisode = toStore.episode ? Number(toStore.episode) : 1;
+            const curType = (toStore.mediaType || toStore.type) || type;
+            if (playerContainer && playerContainer.style.display === 'block' && curType === 'tv') {
+                getTVLastEpisodeInfo(toStore.id).then(info => {
+                    updateEpisodeArrows({
+                        type: 'tv',
+                        id: toStore.id,
+                        season: curSeason,
+                        episode: curEpisode,
+                        lastSeason: info.lastSeason || curSeason,
+                        lastEpisode: info.lastEpisode || curEpisode
+                    });
+                }).catch(() => {
+                    updateEpisodeArrows({
+                        type: 'tv',
+                        id: toStore.id,
+                        season: curSeason,
+                        episode: curEpisode,
+                        lastSeason: curSeason,
+                        lastEpisode: curEpisode
+                    });
+                });
+            }
+        } catch (e) {
+            // ignore arrow-update errors
         }
     } catch (e) {
         console.warn("[player message] parse/save error:", e);
