@@ -112,14 +112,45 @@
             width: 80%;
             height: 80%;
         }
-        #close-player {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3em;
-            color: white;
-            cursor: pointer;
-        }
+        /* Close button: keep background transparent, tint the icon on hover */
+#close-player {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 102;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  color: #fff;       /* default icon color */
+  font-size: 3em;
+}
+#close-player:hover {
+  background: transparent; /* ensure no hover BG */
+  transform: scale(1.05);
+}
+/* Target the icon (material symbol) and tint it on hover.
+   Use !important only to override any inline style if present. */
+#close-player.material-symbols-outlined {
+  color: #fff;
+  transition: color 0.12s ease, text-shadow 0.12s ease;
+}
+#close-player:hover.material-symbols-outlined {
+  color: #e02735 !important;
+  text-shadow: 0 0 10px rgba(224,39,53,0.25);
+}
+#close-player:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(224,39,53,0.12);
+}
         
         h2 {
             padding-left: 40px;
@@ -466,7 +497,7 @@ body.overlay-dim #server-indicators .indicator.active {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
+  background: transparent;              /* keep button background transparent */
   border: none;
   color: #fff;
   font-size: 2.5em;
@@ -478,13 +509,24 @@ body.overlay-dim #server-indicators .indicator.active {
   justify-content: center;
   cursor: pointer;
   z-index: 101;
-  transition: background 0.2s;
+  transition: transform 0.12s ease, background 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .episode-arrow:hover {
-  background: #e02735;
+  background: transparent;              /* ensure hover doesn't tint the bg */
+  transform: scale(1.05);
 }
-.material-symbols-outlined {
+.episode-arrow .material-symbols-outlined {
+  color: #ffffff;                       /* default icon color */
   font-size: 2em;
+  transition: color 0.12s ease, transform 0.12s ease;
+  display: inline-block;
+  line-height: 1;
+}
+/* Tint only the icon on hover */
+.episode-arrow:hover .material-symbols-outlined {
+  color: #e02735 !important;            /* red icon on hover */
+  transform: scale(1.03);
 }
     </style>
 </head>
@@ -510,7 +552,7 @@ body.overlay-dim #server-indicators .indicator.active {
     </main>
     
     <div id="player-container">
-        <span id="close-player" class="material-symbols-outlined" style="font-size:3em;cursor:pointer;color:white;">close</span>
+        <span id="close-player" class="material-symbols-outlined" style="font-size:3em;cursor:pointer;">close</span>
         <!-- Toggle for VO/VF (currently turned off)-->
         <div class="toggleWrapper" style="display: none;">
       <input class="input" id="dn" type="checkbox" style="display: none;"/> 
