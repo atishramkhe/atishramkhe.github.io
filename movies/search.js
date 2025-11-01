@@ -1085,7 +1085,7 @@ function loadContinueWatching() {
         if (!key || !key.startsWith('progress_')) continue;
         try {
             const raw = JSON.parse(localStorage.getItem(key));
-            const norm = normalizeProgress(raw);
+            const norm = normalizeProgress(raw, key);
             if (norm && norm.id && norm.mediaType) {
                 // Auto-remove if progress >= threshold (same as Watch Later policy)
                 const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
@@ -1186,7 +1186,7 @@ function loadContinueWatching() {
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
             `;
-            div.onclick = () => openPlayer(data.mediaType, data.id, data.season || 1);
+            div.onclick = () => openPlayer(data.mediaType, data.id, (data.season ?? data.lastSeason ?? 1), (data.episode ?? 1));
 
             // Remove button
             const removeBtn = document.createElement('button');
@@ -1368,7 +1368,7 @@ function loadWatchLater() {
             div.className = 'poster';
             div.style.position = 'relative';
             div.innerHTML = `<img src="${poster}" alt="${title}">`;
-            div.onclick = () => openPlayer(mediaType, id, data.season || 1);
+            div.onclick = () => openPlayer(mediaType, id, (data.season ?? data.lastSeason ?? 1), (data.episode ?? 1));
 
             // Remove (X) button like Continue Watching
             const removeBtn = document.createElement('button');
@@ -1403,28 +1403,72 @@ function loadWatchLater() {
     });
 }
 
-function normalizeProgress(raw) {
+function normalizeProgress(raw, storageKey) {
     if (!raw || typeof raw !== 'object') return null;
-    const id = String(raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId);
-    // Always use 'movie' or 'tv' for mediaType
-    let mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
-    if (mediaType === 'movie' || mediaType === 'tv') {
-        // ok
-    } else if (typeof raw.season !== 'undefined' || typeof raw.episode !== 'undefined') {
-        mediaType = 'tv';
-    } else {
-        mediaType = 'movie';
+
+    const id = String(raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId ?? raw.contentId ?? raw.content_id ?? '');
+    // Try explicit mediaType fields first
+    let mediaType = (raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind ?? null);
+    if (typeof mediaType === 'string') mediaType = mediaType.toLowerCase();
+
+    // If still unknown, detect from fields that imply TV
+    if (!mediaType || (mediaType !== 'movie' && mediaType !== 'tv')) {
+        if (typeof raw.season !== 'undefined' || typeof raw.episode !== 'undefined' ||
+            typeof raw.season_number !== 'undefined' || typeof raw.episode_number !== 'undefined' ||
+            typeof raw.ep !== 'undefined') {
+            mediaType = 'tv';
+        } else {
+            // Try to infer from the storage key (e.g. progress_123_tv)
+            if (typeof storageKey === 'string') {
+                const m = storageKey.match(/^progress_[^_]+_([^_]+)$/i);
+                if (m && m[1]) {
+                    const maybe = m[1].toLowerCase();
+                    if (maybe === 'tv' || maybe === 'movie') mediaType = maybe;
+                }
+            }
+            // Default to movie if still unknown
+            if (!mediaType) mediaType = 'movie';
+        }
     }
+
+    // Normalize progress fields
     const progress = (typeof raw.progress === 'number') ? raw.progress
         : (typeof raw.percent === 'number' ? raw.percent
         : (raw.progressPercent ?? null));
+
     const timestamp = raw.timestamp ?? raw.currentTime ?? raw.position ?? null;
     const duration = raw.duration ?? raw.totalDuration ?? raw.length ?? null;
-    const season = raw.season ?? raw.season_number ?? raw.lastSeason ?? 1;
-    const episode = raw.episode ?? raw.episode_number ?? raw.ep ?? 1;
+
+    // For TV prefer explicit season/episode fields; keep them numeric when present
+    let season = null;
+    let episode = null;
+
+    if (typeof raw.season !== 'undefined') season = Number(raw.season);
+    else if (typeof raw.season_number !== 'undefined') season = Number(raw.season_number);
+    else if (typeof raw.lastSeason !== 'undefined') season = Number(raw.lastSeason);
+
+    if (typeof raw.episode !== 'undefined') episode = Number(raw.episode);
+    else if (typeof raw.episode_number !== 'undefined') episode = Number(raw.episode_number);
+    else if (typeof raw.ep !== 'undefined') episode = Number(raw.ep);
+    else if (typeof raw.lastEpisode !== 'undefined') episode = Number(raw.lastEpisode);
+
+    // Fallbacks: if entry is TV but no season/episode found, prefer 1 as fallback
+    if (mediaType === 'tv') {
+        if (!Number.isFinite(season)) season = 1;
+        if (!Number.isFinite(episode)) episode = 1;
+    } else {
+        // For movies keep season/episode null (not used)
+        season = null;
+        episode = null;
+    }
+
     const title = raw.title ?? raw.name ?? raw.movie_title ?? null;
     const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
     const updatedAt = raw.updatedAt ?? raw.updated_at ?? raw.lastUpdated ?? Date.now();
+
+    // Preserve any lastSeason/lastEpisode metadata if present (helpful for arrow logic)
+    const lastSeason = (typeof raw.lastSeason !== 'undefined') ? Number(raw.lastSeason) : (typeof raw.last_season !== 'undefined' ? Number(raw.last_season) : null);
+    const lastEpisode = (typeof raw.lastEpisode !== 'undefined') ? Number(raw.lastEpisode) : (typeof raw.last_episode !== 'undefined' ? Number(raw.last_episode) : null);
 
     return {
         id,
@@ -1436,7 +1480,9 @@ function normalizeProgress(raw) {
         episode,
         title,
         poster_path,
-        updatedAt
+        updatedAt,
+        lastSeason,
+        lastEpisode
     };
 }
 
