@@ -222,20 +222,74 @@ function displayResults(results) {
     });
 }
 
+let activeType = 'VO'; // 'VO' or 'VF'
+let activeVOIdx = 0;
+let activeVFIdx = 0;
+
 const voVfToggle = document.getElementById('dn'); // The toggle input
 
-function openPlayer(type, id, last_season = 1) {
+// Get arrow buttons
+const prevEpisodeBtn = document.getElementById('prev-episode-btn');
+const nextEpisodeBtn = document.getElementById('next-episode-btn');
+
+// Helper to show/hide episode arrows and handle navigation
+function updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisode }) {
+    if (!prevEpisodeBtn || !nextEpisodeBtn) return;
+
+    // Only show for TV shows
+    if (type !== 'tv') {
+        prevEpisodeBtn.style.display = 'none';
+        nextEpisodeBtn.style.display = 'none';
+        return;
+    }
+
+    // Previous episode logic
+    let hasPrev = false;
+    let prevSeason = season, prevEpisode = episode - 1;
+    if (episode > 1) {
+        hasPrev = true;
+    } else if (season > 1) {
+        hasPrev = true;
+        prevSeason = season - 1;
+        prevEpisode = lastEpisode; // fallback: last ep of previous season
+    }
+
+    // Next episode logic
+    let hasNext = false;
+    let nextSeason = season, nextEpisode = episode + 1;
+    if (episode < lastEpisode) {
+        hasNext = true;
+    } else if (season < lastSeason) {
+        hasNext = true;
+        nextSeason = season + 1;
+        nextEpisode = 1;
+    }
+
+    prevEpisodeBtn.style.display = hasPrev ? 'flex' : 'none';
+    nextEpisodeBtn.style.display = hasNext ? 'flex' : 'none';
+
+    // Set click handlers
+    prevEpisodeBtn.onclick = () => {
+        openPlayer('tv', id, prevSeason, prevEpisode);
+    };
+    nextEpisodeBtn.onclick = () => {
+        openPlayer('tv', id, nextSeason, nextEpisode);
+    };
+}
+
+// Modify openPlayer to accept episode and update arrows
+function openPlayer(type, id, season = 1, episode = 1) {
     const progressData = localStorage.getItem(`progress_${id}_${type}`);
-    let season = last_season;
-    let episode = 1;
+    let last_season = season;
+    let last_episode = episode;
     let timestamp = null;
 
     if (progressData) {
         try {
             const saved = JSON.parse(progressData);
             if (type === 'tv') {
-                season = saved.season || last_season;
-                episode = saved.episode || 1;
+                last_season = saved.season || season;
+                last_episode = saved.episode || episode;
             }
             timestamp = saved.timestamp || null;
         } catch (e) {
@@ -243,25 +297,104 @@ function openPlayer(type, id, last_season = 1) {
         }
     }
 
-    let embedUrl;
-    if (voVfToggle && voVfToggle.checked) {
-        // VF: frembed source
-        if (type === 'movie') {
-            embedUrl = `https://frembed.mom/api/film.php?id=${id}`;
+    const voSources = SOURCES.VO || [];
+    const vfSources = SOURCES.VF || [];
+
+    function getEmbedUrl(seasonArg, episodeArg) {
+        if (activeType === 'VF') {
+            const src = vfSources[activeVFIdx];
+            if (!src) return '';
+            if (type === 'movie') {
+                return src.movies.replace(/\$\{id\}/g, id);
+            } else {
+                return src.shows.replace(/\$\{id\}/g, id)
+                    .replace(/\$\{season\}/g, seasonArg)
+                    .replace(/\$\{episode\}/g, episodeArg);
+            }
         } else {
-            embedUrl = `https://frembed.mom/api/serie.php?id=${id}&sa=${season}&epi=${episode}`;
-        }
-    } else {
-        // VO: videasy source (existing logic)
-        if (type === 'movie') {
-            embedUrl = `https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
-        } else {
-            embedUrl = `https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true`;
+            const src = voSources[activeVOIdx];
+            if (!src) return '';
+            if (type === 'movie') {
+                return src.movies.replace(/\$\{id\}/g, id);
+            } else {
+                return src.shows.replace(/\$\{id\}/g, id)
+                    .replace(/\$\{season\}/g, seasonArg)
+                    .replace(/\$\{episode\}/g, episodeArg);
+            }
         }
     }
 
+    showServerIndicators(
+        () => openPlayer(type, id, last_season, last_episode),
+        () => openPlayer(type, id, last_season, last_episode)
+    );
+
+    // Fetch last season/episode info for TV
+    let lastSeason = season, lastEpisode = episode;
+    if (type === 'tv') {
+        getTVLastEpisodeInfo(id).then(info => {
+            lastSeason = info.lastSeason || season;
+            lastEpisode = info.lastEpisode || episode;
+            updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisode });
+        });
+    } else {
+        updateEpisodeArrows({ type, id });
+    }
+
+    // Inject arrows and iframe
     if (playerContent) {
-        playerContent.innerHTML = `<iframe src="${embedUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>`;
+        playerContent.innerHTML = `
+            <button id="prev-episode-btn" class="episode-arrow" style="display:none; left:0; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button id="next-episode-btn" class="episode-arrow" style="display:none; right:0; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <iframe src="${getEmbedUrl(season, episode)}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        `;
+
+        // Re-acquire arrow buttons after injection
+        const prevEpisodeBtn = document.getElementById('prev-episode-btn');
+        const nextEpisodeBtn = document.getElementById('next-episode-btn');
+
+        // Fetch last season/episode info for TV and set up arrows
+        if (type === 'tv') {
+            getTVLastEpisodeInfo(id).then(info => {
+                let lastSeason = info.lastSeason || season;
+                let lastEpisode = info.lastEpisode || episode;
+
+                // Previous episode logic
+                let hasPrev = false;
+                let prevSeason = season, prevEp = episode - 1;
+                if (episode > 1) {
+                    hasPrev = true;
+                } else if (season > 1) {
+                    hasPrev = true;
+                    prevSeason = season - 1;
+                    prevEp = lastEpisode; // fallback: last ep of previous season
+                }
+
+                // Next episode logic
+                let hasNext = false;
+                let nextSeason = season, nextEp = episode + 1;
+                if (episode < lastEpisode) {
+                    hasNext = true;
+                } else if (season < lastSeason) {
+                    hasNext = true;
+                    nextSeason = season + 1;
+                    nextEp = 1;
+                }
+
+                if (prevEpisodeBtn) {
+                    prevEpisodeBtn.style.display = hasPrev ? 'flex' : 'none';
+                    prevEpisodeBtn.onclick = () => openPlayer('tv', id, prevSeason, prevEp);
+                }
+                if (nextEpisodeBtn) {
+                    nextEpisodeBtn.style.display = hasNext ? 'flex' : 'none';
+                    nextEpisodeBtn.onclick = () => openPlayer('tv', id, nextSeason, nextEp);
+                }
+            });
+        }
     }
     if (playerContainer) playerContainer.style.display = 'block';
     if (searchContainer) searchContainer.style.display = 'none';
@@ -287,7 +420,7 @@ if (voVfToggle) {
                 season = m[2];
                 episode = m[3];
             }
-            if (id && type) openPlayer(type, id, season);
+            if (id && type) openPlayer(type, id, season, episode);
         }
     });
 }
@@ -407,17 +540,39 @@ function maybeAutoRemoveFromContinueWatching(data, frac) {
 
 window.addEventListener("message", function (event) {
     try {
+        // Accept messages from any origin (or restrict if needed)
         let parsed = typeof event.data === "string" ? (tryParseJSON(event.data) || event.data) : event.data;
         if (typeof parsed === 'string') parsed = tryParseJSON(parsed) || parsed;
         parsed = extractPayload(parsed);
-        if (!parsed || typeof parsed !== 'object') return;
 
-        const id = parsed.id ?? parsed.contentId ?? parsed.content_id;
-        const type = parsed.type ?? parsed.mediaType ?? parsed.media_type;
-        const progressNum = (typeof parsed.progress === 'number') ? parsed.progress
-                          : (typeof parsed.percent === 'number' ? parsed.percent : null);
-        const timestamp = (typeof parsed.timestamp === 'number') ? parsed.timestamp
-                          : (typeof parsed.currentTime === 'number' ? parsed.currentTime : null);
+        // Try to extract id/type/progress from multiple possible formats
+        let id = parsed?.id ?? parsed?.contentId ?? parsed?.content_id ?? null;
+        let type = parsed?.type ?? parsed?.mediaType ?? parsed?.media_type ?? null;
+        let progressNum = (typeof parsed?.progress === 'number') ? parsed.progress
+                          : (typeof parsed?.percent === 'number' ? parsed.percent : null);
+        let timestamp = (typeof parsed?.timestamp === 'number') ? parsed.timestamp
+                          : (typeof parsed?.currentTime === 'number' ? parsed.currentTime : null);
+
+        // Fallback: try to extract from event.data if not found
+        if (!id && event.data?.id) id = event.data.id;
+        if (!type && event.data?.type) type = event.data.type;
+        if (progressNum === null && typeof event.data?.progress === 'number') progressNum = event.data.progress;
+        if (timestamp === null && typeof event.data?.timestamp === 'number') timestamp = event.data.timestamp;
+
+        // If still missing, try to parse from iframe src (for known servers)
+        if ((!id || !type) && playerContent) {
+            const iframe = playerContent.querySelector('iframe');
+            if (iframe && iframe.src) {
+                if (/movie\/(\d+)/.test(iframe.src)) {
+                    id = id || (iframe.src.match(/movie\/(\d+)/) || [])[1];
+                    type = type || 'movie';
+                } else if (/tv\/(\d+)\/(\d+)\/(\d+)/.test(iframe.src)) {
+                    const m = iframe.src.match(/tv\/(\d+)\/(\d+)\/(\d+)/);
+                    id = id || m[1];
+                    type = type || 'tv';
+                }
+            }
+        }
 
         if (!id || !type || (progressNum === null && timestamp === null)) return;
 
@@ -430,7 +585,6 @@ window.addEventListener("message", function (event) {
             duration: parsed.duration ?? parsed.totalDuration ?? null,
             season: parsed.season ?? parsed.season_number ?? null,
             episode: parsed.episode ?? parsed.episode_number ?? null,
-            // optional hints from player if provided
             lastSeason: parsed.lastSeason ?? parsed.last_season ?? null,
             lastEpisode: parsed.lastEpisode ?? parsed.last_episode ?? null,
             title: parsed.title ?? parsed.name ?? null,
@@ -717,7 +871,9 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     const wlLabelText = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
 
     modal.innerHTML = `
-        <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;font-size:2em;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">&times;</button>
+        <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">
+          <span class="material-symbols-outlined" style="font-size:2em;">close_small</span>
+        </button>
         <div style="display:flex;gap:36px;">
             <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
                 <img src="${poster}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
@@ -762,46 +918,98 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         </div>
     `;
 
+    // Append modal to body
     document.body.appendChild(modal);
 
-    // Play button event
-    document.getElementById(playBtnId).onclick = (e) => {
-        e.stopPropagation();
-        modal.remove();
-        if (dimmer) dimmer.style.display = 'none';
-        openPlayer(mediaType, id, 1);
-    };
-
-    // Watch Later button event
-    const wlBtn = document.getElementById(wlBtnId);
-    const wlLabel = document.getElementById(wlLabelId);
-    wlBtn.onclick = (e) => {
-        e.stopPropagation();
-        isSaved = toggleWatchLater({
-            id,
-            mediaType,
-            title,
-            poster,
-            date: date || '',
-            year: year || ''
+    // Attach event listener AFTER modal is in DOM
+    const closeBtn = modal.querySelector('#close-more-poster-info');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.remove();
+            if (dimmer) dimmer.style.display = 'none';
         });
-        wlBtn.textContent = isSaved ? '✓' : '+';
-        const text = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
-        wlBtn.title = text;
-        wlBtn.setAttribute('aria-label', text);
-        wlLabel.textContent = text;
-        wlBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 200 });
-    };
+    }
 
-    // Close button and dimmer click
-    document.getElementById('close-more-poster-info').onclick = () => {
-        modal.remove();
-        if (dimmer) dimmer.style.display = 'none';
-    };
+    // Also allow clicking the dimmer to close
     dimmer.onclick = () => {
         modal.remove();
         if (dimmer) dimmer.style.display = 'none';
     };
+}
+
+let SOURCES = { VO: [], VF: [] };
+
+async function loadSources() {
+    try {
+        const res = await fetch('sources.json');
+        const arr = await res.json();
+        SOURCES.VO = arr[0]?.VO || [];
+        SOURCES.VF = arr[1]?.VF || [];
+    } catch (e) {
+        console.warn('Could not load sources.json:', e);
+        SOURCES = { VO: [], VF: [] };
+    }
+}
+loadSources();
+
+function showServerIndicators(onSwitchVO, onSwitchVF) {
+    if (!playerContainer) return;
+    let container = playerContainer.querySelector('#server-indicators');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'server-indicators';
+        playerContainer.prepend(container);
+    }
+    container.innerHTML = '';
+
+    // VO indicators
+    const voLabel = document.createElement('span');
+    voLabel.textContent = 'VO : ';
+    voLabel.style.color = '#fff';
+    voLabel.style.fontWeight = '600';
+    voLabel.style.marginRight = '8px';
+    container.appendChild(voLabel);
+
+    const voSources = SOURCES.VO || [];
+    voSources.forEach((srv, idx) => {
+        const ind = document.createElement('div');
+        ind.className = 'indicator' + (activeType === 'VO' && activeVOIdx === idx ? ' active' : '');
+        ind.title = srv.name;
+        ind.style.display = 'inline-block';
+        ind.onclick = () => {
+            activeType = 'VO';
+            activeVOIdx = idx;
+            onSwitchVO(idx);
+        };
+        container.appendChild(ind);
+    });
+
+    // VF indicators
+    const vfLabel = document.createElement('span');
+    vfLabel.textContent = '  VF : ';
+    vfLabel.style.color = '#fff';
+    vfLabel.style.fontWeight = '600';
+    vfLabel.style.marginLeft = '16px';
+    vfLabel.style.marginRight = '8px';
+    container.appendChild(vfLabel);
+
+    const vfSources = SOURCES.VF || [];
+    vfSources.forEach((srv, idx) => {
+        const ind = document.createElement('div');
+        ind.className = 'indicator' + (activeType === 'VF' && activeVFIdx === idx ? ' active' : '');
+        ind.title = srv.name;
+        ind.style.display = 'inline-block';
+        ind.onclick = () => {
+            activeType = 'VF';
+            activeVFIdx = idx;
+            onSwitchVF(idx);
+        };
+        container.appendChild(ind);
+    });
+
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
 }
 
 // Load grid data and build poster cards
@@ -1204,8 +1412,16 @@ function loadWatchLater() {
 
 function normalizeProgress(raw) {
     if (!raw || typeof raw !== 'object') return null;
-    const id = raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId;
-    const mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
+    const id = String(raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId);
+    // Always use 'movie' or 'tv' for mediaType
+    let mediaType = raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind;
+    if (mediaType === 'movie' || mediaType === 'tv') {
+        // ok
+    } else if (typeof raw.season !== 'undefined' || typeof raw.episode !== 'undefined') {
+        mediaType = 'tv';
+    } else {
+        mediaType = 'movie';
+    }
     const progress = (typeof raw.progress === 'number') ? raw.progress
         : (typeof raw.percent === 'number' ? raw.percent
         : (raw.progressPercent ?? null));
