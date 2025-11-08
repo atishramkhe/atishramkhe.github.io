@@ -24,6 +24,25 @@ const SECTION_SHOW_LIMIT = 7;
 // Helper: truthy check for '1'/'0' or boolean
 function isTrue(v) { return v === true || v === '1' || v === 1; }
 
+// NEW: canonicalize content types and handle aliases
+const TYPE_ALIASES = {
+    tv: ['tv', 'series', 'serie', 'show', 'tvshow', 'tv_show', 'tv-series', 'tv_series'],
+    movie: ['movie', 'film', 'movies']
+};
+function canonicalType(t) {
+    if (!t) return '';
+    const x = String(t).toLowerCase();
+    if (TYPE_ALIASES.tv.includes(x)) return 'tv';
+    if (TYPE_ALIASES.movie.includes(x)) return 'movie';
+    return x; // fallback to lowercased unknown to avoid crashes
+}
+function aliasesForCanonical(c) {
+    const x = canonicalType(c);
+    if (x === 'tv') return TYPE_ALIASES.tv;
+    if (x === 'movie') return TYPE_ALIASES.movie;
+    return [x];
+}
+
 // Ensure a toggle button exists in the section header row (creates one if missing)
 function ensureSectionToggleButton(section, config) {
     if (!section) return null;
@@ -493,7 +512,12 @@ function fractionFromProgress(data) {
 
 function removeFromContinueWatching(id, type) {
     if (!id || !type) return;
-    localStorage.removeItem(`progress_${id}_${type}`);
+    const canon = canonicalType(type);
+    const aliases = aliasesForCanonical(canon);
+    // Remove any alias key to prevent the entry coming back
+    for (const a of aliases) {
+        localStorage.removeItem(`progress_${id}_${a}`);
+    }
 }
 
 function maybeAutoRemoveFromContinueWatching(data, frac) {
@@ -527,19 +551,10 @@ window.addEventListener("message", function (event) {
         if (timestamp === null && typeof event.data?.timestamp === 'number') timestamp = event.data.timestamp;
 
         // If still missing, try to parse from iframe src (for known servers)
-        if ((!id || !type) && playerContent) {
-            const iframe = playerContent.querySelector('iframe');
-            if (iframe && iframe.src) {
-                if (/movie\/(\d+)/.test(iframe.src)) {
-                    id = id || (iframe.src.match(/movie\/(\d+)/) || [])[1];
-                    type = type || 'movie';
-                } else if (/tv\/(\d+)\/(\d+)\/(\d+)/.test(iframe.src)) {
-                    const m = iframe.src.match(/tv\/(\d+)\/(\d+)\/(\d+)/);
-                    id = id || m[1];
-                    type = type || 'tv';
-                }
-            }
-        }
+        // ...existing fallback code...
+
+        // Canonicalize type to avoid multiple keys for same content (tv vs serie/series/show)
+        type = canonicalType(type);
 
         if (!id || !type || (progressNum === null && timestamp === null)) return;
 
@@ -1534,6 +1549,7 @@ function initHome() {
 
 function ensureProgressPlaceholder({ type, id, season = 1, episode = 1 }) {
     if (!id || !type) return;
+    type = canonicalType(type);
     const key = `progress_${id}_${type}`;
     // If an entry already exists, update season/episode if TV, but don't overwrite existing progress > 0
     let existing = null;
@@ -1557,7 +1573,7 @@ function ensureProgressPlaceholder({ type, id, season = 1, episode = 1 }) {
         id,
         type,
         mediaType: type,
-        progress: 0,          // 0% watched
+        progress: 0,
         timestamp: 0,
         duration: null,
         season: type === 'tv' ? Number(season) : null,
@@ -1583,7 +1599,8 @@ function normalizeProgress(raw, key) {
     }
 
     const id = String(raw.id ?? raw.contentId ?? idFromKey ?? '').trim();
-    const mediaType = String(raw.mediaType ?? raw.type ?? typeFromKey ?? '').toLowerCase().trim();
+    const mediaTypeRaw = String(raw.mediaType ?? raw.type ?? typeFromKey ?? '').toLowerCase().trim();
+    const mediaType = canonicalType(mediaTypeRaw);
     if (!id || !mediaType) return null;
 
     // Progress can be fractional (0..1) or percent (0..100)
