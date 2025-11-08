@@ -358,6 +358,11 @@ function openPlayer(type, id, season = 1, episode = 1) {
         updateEpisodeArrows({ type, id });
     }
 
+    // Create / update a placeholder progress entry so Continue Watching populates immediately
+    ensureProgressPlaceholder({ type, id, season, episode });
+    // Refresh the Continue Watching UI right away
+    try { loadContinueWatching(); } catch (e) { console.warn('Could not refresh Continue Watching:', e); }
+
     if (playerContainer) playerContainer.style.display = 'block';
     if (searchContainer) searchContainer.style.display = 'none';
 }
@@ -649,7 +654,10 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
         const safeTitle = title || '';
         const rightLabel = year;
         const saved = isInWatchLater(id, mediaType);
-        const btnSymbol = saved ? '✓' : '+';
+        // Use Material Symbols (playlist_add, playlist_add_check)
+        const btnSymbol = saved
+            ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
+            : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
         const labelText = saved ? 'Remove from Watch Later' : 'Add to Watch Later';
 
         infoDiv.innerHTML = `
@@ -676,7 +684,7 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                     aria-label="${labelText}"
                     title="${labelText}"
                     style="position:absolute; right:0px; bottom:8px; width:36px; height:36px; border-radius:50%;
-                           background:transparent; color:#e02735; border:2px solid #e02735; display:flex;
+                           background:transparent; color:#e02735; border:0px solid #e02735; display:flex;
                            align-items:center; justify-content:center; font-size:22px; font-weight:700; line-height:1;
                            cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.4);">
                     ${btnSymbol}
@@ -704,7 +712,10 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
         const wlLabel = infoDiv.querySelector('.watch-later-label');
 
         const updateWatchLaterUI = (isSaved) => {
-            wlBtn.textContent = isSaved ? '✓' : '+';
+            // set the icon html per state
+            wlBtn.innerHTML = isSaved
+                ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
+                : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
             const text = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
             wlBtn.title = text;
             wlBtn.setAttribute('aria-label', text);
@@ -860,7 +871,9 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     const playBtnId = 'more-poster-play-btn';
     const wlBtnId = 'more-poster-watchlater-btn';
     const wlLabelId = 'more-poster-watchlater-label';
-    const wlBtnSymbol = isSaved ? '✓' : '+';
+    const wlBtnSymbol = isSaved
+        ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
+        : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
     const wlLabelText = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
 
     modal.innerHTML = `
@@ -872,14 +885,14 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 <img src="${poster}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
                 <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin-top:18px;">
                     <button id="${playBtnId}"
-                        style="width:36px;height:36px;border-radius:50%;background:transparent;color:#e02735;border:2px solid #e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);margin-bottom:12px;">
-                        ▶
+                        style="width:36px;height:36px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
+                        <span class="material-symbols-outlined" style="font-size:30px;line-height:1;">play_circle</span>
                     </button>
                     <div style="display:flex;flex-direction:column;align-items:center;">
                         <button id="${wlBtnId}"
                             aria-label="${wlLabelText}"
                             title="${wlLabelText}"
-                            style="width:36px;height:36px;border-radius:50%;background:transparent;color:#e02735;border:2px solid #e02735;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);">
+                            style="width:36px;height:36px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;line-height:1;cursor:pointer;">
                             ${wlBtnSymbol}
                         </button>
                         <span id="${wlLabelId}"
@@ -929,7 +942,57 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         modal.remove();
         if (dimmer) dimmer.style.display = 'none';
     };
+
+    // --- NEW: wire up Play and Watch Later buttons inside the modal ---
+    // Play button: open player and close modal
+    const playBtn = modal.querySelector(`#${playBtnId}`);
+    if (playBtn) {
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // For TV try to open at lastSeason or 1; otherwise movie
+            const seasonToOpen = (isTV && extra.numSeasons) ? extra.numSeasons : 1;
+            openPlayer(mediaType, id, seasonToOpen, 1);
+            // close modal and dimmer
+            modal.remove();
+            if (dimmer) dimmer.style.display = 'none';
+        });
+    }
+
+    // Watch Later button: toggle state, update icon and label, refresh Watch Later grid
+    const wlBtnEl = modal.querySelector(`#${wlBtnId}`);
+    const wlLabelEl = modal.querySelector(`#${wlLabelId}`);
+    if (wlBtnEl) {
+        wlBtnEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const nowSaved = toggleWatchLater({
+                id,
+                mediaType,
+                title: title || '',
+                poster,
+                date: date || '',
+                year: year || ''
+            });
+
+            // Update icon/label
+            wlBtnEl.innerHTML = nowSaved
+                ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
+                : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
+            const newLabel = nowSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+            wlBtnEl.setAttribute('aria-label', newLabel);
+            wlBtnEl.title = newLabel;
+            if (wlLabelEl) wlLabelEl.textContent = newLabel;
+
+            // REMOVE this extra refresh (toggleWatchLater already refreshes)
+            // try { loadWatchLater(); } catch (err) { console.warn('Could not refresh Watch Later after toggle:', err); }
+
+            try {
+                wlBtnEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 160 });
+            } catch {}
+        });
+    }
 }
+
+// --- RESTORED: sources + grids + watch-later/continue helpers ---
 
 let SOURCES = { VO: [], VF: [] };
 
@@ -956,56 +1019,37 @@ function showServerIndicators(onSwitchVO, onSwitchVF) {
     }
     container.innerHTML = '';
 
-    // VO indicators
-    const voLabel = document.createElement('span');
-    voLabel.textContent = 'VO : ';
-    voLabel.style.color = '#fff';
-    voLabel.style.fontWeight = '600';
-    voLabel.style.marginRight = '8px';
-    container.appendChild(voLabel);
+    const addGroup = (labelText, list, isActive, onClick, marginLeft = '0') => {
+        const label = document.createElement('span');
+        label.textContent = labelText;
+        label.style.color = '#fff';
+        label.style.fontWeight = '600';
+        label.style.marginLeft = marginLeft;
+        label.style.marginRight = '8px';
+        container.appendChild(label);
 
-    const voSources = SOURCES.VO || [];
-    voSources.forEach((srv, idx) => {
-        const ind = document.createElement('div');
-        ind.className = 'indicator' + (activeType === 'VO' && activeVOIdx === idx ? ' active' : '');
-        ind.title = srv.name;
-        ind.style.display = 'inline-block';
-        ind.onclick = () => {
-            activeType = 'VO';
-            activeVOIdx = idx;
-            onSwitchVO(idx);
-        };
-        container.appendChild(ind);
+        (list || []).forEach((srv, idx) => {
+            const ind = document.createElement('div');
+            ind.className = 'indicator' + (isActive(idx) ? ' active' : '');
+            ind.title = srv.name;
+            ind.style.display = 'inline-block';
+            ind.onclick = () => onClick(idx);
+            container.appendChild(ind);
+        });
+    };
+
+    addGroup('VO : ', SOURCES.VO, (idx) => activeType === 'VO' && activeVOIdx === idx, (idx) => {
+        activeType = 'VO'; activeVOIdx = idx; onSwitchVO(idx);
     });
 
-    // VF indicators
-    const vfLabel = document.createElement('span');
-    vfLabel.textContent = '  VF : ';
-    vfLabel.style.color = '#fff';
-    vfLabel.style.fontWeight = '600';
-    vfLabel.style.marginLeft = '16px';
-    vfLabel.style.marginRight = '8px';
-    container.appendChild(vfLabel);
-
-    const vfSources = SOURCES.VF || [];
-    vfSources.forEach((srv, idx) => {
-        const ind = document.createElement('div');
-        ind.className = 'indicator' + (activeType === 'VF' && activeVFIdx === idx ? ' active' : '');
-        ind.title = srv.name;
-        ind.style.display = 'inline-block';
-        ind.onclick = () => {
-            activeType = 'VF';
-            activeVFIdx = idx;
-            onSwitchVF(idx);
-        };
-        container.appendChild(ind);
-    });
+    addGroup('  VF : ', SOURCES.VF, (idx) => activeType === 'VF' && activeVFIdx === idx, (idx) => {
+        activeType = 'VF'; activeVFIdx = idx; onSwitchVF(idx);
+    }, '16px');
 
     container.style.display = 'flex';
     container.style.alignItems = 'center';
 }
 
-// Load grid data and build poster cards
 function loadGrid(jsonPath, gridId) {
     fetch(jsonPath)
         .then(res => res.json())
@@ -1022,7 +1066,7 @@ function loadGrid(jsonPath, gridId) {
             shows.forEach(show => {
                 const tmdb_id = show.id;
                 const mediaType = show.media_type || (show.seasons ? 'tv' : 'movie');
-                const poster = show.poster_path 
+                const poster = show.poster_path
                     ? `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${tmdb_id}.png`
                     : placeholderImage;
                 const title = show.title || show.name || '';
@@ -1037,12 +1081,11 @@ function loadGrid(jsonPath, gridId) {
                 if (!tmdb_id) return;
                 if (!poster || poster === placeholderImage) return; // Skip if no poster
 
-                // Only show if release date is <= today, else collect in upcoming
                 if (date) {
                     const releaseDate = new Date(date);
                     if (releaseDate > today) {
                         upcoming.push(show);
-                        return; // Skip showing in grid
+                        return;
                     }
                 }
 
@@ -1060,125 +1103,239 @@ function loadGrid(jsonPath, gridId) {
                     lastSeasonNum,
                     lastSeasonEpisodes,
                     onClick: () => openPlayer(mediaType, tmdb_id, last_season),
-                    withPreview: gridId !== 'continueGrid' // no preview for Continue Watching
+                    withPreview: gridId !== 'continueGrid'
                 });
 
                 grid.appendChild(card);
             });
 
-            // You can use the upcoming list for a new grid/section later:
-            // window.upcomingList = upcoming;
+            // window.upcomingList = upcoming; // reserved if needed
         })
         .catch(err => console.warn('loadGrid error:', err));
 }
 
+// Watch Later storage helpers
+function getWatchLater() {
+    try { return JSON.parse(localStorage.getItem('watchLater') || '[]'); } catch { return []; }
+}
+function setWatchLater(list) {
+    localStorage.setItem('watchLater', JSON.stringify(list));
+}
+
+// NEW: stable key + normalization/dedupe helpers
+function wlKey(id, mediaType) {
+    const mid = String(id ?? '').trim();
+    const mtype = String(mediaType ?? '').toLowerCase().trim();
+    return mid && mtype ? `${mid}:${mtype}` : '';
+}
+function itemKey(it) {
+    return wlKey(it?.id, it?.mediaType ?? it?.type);
+}
+function normalizeAndDedupeWatchLater(list) {
+    const map = new Map();
+    for (const it of Array.isArray(list) ? list : []) {
+        const id = String(it?.id ?? '').trim();
+        const mediaType = String((it?.mediaType ?? it?.type ?? '')).toLowerCase().trim();
+        if (!id || !mediaType) continue;
+
+        const key = wlKey(id, mediaType);
+        const updatedAt = it?.updatedAt ?? it?.updated_at ?? it?.addedAt ?? 0;
+
+        const normalized = {
+            id,
+            mediaType,
+            title: it?.title ?? it?.name ?? '',
+            poster: it?.poster ?? '',
+            poster_path: it?.poster_path ?? '',
+            date: it?.date ?? '',
+            year: it?.year ?? '',
+            updatedAt
+        };
+
+        const prev = map.get(key);
+        if (!prev || (updatedAt || 0) > (prev.updatedAt || 0)) {
+            map.set(key, normalized);
+        }
+    }
+    return Array.from(map.values());
+}
+
+// Normalize-once migration to clean any past duplicates
+(function migrateWatchLaterStoreOnce() {
+    try {
+        if (localStorage.getItem('watchLater_migrated_v2') === '1') return;
+        const fixed = normalizeAndDedupeWatchLater(getWatchLater());
+        setWatchLater(fixed);
+        localStorage.setItem('watchLater_migrated_v2', '1');
+    } catch {}
+})();
+
+function removeFromWatchLater(id, mediaType) {
+    const targetKey = wlKey(id, mediaType);
+    const list = getWatchLater().filter(x => itemKey(x) !== targetKey);
+    setWatchLater(list);
+    try { loadWatchLater(); } catch {}
+}
+function isInWatchLater(id, mediaType) {
+    const key = wlKey(id, mediaType);
+    if (!key) return false;
+    return getWatchLater().some(x => itemKey(x) === key);
+}
+function toggleWatchLater(item) {
+    const list = getWatchLater();
+    const key = wlKey(item?.id, item?.mediaType);
+    const idx = list.findIndex(x => itemKey(x) === key);
+    let added;
+
+    if (idx >= 0) {
+        // Remove existing
+        list.splice(idx, 1);
+        added = false;
+    } else {
+        // Add normalized
+        const toAdd = {
+            id: String(item.id),
+            mediaType: String(item.mediaType).toLowerCase(),
+            title: item.title || '',
+            poster: item.poster || '',
+            poster_path: item.poster_path || '',
+            date: item.date || '',
+            year: item.year || '',
+            updatedAt: Date.now()
+        };
+        list.push(toAdd);
+        added = true;
+    }
+
+    // Ensure no dupes get saved even under race conditions
+    setWatchLater(normalizeAndDedupeWatchLater(list));
+    try { loadWatchLater(); } catch {}
+    return added;
+}
+
+// Safely truncate overview text
+function truncateOverview(text, maxLength = 120) {
+    if (!text || typeof text !== 'string') return '';
+    return text.length > maxLength ? text.slice(0, maxLength).trim() + '...' : text;
+}
+
+// Continue Watching loader (unchanged behavior, respects auto-remove threshold)
 function loadContinueWatching() {
-    const section = document.getElementById('continueSection') || document.getElementById('continueWatchingSection') || null;
+    // Try known ids first
+    let section = document.getElementById('continueSection')
+        || document.getElementById('continueWatchingSection');
+
+    // Fallback: find section whose h2 text matches "Continue Watching"
+    if (!section) {
+        section = Array.from(document.querySelectorAll('section')).find(s => {
+            const h2 = s.querySelector('h2');
+            return h2 && h2.textContent.trim().toLowerCase() === 'continue watching';
+        }) || null;
+    }
+
     const continueGrid = document.getElementById('continueGrid');
     if (!continueGrid) return;
+
+    // Always show the section (don’t hide it when empty)
+    if (section) section.style.display = 'block';
     continueGrid.innerHTML = '';
 
-    // Collect and dedupe by id+mediaType, keeping most recent updatedAt
     const byKey = new Map();
+    const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
+
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (!key || !key.startsWith('progress_')) continue;
         try {
             const raw = JSON.parse(localStorage.getItem(key));
             const norm = normalizeProgress(raw, key);
-            if (norm && norm.id && norm.mediaType) {
-                // Auto-remove if progress >= threshold (same as Watch Later policy)
-                const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
-                if (typeof threshold === 'number') {
-                    const frac = fractionFromProgress(norm);
-                    if (frac != null && frac >= threshold) {
-                        try { removeFromContinueWatching(norm.id, norm.mediaType); } catch {}
-                        continue; // skip adding to list
-                    }
-                }
+            if (!norm || !norm.id || !norm.mediaType) continue;
 
-                const k = `${norm.id}:${norm.mediaType}`;
-                const prev = byKey.get(k);
-                if (!prev || (norm.updatedAt || 0) > (prev.updatedAt || 0)) {
-                    byKey.set(k, norm);
+            // Auto-remove if >= threshold
+            if (typeof threshold === 'number') {
+                const frac = fractionFromProgress(norm);
+                if (frac != null && frac >= threshold) {
+                    removeFromContinueWatching(norm.id, norm.mediaType);
+                    continue;
                 }
+            }
+
+            const composite = `${norm.id}:${norm.mediaType}`;
+            const prev = byKey.get(composite);
+            if (!prev || (norm.updatedAt || 0) > (prev.updatedAt || 0)) {
+                byKey.set(composite, norm);
             }
         } catch {}
     }
 
-    const continueItems = Array.from(byKey.values()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    const all = Array.from(byKey.values()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
 
-    if (continueItems.length === 0) {
-        if (section) section.style.display = 'none';
+    // If still empty, show placeholder text
+    if (all.length === 0) {
+        continueGrid.innerHTML = `
+            <div style="grid-column:1 / -1; padding:24px; text-align:center; opacity:.7; font-family:inherit; font-size:1.05em;">
+                Start watching a movie or episode and it will appear here.
+            </div>
+        `;
+        // No toggle button when empty
         return;
     }
-    if (section) section.style.display = 'block';
 
-    // Show All / Show Less toggle
     const expanded = isTrue(localStorage.getItem('continue_show_all'));
     ensureSectionToggleButton(section, {
         buttonId: 'continueShowAllBtn',
         onClick: () => {
-            const now = !isTrue(localStorage.getItem('continue_show_all'));
+            const now = !expanded;
             localStorage.setItem('continue_show_all', now ? '1' : '0');
             loadContinueWatching();
         },
-        shouldShow: continueItems.length > SECTION_SHOW_LIMIT,
+        shouldShow: all.length > SECTION_SHOW_LIMIT,
         isExpanded: expanded,
         fallbackTitle: 'Continue Watching'
     });
 
-    const itemsToRender = expanded ? continueItems : continueItems.slice(0, SECTION_SHOW_LIMIT);
+    const renderItems = expanded ? all : all.slice(0, SECTION_SHOW_LIMIT);
 
-    const posterPromises = itemsToRender.map(async data => {
+    const posterPromises = renderItems.map(async data => {
         let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
         let title = data.title || data.name || 'Unknown Title';
 
-        const localPosterExists = await fetch(poster, { method: 'HEAD' }).then(res => res.ok).catch(() => false);
-        if (!localPosterExists) {
+        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+        if (!localOk) {
             if (data.poster_path) {
                 poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
             } else {
-                const tmdbUrl = (data.mediaType === 'movie')
+                const tmdbUrl = data.mediaType === 'movie'
                     ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
                     : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
                 try {
-                    const tmdbRes = await fetch(tmdbUrl);
-                    if (tmdbRes.ok) {
-                        const tmdbData = await tmdbRes.json();
-                        if (tmdbData.poster_path) {
-                            poster = `https://image.tmdb.org/t/p/w500${tmdbData.poster_path}`;
-                        } else {
-                            poster = placeholderImage;
-                        }
-                        if (tmdbData.title || tmdbData.name) title = tmdbData.title || tmdbData.name;
-                    } else {
-                        poster = placeholderImage;
+                    const r = await fetch(tmdbUrl);
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
+                        if (j.title || j.name) title = j.title || j.name;
                     }
-                } catch {
-                    poster = placeholderImage;
-                }
+                } catch {}
             }
         }
+        if (!poster) poster = placeholderImage;
 
         return { data, poster, title };
     });
 
-    Promise.all(posterPromises).then(items => {
-        items.forEach(({ data, poster, title }) => {
-            if (!poster || poster === placeholderImage) return; // Skip if no poster
-
+    Promise.all(posterPromises).then(results => {
+        results.forEach(({ data, poster, title }) => {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
 
-            // Progress percentage
             let percent = 0;
-            if (typeof data.progress === "number") {
-                percent = Math.min(100, Math.round(data.progress));
+            if (typeof data.progress === 'number') {
+                percent = data.progress <= 1 ? Math.round(data.progress * 100) : Math.round(data.progress);
             } else if (data.duration && data.timestamp) {
-                percent = Math.min(100, Math.round((data.timestamp / data.duration) * 100));
+                percent = Math.round((data.timestamp / data.duration) * 100);
             }
+            percent = Math.min(100, Math.max(0, percent));
 
             div.innerHTML = `
                 <img src="${poster}" alt="${title}">
@@ -1186,98 +1343,55 @@ function loadContinueWatching() {
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
             `;
-            div.onclick = () => openPlayer(data.mediaType, data.id, (data.season ?? data.lastSeason ?? 1), (data.episode ?? 1));
 
-            // Remove button
+            div.onclick = () => openPlayer(
+                data.mediaType,
+                data.id,
+                (data.season ?? data.lastSeason ?? 1),
+                (data.episode ?? 1)
+            );
+
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '&times;';
             removeBtn.title = 'Remove';
-            removeBtn.style.position = 'absolute';
-            removeBtn.style.top = '6px';
-            removeBtn.style.right = '8px';
-            removeBtn.style.background = 'rgba(0,0,0,0.7)';
-            removeBtn.style.color = '#fff';
-            removeBtn.style.border = 'none';
-            removeBtn.style.fontSize = '1.5em';
-            removeBtn.style.cursor = 'pointer';
-            removeBtn.style.padding = '0 6px';
-            removeBtn.style.borderRadius = '50%';
-            removeBtn.style.display = 'none';
-            removeBtn.style.zIndex = '2';
-
+            Object.assign(removeBtn.style, {
+                position: 'absolute',
+                top: '6px',
+                right: '8px',
+                background: 'rgba(0,0,0,0.7)',
+                color: '#fff',
+                border: 'none',
+                fontSize: '1.5em',
+                cursor: 'pointer',
+                padding: '0 6px',
+                borderRadius: '50%',
+                display: 'none',
+                zIndex: '2'
+            });
             div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
             div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
-
             removeBtn.onclick = (e) => {
                 e.stopPropagation();
-                localStorage.removeItem(`progress_${data.id}_${data.mediaType}`);
-                localStorage.removeItem(`progress_${data.id}_${data.type || data.mediaType}`);
+                removeFromContinueWatching(data.id, data.mediaType);
                 loadContinueWatching();
             };
-
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
         });
     });
 }
 
-// Single init to avoid double rendering
-document.addEventListener('DOMContentLoaded', function() {
-    loadGrid('titles/trending.json', 'trendingGrid');
-    loadGrid('titles/new.json', 'newGrid');
-    loadGrid('titles/bollywood.json', 'bollywoodGrid');
-    loadGrid('titles/kdramas.json', 'kdramaGrid');
-    loadGrid('titles/horror.json', 'horrorGrid');
-    loadGrid('titles/animation.json', 'animationGrid'); // <-- Add this line
-    loadContinueWatching();
-    loadWatchLater();
-});
-
-// Ensure these helpers exist (used by Watch Later)
-function getWatchLater() {
-    try { return JSON.parse(localStorage.getItem('watchLater') || '[]'); } catch { return []; }
-}
-function setWatchLater(list) {
-    localStorage.setItem('watchLater', JSON.stringify(list));
-}
-function removeFromWatchLater(id, mediaType) {
-    const list = getWatchLater().filter(
-        x => !(String(x.id) === String(id) && (x.mediaType || x.type) === mediaType)
-    );
-    setWatchLater(list);
-    try { loadWatchLater(); } catch {}
-}
-function isInWatchLater(id, mediaType) {
-    const list = getWatchLater();
-    const key = `${id}:${mediaType}`;
-    return list.some(x => `${x.id}:${x.mediaType}` === key);
-}
-function toggleWatchLater(item) {
-    const list = getWatchLater();
-    const key = `${item.id}:${item.mediaType}`;
-    const idx = list.findIndex(x => `${x.id}:${x.mediaType}` === key);
-    let added;
-    if (idx >= 0) { 
-        list.splice(idx, 1); 
-        added = false; 
-    } else { 
-        // stamp updatedAt so newest appears on the left
-        list.push({ ...item, updatedAt: Date.now() }); 
-        added = true; 
-    }
-    setWatchLater(list);
-    // refresh Watch Later section after toggle
-    try { loadWatchLater(); } catch {}
-    return added;
-}
-
-// Build Watch Later grid (no preview; same behavior as Continue Watching)
+// Watch Later loader (uses deduped store)
 function loadWatchLater() {
     const section = document.getElementById('watchLaterSection');
     const grid = document.getElementById('watchLaterGrid');
     if (!section || !grid) return;
 
-    const list = getWatchLater();
+    const rawList = getWatchLater();
+    // Sort so newest (highest updatedAt) is first -> appears at left
+    const list = normalizeAndDedupeWatchLater(rawList)
+        .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
     if (!list.length) {
         section.style.display = 'none';
         grid.innerHTML = '';
@@ -1286,66 +1400,41 @@ function loadWatchLater() {
     section.style.display = 'block';
     grid.innerHTML = '';
 
-    // Dedupe by id:mediaType, keep most recent by updatedAt
-    const map = new Map();
-    for (const it of list) {
-        const mediaType = it.mediaType || it.type;
-        const id = it.id;
-        if (!id || !mediaType) continue;
-
-        const k = `${id}:${mediaType}`;
-        const prev = map.get(k);
-        const itUpdated = it.updatedAt ?? it.updated_at ?? it.addedAt ?? 0;
-        const prevUpdated = prev ? (prev.updatedAt ?? prev.updated_at ?? prev.addedAt ?? 0) : -1;
-
-        if (!prev || itUpdated > prevUpdated) {
-            map.set(k, { ...it, mediaType, updatedAt: itUpdated });
-        }
-    }
-
-    // Sort newest to oldest (left to right)
-    const allItems = Array.from(map.values()).sort(
-        (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
-    );
-
-    // Show All / Show Less toggle
     const expanded = isTrue(localStorage.getItem('watchlater_show_all'));
     ensureSectionToggleButton(section, {
         buttonId: 'watchLaterShowAllBtn',
         onClick: () => {
-            const now = !isTrue(localStorage.getItem('watchlater_show_all'));
-            localStorage.setItem('watchlater_show_all', now ? '1' : '0');
+            localStorage.setItem('watchlater_show_all', expanded ? '0' : '1');
             loadWatchLater();
         },
-        shouldShow: allItems.length > SECTION_SHOW_LIMIT,
+        shouldShow: list.length > SECTION_SHOW_LIMIT,
         isExpanded: expanded,
         fallbackTitle: 'Watch Later'
     });
 
-    const items = expanded ? allItems : allItems.slice(0, SECTION_SHOW_LIMIT);
+    const renderItems = expanded ? list : list.slice(0, SECTION_SHOW_LIMIT);
 
-    // Resolve posters first to keep DOM insertion order stable
-    const posterPromises = items.map(async (data) => {
-        const id = data.id;
-        const mediaType = data.mediaType;
+    const posterPromises = renderItems.map(async (it) => {
+        const id = it.id;
+        const mediaType = it.mediaType;
         let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
-        let title = data.title || data.name || 'Unknown Title';
+        let title = it.title || 'Unknown Title';
 
-        const localExists = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-        if (!localExists) {
-            if (data.poster && /^https?:\/\//i.test(data.poster)) {
-                poster = data.poster;
-            } else if (data.poster_path) {
-                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+        if (!localOk) {
+            if (it.poster && /^https?:\/\//.test(it.poster)) {
+                poster = it.poster;
+            } else if (it.poster_path) {
+                poster = `https://image.tmdb.org/t/p/w500${it.poster_path}`;
             } else {
-                const tmdbUrl = (mediaType === 'movie')
+                const tmdbUrl = mediaType === 'movie'
                     ? `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
                     : `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`;
                 try {
-                    const resp = await fetch(tmdbUrl);
-                    if (resp.ok) {
-                        const j = await resp.json();
-                        if (j.title || j.name) title = j.title || j.name;
+                    const r = await fetch(tmdbUrl);
+                    if (r.ok) {
+                        const j = await r.json();
+                        title = j.title || j.name || title;
                         poster = j.poster_path ? `https://image.tmdb.org/t/p/w500${j.poster_path}` : placeholderImage;
                     } else {
                         poster = placeholderImage;
@@ -1355,46 +1444,42 @@ function loadWatchLater() {
                 }
             }
         }
-
-        return { data, poster, title };
+        return { it, poster, title };
     });
 
-    Promise.all(posterPromises).then(results => {
-        results.forEach(({ data, poster, title }) => {
-            const id = data.id;
-            const mediaType = data.mediaType;
-
+    Promise.all(posterPromises).then(cards => {
+        cards.forEach(({ it, poster, title }) => {
+            if (!poster || poster === placeholderImage) return;
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
             div.innerHTML = `<img src="${poster}" alt="${title}">`;
-            div.onclick = () => openPlayer(mediaType, id, (data.season ?? data.lastSeason ?? 1), (data.episode ?? 1));
+            div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1));
 
-            // Remove (X) button like Continue Watching
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '&times;';
             removeBtn.title = 'Remove';
-            removeBtn.style.position = 'absolute';
-            removeBtn.style.top = '6px';
-            removeBtn.style.right = '8px';
-            removeBtn.style.background = 'rgba(0,0,0,0.7)';
-            removeBtn.style.color = '#fff';
-            removeBtn.style.border = 'none';
-            removeBtn.style.fontSize = '1.5em';
-            removeBtn.style.cursor = 'pointer';
-            removeBtn.style.padding = '0 6px';
-            removeBtn.style.borderRadius = '50%';
-            removeBtn.style.display = 'none';
-            removeBtn.style.zIndex = '2';
+            Object.assign(removeBtn.style, {
+                position: 'absolute',
+                top: '6px',
+                right: '8px',
+                background: 'rgba(0,0,0,0.7)',
+                color: '#fff',
+                border: 'none',
+                fontSize: '1.5em',
+                cursor: 'pointer',
+                padding: '0 6px',
+                borderRadius: '50%',
+                display: 'none',
+                zIndex: '2'
+            });
 
             div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
             div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
 
             removeBtn.onclick = (e) => {
                 e.stopPropagation();
-                const filtered = getWatchLater().filter(x => !(String(x.id) === String(id) && (x.mediaType || x.type) === mediaType));
-                setWatchLater(filtered);
-                loadWatchLater();
+                removeFromWatchLater(it.id, it.mediaType);
             };
 
             div.appendChild(removeBtn);
@@ -1403,93 +1488,142 @@ function loadWatchLater() {
     });
 }
 
-function normalizeProgress(raw, storageKey) {
+// --- RESTORED: initHome() ---
+function initHome() {
+    loadGrid('titles/trending.json', 'trendingGrid');
+    loadGrid('titles/new.json', 'newGrid');
+    loadGrid('titles/bollywood.json', 'bollywoodGrid');
+    loadGrid('titles/kdramas.json', 'kdramaGrid');
+    loadGrid('titles/horror.json', 'horrorGrid');
+    loadGrid('titles/animation.json', 'animationGrid');
+    loadContinueWatching();
+    loadWatchLater();
+}
+
+// --- Home initialization (simple, single-run) ---
+
+// Keep initHome as-is (already defined above)
+
+(function startHomeInit() {
+  // Defensive: if this file is loaded as a module or in an unusual scope,
+  // expose the loaders so other inline scripts (or future calls) can reach them.
+  try {
+    if (typeof window !== 'undefined') {
+      window.loadGrid = window.loadGrid || loadGrid;
+      window.loadContinueWatching = window.loadContinueWatching || loadContinueWatching;
+      window.loadWatchLater = window.loadWatchLater || loadWatchLater;
+    }
+  } catch {}
+
+  const start = () => {
+    // Run once
+    if (start._ran) return;
+    start._ran = true;
+    initHome();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    // DOM is already parsed; schedule after current task
+    setTimeout(start, 0);
+  }
+})();
+
+// ...place this helper near other utility functions (before openPlayer) ...
+
+function ensureProgressPlaceholder({ type, id, season = 1, episode = 1 }) {
+    if (!id || !type) return;
+    const key = `progress_${id}_${type}`;
+    // If an entry already exists, update season/episode if TV, but don't overwrite existing progress > 0
+    let existing = null;
+    try { existing = JSON.parse(localStorage.getItem(key) || 'null'); } catch {}
+    const now = Date.now();
+
+    if (existing) {
+        let changed = false;
+        if (type === 'tv') {
+            if (Number(existing.season) !== Number(season)) { existing.season = Number(season); changed = true; }
+            if (Number(existing.episode) !== Number(episode)) { existing.episode = Number(episode); changed = true; }
+        }
+        if (changed) {
+            existing.updatedAt = now;
+            localStorage.setItem(key, JSON.stringify(existing));
+        }
+        return;
+    }
+
+    const placeholder = {
+        id,
+        type,
+        mediaType: type,
+        progress: 0,          // 0% watched
+        timestamp: 0,
+        duration: null,
+        season: type === 'tv' ? Number(season) : null,
+        episode: type === 'tv' ? Number(episode) : null,
+        title: null,
+        poster_path: null,
+        updatedAt: now
+    };
+    localStorage.setItem(key, JSON.stringify(placeholder));
+}
+
+// Normalize a stored progress record into a consistent shape for Continue Watching
+function normalizeProgress(raw, key) {
     if (!raw || typeof raw !== 'object') return null;
 
-    const id = String(raw.id ?? raw.movie_id ?? raw.movieId ?? raw.media_id ?? raw.mediaId ?? raw.contentId ?? raw.content_id ?? '');
-    // Try explicit mediaType fields first
-    let mediaType = (raw.mediaType ?? raw.type ?? raw.media_type ?? raw.kind ?? null);
-    if (typeof mediaType === 'string') mediaType = mediaType.toLowerCase();
-
-    // If still unknown, detect from fields that imply TV
-    if (!mediaType || (mediaType !== 'movie' && mediaType !== 'tv')) {
-        if (typeof raw.season !== 'undefined' || typeof raw.episode !== 'undefined' ||
-            typeof raw.season_number !== 'undefined' || typeof raw.episode_number !== 'undefined' ||
-            typeof raw.ep !== 'undefined') {
-            mediaType = 'tv';
-        } else {
-            // Try to infer from the storage key (e.g. progress_123_tv)
-            if (typeof storageKey === 'string') {
-                const m = storageKey.match(/^progress_[^_]+_([^_]+)$/i);
-                if (m && m[1]) {
-                    const maybe = m[1].toLowerCase();
-                    if (maybe === 'tv' || maybe === 'movie') mediaType = maybe;
-                }
-            }
-            // Default to movie if still unknown
-            if (!mediaType) mediaType = 'movie';
-        }
+    // Extract id/type from key as fallback (progress_<id>_<type>)
+    let idFromKey = '';
+    let typeFromKey = '';
+    const m = /^progress_(\d+)_([a-z]+)/i.exec(key || '');
+    if (m) {
+        idFromKey = m[1];
+        typeFromKey = m[2];
     }
 
-    // Normalize progress fields
-    const progress = (typeof raw.progress === 'number') ? raw.progress
-        : (typeof raw.percent === 'number' ? raw.percent
-        : (raw.progressPercent ?? null));
+    const id = String(raw.id ?? raw.contentId ?? idFromKey ?? '').trim();
+    const mediaType = String(raw.mediaType ?? raw.type ?? typeFromKey ?? '').toLowerCase().trim();
+    if (!id || !mediaType) return null;
 
-    const timestamp = raw.timestamp ?? raw.currentTime ?? raw.position ?? null;
-    const duration = raw.duration ?? raw.totalDuration ?? raw.length ?? null;
-
-    // For TV prefer explicit season/episode fields; keep them numeric when present
-    let season = null;
-    let episode = null;
-
-    if (typeof raw.season !== 'undefined') season = Number(raw.season);
-    else if (typeof raw.season_number !== 'undefined') season = Number(raw.season_number);
-    else if (typeof raw.lastSeason !== 'undefined') season = Number(raw.lastSeason);
-
-    if (typeof raw.episode !== 'undefined') episode = Number(raw.episode);
-    else if (typeof raw.episode_number !== 'undefined') episode = Number(raw.episode_number);
-    else if (typeof raw.ep !== 'undefined') episode = Number(raw.ep);
-    else if (typeof raw.lastEpisode !== 'undefined') episode = Number(raw.lastEpisode);
-
-    // Fallbacks: if entry is TV but no season/episode found, prefer 1 as fallback
-    if (mediaType === 'tv') {
-        if (!Number.isFinite(season)) season = 1;
-        if (!Number.isFinite(episode)) episode = 1;
-    } else {
-        // For movies keep season/episode null (not used)
-        season = null;
-        episode = null;
+    // Progress can be fractional (0..1) or percent (0..100)
+    let progress = null;
+    if (typeof raw.progress === 'number') {
+        progress = raw.progress;
+    } else if (typeof raw.percent === 'number') {
+        progress = raw.percent > 1 ? raw.percent / 100 : raw.percent;
     }
 
-    const title = raw.title ?? raw.name ?? raw.movie_title ?? null;
+    // Timestamp/duration alternative representation
+    const timestamp = Number(raw.timestamp ?? raw.currentTime ?? NaN);
+    const duration = Number(raw.duration ?? raw.totalDuration ?? NaN);
+
+    // Season / episode info (TV)
+    const season = raw.season ?? raw.season_number ?? null;
+    const episode = raw.episode ?? raw.episode_number ?? null;
+    const lastSeason = raw.lastSeason ?? raw.last_season ?? null;
+    const lastEpisode = raw.lastEpisode ?? raw.last_episode ?? null;
+
+    // Title / poster fallbacks
+    const title = raw.title ?? raw.name ?? null;
     const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
-    const updatedAt = raw.updatedAt ?? raw.updated_at ?? raw.lastUpdated ?? Date.now();
 
-    // Preserve any lastSeason/lastEpisode metadata if present (helpful for arrow logic)
-    const lastSeason = (typeof raw.lastSeason !== 'undefined') ? Number(raw.lastSeason) : (typeof raw.last_season !== 'undefined' ? Number(raw.last_season) : null);
-    const lastEpisode = (typeof raw.lastEpisode !== 'undefined') ? Number(raw.lastEpisode) : (typeof raw.last_episode !== 'undefined' ? Number(raw.last_episode) : null);
+    // updatedAt fallback
+    const updatedAt = raw.updatedAt ?? raw.updateAt ?? raw.savedAt ?? Date.now();
 
     return {
         id,
         mediaType,
         progress,
-        timestamp,
-        duration,
+        timestamp: Number.isFinite(timestamp) ? timestamp : null,
+        duration: Number.isFinite(duration) ? duration : null,
         season,
         episode,
+        lastSeason,
+        lastEpisode,
         title,
         poster_path,
-        updatedAt,
-        lastSeason,
-        lastEpisode
+        updatedAt
     };
-}
-
-function truncateOverview(text, maxLength = 120) {
-    if (!text) return '';
-    return text.length > maxLength
-        ? text.slice(0, maxLength).trim() + '...'
-        : text;
 }
 

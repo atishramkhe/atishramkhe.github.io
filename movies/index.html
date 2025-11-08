@@ -5,11 +5,15 @@
     <title>ateaish movies</title>
     <link rel="icon" type="image/png" href="assets/favicon_ateaish_movie_150ppi.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back,arrow_forward,close,close_small" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <style>
     	@font-face{font-family:'OumaTrialBold';src:url('fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
-        @font-face{font-family:'OumaTrialLight';src:url('fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
-        body {
+      @font-face{font-family:'OumaTrialLight';src:url('fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        vertical-align: middle;
+      }  
+      body {
             background: #000;
             color: #fff;
             margin: 0;
@@ -580,17 +584,15 @@ body.overlay-dim #server-indicators .indicator.active {
   <!-- The iframe will be injected here by JS -->
 </div>
     </div>
-    
-    <button id="close-more-poster-info" class="material-symbols-outlined" style="position:absolute;top:18px;right:18px;font-size:2em;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">close_small</button>
-    
+        
     <section>
       <h2>Trending</h2>
       <div class="grid" id="trendingGrid"></div>
     </section>
-    <section>
-      <h2>Continue Watching</h2>
-      <div class="grid" id="continueGrid"></div>
-    </section>
+    <section id="continueSection">
+  <h2>Continue Watching</h2>
+  <div class="grid" id="continueGrid"></div>
+</section>
     <section id="watchLaterSection" style="display:none;">
       <h2>Watch Later</h2>
       <div class="grid" id="watchLaterGrid"></div>
