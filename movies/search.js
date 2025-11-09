@@ -12,6 +12,45 @@ const tmdbEndpoint = 'https://api.themoviedb.org/3/search/multi';
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const placeholderImage = 'assets/no_poster.png';
 
+// Loading-screen logic: remove the loading video after it plays once
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingVideo = document.getElementById('loading-video');
+    const mainContent = document.getElementById('main-content');
+    if (!loadingVideo || !mainContent) return;
+
+    // Hide main content initially
+    mainContent.style.display = 'none';
+
+    // Ensure playsInline & muted for autoplay policies
+    loadingVideo.muted = true;
+    loadingVideo.playsInline = true;
+
+    // Try to play (some environments require explicit play())
+    loadingVideo.play().catch(() => { });
+
+    function showMainContent() {
+        if (mainContent) mainContent.style.display = '';
+        if (loadingVideo && loadingVideo.parentNode) {
+            loadingVideo.style.opacity = '0';
+            setTimeout(() => {
+                if (loadingVideo.parentNode) loadingVideo.parentNode.removeChild(loadingVideo);
+            }, 500);
+        }
+    }
+
+    // Remove loading video and show main content after video ends
+    loadingVideo.addEventListener('ended', showMainContent, { once: true });
+
+    // Fallback: remove after a maximum duration in case 'ended' doesn't fire
+    const MAX_FALLBACK_MS = 25000; // 25 seconds
+    setTimeout(() => {
+        if (document.getElementById('loading-video')) showMainContent();
+    }, MAX_FALLBACK_MS);
+
+    // Optional: allow click to skip the loading video
+    loadingVideo.addEventListener('click', showMainContent);
+});
+
 // Watch Later policy
 const WATCH_LATER_POLICY = {
     removeOnStart: false,        // do not remove on play
@@ -388,7 +427,7 @@ function openPlayer(type, id, season = 1, episode = 1) {
 
 // Listen for toggle changes and reload player if open
 if (voVfToggle) {
-    voVfToggle.addEventListener('change', function() {
+    voVfToggle.addEventListener('change', function () {
         // If player is open, reload with new source
         if (playerContainer && playerContainer.style.display === 'block') {
             // Try to extract current id/type/season/episode from the iframe src
@@ -419,7 +458,7 @@ function tryParseJSON(str) {
         const first = str.indexOf('{');
         const last = str.lastIndexOf('}');
         if (first !== -1 && last !== -1 && last > first) {
-            try { return JSON.parse(str.slice(first, last + 1)); } catch {}
+            try { return JSON.parse(str.slice(first, last + 1)); } catch { }
         }
         return null;
     }
@@ -441,7 +480,7 @@ async function getTVLastEpisodeInfo(tvId) {
         if (cached && (Date.now() - (cached.cachedAt || 0)) < TV_LAST_CACHE_TTL) {
             return cached;
         }
-    } catch {}
+    } catch { }
     const url = `https://api.themoviedb.org/3/tv/${tvId}?api_key=${apiKey}`;
     try {
         const res = await fetch(url);
@@ -458,7 +497,7 @@ async function getTVLastEpisodeInfo(tvId) {
             localStorage.setItem(key, JSON.stringify(info));
             return info;
         }
-    } catch {}
+    } catch { }
     return { lastSeason: null, lastEpisode: null, cachedAt: Date.now() };
 }
 async function maybeAutoRemoveFromWatchLater(data, frac) {
@@ -540,9 +579,9 @@ window.addEventListener("message", function (event) {
         let id = parsed?.id ?? parsed?.contentId ?? parsed?.content_id ?? null;
         let type = parsed?.type ?? parsed?.mediaType ?? parsed?.media_type ?? null;
         let progressNum = (typeof parsed?.progress === 'number') ? parsed.progress
-                          : (typeof parsed?.percent === 'number' ? parsed.percent : null);
+            : (typeof parsed?.percent === 'number' ? parsed.percent : null);
         let timestamp = (typeof parsed?.timestamp === 'number') ? parsed.timestamp
-                          : (typeof parsed?.currentTime === 'number' ? parsed.currentTime : null);
+            : (typeof parsed?.currentTime === 'number' ? parsed.currentTime : null);
 
         // Fallback: try to extract from event.data if not found
         if (!id && event.data?.id) id = event.data.id;
@@ -686,11 +725,11 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                     <div class="preview-tvinfo" style="margin-top:8px;color:#e02735;">
                         Season ${lastSeasonNum}${lastSeasonEpisodes ? `, ${lastSeasonEpisodes} Episodes` : ''}
                     </div>` : ''
-                }
+            }
                 
                 <div>
                     <button class="show-more-poster-info-btn"
-                        style="margin-top:8px;background:none;color:#e02735;border:1px;padding:4px 0px;border-radius:0px;cursor:pointer;font-size:0.95em;">
+                        style="margin-top:8px;background:none;color:#e02735;border:1px;padding:4px 0px;border-radius:0px;cursor:pointer;font-size:0.95em;font-family: 'OumaTrialBold'">
                         Show More 
                     </button>
                 </div>
@@ -945,7 +984,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     // Attach event listener AFTER modal is in DOM
     const closeBtn = modal.querySelector('#close-more-poster-info');
     if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
+        closeBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             modal.remove();
             if (dimmer) dimmer.style.display = 'none';
@@ -1002,7 +1041,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
 
             try {
                 wlBtnEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 160 });
-            } catch {}
+            } catch { }
         });
     }
 }
@@ -1182,14 +1221,14 @@ function normalizeAndDedupeWatchLater(list) {
         const fixed = normalizeAndDedupeWatchLater(getWatchLater());
         setWatchLater(fixed);
         localStorage.setItem('watchLater_migrated_v2', '1');
-    } catch {}
+    } catch { }
 })();
 
 function removeFromWatchLater(id, mediaType) {
     const targetKey = wlKey(id, mediaType);
     const list = getWatchLater().filter(x => itemKey(x) !== targetKey);
     setWatchLater(list);
-    try { loadWatchLater(); } catch {}
+    try { loadWatchLater(); } catch { }
 }
 function isInWatchLater(id, mediaType) {
     const key = wlKey(id, mediaType);
@@ -1224,7 +1263,7 @@ function toggleWatchLater(item) {
 
     // Ensure no dupes get saved even under race conditions
     setWatchLater(normalizeAndDedupeWatchLater(list));
-    try { loadWatchLater(); } catch {}
+    try { loadWatchLater(); } catch { }
     return added;
 }
 
@@ -1255,6 +1294,70 @@ function loadContinueWatching() {
     if (section) section.style.display = 'block';
     continueGrid.innerHTML = '';
 
+    // --- Add Clear Button next to h2 ---
+    let headerRow = section.querySelector('.section-header-row');
+    if (!headerRow) {
+        const heading = section.querySelector('h2, h3, .section-title, .title');
+        headerRow = document.createElement('div');
+        headerRow.className = 'section-header-row';
+        headerRow.style.display = 'flex';
+        headerRow.style.alignItems = 'center';
+        headerRow.style.justifyContent = 'space-between';
+        headerRow.style.marginBottom = '8px';
+        if (heading) {
+            section.insertBefore(headerRow, heading);
+            heading.style.margin = '0';
+            headerRow.appendChild(heading);
+        } else {
+            const t = document.createElement('span');
+            t.className = 'section-title';
+            t.textContent = 'Continue Watching';
+            t.style.fontWeight = '600';
+            t.style.fontSize = '1.1rem';
+            headerRow.appendChild(t);
+            section.insertBefore(headerRow, section.firstChild);
+        }
+    }
+    // Add Clear button if not present
+    let clearBtn = headerRow.querySelector('#continueClearBtn');
+    if (!clearBtn) {
+        clearBtn = document.createElement('button');
+        clearBtn.id = 'continueClearBtn';
+        clearBtn.textContent = 'Clear';
+        clearBtn.style.background = 'transparent';
+        clearBtn.style.font = 'inherit';
+        clearBtn.style.align = 'left';
+        clearBtn.style.marginLeft = '16px';
+        clearBtn.style.border = '1px transparent';
+        clearBtn.style.color = '#444444ff';
+        clearBtn.style.padding = '4px 10px';
+        clearBtn.style.borderRadius = '4px';
+        clearBtn.style.cursor = 'pointer';
+        clearBtn.style.fontSize = '0.9em';
+        clearBtn.title = 'Clear all Continue Watching data';
+        clearBtn.onmouseover = function () {
+            clearBtn.style.color = '#e02735';
+        };
+        clearBtn.onmouseout = function () {
+            clearBtn.style.color = '#444444ff';
+        };
+        clearBtn.onclick = function () {
+            if (window.confirm('Are you sure you want to clear all Continue Watching data? This cannot be undone.')) {
+                // Remove all progress_* keys from localStorage
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('progress_')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(k => localStorage.removeItem(k));
+                loadContinueWatching();
+            }
+        };
+        headerRow.appendChild(clearBtn);
+    }
+
     const byKey = new Map();
     const threshold = WATCH_LATER_POLICY?.removeWhenProgressGte;
 
@@ -1280,7 +1383,7 @@ function loadContinueWatching() {
             if (!prev || (norm.updatedAt || 0) > (prev.updatedAt || 0)) {
                 byKey.set(composite, norm);
             }
-        } catch {}
+        } catch { }
     }
 
     const all = Array.from(byKey.values()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
@@ -1289,7 +1392,7 @@ function loadContinueWatching() {
     if (all.length === 0) {
         continueGrid.innerHTML = `
             <div style="grid-column:1 / -1; padding:24px; text-align:center; opacity:.7; font-family:inherit; font-size:1.05em;">
-                Start watching a movie or episode and it will appear here.
+                Start watching a movie or episode and it will appear here...
             </div>
         `;
         // No toggle button when empty
@@ -1330,7 +1433,7 @@ function loadContinueWatching() {
                         if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
                         if (j.title || j.name) title = j.title || j.name;
                     }
-                } catch {}
+                } catch { }
             }
         }
         if (!poster) poster = placeholderImage;
@@ -1520,29 +1623,29 @@ function initHome() {
 // Keep initHome as-is (already defined above)
 
 (function startHomeInit() {
-  // Defensive: if this file is loaded as a module or in an unusual scope,
-  // expose the loaders so other inline scripts (or future calls) can reach them.
-  try {
-    if (typeof window !== 'undefined') {
-      window.loadGrid = window.loadGrid || loadGrid;
-      window.loadContinueWatching = window.loadContinueWatching || loadContinueWatching;
-      window.loadWatchLater = window.loadWatchLater || loadWatchLater;
+    // Defensive: if this file is loaded as a module or in an unusual scope,
+    // expose the loaders so other inline scripts (or future calls) can reach them.
+    try {
+        if (typeof window !== 'undefined') {
+            window.loadGrid = window.loadGrid || loadGrid;
+            window.loadContinueWatching = window.loadContinueWatching || loadContinueWatching;
+            window.loadWatchLater = window.loadWatchLater || loadWatchLater;
+        }
+    } catch { }
+
+    const start = () => {
+        // Run once
+        if (start._ran) return;
+        start._ran = true;
+        initHome();
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+        // DOM is already parsed; schedule after current task
+        setTimeout(start, 0);
     }
-  } catch {}
-
-  const start = () => {
-    // Run once
-    if (start._ran) return;
-    start._ran = true;
-    initHome();
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
-  } else {
-    // DOM is already parsed; schedule after current task
-    setTimeout(start, 0);
-  }
 })();
 
 // ...place this helper near other utility functions (before openPlayer) ...
@@ -1553,7 +1656,7 @@ function ensureProgressPlaceholder({ type, id, season = 1, episode = 1 }) {
     const key = `progress_${id}_${type}`;
     // If an entry already exists, update season/episode if TV, but don't overwrite existing progress > 0
     let existing = null;
-    try { existing = JSON.parse(localStorage.getItem(key) || 'null'); } catch {}
+    try { existing = JSON.parse(localStorage.getItem(key) || 'null'); } catch { }
     const now = Date.now();
 
     if (existing) {

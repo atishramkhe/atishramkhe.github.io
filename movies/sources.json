@@ -1,46 +1,40 @@
-[ 
+[
 	{
-		"VO" : [
+		"VO": [
 			{
-				"name" : "videasy.net", 
-				"movies" : "https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true", 
-				"shows" : "https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true"
+				"name": "videasy.net",
+				"movies": "https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true",
+				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true"
 			},
-		
 			{
-				"name" : "vidsrcme.ru",
-				"movies" : "https://vidsrc-embed.ru/embed/movie?tmdb=${id}&autoplay=1&color-e02735", 
-				"shows" : "https://vidsrc-embed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&autoplay=1&autonext=1&color-e02735" 
-			}, 
-
+				"name": "vidsrcme.ru",
+				"movies": "https://vidsrc-embed.ru/embed/movie?tmdb=${id}&autoplay=1&color-e02735",
+				"shows": "https://vidsrc-embed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&autoplay=1&autonext=1&color-e02735"
+			},
 			{
-				"name" : "111movies.com", 
-				"movies" : "https://111movies.com/movie/${id}", 
-				"shows" : "https://111movies.com/tv/${id}/${season}/${episode}"
-			}, 
-
+				"name": "111movies.com",
+				"movies": "https://111movies.com/movie/${id}",
+				"shows": "https://111movies.com/tv/${id}/${season}/${episode}"
+			},
 			{
-				"name" : "vidsrc.wtf", 
-				"movies" : "https://vidsrc.wtf/api/1/movie/?id=${id}&overlay=true&color=e02735", 
-				"shows" : "https://vidsrc.wtf/api/1/tv/?id=${id}&season=${season}&overlay=true&color=e02735"
-			}, 
-
+				"name": "vidsrc.wtf",
+				"movies": "https://vidsrc.wtf/api/1/movie/?id=${id}&overlay=true&color=e02735",
+				"shows": "https://vidsrc.wtf/api/1/tv/?id=${id}&season=${season}&overlay=true&color=e02735"
+			},
 			{
-				"name" : "beech.vercel.app", 
-				"movies" : "https://beech.vercel.app/movie/${id}",
-				"shows" : "https://beech.vercel.app/tv/${id}/${season}/${episode}"
+				"name": "beech.vercel.app",
+				"movies": "https://beech.vercel.app/movie/${id}",
+				"shows": "https://beech.vercel.app/tv/${id}/${season}/${episode}"
 			}
 		]
 	},
-	 
 	{
-		"VF" : [
+		"VF": [
 			{
-				"name" : "frembed.mom", 
-				"movies" : "https://frembed.mom/api/film.php?id=${id}", 
-				"shows" : "https://frembed.mom/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.mom",
+				"movies": "https://frembed.mom/api/film.php?id=${id}",
+				"shows": "https://frembed.mom/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
 			}
 		]
-	
 	}
 ]
