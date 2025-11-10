@@ -463,13 +463,78 @@
       /* red icon on hover */
       transform: scale(1.03);
     }
+
+    /* Platform Buttons */
+    #platforms-container {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .platform-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-family: 'OumaTrialBold';
+      font-size: 1.2em;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    .platform-btn.selected {
+      background: #e02735;
+      color: #fff;
+    }
+
+    .platform-btn img {
+      height: 32px;
+      display: block;
+    }
+
+    #platforms-container {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .platform-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-family: 'OumaTrialBold';
+      font-size: 1.2em;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    .platform-btn.selected {
+      background: #e02735;
+      color: #fff;
+    }
+
+    .platform-btn img {
+      height: 50px;
+      width: 100px;
+      object-fit: contain;
+      display: block;
+    }
   </style>
 </head>
 
 <body>
 
   <video id="loading-video" src="assets/Intro_ateaish_movies.mp4" autoplay muted playsinline
-    style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#000;"></video>
+    style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:#000;"></video>
   <div id="main-content" style="display:none;">
     <header>
       <div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
@@ -503,14 +568,78 @@
       </div>
     </div>
 
+    <!-- Platform Buttons Section -->
+    <div id="platforms-container" style="display:flex;gap:18px;align-items:center;padding:40px;align:center;justify-content:center;">
+      <button class="platform-btn selected" data-platform="all"
+        style="font-family:'OumaTrialBold';font-size:1.2em;padding:8px 18px;border-radius:8px;background:none;color:#e02735;border:none;cursor:pointer;">
+        All
+      </button>
+      <button class="platform-btn" data-platform="netflix"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/netflix.svg" alt="Netflix" >
+      </button>
+      <button class="platform-btn" data-platform="prime"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/Amazon_Prime_Video.svg" alt="Prime" >
+      </button>
+      <button class="platform-btn" data-platform="disneyplus"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/Disney_Plus.webp" alt="Disney+" >
+      </button>
+      <button class="platform-btn" data-platform="hbomax"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/HBO_Max.png" alt="HBO Max" >
+      </button>
+      <button class="platform-btn" data-platform="paramountplus"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/Paramount_Plus.png" alt="Paramount+" >
+      </button>
+      <button class="platform-btn" data-platform="hulu"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/hulu.svg" alt="Hulu" >
+      </button>
+      <button class="platform-btn" data-platform="peacock"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/peacock.png" alt="Peacock" >
+      </button>
+      <button class="platform-btn" data-platform="appletv"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/AppleTV.png" alt="Apple TV" >
+      </button>
+      <button class="platform-btn" data-platform="amcplus"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/AMC+_logo.png" alt="AMC+" >
+      </button>
+      <button class="platform-btn" data-platform="mgmplus"
+        style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/MGM+_logo.png" alt="MGM+" >
+      </button>
+    </div>
+    <!-- End Platform Buttons Section -->
+    <div id="platform-section" style="display:none; padding:40px 0 0 0;">
+      <h2 id="platform-title" style="padding-left:40px; font-size:2.2em;"></h2>
+      <div>
+        <h3 style="padding-left:40px; font-size:1.3em; margin-bottom:10px;">Trending</h3>
+        <div class="grid" id="platformTrendingGrid"></div>
+      </div>
+      <div>
+        <h3 style="padding-left:40px; font-size:1.3em; margin-bottom:10px;">New</h3>
+        <div class="grid" id="platformNewGrid"></div>
+      </div>
+    </div>
+
     <section>
-      <h2>Trending</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Trending
+      </h2>
       <div class="grid" id="trendingGrid"></div>
     </section>
     <section id="continueSection">
       <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
         Continue Watching
-        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;">
+        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
           history
         </span>
       </h2>
@@ -518,31 +647,47 @@
     </section>
     <section id="watchLaterSection" style="display:none;">
       <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
         Watch Later
-        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;">
+        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
           acute
         </span>
       </h2>
       <div class="grid" id="watchLaterGrid"></div>
     </section>
     <section>
-      <h2>New Releases</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        New Releases
+      </h2>
       <div class="grid" id="newGrid"></div>
     </section>
     <section>
-      <h2>Bollywood</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Bollywood
+      </h2>
       <div class="grid" id="bollywoodGrid"></div>
     </section>
     <section>
-      <h2>Kdramas</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Kdramas
+      </h2>
       <div class="grid" id="kdramaGrid"></div>
     </section>
     <section>
-      <h2>Horror</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Horror
+      </h2>
       <div class="grid" id="horrorGrid"></div>
     </section>
     <section id="animationSection">
-      <h2>Animation</h2>
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Animation
+      </h2>
       <div class="grid" id="animationGrid"></div>
     </section>
 

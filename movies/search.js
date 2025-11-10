@@ -720,12 +720,13 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                     <div class="preview-title" style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${safeTitle}</div>
                     ${rightLabel ? `<div class="preview-year" style="opacity:.85;white-space:nowrap;">${rightLabel}</div>` : ''}
                 </div>
-                ${overview ? `<div class="preview-overview" style="margin-top:8px;">${truncateOverview(overview)}</div>` : ''}
                 ${isTV && lastSeasonNum ? `
                     <div class="preview-tvinfo" style="margin-top:8px;color:#e02735;">
                         Season ${lastSeasonNum}${lastSeasonEpisodes ? `, ${lastSeasonEpisodes} Episodes` : ''}
                     </div>` : ''
-            }
+                }
+                ${overview ? `<div class="preview-overview" style="margin-top:8px;font-family:'OumaTrialLight'">${truncateOverview(overview)}</div>` : ''}
+               
                 
                 <div>
                     <button class="show-more-poster-info-btn"
@@ -1648,9 +1649,130 @@ function initHome() {
     }
 })();
 
+// --- Platform Section Logic ---
+const platformButtons = document.querySelectorAll('.platform-btn');
+const platformSection = document.getElementById('platform-section');
+const platformTitle = document.getElementById('platform-title');
+const platformTrendingGrid = document.getElementById('platformTrendingGrid');
+const platformNewGrid = document.getElementById('platformNewGrid');
+
+// TMDB network/platform IDs (update as needed)
+const platformTMDB = {
+    netflix: 213,
+    prime: 1024,
+    disneyplus: 2739,
+    hbomax: 8304,
+    paramountplus: 2076,
+    hulu: 453,
+    peacock: 3353,
+    appletv: 2552,
+    amcplus: 4661,
+    mgmplus: 6219
+};
+
+const platformNames = {
+    netflix: 'Netflix',
+    prime: 'Prime Video',
+    disneyplus: 'Disney+',
+    hbomax: 'HBO Max',
+    paramountplus: 'Paramount+',
+    hulu: 'Hulu',
+    peacock: 'Peacock',
+    appletv: 'Apple TV',
+    amcplus: 'AMC+',
+    mgmplus: 'MGM+'
+};
+
+// Helper: fetch TMDB discover for a network/platform
+async function fetchPlatformData(networkId, sortBy, limit) {
+    if (!networkId) return [];
+    const url = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_networks=${networkId}&sort_by=${sortBy}&language=en-US`;
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return (data.results || []).slice(0, limit);
+    } catch (e) {
+        console.warn('TMDB fetch error:', e);
+        return [];
+    }
+}
+
+// Helper: render grid with TMDB results
+function renderPlatformGrid(results, gridEl) {
+    gridEl.innerHTML = '';
+    const today = new Date();
+    results
+      .filter(item => {
+        const dateStr = item.first_air_date || item.release_date || '';
+        if (!dateStr) return false;
+        const releaseDate = new Date(dateStr);
+        return releaseDate <= today;
+      })
+      .forEach(item => {
+        const id = item.id;
+        const mediaType = 'tv'; // All are TV shows for network filter
+        const title = item.name || item.title || 'Untitled';
+        const date = item.first_air_date || item.release_date || '';
+        const year = date ? date.slice(0, 4) : '';
+        const overview = item.overview || '';
+        const poster = item.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
+        const card = buildPosterCard({
+          id,
+          mediaType,
+          poster,
+          title,
+          year,
+          date,
+          overview,
+          isTV: true,
+          lastSeasonNum: null,
+          lastSeasonEpisodes: null,
+          onClick: () => openPlayer(mediaType, id, 1),
+          withPreview: true
+        });
+        gridEl.appendChild(card);
+      });
+}
+
+// Main button click logic
+platformButtons.forEach(btn => {
+    btn.addEventListener('click', async function () {
+      platformButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const platform = btn.getAttribute('data-platform');
+      if (platform === 'all') {
+        platformSection.style.display = 'none';
+        platformTrendingGrid.innerHTML = '';
+        platformNewGrid.innerHTML = '';
+        platformTitle.textContent = '';
+        return;
+      }
+      platformSection.style.display = '';
+      platformTitle.textContent = platformNames[platform] || platform;
+
+      // Shadowz: fallback to empty or custom logic
+      if (!platformTMDB[platform]) {
+        platformTrendingGrid.innerHTML = '<div style="padding:24px;">No data available for Shadowz.</div>';
+        platformNewGrid.innerHTML = '';
+        return;
+      }
+
+      // Fetch and render trending (popularity) and new (recent first air date)
+      platformTrendingGrid.innerHTML = '<div style="padding:24px;">Loading...</div>';
+      platformNewGrid.innerHTML = '<div style="padding:24px;">Loading...</div>';
+      const [trending, newest] = await Promise.all([
+        fetchPlatformData(platformTMDB[platform], 'popularity.desc', 70),
+        fetchPlatformData(platformTMDB[platform], 'first_air_date.desc', 15)
+      ]);
+      renderPlatformGrid(trending, platformTrendingGrid);
+      renderPlatformGrid(newest, platformNewGrid);
+    });
+  });
+  
 // ...place this helper near other utility functions (before openPlayer) ...
 
 function ensureProgressPlaceholder({ type, id, season = 1, episode = 1 }) {
+
     if (!id || !type) return;
     type = canonicalType(type);
     const key = `progress_${id}_${type}`;
