@@ -724,9 +724,13 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                     <div class="preview-tvinfo" style="margin-top:8px;color:#e02735;">
                         Season ${lastSeasonNum}${lastSeasonEpisodes ? `, ${lastSeasonEpisodes} Episodes` : ''}
                     </div>` : ''
+<<<<<<< HEAD
                 }
                 ${overview ? `<div class="preview-overview" style="margin-top:8px;font-family:'OumaTrialLight'">${truncateOverview(overview)}</div>` : ''}
                
+=======
+            }
+>>>>>>> origin/main
                 
                 <div>
                     <button class="show-more-poster-info-btn"
