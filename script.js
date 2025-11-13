@@ -205,10 +205,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Inject runtime style overrides (header transparent, aligned rows, snap)
     injectRuntimeOverrides();
 
-    // Make background glow move on scroll
-    updateGlowOnScroll();
-    window.addEventListener('scroll', updateGlowOnScroll, { passive: true });
-
     // Initialize small utilities
     updateClock();
     setInterval(updateClock, 1000);
@@ -554,6 +550,7 @@ function renderSection(containerId, sites, sectionLabel) {
     if (containerId === 'favorites-grid') {
         const placeholder = document.createElement('div');
         placeholder.className = 'placeholder';
+        placeholder.style.paddingTop = '25px';
         placeholder.textContent = '⭐ No favorites yet. Add some by clicking the star!';
         container.appendChild(placeholder);
     }
@@ -1207,7 +1204,7 @@ function injectRuntimeOverrides() {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.04);
+      background: rgb(0,0,0);
       border-radius: 8px;
       margin: 0;
       font-size: 1.1rem;
@@ -1264,14 +1261,6 @@ function injectRuntimeOverrides() {
   document.head.appendChild(style);
 }
 
-// Parallax-like movement for the background glow while scrolling
-function updateGlowOnScroll() {
-  const y = window.scrollY || document.documentElement.scrollTop || 0;
-  const belowTilesY = 420 + y * 0.25; // glow under tiles
-  const topGlowY = 8 + y * 0.12;      // top glow
-  document.body.style.backgroundPosition =
-    `50% ${belowTilesY}px, 50% ${topGlowY}px, 85% 20%, 0 0`;
-}
 
 function populateSettings() {
   // Populate Section Visibility
@@ -1495,9 +1484,7 @@ function injectHomepageStyles() {
       align-items: center;
       justify-content: center;
       padding: 28px 18px;
-      background: radial-gradient(1200px 400px at 50% 10%, rgba(120,92,230,0.12), transparent 25%),
-                  radial-gradient(800px 300px at 85% 20%, rgba(90,160,255,0.06), transparent 20%),
-                  linear-gradient(180deg,#08080a 0%, #050506 100%);
+      background: rgb(0,0,0);
       min-height: 360px;
     }
 
@@ -1588,8 +1575,7 @@ function injectHomepageStyles() {
       height: 220px;
       right: -8%;
       bottom: -80px;
-      background: radial-gradient(circle at center, rgba(147,112,219,0.16), transparent 42%);
-      filter: blur(72px);
+      background: rgb(0,0,0);
       pointer-events: none;
       z-index: 1;
     }
@@ -1615,7 +1601,7 @@ function injectHomepageStyles() {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.04);
+      background: rgb(0,0,0);
       border-radius: 8px;
       margin: 0;
       font-size: 1.1rem;
@@ -1880,9 +1866,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Inject runtime style overrides (header transparent, aligned rows, snap)
     injectRuntimeOverrides();
 
-    // Make background glow move on scroll
-    updateGlowOnScroll();
-    window.addEventListener('scroll', updateGlowOnScroll, { passive: true });
 
     // Initialize small utilities
     updateClock();
