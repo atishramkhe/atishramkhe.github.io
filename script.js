@@ -827,7 +827,7 @@ function renderSectionsInOrder() {
             dataToRender = newSportsSites;
 
           } else if (section.id === 'francais') {
-            const featuredFrenchNames = ['Movix Status','cinepulse', 'xalaflix', 'cinestream', 'anime-sama', 'oohquelbut', 'Sadisflix', ];
+            const featuredFrenchNames = ['Movix', 'xalaflix', 'cinestream', 'anime-sama', 'oohquelbut', 'Sadisflix', ];
             const newFrenchSites = [];
 
             // Add featured sites in the specified order
