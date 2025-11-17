@@ -5,7 +5,67 @@
 
     ]
   },
-	{
+   {
+    "name": "Eurosport 1",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 1.png",
+    "sources": [
+     {
+        "type": "daddylive",
+        "channel_id": "772"
+      },
+      {
+        "type": "directfr",
+        "id": 14
+      },
+      {
+        "type": "tutvlive",
+        "id": 15,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 59
+      }
+    ]
+  },
+  {
+    "name": "Eurosport 2",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Eurosport 2.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "773"
+      }, 
+      {
+        "type": "directfr",
+        "id": 15
+      },
+      {
+        "type": "tutvlive",
+        "id": 16,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 60
+      }
+    ]
+  },
+  {
     "name": "Canal+",
     "id_api": "CanalPlus.fr",
     "categories": ["Sports"],
@@ -32,36 +92,6 @@
       {
         "type": "witv",
         "id": 106
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Foot",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Canal+ Foot.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "463"
-      },
-      {
-        "type": "directfr",
-        "id": 6
-      },
-      {
-        "type": "tutvlive",
-        "id": 12,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 88
       }
     ]
   },
@@ -126,6 +156,37 @@
     ]
   },
   {
+    "name": "Canal+ Foot",
+    "id_api": null,
+    "categories": [],
+    "logo": "logos/France/Canal+ Foot.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "463"
+      },
+      {
+        "type": "directfr",
+        "id": 6
+      },
+      {
+        "type": "tutvlive",
+        "id": 12,
+        "servers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "type": "witv",
+        "id": 88
+      }
+    ]
+  },
+  
+  {
     "name": "Canal+ Live 1",
     "id_api": null,
     "categories": [
@@ -153,66 +214,7 @@
       }
     ]
   },
-  {
-    "name": "Eurosport 1",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Eurosport 1.png",
-    "sources": [
-     {
-        "type": "daddylive",
-        "channel_id": "772"
-      },
-      {
-        "type": "directfr",
-        "id": 14
-      },
-      {
-        "type": "tutvlive",
-        "id": 15,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 59
-      }
-    ]
-  },
-  {
-    "name": "Eurosport 2",
-    "id_api": null,
-    "categories": [],
-    "logo": "logos/France/Eurosport 2.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "773"
-      }, 
-      {
-        "type": "directfr",
-        "id": 15
-      },
-      {
-        "type": "tutvlive",
-        "id": 16,
-        "servers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "type": "witv",
-        "id": 60
-      }
-    ]
-  },
+ 
   {
     "name": "RMC Sport 1",
     "id_api": null,
@@ -572,12 +574,12 @@
     "logo": "logos/France/TF1.png",
     "sources": [
       {
-        "type": "mpd",
-        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
-      },
-      {
         "type": "daddylive",
         "channel_id": "469"
+      },
+      {
+        "type": "mpd",
+        "url": "https://viamotionhsi.netplus.ch/live/eds/tf1hd/browser-dash/tf1hd.mpd"
       },
       {
         "type": "directfr",
@@ -3296,7 +3298,7 @@
     "categories": [
       "France"
     ],
-    "logo": null,
+    "logo": "logos/Australia/beIN Sports 1.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3310,7 +3312,7 @@
     "categories": [
       "France"
     ],
-    "logo": null,
+    "logo": "logos/Australia/beIN Sports 2.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3324,7 +3326,7 @@
     "categories": [
       "France"
     ],
-    "logo": null,
+    "logo": "logos/Australia/beIN Sports 3.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3381,7 +3383,7 @@
     "categories": [
       "France"
     ],
-    "logo": null,
+    "logo": "logos/Australia/fox_sports_504.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3409,7 +3411,7 @@
     "categories": [
       "France"
     ],
-    "logo": "logos/Australia/FoxSports506_HD.webp",
+    "logo": "logos/Australia/fox_sports_506.png",
     "sources": [
       {
         "type": "daddylive",
@@ -3423,7 +3425,7 @@
     "categories": [
       "France"
     ],
-    "logo": null,
+    "logo": "logos/Australia/fox_sports_507.png",
     "sources": [
       {
         "type": "daddylive",

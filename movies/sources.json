@@ -12,6 +12,16 @@
 				"shows": "https://vidsrc-embed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&autoplay=1&autonext=1&color-e02735"
 			},
 			{
+				"name": "superembed.stream",
+				"movies": "https://multiembed.mov/?video_id=${id}&tmdb=1",
+				"shows": "https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}"
+			},
+			{
+				"name": "2embed.cc",
+				"movies": "https://www.2embed.cc/embed/${id}",
+				"shows": "https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}"
+			},
+			{
 				"name": "111movies.com",
 				"movies": "https://111movies.com/movie/${id}",
 				"shows": "https://111movies.com/tv/${id}/${season}/${episode}"

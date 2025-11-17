@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="assets/favicon_ateaish_movie_150ppi.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
   <style>
     @font-face {
       font-family: 'OumaTrialBold';
@@ -25,7 +26,7 @@
     }
 
     .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
       vertical-align: middle;
     }
 
@@ -36,27 +37,31 @@
       font-family: 'OumaTrialBold', 'OumaTrialLight';
     }
 
+    /* Header: logo on the left, center area flexed */
     header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 80px;
-      border-bottom: 1px solid #000;
+      height: 100px;
+      border-bottom: 0px solid #000;
       font-family: 'OumaTrialBold', 'OumaTrialLight';
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 0 40px;
     }
 
+    /* Logo stays at natural size on the left */
     .logo-placeholder {
       width: 100px;
       height: 100px;
-      background: #000;
+      background: none;
       border-radius: 8px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       color: #888;
       font-size: 1.2rem;
       font-weight: 500;
       letter-spacing: 2px;
+
     }
 
     .logo-placeholder img {
@@ -65,35 +70,63 @@
       object-fit: contain;
     }
 
+    /* Center region grows and centers its content */
+    .header-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Right spacer keeps center truly centered */
+    .header-right-spacer {
+      width: 100px;
+      /* match logo width for perfect symmetry */
+    }
+
+    /* Search container sits in the center area */
     #search-container {
       display: flex;
-      flex-direction: column;
       align-items: center;
       border: none;
       position: relative;
+      background-color: transparent;
+      margin-bottom: 0;
     }
 
-    #search-container>div {
-      display: flex;
-      align-items: center;
+    /* Wrapper around the input to control width and position the clear button */
+    #search-input-wrapper {
       position: relative;
-      width: 90%;
+      width: 320px;
+      /* adjust width as you like */
     }
 
     #search-input {
       width: 100%;
       padding: 0.5em 2.5em 0.5em 0.5em;
-      /* right padding for button */
-      font-size: 1.2em;
-      background: #000;
+      font-size: 1.0em;
+      background: none;
       color: #fff;
       font-family: 'OumaTrialLight';
-      /* border: none; */
       border-top: none;
       border-right: none;
       border-left: none;
-      border-bottom: 1px solid #222;
-      border-radius: 4px;
+      border-bottom: 1px solid #555;
+      border-radius: 0;
+    }
+
+    /* Clear button stays inside the same wrapper */
+    #clear-search-btn {
+      position: absolute;
+      right: 0.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      z-index: 2;
+      display: none;
     }
 
     #results {
@@ -102,6 +135,8 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 1em;
+      padding: 0 40px 20px 40px;
+      /* spacing under header */
     }
 
     .result-item {
@@ -254,7 +289,7 @@
       padding: 12px 10px;
       line-height: 1.35;
       box-sizing: border-box;
-      border: 1px solid #111;
+      border: 1px solid #000;
       margin: 0;
       /* no layout shift */
       z-index: 40;
@@ -263,31 +298,6 @@
     .poster:hover .poster-info {
       display: block;
       font-size: 0.75em;
-      /* ensure readable; remove previous scaling */
-    }
-
-    /* Continue Watching: no preview or scaling */
-    #continueGrid .poster:hover {
-      transform: none;
-      z-index: auto;
-      box-shadow: 0 2px 12px #000a;
-    }
-
-    #continueGrid .poster-info,
-    #continueGrid .poster:hover .poster-info {
-      display: none !important;
-    }
-
-    /* Watch Later: no preview or scaling */
-    #watchLaterGrid .poster:hover {
-      transform: none;
-      z-index: auto;
-      box-shadow: 0 2px 12px #000a;
-    }
-
-    #watchLaterGrid .poster-info,
-    #watchLaterGrid .poster:hover .poster-info {
-      display: none !important;
     }
 
     ::-webkit-scrollbar {
@@ -304,32 +314,6 @@
     ::-webkit-scrollbar-button {
       display: none;
       /* hides arrows */
-    }
-
-    #clear-search-btn {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.5rem;
-      background: transparent;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      z-index: 2;
-      display: none;
-    }
-
-    /* Disable preview/hover effects specifically for Continue Watching */
-    #continueGrid .poster:hover {
-      transform: none;
-      z-index: auto;
-      box-shadow: 0 2px 12px #000a;
-    }
-
-    #continueGrid .poster-info,
-    #continueGrid .poster:hover .poster-info {
-      display: none !important;
     }
 
     /* Toggle styles from Uiverse.io by mobinkakei */
@@ -378,7 +362,6 @@
       top: 5px;
       font-size: 13px;
     }
-
 
     /* Server indicators */
     #server-indicators {
@@ -467,40 +450,12 @@
     /* Platform Buttons */
     #platforms-container {
       display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 18px;
-      align-items: center;
       padding: 40px;
-    }
-
-    .platform-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-family: 'OumaTrialBold';
-      font-size: 1.2em;
-      color: #fff;
-      transition: background 0.3s;
-    }
-
-    .platform-btn.selected {
-      background: #e02735;
-      color: #fff;
-    }
-
-    .platform-btn img {
-      height: 32px;
-      display: block;
-    }
-
-    #platforms-container {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      padding: 40px;
+      width: 75%;
+      margin: 0 auto;
     }
 
     .platform-btn {
@@ -524,109 +479,423 @@
 
     .platform-btn img {
       height: 50px;
-      width: 100px;
+      width: 75px;
       object-fit: contain;
       display: block;
+    }
+
+    /* === Showcase (Featured) Section === */
+    #showcase {
+      position: relative;
+      width: 100%;
+      max-width: 2000px;
+      margin: 0 auto 0px auto;
+      padding: 60px 60px 72px 60px;
+      box-sizing: border-box;
+      border-radius: 0;
+      overflow: hidden;
+      background: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+      font-family: 'OumaTrialLight';
+      isolation: isolate;
+    }
+
+    #showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: none;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.95) saturate(1.15);
+      z-index: -3;
+      display: none;
+    }
+
+    #showcase::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: none;
+      mix-blend-mode: overlay;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* #showcase-shadow {
+      position: absolute;
+      inset: 0;
+      box-shadow:
+        inset 0 0 120px 40px rgba(0,0,0,0.85),
+        0 28px 48px -12px rgba(0,0,0,0.75),
+        0 12px 24px -6px rgba(0,0,0,0.65);
+      z-index: -1;
+      pointer-events: none;
+    }*/
+
+    .showcase-left {
+      flex: 0 0 320px;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .showcase-logo-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .showcase-logo-wrapper img {
+      height: 85px;
+      max-width: 380px;
+      align-items: center;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
+    }
+
+    .showcase-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .showcase-btn {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      font-family: 'OumaTrialBold';
+      font-size: 1.05em;
+      letter-spacing: 0.5px;
+      padding: 14px 26px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .22s ease, transform .18s ease, box-shadow .22s ease;
+      position: relative;
+    }
+
+    .showcase-btn.primary {
+      background: #e02735;
+      color: #fff;
+      box-shadow: 0 4px 18px -4px rgba(224, 39, 53, 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.65);
+    }
+
+    .showcase-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px -6px rgba(224, 39, 53, 0.7), 0 4px 10px -2px rgba(0, 0, 0, 0.75);
+    }
+
+    .showcase-btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    .showcase-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    .showcase-btn .material-symbols-outlined {
+      font-size: 1.3em;
+      line-height: 1;
+    }
+
+    .showcase-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .showcase-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+      color: #ccc;
+    }
+
+    .showcase-title {
+      display: none;
+      font-family: 'OumaTrialBold';
+      font-size: clamp(2.4em, 5.2vw, 4.4em);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), 0 3px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .showcase-overview {
+      font-size: 0.95em;
+      line-height: 1.5;
+      max-width: 900px;
+      color: #ddd;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+      position: relative;
+    }
+
+    .showcase-overview.long {
+      max-height: 180px;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 70%, rgba(255, 255, 255, 0));
+    }
+
+    .showcase-overview.expanded {
+      max-height: none;
+      mask-image: none;
+    }
+
+    .showcase-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .showcase-tag {
+      font-size: 0.65em;
+      letter-spacing: 1px;
+      padding: 4px 8px 5px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #bbb;
+      text-transform: uppercase;
+      font-family: 'OumaTrialBold';
+    }
+
+    /* Remove or ignore this if present
+    body.showcase-has-bg {
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    */
+
+    /* New: backdrop only for hero-wrapper area (header + showcase + top grids) */
+    #hero-wrapper.showcase-has-bg {
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    @media (max-width: 1200px) {
+      #showcase {
+        flex-direction: column;
+        padding: 46px 40px 60px 40px;
+        gap: 40px;
+      }
+
+      .showcase-left {
+        flex: none;
+        max-width: 420px;
+        width: 100%;
+      }
+
+      .showcase-title {
+        font-size: clamp(2.2em, 8vw, 3.6em);
+      }
+    }
+
+    @media (max-width: 640px) {
+      #showcase {
+        padding: 40px 26px 54px 26px;
+        gap: 34px;
+      }
+
+      .showcase-title {
+        font-size: clamp(1.9em, 9.5vw, 3.1em);
+      }
+
+      .showcase-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .showcase-meta {
+        font-size: 0.8em;
+      }
+
+      .showcase-left {
+        max-width: 300px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <script>
+    // Detect mobile device (basic check)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const loadingSrc = isMobile ? 'assets/Intro ateaish movies mobile.mp4' : 'assets/Intro ateaish movies 2.mp4';
+    document.write(
+      `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto" style="position:fixed;width:100%;height:100%;object-fit:cover;z-index:9999;background:#000;"></video>`
+    );
+  </script>
+  <!-- Player overlay container -->
+  <div id="player-container" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:100;">
+    <!-- Close button -->
+    <button id="close-player" class="material-symbols-outlined" style="position:absolute;top:20px;right:20px;z-index:102;background:none;border:none;
+                   color:#fff;font-size:3rem;cursor:pointer;">
+      close
+    </button>
 
-  <video id="loading-video" src="assets/Intro_ateaish_movies.mp4" autoplay muted playsinline
-    style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:#000;"></video>
-  <div id="main-content" style="display:none;">
-    <header>
-      <div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
-        <img src="assets/ateaish_movie_blanc_150ppi.png" alt="ateaish movies" style="padding-right: 0px;">
-      </div>
-    </header>
+    <!-- Episode arrows (if you have these in your CSS) -->
+    <button id="prev-episode-btn" class="episode-arrow" style="left:40px;display:none;">
+      <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <button id="next-episode-btn" class="episode-arrow" style="right:40px;display:none;">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
 
-    <main>
-      <div id="search-container">
-        <div style="position:relative; width:30%;">
-          <input type="text" id="search-input" placeholder="Search for movies and TV shows..." style="width:100%;">
-          <button id="clear-search-btn" style="display:none;">&times;</button>
-        </div>
-        <div id="results"></div>
-      </div>
-      <div class="grid" id="showsGrid"></div>
-    </main>
+    <!-- Server indicators will be injected here -->
+    <!-- <div id="server-indicators"></div> created by JS -->
 
-    <div id="player-container">
-      <span id="close-player" class="material-symbols-outlined" style="font-size:3em;cursor:pointer;">close</span>
-      <button id="prev-episode-btn" class="episode-arrow"
-        style="display:none; left:20px; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
-        <span class="material-symbols-outlined">arrow_back</span>
-      </button>
-      <button id="next-episode-btn" class="episode-arrow"
-        style="display:none; right:20px; top:50%; transform:translateY(-50%); position:absolute; z-index:101;">
-        <span class="material-symbols-outlined">arrow_forward</span>
-      </button>
-      <div id="player-content">
-        <!-- The iframe will be injected here by JS -->
-      </div>
+    <!-- Player content (iframe goes here) -->
+    <div id="player-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                width:80%;height:80%;background:#000;">
     </div>
+  </div>
 
-    <!-- Platform Buttons Section -->
+  <div id="main-content" style="display:none;">
+    <div id="hero-wrapper">
+      <header>
+        <!-- Left: logo -->
+        <div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
+          <img src="assets/ateaish_movie_blanc_150ppi.png" alt="ateaish movies" style="padding-right: 0px;">
+        </div>
+
+        <!-- Middle: search -->
+        <div class="header-center">
+          <div id="search-container">
+            <div id="search-input-wrapper">
+              <input type="text" id="search-input" placeholder="Search for movies and TV shows...">
+              <button id="clear-search-btn">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: empty spacer (optional, helps centering on wide screens) -->
+        <div class="header-right-spacer"></div>
+      </header>
+
+      <main>
+        <!-- Keep results exactly where they are now -->
+        <div id="search-results-wrapper" style="background-color:rgba(0,0,0,0.6);">
+          <div id="results" style="display:none"></div>
+        </div>
+
+        <!-- Showcase -->
+        <section id="showcase" aria-label="Featured Title">
+          <div id="showcase-shadow"></div>
+          <div class="showcase-left">
+            <div class="showcase-logo-wrapper">
+              <img id="showcase-logo" src="assets/placeholder_logo.svg" alt="Featured Logo" loading="lazy">
+            </div>
+            <div class="showcase-buttons">
+              <button id="play-featured" class="showcase-btn primary">
+                <span class="material-symbols-outlined">play_arrow</span>
+                Play
+              </button>
+              <button id="showcase-more" class="showcase-btn secondary" aria-expanded="false">
+                <span class="material-symbols-outlined">expand_more</span>
+                Show More
+              </button>
+            </div>
+            <h1 class="showcase-title" id="showcase-title">Featured Title</h1>
+            <div class="showcase-meta" id="showcase-meta">
+              <span id="showcase-year">2025</span>
+              <span id="showcase-rating">PG-13</span>
+              <span id="showcase-runtime">124 min</span>
+              <span id="showcase-platform" style="display:flex;align-items:center;gap:6px;">
+                <img src="assets/platform_logos/netflix.svg" alt="Platform" style="height:22px;">
+              </span>
+            </div>
+            <p class="showcase-overview long" id="showcase-overview">
+              Loading featured overview…
+            </p>
+            <div class="showcase-tags" id="showcase-tags">
+              <!-- tags inserted -->
+            </div>
+          </div>
+          <div class="showcase-right">
+
+          </div>
+        </section>
+        <!-- === End Showcase Section === -->
+
+        <div class="grid" id="showsGrid" style="display:none"></div>
+      </main>
+    </div>
+    <!-- ✅ Platform Buttons Section OUTSIDE hero-wrapper -->
     <div id="platforms-container" style="display:flex;gap:18px;align-items:center;padding:40px;justify-content:center;">
       <button class="platform-btn selected" data-platform="all"
         style="font-family:'OumaTrialBold';font-size:1.2em;padding:8px 18px;border-radius:8px;background:none;color:#e02735;border:none;cursor:pointer;">
         All
       </button>
-      <button class="platform-btn" data-platform="netflix"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/netflix.svg" alt="Netflix" >
+      <button class="platform-btn" data-platform="netflix" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/netflix.svg" alt="Netflix">
       </button>
-      <button class="platform-btn" data-platform="prime"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/Amazon_Prime_Video.svg" alt="Prime" >
+      <button class="platform-btn" data-platform="prime" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/Amazon_Prime_Video.svg" alt="Prime">
       </button>
       <button class="platform-btn" data-platform="disneyplus"
         style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/Disney_Plus.webp" alt="Disney+" >
+        <img src="assets/platform_logos/Disney_Plus.webp" alt="Disney+">
       </button>
-      <button class="platform-btn" data-platform="hbomax"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/HBO_Max.png" alt="HBO Max" >
+      <button class="platform-btn" data-platform="hbomax" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/HBO_Max.png" alt="HBO Max">
       </button>
       <button class="platform-btn" data-platform="paramountplus"
         style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/Paramount_Plus.png" alt="Paramount+" >
+        <img src="assets/platform_logos/Paramount_Plus.png" alt="Paramount+">
       </button>
-      <button class="platform-btn" data-platform="hulu"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/hulu.svg" alt="Hulu" >
+      <button class="platform-btn" data-platform="hulu" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/hulu.svg" alt="Hulu">
       </button>
-      <button class="platform-btn" data-platform="peacock"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/peacock.png" alt="Peacock" >
+      <button class="platform-btn" data-platform="peacock" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/peacock.png" alt="Peacock">
       </button>
-      <button class="platform-btn" data-platform="appletv"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/AppleTV.png" alt="Apple TV" >
+      <button class="platform-btn" data-platform="appletv" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/AppleTV.png" alt="Apple TV">
       </button>
-      <button class="platform-btn" data-platform="amcplus"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/AMC+_logo.png" alt="AMC+" >
+      <button class="platform-btn" data-platform="amcplus" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/AMC+_logo.png" alt="AMC+">
       </button>
-      <button class="platform-btn" data-platform="mgmplus"
-        style="background:transparent;border:none;cursor:pointer;">
-        <img src="assets/platform_logos/MGM+_logo.png" alt="MGM+" >
+      <button class="platform-btn" data-platform="mgmplus" style="background:transparent;border:none;cursor:pointer;">
+        <img src="assets/platform_logos/MGM+_logo.png" alt="MGM+">
       </button>
     </div>
-    <!-- End Platform Buttons Section -->
-    <div id="platform-section" style="display:none; padding:40px 0 0 0;">
-      <h2 id="platform-title" style="padding-left:40px; font-size:2.2em;"></h2>
-      <div>
-        <h3 style="padding-left:40px; font-size:1.3em; margin-bottom:10px;">Trending</h3>
-        <div class="grid" id="platformTrendingGrid"></div>
-      </div>
-      <div>
-        <h3 style="padding-left:40px; font-size:1.3em; margin-bottom:10px;">New</h3>
-        <div class="grid" id="platformNewGrid"></div>
-      </div>
-    </div>
+
+    <!-- NEW: platform content section that the JS expects -->
+    <section id="platform-section" style="display:none;">
+      <h2 id="platform-title">
+        <!-- JS will set the platform name here -->
+      </h2>
+
+      <div class="grid" id="platformTrendingGrid"></div>
+
+      <h2 style="margin-top:-40px;">
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        New on <span id="platform-title-inline"></span>
+      </h2>
+      <div class="grid" id="platformNewGrid"></div>
+    </section>
 
     <section>
       <h2>
@@ -635,26 +904,31 @@
       </h2>
       <div class="grid" id="trendingGrid"></div>
     </section>
+
     <section id="continueSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
         Continue Watching
-        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
+        <span class="material-symbols-outlined"
+          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
           history
         </span>
       </h2>
       <div class="grid" id="continueGrid"></div>
     </section>
+
     <section id="watchLaterSection" style="display:none;">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
         Watch Later
-        <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
+        <span class="material-symbols-outlined"
+          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
           acute
         </span>
       </h2>
       <div class="grid" id="watchLaterGrid"></div>
     </section>
+
     <section>
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
@@ -662,6 +936,7 @@
       </h2>
       <div class="grid" id="newGrid"></div>
     </section>
+
     <section>
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
@@ -669,13 +944,88 @@
       </h2>
       <div class="grid" id="bollywoodGrid"></div>
     </section>
+
     <section>
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
-        Kdramas
+        K-Dramas
       </h2>
       <div class="grid" id="kdramaGrid"></div>
     </section>
+
+
+    <section id="animationSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Animation
+      </h2>
+      <div class="grid" id="animationGrid"></div>
+    </section>
+
+    <section id="familySection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Family
+      </h2>
+      <div class="grid" id="familyGrid"></div>
+    </section>
+
+    <section id="comedySection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Comedy
+      </h2>
+      <div class="grid" id="comedyGrid"></div>
+    </section>
+
+    <section id="adventureSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Adventure
+      </h2>
+      <div class="grid" id="adventureGrid"></div>
+    </section>
+
+    <section id="fantasySection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Fantasy
+      </h2>
+      <div class="grid" id="fantasyGrid"></div>
+    </section>
+
+    <section id="scifiSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Science Fiction
+      </h2>
+      <div class="grid" id="scifiGrid"></div>
+    </section>
+
+    <section id="actionSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Action
+      </h2>
+      <div class="grid" id="actionGrid"></div>
+    </section>
+
+    <section id="thrillerSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Thriller
+      </h2>
+      <div class="grid" id="thrillerGrid"></div>
+    </section>
+
+    <section id="crimeSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Crime
+      </h2>
+      <div class="grid" id="crimeGrid"></div>
+    </section>
+
     <section>
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
@@ -683,12 +1033,77 @@
       </h2>
       <div class="grid" id="horrorGrid"></div>
     </section>
-    <section id="animationSection">
+
+    <section id="dramaSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
-        Animation
+        Drama
       </h2>
-      <div class="grid" id="animationGrid"></div>
+      <div class="grid" id="dramaGrid"></div>
+    </section>
+
+    <section id="romanceSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Romance
+      </h2>
+      <div class="grid" id="romanceGrid"></div>
+    </section>
+
+    <!-- Thailand Section -->
+    <section id="thailandSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Thailand
+      </h2>
+      <div class="grid" id="thailandGrid"></div>
+    </section>
+
+
+
+    <!-- Philippines Section -->
+    <section id="philippinesSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Philippines
+      </h2>
+      <div class="grid" id="philippinesGrid"></div>
+    </section>
+
+    <!-- China Section -->
+    <section id="chinaSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        China
+      </h2>
+      <div class="grid" id="chinaGrid"></div>
+    </section>
+
+    <!-- Taiwan Section -->
+    <section id="taiwanSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Taiwan
+      </h2>
+      <div class="grid" id="taiwanGrid"></div>
+    </section>
+
+    <!-- Hong Kong Section -->
+    <section id="hongkongSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Hong Kong
+      </h2>
+      <div class="grid" id="hongkongGrid"></div>
+    </section>
+
+    <!-- Japan Section -->
+    <section id="japanSection">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
+        Japan
+      </h2>
+      <div class="grid" id="japanGrid"></div>
     </section>
 
     <!-- Add more sections as needed -->
@@ -737,7 +1152,20 @@
           }
         });
       });
+
+      // Keep inline "New on X" title synced with main platform title
+      document.addEventListener('DOMContentLoaded', () => {
+        const title = document.getElementById('platform-title');
+        const inlineTitle = document.getElementById('platform-title-inline');
+        if (!title || !inlineTitle) return;
+
+        const observer = new MutationObserver(() => {
+          inlineTitle.textContent = title.textContent;
+        });
+        observer.observe(title, { childList: true, characterData: true, subtree: true });
+      });
     </script>
+
     <footer
       style="background:#000; color:#ccc; text-align:right; padding:24px 0 16px 0; font-size:8px; font-family:'OumaTrialLight',sans-serif;">
       Powered by
@@ -745,7 +1173,41 @@
       &
       <img src="assets/vidsrc.png" alt="vidsrc" style="height:10px;vertical-align:middle;margin:0 8px;">
     </footer>
+
   </div>
+
+  <!-- Section Navigator -->
+  <div id="section-navigator" style="
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 900;
+    background: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0006;
+    padding: 12px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    transition: background 0.2s;
+  ">
+    <button id="section-nav-toggle" style="
+      background: none;
+      color: #e02735;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 2em;
+      cursor: pointer;
+      box-shadow: none; 
+    ">☰</button>
+    <div id="section-nav-list" style="display:none;flex-direction:column;align-items:flex-end;gap:6px;">
+      <!-- Links will be injected here -->
+    </div>
+  </div>
+
 </body>
 
 </html>

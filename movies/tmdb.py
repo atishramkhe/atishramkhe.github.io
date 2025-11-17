@@ -63,17 +63,23 @@ def cleanup_unused_posters(used_paths):
                 print(f"Failed to remove {full}: {e}")
 
 def fetch_top_bollywood():
+    # Fetch popular Hindi-language movies from 2010 onwards, pages 1 and 2
     url = f"{BASE_URL}/discover/movie"
-    params = {
-        "api_key": apiKey,
-        "sort_by": "popularity.desc",
-        "with_original_language": "hi",  # Hindi
-        "region": "IN",
-        "page": 1
-    }
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    return response.json()["results"]
+    all_results = []
+    for page in (1, 2):
+        params = {
+            "api_key": apiKey,
+            "sort_by": "popularity.desc",
+            "with_original_language": "hi",  # Hindi
+            "region": "IN",
+            "page": page,
+            "primary_release_date.gte": "2010-01-01",  # Only movies from 2010 onwards
+        }
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        page_results = response.json().get("results", [])
+        all_results.extend(page_results)
+    return all_results
 
 # New helper: fetch discover results by language for movie or tv
 def fetch_top_by_language(media_type, language_code, region=None, page=1, count=50):
@@ -231,7 +237,7 @@ def main():
         while len(collected) < count and page <= max_pages:
             params = {
                 "api_key": apiKey,
-                "with_genres": "27",  # Horror genre id
+                "with_genres": "27",  # Horror
                 "sort_by": "popularity.desc",
                 "language": "en-US",
                 "page": page,
@@ -254,7 +260,6 @@ def main():
             continue
         details = fetch_details("movie", mid)
         details["media_type"] = "movie"
-        # double-check genre contains Horror
         genres = details.get("genres") or []
         if not any((g.get("id") == 27) or (g.get("name", "").strip().lower() == "horror") for g in genres):
             continue
@@ -265,18 +270,76 @@ def main():
             poster_filename = f"{POSTERS_DIR}/movie_{mid}.png"
             download_poster(poster_path, poster_filename)
 
-    # Save Horror movies to JSON
     with open("titles/horror.json", "w", encoding="utf-8") as f:
         json.dump({"movies": horror_movies}, f, ensure_ascii=False, indent=2)
 
-    # Trending Animation Movies
+    # Generic helper to reduce repetition for genre-based lists
+    def fetch_trending_by_genre(genre_id, count=50, max_pages=5):
+        collected = []
+        page = 1
+        while len(collected) < count and page <= max_pages:
+            params = {
+                "api_key": apiKey,
+                "with_genres": str(genre_id),
+                "sort_by": "popularity.desc",
+                "language": "en-US",
+                "page": page,
+            }
+            resp = requests.get(f"{BASE_URL}/discover/movie", params=params)
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if not results:
+                break
+            collected.extend(results)
+            page += 1
+        return collected[:count]
+
+    def build_genre_list(genre_id, genre_key_name, count=50, max_pages=5):
+        movies = []
+        seen_ids = set()
+        trending = fetch_trending_by_genre(genre_id, count=count, max_pages=max_pages)
+        for movie in trending:
+            mid = movie.get("id")
+            if not mid or mid in seen_ids:
+                continue
+            details = fetch_details("movie", mid)
+            details["media_type"] = "movie"
+            genres = details.get("genres") or []
+            # double-check genre id or name
+            if not any(
+                (g.get("id") == genre_id)
+                or (g.get("name", "").strip().lower() == genre_key_name)
+                for g in genres
+            ):
+                continue
+            seen_ids.add(mid)
+            movies.append(details)
+            poster_path = details.get("poster_path")
+            if poster_path:
+                poster_filename = f"{POSTERS_DIR}/movie_{mid}.png"
+                download_poster(poster_path, poster_filename)
+        return movies
+
+    # Build each genre set
+    action_movies = build_genre_list(28, "action")
+    fantasy_movies = build_genre_list(14, "fantasy")
+    drama_movies = build_genre_list(18, "drama")
+    thriller_movies = build_genre_list(53, "thriller")
+    adventure_movies = build_genre_list(12, "adventure")
+    romance_movies = build_genre_list(10749, "romance")
+    scifi_movies = build_genre_list(878, "science fiction")  # "Science Fiction"
+    family_movies = build_genre_list(10751, "family")
+    crime_movies = build_genre_list(80, "crime")
+    comedy_movies = build_genre_list(35, "comedy")
+
+    # Trending Animation Movies (kept as-is but can also use the generic helper)
     def fetch_trending_animation(count=50, max_pages=5):
         collected = []
         page = 1
         while len(collected) < count and page <= max_pages:
             params = {
                 "api_key": apiKey,
-                "with_genres": "16",  # Animation genre id
+                "with_genres": "16",  # Animation
                 "sort_by": "popularity.desc",
                 "language": "en-US",
                 "page": page,
@@ -299,7 +362,6 @@ def main():
             continue
         details = fetch_details("movie", mid)
         details["media_type"] = "movie"
-        # double-check genre contains Animation
         genres = details.get("genres") or []
         if not any((g.get("id") == 16) or (g.get("name", "").strip().lower() == "animation") for g in genres):
             continue
@@ -312,9 +374,29 @@ def main():
         else:
             print(f"No poster for animation movie: {details.get('title', details.get('name', 'Unknown'))} (ID: {mid})")
 
-    # Save Animation movies to JSON
+    # Save each genre list to its own JSON
     with open("titles/animation.json", "w", encoding="utf-8") as f:
         json.dump({"movies": animation_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/action.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": action_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/fantasy.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": fantasy_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/drama.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": drama_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/thriller.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": thriller_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/adventure.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": adventure_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/romance.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": romance_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/scifi.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": scifi_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/family.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": family_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/crime.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": crime_movies}, f, ensure_ascii=False, indent=2)
+    with open("titles/comedy.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": comedy_movies}, f, ensure_ascii=False, indent=2)
 
     # Build set of poster paths that are still in use
     used_posters = set()
@@ -323,7 +405,17 @@ def main():
         + new_titles.get("movies", [])
         + (bollywood_details or [])
         + horror_movies
-        + animation_movies  # <-- Add this!
+        + animation_movies
+        + action_movies
+        + fantasy_movies
+        + drama_movies
+        + thriller_movies
+        + adventure_movies
+        + romance_movies
+        + scifi_movies
+        + family_movies
+        + crime_movies
+        + comedy_movies
     ):
         pid = m.get("id")
         if pid and m.get("poster_path"):
@@ -335,6 +427,64 @@ def main():
 
     # Remove posters not referenced by the current run (safe for automation / CI)
     cleanup_unused_posters(used_posters)
+
+    # Country codes and TMDB language codes
+    country_configs = [
+        {"name": "china", "lang": "zh", "region": "CN"},
+        {"name": "taiwan", "lang": "zh", "region": "TW"},
+        {"name": "philippines", "lang": "tl", "region": "PH"},
+        {"name": "japan", "lang": "ja", "region": "JP"},
+        {"name": "hongkong", "lang": "zh", "region": "HK"},
+        {"name": "thailand", "lang": "th", "region": "TH"},  # Added Thailand
+    ]
+    
+    for config in country_configs:
+        country_data = {"movies": [], "tv_shows": []}
+        # For Japan, fetch 5 pages; others fetch 1 page
+        pages = 5 if config["name"] == "japan" else 1
+
+        # Movies
+        for page in range(1, pages + 1):
+            movies = fetch_top_by_language("movie", config["lang"], region=config["region"], page=page, count=50)
+            for movie in movies:
+                details = fetch_details("movie", movie["id"])
+                details["media_type"] = "movie"
+                # Exclude animation and adult for Japan
+                if config["name"] == "japan":
+                    if details.get("adult"):
+                        continue
+                    genres = details.get("genres") or []
+                    if any((g.get("id") == 16) or (g.get("name", "").strip().lower() == "animation") for g in genres):
+                        continue
+                country_data["movies"].append(details)
+                poster_path = details.get("poster_path")
+                if poster_path:
+                    poster_filename = f"{POSTERS_DIR}/movie_{details['id']}.png"
+                    download_poster(poster_path, poster_filename)
+
+        # TV Shows
+        for page in range(1, pages + 1):
+            tv_shows = fetch_top_by_language("tv", config["lang"], region=config["region"], page=page, count=50)
+            for tv in tv_shows:
+                details = fetch_details("tv", tv["id"])
+                details["media_type"] = "tv"
+                # Exclude animation and adult for Japan
+                if config["name"] == "japan":
+                    if details.get("adult"):
+                        continue
+                    genres = details.get("genres") or []
+                    if any((g.get("id") == 16) or (g.get("name", "").strip().lower() == "animation") for g in genres):
+                        continue
+                country_data["tv_shows"].append(details)
+                poster_path = details.get("poster_path")
+                if poster_path:
+                    poster_filename = f"{POSTERS_DIR}/tv_{details['id']}.png"
+                    download_poster(poster_path, poster_filename)
+
+        # Save to JSON
+        with open(f"titles/{config['name']}.json", "w", encoding="utf-8") as f:
+            json.dump(country_data, f, ensure_ascii=False, indent=2)
+
 
 if __name__ == "__main__":
     main()

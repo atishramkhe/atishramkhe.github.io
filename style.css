@@ -17,11 +17,7 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap"); */
 
 body {
-  background:
-    radial-gradient(ellipse 900px 220px at 50% 420px, rgba(120,92,230,0.22) 0%, rgba(90,160,255,0.10) 60%, transparent 100%),
-    radial-gradient(ellipse 1200px 450px at 50% 8%, rgba(120,92,230,0.10), transparent 18%),
-    radial-gradient(ellipse 800px 380px at 85% 20%, rgba(90,160,255,0.04), transparent 18%),
-    linear-gradient(180deg,#060607 0%, #050506 100%);
+  background:rgb(0,0,0);
   color: #e6e6e6;
   font-family: 'Ouma Latin VF', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -110,6 +106,7 @@ header {
   font-family: 'Ouma Latin VF Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 300;
   color: #bbb; /* Optional: lighter color for placeholder */
+  vertical-align: middle;
 }
 #search-bar:focus { background: rgba(255,255,255,0.08); }
 #settings-button, .icon-button {
@@ -202,7 +199,7 @@ header {
     position: sticky !important;
     top: 0 !important;
     z-index: 2 !important;
-    background: #111 !important;
+    background: #000 !important;
     min-width: 40px !important;
     max-width: 80vw !important;
     font-size: 0.98rem !important;
@@ -300,7 +297,7 @@ header {
 }
 
 .site.section-title-tile {
-    background: #111;
+    background: #000;
     color: #fff;
     font-family: 'Ouma Latin VF', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 700;
@@ -323,6 +320,22 @@ header {
     z-index: 50; /* raise above tiles and arrows */
 }
 
+.section-title-tile:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+#ateaish-websites-grid .site {
+  border: 1px solid #f7ef8a;
+  position: relative; /* Ensure positioning context for pseudo-element */
+  z-index: 1;
+  box-shadow: 0 0 5px  #f7ef8a;
+}
+
+#ateaish-websites-grid .section-title-tile{
+  border : none;
+  box-shadow: none;
+}
 .site.placeholder-tile {
   background: rgba(255,255,255,0.02) !important;
   width: 200px;
