@@ -1702,6 +1702,8 @@ function loadWatchLater() {
 
 // filepath: /home/akr/Desktop/scripts/atishramkhe.github.io/movies/search.js
 function initHome() {
+    loadGrid('titles/netflix_xmas_2025.json', 'netflixXmasGrid');
+    loadGrid('titles/best_xmas.json', 'bestXmasGrid');
     loadGrid('titles/trending.json', 'trendingGrid');
     loadGrid('titles/new.json', 'newGrid');
     loadGrid('titles/bollywood.json', 'bollywoodGrid');
@@ -2257,6 +2259,8 @@ async function fetchTitleLogo(id, mediaType = 'movie') {
 document.addEventListener('DOMContentLoaded', () => {
   // Define your sections: id and label
   const sections = [
+    { id: 'netflixXmasGrid', label: 'Netflix XMas 2025' },
+    { id: 'bestXmasGrid', label: 'The Best of Xmas' },
     { id: 'trendingGrid', label: 'Trending' },
     { id: 'continueSection', label: 'Continue Watching' },
     { id: 'watchLaterSection', label: 'Watch Later' },

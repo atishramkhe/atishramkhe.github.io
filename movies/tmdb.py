@@ -96,6 +96,30 @@ def fetch_top_by_language(media_type, language_code, region=None, page=1, count=
     response.raise_for_status()
     return response.json().get("results", [])[:count]
 
+def search_tmdb_by_title(title, media_type="movie"):
+    """Search TMDB for a title and return the best match's details."""
+    url = f"{BASE_URL}/search/{media_type}"
+    params = {"api_key": apiKey, "query": title, "language": "en-US"}
+    resp = requests.get(url, params=params)
+    resp.raise_for_status()
+    results = resp.json().get("results", [])
+    if not results and media_type == "movie":
+        # Try TV if not found as movie
+        return search_tmdb_by_title(title, media_type="tv")
+    if results:
+        # Return full details for the best match
+        best = results[0]
+        return fetch_details(media_type, best["id"])
+    return None
+
+def fetch_tmdb_list(list_id):
+    """Fetch a TMDB public list by its ID."""
+    url = f"{BASE_URL}/list/{list_id}"
+    params = {"api_key": apiKey, "language": "en-US"}
+    resp = requests.get(url, params=params)
+    resp.raise_for_status()
+    return resp.json().get("items", [])
+
 def main():
     os.makedirs(os.path.dirname(TRENDING_JSON_PATH), exist_ok=True)
     os.makedirs(os.path.dirname(NEW_JSON_PATH), exist_ok=True)
@@ -416,17 +440,25 @@ def main():
         + family_movies
         + crime_movies
         + comedy_movies
+        + (netflix_xmas.get("movies", []) if 'netflix_xmas' in locals() else [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("movies", []) if 'best_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
     ):
         pid = m.get("id")
         if pid and m.get("poster_path"):
             used_posters.add(os.path.abspath(f"{POSTERS_DIR}/movie_{pid}.png"))
-    for tv in trending.get("tv_shows", []) + new_titles.get("tv_shows", []) + kdramas.get("tv_shows", []):
+
+    for tv in (
+        trending.get("tv_shows", [])
+        + new_titles.get("tv_shows", [])
+        + kdramas.get("tv_shows", [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
+    ):
         tid = tv.get("id")
         if tid and tv.get("poster_path"):
             used_posters.add(os.path.abspath(f"{POSTERS_DIR}/tv_{tid}.png"))
-
-    # Remove posters not referenced by the current run (safe for automation / CI)
-    cleanup_unused_posters(used_posters)
 
     # Country codes and TMDB language codes
     country_configs = [
@@ -485,6 +517,139 @@ def main():
         with open(f"titles/{config['name']}.json", "w", encoding="utf-8") as f:
             json.dump(country_data, f, ensure_ascii=False, indent=2)
 
+    # Netflix XMas 2025 titles
+    netflix_xmas_titles_and_ids = [
+        ("A Very Vintage Christmas", 626282, "movie"),
+        ("Dear Santa", 1097870, "movie"),
+        ("Happy Christmas", 244534, "movie"),
+        ("Merry Liddle Christmas", 627475, "movie"),
+        ("Tyler Perry's A Madea Christmas", 175555, "movie"),
+        ("A Holiday Engagement", 82099, "movie"),
+        ("Christmas in the Heartland", 485612, "movie"),
+        ("My Dad's Christmas Date", 754053, "movie"),
+        ("Ghosting: The Spirit of Christmas", 646732, "movie"),
+        ("No Sleep 'Til Christmas", 550097, "movie"),
+        ("Same Time, Next Christmas", 639422, "movie"),
+        ("A Merry Little Ex-Mas", 1401318, "movie"),
+        ("A Royal Date for Christmas", 1142780, "movie"),
+        ("A Sprinkle of Christmas", 1359604, "movie"),
+        ("A Vineyard Christmas", 1166824, "movie"),
+        ("Becoming Santa", 367541, "movie"),
+        ("Christmas Casanova", 1134596, "movie"),
+        ("Just Like a Christmas Movie", 1155086, "movie"),
+        ("Meet Me at the Christmas Train Parade", 1180406, "movie"),
+        ("Royally Yours, This Christmas", 1053725, "movie"),
+        ("Champagne Problems", 1323475, "movie"),
+        ("The Great British Baking Show: Holidays", 215598, "tv"),
+        ("Marry Christmas", 1388409, "movie"),
+        ("Mistletoe Mixup", 911758, "movie"),
+        ("Santa Bootcamp", 1012286, "movie"),
+        ("Is It Cake? Holiday", 275144, "tv"),
+        ("Jingle Bell Heist", 1218762, "movie")
+    ]
+
+    netflix_xmas = {"movies": [], "tv_shows": []}
+    for title, tmdb_id, media_type in netflix_xmas_titles_and_ids:
+        details = None
+        try:
+            details = fetch_details(media_type, tmdb_id)
+            details["media_type"] = media_type
+            if media_type == "movie":
+                netflix_xmas["movies"].append(details)
+                poster_path = details.get("poster_path")
+                if poster_path:
+                    poster_filename = f"{POSTERS_DIR}/movie_{tmdb_id}.png"
+                    download_poster(poster_path, poster_filename)
+            else:
+                netflix_xmas["tv_shows"].append(details)
+                poster_path = details.get("poster_path")
+                if poster_path:
+                    poster_filename = f"{POSTERS_DIR}/tv_{tmdb_id}.png"
+                    download_poster(poster_path, poster_filename)
+        except Exception:
+            print(f"Not found on TMDB: {title} ({tmdb_id}, {media_type})")
+
+    with open("titles/netflix_xmas_2025.json", "w", encoding="utf-8") as f:
+        json.dump(netflix_xmas, f, ensure_ascii=False, indent=2)
+
+    # The Best of Xmas (TMDB list 5915)
+    best_xmas_items = fetch_tmdb_list(5915)
+    best_xmas = {"movies": [], "tv_shows": []}
+    for item in best_xmas_items:
+        mtype = item.get("media_type", "movie")
+        details = fetch_details(mtype, item["id"])
+        details["media_type"] = mtype
+        if mtype == "movie":
+            best_xmas["movies"].append(details)
+            poster_path = details.get("poster_path")
+            if poster_path:
+                poster_filename = f"{POSTERS_DIR}/movie_{details['id']}.png"
+                download_poster(poster_path, poster_filename)
+        else:
+            best_xmas["tv_shows"].append(details)
+            poster_path = details.get("poster_path")
+            if poster_path:
+                poster_filename = f"{POSTERS_DIR}/tv_{details['id']}.png"
+                download_poster(poster_path, poster_filename)
+
+    with open("titles/best_xmas.json", "w", encoding="utf-8") as f:
+        json.dump(best_xmas, f, ensure_ascii=False, indent=2)
+
+    # Build set of poster paths that are still in use
+    used_posters = set()
+    for m in (
+        trending.get("movies", [])
+        + new_titles.get("movies", [])
+        + (bollywood_details or [])
+        + horror_movies
+        + animation_movies
+        + action_movies
+        + fantasy_movies
+        + drama_movies
+        + thriller_movies
+        + adventure_movies
+        + romance_movies
+        + scifi_movies
+        + family_movies
+        + crime_movies
+        + comedy_movies
+        + (netflix_xmas.get("movies", []) if 'netflix_xmas' in locals() else [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("movies", []) if 'best_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
+    ):
+        pid = m.get("id")
+        if pid and m.get("poster_path"):
+            used_posters.add(os.path.abspath(f"{POSTERS_DIR}/movie_{pid}.png"))
+
+    for tv in (
+        trending.get("tv_shows", [])
+        + new_titles.get("tv_shows", [])
+        + kdramas.get("tv_shows", [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
+    ):
+        tid = tv.get("id")
+        if tid and tv.get("poster_path"):
+            used_posters.add(os.path.abspath(f"{POSTERS_DIR}/tv_{tid}.png"))
+
+    country_names = ["china", "taiwan", "philippines", "japan", "hongkong", "thailand"]
+    for cname in country_names:
+        cpath = f"titles/{cname}.json"
+        if os.path.exists(cpath):
+            with open(cpath, "r", encoding="utf-8") as f:
+                cdata = json.load(f)
+                for m in cdata.get("movies", []):
+                    pid = m.get("id")
+                    if pid and m.get("poster_path"):
+                        used_posters.add(os.path.abspath(f"{POSTERS_DIR}/movie_{pid}.png"))
+                for tv in cdata.get("tv_shows", []):
+                    tid = tv.get("id")
+                    if tid and tv.get("poster_path"):
+                        used_posters.add(os.path.abspath(f"{POSTERS_DIR}/tv_{tid}.png"))
+
+    # Remove posters not referenced by the current run (safe for automation / CI)
+    cleanup_unused_posters(used_posters)
 
 if __name__ == "__main__":
     main()
