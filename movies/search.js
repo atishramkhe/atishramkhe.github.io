@@ -214,15 +214,20 @@ if (searchInput && resultsContainer) {
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
 
-        // Hide the wrapper when input is cleared or too short
+        // Hide the results container when input is cleared or too short
         if (searchTerm.length < 2) {
             resultsContainer.innerHTML = '';
-            if (searchWrapper) searchWrapper.style.display = 'none';
+            if (searchWrapper) {
+                // resultsWrapper and resultsContainer are the same element
+                searchWrapper.style.display = 'none';
+            }
             return;
         }
 
-        // Show the wrapper again when we have a valid query
-        if (searchWrapper) searchWrapper.style.display = '';
+        // Show the results container again when we have a valid query
+        if (searchWrapper) {
+            searchWrapper.style.display = '';
+        }
 
         fetch(`${tmdbEndpoint}?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`)
             .then(response => response.json())
@@ -1493,28 +1498,28 @@ function loadContinueWatching() {
     const renderItems = expanded ? all : all.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async data => {
-        // Prefer your local generated poster first
         let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
         let title = data.title || data.name || 'Unknown Title';
 
-        // Only HEAD-check local assets; skip remote HEAD to avoid CORS
-        // poster is a relative path here, so it's safe to HEAD
         const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-
         if (!localOk) {
-            // Fallback to TMDB or placeholder, but DO NOT HEAD remote URLs
-            const tmdbPath = data.poster_path || data.poster;
-
-            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
-                // Something like "/3f7IqbwUqtp5iRNMHXj7cUoTPOk.jpg"
-                poster = `${imageBaseUrl}${tmdbPath}`;
-            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
-                // Already a full URL (possibly TMDB)
-                poster = tmdbPath;
+            if (data.poster_path) {
+                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
             } else {
-                poster = placeholderImage;
+                const tmdbUrl = data.mediaType === 'movie'
+                    ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
+                    : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
+                try {
+                    const r = await fetch(tmdbUrl);
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
+                        if (j.title || j.name) title = j.title || j.name;
+                    }
+                } catch { }
             }
         }
+        if (!poster) poster = placeholderImage;
 
         return { data, poster, title };
     });
