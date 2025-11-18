@@ -468,7 +468,6 @@ def main():
         {"name": "japan", "lang": "ja", "region": "JP"},
         {"name": "hongkong", "lang": "zh", "region": "HK"},
         {"name": "thailand", "lang": "th", "region": "TH"},
-        {"name": "france", "lang": "fr", "region": "FR"}, # Added France
     ]
     
     for config in country_configs:
@@ -634,7 +633,7 @@ def main():
         if tid and tv.get("poster_path"):
             used_posters.add(os.path.abspath(f"{POSTERS_DIR}/tv_{tid}.png"))
 
-    country_names = ["china", "taiwan", "philippines", "japan", "hongkong", "thailand", "france"]
+    country_names = ["china", "taiwan", "philippines", "japan", "hongkong", "thailand"]
     for cname in country_names:
         cpath = f"titles/{cname}.json"
         if os.path.exists(cpath):

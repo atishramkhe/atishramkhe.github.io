@@ -1682,7 +1682,7 @@ function initHome() {
     loadGrid('titles/best_xmas.json', 'bestXmasGrid');
     loadGrid('titles/trending.json', 'trendingGrid');
     loadGrid('titles/new.json', 'newGrid');
-    loadGrid('titles/france.json', 'franceGrid');
+    loadGrid('titles/netflixfrance.json', 'netflixfranceGrid');
     loadGrid('titles/bollywood.json', 'bollywoodGrid');
     loadGrid('titles/kdramas.json', 'kdramaGrid');
 
