@@ -20,10 +20,14 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          pip install requests
+          pip install beautifulsoup4
 
-      - name: Run TMDB script
-        run: python tmdb.py
+      - name: Run TMDB and Netflix scripts
+        run: |
+          python tmdb.py
+          python netflix.py
         working-directory: ./movies
 
       - name: Commit and push changes
