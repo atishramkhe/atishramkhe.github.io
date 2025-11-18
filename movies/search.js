@@ -2,6 +2,7 @@
 const searchInput = document.getElementById('search-input');
 const resultsContainer = document.getElementById('results');
 const searchContainer = document.getElementById('search-container');
+const searchWrapper = document.getElementById('results');
 const playerContainer = document.getElementById('player-container');
 const playerContent = document.getElementById('player-content');
 const closePlayer = document.getElementById('close-player');
@@ -211,11 +212,17 @@ function setupResultsGridLayout() {
 // Wire up search only if input/results exist
 if (searchInput && resultsContainer) {
     searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
+        const searchTerm = e.target.value.toLowerCase().trim();
+
+        // Hide the wrapper when input is cleared or too short
         if (searchTerm.length < 2) {
             resultsContainer.innerHTML = '';
+            if (searchWrapper) searchWrapper.style.display = 'none';
             return;
         }
+
+        // Show the wrapper again when we have a valid query
+        if (searchWrapper) searchWrapper.style.display = '';
 
         fetch(`${tmdbEndpoint}?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`)
             .then(response => response.json())
@@ -235,12 +242,21 @@ if (clearSearchBtn && searchInput && resultsContainer) {
         resultsContainer.innerHTML = '';
         if (searchContainer) searchContainer.style.display = 'flex';
         if (playerContainer) playerContainer.style.display = 'none';
-        searchInput.focus();
+        if (searchWrapper) searchWrapper.style.display = 'none';
+        // searchInput.focus();
     });
+}
+
+if (searchInput === null) {
+    if (searchWrapper) searchWrapper.style.display = 'none';
 }
 
 function displayResults(results) {
     if (!resultsContainer) return;
+
+    // Ensure wrapper is visible when we render results
+    if (searchWrapper) searchWrapper.style.display = '';
+
     setupResultsGridLayout();
 
     if (!Array.isArray(results) || results.length === 0) {
@@ -717,6 +733,8 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     const img = document.createElement('img');
     img.src = poster;
     img.alt = title || 'Poster';
+    // NEW: safe fallback if remote/local poster fails to load
+    img.onerror = () => { img.src = placeholderImage; };
     posterDiv.appendChild(img);
 
     if (withPreview) {
@@ -776,19 +794,13 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
         // Show More button event
         const showMoreBtn = infoDiv.querySelector('.show-more-poster-info-btn');
         if (showMoreBtn) {
-            showMoreBtn.onclick = async (e) => {
+            showMoreBtn.onclick = (e) => {
                 e.stopPropagation();
-                let posterUrl = poster;
-                try {
-                    const ok = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-                    if (!ok) posterUrl = placeholderImage;
-                } catch {
-                    posterUrl = placeholderImage;
-                }
+                // Just pass the existing poster URL; no fetch/HEAD here
                 showMorePosterInfo({
                     id,
                     mediaType,
-                    poster: posterUrl,
+                    poster,      // same as card image
                     title,
                     year,
                     date,
@@ -915,21 +927,16 @@ async function fetchMorePosterInfo(id, mediaType) {
 
 // Update showMorePosterInfo to style Play button as a red circle and move Watch Later below Play
 async function showMorePosterInfo({ id, mediaType, poster, title, year, date, overview, isTV }) {
-    // Fetch extra info FIRST
-    const extra = await fetchMorePosterInfo(id, mediaType);
-    // Fix poster path logic
-    let posterUrl = poster;
-    if (!posterUrl || posterUrl === 'null') {
-        posterUrl = `posters/${mediaType}_${id}.png`;
-    }
-    // Check if poster exists, else fallback to placeholder
-    try {
-        const ok = await fetch(posterUrl, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-        if (!ok) posterUrl = placeholderImage;
-    } catch {
-        posterUrl = placeholderImage;
-    }
+    // 1. Start with the exact poster used in search/grid
+    let posterUrl = poster || '';
 
+    // 2. Local generated path, used only as a fallback in onerror
+    const localGeneratedPoster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
+
+    // 3. Fetch extra info (unchanged)
+    const extra = await fetchMorePosterInfo(id, mediaType);
+
+    // Build / show dimmer (unchanged) ...
     let dimmer = document.getElementById('player-dimmer');
     if (!dimmer) {
         dimmer = document.createElement('div');
@@ -947,7 +954,6 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         dimmer.style.display = 'block';
     }
 
-    // Modal container
     const modal = document.createElement('div');
     modal.id = 'more-poster-info-modal';
     modal.style.position = 'fixed';
@@ -963,33 +969,30 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     modal.style.overflowY = 'auto';
     modal.style.zIndex = '9999';
 
-    // Backdrop as background
     if (extra.backdrop) {
         modal.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.98)), url('${extra.backdrop}')`;
         modal.style.backgroundSize = 'cover';
         modal.style.backgroundPosition = 'center';
     }
 
-    // Cast HTML
+    // Cast HTML (unchanged skeleton)
     let castHtml = '';
     if (extra.castArr && extra.castArr.length) {
         castHtml = `<div style="display:flex;gap:24px;margin-top:18px;margin-bottom:8px;">`;
         extra.castArr.forEach(person => {
-            const face = person.profile_path
+            const profile = person.profile_path
                 ? `https://image.tmdb.org/t/p/w185${person.profile_path}`
-                : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(person.name) + '&background=222&color=fff&size=128';
+                : placeholderImage;
             castHtml += `
-                <div style="display:flex;flex-direction:column;align-items:center;width:90px;">
-                    <img src="${face}" alt="${person.name}" style="width:68px;height:68px;object-fit:cover;border-radius:50%;border:0px solid #e02735;box-shadow:0 2px 8px #000;">
-                    <div style="margin-top:7px;font-size:0.98em;color:#fff;text-align:center;line-height:1.1;">${person.name}</div>
-                </div>
-            `;
+              <div style="display:flex;flex-direction:column;align-items:center;width:90px;">
+                <img src="${profile}" alt="${person.name}" style="width:90px;height:90px;object-fit:cover;border-radius:50%;box-shadow:0 2px 6px #000;">
+                <div style="margin-top:6px;font-size:0.7rem;text-align:center;color:#fff;">${person.name}</div>
+              </div>`;
         });
         castHtml += `</div>`;
     }
 
-    // Watch Later button style and label
-    let isSaved = isInWatchLater(id, mediaType);
+    const isSaved = isInWatchLater(id, mediaType);
     const playBtnId = 'more-poster-play-btn';
     const wlBtnId = 'more-poster-watchlater-btn';
     const wlLabelId = 'more-poster-watchlater-label';
@@ -1004,7 +1007,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         </button>
         <div style="display:flex;gap:36px;">
             <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
-                <img src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
+                <img id="modal-poster" src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
                 <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin-top:18px;">
                     <button id="${playBtnId}"
                         style="width:36px;height:36px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
@@ -1018,7 +1021,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                             ${wlBtnSymbol}
                         </button>
                         <span id="${wlLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;">
+                            style="margin-top:6px;color:#e02735;font-size:12px; font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;">
                             ${wlLabelText}
                         </span>
                     </div>
@@ -1029,15 +1032,11 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 <div style="color:#e02735;font-weight:600;margin-bottom:6px;font-size:1.1em;">${year || ''} ${isTV ? 'TV Show' : 'Movie'}</div>
                 <div style="margin-bottom:14px;color:#fff;font-size:1.08em;font-family:'OumaTrialLight';">${overview || 'No description available.'}</div>
                 <div style="font-size:1.08em;color:#FFF;margin-bottom:10px;">
-                    ${(extra.genres ? extra.genres.split(',').map(g => `<span class="showcase-tag">${g.trim()}</span>`).join(' ') : '<span class="showcase-tag">N/A</span>')}<br>
-                    <br>
-                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}<br>
-                    <br>
+                    ${(extra.genres ? extra.genres.split(',').map(g => `<span class="showcase-tag">${g.trim()}</span>`).join(' ') : '<span class="showcase-tag">N/A</span>')}<br><br>
+                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}<br><br>
                     ${isTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
                 </div>
-                <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;">
-                    <b>Cast:</b>
-                </div>
+                <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;"><b>Cast:</b></div>
                 ${castHtml}
                 <div style="font-size:1.08em;color:#e02735;margin-top:10px;">
                     ${extra.crew ? `<b>Crew:</b> <span style="color:#FFF">${extra.crew}</span>` : ''}
@@ -1046,70 +1045,56 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         </div>
     `;
 
-    // Append modal to body
     document.body.appendChild(modal);
 
-    // Attach event listener AFTER modal is in DOM
+    // 4. Robust onerror chain: TMDB → local file → placeholder
+    const modalPoster = modal.querySelector('#modal-poster');
+    if (modalPoster) {
+        let triedLocal = false;
+        modalPoster.onerror = () => {
+            if (!triedLocal) {
+                // First failure: try local generated poster
+                triedLocal = true;
+                modalPoster.src = localGeneratedPoster;
+            } else {
+                // Second failure: give up and use placeholder
+                modalPoster.src = placeholderImage;
+            }
+        };
+    }
+
     const closeBtn = modal.querySelector('#close-more-poster-info');
     if (closeBtn) {
-        closeBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
+        closeBtn.addEventListener('click', () => {
             modal.remove();
             if (dimmer) dimmer.style.display = 'none';
         });
     }
-
-    // Also allow clicking the dimmer to close
     dimmer.onclick = () => {
         modal.remove();
         if (dimmer) dimmer.style.display = 'none';
     };
 
-    // --- NEW: wire up Play and Watch Later buttons inside the modal ---
-    // Play button: open player and close modal
+    // Play button
     const playBtn = modal.querySelector(`#${playBtnId}`);
     if (playBtn) {
-        playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            // For TV try to open at lastSeason or 1; otherwise movie
-            const seasonToOpen = (isTV && extra.numSeasons) ? extra.numSeasons : 1;
-            openPlayer(mediaType, id, seasonToOpen, 1);
-            // close modal and dimmer
+        playBtn.addEventListener('click', () => {
+            openPlayer(mediaType, id, 1);
             modal.remove();
             if (dimmer) dimmer.style.display = 'none';
         });
     }
 
-    // Watch Later button: toggle state, update icon and label, refresh Watch Later grid
+    // Watch Later toggle
     const wlBtnEl = modal.querySelector(`#${wlBtnId}`);
     const wlLabelEl = modal.querySelector(`#${wlLabelId}`);
     if (wlBtnEl) {
-        wlBtnEl.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const nowSaved = toggleWatchLater({
-                id,
-                mediaType,
-                title: title || '',
-                poster,
-                date: date || '',
-                year: year || ''
-            });
-
-            // Update icon/label
-            wlBtnEl.innerHTML = nowSaved
+        wlBtnEl.addEventListener('click', () => {
+            const added = toggleWatchLater({ id, mediaType, title, poster: posterUrl, poster_path: posterUrl, year, date });
+            wlBtnEl.innerHTML = added
                 ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
                 : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
-            const newLabel = nowSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
-            wlBtnEl.setAttribute('aria-label', newLabel);
-            wlBtnEl.title = newLabel;
-            if (wlLabelEl) wlLabelEl.textContent = newLabel;
-
-            // REMOVE this extra refresh (toggleWatchLater already refreshes)
-            // try { loadWatchLater(); } catch (err) { console.warn('Could not refresh Watch Later after toggle:', err); }
-
-            try {
-                wlBtnEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: 160 });
-            } catch { }
+            if (wlLabelEl) wlLabelEl.textContent = added ? 'Remove from Watch Later' : 'Add to Watch Later';
         });
     }
 }
@@ -1508,28 +1493,28 @@ function loadContinueWatching() {
     const renderItems = expanded ? all : all.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async data => {
+        // Prefer your local generated poster first
         let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
         let title = data.title || data.name || 'Unknown Title';
 
+        // Only HEAD-check local assets; skip remote HEAD to avoid CORS
+        // poster is a relative path here, so it's safe to HEAD
         const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+
         if (!localOk) {
-            if (data.poster_path) {
-                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            // Fallback to TMDB or placeholder, but DO NOT HEAD remote URLs
+            const tmdbPath = data.poster_path || data.poster;
+
+            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
+                // Something like "/3f7IqbwUqtp5iRNMHXj7cUoTPOk.jpg"
+                poster = `${imageBaseUrl}${tmdbPath}`;
+            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
+                // Already a full URL (possibly TMDB)
+                poster = tmdbPath;
             } else {
-                const tmdbUrl = data.mediaType === 'movie'
-                    ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
-                    : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
-                try {
-                    const r = await fetch(tmdbUrl);
-                    if (r.ok) {
-                        const j = await r.json();
-                        if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
-                        if (j.title || j.name) title = j.title || j.name;
-                    }
-                } catch { }
+                poster = placeholderImage;
             }
         }
-        if (!poster) poster = placeholderImage;
 
         return { data, poster, title };
     });
@@ -1632,30 +1617,21 @@ function loadWatchLater() {
         let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
         let title = it.title || 'Unknown Title';
 
+        // Only HEAD-check local poster file (relative path => safe)
         const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+
         if (!localOk) {
-            if (it.poster && /^https?:\/\//.test(it.poster)) {
-                poster = it.poster;
-            } else if (it.poster_path) {
-                poster = `https://image.tmdb.org/t/p/w500${it.poster_path}`;
+            const tmdbPath = it.poster_path || it.poster;
+
+            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
+                poster = `${imageBaseUrl}${tmdbPath}`;
+            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
+                poster = tmdbPath;
             } else {
-                const tmdbUrl = mediaType === 'movie'
-                    ? `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`
-                    : `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`;
-                try {
-                    const r = await fetch(tmdbUrl);
-                    if (r.ok) {
-                        const j = await r.json();
-                        title = j.title || j.name || title;
-                        poster = j.poster_path ? `https://image.tmdb.org/t/p/w500${j.poster_path}` : placeholderImage;
-                    } else {
-                        poster = placeholderImage;
-                    }
-                } catch {
-                    poster = placeholderImage;
-                }
+                poster = placeholderImage;
             }
         }
+
         return { it, poster, title };
     });
 
@@ -1706,6 +1682,7 @@ function initHome() {
     loadGrid('titles/best_xmas.json', 'bestXmasGrid');
     loadGrid('titles/trending.json', 'trendingGrid');
     loadGrid('titles/new.json', 'newGrid');
+    loadGrid('titles/france.json', 'franceGrid');
     loadGrid('titles/bollywood.json', 'bollywoodGrid');
     loadGrid('titles/kdramas.json', 'kdramaGrid');
 
@@ -2341,4 +2318,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Add this small helper near your other utils
+function isRemoteUrl(u) {
+    return /^https?:\/\//i.test(String(u || ''));
+}
 
