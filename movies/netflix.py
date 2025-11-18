@@ -22,19 +22,43 @@ def scrape_netflix_tudum_top10(url: str, max_items: int = 10, is_tv: bool = Fals
     Scrape a Netflix Tudum top 10 page and return a list of clean title strings.
 
     For movies: returns the button text as-is.
-    For TV: strips trailing "Season X" / ": Season X" / "Saison X" in English/French.
+    For TV: strips trailing "Season X" / ": Season X" / "Saison X" / "Limited Series".
+    In CI (GitHub Actions), network/codec failures are tolerated and return [].
     """
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (X11; Linux x86_64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/124.0 Safari/537.36"
-        )
+        ),
+        "Accept-Encoding": "gzip, deflate, br"  # avoid zstd if possible
     }
-    resp = requests.get(url, headers=headers, timeout=15)
-    resp.raise_for_status()
-    soup = BeautifulSoup(resp.text, "html.parser")
 
+    # Small retry loop, so transient issues don't kill the run
+    attempts = 3
+    last_err = None
+    for i in range(attempts):
+        try:
+            # Use stream/raw to let urllib3 handle decoding safely
+            resp = requests.get(url, headers=headers, timeout=20, stream=True)
+            resp.raise_for_status()
+            resp.raw.decode_content = True
+            html = resp.text
+            break
+        except Exception as e:
+            last_err = e
+            if i == attempts - 1:
+                # In CI, fail softly: log and return empty list
+                print(f"[NetflixFR] Error fetching Tudum URL (attempt {i+1}/{attempts}): {e}")
+                return []
+    # If somehow we didn't set html
+    if not html:
+        return []
+
+    from bs4 import BeautifulSoup
+    import re
+
+    soup = BeautifulSoup(html, "html.parser")
     titles: list[str] = []
 
     # The real title is inside:
@@ -50,45 +74,11 @@ def scrape_netflix_tudum_top10(url: str, max_items: int = 10, is_tv: bool = Fals
         text = raw
 
         if is_tv:
-            # Remove "Season X" or ": Season X" (English / French variants)
-            # and "Limited Series" labels.
-            # Examples:
-            #  "Rhythm + Flow France: Season 4"      -> "Rhythm + Flow France"
-            #  "Rhythm + Flow France: Saison 4"      -> "Rhythm + Flow France"
-            #  "Rhythm + Flow France Season 4"       -> "Rhythm + Flow France"
-            #  "Heweliusz: Limited Series"           -> "Heweliusz"
-            #  "Death by Lightning: Limited Series"  -> "Death by Lightning"
-            import re
-
-            # Strip things like ": Season 4", ": Saison 4"
-            text = re.sub(
-                r'[:\-]\s*(Season|Saison)\s+\d+\s*$',
-                "",
-                text,
-                flags=re.IGNORECASE,
-            )
-            # Strip bare "Season 4" / "Saison 4" at the end
-            text = re.sub(
-                r'\s*(Season|Saison)\s+\d+\s*$',
-                "",
-                text,
-                flags=re.IGNORECASE,
-            )
-            # Strip ": Limited Series" (and similar)
-            text = re.sub(
-                r'[:\-]\s*Limited Series\s*$',
-                "",
-                text,
-                flags=re.IGNORECASE,
-            )
-            # In case it's just "Limited Series" at the end without punctuation
-            text = re.sub(
-                r'\s*Limited Series\s*$',
-                "",
-                text,
-                flags=re.IGNORECASE,
-            )
-
+            # Strip "Season X"/"Saison X" and "Limited Series"
+            text = re.sub(r'[:\-]\s*(Season|Saison)\s+\d+\s*$', "", text, flags=re.IGNORECASE)
+            text = re.sub(r'\s*(Season|Saison)\s+\d+\s*$', "", text, flags=re.IGNORECASE)
+            text = re.sub(r'[:\-]\s*Limited Series\s*$', "", text, flags=re.IGNORECASE)
+            text = re.sub(r'\s*Limited Series\s*$', "", text, flags=re.IGNORECASE)
             text = text.strip()
 
         if text and text not in titles:
