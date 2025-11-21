@@ -964,7 +964,10 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     modal.style.position = 'fixed';
     modal.style.top = '50%';
     modal.style.left = '50%';
-    modal.style.transform = 'translate(-50%, -50%)';
+    // Start fully hidden and scaled down
+    modal.style.opacity = '0';
+    modal.style.transform = 'translate(-50%, -50%) scale(0)';
+    modal.style.transition = 'opacity 0.45s cubic-bezier(.4,0,.2,1), transform 0.45s cubic-bezier(.4,0,.2,1), background 2s';
     modal.style.width = '900px';
     modal.style.minHeight = '520px';
     modal.style.background = 'rgba(0,0,0,0.85)';
@@ -974,11 +977,21 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     modal.style.overflowY = 'auto';
     modal.style.zIndex = '9999';
 
+    // ...existing code for backdrop, innerHTML, etc...
     if (extra.backdrop) {
         modal.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.98)), url('${extra.backdrop}')`;
         modal.style.backgroundSize = 'cover';
         modal.style.backgroundPosition = 'center';
     }
+
+    document.body.appendChild(modal);
+
+    // Animate scale and opacity in
+    requestAnimationFrame(() => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
 
     // Cast HTML (unchanged skeleton)
     let castHtml = '';
@@ -2239,89 +2252,137 @@ async function fetchTitleLogo(id, mediaType = 'movie') {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Define your sections: id and label
-  const sections = [
-    { id: 'netflixXmasGrid', label: 'Netflix XMas 2025' },
-    { id: 'bestXmasGrid', label: 'The Best of Xmas' },
-    { id: 'trendingGrid', label: 'Trending' },
-    { id: 'continueSection', label: 'Continue Watching' },
-    { id: 'watchLaterSection', label: 'Watch Later' },
-    { id: 'newGrid', label: 'New Releases' },
-    { id: 'bollywoodGrid', label: 'Bollywood' },
-    { id: 'kdramaGrid', label: 'K-Dramas' },
-    { id: 'animationGrid', label: 'Animation' },
-    { id: 'familyGrid', label: 'Family' },
-    { id: 'comedyGrid', label: 'Comedy' },
-    { id: 'adventureGrid', label: 'Adventure' },
-    { id: 'fantasyGrid', label: 'Fantasy' },
-    { id: 'scifiGrid', label: 'Science Fiction' },
-    { id: 'actionGrid', label: 'Action' },
-    { id: 'thrillerGrid', label: 'Thriller' },
-    { id: 'crimeGrid', label: 'Crime' },
-    { id: 'horrorGrid', label: 'Horror' },
-    { id: 'dramaGrid', label: 'Drama' },
-    { id: 'romanceGrid', label: 'Romance' },
-    { id: 'thailandGrid', label: 'Thailand' },
-    { id: 'philippinesGrid', label: 'Philippines' },
-    { id: 'chinaGrid', label: 'China' },
-    { id: 'taiwanGrid', label: 'Taiwan' },
-    { id: 'hongkongGrid', label: 'Hong Kong' },
-    { id: 'japanGrid', label: 'Japan' }
-    
-    // Add more as needed
-  ];
+    // Define your sections: id and label
+    const sections = [
+        { id: 'netflixXmasGrid', label: 'Netflix XMas 2025' },
+        { id: 'bestXmasGrid', label: 'The Best of Xmas' },
+        { id: 'trendingGrid', label: 'Trending' },
+        { id: 'continueSection', label: 'Continue Watching' },
+        { id: 'watchLaterSection', label: 'Watch Later' },
+        { id: 'newGrid', label: 'New Releases' },
+        { id: 'bollywoodGrid', label: 'Bollywood' },
+        { id: 'kdramaGrid', label: 'K-Dramas' },
+        { id: 'animationGrid', label: 'Animation' },
+        { id: 'familyGrid', label: 'Family' },
+        { id: 'comedyGrid', label: 'Comedy' },
+        { id: 'adventureGrid', label: 'Adventure' },
+        { id: 'fantasyGrid', label: 'Fantasy' },
+        { id: 'scifiGrid', label: 'Science Fiction' },
+        { id: 'actionGrid', label: 'Action' },
+        { id: 'thrillerGrid', label: 'Thriller' },
+        { id: 'crimeGrid', label: 'Crime' },
+        { id: 'horrorGrid', label: 'Horror' },
+        { id: 'dramaGrid', label: 'Drama' },
+        { id: 'romanceGrid', label: 'Romance' },
+        { id: 'thailandGrid', label: 'Thailand' },
+        { id: 'philippinesGrid', label: 'Philippines' },
+        { id: 'chinaGrid', label: 'China' },
+        { id: 'taiwanGrid', label: 'Taiwan' },
+        { id: 'hongkongGrid', label: 'Hong Kong' },
+        { id: 'japanGrid', label: 'Japan' }
 
-  const navList = document.getElementById('section-nav-list');
-  if (navList) {
-    navList.innerHTML = '';
-    sections.forEach(sec => {
-      const el = document.getElementById(sec.id);
-      if (el) {
-        const btn = document.createElement('button');
-        btn.textContent = sec.label;
-        btn.style = `
-          background: #000;
-          color: #e02735;
-          border: none;
-          border-radius: 6px;
-          padding: 6px 16px;
-          font-size: 1em;
-          font-family: inherit;
-          margin-bottom: 2px;
-          cursor: pointer;
-          box-shadow: none;
-        `;
-        btn.onclick = () => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          navList.style.display = 'none';
-        };
-        navList.appendChild(btn);
-      }
-    });
-  }
+        // Add more as needed
+    ];
 
-  // Show nav list on hover
-  const navToggle = document.getElementById('section-nav-toggle');
-  const navContainer = document.getElementById('section-navigator');
-  if (navToggle && navList && navContainer) {
-    // Show on mouseenter
-    navContainer.addEventListener('mouseenter', () => {
-      navList.style.display = 'flex';
-    });
-    navToggle.addEventListener('mouseenter', () => {
-      navList.style.display = 'flex';
-      navToggle.style.display = 'none';
-    });
-    // Hide on mouseleave
-    navContainer.addEventListener('mouseleave', () => {
-      navList.style.display = 'none';
-      navToggle.style.display = 'flex';
-    });
-    navList.addEventListener('mouseleave', () => {
-      navList.style.display = 'none';
-      
-    });
-  }
+    const navList = document.getElementById('section-nav-list');
+    if (navList) {
+        navList.innerHTML = '';
+
+        // --- Vertical group on the left: Continue Watching + Watch Later ---
+        const primaryGroup = document.createElement('div');
+        primaryGroup.className = 'nav-primary-group';
+        primaryGroup.style.display = 'flex';
+        primaryGroup.style.flexDirection = 'column';
+        primaryGroup.style.gap = '4px';
+        primaryGroup.style.marginBottom = '8px';
+
+        const primaryItems = [
+            { id: 'continueSection', label: 'Continue Watching' },
+            { id: 'watchLaterSection', label: 'Watch Later' }
+        ];
+
+        primaryItems.forEach(sec => {
+            const btn = document.createElement('button');
+            btn.textContent = sec.label;
+            btn.setAttribute('data-target', sec.id);
+            btn.style.display = 'block';
+            btn.style.width = '100%';
+            btn.style.textAlign = 'left';
+            btn.style.background = 'transparent';
+            btn.style.border = 'none';
+            btn.style.color = '#ffffff';
+            btn.style.padding = '4px 0';
+            btn.style.cursor = 'pointer';
+            btn.style.font = 'inherit';
+            btn.onmouseover = () => { btn.style.color = '#e02735'; };
+            btn.onmouseout = () => { btn.style.color = '#ffffff'; };
+
+            btn.addEventListener('click', () => {
+                const el = document.getElementById(sec.id);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            primaryGroup.appendChild(btn);
+        });
+
+        navList.appendChild(primaryGroup);
+
+        // Optional: a small divider between the primary group and other sections
+        const divider = document.createElement('hr');
+        divider.style.border = 'none';
+        divider.style.borderTop = '1px solid rgba(255,255,255,0.2)';
+        divider.style.margin = '4px 0 8px 0';
+        navList.appendChild(divider);
+
+        // --- Remaining sections as before ---
+        sections.forEach(sec => {
+            const btn = document.createElement('button');
+            btn.textContent = sec.label;
+            btn.setAttribute('data-target', sec.id);
+            btn.style.display = 'block';
+            btn.style.width = '100%';
+            btn.style.textAlign = 'left';
+            btn.style.background = 'transparent';
+            btn.style.border = 'none';
+            btn.style.color = '#ffffff';
+            btn.style.padding = '4px 0';
+            btn.style.cursor = 'pointer';
+            btn.style.font = 'inherit';
+            btn.onmouseover = () => { btn.style.color = '#e02735'; };
+            btn.onmouseout = () => { btn.style.color = '#ffffff'; };
+
+            btn.addEventListener('click', () => {
+                const el = document.getElementById(sec.id);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            navList.appendChild(btn);
+        });
+    }
+
+    // Show nav list on hover
+    const navToggle = document.getElementById('section-nav-toggle');
+    const navContainer = document.getElementById('section-navigator');
+    if (navToggle && navList && navContainer) {
+        // Show on mouseenter
+        navContainer.addEventListener('mouseenter', () => {
+            navList.style.display = 'block';
+        });
+        navToggle.addEventListener('mouseenter', () => {
+            navList.style.display = 'block';
+        });
+        // Hide on mouseleave
+        navContainer.addEventListener('mouseleave', () => {
+            navList.style.display = 'none';
+        });
+        navList.addEventListener('mouseleave', () => {
+            navList.style.display = 'none';
+        });
+    }
 });
 
 // Add this small helper near your other utils
