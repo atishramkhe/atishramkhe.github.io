@@ -44,7 +44,7 @@
       height: 100px;
       border-bottom: 0px solid #000;
       font-family: 'OumaTrialBold', 'OumaTrialLight';
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: none;
       padding: 0 40px;
     }
 
@@ -89,7 +89,6 @@
       align-items: center;
       border: none;
       position: relative;
-      background-color: transparent;
       margin-bottom: 0;
     }
 
@@ -102,26 +101,44 @@
 
     #search-input {
       width: 100%;
-      padding: 0.5em 2.5em 0.5em 0.5em;
+      padding: 0.5em 2.5em 0.5em 2.5em;
       font-size: 1.0em;
-      background: none;
+      background: #000;
       color: #fff;
       font-family: 'OumaTrialLight';
       border-top: none;
       border-right: none;
       border-left: none;
-      border-bottom: 1px solid #555;
-      border-radius: 0;
+      /* border-bottom: 1px solid #555; */
+      border-bottom: none;
+      border-radius: 10px;
     }
 
     #search-input .active {
       background: none;
     }
 
+    #search-input:-internal-autofill-selected {
+      appearance: menulist-button;
+      background-image: none !important;
+      background-color: #000 !important;
+      color: fieldtext !important;
+    }
+
+    #search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      pointer-events: none;
+      font-size: 1.3em;
+    }
+
     /* Clear button stays inside the same wrapper */
     #clear-search-btn {
       position: absolute;
-      right: 0.25rem;
+      right: 0rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.2rem;
@@ -139,7 +156,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 1em;
-      padding: 0 40px 20px 40px;
+      padding: 20px 40px 20px 40px;
       /* spacing under header */
     }
 
@@ -464,7 +481,7 @@
 
     .platform-btn {
       background: transparent;
-      border: none;
+
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -479,6 +496,14 @@
     .platform-btn.selected {
       background: #e02735;
       color: #fff;
+      transform: scale(1.5);
+      border: 1px solid #fff;
+
+    }
+
+
+    .platform-btn:hover {
+      transition: transform 0.2s ease;
     }
 
     .platform-btn img {
@@ -541,11 +566,19 @@
 
     .showcase-left {
       flex: 0 0 320px;
-      max-width: 340px;
+      max-width: 350px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 24px;
+      position: relative;
+      /*background: rgba(0, 0, 0, 0.55);*/
+      /* semi-transparent black overlay */
+      backdrop-filter: blur(1px);
+      /* blur whatever is behind */
+      -webkit-backdrop-filter: blur(1px);
+      /* Safari support */
+      border-radius: 12px;
     }
 
     .showcase-logo-wrapper {
@@ -566,7 +599,7 @@
     .showcase-buttons {
       display: flex;
       gap: 16px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .showcase-btn {
@@ -576,7 +609,7 @@
       font-family: 'OumaTrialBold';
       font-size: 1.05em;
       letter-spacing: 0.5px;
-      padding: 14px 26px;
+      padding: 14px 36px;
       border-radius: 8px;
       display: inline-flex;
       align-items: center;
@@ -597,10 +630,10 @@
     }
 
     .showcase-btn.secondary {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.9);
       color: #fff;
       backdrop-filter: blur(3px);
-      box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.85);
     }
 
     .showcase-btn.secondary:hover {
@@ -626,10 +659,18 @@
       display: flex;
       align-items: center;
       gap: 18px;
+      padding-bottom: 16px;
       flex-wrap: wrap;
       font-size: 0.9em;
       letter-spacing: 0.5px;
       color: #ccc;
+    }
+
+    .showcase-left-bottom {
+      background: #0009;
+      overflow: visible;
+      border-radius: 12px;
+      padding: 10px;
     }
 
     .showcase-title {
@@ -640,6 +681,7 @@
       margin: 0;
       letter-spacing: 1px;
       text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), 0 3px 10px rgba(0, 0, 0, 0.6);
+
     }
 
     .showcase-overview {
@@ -648,14 +690,15 @@
       max-width: 900px;
       color: #ddd;
       margin: 0;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+      text-shadow: 0 2px 8px rgba(0, 0, 0);
       position: relative;
+      padding-bottom: 16px;
     }
 
     .showcase-overview.long {
       max-height: 180px;
       overflow: hidden;
-      mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 70%, rgba(255, 255, 255, 0));
+      mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 70%, rgba(255, 255, 255, 0));
     }
 
     .showcase-overview.expanded {
@@ -782,13 +825,17 @@
       <header>
         <!-- Left: logo -->
         <div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
-          <img src="assets/ateaish_movie_blanc_150ppi.png" alt="ateaish movies" style="padding-right: 0px;">
+          <img src="assets/ateaish_movie_default_150ppi.png" alt="ateaish movies" style="padding-right: 0px;">
         </div>
 
         <!-- Middle: search -->
         <div class="header-center">
           <div id="search-container">
             <div id="search-input-wrapper">
+              <span class="material-symbols-outlined" id="search-icon"
+                style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#aaa;pointer-events:none;">
+                search
+              </span>
               <input type="text" id="search-input" placeholder="Search for movies and TV shows...">
               <button id="clear-search-btn">&times;</button>
             </div>
@@ -823,19 +870,21 @@
               </button>
             </div>
             <h1 class="showcase-title" id="showcase-title">Featured Title</h1>
-            <div class="showcase-meta" id="showcase-meta">
-              <span id="showcase-year">2025</span>
-              <span id="showcase-rating">PG-13</span>
-              <span id="showcase-runtime">124 min</span>
-              <span id="showcase-platform" style="display:flex;align-items:center;gap:6px;">
-                <img src="assets/platform_logos/netflix.svg" alt="Platform" style="height:22px;">
-              </span>
-            </div>
-            <p class="showcase-overview long" id="showcase-overview">
-              Loading featured overview…
-            </p>
-            <div class="showcase-tags" id="showcase-tags">
-              <!-- tags inserted -->
+            <div class="showcase-left-bottom">
+              <div class="showcase-meta" id="showcase-meta">
+                <span id="showcase-year">2025</span>
+                <span id="showcase-rating">PG-13</span>
+                <span id="showcase-runtime">124 min</span>
+                <span id="showcase-platform" style="display:flex;align-items:center;gap:6px;">
+                  <img src="assets/platform_logos/netflix.svg" alt="Platform" style="height:22px;">
+                </span>
+              </div>
+              <p class="showcase-overview long" id="showcase-overview">
+                Loading featured overview…
+              </p>
+              <div class="showcase-tags" id="showcase-tags">
+                <!-- tags inserted -->
+              </div>
             </div>
           </div>
           <div class="showcase-right">
@@ -937,7 +986,7 @@
         </span>
 
         Continue Watching
-        
+
       </h2>
       <div class="grid" id="continueGrid"></div>
     </section>
@@ -951,7 +1000,7 @@
         </span>
 
         Watch Later
-        
+
       </h2>
       <div class="grid" id="watchLaterGrid"></div>
     </section>
@@ -1218,7 +1267,7 @@
     bottom: 32px;
     right: 207px; /* adjust as needed to be left of section-navigator */
     z-index: 91;
-    background: #fff1;
+    background: #000;
     color: #e02735;
     border: none;
     border-radius: 8px;
@@ -1230,11 +1279,11 @@
     transition: background 0.2s;
     ">
       <span class="material-symbols-outlined"
-          style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
-          history
-        </span>
+        style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
+        history
+      </span>
 
-        Continue Watching
+      Continue Watching
     </button>
 
     <!-- Watch Later Button -->
@@ -1243,7 +1292,7 @@
     bottom: 70px;
     right: 207px; /* adjust as needed to be left of continue-btn */
     z-index: 91;
-    background: #fff1;
+    background: #000;
     color: #e02735;
     border: none;
     border-radius: 8px;
@@ -1255,18 +1304,18 @@
     transition: background 0.2s;
   ">
       <span class="material-symbols-outlined"
-          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:0px;">
-          acute
-        </span>
+        style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:0px;">
+        acute
+      </span>
 
-        Watch Later
+      Watch Later
     </button>
 
     <button id="backtotop-btn" style="
       position: fixed;
       bottom: 32px; /* adjust as needed */
       right: 126px;
-      background: #fff1;
+      background: #000;
       color: #e02735;
       border: none;
       border-radius: 16px;
@@ -1295,7 +1344,7 @@
   color: #e02735;
   border: none;
   border-radius: 16px;
-  background: #fff1;
+  background: #000;
   width: 85px;
   height: 72px;
   font-size: 2em;
@@ -1309,7 +1358,7 @@
   position: fixed;
   bottom: 110px; /* just above the toggle */
   right: 32px;
-  background: #fff1;
+  background: #000;
   border-radius: 16px;
   box-shadow: 0 2px 12px #0006;
   padding: 12px 18px;

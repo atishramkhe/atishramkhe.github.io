@@ -971,7 +971,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     modal.style.width = '900px';
     modal.style.minHeight = '520px';
     modal.style.background = 'rgba(0,0,0,0.85)';
-    modal.style.borderRadius = '0px';
+    modal.style.borderRadius = '12px';
     modal.style.boxShadow = '0 4px 24px rgba(0,0,0,0.25)';
     modal.style.padding = '36px 36px 24px 36px';
     modal.style.overflowY = 'auto';
@@ -2224,7 +2224,86 @@ function normalizeProgress(raw, key) {
         }
     })();
 })();
+function getContrastYIQ(r, g, b) {
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#000' : '#fff';
+}
 
+function getShowcaseBackdropUrl() {
+    const showcase = document.getElementById('showcase');
+    if (!showcase) return null;
+    // Try CSS variable first
+    const style = showcase.getAttribute('style');
+    const match = style && style.match(/--showcase-backdrop:\s*url\(['"]?([^'")]+)['"]?\)/);
+    if (match) return match[1];
+    // Fallback: check background-image
+    const bg = window.getComputedStyle(showcase).backgroundImage;
+    if (bg && bg.startsWith('url(')) {
+        return bg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+    }
+    return null;
+}
+
+function averageColorFromImage(img, sx, sy, sw, sh, callback) {
+    const canvas = document.createElement('canvas');
+    canvas.width = sw;
+    canvas.height = sh;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+    const data = ctx.getImageData(0, 0, sw, sh).data;
+    let r = 0, g = 0, b = 0, count = 0;
+    for (let i = 0; i < data.length; i += 4) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+        count++;
+    }
+    r = Math.round(r / count);
+    g = Math.round(g / count);
+    b = Math.round(b / count);
+    callback(r, g, b);
+}
+
+function updateShowcaseTextColorFromBackdrop() {
+    const url = getShowcaseBackdropUrl();
+    if (!url) return;
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    img.onload = function () {
+        // Find the region of the text (showcase-left)
+        const showcaseLeft = document.querySelector('.showcase-left');
+        const showcase = document.getElementById('showcase');
+        if (!showcaseLeft || !showcase) return;
+        // Get position and size relative to the backdrop image
+        // Assume image covers the whole showcase area
+        const leftRect = showcaseLeft.getBoundingClientRect();
+        const showcaseRect = showcase.getBoundingClientRect();
+        // Calculate region in image coordinates
+        const sx = Math.round((leftRect.left - showcaseRect.left) / showcaseRect.width * img.width);
+        const sy = Math.round((leftRect.top - showcaseRect.top) / showcaseRect.height * img.height);
+        const sw = Math.round(leftRect.width / showcaseRect.width * img.width);
+        const sh = Math.round(leftRect.height / showcaseRect.height * img.height);
+        // Clamp values
+        const region = {
+            sx: Math.max(0, sx),
+            sy: Math.max(0, sy),
+            sw: Math.max(1, sw),
+            sh: Math.max(1, sh)
+        };
+        averageColorFromImage(img, region.sx, region.sy, region.sw, region.sh, function (r, g, b) {
+            const color = getContrastYIQ(r, g, b);
+            // Set color for all showcase text
+            showcaseLeft.style.color = color;
+            // Optionally, set for children:
+            showcaseLeft.querySelectorAll('*').forEach(el => el.style.color = color);
+        });
+    };
+}
+
+// Run on load and whenever backdrop changes
+document.addEventListener('DOMContentLoaded', updateShowcaseTextColorFromBackdrop);
+// If you change the backdrop dynamically, call updateShowcaseTextColorFromBackdrop() after the change.
 // Fetch TMDB title logo (PNG/SVG) for a given movie/TV id
 async function fetchTitleLogo(id, mediaType = 'movie') {
     if (!id) return null;
@@ -2258,8 +2337,6 @@ async function fetchTitleLogo(id, mediaType = 'movie') {
 document.addEventListener('DOMContentLoaded', () => {
     // Define your sections: id and label
     const sections = [
-        { id: 'netflixXmasGrid', label: 'Netflix XMas 2025' },
-        { id: 'bestXmasGrid', label: 'The Best of Xmas' },
         { id: 'trendingGrid', label: 'Trending' },
         { id: 'netflixfranceGrid', label: 'Netflix France' },
         { id: 'newGrid', label: 'New Releases' },
@@ -2351,6 +2428,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
 
 // Add this small helper near your other utils
 function isRemoteUrl(u) {
