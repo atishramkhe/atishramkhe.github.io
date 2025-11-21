@@ -2,94 +2,6 @@
   "movies": [
     {
       "adult": false,
-      "backdrop_path": "/7FDVhmCur4LMOfnXMteiSCtsdOb.jpg",
-      "belongs_to_collection": {
-        "id": 1452167,
-        "name": "The Myth Collection",
-        "poster_path": "/6TRuMYz8mmbBxucQbyksbOFfieY.jpg",
-        "backdrop_path": "/5GC4cUCAk5RSqVVZWsbCFh6KbEa.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "",
-      "id": 1116465,
-      "imdb_id": "tt27589902",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "传说",
-      "overview": "An archeologist noticed that the texture of the relics discovered during the excavation of a glacier closely resembled a jade pendant seen in one of his dreams. He and his team then embark on an expedition into the depths of the glacier.",
-      "popularity": 356.6402,
-      "poster_path": "/qbImUt1d3itXcB81BCItPZlfbyr.jpg",
-      "production_companies": [
-        {
-          "id": 30148,
-          "logo_path": "/zerhOenUD6CkH8SMgZUhrDkOs4w.png",
-          "name": "Bona Film Group",
-          "origin_country": "CN"
-        },
-        {
-          "id": 235676,
-          "logo_path": null,
-          "name": "Just Creative Studio",
-          "origin_country": "HK"
-        },
-        {
-          "id": 140473,
-          "logo_path": null,
-          "name": "Shanghai Lix Entertainment",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        },
-        {
-          "iso_3166_1": "HK",
-          "name": "Hong Kong"
-        }
-      ],
-      "release_date": "2024-07-05",
-      "revenue": 11242056,
-      "runtime": 129,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        },
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "A Legend",
-      "video": false,
-      "vote_average": 6.6,
-      "vote_count": 79,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -109,7 +21,7 @@
       ],
       "homepage": "",
       "id": 1419406,
-      "imdb_id": "",
+      "imdb_id": "tt34610311",
       "origin_country": [
         "HK",
         "CN"
@@ -117,7 +29,7 @@
       "original_language": "zh",
       "original_title": "捕风追影",
       "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
-      "popularity": 487.4401,
+      "popularity": 491.2543,
       "poster_path": "/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg",
       "production_companies": [
         {
@@ -169,8 +81,96 @@
       "tagline": "",
       "title": "The Shadow's Edge",
       "video": false,
-      "vote_average": 6.379,
-      "vote_count": 66,
+      "vote_average": 6.431,
+      "vote_count": 72,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7FDVhmCur4LMOfnXMteiSCtsdOb.jpg",
+      "belongs_to_collection": {
+        "id": 1452167,
+        "name": "The Myth Collection",
+        "poster_path": "/6TRuMYz8mmbBxucQbyksbOFfieY.jpg",
+        "backdrop_path": "/5GC4cUCAk5RSqVVZWsbCFh6KbEa.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "",
+      "id": 1116465,
+      "imdb_id": "tt27589902",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "传说",
+      "overview": "An archeologist noticed that the texture of the relics discovered during the excavation of a glacier closely resembled a jade pendant seen in one of his dreams. He and his team then embark on an expedition into the depths of the glacier.",
+      "popularity": 350.7234,
+      "poster_path": "/qbImUt1d3itXcB81BCItPZlfbyr.jpg",
+      "production_companies": [
+        {
+          "id": 30148,
+          "logo_path": "/zerhOenUD6CkH8SMgZUhrDkOs4w.png",
+          "name": "Bona Film Group",
+          "origin_country": "CN"
+        },
+        {
+          "id": 235676,
+          "logo_path": null,
+          "name": "Just Creative Studio",
+          "origin_country": "HK"
+        },
+        {
+          "id": 140473,
+          "logo_path": null,
+          "name": "Shanghai Lix Entertainment",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        },
+        {
+          "iso_3166_1": "HK",
+          "name": "Hong Kong"
+        }
+      ],
+      "release_date": "2024-07-05",
+      "revenue": 11242056,
+      "runtime": 129,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "A Legend",
+      "video": false,
+      "vote_average": 6.555,
+      "vote_count": 82,
       "media_type": "movie"
     },
     {
@@ -205,7 +205,7 @@
       "original_language": "zh",
       "original_title": "誤判",
       "overview": "A poor young man is wrongly charged with drug trafficking after being deceived. An ex-prosecutor investigates the case, uncovers a corrupt lawyer team's scheme, and restores justice despite obstruction from evil forces.",
-      "popularity": 275.1012,
+      "popularity": 258.3819,
       "poster_path": "/n3ZnFqp988MWfIkT8OHofEJfjlt.jpg",
       "production_companies": [
         {
@@ -266,8 +266,8 @@
       "tagline": "Fight for justice.",
       "title": "The Prosecutor",
       "video": false,
-      "vote_average": 6.992,
-      "vote_count": 127,
+      "vote_average": 7.008,
+      "vote_count": 129,
       "media_type": "movie"
     },
     {
@@ -302,7 +302,7 @@
       "original_language": "zh",
       "original_title": "大雨",
       "overview": "Poverty-stricken Daguzi encounters a child - Mantou - floating downstream at the river bank, he decides to take him by his side as his son, with compassion and affection.",
-      "popularity": 87.9697,
+      "popularity": 99.8031,
       "poster_path": "/rIwxNjhl0ndF0V5zrYGdwplAJAU.jpg",
       "production_companies": [
         {
@@ -379,7 +379,7 @@
       "original_language": "zh",
       "original_title": "哪吒之魔童闹海",
       "overview": "After a catastrophic event leaves their bodies destroyed, Ne Zha and Ao Bing are granted a fragile second chance at life. As tensions rise between the dragon clans and celestial forces, the two must undergo a series of perilous trials that will test their bond, challenge their identities, and decide the fate of both mortals and immortals.",
-      "popularity": 30.56,
+      "popularity": 31.2726,
       "poster_path": "/cb5NyNrqiCNNoDkA8FfxHAtypdG.jpg",
       "production_companies": [
         {
@@ -461,7 +461,7 @@
       "original_language": "zh",
       "original_title": "原神：尘间星旅",
       "overview": "Looking up, she could see the night sky embracing all that is. In that moment, a thousand emotions crystallized into questions. Where hang the sun and moon? What canvas depicts the stars? The infinite universe and breadth of time question the smallness of man. Yet it is these small specimens of mortality who may embark on long voyages, the power to create miracles firmly within their grasp.",
-      "popularity": 24.9373,
+      "popularity": 24.6373,
       "poster_path": "/iBsKv6W5gaEnpYf3LBvwaybrnAX.jpg",
       "production_companies": [
         {
@@ -535,7 +535,7 @@
       "original_language": "zh",
       "original_title": "角頭－鬥陣欸",
       "overview": "Michael and his right-hand man Scorpion, who find themselves embroiled in their father Ko's turf war against rival gangs in Taipei, setting off a conflict between old and new generations of gangsters. The film is the latest installment in the Gatao franchise, following the narrative of a young successor trying to expand his power while navigating the volatile underworld.",
-      "popularity": 27.2986,
+      "popularity": 23.3021,
       "poster_path": "/tc5z5OADIYlOZLn0xNNM32c0Cq5.jpg",
       "production_companies": [],
       "production_countries": [
@@ -590,7 +590,7 @@
       "original_language": "zh",
       "original_title": "惊天大营救",
       "overview": "A veteran Muay Thai expert goes on a take-no-prisoners mission of revenge after his wife and daughter are brutally murdered by mysterious forces.",
-      "popularity": 22.6563,
+      "popularity": 22.1673,
       "poster_path": "/nML8rOI4GOiiEsXgknuhZeUF8M7.jpg",
       "production_companies": [
         {
@@ -626,8 +626,8 @@
       "tagline": "",
       "title": "Striking Rescue",
       "video": false,
-      "vote_average": 7.454,
-      "vote_count": 141,
+      "vote_average": 7.43,
+      "vote_count": 142,
       "media_type": "movie"
     },
     {
@@ -663,7 +663,7 @@
       "original_language": "zh",
       "original_title": "哪吒之魔童降世",
       "overview": "A young boy is born as the reincarnation of a demonic power, into a society that hates and fears him. Destined by prophecy to bring destruction to the world, Nezha must choose between good and evil to see if he can change his fate.",
-      "popularity": 21.0805,
+      "popularity": 20.9442,
       "poster_path": "/phM9bb6s9c60LA8qwsdk7U1N2cS.jpg",
       "production_companies": [
         {
@@ -748,7 +748,7 @@
       "original_language": "zh",
       "original_title": "封神第二部：战火西岐",
       "overview": "Taishi Wen Zhong led the army of Shang Dynasty including Deng Chanyu and four generals of the Mo Family to Xiqi. With the help of Kunlun immortals such as Jiang Ziya, Ji Fa led the army and civilians of Xiqi to defend their homeland.",
-      "popularity": 14.9864,
+      "popularity": 14.2197,
       "poster_path": "/dfUCs5HNtGu4fofh83uiE2Qcy3v.jpg",
       "production_companies": [
         {
@@ -846,7 +846,7 @@
       "original_language": "zh",
       "original_title": "射雕英雄传：侠之大者",
       "overview": "Under Genghis Khan, the Mongolian army pushes west to destroy the Jin Dynasty, setting its sights on the Song Dynasty next. Amid internal conflicts among martial arts schools, Guo Jing unites the Central Plains' warriors to defend Xiangyang, embodying courage and loyalty in the fight for the nation.",
-      "popularity": 13.7243,
+      "popularity": 13.8224,
       "poster_path": "/fUCFEGFlMIFet9ja72JDAeG1he8.jpg",
       "production_companies": [
         {
@@ -929,98 +929,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/gJDGWlJbFO4KqB47ng3d0skA6zq.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1135176,
-      "imdb_id": "tt26749327",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "家庭简史",
-      "overview": "A middle-class family's fate becomes intertwined with their only son's enigmatic new friend in post one-child policy China, putting unspoken secrets, unmet expectations, and untended emotions under the microscope.",
-      "popularity": 10.9202,
-      "poster_path": "/h6XnbrKBnMJzyP6EooycgGiUECB.jpg",
-      "production_companies": [
-        {
-          "id": 216667,
-          "logo_path": null,
-          "name": "First Light Films",
-          "origin_country": "CN"
-        },
-        {
-          "id": 144243,
-          "logo_path": "/vZJy5rqy19pS9ybFD2TUVhMFDBi.png",
-          "name": "Tambo Film",
-          "origin_country": "DK"
-        },
-        {
-          "id": 217373,
-          "logo_path": null,
-          "name": "Films du Milieu",
-          "origin_country": "FR"
-        },
-        {
-          "id": 8152,
-          "logo_path": "/shnLD1Pj9d1vB2TH93QHSNT5gzW.png",
-          "name": "DFI",
-          "origin_country": "QA"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        },
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        },
-        {
-          "iso_3166_1": "DK",
-          "name": "Denmark"
-        },
-        {
-          "iso_3166_1": "QA",
-          "name": "Qatar"
-        }
-      ],
-      "release_date": "2024-09-26",
-      "revenue": 2661,
-      "runtime": 100,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Make yourself at home.",
-      "title": "Brief History of a Family",
-      "video": false,
-      "vote_average": 6.0,
-      "vote_count": 16,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/gZF6fDtE71Fi3AGcF0PSQAxCgE3.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -1039,7 +947,7 @@
       "original_language": "zh",
       "original_title": "Assassin",
       "overview": "",
-      "popularity": 13.9989,
+      "popularity": 13.1496,
       "poster_path": "/fLRCNUz3MsnC0MdhaWpw3hp4Eye.jpg",
       "production_companies": [],
       "production_countries": [],
@@ -1053,6 +961,68 @@
       "video": false,
       "vote_average": 4.4,
       "vote_count": 8,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gSVk4r8Q4R8aeGY0hhEG3bE0QzL.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1252428,
+      "imdb_id": "tt11668530",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "狂蟒之灾",
+      "overview": "A struggling circus crew gets deceived by its former partner, as it embarks on a tour in Thailand. During the journey through a Southeast Asian rainforest, they encounter attacks by a giant python. They meet a mysterious man named Jeff who offers to help, but they soon realize he's a poacher. As they search for Jeff's boat, they face life-and-death struggles with the python and Jeff himself.",
+      "popularity": 11.7359,
+      "poster_path": "/pPfsEXzfk2URkQ1OxhUShAXdxMr.jpg",
+      "production_companies": [
+        {
+          "id": 34,
+          "logo_path": "/mtp1fvZbe4H991Ka1HOORl572VH.png",
+          "name": "Sony Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2024-03-01",
+      "revenue": 0,
+      "runtime": 84,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Anaconda",
+      "video": false,
+      "vote_average": 7.15,
+      "vote_count": 113,
       "media_type": "movie"
     },
     {
@@ -1083,7 +1053,7 @@
       "original_language": "zh",
       "original_title": "Dead End",
       "overview": "In the mid-sixties Chang Cheh changed the face of female dominated films with his male dominated, violent kung-fu films. Dead End was the start of a new force that lasted 6 years, the first film to star David Chiang and Ti Lung under director Chang's discerning eye. The trouble all begins when Chen Hung-lieh's character disapproves of Ti Lung's character courting his sister.",
-      "popularity": 11.8464,
+      "popularity": 10.9816,
       "poster_path": "/3uizdWXbiqzFH6kjMoHleLarvjs.jpg",
       "production_companies": [
         {
@@ -1119,228 +1089,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/9ZV5XIZVS0hZAfxadPvuFplSCSY.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "",
-      "id": 1249423,
-      "imdb_id": "tt28131427",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "狗阵",
-      "overview": "On the edge of the Gobi desert in Northwest China, Lang returns to his hometown after being released from jail. While working for the local dog patrol team to clear the town of stray dogs before the Olympic Games, he strikes up an unlikely connection with a black dog. These two lonely souls embark on a journey together.",
-      "popularity": 9.571,
-      "poster_path": "/8XwRmwrMmm3MQ87XugUkApLF0hJ.jpg",
-      "production_companies": [
-        {
-          "id": 198801,
-          "logo_path": "/m4iBeqaJX5iddw7are8MeTWeX8e.png",
-          "name": "The Seventh Art Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 3393,
-          "logo_path": "/rv37YfhPg03ugK252E4oXMzgvks.png",
-          "name": "Huayi Brothers Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 127878,
-          "logo_path": null,
-          "name": "Momo Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 30148,
-          "logo_path": "/zerhOenUD6CkH8SMgZUhrDkOs4w.png",
-          "name": "Bona Film Group",
-          "origin_country": "CN"
-        },
-        {
-          "id": 84946,
-          "logo_path": "/8wrAXwrNZ5zHImKb0SyVLQbXkaM.png",
-          "name": "Tencent Penguin Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 197030,
-          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
-          "name": "Tao Piao Piao",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "release_date": "2024-06-15",
-      "revenue": 4600000,
-      "runtime": 116,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Black Dog",
-      "video": false,
-      "vote_average": 7.227,
-      "vote_count": 181,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/gSVk4r8Q4R8aeGY0hhEG3bE0QzL.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1252428,
-      "imdb_id": "tt11668530",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "狂蟒之灾",
-      "overview": "A struggling circus crew gets deceived by its former partner, as it embarks on a tour in Thailand. During the journey through a Southeast Asian rainforest, they encounter attacks by a giant python. They meet a mysterious man named Jeff who offers to help, but they soon realize he's a poacher. As they search for Jeff's boat, they face life-and-death struggles with the python and Jeff himself.",
-      "popularity": 11.8694,
-      "poster_path": "/pPfsEXzfk2URkQ1OxhUShAXdxMr.jpg",
-      "production_companies": [
-        {
-          "id": 34,
-          "logo_path": "/mtp1fvZbe4H991Ka1HOORl572VH.png",
-          "name": "Sony Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "release_date": "2024-03-01",
-      "revenue": 0,
-      "runtime": 84,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Anaconda",
-      "video": false,
-      "vote_average": 7.161,
-      "vote_count": 112,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/rzGHVq2BCMwjp93QaKYoLPSaSrp.jpg",
-      "belongs_to_collection": {
-        "id": 222639,
-        "name": "Detective Dee Collection (Tsui Hark)",
-        "poster_path": "/v2WxMtq7BZx9ANPSl1noN124Eky.jpg",
-        "backdrop_path": "/r1Yt6uOaFEEBbPfX2Qs4w97e55S.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        }
-      ],
-      "homepage": "",
-      "id": 506763,
-      "imdb_id": "tt6869538",
-      "origin_country": [
-        "CN",
-        "HK"
-      ],
-      "original_language": "zh",
-      "original_title": "狄仁杰之四大天王",
-      "overview": "Dee, the detective serving Chinese empress Wu Zetian, is called upon to investigate a series of strange events in Loyang, including the appearance of mysterious warriors wearing Chiyou ghost masks, foxes that speak human language and the pillar sculptures in the palace coming alive.",
-      "popularity": 10.2148,
-      "poster_path": "/nZ3XTA5ZlGOj92jRBSYglW8r9QY.jpg",
-      "production_companies": [
-        {
-          "id": 3393,
-          "logo_path": "/rv37YfhPg03ugK252E4oXMzgvks.png",
-          "name": "Huayi Brothers Pictures",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        },
-        {
-          "iso_3166_1": "HK",
-          "name": "Hong Kong"
-        }
-      ],
-      "release_date": "2018-07-27",
-      "revenue": 84168923,
-      "runtime": 132,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Detective Dee: The Four Heavenly Kings",
-      "video": false,
-      "vote_average": 6.241,
-      "vote_count": 203,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/dxVZtkOPNcgs0RgYL6QRw6dMJxk.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -1367,7 +1115,7 @@
       "original_language": "zh",
       "original_title": "Black Tea",
       "overview": "Aya, a young Ivorian woman in her early thirties, says no on her wedding day, to everyone’s astonishment. After emigrating to Asia, she works in a tea export shop with Cai, a 45-year-old Chinese man. Aya and Cai fall in love but can their affair survive the turmoil of their past and other people’s prejudices?",
-      "popularity": 10.4058,
+      "popularity": 10.4215,
       "poster_path": "/8wfbaGi9wS9wKvpN3eMSRgfgbkM.jpg",
       "production_companies": [
         {
@@ -1464,6 +1212,182 @@
     },
     {
       "adult": false,
+      "backdrop_path": "/17OB3LPZUbe80l893OCT9EXibCO.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "",
+      "id": 1072890,
+      "imdb_id": "tt7122126",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "异人之下",
+      "overview": "Zhang Chulan, who has been hiding his identity as an Inhuman, is caught up in the vortex of fighting between different Inhuman sects since he meets Feng Baobao, who has a mysterious background. As the secret that Zhang Chulan is the heir to the mysterious technique \"Air Body Source Stream\" is made public, the Inhuman world has started a fierce battle around him, with forces such as Nadutong, Quanxie Sect, Tianyi Sect, and so on appearing one by one and the battle is about to break out, but at this time, Zhang Chulan accidentally unveils the secret of the year....",
+      "popularity": 9.5567,
+      "poster_path": "/iBBXdLCqxRrqTAXe0iIzhSAHc1Q.jpg",
+      "production_companies": [
+        {
+          "id": 81620,
+          "logo_path": "/7LkIVuWBVScdujpKhBPx1TMnPQE.png",
+          "name": "Tencent Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 190261,
+          "logo_path": null,
+          "name": "Century Changshengtian Film",
+          "origin_country": "CN"
+        },
+        {
+          "id": 115127,
+          "logo_path": "/lEA4MJ3zsi4RojFvNl4aw6t5okF.png",
+          "name": "China Literature",
+          "origin_country": "CN"
+        },
+        {
+          "id": 36828,
+          "logo_path": "/bOk3HzfpDp5I2zw8bHsrKWTpQXh.png",
+          "name": "New Classics Media",
+          "origin_country": "CN"
+        },
+        {
+          "id": 197030,
+          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
+          "name": "Tao Piao Piao",
+          "origin_country": "CN"
+        },
+        {
+          "id": 25660,
+          "logo_path": null,
+          "name": "Huaxia Film Distribution",
+          "origin_country": "CN"
+        },
+        {
+          "id": 148024,
+          "logo_path": "/hwoojywsskxB91jw2QwgLeTwMr.png",
+          "name": "Beijing Culture",
+          "origin_country": "CN"
+        },
+        {
+          "id": 248722,
+          "logo_path": "/dZAFgZhOegeKuSPgzDJ4RIk97mi.png",
+          "name": "Dong Man Tang",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2024-07-26",
+      "revenue": 0,
+      "runtime": 134,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "The Traveller",
+      "video": false,
+      "vote_average": 6.4,
+      "vote_count": 13,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rzGHVq2BCMwjp93QaKYoLPSaSrp.jpg",
+      "belongs_to_collection": {
+        "id": 222639,
+        "name": "Detective Dee Collection (Tsui Hark)",
+        "poster_path": "/v2WxMtq7BZx9ANPSl1noN124Eky.jpg",
+        "backdrop_path": "/r1Yt6uOaFEEBbPfX2Qs4w97e55S.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        }
+      ],
+      "homepage": "",
+      "id": 506763,
+      "imdb_id": "tt6869538",
+      "origin_country": [
+        "CN",
+        "HK"
+      ],
+      "original_language": "zh",
+      "original_title": "狄仁杰之四大天王",
+      "overview": "Dee, the detective serving Chinese empress Wu Zetian, is called upon to investigate a series of strange events in Loyang, including the appearance of mysterious warriors wearing Chiyou ghost masks, foxes that speak human language and the pillar sculptures in the palace coming alive.",
+      "popularity": 9.3313,
+      "poster_path": "/nZ3XTA5ZlGOj92jRBSYglW8r9QY.jpg",
+      "production_companies": [
+        {
+          "id": 3393,
+          "logo_path": "/rv37YfhPg03ugK252E4oXMzgvks.png",
+          "name": "Huayi Brothers Pictures",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        },
+        {
+          "iso_3166_1": "HK",
+          "name": "Hong Kong"
+        }
+      ],
+      "release_date": "2018-07-27",
+      "revenue": 84168923,
+      "runtime": 132,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Detective Dee: The Four Heavenly Kings",
+      "video": false,
+      "vote_average": 6.241,
+      "vote_count": 203,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/5MyjGUa2piiEyNH4UcLp3YV9cwo.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -1491,7 +1415,7 @@
       "original_language": "zh",
       "original_title": "大師兄",
       "overview": "A soldier-turned-high school teacher uses unusual methods to reach to a class of poor students, while dealing with a greedy entrepreneur and his gang of fighters as well as the government.",
-      "popularity": 11.0096,
+      "popularity": 9.2134,
       "poster_path": "/z6Y6uQn2fORr7o43EggQrTsp08o.jpg",
       "production_companies": [
         {
@@ -1536,142 +1460,159 @@
       "tagline": "Friend. Teacher. Protector.",
       "title": "Big Brother",
       "video": false,
-      "vote_average": 7.343,
-      "vote_count": 194,
+      "vote_average": 7.349,
+      "vote_count": 196,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/qu27OPbaIO9OBj3zd4h9bdS6e58.jpg",
+      "backdrop_path": "/9ZV5XIZVS0hZAfxadPvuFplSCSY.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
-        {
-          "id": 10749,
-          "name": "Romance"
-        },
         {
           "id": 18,
           "name": "Drama"
         }
       ],
-      "homepage": "https://happinet-phantom.com/seishun18x2/",
-      "id": 1188258,
-      "imdb_id": "tt31039829",
+      "homepage": "",
+      "id": 1249423,
+      "imdb_id": "tt28131427",
       "origin_country": [
-        "JP",
-        "TW"
+        "CN"
       ],
       "original_language": "zh",
-      "original_title": "青春18x2 君へと続く道",
-      "overview": "Having lost his job and the company he built, a 36-year-old man at rock bottom goes on a wistful solo trip to Japan in search of the love he left behind.",
-      "popularity": 8.47,
-      "poster_path": "/nt68WTFgtZdLBwpLBF2q7GFq5Fw.jpg",
+      "original_title": "狗阵",
+      "overview": "On the edge of the Gobi desert in Northwest China, Lang returns to his hometown after being released from jail. While working for the local dog patrol team to clear the town of stray dogs before the Olympic Games, he strikes up an unlikely connection with a black dog. These two lonely souls embark on a journey together.",
+      "popularity": 8.7846,
+      "poster_path": "/8XwRmwrMmm3MQ87XugUkApLF0hJ.jpg",
       "production_companies": [
         {
-          "id": 42311,
-          "logo_path": null,
-          "name": "Jumpboys Films",
-          "origin_country": ""
-        },
-        {
-          "id": 116258,
-          "logo_path": "/6ULDFROnyVZUK044VVIgfiSDsBF.png",
-          "name": "BABEL LABEL",
-          "origin_country": "JP"
-        },
-        {
-          "id": 17227,
-          "logo_path": "/nrWbxpzC2G39A64RtVa3qf5D21X.png",
-          "name": "L'espace Vision",
-          "origin_country": "JP"
-        },
-        {
-          "id": 177220,
-          "logo_path": "/5yMptt5Q3VCIBcZvFDnbsPvfZYO.png",
-          "name": "CyberAgent",
-          "origin_country": "JP"
-        },
-        {
-          "id": 199799,
-          "logo_path": null,
-          "name": "QC Media",
+          "id": 198801,
+          "logo_path": "/m4iBeqaJX5iddw7are8MeTWeX8e.png",
+          "name": "The Seventh Art Pictures",
           "origin_country": "CN"
         },
         {
-          "id": 165241,
+          "id": 3393,
+          "logo_path": "/rv37YfhPg03ugK252E4oXMzgvks.png",
+          "name": "Huayi Brothers Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 127878,
           "logo_path": null,
-          "name": "Bossdom Digiinnovation",
-          "origin_country": "TW"
+          "name": "Momo Pictures",
+          "origin_country": "CN"
         },
         {
-          "id": 4338,
-          "logo_path": null,
-          "name": "PiLi International Multimedia",
-          "origin_country": "TW"
+          "id": 30148,
+          "logo_path": "/zerhOenUD6CkH8SMgZUhrDkOs4w.png",
+          "name": "Bona Film Group",
+          "origin_country": "CN"
         },
         {
-          "id": 181190,
-          "logo_path": "/6O8z7druYj7fXanaIE2f2OVRI9E.png",
-          "name": "Cygames",
-          "origin_country": "JP"
+          "id": 84946,
+          "logo_path": "/8wrAXwrNZ5zHImKb0SyVLQbXkaM.png",
+          "name": "Tencent Penguin Pictures",
+          "origin_country": "CN"
         },
         {
-          "id": 168206,
-          "logo_path": "/AmGd7pnZZ8VWTrOtlVZAm3siR4C.png",
-          "name": "Happinet Phantom Studios",
-          "origin_country": "JP"
-        },
-        {
-          "id": 11848,
-          "logo_path": "/A3abKfh7dXwPdXJc3A551q8XnOC.png",
-          "name": "KDDI",
-          "origin_country": "JP"
-        },
-        {
-          "id": 7549,
-          "logo_path": "/bXc1vp0lER6PDHtsVe12pSPwNkv.png",
-          "name": "Kansai Television",
-          "origin_country": "JP"
-        },
-        {
-          "id": 8157,
-          "logo_path": "/pEqcMX1aG3JvtDgfh2wNZJLCcb4.png",
-          "name": "jeki",
-          "origin_country": "JP"
+          "id": 197030,
+          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
+          "name": "Tao Piao Piao",
+          "origin_country": "CN"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        },
-        {
-          "iso_3166_1": "TW",
-          "name": "Taiwan"
+          "iso_3166_1": "CN",
+          "name": "China"
         }
       ],
-      "release_date": "2024-03-14",
-      "revenue": 0,
-      "runtime": 124,
+      "release_date": "2024-06-15",
+      "revenue": 4600000,
+      "runtime": 116,
       "spoken_languages": [
         {
           "english_name": "Mandarin",
           "iso_639_1": "zh",
           "name": "普通话"
-        },
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
         }
       ],
       "status": "Released",
       "tagline": "",
-      "title": "18×2 Beyond Youthful Days",
+      "title": "Black Dog",
       "video": false,
-      "vote_average": 7.3,
-      "vote_count": 48,
+      "vote_average": 7.227,
+      "vote_count": 181,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/uJEZaEM2hY3MG50CgZ3z9jeTwmp.jpg",
+      "belongs_to_collection": {
+        "id": 1444577,
+        "name": "The Legend of Hei Collection",
+        "poster_path": "/3R3AvYITzvcBTOhAbNNDSTwiQ5i.jpg",
+        "backdrop_path": null
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        }
+      ],
+      "homepage": "https://gkids.com/films/the-legend-of-hei-2",
+      "id": 1144107,
+      "imdb_id": "tt37284198",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "罗小黑战记 2",
+      "overview": "When an attack shatters the fragile peace between the spirit world and humanity, Hei teams up with Luye, the last disciple of his Shifu Wuxian, to expose a conspiracy that threatens both realms - and the bond they've sworn to protect.",
+      "popularity": 8.58,
+      "poster_path": "/l1Q7YzanazjJescEkSfcRuIj1hR.jpg",
+      "production_companies": [
+        {
+          "id": 152035,
+          "logo_path": "/uh2Q6PLOOy9HZPIM5Hn92IPn2XY.png",
+          "name": "HMCH",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2025-07-18",
+      "revenue": 55353618,
+      "runtime": 119,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "The Legend of Hei 2",
+      "video": false,
+      "vote_average": 8.387,
+      "vote_count": 31,
       "media_type": "movie"
     }
   ],
@@ -1717,37 +1658,37 @@
       "languages": [
         "zh"
       ],
-      "last_air_date": "2025-11-18",
+      "last_air_date": "2025-11-19",
       "last_episode_to_air": {
-        "id": 6656945,
-        "name": "Five Feet from Heaven (3)",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-19",
-        "episode_number": 28,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 44,
-        "season_number": 3,
-        "show_id": 211089,
-        "still_path": "/g8sxsWu3rzZFzPPpCoKu4xdXbzY.jpg"
-      },
-      "name": "Strange Tales of Tang Dynasty",
-      "next_episode_to_air": {
-        "id": 6656946,
-        "name": "Episode 29",
+        "id": 6656947,
+        "name": "Five Feet from Heaven (5)",
         "overview": "",
         "vote_average": 0.0,
         "vote_count": 0,
         "air_date": "2025-11-20",
-        "episode_number": 29,
+        "episode_number": 30,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": null,
+        "runtime": 45,
         "season_number": 3,
         "show_id": 211089,
-        "still_path": null
+        "still_path": "/opxVMnQMr8hJ9UUSt7AIFmAbb0W.jpg"
+      },
+      "name": "Strange Tales of Tang Dynasty",
+      "next_episode_to_air": {
+        "id": 6656948,
+        "name": "Five Feet from Heaven (6)",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-21",
+        "episode_number": 31,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 43,
+        "season_number": 3,
+        "show_id": 211089,
+        "still_path": "/gODZU7LoxmDsKK0G305s6asQrLO.jpg"
       },
       "networks": [
         {
@@ -1777,7 +1718,7 @@
       "original_language": "zh",
       "original_name": "唐朝诡事录",
       "overview": "General Lu Lingfeng and Detective Su Wuming uncover supernatural mysteries and hidden conspiracies threatening the empire during Emperor Xuanzong’s reign.",
-      "popularity": 46.3894,
+      "popularity": 45.309,
       "poster_path": "/nyhBueT07zQS7wWLYFDNO8LdO3N.jpg",
       "production_companies": [
         {
@@ -1841,8 +1782,124 @@
       "status": "Returning Series",
       "tagline": "",
       "type": "Scripted",
-      "vote_average": 8.25,
+      "vote_average": 8.2,
       "vote_count": 34,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zRKNr8tQkpUt5PaU7Fm5JfcZjqW.jpg",
+      "created_by": [],
+      "episode_run_time": [
+        45
+      ],
+      "first_air_date": "2025-11-14",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://v.youku.com/v_show/id_XNjM3MzAyMzc2MA==.html",
+      "id": 271015,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-11-19",
+      "last_episode_to_air": {
+        "id": 5687490,
+        "name": "Episode 15",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-20",
+        "episode_number": 15,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 271015,
+        "still_path": "/d3UGaDUtV8RvK9t2gCviNH6ZE3D.jpg"
+      },
+      "name": "Love & Crown",
+      "next_episode_to_air": {
+        "id": 5687491,
+        "name": "Episode 16",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-21",
+        "episode_number": 16,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 271015,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 35,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "凤凰台上",
+      "overview": "In the Great Qi dynasty, young Emperor Xiao Huan assumes the alias Bai Chifan and draws close to Ling Cangcang, daughter of the Grand Tutor, to reclaim power from him and the Empress Dowager. Cangcang, the brave and righteous leader of the Fenglai Pavilion, joins him in investigating the Lingbi Sect. Their bond deepens into love, but her master's death sparks a fatal misunderstanding. Though they become Emperor and Empress, old wounds keep them apart. Refusing to abandon the truth, Cangcang endures betrayal and peril, only to discover Xiao Huan's silent devotion. Together, they restore peace, and prove that neither love nor the realm must be forsaken.",
+      "popularity": 37.0578,
+      "poster_path": "/8ZfQhScZEE9xcM3rno9uM52qRBE.jpg",
+      "production_companies": [
+        {
+          "id": 189547,
+          "logo_path": null,
+          "name": "H&R Century Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 48460,
+          "logo_path": "/7m3BMwdstKRqw7qg5vSYW2S0HrR.png",
+          "name": "Youku",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2025-11-14",
+          "episode_count": 35,
+          "id": 417787,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 1,
+          "vote_average": 0.0
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 8.7,
+      "vote_count": 3,
       "media_type": "tv"
     },
     {
@@ -1922,7 +1979,7 @@
       "original_language": "zh",
       "original_name": "凡人修仙传",
       "overview": "A poor and ordinary boy from a village joins a minor sect in Jiang Hu and becomes an Unofficial Disciple by chance. How will Han Li, a commoner by birth, establish a foothold for himself in his sect? With his mediocre aptitude, he must successfully traverse the treacherous path of cultivation and avoid the notice of those who may do him harm. This is a story of an ordinary mortal who, against all odds, clashes with devilish demons and ancient celestials in order to find his own path towards immortality.",
-      "popularity": 31.3475,
+      "popularity": 30.7861,
       "poster_path": "/i6SYuRHPtODpZ8VX9ql21nj0tDq.jpg",
       "production_companies": [
         {
@@ -1979,123 +2036,7 @@
       "tagline": "",
       "type": "Scripted",
       "vote_average": 8.5,
-      "vote_count": 65,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/zRKNr8tQkpUt5PaU7Fm5JfcZjqW.jpg",
-      "created_by": [],
-      "episode_run_time": [
-        45
-      ],
-      "first_air_date": "2025-11-14",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://v.youku.com/v_show/id_XNjM3MzAyMzc2MA==.html",
-      "id": 271015,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-11-19",
-      "last_episode_to_air": {
-        "id": 5687489,
-        "name": "Episode 14",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-19",
-        "episode_number": 14,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 271015,
-        "still_path": "/9c1aDJDHeEitnLEPht111SGNbjK.jpg"
-      },
-      "name": "Love & Crown",
-      "next_episode_to_air": {
-        "id": 5687490,
-        "name": "Episode 15",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-20",
-        "episode_number": 15,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 271015,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 1419,
-          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 35,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "凤凰台上",
-      "overview": "In the Great Qi dynasty, young Emperor Xiao Huan assumes the alias Bai Chifan and draws close to Ling Cangcang, daughter of the Grand Tutor, to reclaim power from him and the Empress Dowager. Cangcang, the brave and righteous leader of the Fenglai Pavilion, joins him in investigating the Lingbi Sect. Their bond deepens into love, but her master's death sparks a fatal misunderstanding. Though they become Emperor and Empress, old wounds keep them apart. Refusing to abandon the truth, Cangcang endures betrayal and peril, only to discover Xiao Huan's silent devotion. Together, they restore peace, and prove that neither love nor the realm must be forsaken.",
-      "popularity": 32.8889,
-      "poster_path": "/8ZfQhScZEE9xcM3rno9uM52qRBE.jpg",
-      "production_companies": [
-        {
-          "id": 189547,
-          "logo_path": null,
-          "name": "H&R Century Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 48460,
-          "logo_path": "/7m3BMwdstKRqw7qg5vSYW2S0HrR.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2025-11-14",
-          "episode_count": 35,
-          "id": 417787,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": null,
-          "season_number": 1,
-          "vote_average": 0.0
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 8.7,
-      "vote_count": 3,
+      "vote_count": 66,
       "media_type": "tv"
     },
     {
@@ -2173,7 +2114,7 @@
       "original_language": "zh",
       "original_name": "奔跑吧！兄弟",
       "overview": "Hurry Up, Brother! is a Chinese variety show based off the original Korean variety show, Running Man. It is created by SBS and co-produced with Zhejiang Television. It first aired on October 10, 2014. This show is classified as a game-variety show, where the MCs and guests complete missions in a landmark to win a race. In 2017, the show officially changed its name to \"Keep Running\".",
-      "popularity": 29.503,
+      "popularity": 29.8927,
       "poster_path": "/jOl12DTFiMcp9ga2KaEKwt5H8oo.jpg",
       "production_companies": [
         {
@@ -2347,6 +2288,153 @@
     },
     {
       "adult": false,
+      "backdrop_path": "/5TvKAb7oS3N2K5h6VDIYJlKYtaY.jpg",
+      "created_by": [
+        {
+          "id": 2350666,
+          "credit_id": "6675acb504ab17a3abc515b3",
+          "name": "Ma Dong",
+          "original_name": "马东",
+          "gender": 2,
+          "profile_path": "/tuaxxaObzJ6Q1mQIS9B4JAp17Il.jpg"
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2024-06-28",
+      "genres": [
+        {
+          "id": 10764,
+          "name": "Reality"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://v.qq.com/x/cover/mzc00200vyot3cs.html",
+      "id": 257161,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-11-01",
+      "last_episode_to_air": {
+        "id": 6628496,
+        "name": "EP8-2",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-15",
+        "episode_number": 16,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 101,
+        "season_number": 2,
+        "show_id": 257161,
+        "still_path": "/akr1N5mPuKL9U8ldCRsemEf141q.jpg"
+      },
+      "name": "Amazing Night",
+      "next_episode_to_air": {
+        "id": 6647853,
+        "name": "EP9-1",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-21",
+        "episode_number": 17,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 138,
+        "season_number": 2,
+        "show_id": 257161,
+        "still_path": "/t4S4dRSPMpsiXLT8EHgwEwGaXyp.jpg"
+      },
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 40,
+      "number_of_seasons": 2,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "喜人奇妙夜",
+      "overview": "Amazing Night is an original new comedy variety show jointly produced by Tencent Video and Mi Wei. Huang Bo, Qin Hao, Jia Bing, Gao Yuanyuan, Ma Dong, Jin Jing, Song Muzi will be the audience representatives, in addition, each issue there is a mysterious audience representative, to accompany you to spend a wonderful comedy night!",
+      "popularity": 26.8282,
+      "poster_path": "/nQFCp0Tlfqq3NhF2kiNAGwXLfnX.jpg",
+      "production_companies": [
+        {
+          "id": 74457,
+          "logo_path": "/mPsCbXC5k20bpKErrbOQd1fG0L7.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        },
+        {
+          "id": 120162,
+          "logo_path": "/qkeHPGtsZwFOK8MiUmlGdUhXiQG.png",
+          "name": "米未",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2024-06-17",
+          "episode_count": 186,
+          "id": 399527,
+          "name": "Specials",
+          "overview": "",
+          "poster_path": "/lQE1jbtOeq8Zrkjg7l3h6LdxxLz.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2024-06-28",
+          "episode_count": 23,
+          "id": 398895,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/of20x9ByDjI4AEkVsNyC0JsS9fp.jpg",
+          "season_number": 1,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2025-09-26",
+          "episode_count": 20,
+          "id": 461861,
+          "name": "Season 2",
+          "overview": "",
+          "poster_path": "/nQFCp0Tlfqq3NhF2kiNAGwXLfnX.jpg",
+          "season_number": 2,
+          "vote_average": 0.0
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Reality",
+      "vote_average": 5.5,
+      "vote_count": 6,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/LfzUbxhPJniAMpt5enMZW78YFq.jpg",
       "created_by": [
         {
@@ -2380,7 +2468,7 @@
           "name": "Sci-Fi & Fantasy"
         }
       ],
-      "homepage": "https://animelhd.com/",
+      "homepage": "https://v.qq.com/x/cover/mzc00200aaogpgh.html",
       "id": 223911,
       "in_production": true,
       "languages": [
@@ -2434,7 +2522,7 @@
       "original_language": "zh",
       "original_name": "仙逆",
       "overview": "It tells the story of Wang Lin, an ordinary young man in the countryside, who is moved by his heart and cultivates against immortality. His pursuit is not only for longevity, but also for getting rid of the ants behind it. He firmly believed in human beings and entered the path of cultivation with mediocre qualifications. After experiencing ups and downs, with his wise mind, he gradually reached the pinnacle and became famous in the cultivation world with his own strength.",
-      "popularity": 26.0621,
+      "popularity": 25.0508,
       "poster_path": "/6AVM12M6UunFmX0bSmP2o4N5Bnt.jpg",
       "production_companies": [
         {
@@ -2488,8 +2576,164 @@
       "status": "Returning Series",
       "tagline": "",
       "type": "Scripted",
-      "vote_average": 8.8,
-      "vote_count": 22,
+      "vote_average": 8.5,
+      "vote_count": 24,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/pvOI0jUuBVigqNTXClGGhIK2dSk.jpg",
+      "created_by": [],
+      "episode_run_time": [
+        90
+      ],
+      "first_air_date": "2022-01-01",
+      "genres": [
+        {
+          "id": 10764,
+          "name": "Reality"
+        }
+      ],
+      "homepage": "https://www.mgtv.com/h/412705.html",
+      "id": 154770,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-09-13",
+      "last_episode_to_air": {
+        "id": 6595286,
+        "name": "Episode 46",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-15",
+        "episode_number": 46,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 81,
+        "season_number": 4,
+        "show_id": 154770,
+        "still_path": "/7xSs6927MFqbUJxbchK0UEPHues.jpg"
+      },
+      "name": "Hello Saturday",
+      "next_episode_to_air": {
+        "id": 6595287,
+        "name": "Episode 47",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-22",
+        "episode_number": 47,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 4,
+        "show_id": 154770,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 952,
+          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
+          "name": "Hunan Television",
+          "origin_country": "CN"
+        },
+        {
+          "id": 1631,
+          "logo_path": "/c6GPQWwbXDuD59pGGutCBQ1T711.png",
+          "name": "Mango TV",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 188,
+      "number_of_seasons": 4,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "你好，星期六",
+      "overview": "\"Hello, Saturday\" is the rebranding of popular Chinese show \"Happy Camp\", hosted by He Jiong and with a fixed group of regular celebrity members.\n\nThe program showcases the talent of various stars as well as social topics through creative and diverse content and games. It aims to spread positive energy whilst keeping up with the current trends and leading youth culture.",
+      "popularity": 24.9342,
+      "poster_path": "/iSx5CHytc4Nef9etWNtEtHR6CJr.jpg",
+      "production_companies": [
+        {
+          "id": 183146,
+          "logo_path": null,
+          "name": "Hunan Television",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2022-08-14",
+          "episode_count": 220,
+          "id": 352717,
+          "name": "Specials",
+          "overview": "",
+          "poster_path": "/8s4clrwKvyg5Vs7sZzaH4fkxlT9.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2022-01-01",
+          "episode_count": 46,
+          "id": 238444,
+          "name": "2022",
+          "overview": "",
+          "poster_path": "/b974HdXvrmXRPqSmkS38ayjHzxY.jpg",
+          "season_number": 1,
+          "vote_average": 7.0
+        },
+        {
+          "air_date": "2023-01-07",
+          "episode_count": 49,
+          "id": 342480,
+          "name": "2023",
+          "overview": "",
+          "poster_path": "/3mJmQO0hV6gnZlXpWYlnoSeVDoZ.jpg",
+          "season_number": 2,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2024-01-06",
+          "episode_count": 49,
+          "id": 372245,
+          "name": "2024",
+          "overview": "",
+          "poster_path": "/4Se9ZzVVtfqBUohW2pxC1e7tM3M.jpg",
+          "season_number": 3,
+          "vote_average": 7.0
+        },
+        {
+          "air_date": "2025-01-04",
+          "episode_count": 48,
+          "id": 435447,
+          "name": "2025",
+          "overview": "",
+          "poster_path": "/wgZet2qWo1pVnVWpmGraZT46yWD.jpg",
+          "season_number": 4,
+          "vote_average": 0.0
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Reality",
+      "vote_average": 6.375,
+      "vote_count": 8,
       "media_type": "tv"
     },
     {
@@ -2566,7 +2810,7 @@
       "original_language": "zh",
       "original_name": "霹靂布袋戲",
       "overview": "Pili is a puppet show from Taiwan. It is made by Pili International Multimedia. The TV series started in 1985, and it still continues today. It is one of the most popular TV shows in Taiwan. Pili puppet show is performed by many kinds of puppets, some of them are cool, some are intelligent, and some are funny. Unlike traditional puppet shows, Pili puppet show uses state-of-the-art animation to help present its fighting art. The delicate design of the appearance and characteristics of each puppet has made Pili puppet show a well-known entertainment in Taiwan.",
-      "popularity": 24.3664,
+      "popularity": 26.0522,
       "poster_path": "/sBVfyRYPmKSARRTodsTbwHqgcRA.jpg",
       "production_companies": [
         {
@@ -3577,7 +3821,7 @@
       "original_language": "zh",
       "original_name": "仙王的日常生活",
       "overview": "As a cultivation genius who has achieved a new realm every two years since he was a year old, Wang Ling is a near-invincible existence with prowess far beyond his control. But now that he’s sixteen, he faces his greatest battle yet – Senior High School. With one challenge after another popping up, his plans for a low-key high school life seem further and further away…",
-      "popularity": 23.8727,
+      "popularity": 24.0358,
       "poster_path": "/7By0jV3kf9MVvv3X3K8u4mhRUwp.jpg",
       "production_companies": [
         {
@@ -3689,153 +3933,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/5TvKAb7oS3N2K5h6VDIYJlKYtaY.jpg",
-      "created_by": [
-        {
-          "id": 2350666,
-          "credit_id": "6675acb504ab17a3abc515b3",
-          "name": "Ma Dong",
-          "original_name": "马东",
-          "gender": 2,
-          "profile_path": "/tuaxxaObzJ6Q1mQIS9B4JAp17Il.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2024-06-28",
-      "genres": [
-        {
-          "id": 10764,
-          "name": "Reality"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        }
-      ],
-      "homepage": "https://v.qq.com/x/cover/mzc00200vyot3cs.html",
-      "id": 257161,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-11-01",
-      "last_episode_to_air": {
-        "id": 6628496,
-        "name": "EP8-2",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-15",
-        "episode_number": 16,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 101,
-        "season_number": 2,
-        "show_id": 257161,
-        "still_path": "/akr1N5mPuKL9U8ldCRsemEf141q.jpg"
-      },
-      "name": "Amazing Night",
-      "next_episode_to_air": {
-        "id": 6647853,
-        "name": "EP9-1",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-21",
-        "episode_number": 17,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 2,
-        "show_id": 257161,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 2007,
-          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
-          "name": "Tencent Video",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 40,
-      "number_of_seasons": 2,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "喜人奇妙夜",
-      "overview": "Amazing Night is an original new comedy variety show jointly produced by Tencent Video and Mi Wei. Huang Bo, Qin Hao, Jia Bing, Gao Yuanyuan, Ma Dong, Jin Jing, Song Muzi will be the audience representatives, in addition, each issue there is a mysterious audience representative, to accompany you to spend a wonderful comedy night!",
-      "popularity": 26.1156,
-      "poster_path": "/nQFCp0Tlfqq3NhF2kiNAGwXLfnX.jpg",
-      "production_companies": [
-        {
-          "id": 74457,
-          "logo_path": "/mPsCbXC5k20bpKErrbOQd1fG0L7.png",
-          "name": "Tencent Video",
-          "origin_country": "CN"
-        },
-        {
-          "id": 120162,
-          "logo_path": "/qkeHPGtsZwFOK8MiUmlGdUhXiQG.png",
-          "name": "米未",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2024-06-17",
-          "episode_count": 186,
-          "id": 399527,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": "/lQE1jbtOeq8Zrkjg7l3h6LdxxLz.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2024-06-28",
-          "episode_count": 23,
-          "id": 398895,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/of20x9ByDjI4AEkVsNyC0JsS9fp.jpg",
-          "season_number": 1,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2025-09-26",
-          "episode_count": 20,
-          "id": 461861,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": "/nQFCp0Tlfqq3NhF2kiNAGwXLfnX.jpg",
-          "season_number": 2,
-          "vote_average": 0.0
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Reality",
-      "vote_average": 5.5,
-      "vote_count": 6,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/meWe2hrruxmVWT75LObGywpuEqI.jpg",
       "created_by": [
         {
@@ -3909,7 +4006,7 @@
       "original_language": "zh",
       "original_name": "逆爱",
       "overview": "After Wu Suo-wei's girlfriend dumps him, he decides to get revenge by seducing her new boyfriend, Chi Cheng! It started as a game, but falling in love was never part of the plan.",
-      "popularity": 23.3774,
+      "popularity": 23.7827,
       "poster_path": "/j5KWzpPAi4JC42GGrVWDFL6G2gY.jpg",
       "production_companies": [],
       "production_countries": [
@@ -3942,162 +4039,6 @@
       "type": "Scripted",
       "vote_average": 8.2,
       "vote_count": 51,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/pvOI0jUuBVigqNTXClGGhIK2dSk.jpg",
-      "created_by": [],
-      "episode_run_time": [
-        90
-      ],
-      "first_air_date": "2022-01-01",
-      "genres": [
-        {
-          "id": 10764,
-          "name": "Reality"
-        }
-      ],
-      "homepage": "https://www.mgtv.com/h/412705.html",
-      "id": 154770,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-09-13",
-      "last_episode_to_air": {
-        "id": 6595286,
-        "name": "Episode 46",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-15",
-        "episode_number": 46,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 81,
-        "season_number": 4,
-        "show_id": 154770,
-        "still_path": "/7xSs6927MFqbUJxbchK0UEPHues.jpg"
-      },
-      "name": "Hello Saturday",
-      "next_episode_to_air": {
-        "id": 6595287,
-        "name": "Episode 47",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-22",
-        "episode_number": 47,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 4,
-        "show_id": 154770,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 952,
-          "logo_path": "/zJQHSCwHcIGNQlHptJRZpUX88Ro.png",
-          "name": "Hunan Television",
-          "origin_country": "CN"
-        },
-        {
-          "id": 1631,
-          "logo_path": "/c6GPQWwbXDuD59pGGutCBQ1T711.png",
-          "name": "Mango TV",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 188,
-      "number_of_seasons": 4,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "你好，星期六",
-      "overview": "\"Hello, Saturday\" is the rebranding of popular Chinese show \"Happy Camp\", hosted by He Jiong and with a fixed group of regular celebrity members.\n\nThe program showcases the talent of various stars as well as social topics through creative and diverse content and games. It aims to spread positive energy whilst keeping up with the current trends and leading youth culture.",
-      "popularity": 23.585,
-      "poster_path": "/iSx5CHytc4Nef9etWNtEtHR6CJr.jpg",
-      "production_companies": [
-        {
-          "id": 183146,
-          "logo_path": null,
-          "name": "Hunan Television",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2022-08-14",
-          "episode_count": 220,
-          "id": 352717,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": "/8s4clrwKvyg5Vs7sZzaH4fkxlT9.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2022-01-01",
-          "episode_count": 46,
-          "id": 238444,
-          "name": "2022",
-          "overview": "",
-          "poster_path": "/b974HdXvrmXRPqSmkS38ayjHzxY.jpg",
-          "season_number": 1,
-          "vote_average": 7.0
-        },
-        {
-          "air_date": "2023-01-07",
-          "episode_count": 49,
-          "id": 342480,
-          "name": "2023",
-          "overview": "",
-          "poster_path": "/3mJmQO0hV6gnZlXpWYlnoSeVDoZ.jpg",
-          "season_number": 2,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2024-01-06",
-          "episode_count": 49,
-          "id": 372245,
-          "name": "2024",
-          "overview": "",
-          "poster_path": "/4Se9ZzVVtfqBUohW2pxC1e7tM3M.jpg",
-          "season_number": 3,
-          "vote_average": 7.0
-        },
-        {
-          "air_date": "2025-01-04",
-          "episode_count": 48,
-          "id": 435447,
-          "name": "2025",
-          "overview": "",
-          "poster_path": "/wgZet2qWo1pVnVWpmGraZT46yWD.jpg",
-          "season_number": 4,
-          "vote_average": 0.0
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Reality",
-      "vote_average": 6.375,
-      "vote_count": 8,
       "media_type": "tv"
     },
     {
@@ -4176,7 +4117,7 @@
       "original_language": "zh",
       "original_name": "斗破苍穹",
       "overview": "In a land where no magic is present. A land where the strong make the rules and weak have to obey. A land filled with alluring treasures and beauty, yet also filled with unforeseen danger. Three years ago, Xiao Yan, who had shown talents none had seen in decades, suddenly lost everything. His powers, his reputation, and his promise to his mother. What sorcery has caused him to lose all of his powers? And why has his fiancee suddenly shown up?",
-      "popularity": 23.2721,
+      "popularity": 21.7705,
       "poster_path": "/lT9pZfrFk8PgdzsQ7QzpCdiCfFF.jpg",
       "production_companies": [
         {
@@ -4353,7 +4294,7 @@
       "original_language": "zh",
       "original_name": "食贫道",
       "overview": "",
-      "popularity": 23.1454,
+      "popularity": 21.1447,
       "poster_path": "/mefDu7sNuNNvolUTrrW4y0se2Vo.jpg",
       "production_companies": [
         {
@@ -4517,125 +4458,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/ftVwJEKXCgCKGCb75e3MXwEBWBV.jpg",
-      "created_by": [
-        {
-          "id": 3389143,
-          "credit_id": "66fd5c737e9037323759655d",
-          "name": "Munan Zhou",
-          "original_name": "周木楠",
-          "gender": 2,
-          "profile_path": "/fGa3bExwGfqEZsR6cvoqksArdWi.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2025-10-20",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        }
-      ],
-      "homepage": "https://v.youku.com/v_show/id_XNjQwNDM0NDg2NA==.html",
-      "id": 261663,
-      "in_production": false,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-11-08",
-      "last_episode_to_air": {
-        "id": 6614156,
-        "name": "Episode 38",
-        "overview": "Su Muyu goes into a frenzy after misjudging the situation, acting impulsively before leaving Tianqi. Years later, a long-awaited reunion occurs.",
-        "vote_average": 10.0,
-        "vote_count": 1,
-        "air_date": "2025-11-08",
-        "episode_number": 38,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 39,
-        "season_number": 1,
-        "show_id": 261663,
-        "still_path": "/7ODWFk6NXQQVKw2VaIr7SGne0Sp.jpg"
-      },
-      "name": "Blood River",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 1419,
-          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 38,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "暗河传",
-      "overview": "Blood River is the realm's most feared assassin guild, jointly run by the Su, Mu, and Xie clans. They can strike royals in court and crush great sects in the wild. When the patriarch is poisoned on a mission, the three clans vie for the top seat. Su Muyu leads the Spider-Shadow unit and shields the dying leader on the road to a cure. He clashes with elder Su Zhe and old friend Su Changhe, and meets master healer Bai Hehuai. After brutal power struggles, Su Changhe becomes new patriarch and Su Muyu heads the Su clan. They launch the \"Other Shore Plan\" to drag Blood River out of the shadow and forge a new destiny, free from being anyone's blade.",
-      "popularity": 18.7526,
-      "poster_path": "/jvxV9A8IcgeCqnagkfCsHSg4y5J.jpg",
-      "production_companies": [
-        {
-          "id": 202440,
-          "logo_path": null,
-          "name": "Shengge Film and Television Culture Chongqing Co., Ltd.",
-          "origin_country": "CN"
-        },
-        {
-          "id": 239750,
-          "logo_path": null,
-          "name": "You Ke Neng Ying Ye",
-          "origin_country": "CN"
-        },
-        {
-          "id": 48460,
-          "logo_path": "/7m3BMwdstKRqw7qg5vSYW2S0HrR.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2025-10-20",
-          "episode_count": 38,
-          "id": 406578,
-          "name": "Season 1",
-          "overview": "When the head of a cabal of assassins falls ill, his swordsman asks a divine doctor for help while fending off the three families vying for power.",
-          "poster_path": "/2I0sPPVwi3KLkgAvCf2Wq7tkCEN.jpg",
-          "season_number": 1,
-          "vote_average": 9.6
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Ended",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 7.7,
-      "vote_count": 13,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/5zsWRRMNtnOkKmytz4N0JBD5T6O.jpg",
       "created_by": [],
       "episode_run_time": [],
@@ -4700,7 +4522,7 @@
       "original_language": "zh",
       "original_name": "顾禁南囚",
       "overview": "After the unexpected death of his parents, 17-year-old Wen Hai is placed under the guardianship of his wealthy half-brother, Gu Huaizhou, whom he has never met. Initially marked by indifference and torment, Wen Hai appears obedient but harbors resentment. Meanwhile, Gu Leng tries to manipulate him, and Wen Hai becomes involved with his debtor, Jiang Nan, who ultimately falls in love and tragically commits suicide. Wen Hai and Gu Huaizhou's relationship evolves from antipathy to attraction, but family ties and betrayals drive them apart, culminating in a breakup when Gu Leng drastically intervenes.",
-      "popularity": 22.6356,
+      "popularity": 19.577,
       "poster_path": "/dnBnX59E3E7vQ4TMogFxaBEoyQ2.jpg",
       "production_companies": [],
       "production_countries": [
@@ -4814,7 +4636,7 @@
       "original_language": "zh",
       "original_name": "明星大侦探",
       "overview": "The cast is introduced to the settings and suspects of a murder case for the new episode. The cast then chooses their role in the episode, as a particular suspect or the detective.",
-      "popularity": 21.504,
+      "popularity": 24.3535,
       "poster_path": "/dq1agPep7vuzH1G7q4vBxxCeozv.jpg",
       "production_companies": [
         {
@@ -5059,7 +4881,7 @@
       "original_language": "zh",
       "original_name": "刺客伍六七",
       "overview": "Seeking to recover his memory, a scissor-wielding, hairdressing, bungling quasi-assassin stumbles into a struggle for power among feuding factions.",
-      "popularity": 21.0941,
+      "popularity": 19.7064,
       "poster_path": "/mSLSrOndwNoompAARPHBaxF2E6E.jpg",
       "production_companies": [
         {
@@ -5183,384 +5005,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/740EohtgbVDXsiaEoDJPc1k0tVX.jpg",
-      "created_by": [
-        {
-          "id": 4779394,
-          "credit_id": "66cee00e41582d76e42b978d",
-          "name": "Bai Lu Cheng Shuang",
-          "original_name": "白鹭成双",
-          "gender": 1,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [
-        46
-      ],
-      "first_air_date": "2025-10-08",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        }
-      ],
-      "homepage": "https://v.youku.com/v_show/id_XNjM5NjM5Njc0MA==.html",
-      "id": 262928,
-      "in_production": false,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-10-26",
-      "last_episode_to_air": {
-        "id": 6565783,
-        "name": "Episode 36",
-        "overview": "As the Heaven-Devouring Array closes in, Ji Bozai and Ming Yi uncover the past with Lin Ziyao's help and together decide what their future will hold. ",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-10-26",
-        "episode_number": 36,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 43,
-        "season_number": 1,
-        "show_id": 262928,
-        "still_path": "/q1jQPTJ1UVQb9Cgd2QMrwxBFxVx.jpg"
-      },
-      "name": "Love in the Clouds",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 1419,
-          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 36,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "入青云",
-      "overview": "At the annual Qingyun Conference in the Hexu Six Realms, Ji Bozai, a warrior from the Jixing Abyss with a past as a convict, defeated Ming Yi, the cold warrior goddess who had reigned supreme for seven consecutive years. Overnight, Ji Bozai became the hottest new star in Jixing Abyss. Meanwhile, Ming Yi, hiding her true identity, disguised herself as a dancer to get close to Ji Bozai. Under their carefully crafted personas, the two engaged in a thrilling dance of deception and attraction, fighting for justice and fairness, and ultimately found a deep and moving love.",
-      "popularity": 19.6126,
-      "poster_path": "/jsQYb6yXT6ZnEZ6KMMA1sChxPrb.jpg",
-      "production_companies": [
-        {
-          "id": 250230,
-          "logo_path": null,
-          "name": "Seasons Pictures",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2025-10-08",
-          "episode_count": 36,
-          "id": 408569,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/wPc7oDZCXLW5jcjz4F8L8pipUbL.jpg",
-          "season_number": 1,
-          "vote_average": 8.5
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Ended",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 8.133,
-      "vote_count": 15,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7zPM0NOAnBi5tuauGHp6fGT9pMu.jpg",
-      "created_by": [
-        {
-          "id": 3276351,
-          "credit_id": "644ad9c5726fb1057405b1fa",
-          "name": "Wo Chi Xihongshi",
-          "original_name": "我吃西红柿",
-          "gender": 2,
-          "profile_path": "/gIo8emidlFH3wmQOggn0vRUgUR5.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2020-11-29",
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        }
-      ],
-      "homepage": "http://wetv.vip/zh-cn/album/0qgqd4kcd9ajxrs",
-      "id": 101172,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-11-17",
-      "last_episode_to_air": {
-        "id": 5821949,
-        "name": "Episode 198",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-17",
-        "episode_number": 198,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 21,
-        "season_number": 1,
-        "show_id": 101172,
-        "still_path": "/4NPuhodVne1pBWPgHVEcdVmQNva.jpg"
-      },
-      "name": "Swallowed Star",
-      "next_episode_to_air": {
-        "id": 5821950,
-        "name": "Episode 199",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-24",
-        "episode_number": 199,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 101172,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 2007,
-          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
-          "name": "Tencent Video",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 210,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "吞噬星空",
-      "overview": "On the Earth, a catastrophe triggered the variation of all kinds of species. The superior survived and the inferior were extinct. Under this circumstance, Luo Feng inherited from the owner of Yunmo Star and became one of the three strongest people on the Earth. He lost his flesh during the fight against giant swallowed monster but then he took the flesh of the monster. In the flesh, he developed a human body. Later, he stepped out of the Earth and headed to the universe.",
-      "popularity": 18.7982,
-      "poster_path": "/3iPt9bIPNYmhqQ3BVU4plRkkDbf.jpg",
-      "production_companies": [
-        {
-          "id": 135700,
-          "logo_path": "/5s0oBB2xIxSzpSV7Ft9B8Bs3yeH.png",
-          "name": "Axis Studios",
-          "origin_country": "GB"
-        },
-        {
-          "id": 84946,
-          "logo_path": "/8wrAXwrNZ5zHImKb0SyVLQbXkaM.png",
-          "name": "Tencent Penguin Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 109474,
-          "logo_path": "/16ydjNJFFhTh8QyHnaIc9TrTvdF.png",
-          "name": "Tencent Animation & Comics",
-          "origin_country": "CN"
-        },
-        {
-          "id": 99998,
-          "logo_path": "/53DS3vJmg4nUHEPA7EMhBN1V4uY.png",
-          "name": "Sparkly Key Animation Studio",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2020-11-29",
-          "episode_count": 210,
-          "id": 146375,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/fwlE2468YJu91c12WWbprQgSdT4.jpg",
-          "season_number": 1,
-          "vote_average": 9.5
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 8.5,
-      "vote_count": 31,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/b9nrdh1VaspBckmaDwftW4mcOyC.jpg",
-      "created_by": [],
-      "episode_run_time": [],
-      "first_air_date": "2025-11-13",
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        }
-      ],
-      "homepage": "http://www.netflix.com/title/81766274",
-      "id": 241576,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2025-11-13",
-      "last_episode_to_air": {
-        "id": 6678413,
-        "name": "Episode 10",
-        "overview": "On the rooftop, Hsiao-tung and Jen-yao make a promise to meet in five years. On the streets of Taipei years later, Jen-yao encounters a familiar stranger.",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-11-13",
-        "episode_number": 10,
-        "episode_type": "mid_season",
-        "production_code": "",
-        "runtime": 65,
-        "season_number": 1,
-        "show_id": 241576,
-        "still_path": "/yhLdGWkcLpmCt5DO7A6y1wb3Aqr.jpg"
-      },
-      "name": "Had I Not Seen the Sun",
-      "next_episode_to_air": {
-        "id": 6622438,
-        "name": "Episode 1",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2025-12-11",
-        "episode_number": 1,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 2,
-        "show_id": 241576,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 11,
-      "number_of_seasons": 2,
-      "origin_country": [
-        "TW"
-      ],
-      "original_language": "zh",
-      "original_name": "如果我不曾見過太陽",
-      "overview": "Filmmaker Zhou Pin-yu interviews a serial killer in prison — an encounter that triggers a string of mysterious events tied to a buried past.",
-      "popularity": 18.8147,
-      "poster_path": "/uY4ETb9evtpvjJiXKpgh21cOBno.jpg",
-      "production_companies": [
-        {
-          "id": 216115,
-          "logo_path": "/yCgDDOCTaIyExxyWu6V9eeB0MAe.png",
-          "name": "Make A Deal International Production Co., Ltd.",
-          "origin_country": "TW"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "TW",
-          "name": "Taiwan"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2025-11-13",
-          "episode_count": 10,
-          "id": 369861,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/9x8EsxFFVnRDUhSDREeWBlWbI2s.jpg",
-          "season_number": 1,
-          "vote_average": 10.0
-        },
-        {
-          "air_date": "2025-12-11",
-          "episode_count": 1,
-          "id": 481249,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": null,
-          "season_number": 2,
-          "vote_average": 0.0
-        }
-      ],
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 6.429,
-      "vote_count": 7,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/lCyVptIB3CgO0ls9o0PvT50xshn.jpg",
       "created_by": [
         {
@@ -5648,7 +5092,7 @@
       "original_language": "zh",
       "original_name": "神印王座",
       "overview": "Six thousand years ago, the Demon God appeared and creatures were turned into demons. The mankind created six Temples to fight the demons. Long Haochen joins the Knights Temple. As he grows, an adventure unfolds. He wins the recognition of others and fights with the Six Temples against the demons for the sake of human beings. He sacrifices himself to protect the people. Could Long win the Throne of Seal and be granted the highest honor in the Knights' Temple? All remained to be revealed.",
-      "popularity": 20.9314,
+      "popularity": 22.248,
       "poster_path": "/ehRRWs1EfeYiX4ysLLapWeKG4Pq.jpg",
       "production_companies": [
         {
@@ -5716,6 +5160,577 @@
       "type": "Scripted",
       "vote_average": 8.7,
       "vote_count": 25,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/740EohtgbVDXsiaEoDJPc1k0tVX.jpg",
+      "created_by": [
+        {
+          "id": 4779394,
+          "credit_id": "66cee00e41582d76e42b978d",
+          "name": "Bai Lu Cheng Shuang",
+          "original_name": "白鹭成双",
+          "gender": 1,
+          "profile_path": null
+        }
+      ],
+      "episode_run_time": [
+        46
+      ],
+      "first_air_date": "2025-10-08",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "homepage": "https://v.youku.com/v_show/id_XNjM5NjM5Njc0MA==.html",
+      "id": 262928,
+      "in_production": false,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-10-26",
+      "last_episode_to_air": {
+        "id": 6565783,
+        "name": "Episode 36",
+        "overview": "As the Heaven-Devouring Array closes in, Ji Bozai and Ming Yi uncover the past with Lin Ziyao's help and together decide what their future will hold. ",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-10-26",
+        "episode_number": 36,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 43,
+        "season_number": 1,
+        "show_id": 262928,
+        "still_path": "/q1jQPTJ1UVQb9Cgd2QMrwxBFxVx.jpg"
+      },
+      "name": "Love in the Clouds",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 1419,
+          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
+          "name": "Youku",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 36,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "入青云",
+      "overview": "At the annual Qingyun Conference in the Hexu Six Realms, Ji Bozai, a warrior from the Jixing Abyss with a past as a convict, defeated Ming Yi, the cold warrior goddess who had reigned supreme for seven consecutive years. Overnight, Ji Bozai became the hottest new star in Jixing Abyss. Meanwhile, Ming Yi, hiding her true identity, disguised herself as a dancer to get close to Ji Bozai. Under their carefully crafted personas, the two engaged in a thrilling dance of deception and attraction, fighting for justice and fairness, and ultimately found a deep and moving love.",
+      "popularity": 19.0376,
+      "poster_path": "/jsQYb6yXT6ZnEZ6KMMA1sChxPrb.jpg",
+      "production_companies": [
+        {
+          "id": 250230,
+          "logo_path": null,
+          "name": "Seasons Pictures",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2025-10-08",
+          "episode_count": 36,
+          "id": 408569,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/wPc7oDZCXLW5jcjz4F8L8pipUbL.jpg",
+          "season_number": 1,
+          "vote_average": 8.5
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Ended",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 8.133,
+      "vote_count": 15,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/akLUaWYzhwrm0AKfE1OYvjW6XTh.jpg",
+      "created_by": [
+        {
+          "id": 3481587,
+          "credit_id": "623fa42d9451e700497aa310",
+          "name": "Chen Dong",
+          "original_name": "辰東",
+          "gender": 2,
+          "profile_path": "/vNuBxIcNMEYQJF69ItOqHGdnTbc.jpg"
+        }
+      ],
+      "episode_run_time": [
+        20
+      ],
+      "first_air_date": "2021-04-23",
+      "genres": [
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        }
+      ],
+      "homepage": "https://v.qq.com/x/cover/mcv8hkc8zk8lnov/x0036x5qqsr.html?j_vid=x0036x5qqsr&j_cut_vid=y0048ak3xof&j_is_win_vid=1&j_start=0",
+      "id": 124003,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-11-13",
+      "last_episode_to_air": {
+        "id": 5821969,
+        "name": "Episode 242",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-20",
+        "episode_number": 242,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 124003,
+        "still_path": "/sJqaMTJc3bkJEV96kXfVbsn16AI.jpg"
+      },
+      "name": "Perfect World",
+      "next_episode_to_air": {
+        "id": 5821970,
+        "name": "Episode 243",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-27",
+        "episode_number": 243,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 124003,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 255,
+      "number_of_seasons": 6,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "完美世界",
+      "overview": "Born into a unique world where villages fight to gain power and control, the main character, Shi Hao, is a genius blessed by the heavens born under the poorest of conditions. His clan, however, has a mysterious past. To rise up and become the genius he is meant to be, the clan goes through every effort to aid his cultivation as they battle through fanatical monsters and engage in power struggles with other clans. His journey will bring him through unknown lands until he is able to become a person that can truly shake the world.",
+      "popularity": 19.7848,
+      "poster_path": "/cJNiIhyQFCGJN9CLHLMazsgDxcx.jpg",
+      "production_companies": [
+        {
+          "id": 120351,
+          "logo_path": "/kKOogwEg5lJFPLqy9gkVN0qwB3R.png",
+          "name": "Shanghai Foch Film Culture Investment",
+          "origin_country": "CN"
+        },
+        {
+          "id": 84946,
+          "logo_path": "/8wrAXwrNZ5zHImKb0SyVLQbXkaM.png",
+          "name": "Tencent Penguin Pictures",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2024-09-14",
+          "episode_count": 3,
+          "id": 392162,
+          "name": "Specials",
+          "overview": "",
+          "poster_path": "/9c1t8ctgPBoYD6F22OX5CA3nQ1H.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2021-04-23",
+          "episode_count": 255,
+          "id": 191770,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/ql6NDGl5R6ZlRivrzJWhx1u3waK.jpg",
+          "season_number": 1,
+          "vote_average": 9.0
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 477373,
+          "name": "Season 2",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 2,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 477374,
+          "name": "Season 3",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 3,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 477375,
+          "name": "Season 4",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 4,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 477376,
+          "name": "Season 5",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 5,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 477377,
+          "name": "Season 6",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 6,
+          "vote_average": 0.0
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 8.45,
+      "vote_count": 20,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/b9nrdh1VaspBckmaDwftW4mcOyC.jpg",
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2025-11-13",
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        }
+      ],
+      "homepage": "http://www.netflix.com/title/81766274",
+      "id": 241576,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-11-13",
+      "last_episode_to_air": {
+        "id": 6678413,
+        "name": "Episode 10",
+        "overview": "On the rooftop, Hsiao-tung and Jen-yao make a promise to meet in five years. On the streets of Taipei years later, Jen-yao encounters a familiar stranger.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-13",
+        "episode_number": 10,
+        "episode_type": "mid_season",
+        "production_code": "",
+        "runtime": 65,
+        "season_number": 1,
+        "show_id": 241576,
+        "still_path": "/yhLdGWkcLpmCt5DO7A6y1wb3Aqr.jpg"
+      },
+      "name": "Had I Not Seen the Sun",
+      "next_episode_to_air": {
+        "id": 6622438,
+        "name": "Episode 1",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-12-11",
+        "episode_number": 1,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 2,
+        "show_id": 241576,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 11,
+      "number_of_seasons": 2,
+      "origin_country": [
+        "TW"
+      ],
+      "original_language": "zh",
+      "original_name": "如果我不曾見過太陽",
+      "overview": "Filmmaker Zhou Pin-yu interviews a serial killer in prison — an encounter that triggers a string of mysterious events tied to a buried past.",
+      "popularity": 16.9827,
+      "poster_path": "/uY4ETb9evtpvjJiXKpgh21cOBno.jpg",
+      "production_companies": [
+        {
+          "id": 216115,
+          "logo_path": "/yCgDDOCTaIyExxyWu6V9eeB0MAe.png",
+          "name": "Make A Deal International Production Co., Ltd.",
+          "origin_country": "TW"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "TW",
+          "name": "Taiwan"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2025-11-13",
+          "episode_count": 10,
+          "id": 369861,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/9x8EsxFFVnRDUhSDREeWBlWbI2s.jpg",
+          "season_number": 1,
+          "vote_average": 10.0
+        },
+        {
+          "air_date": "2025-12-11",
+          "episode_count": 1,
+          "id": 481249,
+          "name": "Season 2",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 2,
+          "vote_average": 0.0
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 6.8,
+      "vote_count": 10,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7zPM0NOAnBi5tuauGHp6fGT9pMu.jpg",
+      "created_by": [
+        {
+          "id": 3276351,
+          "credit_id": "644ad9c5726fb1057405b1fa",
+          "name": "Wo Chi Xihongshi",
+          "original_name": "我吃西红柿",
+          "gender": 2,
+          "profile_path": "/gIo8emidlFH3wmQOggn0vRUgUR5.jpg"
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2020-11-29",
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        }
+      ],
+      "homepage": "http://wetv.vip/zh-cn/album/0qgqd4kcd9ajxrs",
+      "id": 101172,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-11-17",
+      "last_episode_to_air": {
+        "id": 5821949,
+        "name": "Episode 198",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-17",
+        "episode_number": 198,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 21,
+        "season_number": 1,
+        "show_id": 101172,
+        "still_path": "/4NPuhodVne1pBWPgHVEcdVmQNva.jpg"
+      },
+      "name": "Swallowed Star",
+      "next_episode_to_air": {
+        "id": 5821950,
+        "name": "Episode 199",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2025-11-24",
+        "episode_number": 199,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 101172,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 2007,
+          "logo_path": "/6Lfll43wYG2eyereOBjpYFRSGs4.png",
+          "name": "Tencent Video",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 210,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "吞噬星空",
+      "overview": "On the Earth, a catastrophe triggered the variation of all kinds of species. The superior survived and the inferior were extinct. Under this circumstance, Luo Feng inherited from the owner of Yunmo Star and became one of the three strongest people on the Earth. He lost his flesh during the fight against giant swallowed monster but then he took the flesh of the monster. In the flesh, he developed a human body. Later, he stepped out of the Earth and headed to the universe.",
+      "popularity": 18.5427,
+      "poster_path": "/3iPt9bIPNYmhqQ3BVU4plRkkDbf.jpg",
+      "production_companies": [
+        {
+          "id": 135700,
+          "logo_path": "/5s0oBB2xIxSzpSV7Ft9B8Bs3yeH.png",
+          "name": "Axis Studios",
+          "origin_country": "GB"
+        },
+        {
+          "id": 84946,
+          "logo_path": "/8wrAXwrNZ5zHImKb0SyVLQbXkaM.png",
+          "name": "Tencent Penguin Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 109474,
+          "logo_path": "/16ydjNJFFhTh8QyHnaIc9TrTvdF.png",
+          "name": "Tencent Animation & Comics",
+          "origin_country": "CN"
+        },
+        {
+          "id": 99998,
+          "logo_path": "/53DS3vJmg4nUHEPA7EMhBN1V4uY.png",
+          "name": "Sparkly Key Animation Studio",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2020-11-29",
+          "episode_count": 210,
+          "id": 146375,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/fwlE2468YJu91c12WWbprQgSdT4.jpg",
+          "season_number": 1,
+          "vote_average": 9.5
+        }
+      ],
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 8.5,
+      "vote_count": 31,
       "media_type": "tv"
     }
   ]
