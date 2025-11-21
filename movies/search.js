@@ -1608,8 +1608,12 @@ function loadWatchLater() {
         .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
 
     if (!list.length) {
-        section.style.display = 'none';
-        grid.innerHTML = '';
+        grid.innerHTML = `
+            <div style="grid-column:1 / -1; padding:24px; text-align:center; opacity:.7; font-family:inherit; font-size:1.05em;">
+                Add a movie or episode to Watch Later and it will appear here...
+            </div>
+        `;
+        // No toggle button when empty
         return;
     }
     section.style.display = 'block';
@@ -2257,8 +2261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'netflixXmasGrid', label: 'Netflix XMas 2025' },
         { id: 'bestXmasGrid', label: 'The Best of Xmas' },
         { id: 'trendingGrid', label: 'Trending' },
-        { id: 'continueSection', label: 'Continue Watching' },
-        { id: 'watchLaterSection', label: 'Watch Later' },
+        { id: 'netflixfranceGrid', label: 'Netflix France' },
         { id: 'newGrid', label: 'New Releases' },
         { id: 'bollywoodGrid', label: 'Bollywood' },
         { id: 'kdramaGrid', label: 'K-Dramas' },
@@ -2284,66 +2287,28 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add more as needed
     ];
 
+    document.getElementById('continue-btn').onclick = function () {
+        document.getElementById('continueSection').scrollIntoView({ behavior: 'smooth' });
+    };
+    document.getElementById('watchlater-btn').onclick = function () {
+        document.getElementById('watchLaterSection').scrollIntoView({ behavior: 'smooth' });
+    };
+    document.getElementById('backtotop-btn').onclick = function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const navList = document.getElementById('section-nav-list');
     if (navList) {
         navList.innerHTML = '';
-
-        // --- Vertical group on the left: Continue Watching + Watch Later ---
-        const primaryGroup = document.createElement('div');
-        primaryGroup.className = 'nav-primary-group';
-        primaryGroup.style.display = 'flex';
-        primaryGroup.style.flexDirection = 'column';
-        primaryGroup.style.gap = '4px';
-        primaryGroup.style.marginBottom = '8px';
-
-        const primaryItems = [
-            { id: 'continueSection', label: 'Continue Watching' },
-            { id: 'watchLaterSection', label: 'Watch Later' }
-        ];
-
-        primaryItems.forEach(sec => {
-            const btn = document.createElement('button');
-            btn.textContent = sec.label;
-            btn.setAttribute('data-target', sec.id);
-            btn.style.display = 'block';
-            btn.style.width = '100%';
-            btn.style.textAlign = 'left';
-            btn.style.background = 'transparent';
-            btn.style.border = 'none';
-            btn.style.color = '#ffffff';
-            btn.style.padding = '4px 0';
-            btn.style.cursor = 'pointer';
-            btn.style.font = 'inherit';
-            btn.onmouseover = () => { btn.style.color = '#e02735'; };
-            btn.onmouseout = () => { btn.style.color = '#ffffff'; };
-
-            btn.addEventListener('click', () => {
-                const el = document.getElementById(sec.id);
-                if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-
-            primaryGroup.appendChild(btn);
-        });
-
-        navList.appendChild(primaryGroup);
-
-        // Optional: a small divider between the primary group and other sections
-        const divider = document.createElement('hr');
-        divider.style.border = 'none';
-        divider.style.borderTop = '1px solid rgba(255,255,255,0.2)';
-        divider.style.margin = '4px 0 8px 0';
-        navList.appendChild(divider);
 
         // --- Remaining sections as before ---
         sections.forEach(sec => {
             const btn = document.createElement('button');
             btn.textContent = sec.label;
             btn.setAttribute('data-target', sec.id);
-            btn.style.display = 'block';
+            btn.style.display = 'flex';
             btn.style.width = '100%';
-            btn.style.textAlign = 'left';
+            btn.style.textAlign = 'right';
             btn.style.background = 'transparent';
             btn.style.border = 'none';
             btn.style.color = '#ffffff';
@@ -2366,19 +2331,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show nav list on hover
     const navToggle = document.getElementById('section-nav-toggle');
-    const navContainer = document.getElementById('section-navigator');
-    if (navToggle && navList && navContainer) {
-        // Show on mouseenter
-        navContainer.addEventListener('mouseenter', () => {
-            navList.style.display = 'block';
-        });
+
+    if (navToggle && navList) {
         navToggle.addEventListener('mouseenter', () => {
-            navList.style.display = 'block';
+            navList.style.display = 'grid';
         });
-        // Hide on mouseleave
-        navContainer.addEventListener('mouseleave', () => {
-            navList.style.display = 'none';
+
+        navToggle.addEventListener('mouseleave', () => {
+            // Hide only if mouse is not moving to navList
+            setTimeout(() => {
+                if (!navList.matches(':hover')) {
+                    navList.style.display = 'none';
+                }
+            }, 100);
         });
+
         navList.addEventListener('mouseleave', () => {
             navList.style.display = 'none';
         });

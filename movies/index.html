@@ -114,7 +114,7 @@
       border-radius: 0;
     }
 
-    #search-input .active{
+    #search-input .active {
       background: none;
     }
 
@@ -931,11 +931,13 @@
     <section id="continueSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
-        Continue Watching
         <span class="material-symbols-outlined"
-          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
+          style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
           history
         </span>
+
+        Continue Watching
+        
       </h2>
       <div class="grid" id="continueGrid"></div>
     </section>
@@ -943,11 +945,13 @@
     <section id="watchLaterSection" style="display:none;">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
-        Watch Later
         <span class="material-symbols-outlined"
-          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:9px;">
+          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:0px;">
           acute
         </span>
+
+        Watch Later
+        
       </h2>
       <div class="grid" id="watchLaterGrid"></div>
     </section>
@@ -1207,36 +1211,119 @@
 
   </div>
 
-  <!-- Section Navigator -->
-  <div id="section-navigator" style="
+  <div>
+    <!-- Section Navigator -->
+    <button id="continue-btn" style="
     position: fixed;
     bottom: 32px;
-    right: 32px;
-    z-index: 90;
+    right: 207px; /* adjust as needed to be left of section-navigator */
+    z-index: 91;
     background: #fff1;
-    border-radius: 16px;
+    color: #e02735;
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'OumaTrialBold';
     box-shadow: 0 2px 12px #0006;
-    padding: 12px 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
+    transition: background 0.2s;
+    ">
+      <span class="material-symbols-outlined"
+          style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
+          history
+        </span>
+
+        Continue Watching
+    </button>
+
+    <!-- Watch Later Button -->
+    <button id="watchlater-btn" style="
+    position: fixed;
+    bottom: 70px;
+    right: 207px; /* adjust as needed to be left of continue-btn */
+    z-index: 91;
+    background: #fff1;
+    color: #e02735;
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'OumaTrialBold';
+    box-shadow: 0 2px 12px #0006;
     transition: background 0.2s;
   ">
-    <button id="section-nav-toggle" style="
-      background: none;
+      <span class="material-symbols-outlined"
+          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:0px;">
+          acute
+        </span>
+
+        Watch Later
+    </button>
+
+    <button id="backtotop-btn" style="
+      position: fixed;
+      bottom: 32px; /* adjust as needed */
+      right: 126px;
+      background: #fff1;
       color: #e02735;
       border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 2em;
+      border-radius: 16px;
+      width: 72px;
+      height: 72px;
+      font-size: 4em;
       cursor: pointer;
       box-shadow: none; 
-    ">☰</button>
-    <div id="section-nav-list" style="display:none;flex-direction:column;align-items:flex-end;gap:6px;">
+      display: flex;
+      z-index: 92;
+      padding: 12px 18px;
+      align-items: center;
+      justify-content: center;
+    ">
+      <span class="material-symbols-outlined">
+        arrow_upward
+      </span>
+    </button>
+
+    <!-- Section Navigator -->
+    <button id="section-nav-toggle" style="
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: none;
+  color: #e02735;
+  border: none;
+  border-radius: 16px;
+  background: #fff1;
+  width: 85px;
+  height: 72px;
+  font-size: 2em;
+  cursor: pointer;
+  display: flex; 
+  z-index: 93;
+  align-items: center;
+  justify-content: center;
+">☰</button>
+    <div id="section-nav-list" style="
+  position: fixed;
+  bottom: 110px; /* just above the toggle */
+  right: 32px;
+  background: #fff1;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #0006;
+  padding: 12px 18px;
+  display: none;
+  /* Change from flex to grid: */
+  display: none;
+  grid-template-columns: repeat(4, auto); /* 4 columns, adjust as needed */
+  gap: 12px 18px; /* row/column gap */
+  align-items: end;
+  z-index: 94;
+">
       <!-- Links will be injected here -->
     </div>
+
   </div>
 
 </body>
