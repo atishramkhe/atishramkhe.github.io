@@ -741,6 +741,99 @@
       background-attachment: fixed;
     }
 
+    /* === Access Overlay (SHA256 + localStorage) === */
+    #access-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+      background: rgba(0,0,0,0.94);
+      z-index: 10000;
+      font-family: 'OumaBold', sans-serif;
+      color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+    #access-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #access-message {
+      text-align: center;
+      font-size: 2.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      letter-spacing: .6px;
+    }
+    #access-message .lock-emoji {
+      font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla","EmojiOne Color",system-ui,sans-serif;
+      font-size:5rem;
+      line-height:1;
+    }
+
+    /* Reposition/minimize unlock control (bottom-right, subtle) */
+    #access-overlay-unlock {
+      position: fixed;
+      bottom: 14px;
+      right: 16px;
+      flex-direction: row;
+      gap: 6px;
+      min-width: unset;
+      background: transparent;
+      align-items: center;
+      padding: 0;
+    }
+    #access-overlay-unlock-btn {
+      padding: 4px 8px;
+      font-size: 0.70rem;
+      line-height: 1;
+      background: rgba(150,80,154,0.4);
+      border: 1px solid #784379;
+      border-radius: 4px;
+      color: #fff;
+      opacity: 0.55;
+      transition: opacity .25s, background .25s, transform .25s;
+    }
+    #access-overlay-unlock-btn:hover,
+    #access-overlay-unlock-btn:focus {
+      opacity: 0.9;
+      background: rgba(150,80,154,0.65);
+      transform: translateY(-1px);
+    }
+    /* Compact password input beside the small button */
+    #access-overlay-password {
+      padding: 6px 8px;
+      font-size: 0.65rem;
+      width: 110px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid #444;
+      border-radius: 4px;
+      display: none; /* HIDDEN until first button click */
+    }
+    #access-overlay-password.active {
+      display: inline-block;
+    }
+    #access-overlay .error {
+      position: fixed;
+      bottom: 46px;
+      right: 16px;
+      font-size: 0.60rem;
+      background: rgba(0,0,0,0.75);
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: none; /* HIDDEN by default */
+    }
+    #access-overlay .error.show {
+      display: inline-block;
+    }
+
 
     @media (max-width: 1200px) {
       #showcase {
@@ -795,6 +888,19 @@
       `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto" style="position:fixed;width:100%;height:100%;object-fit:cover;z-index:9999;background:#000;"></video>`
     );
   </script>
+  <!-- Insert access-overlay here so it sits after the loading indicator and covers the full viewport -->
+  <div id="access-overlay">
+    <div id="access-message">
+      <div class="lock-emoji">🔒</div>
+      <div>Website Locked!</div>
+    </div>
+    <div id="access-overlay-unlock">
+      <!-- Blank button (first click reveals input, second attempts unlock) -->
+      <button id="access-overlay-unlock-btn" aria-label="Unlock"></button>
+      <input type="password" id="access-overlay-password" placeholder="" />
+      <span class="error" id="access-overlay-error">Incorrect password</span>
+    </div>
+  </div>
   <!-- Player overlay container -->
   <div id="player-container" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:100;">
     <!-- Close button -->
