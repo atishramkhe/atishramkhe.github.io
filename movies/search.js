@@ -1015,35 +1015,37 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     const wlBtnId = 'more-poster-watchlater-btn';
     const wlLabelId = 'more-poster-watchlater-label';
     const wlBtnSymbol = isSaved
-        ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
-        : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
-    const wlLabelText = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+        ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
+        : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
+    const wlLabelText = isSaved ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
 
     modal.innerHTML = `
         <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">
           <span class="material-symbols-outlined" style="font-size:2em;">close_small</span>
         </button>
         <div style="display:flex;gap:36px;">
-            <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
+            <div style="flex-shrink:0;display:flex;flex-direction:column;">
                 <img id="modal-poster" src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
-                <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin-top:18px;">
+                <div style="display:flex;flex-direction:row;align-items:top;width:100%;margin-top:18px;">
                     <button id="${playBtnId}"
-                        style="width:36px;height:36px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
-                        <span class="material-symbols-outlined" style="font-size:30px;line-height:1;">play_circle</span>
+                        style="width:40px;height:40px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;margin-left:33px">
+                        <span class="material-symbols-outlined" style="font-size:40px;line-height:1;">play_circle</span>
                     </button>
                     <div style="display:flex;flex-direction:column;align-items:center;">
                         <button id="${wlBtnId}"
                             aria-label="${wlLabelText}"
                             title="${wlLabelText}"
-                            style="width:36px;height:36px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;line-height:1;cursor:pointer;">
+                            style="width:40px;height:40px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;line-height:1;cursor:pointer;">
                             ${wlBtnSymbol}
                         </button>
                         <span id="${wlLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px; font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;">
+                            style="margin-top:6px;color:#e02735;font-size:12px; font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;margin-left:0;justify-content:right;align-items:right;">
                             ${wlLabelText}
                         </span>
+                        
                     </div>
                 </div>
+                
             </div>
             <div style="flex:1;min-width:0;">
                 <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${title}</div>
@@ -1110,9 +1112,9 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         wlBtnEl.addEventListener('click', () => {
             const added = toggleWatchLater({ id, mediaType, title, poster: posterUrl, poster_path: posterUrl, year, date });
             wlBtnEl.innerHTML = added
-                ? '<span class="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>'
-                : '<span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>';
-            if (wlLabelEl) wlLabelEl.textContent = added ? 'Remove from Watch Later' : 'Add to Watch Later';
+                ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
+                : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
+            if (wlLabelEl) wlLabelEl.innerHTML = added ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
         });
     }
 }
