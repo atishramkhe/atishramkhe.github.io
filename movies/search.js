@@ -1175,6 +1175,21 @@ function showServerIndicators(onSwitchVO, onSwitchVF) {
 
     container.style.display = 'flex';
     container.style.alignItems = 'center';
+
+    // Add help text just beneath the indicators
+    let helpText = playerContainer.querySelector('#server-indicators-help');
+    if (!helpText) {
+        helpText = document.createElement('div');
+        helpText.id = 'server-indicators-help';
+        helpText.style.color = '#fff2';
+        helpText.style.fontWeight = '500';
+        helpText.style.marginTop = '30px';
+        helpText.style.fontSize = '1em';
+        helpText.textContent = 'Video not loading? Try switching servers here.';
+        container.after(helpText);
+    } else {
+        helpText.textContent = 'Video not loading? Try switching servers here.';
+    }
 }
 
 function loadGrid(jsonPath, gridId) {
@@ -1346,7 +1361,6 @@ function truncateOverview(text, maxLength = 120) {
     return text.length > maxLength ? text.slice(0, maxLength).trim() + '...' : text;
 }
 
-// filepath: /home/akr/Desktop/scripts/atishramkhe.github.io/movies/search.js
 // Continue Watching loader (unchanged behavior, respects auto-remove threshold)
 function loadContinueWatching() {
     // Try known ids first
