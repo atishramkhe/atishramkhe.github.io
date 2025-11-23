@@ -433,12 +433,83 @@ function openPlayer(type, id, season = 1, episode = 1) {
                 lastSeason: lastSeasonVal,
                 lastEpisode: lastEpisodeVal
             });
+
+            // --- Add Season/Episode Selector ---
+            let selectorBar = playerContainer.querySelector('#season-episode-selector');
+            if (selectorBar) selectorBar.remove();
+
+            selectorBar = document.createElement('div');
+            selectorBar.id = 'season-episode-selector';
+            selectorBar.style.position = 'absolute';
+            selectorBar.style.top = '12px';
+            selectorBar.style.left = '50%';
+            selectorBar.style.transform = 'translateX(-50%)';
+            selectorBar.style.zIndex = '1001';
+            selectorBar.style.display = 'flex';
+            selectorBar.style.alignItems = 'center';
+            selectorBar.style.gap = '12px';
+            selectorBar.style.background = 'rgba(0,0,0,0.7)';
+            selectorBar.style.borderRadius = '8px';
+            selectorBar.style.padding = '8px 18px';
+            selectorBar.style.boxShadow = '0 2px 8px #0008';
+
+            // Season dropdown
+            const seasonSelect = document.createElement('select');
+            seasonSelect.style.marginRight = '8px';
+            seasonSelect.style.fontSize = '1em';
+            seasonSelect.style.fontFamily = 'inherit';
+            seasonSelect.style.padding = '4px 8px';
+            seasonSelect.style.borderRadius = '4px';
+            seasonSelect.style.border = 'none';
+            seasonSelect.style.background = '#000';
+            seasonSelect.style.color = '#fff';
+            for (let s = 1; s <= lastSeasonVal; s++) {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = `Season ${s}`;
+                if (s === Number(season)) opt.selected = true;
+                seasonSelect.appendChild(opt);
+            }
+
+            // Episode dropdown
+            const episodeSelect = document.createElement('select');
+            episodeSelect.style.fontSize = '1em';
+            episodeSelect.style.fontFamily = 'inherit';
+            episodeSelect.style.padding = '4px 8px';
+            episodeSelect.style.borderRadius = '4px';
+            episodeSelect.style.border = 'none';
+            episodeSelect.style.background = '#000';
+            episodeSelect.style.color = '#fff';
+            for (let e = 1; e <= lastEpisodeVal; e++) {
+                const opt = document.createElement('option');
+                opt.value = e;
+                opt.textContent = `Episode ${e}`;
+                if (e === Number(episode)) opt.selected = true;
+                episodeSelect.appendChild(opt);
+            }
+
+            // Change handlers
+            seasonSelect.onchange = () => {
+                // When season changes, reset episode to 1 and reload player
+                openPlayer('tv', id, Number(seasonSelect.value), 1);
+            };
+            episodeSelect.onchange = () => {
+                openPlayer('tv', id, Number(seasonSelect.value), Number(episodeSelect.value));
+            };
+
+            selectorBar.appendChild(seasonSelect);
+            selectorBar.appendChild(episodeSelect);
+
+            // Remove previous selector if any, then add
+            playerContainer.querySelectorAll('#season-episode-selector').forEach(el => el.remove());
+            playerContainer.appendChild(selectorBar);
         }).catch(() => {
-            // Fallback: still call updateEpisodeArrows with what we have
             updateEpisodeArrows({ type, id, season: Number(season), episode: Number(episode), lastSeason: season, lastEpisode: episode });
         });
     } else {
         updateEpisodeArrows({ type, id });
+        // Remove selector if not TV
+        playerContainer.querySelectorAll('#season-episode-selector').forEach(el => el.remove());
     }
 
     // Create / update a placeholder progress entry so Continue Watching populates immediately
@@ -1611,7 +1682,6 @@ function loadContinueWatching() {
     });
 }
 
-// filepath: /home/akr/Desktop/scripts/atishramkhe.github.io/movies/search.js
 // Watch Later loader (uses deduped store)
 function loadWatchLater() {
     const section = document.getElementById('watchLaterSection');
@@ -1714,7 +1784,6 @@ function loadWatchLater() {
     });
 }
 
-// filepath: /home/akr/Desktop/scripts/atishramkhe.github.io/movies/search.js
 function initHome() {
     loadGrid('titles/netflix_xmas_2025.json', 'netflixXmasGrid');
     loadGrid('titles/best_xmas.json', 'bestXmasGrid');
@@ -1749,6 +1818,7 @@ function initHome() {
     loadContinueWatching();
     loadWatchLater();
 }
+
 
 // --- Home initialization (simple, single-run) ---
 
