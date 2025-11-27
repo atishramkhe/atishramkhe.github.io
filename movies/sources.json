@@ -53,9 +53,9 @@
 	{
 		"VF": [
 			{
-				"name": "frembed.mom",
-				"movies": "https://frembed.mom/api/film.php?id=${id}",
-				"shows": "https://frembed.mom/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.my",
+				"movies": "https://frembed.my/api/film.php?id=${id}",
+				"shows": "https://frembed.my/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
 			}
 		]
 	}
