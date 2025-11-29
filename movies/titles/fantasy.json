@@ -2,6 +2,79 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/l8pwO23MCvqYumzozpxynCNfck1.jpg",
+      "belongs_to_collection": {
+        "id": 968080,
+        "name": "Wicked Collection",
+        "poster_path": "/b9xo966oVIrFtpevhLQ9XILcXTh.jpg",
+        "backdrop_path": "/sppXb6E4BlKfZs0RgtlzMbVTZQ6.jpg"
+      },
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 10749,
+          "name": "Romance"
+        }
+      ],
+      "homepage": "https://www.wickedmovie.com",
+      "id": 967941,
+      "imdb_id": "tt19847976",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Wicked: For Good",
+      "overview": "As an angry mob rises against the Wicked Witch, Glinda and Elphaba will need to come together one final time. With their singular friendship now the fulcrum of their futures, they will need to truly see each other, with honesty and empathy, if they are to change themselves, and all of Oz, for good.",
+      "popularity": 230.1578,
+      "poster_path": "/si9tolnefLSUKaqQEGz1bWArOaL.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 2527,
+          "logo_path": "/mNSqvPrlkAcdQlEZ3Ttmx75Z8Xw.png",
+          "name": "Marc Platt Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-11-19",
+      "revenue": 253477920,
+      "runtime": 137,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "You will be changed.",
+      "title": "Wicked: For Good",
+      "video": false,
+      "vote_average": 6.8,
+      "vote_count": 300,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/hpXBJxLD2SEf8l2CspmSeiHrBKX.jpg",
       "belongs_to_collection": null,
       "budget": 120000000,
@@ -28,7 +101,7 @@
       "original_language": "en",
       "original_title": "Frankenstein",
       "overview": "Dr. Victor Frankenstein, a brilliant but egotistical scientist, brings a creature to life in a monstrous experiment that ultimately leads to the undoing of both the creator and his tragic creation.",
-      "popularity": 226.6417,
+      "popularity": 203.5756,
       "poster_path": "/g4JtvGlQO7DByTI6frUobqvSL3R.jpg",
       "production_companies": [
         {
@@ -84,81 +157,8 @@
       "tagline": "Only monsters play God.",
       "title": "Frankenstein",
       "video": false,
-      "vote_average": 7.77,
-      "vote_count": 1905,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/l8pwO23MCvqYumzozpxynCNfck1.jpg",
-      "belongs_to_collection": {
-        "id": 968080,
-        "name": "Wicked Collection",
-        "poster_path": "/b9xo966oVIrFtpevhLQ9XILcXTh.jpg",
-        "backdrop_path": "/sppXb6E4BlKfZs0RgtlzMbVTZQ6.jpg"
-      },
-      "budget": 150000000,
-      "genres": [
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 10749,
-          "name": "Romance"
-        }
-      ],
-      "homepage": "https://www.wickedmovie.com",
-      "id": 967941,
-      "imdb_id": "tt19847976",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Wicked: For Good",
-      "overview": "As an angry mob rises against the Wicked Witch, Glinda and Elphaba will need to come together one final time. With their singular friendship now the fulcrum of their futures, they will need to truly see each other, with honesty and empathy, if they are to change themselves, and all of Oz, for good.",
-      "popularity": 230.2695,
-      "poster_path": "/si9tolnefLSUKaqQEGz1bWArOaL.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 2527,
-          "logo_path": "/mNSqvPrlkAcdQlEZ3Ttmx75Z8Xw.png",
-          "name": "Marc Platt Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-11-19",
-      "revenue": 253477920,
-      "runtime": 137,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "You will be changed.",
-      "title": "Wicked: For Good",
-      "video": false,
-      "vote_average": 6.79,
-      "vote_count": 274,
+      "vote_average": 7.773,
+      "vote_count": 1935,
       "media_type": "movie"
     },
     {
@@ -194,7 +194,7 @@
       "original_language": "zh",
       "original_title": "传说",
       "overview": "An archeologist noticed that the texture of the relics discovered during the excavation of a glacier closely resembled a jade pendant seen in one of his dreams. He and his team then embark on an expedition into the depths of the glacier.",
-      "popularity": 173.4018,
+      "popularity": 158.0513,
       "poster_path": "/qbImUt1d3itXcB81BCItPZlfbyr.jpg",
       "production_companies": [
         {
@@ -245,8 +245,8 @@
       "tagline": "",
       "title": "A Legend",
       "video": false,
-      "vote_average": 6.769,
-      "vote_count": 104,
+      "vote_average": 6.8,
+      "vote_count": 112,
       "media_type": "movie"
     },
     {
@@ -286,7 +286,7 @@
       "original_language": "ja",
       "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
       "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
-      "popularity": 125.149,
+      "popularity": 125.397,
       "poster_path": "/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg",
       "production_companies": [
         {
@@ -328,8 +328,242 @@
       "tagline": "It's time to have some fun.",
       "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
       "video": false,
-      "vote_average": 7.589,
-      "vote_count": 579,
+      "vote_average": 7.591,
+      "vote_count": 580,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/w3Bi0wygeFQctn6AqFTwhGNXRwL.jpg",
+      "belongs_to_collection": null,
+      "budget": 100000000,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10402,
+          "name": "Music"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81498621",
+      "id": 803796,
+      "imdb_id": "tt14205554",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "KPop Demon Hunters",
+      "overview": "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums, they're using their secret powers to protect their fans from supernatural threats.",
+      "popularity": 93.3081,
+      "poster_path": "/zT7Lhw3BhJbMkRqm9Zlx2YGMsY0.jpg",
+      "production_companies": [
+        {
+          "id": 2251,
+          "logo_path": "/5ilV5mH3gxTEU7p5wjxptHvXkyr.png",
+          "name": "Sony Pictures Animation",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-06-20",
+      "revenue": 24619953,
+      "runtime": 96,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Korean",
+          "iso_639_1": "ko",
+          "name": "한국어/조선말"
+        }
+      ],
+      "status": "Released",
+      "tagline": "They sing. They dance. They battle demons.",
+      "title": "KPop Demon Hunters",
+      "video": false,
+      "vote_average": 8.213,
+      "vote_count": 1956,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nt0HRxlzOXRpPJtl2FmeBCO6MeR.jpg",
+      "belongs_to_collection": null,
+      "budget": 52000000,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10749,
+          "name": "Romance"
+        }
+      ],
+      "homepage": "https://signature-entertainment.co.uk/distribution/titles/dracula",
+      "id": 1246049,
+      "imdb_id": "tt31434030",
+      "origin_country": [
+        "FR"
+      ],
+      "original_language": "fr",
+      "original_title": "Dracula",
+      "overview": "When a 15th-century prince denounces God after the devastating loss of his wife, he inherits an eternal curse: he becomes Dracula. Condemned to wander the centuries, he defies fate and death itself, guided by a single hope — to be reunited with his lost love.",
+      "popularity": 84.0388,
+      "poster_path": "/Ap4kyIiMGsCAI6IKrJejp6AAiTL.jpg",
+      "production_companies": [
+        {
+          "id": 6896,
+          "logo_path": "/2Q89KvzxTKB5BAv9RqFIPI1qb7E.png",
+          "name": "EuropaCorp",
+          "origin_country": "FR"
+        },
+        {
+          "id": 221450,
+          "logo_path": null,
+          "name": "Luc Besson Production",
+          "origin_country": "FR"
+        },
+        {
+          "id": 356,
+          "logo_path": "/9tW5wZEGotn1Ei5pErA88m47XiD.png",
+          "name": "TF1 Films Production",
+          "origin_country": "FR"
+        },
+        {
+          "id": 2902,
+          "logo_path": "/vFmmYSgFp8eE6C34JVCXy9bJFmc.png",
+          "name": "SND",
+          "origin_country": "FR"
+        },
+        {
+          "id": 18626,
+          "logo_path": "/gb0xmYIKvNy2LnUOfLVglww7U0g.png",
+          "name": "Kinology",
+          "origin_country": "FR"
+        },
+        {
+          "id": 255253,
+          "logo_path": null,
+          "name": "Actarus Productions",
+          "origin_country": "FR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        }
+      ],
+      "release_date": "2025-07-30",
+      "revenue": 25788866,
+      "runtime": 130,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Romanian",
+          "iso_639_1": "ro",
+          "name": "Română"
+        }
+      ],
+      "status": "Released",
+      "tagline": "He renounced his faith to become immortal. Passion, anger, vengeance, and hatred will be unleashed into the modern world.",
+      "title": "Dracula",
+      "video": false,
+      "vote_average": 7.057,
+      "vote_count": 458,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gqTz24ZRsCP6AKjARmEivY7m0cK.jpg",
+      "belongs_to_collection": null,
+      "budget": 4100000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 10749,
+          "name": "Romance"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://chainsawman.movie",
+      "id": 1218925,
+      "imdb_id": "tt30472557",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "チェンソーマン レゼ篇",
+      "overview": "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji's world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
+      "popularity": 79.7814,
+      "poster_path": "/xdzLBZjCVSEsic7m7nJc4jNJZVW.jpg",
+      "production_companies": [
+        {
+          "id": 21444,
+          "logo_path": "/wSejGn3lAZdQ5muByxvzigwyDY6.png",
+          "name": "MAPPA",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "release_date": "2025-09-19",
+      "revenue": 168300000,
+      "runtime": 100,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "everyone’s after my chainsaw heart! what about denji’s heart?!?",
+      "title": "Chainsaw Man - The Movie: Reze Arc",
+      "video": false,
+      "vote_average": 7.826,
+      "vote_count": 221,
       "media_type": "movie"
     },
     {
@@ -364,7 +598,7 @@
       "original_language": "zh",
       "original_title": "大雨",
       "overview": "Poverty-stricken Daguzi encounters a child - Mantou - floating downstream at the river bank, he decides to take him by his side as his son, with compassion and affection.",
-      "popularity": 84.5584,
+      "popularity": 78.7061,
       "poster_path": "/rIwxNjhl0ndF0V5zrYGdwplAJAU.jpg",
       "production_companies": [
         {
@@ -406,143 +640,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/w3Bi0wygeFQctn6AqFTwhGNXRwL.jpg",
-      "belongs_to_collection": null,
-      "budget": 100000000,
-      "genres": [
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 10402,
-          "name": "Music"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81498621",
-      "id": 803796,
-      "imdb_id": "tt14205554",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "KPop Demon Hunters",
-      "overview": "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums, they're using their secret powers to protect their fans from supernatural threats.",
-      "popularity": 87.2959,
-      "poster_path": "/zT7Lhw3BhJbMkRqm9Zlx2YGMsY0.jpg",
-      "production_companies": [
-        {
-          "id": 2251,
-          "logo_path": "/5ilV5mH3gxTEU7p5wjxptHvXkyr.png",
-          "name": "Sony Pictures Animation",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-06-20",
-      "revenue": 24619953,
-      "runtime": 96,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Released",
-      "tagline": "They sing. They dance. They battle demons.",
-      "title": "KPop Demon Hunters",
-      "video": false,
-      "vote_average": 8.214,
-      "vote_count": 1948,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/gqTz24ZRsCP6AKjARmEivY7m0cK.jpg",
-      "belongs_to_collection": null,
-      "budget": 4100000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 10749,
-          "name": "Romance"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://chainsawman.movie",
-      "id": 1218925,
-      "imdb_id": "tt30472557",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "チェンソーマン レゼ篇",
-      "overview": "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji's world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
-      "popularity": 82.4486,
-      "poster_path": "/xdzLBZjCVSEsic7m7nJc4jNJZVW.jpg",
-      "production_companies": [
-        {
-          "id": 21444,
-          "logo_path": "/wSejGn3lAZdQ5muByxvzigwyDY6.png",
-          "name": "MAPPA",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "release_date": "2025-09-19",
-      "revenue": 168300000,
-      "runtime": 100,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Released",
-      "tagline": "everyone’s after my chainsaw heart! what about denji’s heart?!?",
-      "title": "Chainsaw Man - The Movie: Reze Arc",
-      "video": false,
-      "vote_average": 7.82,
-      "vote_count": 219,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/3iD9yEsxKqliZfPck1aoTVC6K53.jpg",
       "belongs_to_collection": {
         "id": 968080,
@@ -574,7 +671,7 @@
       "original_language": "en",
       "original_title": "Wicked",
       "overview": "In the land of Oz, ostracized and misunderstood green-skinned Elphaba is forced to share a room with the popular aristocrat Glinda at Shiz University, and the two's unlikely friendship is tested as they begin to fulfill their respective destinies as Glinda the Good and the Wicked Witch of the West.",
-      "popularity": 71.8114,
+      "popularity": 65.7684,
       "poster_path": "/dfdvUzj4nLZpZ37BoefqvevCMI1.jpg",
       "production_companies": [
         {
@@ -610,8 +707,8 @@
       "tagline": "Everyone deserves the chance to fly.",
       "title": "Wicked",
       "video": false,
-      "vote_average": 6.916,
-      "vote_count": 2601,
+      "vote_average": 6.917,
+      "vote_count": 2605,
       "media_type": "movie"
     },
     {
@@ -649,7 +746,7 @@
       "original_language": "en",
       "original_title": "Orang Ikan",
       "overview": "In the Pacific, 1944, a Japanese soldier and a British prisoner of war are stranded on a deserted island, hunted by a deadly creature. Two mortal enemies must come together to survive the unknown.",
-      "popularity": 50.9234,
+      "popularity": 45.8231,
       "poster_path": "/x1JOs4xWNr1QYjDAXHxWw1NJ7Sq.jpg",
       "production_companies": [
         {
@@ -760,103 +857,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/nt0HRxlzOXRpPJtl2FmeBCO6MeR.jpg",
-      "belongs_to_collection": null,
-      "budget": 52000000,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 10749,
-          "name": "Romance"
-        }
-      ],
-      "homepage": "https://signature-entertainment.co.uk/distribution/titles/dracula",
-      "id": 1246049,
-      "imdb_id": "tt31434030",
-      "origin_country": [
-        "FR"
-      ],
-      "original_language": "fr",
-      "original_title": "Dracula",
-      "overview": "When a 15th-century prince denounces God after the devastating loss of his wife, he inherits an eternal curse: he becomes Dracula. Condemned to wander the centuries, he defies fate and death itself, guided by a single hope — to be reunited with his lost love.",
-      "popularity": 54.1044,
-      "poster_path": "/ykyRfv7JDofLxXLAwtLXaSuaFfM.jpg",
-      "production_companies": [
-        {
-          "id": 6896,
-          "logo_path": "/2Q89KvzxTKB5BAv9RqFIPI1qb7E.png",
-          "name": "EuropaCorp",
-          "origin_country": "FR"
-        },
-        {
-          "id": 221450,
-          "logo_path": null,
-          "name": "Luc Besson Production",
-          "origin_country": "FR"
-        },
-        {
-          "id": 356,
-          "logo_path": "/9tW5wZEGotn1Ei5pErA88m47XiD.png",
-          "name": "TF1 Films Production",
-          "origin_country": "FR"
-        },
-        {
-          "id": 2902,
-          "logo_path": "/vFmmYSgFp8eE6C34JVCXy9bJFmc.png",
-          "name": "SND",
-          "origin_country": "FR"
-        },
-        {
-          "id": 18626,
-          "logo_path": "/gb0xmYIKvNy2LnUOfLVglww7U0g.png",
-          "name": "Kinology",
-          "origin_country": "FR"
-        },
-        {
-          "id": 255253,
-          "logo_path": null,
-          "name": "Actarus Productions",
-          "origin_country": "FR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "release_date": "2025-07-30",
-      "revenue": 25788866,
-      "runtime": 130,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Romanian",
-          "iso_639_1": "ro",
-          "name": "Română"
-        }
-      ],
-      "status": "Released",
-      "tagline": "He renounced his faith to become immortal. Passion, anger, vengeance, and hatred will be unleashed into the modern world.",
-      "title": "Dracula",
-      "video": false,
-      "vote_average": 7.073,
-      "vote_count": 449,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/5A01YSCPYoCOZOhh9tU7F3Htxkf.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -887,7 +887,7 @@
       "original_language": "ko",
       "original_title": "거룩한 밤: 데몬 헌터스",
       "overview": "When a devil-worshipping criminal network plunges Seoul into chaos, the police turn to Holy Night—a trio of supernatural demon hunters—to restore order and defeat the rising evil.",
-      "popularity": 47.8175,
+      "popularity": 42.2501,
       "poster_path": "/v3Mo77Qjp6pctpD4eJaNT6kFRSB.jpg",
       "production_companies": [
         {
@@ -923,27 +923,24 @@
       "tagline": "Beat up to the salvation.",
       "title": "Holy Night: Demon Hunters",
       "video": false,
-      "vote_average": 6.7,
-      "vote_count": 69,
+      "vote_average": 6.721,
+      "vote_count": 70,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/pU9cz8mZjzwyPAcJDPXBlK99BoR.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/iN41Ccw4DctL8npfmYg1j5Tr1eb.jpg",
+      "belongs_to_collection": {
+        "id": 87096,
+        "name": "Avatar Collection",
+        "poster_path": "/3C5brXxnBxfkeKWwA1Fh4xvy4wr.jpg",
+        "backdrop_path": "/6qkJLRCZp9Y3ovXti5tSuhH0DpO.jpg"
+      },
+      "budget": 250000000,
       "genres": [
         {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
+          "id": 878,
+          "name": "Science Fiction"
         },
         {
           "id": 12,
@@ -954,28 +951,34 @@
           "name": "Fantasy"
         }
       ],
-      "homepage": "https://www.netflix.com/title/80992977",
-      "id": 1117857,
-      "imdb_id": "tt27604215",
+      "homepage": "https://www.avatar.com/movies/avatar-fire-and-ash",
+      "id": 83533,
+      "imdb_id": "tt1757678",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "In Your Dreams",
-      "overview": "Stevie and her little brother Elliot journey into the wildly absurd landscape of their own dreams to ask the Sandman to grant them the perfect family.",
-      "popularity": 36.4648,
-      "poster_path": "/ug0TqgmByPCEYzR9lQWQmyAa7sw.jpg",
+      "original_title": "Avatar: Fire and Ash",
+      "overview": "In the wake of the devastating war against the RDA and the loss of their eldest son, Jake Sully and Neytiri face a new threat on Pandora: the Ash People, a violent and power-hungry Na'vi tribe led by the ruthless Varang. Jake's family must fight for their survival and the future of Pandora in a conflict that pushes them to their emotional and physical limits.",
+      "popularity": 39.6527,
+      "poster_path": "/bRBeSHfGHwkEpImlhxPmOcUsaeg.jpg",
       "production_companies": [
         {
-          "id": 144322,
-          "logo_path": "/j49TVLRW8E8Rqv5UEu5NqO50J8a.png",
-          "name": "Kuku Studios",
+          "id": 127928,
+          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
+          "name": "20th Century Studios",
           "origin_country": "US"
         },
         {
-          "id": 171251,
-          "logo_path": "/AqUAfMC270bGGK09Nh3mycwT1hY.png",
-          "name": "Netflix Animation Studios",
+          "id": 574,
+          "logo_path": "/8wdmrfGcDx3TJxYiiDksLzAW4pB.png",
+          "name": "Lightstorm Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 22213,
+          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
+          "name": "TSG Entertainment",
           "origin_country": "US"
         }
       ],
@@ -985,9 +988,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2025-11-07",
+      "release_date": "2025-12-17",
       "revenue": 0,
-      "runtime": 87,
+      "runtime": 192,
       "spoken_languages": [
         {
           "english_name": "English",
@@ -996,11 +999,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "The adventure of a nighttime.",
-      "title": "In Your Dreams",
+      "tagline": "The world of Pandora will change forever.",
+      "title": "Avatar: Fire and Ash",
       "video": false,
-      "vote_average": 7.121,
-      "vote_count": 103,
+      "vote_average": 0.0,
+      "vote_count": 0,
       "media_type": "movie"
     },
     {
@@ -1040,7 +1043,7 @@
       "original_language": "en",
       "original_title": "How to Train Your Dragon",
       "overview": "On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations, Hiccup stands apart, defying centuries of tradition when he befriends Toothless, a feared Night Fury dragon. Their unlikely bond reveals the true nature of dragons, challenging the very foundations of Viking society.",
-      "popularity": 38.2366,
+      "popularity": 39.1221,
       "poster_path": "/q5pXRYTycaeW6dEgsCrd4mYPmxM.jpg",
       "production_companies": [
         {
@@ -1076,8 +1079,8 @@
       "tagline": "The legend is real.",
       "title": "How to Train Your Dragon",
       "video": false,
-      "vote_average": 7.988,
-      "vote_count": 2208,
+      "vote_average": 7.989,
+      "vote_count": 2212,
       "media_type": "movie"
     },
     {
@@ -1112,7 +1115,7 @@
       "original_language": "no",
       "original_title": "Den stygge stesøsteren",
       "overview": "In a fairy-tale kingdom where beauty is a brutal business, Elvira battles to compete with her incredibly beautiful stepsister, and she will go to any length to catch the prince’s eye.",
-      "popularity": 34.2437,
+      "popularity": 34.1396,
       "poster_path": "/rayAREIKtSinuov10GvrZHyXfXH.jpg",
       "production_companies": [
         {
@@ -1200,24 +1203,27 @@
       "tagline": "If the shoe doesn't fit...",
       "title": "The Ugly Stepsister",
       "video": false,
-      "vote_average": 7.336,
-      "vote_count": 702,
+      "vote_average": 7.338,
+      "vote_count": 704,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/iN41Ccw4DctL8npfmYg1j5Tr1eb.jpg",
-      "belongs_to_collection": {
-        "id": 87096,
-        "name": "Avatar Collection",
-        "poster_path": "/3C5brXxnBxfkeKWwA1Fh4xvy4wr.jpg",
-        "backdrop_path": "/gxnvX9kF7RRUQYvB52dMLPgeJkt.jpg"
-      },
-      "budget": 250000000,
+      "backdrop_path": "/pU9cz8mZjzwyPAcJDPXBlK99BoR.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
       "genres": [
         {
-          "id": 878,
-          "name": "Science Fiction"
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
         },
         {
           "id": 12,
@@ -1228,34 +1234,28 @@
           "name": "Fantasy"
         }
       ],
-      "homepage": "https://www.avatar.com/movies/avatar-fire-and-ash",
-      "id": 83533,
-      "imdb_id": "tt1757678",
+      "homepage": "https://www.netflix.com/title/80992977",
+      "id": 1117857,
+      "imdb_id": "tt27604215",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Avatar: Fire and Ash",
-      "overview": "In the wake of the devastating war against the RDA and the loss of their eldest son, Jake Sully and Neytiri face a new threat on Pandora: the Ash People, a violent and power-hungry Na'vi tribe led by the ruthless Varang. Jake's family must fight for their survival and the future of Pandora in a conflict that pushes them to their emotional and physical limits.",
-      "popularity": 37.4516,
-      "poster_path": "/5bxrxnRaxZooBAxgUVBZ13dpzC7.jpg",
+      "original_title": "In Your Dreams",
+      "overview": "Stevie and her little brother Elliot journey into the wildly absurd landscape of their own dreams to ask the Sandman to grant them the perfect family.",
+      "popularity": 33.8332,
+      "poster_path": "/ug0TqgmByPCEYzR9lQWQmyAa7sw.jpg",
       "production_companies": [
         {
-          "id": 127928,
-          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
-          "name": "20th Century Studios",
+          "id": 144322,
+          "logo_path": "/j49TVLRW8E8Rqv5UEu5NqO50J8a.png",
+          "name": "Kuku Studios",
           "origin_country": "US"
         },
         {
-          "id": 574,
-          "logo_path": "/8wdmrfGcDx3TJxYiiDksLzAW4pB.png",
-          "name": "Lightstorm Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 22213,
-          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
-          "name": "TSG Entertainment",
+          "id": 171251,
+          "logo_path": "/AqUAfMC270bGGK09Nh3mycwT1hY.png",
+          "name": "Netflix Animation Studios",
           "origin_country": "US"
         }
       ],
@@ -1265,9 +1265,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2025-12-17",
+      "release_date": "2025-11-07",
       "revenue": 0,
-      "runtime": 192,
+      "runtime": 87,
       "spoken_languages": [
         {
           "english_name": "English",
@@ -1276,11 +1276,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "The world of Pandora will change forever.",
-      "title": "Avatar: Fire and Ash",
+      "tagline": "The adventure of a nighttime.",
+      "title": "In Your Dreams",
       "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
+      "vote_average": 7.119,
+      "vote_count": 105,
       "media_type": "movie"
     },
     {
@@ -1320,7 +1320,7 @@
       "original_language": "zh",
       "original_title": "哪吒之魔童闹海",
       "overview": "After a catastrophic event leaves their bodies destroyed, Ne Zha and Ao Bing are granted a fragile second chance at life. As tensions rise between the dragon clans and celestial forces, the two must undergo a series of perilous trials that will test their bond, challenge their identities, and decide the fate of both mortals and immortals.",
-      "popularity": 30.8826,
+      "popularity": 30.8347,
       "poster_path": "/cb5NyNrqiCNNoDkA8FfxHAtypdG.jpg",
       "production_companies": [
         {
@@ -1374,155 +1374,80 @@
       "tagline": "Witness a hero reborn.",
       "title": "Ne Zha 2",
       "video": false,
-      "vote_average": 8.042,
+      "vote_average": 8.0,
       "vote_count": 464,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/rToVdkhRishbanfsw0QbTMAyA3T.jpg",
+      "backdrop_path": "/sy0vo1cmpKqwPRiMUiJ45jyLsX7.jpg",
       "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 10749,
-          "name": "Romance"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10770,
-          "name": "TV Movie"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "http://www.hallmarkchannel.com/a-shoe-addicts-christmas",
-      "id": 535809,
-      "imdb_id": "tt8634202",
-      "origin_country": [
-        "CA"
-      ],
-      "original_language": "en",
-      "original_title": "A Shoe Addict's Christmas",
-      "overview": "As Christmas approaches, a department store worker whose life lacks fulfillment meets her guardian angel, who offers her a chance to change her circumstances by magically transporting her to Christmases past whenever she tries on a new pair of shoes.",
-      "popularity": 27.6395,
-      "poster_path": "/xAMSWUBSG8rhXuU9JmQItWNmn4U.jpg",
-      "production_companies": [
-        {
-          "id": 6438,
-          "logo_path": "/hQVRii7CRnfG0rowSEc6ibt2Pke.png",
-          "name": "Muse Entertainment",
-          "origin_country": "CA"
-        },
-        {
-          "id": 48782,
-          "logo_path": null,
-          "name": "Head First Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 184816,
-          "logo_path": "/a0Dcjk6gPSzlcC2A2K8ynJwpSVl.png",
-          "name": "iCandy Production",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CA",
-          "name": "Canada"
-        }
-      ],
-      "release_date": "2018-11-25",
-      "revenue": 0,
-      "runtime": 90,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "A Shoe Addict's Christmas",
-      "video": false,
-      "vote_average": 6.2,
-      "vote_count": 74,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/1tmcsKQo0QzAzpvm1Akmkmxstjq.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "budget": 123000000,
       "genres": [
         {
           "id": 10751,
           "name": "Family"
         },
         {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 10770,
-          "name": "TV Movie"
-        },
-        {
           "id": 35,
           "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
         }
       ],
       "homepage": "",
-      "id": 48186,
-      "imdb_id": "tt1451423",
+      "id": 8871,
+      "imdb_id": "tt0170016",
       "origin_country": [
-        "CA",
         "US"
       ],
       "original_language": "en",
-      "original_title": "The Boy Who Cried Werewolf",
-      "overview": "A Californian family inherits a castle in Romania. This is especially exciting to the son, who is obsessed with monsters. And he is not disappointed.",
-      "popularity": 15.3966,
-      "poster_path": "/i7lny9FF2ylyPDwdF70ImmSbOv3.jpg",
+      "original_title": "How the Grinch Stole Christmas",
+      "overview": "The Grinch decides to rob Whoville of Christmas - but a dash of kindness from little Cindy Lou Who and her family may be enough to melt his heart...",
+      "popularity": 29.0676,
+      "poster_path": "/1WZbbPApEivA421gCOluuzMMKCk.jpg",
       "production_companies": [
         {
-          "id": 5371,
-          "logo_path": "/7EFsFPaWY5DFn8s9rz2ORHxAw0y.png",
-          "name": "Nickelodeon Productions",
+          "id": 33,
+          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 23,
+          "logo_path": "/bJOFo2ufq7iFC1F4qZm8aLxF5aS.png",
+          "name": "Imagine Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 142395,
+          "logo_path": null,
+          "name": "LUNI Productions",
+          "origin_country": "DE"
+        },
+        {
+          "id": 180651,
+          "logo_path": "/qYmXnLachOZkLaVn6UTaMDUpHey.png",
+          "name": "Dr. Seuss Enterprises",
           "origin_country": "US"
         }
       ],
       "production_countries": [
         {
+          "iso_3166_1": "DE",
+          "name": "Germany"
+        },
+        {
           "iso_3166_1": "US",
           "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "CA",
-          "name": "Canada"
         }
       ],
-      "release_date": "2010-10-22",
-      "revenue": 0,
-      "runtime": 86,
+      "release_date": "2000-11-17",
+      "revenue": 345800000,
+      "runtime": 104,
       "spoken_languages": [
-        {
-          "english_name": "German",
-          "iso_639_1": "de",
-          "name": "Deutsch"
-        },
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
-        },
         {
           "english_name": "English",
           "iso_639_1": "en",
@@ -1530,11 +1455,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "The Boy Who Cried Werewolf",
+      "tagline": "You better watch out!",
+      "title": "How the Grinch Stole Christmas",
       "video": false,
-      "vote_average": 6.4,
-      "vote_count": 304,
+      "vote_average": 6.777,
+      "vote_count": 7945,
       "media_type": "movie"
     },
     {
@@ -1578,7 +1503,7 @@
       "original_language": "en",
       "original_title": "A Minecraft Movie",
       "overview": "Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world while embarking on a magical quest with an unexpected, expert crafter, Steve.",
-      "popularity": 26.2219,
+      "popularity": 28.6845,
       "poster_path": "/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg",
       "production_companies": [
         {
@@ -1642,8 +1567,8 @@
       "tagline": "Be there and be square.",
       "title": "A Minecraft Movie",
       "video": false,
-      "vote_average": 6.347,
-      "vote_count": 2516,
+      "vote_average": 6.349,
+      "vote_count": 2524,
       "media_type": "movie"
     },
     {
@@ -1675,7 +1600,7 @@
       "original_language": "en",
       "original_title": "Harry Potter and the Philosopher's Stone",
       "overview": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
-      "popularity": 27.0243,
+      "popularity": 28.0289,
       "poster_path": "/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
       "production_companies": [
         {
@@ -1721,255 +1646,86 @@
       "tagline": "Let the magic begin.",
       "title": "Harry Potter and the Philosopher's Stone",
       "video": false,
-      "vote_average": 7.899,
-      "vote_count": 28840,
+      "vote_average": 7.9,
+      "vote_count": 28843,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/yQy9Y3p5INwkfTuHSnzYnz4MCV3.jpg",
-      "belongs_to_collection": {
-        "id": 1125292,
-        "name": "Freaky Friday Collection",
-        "poster_path": "/vSCsz3251W00OVcXarUSafHpf3x.jpg",
-        "backdrop_path": "/8QWJmqzT6WiYKY9wXpfUfwpjad1.jpg"
-      },
-      "budget": 42000000,
-      "genres": [
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "https://movies.disney.com/freakier-friday",
-      "id": 1125257,
-      "imdb_id": "tt31956415",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Freakier Friday",
-      "overview": "Years after Tess and Anna endured an identity crisis, Anna now has a daughter of her own and a soon-to-be stepdaughter. As they navigate the myriad challenges that come when two families merge, Tess and Anna discover lightning might indeed strike twice.",
-      "popularity": 23.8962,
-      "poster_path": "/9wV65OmsjLAqBfDnYTkMPutXH8j.jpg",
-      "production_companies": [
-        {
-          "id": 2,
-          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
-          "name": "Walt Disney Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 128491,
-          "logo_path": null,
-          "name": "Burr! Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 3538,
-          "logo_path": null,
-          "name": "Gunn Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-08-06",
-      "revenue": 152889065,
-      "runtime": 110,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Here we go again.",
-      "title": "Freakier Friday",
-      "video": false,
-      "vote_average": 6.89,
-      "vote_count": 471,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/sy0vo1cmpKqwPRiMUiJ45jyLsX7.jpg",
-      "belongs_to_collection": null,
-      "budget": 123000000,
-      "genres": [
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "",
-      "id": 8871,
-      "imdb_id": "tt0170016",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "How the Grinch Stole Christmas",
-      "overview": "The Grinch decides to rob Whoville of Christmas - but a dash of kindness from little Cindy Lou Who and her family may be enough to melt his heart...",
-      "popularity": 26.3865,
-      "poster_path": "/1WZbbPApEivA421gCOluuzMMKCk.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 23,
-          "logo_path": "/bJOFo2ufq7iFC1F4qZm8aLxF5aS.png",
-          "name": "Imagine Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 142395,
-          "logo_path": null,
-          "name": "LUNI Productions",
-          "origin_country": "DE"
-        },
-        {
-          "id": 180651,
-          "logo_path": "/qYmXnLachOZkLaVn6UTaMDUpHey.png",
-          "name": "Dr. Seuss Enterprises",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "DE",
-          "name": "Germany"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2000-11-17",
-      "revenue": 345800000,
-      "runtime": 104,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "You better watch out!",
-      "title": "How the Grinch Stole Christmas",
-      "video": false,
-      "vote_average": 6.777,
-      "vote_count": 7944,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/zivCs8QHipco13PVKI3ZVfBcRPx.jpg",
+      "backdrop_path": "/rToVdkhRishbanfsw0QbTMAyA3T.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
         {
-          "id": 16,
-          "name": "Animation"
+          "id": 10749,
+          "name": "Romance"
         },
         {
-          "id": 12,
-          "name": "Adventure"
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10770,
+          "name": "TV Movie"
         },
         {
           "id": 14,
           "name": "Fantasy"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
         }
       ],
-      "homepage": "",
-      "id": 1304434,
-      "imdb_id": "tt36733027",
+      "homepage": "http://www.hallmarkchannel.com/a-shoe-addicts-christmas",
+      "id": 535809,
+      "imdb_id": "tt8634202",
       "origin_country": [
-        "CN"
+        "CA"
       ],
-      "original_language": "zh",
-      "original_title": "浪浪山小妖怪",
-      "overview": "The Little Pig Yao decides to leave Langlang Mountain to join the pilgrimage. On the journey west, what trials will the little monsters face? In the end, will they achieve their dreams and live as they truly desire?",
-      "popularity": 24.049,
-      "poster_path": "/t3Rs1BeIDXhwjOt10iyjiFe7BpL.jpg",
+      "original_language": "en",
+      "original_title": "A Shoe Addict's Christmas",
+      "overview": "As Christmas approaches, a department store worker whose life lacks fulfillment meets her guardian angel, who offers her a chance to change her circumstances by magically transporting her to Christmases past whenever she tries on a new pair of shoes.",
+      "popularity": 27.7911,
+      "poster_path": "/xAMSWUBSG8rhXuU9JmQItWNmn4U.jpg",
       "production_companies": [
         {
-          "id": 6223,
-          "logo_path": "/lOxuAoSiKVeePamkUq5VCyUFiPw.png",
-          "name": "Shanghai Animation Film Studio",
-          "origin_country": "CN"
+          "id": 6438,
+          "logo_path": "/hQVRii7CRnfG0rowSEc6ibt2Pke.png",
+          "name": "Muse Entertainment",
+          "origin_country": "CA"
         },
         {
-          "id": 270440,
+          "id": 48782,
           "logo_path": null,
-          "name": "Shanghai Xiaomutou Film and Television Culture Media",
-          "origin_country": "CN"
+          "name": "Head First Productions",
+          "origin_country": "US"
         },
         {
-          "id": 218024,
-          "logo_path": null,
-          "name": "Shanghai Maoyan Film",
-          "origin_country": "CN"
-        },
-        {
-          "id": 281174,
-          "logo_path": null,
-          "name": "Shanghai Xiaomubiao Film and Television Culture Media",
-          "origin_country": "CN"
+          "id": 184816,
+          "logo_path": "/a0Dcjk6gPSzlcC2A2K8ynJwpSVl.png",
+          "name": "iCandy Production",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "CN",
-          "name": "China"
+          "iso_3166_1": "CA",
+          "name": "Canada"
         }
       ],
-      "release_date": "2025-08-02",
-      "revenue": 215367669,
-      "runtime": 118,
+      "release_date": "2018-11-25",
+      "revenue": 0,
+      "runtime": 90,
       "spoken_languages": [
         {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
         }
       ],
       "status": "Released",
       "tagline": "",
-      "title": "Nobody",
+      "title": "A Shoe Addict's Christmas",
       "video": false,
-      "vote_average": 7.656,
-      "vote_count": 32,
+      "vote_average": 6.2,
+      "vote_count": 74,
       "media_type": "movie"
     },
     {
@@ -2013,7 +1769,7 @@
       "original_language": "en",
       "original_title": "Moana 2",
       "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-      "popularity": 24.9867,
+      "popularity": 25.9862,
       "poster_path": "/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg",
       "production_companies": [
         {
@@ -2053,80 +1809,8 @@
       "tagline": "The ocean is calling them back.",
       "title": "Moana 2",
       "video": false,
-      "vote_average": 7.028,
-      "vote_count": 2801,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/iZbZjYflt859q8hR7bsvApeDLr5.jpg",
-      "belongs_to_collection": null,
-      "budget": 136250000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "",
-      "id": 920708,
-      "imdb_id": "tt21438726",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "te",
-      "original_title": "వారణాసి",
-      "overview": "When an asteroid hits the city of Vāranāsi in India, what are the events that it leads to? Is the world about to be doomed? Does it need a saviour who has to traverse across the continents and timelines to influence the most crucial moment in the history of earth?",
-      "popularity": 20.8288,
-      "poster_path": "/9XHgX5XEQt95nwZIlp2yiMaw65D.jpg",
-      "production_companies": [
-        {
-          "id": 98173,
-          "logo_path": null,
-          "name": "Sri Durga Arts",
-          "origin_country": ""
-        },
-        {
-          "id": 223950,
-          "logo_path": null,
-          "name": "Showing Business",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "",
-      "revenue": 0,
-      "runtime": 0,
-      "spoken_languages": [
-        {
-          "english_name": "Telugu",
-          "iso_639_1": "te",
-          "name": "తెలుగు"
-        }
-      ],
-      "status": "In Production",
-      "tagline": "",
-      "title": "Vāranāsi",
-      "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
+      "vote_average": 7.027,
+      "vote_count": 2803,
       "media_type": "movie"
     },
     {
@@ -2166,7 +1850,7 @@
       "original_language": "en",
       "original_title": "Avatar",
       "overview": "In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.",
-      "popularity": 24.8656,
+      "popularity": 25.863,
       "poster_path": "/gKY6q7SjCkAU6FqvqWybDYgUKIF.jpg",
       "production_companies": [
         {
@@ -2223,8 +1907,171 @@
       "tagline": "Enter the world of Pandora.",
       "title": "Avatar",
       "video": false,
-      "vote_average": 7.594,
-      "vote_count": 32844,
+      "vote_average": 7.6,
+      "vote_count": 32848,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zivCs8QHipco13PVKI3ZVfBcRPx.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "",
+      "id": 1304434,
+      "imdb_id": "tt36733027",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "浪浪山小妖怪",
+      "overview": "The Little Pig Yao decides to leave Langlang Mountain to join the pilgrimage. On the journey west, what trials will the little monsters face? In the end, will they achieve their dreams and live as they truly desire?",
+      "popularity": 20.9521,
+      "poster_path": "/t3Rs1BeIDXhwjOt10iyjiFe7BpL.jpg",
+      "production_companies": [
+        {
+          "id": 6223,
+          "logo_path": "/lOxuAoSiKVeePamkUq5VCyUFiPw.png",
+          "name": "Shanghai Animation Film Studio",
+          "origin_country": "CN"
+        },
+        {
+          "id": 270440,
+          "logo_path": null,
+          "name": "Shanghai Xiaomutou Film and Television Culture Media",
+          "origin_country": "CN"
+        },
+        {
+          "id": 218024,
+          "logo_path": null,
+          "name": "Shanghai Maoyan Film",
+          "origin_country": "CN"
+        },
+        {
+          "id": 281174,
+          "logo_path": null,
+          "name": "Shanghai Xiaomubiao Film and Television Culture Media",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2025-08-02",
+      "revenue": 215367669,
+      "runtime": 118,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Nobody",
+      "video": false,
+      "vote_average": 7.656,
+      "vote_count": 32,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/yQy9Y3p5INwkfTuHSnzYnz4MCV3.jpg",
+      "belongs_to_collection": {
+        "id": 1125292,
+        "name": "Freaky Friday Collection",
+        "poster_path": "/vSCsz3251W00OVcXarUSafHpf3x.jpg",
+        "backdrop_path": "/8QWJmqzT6WiYKY9wXpfUfwpjad1.jpg"
+      },
+      "budget": 42000000,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "https://movies.disney.com/freakier-friday",
+      "id": 1125257,
+      "imdb_id": "tt31956415",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Freakier Friday",
+      "overview": "Years after Tess and Anna endured an identity crisis, Anna now has a daughter of her own and a soon-to-be stepdaughter. As they navigate the myriad challenges that come when two families merge, Tess and Anna discover lightning might indeed strike twice.",
+      "popularity": 23.5648,
+      "poster_path": "/9wV65OmsjLAqBfDnYTkMPutXH8j.jpg",
+      "production_companies": [
+        {
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 128491,
+          "logo_path": null,
+          "name": "Burr! Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 3538,
+          "logo_path": null,
+          "name": "Gunn Films",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-08-06",
+      "revenue": 152889065,
+      "runtime": 110,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Here we go again.",
+      "title": "Freakier Friday",
+      "video": false,
+      "vote_average": 6.896,
+      "vote_count": 475,
       "media_type": "movie"
     },
     {
@@ -2260,7 +2107,7 @@
       "original_language": "en",
       "original_title": "The Lord of the Rings: The Fellowship of the Ring",
       "overview": "Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed.",
-      "popularity": 23.8087,
+      "popularity": 24.2463,
       "poster_path": "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
       "production_companies": [
         {
@@ -2307,19 +2154,19 @@
       "title": "The Lord of the Rings: The Fellowship of the Ring",
       "video": false,
       "vote_average": 8.426,
-      "vote_count": 26633,
+      "vote_count": 26641,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/8f9dnOtpArDrOMEylpSN9Sc6fuz.jpg",
+      "backdrop_path": "/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg",
       "belongs_to_collection": {
-        "id": 1241,
-        "name": "Harry Potter Collection",
-        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
-        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+        "id": 119,
+        "name": "The Lord of the Rings Collection",
+        "poster_path": "/qx5x7HRP0MrSBx6N3QJFXpMrbWB.jpg",
+        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
       },
-      "budget": 150000000,
+      "budget": 94000000,
       "genres": [
         {
           "id": 12,
@@ -2328,70 +2175,69 @@
         {
           "id": 14,
           "name": "Fantasy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
         }
       ],
-      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-goblet-fire",
-      "id": 674,
-      "imdb_id": "tt0330373",
+      "homepage": "http://www.lordoftherings.net",
+      "id": 122,
+      "imdb_id": "tt0167260",
       "origin_country": [
-        "GB"
+        "US"
       ],
       "original_language": "en",
-      "original_title": "Harry Potter and the Goblet of Fire",
-      "overview": "When Harry Potter's name emerges from the Goblet of Fire, he becomes a competitor in a grueling battle for glory among three wizarding schools—the Triwizard Tournament. But since Harry never submitted his name for the Tournament, who did? Now Harry must confront a deadly dragon, fierce water demons and an enchanted maze only to find himself in the cruel grasp of He Who Must Not Be Named.",
-      "popularity": 22.8614,
-      "poster_path": "/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+      "original_title": "The Lord of the Rings: The Return of the King",
+      "overview": "As armies mass for a final battle that will decide the fate of the world--and powerful, ancient forces of Light and Dark compete to determine the outcome--one member of the Fellowship of the Ring is revealed as the noble heir to the throne of the Kings of Men. Yet, the sole hope for triumph over evil lies with a brave hobbit, Frodo, who, accompanied by his loyal friend Sam and the hideous, wretched Gollum, ventures deep into the very dark heart of Mordor on his seemingly impossible quest to destroy the Ring of Power.​",
+      "popularity": 22.8122,
+      "poster_path": "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
       "production_companies": [
         {
-          "id": 174,
-          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
-          "name": "Warner Bros. Pictures",
+          "id": 12,
+          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
+          "name": "New Line Cinema",
           "origin_country": "US"
         },
         {
-          "id": 437,
-          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
-          "name": "Heyday Films",
-          "origin_country": "GB"
+          "id": 11,
+          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
+          "name": "WingNut Films",
+          "origin_country": "NZ"
         },
         {
-          "id": 462,
-          "logo_path": null,
-          "name": "Patalex IV Productions",
-          "origin_country": "GB"
+          "id": 5237,
+          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
+          "name": "The Saul Zaentz Company",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
+          "iso_3166_1": "NZ",
+          "name": "New Zealand"
         },
         {
           "iso_3166_1": "US",
           "name": "United States of America"
         }
       ],
-      "release_date": "2005-11-16",
-      "revenue": 895921036,
-      "runtime": 157,
+      "release_date": "2003-12-17",
+      "revenue": 1118888979,
+      "runtime": 201,
       "spoken_languages": [
         {
           "english_name": "English",
           "iso_639_1": "en",
           "name": "English"
-        },
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
         }
       ],
       "status": "Released",
-      "tagline": "Dark and difficult times lie ahead.",
-      "title": "Harry Potter and the Goblet of Fire",
+      "tagline": "There can be no triumph without loss. No victory without suffering. No freedom without sacrifice.",
+      "title": "The Lord of the Rings: The Return of the King",
       "video": false,
-      "vote_average": 7.8,
-      "vote_count": 21611,
+      "vote_average": 8.491,
+      "vote_count": 25697,
       "media_type": "movie"
     },
     {
@@ -2423,7 +2269,7 @@
       "original_language": "en",
       "original_title": "Harry Potter and the Prisoner of Azkaban",
       "overview": "Year three at Hogwarts means new fun and challenges as Harry learns the delicate art of approaching a Hippogriff, transforming shape-shifting Boggarts into hilarity and even turning back time. But the term also brings danger: soul-sucking Dementors hover over the school, an ally of the accursed He-Who-Cannot-Be-Named lurks within the castle walls, and fearsome wizard Sirius Black escapes Azkaban. And Harry will confront them all.",
-      "popularity": 23.0911,
+      "popularity": 23.671,
       "poster_path": "/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg",
       "production_companies": [
         {
@@ -2475,8 +2321,962 @@
       "tagline": "Something wicked this way comes.",
       "title": "Harry Potter and the Prisoner of Azkaban",
       "video": false,
-      "vote_average": 8.01,
-      "vote_count": 22568,
+      "vote_average": 8.011,
+      "vote_count": 22573,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8f9dnOtpArDrOMEylpSN9Sc6fuz.jpg",
+      "belongs_to_collection": {
+        "id": 1241,
+        "name": "Harry Potter Collection",
+        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
+        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+      },
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-goblet-fire",
+      "id": 674,
+      "imdb_id": "tt0330373",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Harry Potter and the Goblet of Fire",
+      "overview": "When Harry Potter's name emerges from the Goblet of Fire, he becomes a competitor in a grueling battle for glory among three wizarding schools—the Triwizard Tournament. But since Harry never submitted his name for the Tournament, who did? Now Harry must confront a deadly dragon, fierce water demons and an enchanted maze only to find himself in the cruel grasp of He Who Must Not Be Named.",
+      "popularity": 23.5243,
+      "poster_path": "/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 437,
+          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
+          "name": "Heyday Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 462,
+          "logo_path": null,
+          "name": "Patalex IV Productions",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2005-11-16",
+      "revenue": 895921036,
+      "runtime": 157,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Dark and difficult times lie ahead.",
+      "title": "Harry Potter and the Goblet of Fire",
+      "video": false,
+      "vote_average": 7.8,
+      "vote_count": 21616,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
+      "belongs_to_collection": null,
+      "budget": 250000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.amazon.com/salp/redonemovie",
+      "id": 845781,
+      "imdb_id": "tt14948432",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Red One",
+      "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+      "popularity": 22.1544,
+      "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+      "production_companies": [
+        {
+          "id": 73669,
+          "logo_path": "/pZ1sOLrUxvCvW1jODdCFgU6RxUA.png",
+          "name": "Seven Bucks Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 92693,
+          "logo_path": "/rMKRo8kFoJKxZr0MFEVRoZ8b54E.png",
+          "name": "The Detective Agency",
+          "origin_country": "US"
+        },
+        {
+          "id": 25998,
+          "logo_path": null,
+          "name": "Chris Morgan Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 210099,
+          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
+          "name": "Amazon MGM Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2024-10-31",
+      "revenue": 185700759,
+      "runtime": 124,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The mission to save Christmas is on.",
+      "title": "Red One",
+      "video": false,
+      "vote_average": 7.035,
+      "vote_count": 2741,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/b6HWTOxn1xevvyHU2K9ICvaRU6g.jpg",
+      "belongs_to_collection": null,
+      "budget": 60000000,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "http://thegreenmile.warnerbros.com/",
+      "id": 497,
+      "imdb_id": "tt0120689",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Green Mile",
+      "overview": "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments. When the cell block's head guard, Paul Edgecomb, recognizes Coffey's miraculous gift, he tries desperately to help stave off the condemned man's execution.",
+      "popularity": 17.5232,
+      "poster_path": "/o0lO84GI7qrG6XFvtsPOSV7CTNa.jpg",
+      "production_companies": [
+        {
+          "id": 97,
+          "logo_path": "/qv3ih9pR9w2XNKZDsqDqAGuZjqc.png",
+          "name": "Castle Rock Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 3982,
+          "logo_path": "/bli7HkPOXOEWsDwDK0W7XXfeUU2.png",
+          "name": "Darkwoods Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1999-12-10",
+      "revenue": 286801374,
+      "runtime": 189,
+      "spoken_languages": [
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Paul Edgecomb didn't believe in miracles. Until the day he met one.",
+      "title": "The Green Mile",
+      "video": false,
+      "vote_average": 8.503,
+      "vote_count": 18570,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7tbeoSTWW2cWPecjQo9fcdf0Hzv.jpg",
+      "belongs_to_collection": {
+        "id": 1241,
+        "name": "Harry Potter Collection",
+        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
+        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+      },
+      "budget": 100000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-chamber-secrets",
+      "id": 672,
+      "imdb_id": "tt0295297",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Harry Potter and the Chamber of Secrets",
+      "overview": "Cars fly, trees fight back, and a mysterious house-elf comes to warn Harry Potter at the start of his second year at Hogwarts. Adventure and danger await when bloody writing on a wall announces: The Chamber Of Secrets Has Been Opened. To save Hogwarts will require all of Harry, Ron and Hermione's magical abilities and courage.",
+      "popularity": 22.9143,
+      "poster_path": "/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 437,
+          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
+          "name": "Heyday Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 436,
+          "logo_path": "/A7WCkG3F0NFvjGCwUnclpGdIu9E.png",
+          "name": "1492 Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 19094,
+          "logo_path": null,
+          "name": "MIRACLE Productions",
+          "origin_country": "DE"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "DE",
+          "name": "Germany"
+        }
+      ],
+      "release_date": "2002-11-13",
+      "revenue": 876688482,
+      "runtime": 161,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Something evil has returned to Hogwarts!",
+      "title": "Harry Potter and the Chamber of Secrets",
+      "video": false,
+      "vote_average": 7.704,
+      "vote_count": 23005,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jLbpgkxA5PSgzmcszT8yCOyPkgf.jpg",
+      "belongs_to_collection": {
+        "id": 1241,
+        "name": "Harry Potter Collection",
+        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
+        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+      },
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-order-phoenix",
+      "id": 675,
+      "imdb_id": "tt0373889",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Harry Potter and the Order of the Phoenix",
+      "overview": "Returning for his fifth year at Hogwarts, Harry is stunned to find that his warnings about the return of Lord Voldemort have been ignored. Left with no choice, Harry takes matters into his own hands, training a small group of motivated students to defend themselves against the Dark Arts.",
+      "popularity": 21.0732,
+      "poster_path": "/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 437,
+          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
+          "name": "Heyday Films",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2007-07-08",
+      "revenue": 938212738,
+      "runtime": 138,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The rebellion begins.",
+      "title": "Harry Potter and the Order of the Phoenix",
+      "video": false,
+      "vote_average": 7.674,
+      "vote_count": 20309,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/iZbZjYflt859q8hR7bsvApeDLr5.jpg",
+      "belongs_to_collection": null,
+      "budget": 136250000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "",
+      "id": 920708,
+      "imdb_id": "tt21438726",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "te",
+      "original_title": "వారణాసి",
+      "overview": "When an asteroid hits the city of Vāranāsi in India, what are the events that it leads to? Is the world about to be doomed? Does it need a saviour who has to traverse across the continents and timelines to influence the most crucial moment in the history of earth?",
+      "popularity": 16.7596,
+      "poster_path": "/9XHgX5XEQt95nwZIlp2yiMaw65D.jpg",
+      "production_companies": [
+        {
+          "id": 98173,
+          "logo_path": null,
+          "name": "Sri Durga Arts",
+          "origin_country": ""
+        },
+        {
+          "id": 223950,
+          "logo_path": null,
+          "name": "Showing Business",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "",
+      "revenue": 0,
+      "runtime": 0,
+      "spoken_languages": [
+        {
+          "english_name": "Telugu",
+          "iso_639_1": "te",
+          "name": "తెలుగు"
+        }
+      ],
+      "status": "In Production",
+      "tagline": "",
+      "title": "Vāranāsi",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/40Wtp7kMG6mZ4d5T1jfrd8qrvD4.jpg",
+      "belongs_to_collection": {
+        "id": 2150,
+        "name": "Shrek Collection",
+        "poster_path": "/qNHZMe92A7Pyl46qUH29hVOtbSK.jpg",
+        "backdrop_path": "/lhsd1zCsq5UquvcNalmhuddV3tI.jpg"
+      },
+      "budget": 60000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "http://www.dreamworksanimation.com/shrek/",
+      "id": 808,
+      "imdb_id": "tt0126029",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Shrek",
+      "overview": "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+      "popularity": 21.5522,
+      "poster_path": "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+      "production_companies": [
+        {
+          "id": 520,
+          "logo_path": "/pU7YTI9FfrICurXpl5V9TfCO0oJ.png",
+          "name": "Pacific Data Images",
+          "origin_country": "US"
+        },
+        {
+          "id": 521,
+          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
+          "name": "DreamWorks Animation",
+          "origin_country": "US"
+        },
+        {
+          "id": 7,
+          "logo_path": "/vru2SssLX3FPhnKZGtYw00pVIS9.png",
+          "name": "DreamWorks Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2001-05-18",
+      "revenue": 488628188,
+      "runtime": 90,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The greatest fairy tale never told.",
+      "title": "Shrek",
+      "video": false,
+      "vote_average": 7.754,
+      "vote_count": 18139,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/u2bZhH3nTf0So0UIC1QxAqBvC07.jpg",
+      "belongs_to_collection": {
+        "id": 386382,
+        "name": "Frozen Collection",
+        "poster_path": "/13Op41T3cALJedrKqYPrlc3cIbO.jpg",
+        "backdrop_path": "/s3vdRkK7KZFUDC8HEJo2GRKyVhW.jpg"
+      },
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "http://movies.disney.com/frozen",
+      "id": 109445,
+      "imdb_id": "tt2294629",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Frozen",
+      "overview": "Young princess Anna of Arendelle dreams about finding true love at her sister Elsa’s coronation. Fate takes her on a dangerous journey in an attempt to end the eternal winter that has fallen over the kingdom. She's accompanied by ice delivery man Kristoff, his reindeer Sven, and snowman Olaf. On an adventure where she will find out what friendship, courage, family, and true love really means.",
+      "popularity": 19.3971,
+      "poster_path": "/itAKcobTYGpYT8Phwjd8c9hleTo.jpg",
+      "production_companies": [
+        {
+          "id": 6125,
+          "logo_path": "/tzsMJBJZINu7GHzrpYzpReWhh66.png",
+          "name": "Walt Disney Animation Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2013-11-20",
+      "revenue": 1274219009,
+      "runtime": 102,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Who will save the day? The ice guy? The nice guy? The snow man? Or no man?",
+      "title": "Frozen",
+      "video": false,
+      "vote_average": 7.249,
+      "vote_count": 17179,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
+      "belongs_to_collection": {
+        "id": 1434561,
+        "name": "The Super Mario Collection",
+        "poster_path": "/8wVpJ4DCEVP6Ima1MgKgymZbYcz.jpg",
+        "backdrop_path": "/hX6DycbhqpkHuYD5ia4YeQQ2RgV.jpg"
+      },
+      "budget": 100000000,
+      "genres": [
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.uphe.com/movies/the-super-mario-bros-movie",
+      "id": 502356,
+      "imdb_id": "tt6718170",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Super Mario Bros. Movie",
+      "overview": "While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.",
+      "popularity": 20.8437,
+      "poster_path": "/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 6704,
+          "logo_path": "/xte4JnhtBJfHSR5jqtHQwvyLgk0.png",
+          "name": "Illumination",
+          "origin_country": "US"
+        },
+        {
+          "id": 12288,
+          "logo_path": "/e4dQAqZD374H5EuM0W1ljEBWTKy.png",
+          "name": "Nintendo",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2023-04-05",
+      "revenue": 1362000000,
+      "runtime": 93,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Not all heroes wear capes. Some wear overalls.",
+      "title": "The Super Mario Bros. Movie",
+      "video": false,
+      "vote_average": 7.603,
+      "vote_count": 10089,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mXLVA0YL6tcXi6SJSuAh9ONXFj5.jpg",
+      "belongs_to_collection": null,
+      "budget": 10500000,
+      "genres": [
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "http://www.et20.com/",
+      "id": 601,
+      "imdb_id": "tt0083866",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "E.T. the Extra-Terrestrial",
+      "overview": "An alien is left behind on Earth and saved by the 10-year-old Elliott who decides to keep him hidden in his home. While a task force hunts for the extra-terrestrial, Elliott, his brother, and his little sister Gertie form an emotional bond with their new friend, and try to help him find his way home.",
+      "popularity": 16.7431,
+      "poster_path": "/an0nD6uq6byfxXCfk6lQBzdL2J1.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 56,
+          "logo_path": "/cEaxANEisCqeEoRvODv2dO1I0iI.png",
+          "name": "Amblin Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1982-06-11",
+      "revenue": 797307407,
+      "runtime": 115,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "He is afraid. He is totally alone. He is 3,000,000 light years from home.",
+      "title": "E.T. the Extra-Terrestrial",
+      "video": false,
+      "vote_average": 7.511,
+      "vote_count": 11654,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/iy0QpPxhmAhDjD8p7ukYHQB8HMh.jpg",
+      "belongs_to_collection": {
+        "id": 1241,
+        "name": "Harry Potter Collection",
+        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
+        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+      },
+      "budget": 250000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-half-blood-prince",
+      "id": 767,
+      "imdb_id": "tt0417741",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Harry Potter and the Half-Blood Prince",
+      "overview": "As Lord Voldemort tightens his grip on both the Muggle and wizarding worlds, Hogwarts is no longer a safe haven. Harry suspects perils may even lie within the castle, but Dumbledore is more intent upon preparing him for the final battle fast approaching. Together they work to find the key to unlock Voldemorts defenses and to this end, Dumbledore recruits his old friend and colleague Horace Slughorn, whom he believes holds crucial information. Even as the decisive showdown looms, romance blossoms for Harry, Ron, Hermione and their classmates. Love is in the air, but danger lies ahead and Hogwarts may never be the same again.",
+      "popularity": 20.0186,
+      "poster_path": "/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 437,
+          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
+          "name": "Heyday Films",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2009-07-15",
+      "revenue": 933959197,
+      "runtime": 153,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Dark secrets revealed.",
+      "title": "Harry Potter and the Half-Blood Prince",
+      "video": false,
+      "vote_average": 7.682,
+      "vote_count": 20275,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/AuV99eQivVWuk2AOSM6hYh9QRPQ.jpg",
+      "belongs_to_collection": {
+        "id": 420,
+        "name": "The Chronicles of Narnia Collection",
+        "poster_path": "/sh6Kn8VBfXotJ6qsvJkdfscxXKR.jpg",
+        "backdrop_path": "/ojjzZUQlqKTsN1T7s5OAVZSjYMH.jpg"
+      },
+      "budget": 180000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "",
+      "id": 411,
+      "imdb_id": "tt0363771",
+      "origin_country": [
+        "US",
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+      "overview": "Siblings Lucy, Edmund, Susan and Peter step through a magical wardrobe and find the land of Narnia. There, they discover a charming, once peaceful kingdom that has been plunged into eternal winter by the evil White Witch, Jadis. Aided by the wise and magnificent lion, Aslan, the children lead Narnia into a spectacular, climactic battle to be free of the Witch's glacial powers forever.",
+      "popularity": 18.655,
+      "poster_path": "/iREd0rNCjYdf5Ar0vfaW32yrkm.jpg",
+      "production_companies": [
+        {
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 10221,
+          "logo_path": "/99VfWRgKasZoyK9UVB39gnYvFrZ.png",
+          "name": "Walden Media",
+          "origin_country": "US"
+        },
+        {
+          "id": 79503,
+          "logo_path": null,
+          "name": "C.S. Lewis Company",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2005-12-07",
+      "revenue": 745013115,
+      "runtime": 143,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The beloved masterpiece comes to life.",
+      "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+      "video": false,
+      "vote_average": 7.135,
+      "vote_count": 11166,
       "media_type": "movie"
     },
     {
@@ -2511,7 +3311,7 @@
       "original_language": "ja",
       "original_title": "ペンギン・ハイウェイ",
       "overview": "A fourth-grader investigates the mysterious reason behind the sudden appearance of penguins in his village, which is somehow related to a power from a young woman working at a dental clinic.",
-      "popularity": 18.3977,
+      "popularity": 17.7157,
       "poster_path": "/wMJJk4kkXfqwP5W7wYHWvDXhTlw.jpg",
       "production_companies": [
         {
@@ -2577,750 +3377,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/rOmUuQEZfPXglwFs5ELLLUDKodL.jpg",
-      "belongs_to_collection": null,
-      "budget": 250000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.amazon.com/salp/redonemovie",
-      "id": 845781,
-      "imdb_id": "tt14948432",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Red One",
-      "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
-      "popularity": 21.9035,
-      "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
-      "production_companies": [
-        {
-          "id": 73669,
-          "logo_path": "/pZ1sOLrUxvCvW1jODdCFgU6RxUA.png",
-          "name": "Seven Bucks Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 92693,
-          "logo_path": "/rMKRo8kFoJKxZr0MFEVRoZ8b54E.png",
-          "name": "The Detective Agency",
-          "origin_country": "US"
-        },
-        {
-          "id": 25998,
-          "logo_path": null,
-          "name": "Chris Morgan Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 210099,
-          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
-          "name": "Amazon MGM Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2024-10-31",
-      "revenue": 185700759,
-      "runtime": 124,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The mission to save Christmas is on.",
-      "title": "Red One",
-      "video": false,
-      "vote_average": 7.0,
-      "vote_count": 2739,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
-      "belongs_to_collection": {
-        "id": 1434561,
-        "name": "The Super Mario Collection",
-        "poster_path": "/8wVpJ4DCEVP6Ima1MgKgymZbYcz.jpg",
-        "backdrop_path": "/hX6DycbhqpkHuYD5ia4YeQQ2RgV.jpg"
-      },
-      "budget": 100000000,
-      "genres": [
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.uphe.com/movies/the-super-mario-bros-movie",
-      "id": 502356,
-      "imdb_id": "tt6718170",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Super Mario Bros. Movie",
-      "overview": "While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.",
-      "popularity": 20.2359,
-      "poster_path": "/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/6exxhPonOo0M995SAchY0ijpRao.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 6704,
-          "logo_path": "/xte4JnhtBJfHSR5jqtHQwvyLgk0.png",
-          "name": "Illumination",
-          "origin_country": "US"
-        },
-        {
-          "id": 12288,
-          "logo_path": "/e4dQAqZD374H5EuM0W1ljEBWTKy.png",
-          "name": "Nintendo",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2023-04-05",
-      "revenue": 1362000000,
-      "runtime": 93,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Not all heroes wear capes. Some wear overalls.",
-      "title": "The Super Mario Bros. Movie",
-      "video": false,
-      "vote_average": 7.603,
-      "vote_count": 10086,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7tbeoSTWW2cWPecjQo9fcdf0Hzv.jpg",
-      "belongs_to_collection": {
-        "id": 1241,
-        "name": "Harry Potter Collection",
-        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
-        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
-      },
-      "budget": 100000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-chamber-secrets",
-      "id": 672,
-      "imdb_id": "tt0295297",
-      "origin_country": [
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "Harry Potter and the Chamber of Secrets",
-      "overview": "Cars fly, trees fight back, and a mysterious house-elf comes to warn Harry Potter at the start of his second year at Hogwarts. Adventure and danger await when bloody writing on a wall announces: The Chamber Of Secrets Has Been Opened. To save Hogwarts will require all of Harry, Ron and Hermione's magical abilities and courage.",
-      "popularity": 21.6977,
-      "poster_path": "/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
-      "production_companies": [
-        {
-          "id": 174,
-          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 437,
-          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
-          "name": "Heyday Films",
-          "origin_country": "GB"
-        },
-        {
-          "id": 436,
-          "logo_path": "/A7WCkG3F0NFvjGCwUnclpGdIu9E.png",
-          "name": "1492 Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 19094,
-          "logo_path": null,
-          "name": "MIRACLE Productions",
-          "origin_country": "DE"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "DE",
-          "name": "Germany"
-        }
-      ],
-      "release_date": "2002-11-13",
-      "revenue": 876688482,
-      "runtime": 161,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Something evil has returned to Hogwarts!",
-      "title": "Harry Potter and the Chamber of Secrets",
-      "video": false,
-      "vote_average": 7.704,
-      "vote_count": 23000,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/40Wtp7kMG6mZ4d5T1jfrd8qrvD4.jpg",
-      "belongs_to_collection": {
-        "id": 2150,
-        "name": "Shrek Collection",
-        "poster_path": "/qNHZMe92A7Pyl46qUH29hVOtbSK.jpg",
-        "backdrop_path": "/lhsd1zCsq5UquvcNalmhuddV3tI.jpg"
-      },
-      "budget": 60000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "http://www.dreamworksanimation.com/shrek/",
-      "id": 808,
-      "imdb_id": "tt0126029",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Shrek",
-      "overview": "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
-      "popularity": 20.758,
-      "poster_path": "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-      "production_companies": [
-        {
-          "id": 520,
-          "logo_path": "/pU7YTI9FfrICurXpl5V9TfCO0oJ.png",
-          "name": "Pacific Data Images",
-          "origin_country": "US"
-        },
-        {
-          "id": 521,
-          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
-          "name": "DreamWorks Animation",
-          "origin_country": "US"
-        },
-        {
-          "id": 7,
-          "logo_path": "/vru2SssLX3FPhnKZGtYw00pVIS9.png",
-          "name": "DreamWorks Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2001-05-18",
-      "revenue": 488628188,
-      "runtime": 90,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The greatest fairy tale never told.",
-      "title": "Shrek",
-      "video": false,
-      "vote_average": 7.753,
-      "vote_count": 18134,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg",
-      "belongs_to_collection": {
-        "id": 119,
-        "name": "The Lord of the Rings Collection",
-        "poster_path": "/qx5x7HRP0MrSBx6N3QJFXpMrbWB.jpg",
-        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
-      },
-      "budget": 94000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "http://www.lordoftherings.net",
-      "id": 122,
-      "imdb_id": "tt0167260",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Lord of the Rings: The Return of the King",
-      "overview": "As armies mass for a final battle that will decide the fate of the world--and powerful, ancient forces of Light and Dark compete to determine the outcome--one member of the Fellowship of the Ring is revealed as the noble heir to the throne of the Kings of Men. Yet, the sole hope for triumph over evil lies with a brave hobbit, Frodo, who, accompanied by his loyal friend Sam and the hideous, wretched Gollum, ventures deep into the very dark heart of Mordor on his seemingly impossible quest to destroy the Ring of Power.​",
-      "popularity": 23.4668,
-      "poster_path": "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
-      "production_companies": [
-        {
-          "id": 12,
-          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
-          "name": "New Line Cinema",
-          "origin_country": "US"
-        },
-        {
-          "id": 11,
-          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
-          "name": "WingNut Films",
-          "origin_country": "NZ"
-        },
-        {
-          "id": 5237,
-          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
-          "name": "The Saul Zaentz Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "NZ",
-          "name": "New Zealand"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2003-12-17",
-      "revenue": 1118888979,
-      "runtime": 201,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "There can be no triumph without loss. No victory without suffering. No freedom without sacrifice.",
-      "title": "The Lord of the Rings: The Return of the King",
-      "video": false,
-      "vote_average": 8.491,
-      "vote_count": 25692,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/9QusGjxcYvfPD1THg6oW3RLeNn7.jpg",
-      "belongs_to_collection": {
-        "id": 573693,
-        "name": "Aquaman Collection",
-        "poster_path": "/jhD3r3Jy2PcyKcyjWXFixesLz2p.jpg",
-        "backdrop_path": "/ieX3uWD8G1OFkATC1LCi5Xw2YlX.jpg"
-      },
-      "budget": 160000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.warnerbros.com/movies/aquaman",
-      "id": 297802,
-      "imdb_id": "tt1477834",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Aquaman",
-      "overview": "Half-human, half-Atlantean Arthur Curry is taken on the journey of his lifetime to discover if he is worth of being a king.",
-      "popularity": 12.3431,
-      "poster_path": "/ufl63EFcc5XpByEV2Ecdw6WJZAI.jpg",
-      "production_companies": [
-        {
-          "id": 174,
-          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 11565,
-          "logo_path": "/odU3l6csuBmXUrzFm6araUgEUHQ.png",
-          "name": "The Safran Company",
-          "origin_country": "US"
-        },
-        {
-          "id": 128064,
-          "logo_path": "/13F3Jf7EFAcREU0xzZqJnVnyGXu.png",
-          "name": "DC Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2018-12-07",
-      "revenue": 1152028393,
-      "runtime": 143,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Home is calling.",
-      "title": "Aquaman",
-      "video": false,
-      "vote_average": 6.872,
-      "vote_count": 14588,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/jLbpgkxA5PSgzmcszT8yCOyPkgf.jpg",
-      "belongs_to_collection": {
-        "id": 1241,
-        "name": "Harry Potter Collection",
-        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
-        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
-      },
-      "budget": 150000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-order-phoenix",
-      "id": 675,
-      "imdb_id": "tt0373889",
-      "origin_country": [
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "Harry Potter and the Order of the Phoenix",
-      "overview": "Returning for his fifth year of study at Hogwarts, Harry is stunned to find that his warnings about the return of Lord Voldemort have been ignored. Left with no choice, Harry takes matters into his own hands, training a small group of students to defend themselves against the dark arts.",
-      "popularity": 19.5386,
-      "poster_path": "/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
-      "production_companies": [
-        {
-          "id": 174,
-          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 437,
-          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
-          "name": "Heyday Films",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2007-07-08",
-      "revenue": 938212738,
-      "runtime": 138,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The rebellion begins.",
-      "title": "Harry Potter and the Order of the Phoenix",
-      "video": false,
-      "vote_average": 7.7,
-      "vote_count": 20306,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/AuV99eQivVWuk2AOSM6hYh9QRPQ.jpg",
-      "belongs_to_collection": {
-        "id": 420,
-        "name": "The Chronicles of Narnia Collection",
-        "poster_path": "/sh6Kn8VBfXotJ6qsvJkdfscxXKR.jpg",
-        "backdrop_path": "/ojjzZUQlqKTsN1T7s5OAVZSjYMH.jpg"
-      },
-      "budget": 180000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "",
-      "id": 411,
-      "imdb_id": "tt0363771",
-      "origin_country": [
-        "US",
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
-      "overview": "Siblings Lucy, Edmund, Susan and Peter step through a magical wardrobe and find the land of Narnia. There, they discover a charming, once peaceful kingdom that has been plunged into eternal winter by the evil White Witch, Jadis. Aided by the wise and magnificent lion, Aslan, the children lead Narnia into a spectacular, climactic battle to be free of the Witch's glacial powers forever.",
-      "popularity": 18.7425,
-      "poster_path": "/iREd0rNCjYdf5Ar0vfaW32yrkm.jpg",
-      "production_companies": [
-        {
-          "id": 2,
-          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
-          "name": "Walt Disney Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 10221,
-          "logo_path": "/99VfWRgKasZoyK9UVB39gnYvFrZ.png",
-          "name": "Walden Media",
-          "origin_country": "US"
-        },
-        {
-          "id": 79503,
-          "logo_path": null,
-          "name": "C.S. Lewis Company",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2005-12-07",
-      "revenue": 745013115,
-      "runtime": 143,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "German",
-          "iso_639_1": "de",
-          "name": "Deutsch"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The beloved masterpiece comes to life.",
-      "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
-      "video": false,
-      "vote_average": 7.135,
-      "vote_count": 11167,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/uRNgkJSkNBFbbn9fPsEjDIy8Sh3.jpg",
-      "belongs_to_collection": {
-        "id": 295,
-        "name": "Pirates of the Caribbean Collection",
-        "poster_path": "/zRBaZxS5YauLvRYjAdL4AUCwlht.jpg",
-        "backdrop_path": "/wxgD3fB5lQ2sGJLog0rvXW049Pf.jpg"
-      },
-      "budget": 140000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "https://movies.disney.com/pirates-of-the-caribbean-the-curse-of-the-black-pearl",
-      "id": 22,
-      "imdb_id": "tt0325980",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Pirates of the Caribbean: The Curse of the Black Pearl",
-      "overview": "After Port Royal is attacked and pillaged by a mysterious pirate crew, capturing the governor's daughter Elizabeth Swann in the process, William Turner asks free-willing pirate Jack Sparrow to help him locate the crew's ship—The Black Pearl—so that he can rescue the woman he loves.",
-      "popularity": 18.077,
-      "poster_path": "/poHwCZeWzJCShH7tOjg8RIoyjcw.jpg",
-      "production_companies": [
-        {
-          "id": 2,
-          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
-          "name": "Walt Disney Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 130,
-          "logo_path": "/c9dVHPOL3cqCr2593Ahk0nEKTEM.png",
-          "name": "Jerry Bruckheimer Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2003-07-09",
-      "revenue": 655011224,
-      "runtime": 143,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Prepare to be blown out of the water.",
-      "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
-      "video": false,
-      "vote_average": 7.816,
-      "vote_count": 21621,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/xSD0q1FiuZkvHuy7uscOLbmd1hR.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -3347,7 +3403,7 @@
       "original_language": "en",
       "original_title": "Red Sonja",
       "overview": "A young girl rises from the ashes of tragedy to become the most feared warrior woman of all time: the She-Devil with a Sword.",
-      "popularity": 18.1856,
+      "popularity": 18.0775,
       "poster_path": "/aE3yh4y0h96CZZpLo0UDFMWZAA9.jpg",
       "production_companies": [
         {
@@ -3401,14 +3457,14 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/iy0QpPxhmAhDjD8p7ukYHQB8HMh.jpg",
+      "backdrop_path": "/uRNgkJSkNBFbbn9fPsEjDIy8Sh3.jpg",
       "belongs_to_collection": {
-        "id": 1241,
-        "name": "Harry Potter Collection",
-        "poster_path": "/eVPs2Y0LyvTLZn6AP5Z6O2rtiGB.jpg",
-        "backdrop_path": "/kmEsQL2vOTA0jnM28fXS45Ky8kX.jpg"
+        "id": 295,
+        "name": "Pirates of the Caribbean Collection",
+        "poster_path": "/zRBaZxS5YauLvRYjAdL4AUCwlht.jpg",
+        "backdrop_path": "/wxgD3fB5lQ2sGJLog0rvXW049Pf.jpg"
       },
-      "budget": 250000000,
+      "budget": 140000000,
       "genres": [
         {
           "id": 12,
@@ -3417,46 +3473,46 @@
         {
           "id": 14,
           "name": "Fantasy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
         }
       ],
-      "homepage": "https://www.warnerbros.com/movies/harry-potter-and-half-blood-prince",
-      "id": 767,
-      "imdb_id": "tt0417741",
+      "homepage": "https://movies.disney.com/pirates-of-the-caribbean-the-curse-of-the-black-pearl",
+      "id": 22,
+      "imdb_id": "tt0325980",
       "origin_country": [
-        "GB"
+        "US"
       ],
       "original_language": "en",
-      "original_title": "Harry Potter and the Half-Blood Prince",
-      "overview": "As Lord Voldemort tightens his grip on both the Muggle and wizarding worlds, Hogwarts is no longer a safe haven. Harry suspects perils may even lie within the castle, but Dumbledore is more intent upon preparing him for the final battle fast approaching. Together they work to find the key to unlock Voldemorts defenses and to this end, Dumbledore recruits his old friend and colleague Horace Slughorn, whom he believes holds crucial information. Even as the decisive showdown looms, romance blossoms for Harry, Ron, Hermione and their classmates. Love is in the air, but danger lies ahead and Hogwarts may never be the same again.",
-      "popularity": 18.824,
-      "poster_path": "/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+      "original_title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+      "overview": "After Port Royal is attacked and pillaged by a mysterious pirate crew, capturing the governor's daughter Elizabeth Swann in the process, William Turner asks free-willing pirate Jack Sparrow to help him locate the crew's ship—The Black Pearl—so that he can rescue the woman he loves.",
+      "popularity": 18.2467,
+      "poster_path": "/poHwCZeWzJCShH7tOjg8RIoyjcw.jpg",
       "production_companies": [
         {
-          "id": 174,
-          "logo_path": "/ingPVoHnINIrFR7WHmYux1f5pES.png",
-          "name": "Warner Bros. Pictures",
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
           "origin_country": "US"
         },
         {
-          "id": 437,
-          "logo_path": "/nu20mtwbEIhUNnQ5NXVhHsNknZj.png",
-          "name": "Heyday Films",
-          "origin_country": "GB"
+          "id": 130,
+          "logo_path": "/c9dVHPOL3cqCr2593Ahk0nEKTEM.png",
+          "name": "Jerry Bruckheimer Films",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
         {
           "iso_3166_1": "US",
           "name": "United States of America"
         }
       ],
-      "release_date": "2009-07-15",
-      "revenue": 933959197,
-      "runtime": 153,
+      "release_date": "2003-07-09",
+      "revenue": 655011224,
+      "runtime": 143,
       "spoken_languages": [
         {
           "english_name": "English",
@@ -3465,11 +3521,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "Dark secrets revealed.",
-      "title": "Harry Potter and the Half-Blood Prince",
+      "tagline": "Prepare to be blown out of the water.",
+      "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
       "video": false,
-      "vote_average": 7.7,
-      "vote_count": 20274,
+      "vote_average": 7.816,
+      "vote_count": 21624,
       "media_type": "movie"
     },
     {
@@ -3505,7 +3561,7 @@
       "original_language": "zh",
       "original_title": "哪吒之魔童降世",
       "overview": "A young boy is born as the reincarnation of a demonic power, into a society that hates and fears him. Destined by prophecy to bring destruction to the world, Nezha must choose between good and evil to see if he can change his fate.",
-      "popularity": 17.7896,
+      "popularity": 14.7258,
       "poster_path": "/phM9bb6s9c60LA8qwsdk7U1N2cS.jpg",
       "production_companies": [
         {
@@ -3554,75 +3610,7 @@
       "title": "Ne Zha",
       "video": false,
       "vote_average": 7.9,
-      "vote_count": 726,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/hofnlIyF6bePkgQOpcuRWLvzf15.jpg",
-      "belongs_to_collection": null,
-      "budget": 60000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.laika.com/our-films/coraline",
-      "id": 14836,
-      "imdb_id": "tt0327597",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Coraline",
-      "overview": "Wandering her rambling old house in her boring new town, 11-year-old Coraline discovers a hidden door to a strangely idealized version of her life. In order to stay in the fantasy, she must make a frighteningly real sacrifice.",
-      "popularity": 17.1706,
-      "poster_path": "/4jeFXQYytChdZYE9JYO7Un87IlW.jpg",
-      "production_companies": [
-        {
-          "id": 11537,
-          "logo_path": "/AgCkAk8EpUG9fTmK6mWcaJA2Zwh.png",
-          "name": "LAIKA",
-          "origin_country": "US"
-        },
-        {
-          "id": 8915,
-          "logo_path": null,
-          "name": "Pandemonium",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2009-02-05",
-      "revenue": 185860104,
-      "runtime": 100,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Be careful what you wish for.",
-      "title": "Coraline",
-      "video": false,
-      "vote_average": 7.896,
-      "vote_count": 8661,
+      "vote_count": 727,
       "media_type": "movie"
     },
     {
@@ -3654,7 +3642,7 @@
       "original_language": "en",
       "original_title": "Harry Potter and the Deathly Hallows: Part 1",
       "overview": "Harry, Ron and Hermione walk away from their last year at Hogwarts to find and destroy the remaining Horcruxes, putting an end to Voldemort's bid for immortality. But with Harry's beloved Dumbledore dead and Voldemort's unscrupulous Death Eaters on the loose, the world is more dangerous than ever.",
-      "popularity": 17.702,
+      "popularity": 18.5778,
       "poster_path": "/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg",
       "production_companies": [
         {
@@ -3695,247 +3683,7 @@
       "title": "Harry Potter and the Deathly Hallows: Part 1",
       "video": false,
       "vote_average": 7.738,
-      "vote_count": 19874,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4XPNNt0zfZKBqxxVWaQALd57UHl.jpg",
-      "belongs_to_collection": null,
-      "budget": 3700000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "https://flowthemovie.com/",
-      "id": 823219,
-      "imdb_id": "tt4772188",
-      "origin_country": [
-        "LV"
-      ],
-      "original_language": "lv",
-      "original_title": "Straume",
-      "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
-      "popularity": 17.4598,
-      "poster_path": "/zME0Ul0w48MKkYBnFRn40M5qgLh.jpg",
-      "production_companies": [
-        {
-          "id": 153335,
-          "logo_path": "/bEsO7l12cRGAY25Uqt1a66Ife1U.png",
-          "name": "Dream Well Studio",
-          "origin_country": "LV"
-        },
-        {
-          "id": 12433,
-          "logo_path": "/sKu7Gr83ie8w6waDwYNHMBEaSah.png",
-          "name": "Sacrebleu Productions",
-          "origin_country": "FR"
-        },
-        {
-          "id": 101516,
-          "logo_path": "/q7ynwvgbkht96N8qPFexUW3QFeR.png",
-          "name": "Take Five",
-          "origin_country": "BE"
-        },
-        {
-          "id": 94,
-          "logo_path": "/huC7HqorvUThGIrENrbcHmQVUA0.png",
-          "name": "ARTE France Cinéma",
-          "origin_country": "FR"
-        },
-        {
-          "id": 792,
-          "logo_path": "/cRhBQP1FFNugNxKkO1pUgeD2Rkr.png",
-          "name": "RTBF",
-          "origin_country": "BE"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "LV",
-          "name": "Latvia"
-        },
-        {
-          "iso_3166_1": "BE",
-          "name": "Belgium"
-        },
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "release_date": "2024-08-29",
-      "revenue": 17660107,
-      "runtime": 85,
-      "spoken_languages": [
-        {
-          "english_name": "No Language",
-          "iso_639_1": "xx",
-          "name": "No Language"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Surrender to the storm.",
-      "title": "Flow",
-      "video": false,
-      "vote_average": 8.124,
-      "vote_count": 2458,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/8zLS8p1tRyWFLRFfmgQq0j5WE6z.jpg",
-      "belongs_to_collection": {
-        "id": 1733,
-        "name": "The Mummy Collection",
-        "poster_path": "/x5ZQsM90h4jmvDelgbCwPjcOn1s.jpg",
-        "backdrop_path": "/1BeKi6IytbfQlQocJSvP2k6sO1a.jpg"
-      },
-      "budget": 80000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "http://www.mummyvideo.com/",
-      "id": 564,
-      "imdb_id": "tt0120616",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Mummy",
-      "overview": "Dashing legionnaire Rick O'Connell stumbles upon the hidden ruins of Hamunaptra while in the midst of a battle to claim the area in 1920s Egypt. It has been over three thousand years since former High Priest Imhotep suffered a fate worse than death as a punishment for a forbidden love—along with a curse that guarantees eternal doom upon the world if he is ever awoken.",
-      "popularity": 15.8091,
-      "poster_path": "/yhIsVvcUm7QxzLfT6HW2wLf5ajY.jpg",
-      "production_companies": [
-        {
-          "id": 11462,
-          "logo_path": "/7ZymELJwuWR4k5p0oeZ3d3WAhO3.png",
-          "name": "Alphaville Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1999-04-16",
-      "revenue": 415885488,
-      "runtime": 124,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Arabic",
-          "iso_639_1": "ar",
-          "name": "العربية"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The sands will rise. The heavens will part. The power will be unleashed.",
-      "title": "The Mummy",
-      "video": false,
-      "vote_average": 6.952,
-      "vote_count": 9601,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/q2V1q2Xxwqg3uXQKufpdCtrnAdn.jpg",
-      "belongs_to_collection": null,
-      "budget": 30000000,
-      "genres": [
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.goodfortune.movie",
-      "id": 1114967,
-      "imdb_id": "tt27543578",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Good Fortune",
-      "overview": "A well-meaning but rather inept angel named Gabriel meddles in the lives of a struggling gig worker and a wealthy capitalist.",
-      "popularity": 17.0366,
-      "poster_path": "/r83HIGA0mUiy7I9qVr17pF7SCDP.jpg",
-      "production_companies": [
-        {
-          "id": 1632,
-          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
-          "name": "Lionsgate",
-          "origin_country": "US"
-        },
-        {
-          "id": 221429,
-          "logo_path": "/7xNNmHcuDy0tOqZmsUMnZ6HcZ6E.png",
-          "name": "Media Capital Technologies",
-          "origin_country": "US"
-        },
-        {
-          "id": 168945,
-          "logo_path": null,
-          "name": "Oh Brudder Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-10-14",
-      "revenue": 25565113,
-      "runtime": 97,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Need a miracle?",
-      "title": "Good Fortune",
-      "video": false,
-      "vote_average": 7.077,
-      "vote_count": 260,
+      "vote_count": 19876,
       "media_type": "movie"
     },
     {
@@ -3966,7 +3714,7 @@
       "original_language": "en",
       "original_title": "Smurfs",
       "overview": "When Papa Smurf is mysteriously taken by evil wizards, Razamel and Gargamel, Smurfette leads the Smurfs on a mission into the real world to save him. With the help of new friends, the Smurfs must discover what defines their destiny to save the universe.",
-      "popularity": 17.564,
+      "popularity": 17.9751,
       "poster_path": "/8o6lkhL32xQJeB52IIG1us5BVey.jpg",
       "production_companies": [
         {
@@ -4052,14 +3800,338 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/vr6n6ZFUZvedvIlhfYcbCWcaKyW.jpg",
+      "backdrop_path": "/4XPNNt0zfZKBqxxVWaQALd57UHl.jpg",
+      "belongs_to_collection": null,
+      "budget": 3700000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "https://flowthemovie.com/",
+      "id": 823219,
+      "imdb_id": "tt4772188",
+      "origin_country": [
+        "LV"
+      ],
+      "original_language": "lv",
+      "original_title": "Straume",
+      "overview": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
+      "popularity": 18.2101,
+      "poster_path": "/zME0Ul0w48MKkYBnFRn40M5qgLh.jpg",
+      "production_companies": [
+        {
+          "id": 153335,
+          "logo_path": "/bEsO7l12cRGAY25Uqt1a66Ife1U.png",
+          "name": "Dream Well Studio",
+          "origin_country": "LV"
+        },
+        {
+          "id": 12433,
+          "logo_path": "/sKu7Gr83ie8w6waDwYNHMBEaSah.png",
+          "name": "Sacrebleu Productions",
+          "origin_country": "FR"
+        },
+        {
+          "id": 101516,
+          "logo_path": "/q7ynwvgbkht96N8qPFexUW3QFeR.png",
+          "name": "Take Five",
+          "origin_country": "BE"
+        },
+        {
+          "id": 94,
+          "logo_path": "/huC7HqorvUThGIrENrbcHmQVUA0.png",
+          "name": "ARTE France Cinéma",
+          "origin_country": "FR"
+        },
+        {
+          "id": 792,
+          "logo_path": "/cRhBQP1FFNugNxKkO1pUgeD2Rkr.png",
+          "name": "RTBF",
+          "origin_country": "BE"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "LV",
+          "name": "Latvia"
+        },
+        {
+          "iso_3166_1": "BE",
+          "name": "Belgium"
+        },
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        }
+      ],
+      "release_date": "2024-08-29",
+      "revenue": 17660107,
+      "runtime": 85,
+      "spoken_languages": [
+        {
+          "english_name": "No Language",
+          "iso_639_1": "xx",
+          "name": "No Language"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Surrender to the storm.",
+      "title": "Flow",
+      "video": false,
+      "vote_average": 8.124,
+      "vote_count": 2458,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/uKp9bl7yfwOROeGD7BZPPmiKTSm.jpg",
+      "belongs_to_collection": null,
+      "budget": 95000000,
+      "genres": [
+        {
+          "id": 10749,
+          "name": "Romance"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "http://movies.disney.com/cinderella",
+      "id": 150689,
+      "imdb_id": "tt1661199",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Cinderella",
+      "overview": "When her father unexpectedly passes away, young Ella finds herself at the mercy of her cruel stepmother and her daughters. Never one to give up hope, Ella's fortunes begin to change after meeting a dashing stranger in the woods.",
+      "popularity": 18.1731,
+      "poster_path": "/j91LJmcWo16CArFOoapsz84bwxb.jpg",
+      "production_companies": [
+        {
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 28788,
+          "logo_path": "/Aqomtf9oh5dKtxBNEagkdlp3aGv.png",
+          "name": "Genre Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 46339,
+          "logo_path": null,
+          "name": "Beagle Pug Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 47706,
+          "logo_path": null,
+          "name": "Allison Shearmur Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2015-03-06",
+      "revenue": 543514353,
+      "runtime": 105,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Midnight is just the beginning.",
+      "title": "Cinderella",
+      "video": false,
+      "vote_average": 6.827,
+      "vote_count": 7255,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hofnlIyF6bePkgQOpcuRWLvzf15.jpg",
+      "belongs_to_collection": null,
+      "budget": 60000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.laika.com/our-films/coraline",
+      "id": 14836,
+      "imdb_id": "tt0327597",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Coraline",
+      "overview": "Wandering her rambling old house in her boring new town, 11-year-old Coraline discovers a hidden door to a strangely idealized version of her life. In order to stay in the fantasy, she must make a frighteningly real sacrifice.",
+      "popularity": 17.98,
+      "poster_path": "/4jeFXQYytChdZYE9JYO7Un87IlW.jpg",
+      "production_companies": [
+        {
+          "id": 11537,
+          "logo_path": "/AgCkAk8EpUG9fTmK6mWcaJA2Zwh.png",
+          "name": "LAIKA",
+          "origin_country": "US"
+        },
+        {
+          "id": 8915,
+          "logo_path": null,
+          "name": "Pandemonium",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2009-02-05",
+      "revenue": 185860104,
+      "runtime": 100,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Be careful what you wish for.",
+      "title": "Coraline",
+      "video": false,
+      "vote_average": 7.896,
+      "vote_count": 8661,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/q2V1q2Xxwqg3uXQKufpdCtrnAdn.jpg",
+      "belongs_to_collection": null,
+      "budget": 30000000,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.goodfortune.movie",
+      "id": 1114967,
+      "imdb_id": "tt27543578",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Good Fortune",
+      "overview": "A well-meaning but rather inept angel named Gabriel meddles in the lives of a struggling gig worker and a wealthy capitalist.",
+      "popularity": 16.8771,
+      "poster_path": "/r83HIGA0mUiy7I9qVr17pF7SCDP.jpg",
+      "production_companies": [
+        {
+          "id": 1632,
+          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
+          "name": "Lionsgate",
+          "origin_country": "US"
+        },
+        {
+          "id": 221429,
+          "logo_path": "/7xNNmHcuDy0tOqZmsUMnZ6HcZ6E.png",
+          "name": "Media Capital Technologies",
+          "origin_country": "US"
+        },
+        {
+          "id": 168945,
+          "logo_path": null,
+          "name": "Oh Brudder Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-10-14",
+      "revenue": 25565113,
+      "runtime": 97,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Need a miracle?",
+      "title": "Good Fortune",
+      "video": false,
+      "vote_average": 7.092,
+      "vote_count": 267,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1vKGbjsqaLz2WecjVP7xaMxDdVn.jpg",
       "belongs_to_collection": {
         "id": 295,
         "name": "Pirates of the Caribbean Collection",
         "poster_path": "/zRBaZxS5YauLvRYjAdL4AUCwlht.jpg",
         "backdrop_path": "/wxgD3fB5lQ2sGJLog0rvXW049Pf.jpg"
       },
-      "budget": 200000000,
+      "budget": 300000000,
       "genres": [
         {
           "id": 12,
@@ -4074,24 +4146,18 @@
           "name": "Action"
         }
       ],
-      "homepage": "https://movies.disney.com/pirates-of-the-caribbean-dead-mans-chest",
-      "id": 58,
-      "imdb_id": "tt0383574",
+      "homepage": "https://movies.disney.com/pirates-of-the-caribbean-at-worlds-end",
+      "id": 285,
+      "imdb_id": "tt0449088",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Pirates of the Caribbean: Dead Man's Chest",
-      "overview": "Captain Jack Sparrow races to recover the heart of Davy Jones to avoid enslaving his soul to Jones' service, as other friends and foes seek the heart for their own agenda as well.",
-      "popularity": 16.6543,
-      "poster_path": "/lAhcKRt0ggTFkeFL95jrGQYaRXs.jpg",
+      "original_title": "Pirates of the Caribbean: At World's End",
+      "overview": "Will Turner and Elizabeth Swann join forces with the revived Captain Barbossa to free Jack Sparrow from Davy Jones' locker. The group must navigate dangerous waters, confront many foes and, ultimately, choose sides in a battle wherein piracy itself hangs in the balance.",
+      "popularity": 16.67,
+      "poster_path": "/jGWpG4YhpQwVmjyHEGkxEkeRf0S.jpg",
       "production_companies": [
-        {
-          "id": 2,
-          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
-          "name": "Walt Disney Pictures",
-          "origin_country": "US"
-        },
         {
           "id": 130,
           "logo_path": "/c9dVHPOL3cqCr2593Ahk0nEKTEM.png",
@@ -4103,6 +4169,12 @@
           "logo_path": null,
           "name": "Second Mate Productions",
           "origin_country": "US"
+        },
+        {
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
@@ -4111,107 +4183,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2006-07-06",
-      "revenue": 1066179747,
-      "runtime": 151,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Turkish",
-          "iso_639_1": "tr",
-          "name": "Türkçe"
-        },
-        {
-          "english_name": "Greek",
-          "iso_639_1": "el",
-          "name": "ελληνικά"
-        },
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Captain Jack is back!",
-      "title": "Pirates of the Caribbean: Dead Man's Chest",
-      "video": false,
-      "vote_average": 7.4,
-      "vote_count": 16719,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/kWYfW2Re0rUDE6IHhy4CRuKWeFr.jpg",
-      "belongs_to_collection": {
-        "id": 119,
-        "name": "The Lord of the Rings Collection",
-        "poster_path": "/qx5x7HRP0MrSBx6N3QJFXpMrbWB.jpg",
-        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
-      },
-      "budget": 79000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "http://www.lordoftherings.net/",
-      "id": 121,
-      "imdb_id": "tt0167261",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Lord of the Rings: The Two Towers",
-      "overview": "Frodo Baggins and the other members of the Fellowship continue on their sacred quest to destroy the One Ring--but on separate paths. Their destinies lie at two towers--Orthanc Tower in Isengard, where the corrupt wizard Saruman awaits, and Sauron's fortress at Barad-dur, deep within the dark lands of Mordor. Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.",
-      "popularity": 16.6122,
-      "poster_path": "/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
-      "production_companies": [
-        {
-          "id": 12,
-          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
-          "name": "New Line Cinema",
-          "origin_country": "US"
-        },
-        {
-          "id": 11,
-          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
-          "name": "WingNut Films",
-          "origin_country": "NZ"
-        },
-        {
-          "id": 5237,
-          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
-          "name": "The Saul Zaentz Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "NZ",
-          "name": "New Zealand"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2002-12-18",
-      "revenue": 926287400,
-      "runtime": 179,
+      "release_date": "2007-05-19",
+      "revenue": 961691209,
+      "runtime": 169,
       "spoken_languages": [
         {
           "english_name": "English",
@@ -4220,11 +4194,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "The journey continues.",
-      "title": "The Lord of the Rings: The Two Towers",
+      "tagline": "At the end of the world, the adventure begins.",
+      "title": "Pirates of the Caribbean: At World's End",
       "video": false,
-      "vote_average": 8.411,
-      "vote_count": 23132,
+      "vote_average": 7.266,
+      "vote_count": 15047,
       "media_type": "movie"
     }
   ]
