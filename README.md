@@ -7,3 +7,10 @@
 ![tv site preview](tv.png)
 
 ![sports site preview](sports.png)
+
+---
+
+Logos and loading screens were designed by [Fanilo Bini](https://taap.it/fanilo).
+
+![Designer logo](assets/bini.webp)
+
