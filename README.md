@@ -1,4 +1,4 @@
-# <img src="assets/bini.webp" alt="Designer logo" width="40" /> atishramkhe.github.io
+# atishramkhe.github.io
 
 ![Site preview](ateaish.png)
 
@@ -10,7 +10,7 @@
 
 ---
 
-Logos and loading screens were designed by ![Designer logo](assets/bini.webp) [Fanilo Bini](https://taap.it/fanilo).
+Logos and loading screens were designed by [Fanilo Bini](https://taap.it/fanilo).
 
 
 
