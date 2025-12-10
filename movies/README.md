@@ -1,1 +1,1 @@
-
+![Site preview](example.png)
