@@ -1,3 +1,6 @@
 # atishramkhe.github.io
 
-![Site preview](example.png)
+![Site preview](ateaish.png)
+![movies site preview](movies.png)
+![tv site preview](tv.png)
+![sports site preview](sports.png)
