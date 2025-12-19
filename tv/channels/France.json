@@ -3656,6 +3656,10 @@
     "logo": "logos/France/DAZN 1.png",
     "sources": [
       {
+        "type": "m3u8",
+        "url": "https://cdn-live.tv/api/v1/channels/player/?name=dazn+1&code=fr"
+      }, 
+      {
         "type": "tutvlive",
         "id": 20,
         "servers": [
