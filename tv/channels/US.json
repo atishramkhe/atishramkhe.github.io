@@ -212,6 +212,10 @@
     ],
     "logo": "logos/US/Fox_News.svg",
     "sources": [
+     {
+        "type": "iframe",
+        "url": "https://cdn-live.tv/api/v1/channels/player/?name=fox+news&code=us"
+      }, 
       {
         "type": "daddylive",
         "channel_id": "347"
