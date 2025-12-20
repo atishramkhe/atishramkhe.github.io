@@ -474,6 +474,10 @@
     "logo": "logos/France/beIN Sports 6.png",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=bein+sports+max+6&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "496"
       },
@@ -495,6 +499,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 7.png",
     "sources": [
+    {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=bein+sports+max+7&code=fr"" 
+    },
     {
         "type": "daddylive",
         "channel_id": "497"
@@ -518,6 +526,10 @@
     "logo": "logos/France/beIN Sports 8.png",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=bein+sports+max+8&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "498"
       },
@@ -539,6 +551,10 @@
     "categories": [],
     "logo": "logos/France/beIN Sports 9.png",
     "sources": [
+      {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=bein+sports+max+9&code=fr" 
+      },
       {
         "type": "daddylive",
         "channel_id": "499"
@@ -562,6 +578,10 @@
     "logo": "logos/France/beIN Sports 10.png",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=bein+sports+max+10&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "500"
       },
@@ -584,6 +604,10 @@
     "logo": "logos/France/ligue1+.webp",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=dazn+1&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "960"
       },
@@ -605,6 +629,10 @@
     "categories": [],
     "logo": "logos/France/DAZN 2.png",
     "sources": [
+      {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=dazn+2&code=fr" 
+      },
       {
         "type": "tutvlive",
         "id": 21,
