@@ -833,6 +833,10 @@
     ],
     "logo": "logos/Africa/CANAL+_SPORT_1.svg",
     "sources": [
+      { 
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport+1&code=za" 
+      },
       {
         "type": "daddylive",
         "channel_id": "486"
@@ -847,6 +851,10 @@
     ],
     "logo": "logos/Africa/CANAL+_SPORT_2.svg",
     "sources": [
+      { 
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport+2&code=za" 
+      },
       {
         "type": "daddylive",
         "channel_id": "487"
@@ -861,6 +869,10 @@
     ],
     "logo": "logos/Africa/CANAL+_SPORT_3.svg",
     "sources": [
+      { 
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport+3&code=za" 
+      },
       {
         "type": "daddylive",
         "channel_id": "488"
@@ -875,6 +887,10 @@
     ],
     "logo": "logos/Africa/CANAL+_SPORT_4.svg",
     "sources": [
+      { 
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport+4&code=za" 
+      },
       {
         "type": "daddylive",
         "channel_id": "489"
@@ -889,6 +905,10 @@
     ],
     "logo": "logos/Africa/CANAL+_SPORT_5.svg",
     "sources": [
+      { 
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport+5&code=za" 
+      },
       {
         "type": "daddylive",
         "channel_id": "490"
