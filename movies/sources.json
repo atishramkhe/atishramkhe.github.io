@@ -18,11 +18,6 @@
 				"shows": "https://vidsrc-embed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&autoplay=1&autonext=1&color-e02735"
 			},
 			{
-				"name": "aether.mom",
-				"movies": "https://aether.mom/media/tmdb-movie-${id}",
-				"shows": "https://aether.mom/media/tmdb-tv-{id}"
-			},
-			{
 				"name": "moviesapi.club",
 				"movies": "https://moviesapi.to/movie/${id}&autoplay=1&color-e02735",
 				"shows": "https://moviesapi.to/tv/${id}-${season}-${episode}&autoplay=1&autonext=1&color-e02735"
@@ -58,9 +53,9 @@
 	{
 		"VF": [
 			{
-				"name": "frembed.my",
-				"movies": "https://frembed.my/api/film.php?id=${id}",
-				"shows": "https://frembed.my/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.life",
+				"movies": "https://frembed.life/api/film.php?id=${id}",
+				"shows": "https://frembed.life/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
 			}
 		]
 	}
