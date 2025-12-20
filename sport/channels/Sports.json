@@ -232,7 +232,34 @@
       }
     ]
   },
- 
+  {
+    "name": "Canal+ Premier League",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Premier League.png",
+    "sources": [
+      {
+        "type": "iframe",
+        "url": "https://cdn-live.tv/api/v1/channels/player/?name=canal+premier+league&code=fr"
+      }
+    ]
+  },
+  {
+    "name": "Canal+ Moto GP",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+MotoGP.svg",
+    "sources": [
+      {
+        "type": "iframe",
+        "url": "https://cdn-live.tv/api/v1/channels/player/?name=canal+motogp&code=fr"
+      }
+    ]
+  },
   {
     "name": "RMC Sport 1",
     "id_api": null,
