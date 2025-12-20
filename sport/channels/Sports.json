@@ -11,6 +11,7 @@
     "categories": [],
     "logo": "logos/France/Eurosport 1.png",
     "sources": [
+     
      {
         "type": "daddylive",
         "channel_id": "772"
@@ -71,6 +72,11 @@
     "categories": ["Sports"],
     "logo": "logos/France/Canal+.png",
     "sources": [
+    
+      {
+     	"type" : "iframe", 
+     	"url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal&code=fr" 
+      },
       {
         "type": "daddylive",
         "channel_id": "121"
@@ -102,6 +108,10 @@
     "logo": "logos/France/Canal+ Sport.png",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "122"
       },
@@ -132,6 +142,10 @@
     "logo": "logos/France/Canal+ Sport 360.png",
     "sources": [
       {
+	"type" : "iframe", 
+        "url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+sport360&code=fr" 
+      },
+      {
         "type": "daddylive",
         "channel_id": "464"
       }, 
@@ -161,6 +175,10 @@
     "categories": [],
     "logo": "logos/France/Canal+ Foot.png",
     "sources": [
+      {
+     	"type" : "iframe", 
+     	"url" : "https://cdn-live.tv/api/v1/channels/player/?name=canal+foot&code=fr" 
+      },
       {
         "type": "daddylive",
         "channel_id": "463"
