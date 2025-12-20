@@ -212,6 +212,11 @@
     ],
     "logo": "logos/US/Fox_News.svg",
     "sources": [
+    
+     { 
+    	"type" : "m3u8", 
+    	"url" : "https://moveonjoy-scan.vercel.app/api/scan?url=https://fl9.moveonjoy.com/FOX_NEWS_CHANNEL/index.m3u8"
+     },
      {
         "type": "iframe",
         "url": "https://cdn-live.tv/api/v1/channels/player/?name=fox+news&code=us"

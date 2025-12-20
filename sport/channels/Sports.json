@@ -203,23 +203,8 @@
       }
     ]
   },
-  
   {
     "name": "Canal+ Live 1",
-    "id_api": null,
-    "categories": [
-      "France"
-    ],
-    "logo": "logos/France/Canal+ Live.png",
-    "sources": [
-      {
-        "type": "daddylive",
-        "channel_id": "271"
-      }
-    ]
-  },
-  {
-    "name": "Canal+ Live 2",
     "id_api": null,
     "categories": [
       "France"
@@ -232,6 +217,21 @@
       }
     ]
   },
+  {
+    "name": "Canal+ Live",
+    "id_api": null,
+    "categories": [
+      "France"
+    ],
+    "logo": "logos/France/Canal+ Live.png",
+    "sources": [
+      {
+        "type": "daddylive",
+        "channel_id": "271"
+      }
+    ]
+  },
+  
   {
     "name": "Canal+ Premier League",
     "id_api": null,
