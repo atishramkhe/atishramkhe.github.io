@@ -641,6 +641,40 @@
       align-items: center;
       margin-left: auto; /* <-- pushes it to the right */
     }
+
+    #geo-note {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 900px;
+      margin: 8px auto 0;
+      padding: 8px 12px;
+      background: rgba(20,20,20,0.95);
+      color: #fff;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      border-radius: 6px;
+      border: 3px solid #ff0000;
+      text-align: left;
+    }
+    #geo-note a {
+      color: #b876ff;
+      text-decoration: underline;
+    }
+    #geo-note-close {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    #geo-note-close:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -671,6 +705,9 @@
 
   <div id="main-layout">
     <div id="player-section">
+
+      
+
       <div id="controls">
         <div style="display:flex; align-items:center; flex:1;">
           <img src="assets/ateaish_tv_blanc_150ppi_noborder.png" alt="ateaish TV" style="height:32px; margin-right:16px;">
@@ -678,9 +715,46 @@
         <div style="flex:2; text-align:center;">
           <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:none ;"></div> <!-- display: inline-block -->
         </div>
-        
       </div>
       <div id="player-container">
+        <div id="geo-note">
+          <h2>Channels not working?</h2>
+          <button id="geo-note-close" aria-label="Hide notice">×</button>
+          France and Eurpean countries have recently banned the channels hosted on this site. To continue watching, please use a VPN if you have one. 
+          If you don't, I suggest using Proton VPN : 
+          <br><br>
+          • Create a free Proton account:&nbsp;
+          <a href="https://account.proton.me/signup"
+            target="_blank" rel="noopener noreferrer">Proton Signup</a>
+          <br>
+          • Download Proton VPN and Sign in with your new account:&nbsp;
+          <a href="https://protonvpn.com/download"
+            target="_blank" rel="noopener noreferrer">Proton VPN</a>
+          <br>
+          • Select a server and check if channels are working (US servers usually work better)&nbsp;
+          <br><br>
+          - ateaish
+        </div>
+
+        <div id="geo-note">
+          <h2>More Channels ...</h2>
+          <button id="geo-note-close" aria-label="Hide notice">×</button>
+          Some channels are not available on my website were moved to a IPTV application. TF1, France 2-5, M6 etc... are 
+          available within that IPTV and are of better quality. Follow these instructions: 
+          <br><br>
+          • Download IPTVNator application (choose version according to your Operating System):&nbsp;
+          <a href="https://github.com/4gray/iptvnator/releases"
+            target="_blank" rel="noopener noreferrer">IPTVNator App</a>
+          <br>
+          • Open the app, click on "+", copy and paste the following link there:&nbsp;
+          <a href="https://raw.githubusercontent.com/atishramkhe/atishramkhe.github.io/refs/heads/main/tv/channels/ateaish_extras.m3u"
+            target="_blank" rel="noopener noreferrer">https://raw.githubusercontent.com/atishramkhe/atishramkhe.github.io/refs/heads/main/tv/channels/ateaish_extras.m3u</a>
+          <br>
+          • Click on refresh regularly to get the latest channels.&nbsp;
+          <br><br>
+          - ateaish
+        </div>
+        
         <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
         <video id="player-video" controls autoplay playsinline></video>
         <div id="volume-osd"></div>
@@ -1845,6 +1919,17 @@
   // Call on load and on resize
   window.addEventListener('resize', relocatePlayerActions);
   relocatePlayerActions();
+
+  // Geo-note close button
+  (function () {
+    const btn = document.getElementById('geo-note-close');
+    const box = document.getElementById('geo-note');
+    if (btn && box) {
+      btn.addEventListener('click', () => {
+        box.style.display = 'none';
+      });
+    }
+  })();
 </script>
 </body>
 </html>
