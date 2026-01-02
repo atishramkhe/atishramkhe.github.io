@@ -1785,8 +1785,8 @@ function loadWatchLater() {
 }
 
 function initHome() {
-    loadGrid('titles/netflix_xmas_2025.json', 'netflixXmasGrid');
-    loadGrid('titles/best_xmas.json', 'bestXmasGrid');
+    // loadGrid('titles/netflix_xmas_2025.json', 'netflixXmasGrid');
+    // loadGrid('titles/best_xmas.json', 'bestXmasGrid');
     loadGrid('titles/trending.json', 'trendingGrid');
     loadGrid('titles/new.json', 'newGrid');
     loadGrid('titles/netflixfrance.json', 'netflixfranceGrid');
