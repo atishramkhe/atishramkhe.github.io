@@ -32,14 +32,9 @@ https://viamotionhsi.netplus.ch/live/eds/france5hd/browser-HLS8/france5hd.m3u8
 https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-HLS8/m6hd.m3u8
 #EXTINF:-1 tvg-id="M6.fr@SD" tvg-logo="https://imgur.com/7GVp3fW" tvg-country="FR" group-title="France",M6 SD
 https://viamotionhsi.netplus.ch/live/eds/m6hd/browser-dash/m6hd.mpd
-#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli (720p)
-https://viamotionhsi.netplus.ch/live/eds/gulli/browser-HLS8/gulli.m3u8
-#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli
-https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/c65696b42ca34e97a9b5f54758d6dd50/cmaf/hlsfmp4_short_q2hyb21h_gulli_sd_index.m3u8
-#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli
-https://viamotionhsi.netplus.ch/live/eds/gulli/browser-dash/gulli.mpd
-#EXTINF:-1 tvg-id="TiVi5Monde.fr@SD" tvg-logo="https://imgur.com/fVVKpmk" tvg-country="FR" group-title="France",TiVi5 Monde [Geo-blocked]
-https://ott.tv5monde.com/Content/HLS/Live/channel(tivi5)/variant.m3u8
+#EXTINF:-1 tvg-id="CanalPlus.fr@SD",Canal+ (1080p)
+https://viamotionhsi.netplus.ch/live/eds/canalplusclair/browser-HLS8/canalplusclair.m3u8
+
 #EXTINF:-1 tvg-id="TMC.fr@HD" tvg-logo="https://postimg.cc/nsDzxkcW" tvg-country="FR" group-title="France",TMC HD (1080p)
 https://viamotionhsi.netplus.ch/live/eds/tmc/browser-HLS8/tmc.m3u8
 #EXTINF:-1 tvg-id="6ter.fr@SD" tvg-logo="https://imgur.com/2nd5Cox" tvg-country="FR" group-title="France",6ter (1080p) [Geo-blocked]
@@ -60,6 +55,18 @@ https://viamotionhsi.netplus.ch/live/eds/w9/browser-HLS8/w9.m3u8
 https://viamotionhsi.netplus.ch/live/eds/w9/browser-dash/w9.mpd
 #EXTINF:-1 tvg-id="T18.fr@HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Logo_de_la_chaine_T18.svg/langfr-512px-Logo_de_la_chaine_T18.svg.png" tvg-country="FR" group-title="France",T18
 https://viamotionhsi.netplus.ch/live/eds/t18/browser-HLS8/t18.m3u8
+#EXTINF:-1 tvg-id="NOVO19.fr@HD",NOVO19 (720p)
+https://viamotionhsi.netplus.ch/live/eds/novo19/browser-HLS8/novo19.m3u8
+#EXTINF:-1 tvg-id="CStar.fr@SD",C Star (720p)
+https://viamotionhsi.netplus.ch/live/eds/d17/browser-HLS8/d17.m3u8
+#EXTINF:-1 tvg-id="CStar.fr@SD",C Star
+https://viamotionhsi.netplus.ch/live/eds/d17/browser-dash/d17.mpd
+#EXTINF:-1 tvg-id="CNews.fr@SD",CNews (1080p) [Geo-blocked]
+https://raw.githubusercontent.com/LeBazarDeBryan/XTVZ_/main/Stream/Live/CNews.m3u8
+#EXTINF:-1 tvg-id="CNews.fr@SD",CNews (1080p)
+https://viamotionhsi.netplus.ch/live/eds/itele/browser-HLS8/itele.m3u8
+#EXTINF:-1 tvg-id="CNews.fr@SD",CNews
+https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/cnews.m3u8
 
 #EXTINF:-1 tvg-id="RMCLife.fr@SD" tvg-logo="https://img1.dc2.oqee.net/channel_pictures/3606/w512" tvg-country="FR" group-title="France",RMC Life
 https://viamotionhsi.netplus.ch/live/eds/cherie25/browser-HLS8/cherie25.m3u8
@@ -77,14 +84,77 @@ https://viamotionhsi.netplus.ch/live/eds/animaux/browser-dash/animaux.mpd
 https://viamotionhsi.netplus.ch/live/eds/animaux/browser-HLS8/animaux.m3u8
 #EXTINF:-1 tvg-id="Trek.fr@HD" tvg-logo="https://i.imgur.com/TcF53W4.png" tvg-country="FR" group-title="France",Trek HD (1080p)
 https://viamotionhsi.netplus.ch/live/eds/escales/browser-HLS8/escales.m3u8
+#EXTINF:-1 tvg-id="MaisonTravauxTV.fr@SD",Maison & Travaux TV
+https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/maisonettravaux.m3u8
+
+#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli (720p)
+https://viamotionhsi.netplus.ch/live/eds/gulli/browser-HLS8/gulli.m3u8
+#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli
+https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/c65696b42ca34e97a9b5f54758d6dd50/cmaf/hlsfmp4_short_q2hyb21h_gulli_sd_index.m3u8
+#EXTINF:-1 tvg-id="Gulli.fr@SD" tvg-logo="https://imgur.com/kqYssbW" tvg-country="FR" group-title="France",Gulli
+https://viamotionhsi.netplus.ch/live/eds/gulli/browser-dash/gulli.mpd
+#EXTINF:-1 tvg-id="TiVi5Monde.fr@SD" tvg-logo="https://imgur.com/fVVKpmk" tvg-country="FR" group-title="France",TiVi5 Monde [Geo-blocked]
+https://ott.tv5monde.com/Content/HLS/Live/channel(tivi5)/variant.m3u8
+#EXTINF:-1 tvg-id="CanalJ.fr@HD",Canal J HD
+https://viamotionhsi.netplus.ch/live/eds/canalj/browser-HLS8/canalj.m3u8
+#EXTINF:-1 tvg-id="ADNTVPlus.fr@SD",ADN TV+
+https://d3b73b34o7cvkq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gz2sgqzp076kf/adn.m3u8
+#EXTINF:-1 tvg-id="JapanimTV.be@SD",Japanim TV (1080p)
+https://foxkidstv.be:3369/stream/play.m3u8
+
+#EXTINF:-1 tvg-id="FranceInter.fr@SD",France Inter
+https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/franceinter.m3u8
+#EXTINF:-1 tvg-id="Franceinfo.fr@SD",Franceinfo
+https://raw.githubusercontent.com/Sibprod/streams/main/ressources/dm/py/hls/franceinfotv.m3u8
+#EXTINF:-1 tvg-id="Franceinfo.fr@SD",Franceinfo
+https://viamotionhsi.netplus.ch/live/eds/franceinfo/browser-HLS8/franceinfo.m3u8
+#EXTINF:-1 tvg-id="France24.fr@English",France 24 English (1080p)
+https://amg00106-france24-france24-samsunguk-qvpp8.amagi.tv/playlist/amg00106-france24-france24-samsunguk/playlist.m3u8
+#EXTINF:-1 tvg-id="France24.fr@French",France 24 French (1080p)
+https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8
 
 #EXTINF:-1 tvg-id="GameOne.fr@SD",Game One (1080p) (CLOSED)
 https://viamotionhsi.netplus.ch/live/eds/gameone/browser-HLS8/gameone.m3u8
 #EXTINF:-1 tvg-id="ParamountChannel.fr@SD",Paramount Channel (1080p) (CLOSED)
 https://viamotionhsi.netplus.ch/live/eds/paramount/browser-HLS8/paramount.m3u8
 
+#EXTINF:-1 tvg-id="SonyOneSeriesComedie.fr@HD",Sony One Series Comedie (1080p)
+https://4f2a3e1ff5274297b115cf0f7da1c2cd.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-819-FR-SONYONESRIESCOMDIE-LG_FR/playlist.m3u8
+#EXTINF:-1 tvg-id="SonyOneSeriesThriller.fr@HD",Sony One Series Thriller (1080p)
+https://483a1e90c18641c9a6d27becd41ad892.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-821-FR-SONYONESRIESTHRILLER-LG_FR/playlist.m3u8
+#EXTINF:-1 tvg-id="SonyOneHitsComedie.fr@HD",Sony One Hits Comedie (1080p)
+https://7aa9671895264ec9a384dfed1b992171.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-818-FR-SONYONEHITSCOMDIE-LG_FR/playlist.m3u8
+#EXTINF:-1 tvg-id="SonyOneHitsAction.fr@HD",Sony One Hits Action (1080p)
+https://5098a8b860504a3690fd2e7c0a18d68f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-817-FR-SONYONEHITSACTION-LG_FR/playlist.m3u8
+#EXTINF:-1 tvg-id="SonyOneFavoris.fr@HD",Sony One Favoris (1080p)
+https://49d735318d6b4c30a24a7997ea594e1b.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-820-FR-SONYONEFAVORIS-LG_FR/playlist.m3u8
+#EXTINF:-1 tvg-id="SonyOneBlacklist.fr@HD",Sony One Blacklist (1080p)
+https://06cb85ad6ccb4a6b97f561e62d16ad3f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-822-FR-SONYONETHEBLACKLIST-LG_FR/playlist.m3u8
 #EXTINF:-1 tvg-chno="738" tvg-id="FR1800003VF" tvg-logo="https://tvpnlogopeu.samsungcloud.tv/platform/image/sourcelogo/vc/00/02/34/FR1800003VF_20241210T052746SQUARE.png" tvg-country="FR" group-title="France",[Cinéma] 738. Shadowz
 https://jmp2.uk/stvp-FR1800003VF
+#EXTINF:-1 tvg-id="",Rakuten TV Films Action (720p)
+https://01ac9352fbfa4204998783d41f9b1a2e.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6068/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Comédie (720p)
+https://cc9f70371e7144e7acae4de8b5832d7a.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6183/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Drames (720p)
+https://f396f4db84a54f7bb496b2541477b626.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6095/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Famille
+https://b3088e48baab418a9a95dc8110a1b736.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6206/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Français (720p)
+https://499fde1f527c4ce9af8917b3ee7a217a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-fr_Local/playlist.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Romance (720p)
+https://9affb6144c4c4cdca25d58908cb55a64.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6195/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Films Thriller (720p)
+https://thriller-rakuten-tv-fr.fast.rakuten.tv/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6479/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Séries Crime (720p)
+https://1ffd245e4d30495e9b006502a155479e.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6214/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Top Films France (720p)
+https://93ed06eba1ef4cf783b66dc6ea7c4f28.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-5986/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Trailers France (720p)
+https://a01cb16df2c946afa72d661622953cad.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-4546/master.m3u8
+#EXTINF:-1 tvg-id="",Rakuten TV Viki Europe (720p)
+https://newidco-rakutenviki-2-eu.rakuten.wurl.tv/playlist.m3u8
+
 #EXTINF:-1 tvg-id="PlutoTVAction.us@France",Pluto TV Action
 http://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/5f8ed1ff5c39700007e2204a/master.m3u8?appName=web&appVersion=unknown&clientTime=0&deviceDNT=0&deviceId=8e055171-1f2c-11ef-86d8-5d587df108c6&deviceMake=Chrome&deviceModel=web&deviceType=web&deviceVersion=unknown&includeExtendedEvents=false&serverSideAds=false&sid=c3b67254-4628-4f0e-8164-5a50e8969a42
 #EXTINF:-1 tvg-id="PlutoTVAnimaux.us@France",Pluto TV Animaux
@@ -529,3 +599,49 @@ http://103.140.254.2:3500/live/279.m3u8
 
 #EXTINF:-1 tvg-logo="https://fdtvgunicornlogos.blob.core.windows.net/production/lg/LG%20Mood%20Images/Royalworld/Royalworld_16x9_channel_image_LG_604x340.jpg",1577 Royalworld - Nobility & Dynasties
 https://d46c0ebf9ef94053848fdd7b1f2f6b90.mediatailor.eu-central-1.amazonaws.com/v1/master/81bfcafb76f9c947b24574657a9ce7fe14ad75c0/live-prod/885e5f55-fb08-11ee-a7cb-71f3705559c1/0/master.m3u8?country=gb&vendor=lg
+
+
+#EXTINF:-1 tvg-id="CCTVPlus1.cn@SD",CCTV+ 1 (600p) [Not 24/7]
+https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL1.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CCTVPlus2.cn@SD",CCTV+ 2 (600p) [Not 24/7]
+https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL2.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="CCTV1.cn@SD",CCTV-1 (2160p)
+http://123.175.209.52:9003/hls/1/index.m3u8
+#EXTINF:-1 tvg-id="CCTV2.cn@SD",CCTV-2 (2160p)
+http://123.175.209.52:9003/hls/2/index.m3u8
+#EXTINF:-1 tvg-id="CCTV3.cn@SD",CCTV-3 (2160p)
+http://123.175.209.52:9003/hls/3/index.m3u8
+#EXTINF:-1 tvg-id="",CCTV-4 (2160p)
+http://123.175.209.52:9003/hls/4/index.m3u8
+#EXTINF:-1 tvg-id="CCTV4America.cn@SD",CCTV-4 America (1080p)
+https://global.cgtn.cicc.media.caton.cloud/master/cgtn-america.m3u8
+#EXTINF:-1 tvg-id="CCTV5.cn@SD",CCTV-5 (2160p)
+http://123.175.209.52:9003/hls/5/index.m3u8
+#EXTINF:-1 tvg-id="CCTV5Plus.cn@SD",CCTV-5+ (2160p)
+http://123.175.209.52:9003/hls/6/index.m3u8
+#EXTINF:-1 tvg-id="CCTV6.cn@SD",CCTV-6 (2160p)
+http://123.175.209.52:9003/hls/7/index.m3u8
+#EXTINF:-1 tvg-id="CCTV7.cn@SD",CCTV-7 (2160p)
+http://123.175.209.52:9003/hls/8/index.m3u8
+#EXTINF:-1 tvg-id="CCTV8.cn@SD",CCTV-8 (2160p)
+http://123.175.209.52:9003/hls/9/index.m3u8
+#EXTINF:-1 tvg-id="CCTV9.cn@SD",CCTV-9 (2160p)
+http://123.175.209.52:9003/hls/10/index.m3u8
+#EXTINF:-1 tvg-id="CCTV10.cn@SD",CCTV-10 (2160p)
+http://123.175.209.52:9003/hls/11/index.m3u8
+#EXTINF:-1 tvg-id="CCTV11.cn@SD",CCTV-11 (576p)
+http://123.175.209.52:9003/hls/12/index.m3u8
+#EXTINF:-1 tvg-id="CCTV12.cn@SD",CCTV-12 (2160p)
+http://123.175.209.52:9003/hls/13/index.m3u8
+#EXTINF:-1 tvg-id="CCTV13.cn@SD",CCTV-13新闻 (2160p)
+http://123.175.209.52:9003/hls/14/index.m3u8
+#EXTINF:-1 tvg-id="CCTV13.cn@SD",CCTV-13新闻 (1080p)
+https://live-play.cctvnews.cctv.com/cctv/merge_cctv13.m3u8
+#EXTINF:-1 tvg-id="CCTV14.cn@SD",CCTV-14 (2160p)
+http://123.175.209.52:9003/hls/15/index.m3u8
+#EXTINF:-1 tvg-id="CCTV15.cn@SD",CCTV-15 (576p)
+http://123.175.209.52:9003/hls/16/index.m3u8
+#EXTINF:-1 tvg-id="CCTV16.cn@SD",CCTV-16 (2160p)
+http://123.175.209.52:9003/hls/17/index.m3u8
+#EXTINF:-1 tvg-id="CCTV17.cn@SD",CCTV-17 (2160p)
+http://123.175.209.52:9003/hls/18/index.m3u8
