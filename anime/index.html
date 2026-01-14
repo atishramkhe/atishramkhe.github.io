@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ateaish anime (beta)</title>
+    <link rel="icon" type="image/png" href="assets/favicon_ateaish_anime.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <style>
+        @font-face{font-family:'OumaTrialBold';src:url('../fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+        @font-face{font-family:'OumaTrialLight';src:url('../fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+            vertical-align: middle;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            margin: 0;
+            font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            border-bottom: 1px solid #000;
+            font-family:'OumaTrialBold','OumaTrialLight';
+        }
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        /* Search bar: match /movies */
+        #search-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: none;
+            position: relative;
+            width: 100%;
+        }
+
+        #search-input-wrapper {
+            position: relative;
+            width: 320px;
+            margin-top: 16px;
+        }
+
+        #search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            pointer-events: none;
+            font-size: 1.3em;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 0.5em 2.5em 0.5em 2.5em;
+            font-size: 1.0em;
+            background: #000;
+            color: #fff;
+            font-family: 'OumaTrialLight';
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 10px;
+        }
+        #results {
+            margin-top: 1em;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            padding: 20px 40px;
+            width: 100%;
+            max-width: 2000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .result-item {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            width: 100px;
+        }
+        .result-item img {
+            width: 92px;
+            height: 138px;
+            margin-bottom: 0.5em;
+        }
+        .result-item span {
+            text-align: center;
+        }
+        
+        #player-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 100;
+        }
+        #player-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+        }
+        #close-player {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3em;
+            color: white;
+            cursor: pointer;
+        }
+        /* Anime player source indicators (like /movies server dots) */
+        #anime-source-indicators {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 8px 0 0 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 101;
+            flex-wrap: wrap;
+        }
+
+        #anime-source-indicators .group-label {
+            color: #fff;
+            font-weight: 600;
+            margin-left: 10px;
+            margin-right: 8px;
+            user-select: none;
+        }
+
+        #anime-source-indicators .group-label.first {
+            margin-left: 0;
+        }
+
+        #anime-source-indicators .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #222;
+            cursor: pointer;
+            transition: background .2s, transform .2s, box-shadow .2s;
+        }
+
+        #anime-source-indicators .indicator.active {
+            background: #f1892f;
+            box-shadow: 0 0 4px #f1892f;
+        }
+
+        #anime-source-indicators .indicator:hover {
+            transform: scale(1.3);
+        }
+
+        /* Legacy pill buttons (no longer used, kept for safety) */
+        .source-switcher {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 101;
+            display: none;
+            gap: 8px;
+        }
+
+        .episode-controls {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+        }
+        .episode-controls label {
+            font-size: 0.8rem;
+            color: #ddd;
+            white-space: nowrap;
+        }
+        .episode-controls select {
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 2px 10px;
+            font-family: 'OumaTrialLight', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        
+            /* Match /movies season/episode selector look */
+            #season-episode-selector {
+                position: absolute;
+                top: 12px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 8px;
+                padding: 8px 18px;
+                box-shadow: 0 2px 8px #0008;
+            }
+        
+            #season-episode-selector select {
+                font-size: 1em;
+                font-family: inherit;
+                padding: 4px 8px;
+                border-radius: 4px;
+                border: none;
+                background: #000;
+                color: #fff;
+                outline: none;
+            }
+
+            /* Episode arrows (like /movies) */
+            .episode-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: transparent;
+                border: none;
+                color: #fff;
+                font-size: 2.8em;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 101;
+                transition: transform 0.12s ease, color 0.12s ease;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+
+            .episode-arrow:hover {
+                transform: translateY(-50%) scale(1.05);
+                color: #f1892f;
+            }
+
+            .episode-arrow:disabled {
+                opacity: 0.25;
+                cursor: not-allowed;
+            }
+
+            #anime-prev-episode {
+                left: 12px;
+            }
+
+            #anime-next-episode {
+                right: 12px;
+            }
+
+        /* Settings button (bottom-right inside player) */
+        .anime-settings-btn {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            z-index: 101;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            font-family: 'OumaTrialLight', sans-serif;
+            font-size: 1.05rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(6px);
+        }
+
+        .anime-settings-btn:hover {
+            border-color: #777;
+        }
+        .source-switcher button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        .source-switcher button {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #555;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            font-family: 'OumaTrialLight', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .source-switcher button.active {
+            background: #f1892f;
+            border-color: #f1892f;
+        }
+        
+        h2 {
+            padding-left: 40px;
+            margin-block-end: 0;
+            margin-block-start: 1.5em;
+        }
+        .grid, .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+            padding: 40px;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+        /* Poster hover behavior: match /movies */
+        .poster {
+            cursor: pointer;
+            border-radius: 0;
+            overflow: visible;
+            box-shadow: 0 2px 12px #000a;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            background: #000;
+            position: relative;
+            transform-origin: top center;
+            --hover-scale: 1.5;
+        }
+
+        .poster:hover {
+            transform: scale(var(--hover-scale));
+            z-index: 30;
+            box-shadow: 0 8px 32px #000c;
+        }
+
+        .poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 2 / 3;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .poster-info {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0px);
+            left: 0;
+            width: 100%;
+            background: #000;
+            color: #fff;
+            padding: 12px 10px;
+            line-height: 1.35;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            margin: 0;
+            z-index: 40;
+        }
+
+        .poster:hover .poster-info {
+            display: block;
+            font-size: 0.75em;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.15);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-button {
+            display: none;
+        }
+        #clear-search-btn {
+            position: absolute;
+            right: 0rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            z-index: 2;
+            display: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 8px 0;
+            z-index: 3;
+            right: 0;
+            top: 100%;
+            border-radius: 8px;
+        }
+
+        .dropdown.open .dropdown-content,
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0;
+            text-decoration: none;
+            background: none;
+        }
+        .dropdown-content a img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Showcase (like /movies) */
+        #showcase {
+            position: relative;
+            width: 100%;
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 20px 40px 0 40px;
+            box-sizing: border-box;
+        }
+
+        #showcase-card {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+        }
+
+        #showcase-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.05) contrast(1.05);
+            transform: scale(1.02);
+        }
+
+        #showcase-grad {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.05) 100%);
+        }
+
+        #showcase-content {
+            position: absolute;
+            left: 28px;
+            bottom: 24px;
+            right: 28px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+        }
+
+        #showcase-poster {
+            width: 160px;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+            background: #000;
+        }
+
+        #showcase-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        #showcase-title {
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            font-size: 2.2em;
+            margin: 0;
+            line-height: 1.05;
+        }
+
+        #showcase-meta {
+            margin-top: 10px;
+            opacity: 0.85;
+            font-family: 'OumaTrialLight';
+        }
+
+        #showcase-overview {
+            margin-top: 12px;
+            max-width: 880px;
+            font-family: 'OumaTrialLight';
+            line-height: 1.35;
+            opacity: 0.95;
+        }
+
+        #showcase-actions {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .showcase-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #000;
+            color: #f1892f;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            box-shadow: 0 2px 12px #0006;
+        }
+
+        .showcase-btn:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 700px) {
+            #showcase-card { height: 360px; }
+            #showcase-content { left: 18px; right: 18px; }
+            #showcase-poster { width: 120px; }
+            #showcase-title { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="dropdown">
+            <div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/ateaish_anime default.png" alt="ateaish anime" style="padding-right: 8px;">
+            </div>
+            <div class="dropdown-content" id="dropdownMenu" role="menu">
+                <a href="https://atishramkhe.github.io/" role="menuitem">
+                    <img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="ateaish homepage">
+                </a>
+                <a href="https://atishramkhe.github.io/tv" role="menuitem">
+                    <img src="../movies/assets/ateaish_tv_blanc_150ppi.png" alt="ateaish tv">
+                </a>
+                <a href="https://atishramkhe.github.io/sport" role="menuitem">
+                    <img src="../movies/assets/ateaish_sport_blanc_150ppi.png" alt="ateaish sport">
+                </a>
+                <a href="https://atishramkhe.github.io/radio" role="menuitem">
+                    <img src="../movies/assets/ateaish_radio_blanc_150ppi.png" alt="ateaish radio">
+                </a>
+                <a href="https://atishramkhe.github.io/movies" role="menuitem">
+                    <img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="ateaish movies">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="search-container">
+            <div id="search-input-wrapper">
+                <span id="search-icon" class="material-symbols-outlined">search</span>
+                <input type="text" id="search-input" placeholder="Search for anime...">
+                <button id="clear-search-btn" style="display:none;">&times;</button>
+            </div>
+            <div id="results"></div>
+        </div>
+
+        <section id="showcase">
+            <div id="showcase-card">
+                <div id="showcase-bg"></div>
+                <div id="showcase-grad"></div>
+                <div id="showcase-content">
+                    <img id="showcase-poster" alt="Showcase poster" />
+                    <div id="showcase-text">
+                        <h2 id="showcase-title">Loading...</h2>
+                        <div id="showcase-meta"></div>
+                        <div id="showcase-overview"></div>
+                        <div id="showcase-actions" style="display:none;">
+                            <button id="showcase-play" class="showcase-btn" type="button">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                Play
+                            </button>
+                            <button id="showcase-watchlater" class="showcase-btn" type="button">
+                                <span class="material-symbols-outlined">playlist_add</span>
+                                Watch Later
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid" id="showsGrid"></div>
+    </main>
+    
+    <div id="player-container">
+        <span id="close-player">&times;</span>
+        <div id="player-content"></div>
+    </div>
+    
+    <section>
+      <h2>Trending Anime</h2>
+      <div class="grid" id="trendingGrid"></div>
+    </section>
+    
+        <section id="continueSection">
+            <h2>
+                <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
+                    history
+                </span>
+                Continue Watching
+            </h2>
+            <div class="grid" id="continueGrid"></div>
+        </section>
+
+    <section id="watchLaterSection" style="display:none;">
+        <h2>
+            <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 6px;">acute</span>
+            Watch Later
+        </h2>
+        <div class="grid" id="watchLaterGrid"></div>
+    </section>
+    <section>
+      <h2>Top Airing</h2>
+      <div class="grid" id="airingGrid"></div>
+    </section>
+    <section>
+      <h2>Upcoming</h2>
+      <div class="grid" id="upcomingGrid"></div>
+    </section>
+    <section>
+      <h2>Top All Time</h2>
+      <div class="grid" id="topGrid"></div>
+    </section>
+
+        <section>
+            <h2>Ecchi</h2>
+            <div class="grid" id="adultGrid"></div>
+        </section>
+
+                <!-- Movies are intentionally placed after the main episode-focused sections -->
+                <section>
+                    <h2>Top Movies & OVAs</h2>
+                    <div class="grid" id="moviesGrid"></div>
+                </section>
+
+        <!-- Watch Later Button (like /movies) -->
+        <button id="watchlater-btn" style="
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 91;
+            background: #000;
+            color: #f1892f;
+            border: none;
+            border-radius: 8px;
+            padding: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            font-family: 'OumaTrialBold';
+            box-shadow: 0 2px 12px #0006;
+            transition: background 0.2s;
+        ">
+            <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 4px;">acute</span>
+            Watch Later
+        </button>
+
+                <!-- Continue Watching Button (like /movies) -->
+                <button id="continue-btn" style="
+                        position: fixed;
+                        bottom: 74px;
+                        right: 32px;
+                        z-index: 91;
+                        background: #000;
+                        color: #f1892f;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 6px;
+                        font-size: 1em;
+                        cursor: pointer;
+                        font-family: 'OumaTrialBold';
+                        box-shadow: 0 2px 12px #0006;
+                        transition: background 0.2s;
+                        ">
+                        <span class="material-symbols-outlined"
+                                style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
+                                history
+                        </span>
+                        Continue Watching
+                </button>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.9.0/sql-wasm.js"></script>
+    <script src="anime.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const clearBtn = document.getElementById('clear-search-btn');
+        const results = document.getElementById('results');
+
+        searchInput.addEventListener('input', function() {
+            clearBtn.style.display = searchInput.value ? 'block' : 'none';
+        });
+
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            results.innerHTML = '';
+            searchInput.focus();
+        });
+
+        const dropdown = document.querySelector('.dropdown');
+        const toggle = document.getElementById('dropdownToggle');
+
+        toggle.addEventListener('click', function(e) {
+            dropdown.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        const watchLaterBtn = document.getElementById('watchlater-btn');
+        if (watchLaterBtn) {
+            watchLaterBtn.addEventListener('click', function() {
+                const sec = document.getElementById('watchLaterSection');
+                if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        toggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                dropdown.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+                e.preventDefault();
+            }
+        });
+    });
+    </script>
+    <footer style="background:#000; color:#ccc; text-align:right; padding:24px 0 16px 0; font-size:8px; font-family:'OumaTrialLight',sans-serif;">
+        Powered by
+        <span style="margin:0 8px;">Jikan API</span>
+        &amp;
+        <span style="margin:0 8px;">AniList</span>
+        &amp;
+        <img src="../movies/assets/vidsrc.png" alt="vidsrc" style="height:10px;vertical-align:middle;margin:0 8px;">
+    </footer>
+</body>
+</html>
