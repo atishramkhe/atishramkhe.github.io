@@ -545,10 +545,10 @@ if (voVfToggle) {
             if (!iframe) return;
             const src = iframe.src;
             let type, id, season = 1, episode = 1;
-            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.mom\/api\/film\.php\?id=(\d+)/.test(src)) {
+            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src)) {
                 type = 'movie';
                 id = (src.match(/movie\/(\d+)/) || src.match(/film\.php\?id=(\d+)/))[1];
-            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.mom\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
+            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
                 type = 'tv';
                 let m = src.match(/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
                 id = m[1];
