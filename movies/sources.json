@@ -53,9 +53,9 @@
 	{
 		"VF": [
 			{
-				"name": "frembed.life",
-				"movies": "https://frembed.life/api/film.php?id=${id}",
-				"shows": "https://frembed.life/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.best",
+				"movies": "https://frembed.best/api/film.php?id=${id}",
+				"shows": "https://frembed.best/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
 			}
 		]
 	}
