@@ -2,6 +2,201 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/tyjXlexbNZQ0ZT1KEJslQtBirqc.jpg",
+      "belongs_to_collection": {
+        "id": 840465,
+        "name": "Greenland Collection",
+        "poster_path": "/naNSFJ2bQqGPNpO7ZC71vxkDhr4.jpg",
+        "backdrop_path": "/bmfsqt3VZgXE0KRGxalFa9NpBYO.jpg"
+      },
+      "budget": 90000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.greenland2.movie",
+      "id": 840464,
+      "imdb_id": "tt14850054",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Greenland 2: Migration",
+      "overview": "Having found the safety of the Greenland bunker after the comet Clarke decimated the Earth, the Garrity family must now risk everything to embark on a perilous journey across the wasteland of Europe to find a new home.",
+      "popularity": 506.1661,
+      "poster_path": "/dtPwBZjzqTaObjG4fKStRkBq1uu.jpg",
+      "production_companies": [
+        {
+          "id": 1632,
+          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
+          "name": "Lionsgate",
+          "origin_country": "US"
+        },
+        {
+          "id": 47729,
+          "logo_path": "/bAxh897TGgdR0Py6wdd0UuE147Z.png",
+          "name": "STXfilms",
+          "origin_country": "US"
+        },
+        {
+          "id": 138743,
+          "logo_path": "/abFJGmtPFs6Bq5cBavmrnXDcpf8.png",
+          "name": "Anton",
+          "origin_country": "GB"
+        },
+        {
+          "id": 3528,
+          "logo_path": "/cCzCClIzIh81Fa79hpW5nXoUsHK.png",
+          "name": "Thunder Road",
+          "origin_country": "US"
+        },
+        {
+          "id": 103331,
+          "logo_path": "/nxkmGpo1Ym74DkBzNtoMz5cl6DJ.png",
+          "name": "G-BASE",
+          "origin_country": "US"
+        },
+        {
+          "id": 253186,
+          "logo_path": null,
+          "name": "CineMachine",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-01-07",
+      "revenue": 11416907,
+      "runtime": 98,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Hope is uncharted territory.",
+      "title": "Greenland 2: Migration",
+      "video": false,
+      "vote_average": 6.514,
+      "vote_count": 173,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1419406,
+      "imdb_id": "tt34610311",
+      "origin_country": [
+        "CN",
+        "HK"
+      ],
+      "original_language": "zh",
+      "original_title": "捕风追影",
+      "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
+      "popularity": 376.128,
+      "poster_path": "/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg",
+      "production_companies": [
+        {
+          "id": 122699,
+          "logo_path": "/rNuZaO3S54yNb2inykTHBg8meCe.png",
+          "name": "iQIYI Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 197030,
+          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
+          "name": "Tao Piao Piao",
+          "origin_country": "CN"
+        },
+        {
+          "id": 25657,
+          "logo_path": "/nR1OM1kwQ1ZrtbUb6sSfV0Ldynk.png",
+          "name": "Hairun Pictures Company",
+          "origin_country": "CN"
+        },
+        {
+          "id": 250765,
+          "logo_path": "/pl14N2WxiYBDNUrPaFBhzyKoO8Z.png",
+          "name": "Dong Fang Chen Xiang",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        },
+        {
+          "iso_3166_1": "HK",
+          "name": "Hong Kong"
+        }
+      ],
+      "release_date": "2025-08-16",
+      "revenue": 174400000,
+      "runtime": 142,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "The Shadow's Edge",
+      "video": false,
+      "vote_average": 7.209,
+      "vote_count": 356,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/3F2EXWF1thX0BdrVaKvnm6mAhqh.jpg",
       "belongs_to_collection": null,
       "budget": 100000000,
@@ -28,7 +223,7 @@
       "original_language": "en",
       "original_title": "The Rip",
       "overview": "Trust frays when a team of Miami cops discovers millions in cash inside a run-down stash house, calling everyone — and everything — into question.",
-      "popularity": 300.7556,
+      "popularity": 267.9703,
       "poster_path": "/p4bW2sJKAwcHuLpfoZK7Zo63osA.jpg",
       "production_companies": [
         {
@@ -64,7 +259,75 @@
       "title": "The Rip",
       "video": false,
       "vote_average": 7.1,
-      "vote_count": 866,
+      "vote_count": 894,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xGbNoh7aWmU81oYuxJoFI07Rz5I.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "",
+      "id": 1326878,
+      "imdb_id": "tt32001482",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Strangers",
+      "overview": "Seeking revenge on her abusive husband, a woman's life takes a dark turn when she meets a mysterious hitman. Drawn into a whirlwind romance, she spirals into a dangerous vigilante spree. As the body count rises, she begins to unravel the true nature of her partner and the secrets they both conceal.",
+      "popularity": 234.1454,
+      "poster_path": "/ohpuwSBMgP44OPduPkpOtLxh90w.jpg",
+      "production_companies": [
+        {
+          "id": 44311,
+          "logo_path": null,
+          "name": "Steven Paul Production",
+          "origin_country": "US"
+        },
+        {
+          "id": 177095,
+          "logo_path": "/nfwWCvMNaK687bjyM7un8p7ilz0.png",
+          "name": "SP Media Group",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2024-08-16",
+      "revenue": 0,
+      "runtime": 106,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Strangers",
+      "video": false,
+      "vote_average": 5.5,
+      "vote_count": 24,
       "media_type": "movie"
     },
     {
@@ -95,7 +358,7 @@
       "original_language": "en",
       "original_title": "Dust Bunny",
       "overview": "Ten-year-old Aurora asks her hitman neighbor to kill the monster under her bed that she claims ate her family. To protect her, he must battle an onslaught of assassins while accepting that some monsters are real.",
-      "popularity": 239.2488,
+      "popularity": 204.3943,
       "poster_path": "/vobigFZFvbYPf6ElYJu07P9rH8C.jpg",
       "production_companies": [
         {
@@ -151,165 +414,8 @@
       "tagline": "Sometimes there really are monsters under your bed.",
       "title": "Dust Bunny",
       "video": false,
-      "vote_average": 6.6,
-      "vote_count": 129,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1419406,
-      "imdb_id": "tt34610311",
-      "origin_country": [
-        "CN",
-        "HK"
-      ],
-      "original_language": "zh",
-      "original_title": "捕风追影",
-      "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
-      "popularity": 363.8111,
-      "poster_path": "/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg",
-      "production_companies": [
-        {
-          "id": 122699,
-          "logo_path": "/rNuZaO3S54yNb2inykTHBg8meCe.png",
-          "name": "iQIYI Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 197030,
-          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
-          "name": "Tao Piao Piao",
-          "origin_country": "CN"
-        },
-        {
-          "id": 25657,
-          "logo_path": "/nR1OM1kwQ1ZrtbUb6sSfV0Ldynk.png",
-          "name": "Hairun Pictures Company",
-          "origin_country": "CN"
-        },
-        {
-          "id": 250765,
-          "logo_path": "/pl14N2WxiYBDNUrPaFBhzyKoO8Z.png",
-          "name": "Dong Fang Chen Xiang",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        },
-        {
-          "iso_3166_1": "HK",
-          "name": "Hong Kong"
-        }
-      ],
-      "release_date": "2025-08-16",
-      "revenue": 174400000,
-      "runtime": 142,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "The Shadow's Edge",
-      "video": false,
-      "vote_average": 7.217,
-      "vote_count": 352,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/xGbNoh7aWmU81oYuxJoFI07Rz5I.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "",
-      "id": 1326878,
-      "imdb_id": "tt32001482",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Strangers",
-      "overview": "Seeking revenge on her abusive husband, a woman's life takes a dark turn when she meets a mysterious hitman. Drawn into a whirlwind romance, she spirals into a dangerous vigilante spree. As the body count rises, she begins to unravel the true nature of her partner and the secrets they both conceal.",
-      "popularity": 258.9958,
-      "poster_path": "/ohpuwSBMgP44OPduPkpOtLxh90w.jpg",
-      "production_companies": [
-        {
-          "id": 44311,
-          "logo_path": null,
-          "name": "Steven Paul Production",
-          "origin_country": "US"
-        },
-        {
-          "id": 177095,
-          "logo_path": "/nfwWCvMNaK687bjyM7un8p7ilz0.png",
-          "name": "SP Media Group",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2024-08-16",
-      "revenue": 0,
-      "runtime": 106,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Strangers",
-      "video": false,
-      "vote_average": 5.5,
-      "vote_count": 24,
+      "vote_average": 6.536,
+      "vote_count": 131,
       "media_type": "movie"
     },
     {
@@ -341,7 +447,7 @@
       "original_language": "en",
       "original_title": "The Housemaid",
       "overview": "Trying to escape her past, Millie Calloway accepts a job as a live-in housemaid for the wealthy Nina and Andrew Winchester. But what begins as a dream job quickly unravels into something far more dangerous—a sexy, seductive game of secrets, scandal, and power.",
-      "popularity": 147.963,
+      "popularity": 143.6412,
       "poster_path": "/cWsBscZzwu5brg9YjNkGewRUvJX.jpg",
       "production_companies": [
         {
@@ -389,8 +495,8 @@
       "tagline": "Discover what lies behind closed doors.",
       "title": "The Housemaid",
       "video": false,
-      "vote_average": 7.111,
-      "vote_count": 552,
+      "vote_average": 7.1,
+      "vote_count": 559,
       "media_type": "movie"
     },
     {
@@ -421,7 +527,7 @@
       "original_language": "en",
       "original_title": "Icefall",
       "overview": "A young Indigenous game warden arrests an infamous poacher only to discover that the poacher knows the location of a plane carrying millions of dollars that has crashed in a frozen lake. When a group of criminals and dirty cops are alerted to the poacher’s whereabouts, the warden and the poacher team up to fight back and escape across the treacherous lake before the ice melts.",
-      "popularity": 133.0881,
+      "popularity": 121.2173,
       "poster_path": "/5Byv6nznAb2Izd0gHpODOXnuSbo.jpg",
       "production_companies": [
         {
@@ -462,8 +568,78 @@
       "tagline": "",
       "title": "Icefall",
       "video": false,
-      "vote_average": 6.471,
-      "vote_count": 105,
+      "vote_average": 6.439,
+      "vote_count": 106,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/iZLqwEwUViJdSkGVjePGhxYzbDb.jpg",
+      "belongs_to_collection": null,
+      "budget": 10000000,
+      "genres": [
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.amazon.com/gp/video/detail/B0DMF7MXKT",
+      "id": 755898,
+      "imdb_id": "tt13186306",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "War of the Worlds",
+      "overview": "Will Radford is a top analyst for Homeland Security who tracks potential threats through a mass surveillance program, until one day an attack by an unknown entity leads him to question whether the government is hiding something from him... and from the rest of the world.",
+      "popularity": 117.4072,
+      "poster_path": "/yvirUYrva23IudARHn3mMGVxWqM.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 109501,
+          "logo_path": "/4dtmZKPLHzIALpGbdeSNX6Rw1p3.png",
+          "name": "Bazelevs",
+          "origin_country": "US"
+        },
+        {
+          "id": 59827,
+          "logo_path": null,
+          "name": "Patrick Aiello Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-07-29",
+      "revenue": 0,
+      "runtime": 91,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Your data is deadly.",
+      "title": "War of the Worlds",
+      "video": false,
+      "vote_average": 4.215,
+      "vote_count": 868,
       "media_type": "movie"
     },
     {
@@ -502,7 +678,7 @@
       "original_language": "en",
       "original_title": "Killer Whale",
       "overview": "Follows best friends Maddie and Trish as they find themselves trapped in a remote lagoon with the dangerous killer whale named Ceto.",
-      "popularity": 119.4486,
+      "popularity": 108.4499,
       "poster_path": "/cqbXxAw9sUr4tJ5ffEwtnz6IL9o.jpg",
       "production_companies": [
         {
@@ -576,77 +752,7 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/iZLqwEwUViJdSkGVjePGhxYzbDb.jpg",
-      "belongs_to_collection": null,
-      "budget": 10000000,
-      "genres": [
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.amazon.com/gp/video/detail/B0DMF7MXKT",
-      "id": 755898,
-      "imdb_id": "tt13186306",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "War of the Worlds",
-      "overview": "Will Radford is a top analyst for Homeland Security who tracks potential threats through a mass surveillance program, until one day an attack by an unknown entity leads him to question whether the government is hiding something from him... and from the rest of the world.",
-      "popularity": 122.9424,
-      "poster_path": "/yvirUYrva23IudARHn3mMGVxWqM.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 109501,
-          "logo_path": "/4dtmZKPLHzIALpGbdeSNX6Rw1p3.png",
-          "name": "Bazelevs",
-          "origin_country": "US"
-        },
-        {
-          "id": 59827,
-          "logo_path": null,
-          "name": "Patrick Aiello Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-07-29",
-      "revenue": 0,
-      "runtime": 91,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Your data is deadly.",
-      "title": "War of the Worlds",
-      "video": false,
-      "vote_average": 4.213,
-      "vote_count": 867,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7dQTILcUKw8chDiLj8TgPXxRuED.jpg",
+      "backdrop_path": "/nAxGnGHOsfzufThz20zgmRwKur3.jpg",
       "belongs_to_collection": null,
       "budget": 90000000,
       "genres": [
@@ -672,7 +778,7 @@
       "original_language": "en",
       "original_title": "Sinners",
       "overview": "Trying to leave their troubled lives behind, twin brothers return to their hometown to start again, only to discover that an even greater evil is waiting to welcome them back.",
-      "popularity": 100.3101,
+      "popularity": 91.1168,
       "poster_path": "/qTvFWCGeGXgBRaINLY1zqgTPSpn.jpg",
       "production_companies": [
         {
@@ -724,8 +830,8 @@
       "tagline": "Dance with the devil.",
       "title": "Sinners",
       "video": false,
-      "vote_average": 7.488,
-      "vote_count": 3436,
+      "vote_average": 7.489,
+      "vote_count": 3455,
       "media_type": "movie"
     },
     {
@@ -752,7 +858,7 @@
       "original_language": "ar",
       "original_title": "جرس إنذار: الحفرة",
       "overview": "Trapped in an underground pit during a storm, three students from an all-girls school must confront their personal conflicts as they fight to survive.",
-      "popularity": 89.6567,
+      "popularity": 85.8485,
       "poster_path": "/iwZIR8wp1lqj69zsbWmZKhXTTIU.jpg",
       "production_companies": [
         {
@@ -814,7 +920,7 @@
       "original_language": "it",
       "original_title": "Il falsario",
       "overview": "Toni Chichiarelli arrives in Rome with the dream of becoming a painter, but his talent leads him elsewhere — from art galleries to state secrets. Between art, crime, and power, his signature ends up everywhere — even in the history of Italy.",
-      "popularity": 83.2904,
+      "popularity": 75.6598,
       "poster_path": "/A188B94iDLdB6499QBYbz74WgOF.jpg",
       "production_companies": [
         {
@@ -830,7 +936,7 @@
           "name": "Italy"
         }
       ],
-      "release_date": "2026-01-22",
+      "release_date": "2025-10-19",
       "revenue": 0,
       "runtime": 110,
       "spoken_languages": [
@@ -844,114 +950,8 @@
       "tagline": "",
       "title": "The Big Fake",
       "video": false,
-      "vote_average": 6.532,
-      "vote_count": 77,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/tyjXlexbNZQ0ZT1KEJslQtBirqc.jpg",
-      "belongs_to_collection": {
-        "id": 840465,
-        "name": "Greenland Collection",
-        "poster_path": "/naNSFJ2bQqGPNpO7ZC71vxkDhr4.jpg",
-        "backdrop_path": "/bmfsqt3VZgXE0KRGxalFa9NpBYO.jpg"
-      },
-      "budget": 90000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.greenland2.movie",
-      "id": 840464,
-      "imdb_id": "tt14850054",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Greenland 2: Migration",
-      "overview": "Having found the safety of the Greenland bunker after the comet Clarke decimated the Earth, the Garrity family must now risk everything to embark on a perilous journey across the wasteland of Europe to find a new home.",
-      "popularity": 305.9816,
-      "poster_path": "/dtPwBZjzqTaObjG4fKStRkBq1uu.jpg",
-      "production_companies": [
-        {
-          "id": 1632,
-          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
-          "name": "Lionsgate",
-          "origin_country": "US"
-        },
-        {
-          "id": 47729,
-          "logo_path": "/bAxh897TGgdR0Py6wdd0UuE147Z.png",
-          "name": "STXfilms",
-          "origin_country": "US"
-        },
-        {
-          "id": 138743,
-          "logo_path": "/abFJGmtPFs6Bq5cBavmrnXDcpf8.png",
-          "name": "Anton",
-          "origin_country": "GB"
-        },
-        {
-          "id": 3528,
-          "logo_path": "/cCzCClIzIh81Fa79hpW5nXoUsHK.png",
-          "name": "Thunder Road",
-          "origin_country": "US"
-        },
-        {
-          "id": 103331,
-          "logo_path": "/nxkmGpo1Ym74DkBzNtoMz5cl6DJ.png",
-          "name": "G-BASE",
-          "origin_country": "US"
-        },
-        {
-          "id": 253186,
-          "logo_path": null,
-          "name": "CineMachine",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-01-07",
-      "revenue": 11416907,
-      "runtime": 98,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Hope is uncharted territory.",
-      "title": "Greenland 2: Migration",
-      "video": false,
-      "vote_average": 6.599,
-      "vote_count": 142,
+      "vote_average": 6.5,
+      "vote_count": 85,
       "media_type": "movie"
     },
     {
@@ -987,7 +987,7 @@
       "original_language": "en",
       "original_title": "Now You See Me: Now You Don't",
       "overview": "The original Four Horsemen reunite with a new generation of illusionists to take on powerful diamond heiress Veronika Vanderberg, who leads a criminal empire built on money laundering and trafficking. The new and old magicians must overcome their differences to work together on their most ambitious heist yet.",
-      "popularity": 80.8943,
+      "popularity": 73.0255,
       "poster_path": "/oD3Eey4e4Z259XLm3eD3WGcoJAh.jpg",
       "production_companies": [
         {
@@ -1035,8 +1035,177 @@
       "tagline": "Unlock the illusion.",
       "title": "Now You See Me: Now You Don't",
       "video": false,
-      "vote_average": 6.6,
-      "vote_count": 971,
+      "vote_average": 6.558,
+      "vote_count": 975,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/rdoFJNT4EzBh1kJ1d0hqjwvfV6r.jpg",
+      "belongs_to_collection": null,
+      "budget": 40000000,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://www.20thcenturystudios.com/movies/send-help",
+      "id": 1198994,
+      "imdb_id": "tt8036976",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Send Help",
+      "overview": "Two colleagues become stranded on a deserted island, the only survivors of a plane crash. On the island, they must overcome past grievances and work together to survive, but ultimately, it's a battle of wills and wits to make it out alive.",
+      "popularity": 77.8243,
+      "poster_path": "/mlV70IuchLZXcXKowjwSpSfdfUB.jpg",
+      "production_companies": [
+        {
+          "id": 122323,
+          "logo_path": "/gWiaDcDxt0AkSE9hxsUn5naFGRT.png",
+          "name": "Raimi Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 127928,
+          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
+          "name": "20th Century Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 22213,
+          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
+          "name": "TSG Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-01-22",
+      "revenue": 10821,
+      "runtime": 113,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Meet Linda Liddle... She's from strategy and planning. She's the boss now.",
+      "title": "Send Help",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 30,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2OHa6ukEq3Hce7Pc2kvu8wkmMFY.jpg",
+      "belongs_to_collection": {
+        "id": 52785,
+        "name": "xXx Collection",
+        "poster_path": "/s13xGJSH3eEWPjSjDvI1iCqkwVg.jpg",
+        "backdrop_path": "/jSfCi0onZRDxbeg2dPJgB5iAoxX.jpg"
+      },
+      "budget": 70000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "http://www.sonypictures.com/movies/xxx/",
+      "id": 7451,
+      "imdb_id": "tt0295701",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "xXx",
+      "overview": "Xander Cage is your standard adrenaline junkie with no fear and a lousy attitude. When the US Government \"recruits\" him to go on a mission, he's not exactly thrilled. His mission: to gather information on an organization that may just be planning the destruction of the world, led by the nihilistic Yorgi.",
+      "popularity": 74.4831,
+      "poster_path": "/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg",
+      "production_companies": [
+        {
+          "id": 497,
+          "logo_path": "/wmxHM7w6JxbPwaopC6Sl4QSG2uH.png",
+          "name": "Revolution Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2002-08-09",
+      "revenue": 277448382,
+      "runtime": 124,
+      "spoken_languages": [
+        {
+          "english_name": "Czech",
+          "iso_639_1": "cs",
+          "name": "Český"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "Russian",
+          "iso_639_1": "ru",
+          "name": "Pусский"
+        }
+      ],
+      "status": "Released",
+      "tagline": "A new breed of secret agent.",
+      "title": "xXx",
+      "video": false,
+      "vote_average": 5.982,
+      "vote_count": 4761,
       "media_type": "movie"
     },
     {
@@ -1068,7 +1237,7 @@
       "original_language": "en",
       "original_title": "Trap House",
       "overview": "An undercover DEA agent and his partner embark on a game of cat and mouse with an audacious, and surprising group of thieves - their own rebellious teenagers, who have begun robbing from a dangerous cartel, using their parents' tactics and top-secret intel to do it.",
-      "popularity": 74.6943,
+      "popularity": 72.071,
       "poster_path": "/6tpAPeuuqbVnYWWPoOLEDLSBU7a.jpg",
       "production_companies": [
         {
@@ -1155,8 +1324,8 @@
       "tagline": "This isn't a raid. It's a reckoning.",
       "title": "Trap House",
       "video": false,
-      "vote_average": 6.63,
-      "vote_count": 188,
+      "vote_average": 6.651,
+      "vote_count": 192,
       "media_type": "movie"
     },
     {
@@ -1187,7 +1356,7 @@
       "original_language": "en",
       "original_title": "Mercy",
       "overview": "In the near future, a detective stands on trial accused of murdering his wife. He has ninety minutes to prove his innocence to the advanced AI Judge he once championed, before it determines his fate.",
-      "popularity": 70.9271,
+      "popularity": 66.5702,
       "poster_path": "/1LzdlxK9ctsnx7nXoGF1ImHKddl.jpg",
       "production_companies": [
         {
@@ -1229,8 +1398,8 @@
       "tagline": "Prove your innocence to an AI judge or face execution.",
       "title": "Mercy",
       "video": false,
-      "vote_average": 6.9,
-      "vote_count": 76,
+      "vote_average": 6.817,
+      "vote_count": 82,
       "media_type": "movie"
     },
     {
@@ -1261,7 +1430,7 @@
       "original_language": "en",
       "original_title": "One Battle After Another",
       "overview": "Washed-up revolutionary Bob exists in a state of stoned paranoia, surviving off-grid with his spirited, self-reliant daughter, Willa. When his evil nemesis resurfaces after 16 years and she goes missing, the former radical scrambles to find her, father and daughter both battling the consequences of his past.",
-      "popularity": 70.6801,
+      "popularity": 64.0761,
       "poster_path": "/m1jFoahEbeQXtx4zArT2FKdbNIj.jpg",
       "production_companies": [
         {
@@ -1313,172 +1482,58 @@
       "tagline": "Some search for battle, others are born into it...",
       "title": "One Battle After Another",
       "video": false,
-      "vote_average": 7.4,
-      "vote_count": 2616,
+      "vote_average": 7.423,
+      "vote_count": 2626,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/2OHa6ukEq3Hce7Pc2kvu8wkmMFY.jpg",
-      "belongs_to_collection": {
-        "id": 52785,
-        "name": "xXx Collection",
-        "poster_path": "/s13xGJSH3eEWPjSjDvI1iCqkwVg.jpg",
-        "backdrop_path": "/jSfCi0onZRDxbeg2dPJgB5iAoxX.jpg"
-      },
-      "budget": 70000000,
+      "backdrop_path": null,
+      "belongs_to_collection": null,
+      "budget": 0,
       "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
         {
           "id": 53,
           "name": "Thriller"
         },
         {
-          "id": 80,
-          "name": "Crime"
+          "id": 27,
+          "name": "Horror"
         },
         {
           "id": 18,
           "name": "Drama"
         }
       ],
-      "homepage": "http://www.sonypictures.com/movies/xxx/",
-      "id": 7451,
-      "imdb_id": "tt0295701",
+      "homepage": "",
+      "id": 1475490,
+      "imdb_id": "tt11609626",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "xXx",
-      "overview": "Xander Cage is your standard adrenaline junkie with no fear and a lousy attitude. When the US Government \"recruits\" him to go on a mission, he's not exactly thrilled. His mission: to gather information on an organization that may just be planning the destruction of the world, led by the nihilistic Yorgi.",
-      "popularity": 74.8319,
-      "poster_path": "/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg",
-      "production_companies": [
-        {
-          "id": 497,
-          "logo_path": "/wmxHM7w6JxbPwaopC6Sl4QSG2uH.png",
-          "name": "Revolution Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2002-08-09",
-      "revenue": 277448382,
-      "runtime": 124,
-      "spoken_languages": [
-        {
-          "english_name": "Czech",
-          "iso_639_1": "cs",
-          "name": "Český"
-        },
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "German",
-          "iso_639_1": "de",
-          "name": "Deutsch"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        },
-        {
-          "english_name": "Russian",
-          "iso_639_1": "ru",
-          "name": "Pусский"
-        }
-      ],
-      "status": "Released",
-      "tagline": "A new breed of secret agent.",
-      "title": "xXx",
-      "video": false,
-      "vote_average": 5.982,
-      "vote_count": 4760,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/sW0X1265yuRHUorLKCrJDv9TJD7.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1491902,
-      "imdb_id": "tt29538620",
-      "origin_country": [
-        "TH"
-      ],
-      "original_language": "th",
-      "original_title": "ปัง",
-      "overview": "Follows a ruthless hitman who, after narrowly escaping a fatal attempt on his life, betrays his gang in an effort to find forgiveness but ends up becoming a target himself.",
-      "popularity": 66.0039,
-      "poster_path": "/8SUzKOqe2ectvhYdSnR7Vq2F3n1.jpg",
-      "production_companies": [
-        {
-          "id": 264113,
-          "logo_path": null,
-          "name": "+Sixty Six",
-          "origin_country": ""
-        },
-        {
-          "id": 72408,
-          "logo_path": null,
-          "name": "Kaos Entertainment",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "TH",
-          "name": "Thailand"
-        }
-      ],
-      "release_date": "2025-07-11",
+      "original_title": "The Calling Witch",
+      "overview": "A brother and sister are terrorized by what seems to be their late-author mother's most sinister literary creation - The Calling Witch.",
+      "popularity": 73.8631,
+      "poster_path": "/q8o2NzIH4ze28NAVs1eRkejAJIk.jpg",
+      "production_companies": [],
+      "production_countries": [],
+      "release_date": "2026-01-20",
       "revenue": 0,
-      "runtime": 0,
+      "runtime": 98,
       "spoken_languages": [
         {
           "english_name": "English",
           "iso_639_1": "en",
           "name": "English"
-        },
-        {
-          "english_name": "Thai",
-          "iso_639_1": "th",
-          "name": "ภาษาไทย"
         }
       ],
       "status": "Released",
-      "tagline": "Once a killer, now the mark.",
-      "title": "Bang",
+      "tagline": "Stay Out of the Woods",
+      "title": "The Calling Witch",
       "video": false,
-      "vote_average": 6.6,
-      "vote_count": 60,
+      "vote_average": 6.25,
+      "vote_count": 4,
       "media_type": "movie"
     },
     {
@@ -1514,7 +1569,7 @@
       "original_language": "en",
       "original_title": "28 Years Later: The Bone Temple",
       "overview": "Dr. Kelson finds himself in a shocking new relationship - with consequences that could change the world as they know it - and Spike's encounter with Jimmy Crystal becomes a nightmare he can't escape.",
-      "popularity": 67.2374,
+      "popularity": 62.638,
       "poster_path": "/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg",
       "production_companies": [
         {
@@ -1560,8 +1615,77 @@
       "tagline": "Fear is the new faith.",
       "title": "28 Years Later: The Bone Temple",
       "video": false,
-      "vote_average": 7.244,
-      "vote_count": 262,
+      "vote_average": 7.243,
+      "vote_count": 272,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sW0X1265yuRHUorLKCrJDv9TJD7.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1491902,
+      "imdb_id": "tt29538620",
+      "origin_country": [
+        "TH"
+      ],
+      "original_language": "th",
+      "original_title": "ปัง",
+      "overview": "Follows a ruthless hitman who, after narrowly escaping a fatal attempt on his life, betrays his gang in an effort to find forgiveness but ends up becoming a target himself.",
+      "popularity": 60.5388,
+      "poster_path": "/8SUzKOqe2ectvhYdSnR7Vq2F3n1.jpg",
+      "production_companies": [
+        {
+          "id": 264113,
+          "logo_path": null,
+          "name": "+Sixty Six",
+          "origin_country": ""
+        },
+        {
+          "id": 72408,
+          "logo_path": null,
+          "name": "Kaos Entertainment",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "TH",
+          "name": "Thailand"
+        }
+      ],
+      "release_date": "2025-07-11",
+      "revenue": 0,
+      "runtime": 0,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Thai",
+          "iso_639_1": "th",
+          "name": "ภาษาไทย"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Once a killer, now the mark.",
+      "title": "Bang",
+      "video": false,
+      "vote_average": 6.639,
+      "vote_count": 61,
       "media_type": "movie"
     },
     {
@@ -1593,7 +1717,7 @@
       "original_language": "en",
       "original_title": "Five Nights at Freddy's 2",
       "overview": "One year since the supernatural nightmare at Freddy Fazbear's Pizza, the stories about what transpired there have been twisted into a campy local legend, inspiring the town's first ever Fazfest. With the truth kept from her, Abby sneaks out to reconnect with Freddy, Bonnie, Chica, and Foxy, setting into motion a terrifying series of events that will reveal dark secrets about the real origin of Freddy's, and unleash a decades-hidden horror.",
-      "popularity": 64.1619,
+      "popularity": 60.7693,
       "poster_path": "/udAxQEORq2I5wxI97N2TEqdhzBE.jpg",
       "production_companies": [
         {
@@ -1622,7 +1746,7 @@
         }
       ],
       "release_date": "2025-12-03",
-      "revenue": 236746717,
+      "revenue": 237625385,
       "runtime": 104,
       "spoken_languages": [
         {
@@ -1641,7 +1765,7 @@
       "title": "Five Nights at Freddy's 2",
       "video": false,
       "vote_average": 6.7,
-      "vote_count": 671,
+      "vote_count": 677,
       "media_type": "movie"
     },
     {
@@ -1680,7 +1804,7 @@
       "original_language": "ko",
       "original_title": "야당",
       "overview": "Navigating both the criminal underworld and law enforcement agencies, professional snitches called \"yadang\" provide covert information about the drug world to prosecutors and police. When a drug bust at a party attended by high-profile second-generation VIPs entangles those involved into a dangerous conspiracy, a seasoned yadang must do everything in his power not just to make it out on top, but alive.",
-      "popularity": 53.1045,
+      "popularity": 49.0532,
       "poster_path": "/y7dsDbG8zVWkrkyOhA6ckZXX1uC.jpg",
       "production_companies": [
         {
@@ -1747,7 +1871,7 @@
       "original_language": "en",
       "original_title": "Muzzle: City of Wolves",
       "overview": "LAPD officer Jake Rosser endeavors to lead a peaceful life with his family and retired K-9 officer, Socks. However, tranquility dissolves into chaos when a gang targets them in a brutal attack. Alongside his new K-9 partner Argos, Jake launches into a relentless pursuit of justice, determined to protect his loved ones.",
-      "popularity": 52.9988,
+      "popularity": 48.4455,
       "poster_path": "/8qTMRmC07XCGidnKQFLbRM3FoDU.jpg",
       "production_companies": [
         {
@@ -1856,7 +1980,7 @@
       "original_language": "en",
       "original_title": "The Running Man",
       "overview": "Desperate to save his sick daughter, working-class Ben Richards is convinced by The Running Man's charming but ruthless producer to enter the deadly competition game as a last resort. But Ben's defiance, instincts, and grit turn him into an unexpected fan favorite — and a threat to the entire system. As ratings skyrocket, so does the danger, and Ben must outwit not just the Hunters, but a nation addicted to watching him fall.",
-      "popularity": 49.2348,
+      "popularity": 45.903,
       "poster_path": "/dKL78O9zxczVgjtNcQ9UkbYLzqX.jpg",
       "production_companies": [
         {
@@ -1908,8 +2032,8 @@
       "tagline": "Hunt him down.",
       "title": "The Running Man",
       "video": false,
-      "vote_average": 6.797,
-      "vote_count": 1077,
+      "vote_average": 6.8,
+      "vote_count": 1080,
       "media_type": "movie"
     },
     {
@@ -1936,7 +2060,7 @@
       "original_language": "en",
       "original_title": "Primate",
       "overview": "Lucy, a college student, along with her friends, spend their vacation at her family's home in Hawaii, which includes her pet chimpanzee, Ben. However, when Ben contracts rabies after being bitten by a rabid animal, the group must fight for their lives in order to avoid the now-violent chimp.",
-      "popularity": 45.4786,
+      "popularity": 45.754,
       "poster_path": "/z97hrgI5wbGbZvSVkBfAeBnFKAg.jpg",
       "production_companies": [
         {
@@ -1978,8 +2102,8 @@
       "tagline": "Something's wrong with Ben.",
       "title": "Primate",
       "video": false,
-      "vote_average": 6.625,
-      "vote_count": 64,
+      "vote_average": 6.642,
+      "vote_count": 67,
       "media_type": "movie"
     },
     {
@@ -2010,7 +2134,7 @@
       "original_language": "pt",
       "original_title": "O Agente Secreto",
       "overview": "Brazil, 1977. Marcelo, a technology expert in his early 40s, is on the run. Hoping to reunite with his son, he travels to Recife during Carnival but soon realizes that the city is not the safe haven he was expecting.",
-      "popularity": 44.6777,
+      "popularity": 39.5254,
       "poster_path": "/iLE2YOmeboeTDC7GlOp1dzh1VFo.jpg",
       "production_companies": [
         {
@@ -2114,8 +2238,8 @@
       "tagline": "Brazil 1977, a time of great mischief.",
       "title": "The Secret Agent",
       "video": false,
-      "vote_average": 7.7,
-      "vote_count": 228,
+      "vote_average": 7.674,
+      "vote_count": 236,
       "media_type": "movie"
     },
     {
@@ -2142,7 +2266,7 @@
       "original_language": "en",
       "original_title": "The Inhabitants",
       "overview": "A young couple gets more than they bargained for when they buy an historic bed and breakfast in New England only to discover that the old house is hiding a dark secret within its walls.",
-      "popularity": 44.1008,
+      "popularity": 32.0732,
       "poster_path": "/rSTpOi0TqwqsHG9zPR4eatC4EHJ.jpg",
       "production_companies": [
         {
@@ -2215,7 +2339,7 @@
       "original_language": "en",
       "original_title": "Mission: Impossible - The Final Reckoning",
       "overview": "Ethan Hunt and team continue their search for the terrifying AI known as the Entity — which has infiltrated intelligence networks all over the globe — with the world's governments and a mysterious ghost from Hunt's past on their trail. Joined by new allies and armed with the means to shut the Entity down for good, Hunt is in a race against time to prevent the world as we know it from changing forever.",
-      "popularity": 42.8715,
+      "popularity": 42.4732,
       "poster_path": "/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg",
       "production_companies": [
         {
@@ -2272,8 +2396,8 @@
       "tagline": "Our lives are the sum of our choices.",
       "title": "Mission: Impossible - The Final Reckoning",
       "video": false,
-      "vote_average": 7.19,
-      "vote_count": 2475,
+      "vote_average": 7.189,
+      "vote_count": 2482,
       "media_type": "movie"
     },
     {
@@ -2305,7 +2429,7 @@
       "original_language": "es",
       "original_title": "Vieja loca",
       "overview": "Pedro receives a desperate message from an ex-girlfriend asking him to look after her senile mother, Alicia. What seems like a simple mission soon becomes his worst nightmare. Pedro needs to escape; but Alicia won’t let him...",
-      "popularity": 42.4559,
+      "popularity": 39.8704,
       "poster_path": "/a2EdW8sk22fNCvrpOiaHbR2hOuZ.jpg",
       "production_companies": [
         {
@@ -2367,8 +2491,8 @@
       "tagline": "",
       "title": "Crazy Old Lady",
       "video": false,
-      "vote_average": 5.7,
-      "vote_count": 19,
+      "vote_average": 5.6,
+      "vote_count": 20,
       "media_type": "movie"
     },
     {
@@ -2395,7 +2519,7 @@
       "original_language": "en",
       "original_title": "Delivery Run",
       "overview": "A food delivery driver gets caught in a deadly chase in the icy Minnesota wilderness, pursued by a crazed snowplow driver for unknown reasons, facing life-threatening situations and forced to outsmart his relentless pursuer alone.",
-      "popularity": 39.9278,
+      "popularity": 36.5303,
       "poster_path": "/eCA5maHDlZtXNTtiLXenwnEw7tc.jpg",
       "production_companies": [
         {
@@ -2457,7 +2581,7 @@
       "original_language": "en",
       "original_title": "Hunting Season",
       "overview": "When a reclusive survivalist and his daughter rescue a mysterious, wounded woman from a river, they become entangled in a deadly web of violence and revenge, forcing them to confront a brutal criminal to survive.",
-      "popularity": 39.4928,
+      "popularity": 35.808,
       "poster_path": "/cbryTyaWdqrKpQCw6K7zm2jrB5v.jpg",
       "production_companies": [
         {
@@ -2529,89 +2653,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/s6aB9kjxNg0mu2361IkCUSpyHJV.jpg",
-      "belongs_to_collection": null,
-      "budget": 12200000,
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        }
-      ],
-      "homepage": "https://www.neonrated.com/film/no-other-choice",
-      "id": 639988,
-      "imdb_id": "tt1527793",
-      "origin_country": [
-        "KR"
-      ],
-      "original_language": "ko",
-      "original_title": "어쩔수가없다",
-      "overview": "After being laid off and humiliated by a ruthless job market, a veteran paper mill manager descends into violence in a desperate bid to reclaim his dignity.",
-      "popularity": 38.9698,
-      "poster_path": "/sBpxTGLzKnvPSVtL5yQYpSxvKEb.jpg",
-      "production_companies": [
-        {
-          "id": 199265,
-          "logo_path": "/mv2yDqAgT1ea1eTXZMDr89zX95M.png",
-          "name": "CJ ENM Studios",
-          "origin_country": "KR"
-        },
-        {
-          "id": 34725,
-          "logo_path": "/cRqXC6Dy6AvTGS2wiMt26yGJgZA.png",
-          "name": "Moho Film",
-          "origin_country": "KR"
-        },
-        {
-          "id": 123220,
-          "logo_path": "/78WFEzOdyyCUrglTfnZi0CIYXsD.png",
-          "name": "KG Productions",
-          "origin_country": "FR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        },
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "release_date": "2025-09-24",
-      "revenue": 30098000,
-      "runtime": 139,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Would you kill for a job?",
-      "title": "No Other Choice",
-      "video": false,
-      "vote_average": 7.7,
-      "vote_count": 544,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/2Fk3AB8E9dYIBc2ywJkxk8BTyhc.jpg",
       "belongs_to_collection": {
         "id": 840465,
@@ -2647,7 +2688,7 @@
       "original_language": "en",
       "original_title": "Greenland",
       "overview": "John Garrity, his estranged wife and their young son embark on a perilous journey to find sanctuary as a planet-killing comet hurtles toward Earth. Amid terrifying accounts of cities getting levelled, the Garritys experience the best and worst in humanity. As the countdown to the global apocalypse approaches zero, their incredible trek culminates in a desperate and last-minute flight to a possible safe haven.",
-      "popularity": 38.6415,
+      "popularity": 43.5565,
       "poster_path": "/bNo2mcvSwIvnx8K6y1euAc1TLVq.jpg",
       "production_companies": [
         {
@@ -2715,8 +2756,91 @@
       "tagline": "It's the end of the world as we know it.",
       "title": "Greenland",
       "video": false,
-      "vote_average": 7.1,
-      "vote_count": 4988,
+      "vote_average": 7.124,
+      "vote_count": 4993,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4g4bFrZayZoEMH4vr2fNF8ObPzU.jpg",
+      "belongs_to_collection": null,
+      "budget": 12200000,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://www.neonrated.com/film/no-other-choice",
+      "id": 639988,
+      "imdb_id": "tt1527793",
+      "origin_country": [
+        "KR"
+      ],
+      "original_language": "ko",
+      "original_title": "어쩔수가없다",
+      "overview": "After being laid off and humiliated by a ruthless job market, a veteran paper mill manager descends into violence in a desperate bid to reclaim his dignity.",
+      "popularity": 38.1371,
+      "poster_path": "/zqxc2O6eOcPdkcmvem9kgGHvkmM.jpg",
+      "production_companies": [
+        {
+          "id": 199265,
+          "logo_path": "/mv2yDqAgT1ea1eTXZMDr89zX95M.png",
+          "name": "CJ ENM Studios",
+          "origin_country": "KR"
+        },
+        {
+          "id": 34725,
+          "logo_path": "/cRqXC6Dy6AvTGS2wiMt26yGJgZA.png",
+          "name": "Moho Film",
+          "origin_country": "KR"
+        },
+        {
+          "id": 123220,
+          "logo_path": "/78WFEzOdyyCUrglTfnZi0CIYXsD.png",
+          "name": "KG Productions",
+          "origin_country": "FR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "KR",
+          "name": "South Korea"
+        },
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        }
+      ],
+      "release_date": "2025-09-24",
+      "revenue": 30098000,
+      "runtime": 139,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Korean",
+          "iso_639_1": "ko",
+          "name": "한국어/조선말"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Would you kill for a job?",
+      "title": "No Other Choice",
+      "video": false,
+      "vote_average": 7.7,
+      "vote_count": 544,
       "media_type": "movie"
     },
     {
@@ -2747,7 +2871,7 @@
       "original_language": "en",
       "original_title": "Bugonia",
       "overview": "Two conspiracy obsessed young men kidnap the high-powered CEO of a major company, convinced that she is an alien intent on destroying planet Earth.",
-      "popularity": 37.4122,
+      "popularity": 37.309,
       "poster_path": "/rSdOua3wKMEaFWDcKAYWRjXQWOt.jpg",
       "production_companies": [
         {
@@ -2819,8 +2943,8 @@
       "tagline": "Of all the abductions, this one is different.",
       "title": "Bugonia",
       "video": false,
-      "vote_average": 7.386,
-      "vote_count": 1272,
+      "vote_average": 7.387,
+      "vote_count": 1278,
       "media_type": "movie"
     },
     {
@@ -2851,7 +2975,7 @@
       "original_language": "en",
       "original_title": "Awake",
       "overview": "While undergoing heart surgery, a man experiences a phenomenon called ‘anesthetic awareness’, which leaves him awake but paralyzed throughout the operation. As various obstacles present themselves, his wife must make life-altering decisions while wrestling with her own personal drama.",
-      "popularity": 36.8102,
+      "popularity": 30.5378,
       "poster_path": "/jIPIxaBcppLLkygko7tV5yuTIs1.jpg",
       "production_companies": [
         {
@@ -2899,7 +3023,7 @@
       "title": "Awake",
       "video": false,
       "vote_average": 6.546,
-      "vote_count": 1449,
+      "vote_count": 1454,
       "media_type": "movie"
     },
     {
@@ -2935,7 +3059,7 @@
       "original_language": "es",
       "original_title": "Culpa mía",
       "overview": "Noah must leave her city, boyfriend, and friends to move into William Leister's mansion, the flashy and wealthy husband of her mother Rafaela. As a proud and independent 17 year old, Noah resists living in a mansion surrounded by luxury. However, it is there where she meets Nick, her new stepbrother, and the clash of their strong personalities becomes evident from the very beginning.",
-      "popularity": 34.6836,
+      "popularity": 34.0155,
       "poster_path": "/w46Vw536HwNnEzOa7J24YH9DPRS.jpg",
       "production_companies": [
         {
@@ -2999,7 +3123,7 @@
       "original_language": "en",
       "original_title": "Wildcat",
       "overview": "An ex-black ops team reunite to pull off a desperate heist in order to save the life of their leader’s eight-year-old daughter.",
-      "popularity": 33.7429,
+      "popularity": 31.3769,
       "poster_path": "/tZst3WyMhbpfwC9kjuuKojAY7iJ.jpg",
       "production_companies": [
         {
@@ -3029,7 +3153,7 @@
       "tagline": "",
       "title": "Wildcat",
       "video": false,
-      "vote_average": 5.968,
+      "vote_average": 6.0,
       "vote_count": 78,
       "media_type": "movie"
     },
@@ -3061,7 +3185,7 @@
       "original_language": "en",
       "original_title": "Risqué",
       "overview": "Fired from a strip club, a vengeful dancer masterminds a high-stakes heist with fellow strippers to take down the corrupt boss and the men who underestimate them.",
-      "popularity": 31.2412,
+      "popularity": 28.3627,
       "poster_path": "/h6OsRrDwbspLnKMvlFl57QFDP7d.jpg",
       "production_companies": [
         {
@@ -3128,7 +3252,7 @@
       "original_language": "en",
       "original_title": "28 Years Later",
       "overview": "Twenty-eight years after the Rage virus outbreak, Britain remains sealed off from the world. A fortified island community survives in isolation—until a young boy’s journey to the mainland reveals how both the infected and the survivors have evolved.",
-      "popularity": 30.991,
+      "popularity": 28.3098,
       "poster_path": "/n5FygjEppOvac6yEaowi26nTyw3.jpg",
       "production_companies": [
         {
@@ -3185,112 +3309,232 @@
       "tagline": "In 28 days it began. In 28 weeks it spread. In 28 years it evolved.",
       "title": "28 Years Later",
       "video": false,
-      "vote_average": 6.616,
-      "vote_count": 2131,
+      "vote_average": 6.6,
+      "vote_count": 2136,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/ie827c44beNPNnxIOi8EM9mCI4A.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/fiRDzpcJe7qz3yIR43hdXIE3NHv.jpg",
+      "belongs_to_collection": {
+        "id": 722971,
+        "name": "Knives Out Collection",
+        "poster_path": "/pkjW3K0UDnwYWDcUR83VzfHNQA4.jpg",
+        "backdrop_path": "/G7qYINSq5xyDd0I0zn3DpAssA0.jpg"
+      },
+      "budget": 210000000,
       "genres": [
         {
-          "id": 27,
-          "name": "Horror"
+          "id": 53,
+          "name": "Thriller"
         },
         {
           "id": 9648,
           "name": "Mystery"
         },
         {
-          "id": 53,
-          "name": "Thriller"
+          "id": 35,
+          "name": "Comedy"
         }
       ],
-      "homepage": "https://www.umbrellaent.com.au/film/exit-8",
-      "id": 1408208,
-      "imdb_id": "tt35222590",
+      "homepage": "https://www.wakeupdeadmanfilm.com/home",
+      "id": 812583,
+      "imdb_id": "tt14364480",
       "origin_country": [
-        "JP"
+        "US"
       ],
-      "original_language": "ja",
-      "original_title": "８番出口",
-      "overview": "A man gets lost in an underground passage. He follows the \"guide\" through the passage, but one after another, strange things happen to him. Is this space real? Or an illusion? Will the man be able to escape the passage?",
-      "popularity": 26.6659,
-      "poster_path": "/pOumcMZASyZA8of7SJRJNACEm23.jpg",
+      "original_language": "en",
+      "original_title": "Wake Up Dead Man: A Knives Out Mystery",
+      "overview": "When young priest Jud Duplenticy is sent to assist charismatic firebrand Monsignor Jefferson Wicks, it’s clear that all is not well in the pews. After a sudden and seemingly impossible murder rocks the town, the lack of an obvious suspect prompts local police chief Geraldine Scott to join forces with renowned detective Benoit Blanc to unravel a mystery that defies all logic.",
+      "popularity": 29.0247,
+      "poster_path": "/qCOGGi8JBVEZMc3DVby8rUivyXz.jpg",
       "production_companies": [
         {
-          "id": 882,
-          "logo_path": "/fRSWWjquvzcHjACbtF53utZFIll.png",
-          "name": "TOHO",
-          "origin_country": "JP"
-        },
-        {
-          "id": 39804,
-          "logo_path": "/bT7wDgMpeT7EAewYfWIHs3gWNYE.png",
-          "name": "AOI Pro.",
-          "origin_country": "JP"
-        },
-        {
-          "id": 128616,
-          "logo_path": "/cjmwexOzetWZa8QKy447NMrM6MG.png",
-          "name": "Story",
-          "origin_country": "JP"
-        },
-        {
-          "id": 11849,
-          "logo_path": "/ssKAToULWqC6LJXOJWtd0O3VdV0.png",
-          "name": "Lawson",
-          "origin_country": "JP"
-        },
-        {
-          "id": 270390,
-          "logo_path": null,
-          "name": "Suirinsha",
-          "origin_country": "JP"
-        },
-        {
-          "id": 145105,
-          "logo_path": "/oFUDvCLCRmAXlGqjmwO8CN33ygl.png",
-          "name": "Tohan",
-          "origin_country": "JP"
-        },
-        {
-          "id": 270391,
-          "logo_path": null,
-          "name": "Office Nino",
-          "origin_country": "JP"
-        },
-        {
-          "id": 270392,
-          "logo_path": null,
-          "name": "Metro Ad Agency",
-          "origin_country": "JP"
+          "id": 37871,
+          "logo_path": "/aUOo1S2AabqQnRrXK6XuObWPDyK.png",
+          "name": "T-Street",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "JP",
-          "name": "Japan"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
-      "release_date": "2025-08-28",
-      "revenue": 39003150,
-      "runtime": 95,
+      "release_date": "2025-11-26",
+      "revenue": 4000000,
+      "runtime": 145,
       "spoken_languages": [
         {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
         }
       ],
       "status": "Released",
-      "tagline": "Try your best to get out.",
-      "title": "Exit 8",
+      "tagline": "He works in mysterious ways.",
+      "title": "Wake Up Dead Man: A Knives Out Mystery",
       "video": false,
-      "vote_average": 6.244,
-      "vote_count": 125,
+      "vote_average": 7.2,
+      "vote_count": 1930,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/AePlQ3osZShJmbNj8tzQ3NoMTQF.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        }
+      ],
+      "homepage": "",
+      "id": 1013446,
+      "imdb_id": "tt32263401",
+      "origin_country": [
+        "BE",
+        "FR",
+        "IT",
+        "LU"
+      ],
+      "original_language": "fr",
+      "original_title": "Reflet dans un diamant mort",
+      "overview": "When the mysterious woman in the room next door disappears, a debonair 70-year-old ex-spy living in a luxury hotel on the Côte d'Azur is confronted by the demons and darlings of a lurid past in which moviemaking, memories and madness collide.",
+      "popularity": 27.5708,
+      "poster_path": "/5CdRxBu7jRDHjthkAL8vE0GdKUD.jpg",
+      "production_companies": [
+        {
+          "id": 141829,
+          "logo_path": "/bB8NbAbJGnIQGGRxcO0pFPZicPX.png",
+          "name": "Kozak Films",
+          "origin_country": "BE"
+        },
+        {
+          "id": 72130,
+          "logo_path": "/2aZx0CKefgtSJEwU5TBLX7oXwyR.png",
+          "name": "Les Films Fauves",
+          "origin_country": "LU"
+        },
+        {
+          "id": 252846,
+          "logo_path": "/n18Idu6TusowfB1ihJ00vL0bar1.png",
+          "name": "Dandy Projects",
+          "origin_country": "IT"
+        },
+        {
+          "id": 24439,
+          "logo_path": "/1E8Va7pgnmenV70m4U4MqHRLQiL.png",
+          "name": "Tobina Film",
+          "origin_country": "FR"
+        },
+        {
+          "id": 7115,
+          "logo_path": "/o2EG4i2JfK1o3EaXuaBKXo1PDlz.png",
+          "name": "Savage Film",
+          "origin_country": "BE"
+        },
+        {
+          "id": 51400,
+          "logo_path": "/iQ8u1H9KzFf3i2phgx5q8Yo7F8R.png",
+          "name": "To Be Continued",
+          "origin_country": "FR"
+        },
+        {
+          "id": 11997,
+          "logo_path": "/jh15xr7Y10ZrgY1BwE3LGwcseu7.png",
+          "name": "BNP Paribas Fortis",
+          "origin_country": "BE"
+        },
+        {
+          "id": 792,
+          "logo_path": "/cRhBQP1FFNugNxKkO1pUgeD2Rkr.png",
+          "name": "RTBF",
+          "origin_country": "BE"
+        },
+        {
+          "id": 94,
+          "logo_path": "/huC7HqorvUThGIrENrbcHmQVUA0.png",
+          "name": "ARTE France Cinéma",
+          "origin_country": "FR"
+        },
+        {
+          "id": 119267,
+          "logo_path": "/b9Gw1Oz0d7rdxmpbJPQC0zQpmxw.png",
+          "name": "VOO & Be tv",
+          "origin_country": "BE"
+        },
+        {
+          "id": 92187,
+          "logo_path": "/yrAyYme1zlZtHuhlWS3DlFAj762.png",
+          "name": "Proximus",
+          "origin_country": "BE"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "BE",
+          "name": "Belgium"
+        },
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        },
+        {
+          "iso_3166_1": "IT",
+          "name": "Italy"
+        },
+        {
+          "iso_3166_1": "LU",
+          "name": "Luxembourg"
+        }
+      ],
+      "release_date": "2025-06-25",
+      "revenue": 0,
+      "runtime": 87,
+      "spoken_languages": [
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "Italian",
+          "iso_639_1": "it",
+          "name": "Italiano"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Reflection in a Dead Diamond",
+      "video": false,
+      "vote_average": 6.136,
+      "vote_count": 59,
       "media_type": "movie"
     },
     {
@@ -3326,7 +3570,7 @@
       "original_language": "en",
       "original_title": "The Dark Knight",
       "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-      "popularity": 29.9508,
+      "popularity": 26.838,
       "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
       "production_companies": [
         {
@@ -3383,8 +3627,92 @@
       "tagline": "Welcome to a world without rules.",
       "title": "The Dark Knight",
       "video": false,
-      "vote_average": 8.5,
-      "vote_count": 35080,
+      "vote_average": 8.526,
+      "vote_count": 35083,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/YCunHbbBUBKx6daM9XZAXkOH8k.jpg",
+      "belongs_to_collection": {
+        "id": 1593311,
+        "name": "Dhurandhar Collection",
+        "poster_path": null,
+        "backdrop_path": null
+      },
+      "budget": 22500000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1291608,
+      "imdb_id": "tt33014583",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "hi",
+      "original_title": "धुरंधर",
+      "overview": "In the early 2000s, an Indian undercover operative infiltrates Karachi's underworld , breaking into its inner circle to dismantle a violent nexus from within.",
+      "popularity": 29.8845,
+      "poster_path": "/8FHOtUpNIk5ZPEay2N2EY5lrxkv.jpg",
+      "production_companies": [
+        {
+          "id": 212774,
+          "logo_path": null,
+          "name": "B62 Studios",
+          "origin_country": "IN"
+        },
+        {
+          "id": 115477,
+          "logo_path": "/6CkBjiSlfAJFaMjwB44ILbOhFuV.png",
+          "name": "Jio Studios",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2025-12-05",
+      "revenue": 160000000,
+      "runtime": 212,
+      "spoken_languages": [
+        {
+          "english_name": "Punjabi",
+          "iso_639_1": "pa",
+          "name": "ਪੰਜਾਬੀ"
+        },
+        {
+          "english_name": "Urdu",
+          "iso_639_1": "ur",
+          "name": "اردو"
+        },
+        {
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Dhurandhar",
+      "video": false,
+      "vote_average": 6.816,
+      "vote_count": 160,
       "media_type": "movie"
     },
     {
@@ -3415,7 +3743,7 @@
       "original_language": "en",
       "original_title": "Ballerina",
       "overview": "Taking place during the events of John Wick: Chapter 3 – Parabellum, Eve Macarro begins her training in the assassin traditions of the Ruska Roma.",
-      "popularity": 29.1576,
+      "popularity": 26.4863,
       "poster_path": "/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
       "production_companies": [
         {
@@ -3472,8 +3800,8 @@
       "tagline": "Vengeance has a new face.",
       "title": "Ballerina",
       "video": false,
-      "vote_average": 7.287,
-      "vote_count": 2260,
+      "vote_average": 7.3,
+      "vote_count": 2264,
       "media_type": "movie"
     },
     {
@@ -3504,7 +3832,7 @@
       "original_language": "en",
       "original_title": "Voice of Shadows",
       "overview": "A young working class woman stands to inherit an estate if she and her boyfriend abide by a set of bizarre stipulations.",
-      "popularity": 28.6511,
+      "popularity": 26.8585,
       "poster_path": "/hffZQgrulC6jgneLuTANQrYgiui.jpg",
       "production_companies": [
         {
@@ -3572,7 +3900,7 @@
       "original_language": "es",
       "original_title": "Sirāt",
       "overview": "A man and his son arrive at a rave lost in the mountains of Morocco. They are looking for Marina, their daughter and sister, who disappeared months ago at another rave. Driven by fate, they decide to follow a group of ravers in search of one last party, in hopes Marina will be there.",
-      "popularity": 28.0981,
+      "popularity": 25.3395,
       "poster_path": "/bzBtsLi17rK4G6kDvOXfUZfAhca.jpg",
       "production_companies": [
         {
@@ -3657,8 +3985,8 @@
       "tagline": "",
       "title": "Sirāt",
       "video": false,
-      "vote_average": 6.811,
-      "vote_count": 386,
+      "vote_average": 6.8,
+      "vote_count": 390,
       "media_type": "movie"
     },
     {
@@ -3690,7 +4018,7 @@
       "original_language": "en",
       "original_title": "A Working Man",
       "overview": "Levon Cade left behind a decorated military career in the black ops to live a simple life working construction. But when his boss's daughter, who is like family to him, is taken by human traffickers, his search to bring her home uncovers a world of corruption far greater than he ever could have imagined.",
-      "popularity": 27.683,
+      "popularity": 24.4394,
       "poster_path": "/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg",
       "production_companies": [
         {
@@ -3799,7 +4127,7 @@
       "original_language": "it",
       "original_title": "Muori di lei",
       "overview": "Luca is a forty-year-old teacher experiencing a relationship crisis with his wife, Sara, who is much wealthier than him. During the lockdown, Luca finds himself a bystander in the life of his new neighbor, Amanda, and decides to bridge the distance between them, with disastrous consequences.",
-      "popularity": 27.5747,
+      "popularity": 23.9666,
       "poster_path": "/zRsQgmJRCCHXAm1Ls5Q72ziVYBh.jpg",
       "production_companies": [
         {
@@ -3851,7 +4179,7 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/ovEC9AOWAxSfm5iBQp7wzeNegAQ.jpg",
+      "backdrop_path": "/uCGzI1EtQWXG5yRPB5PSyOdFNcC.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
@@ -3878,7 +4206,7 @@
       "original_language": "en",
       "original_title": "Shelter",
       "overview": "A man living in self-imposed exile on a remote island rescues a young girl from a violent storm, setting off a chain of events that forces him out of seclusion to protect her from enemies tied to his past.",
-      "popularity": 26.9369,
+      "popularity": 33.9954,
       "poster_path": "/klvZs66SG19qmacdwxSRkdFQhQS.jpg",
       "production_companies": [
         {
@@ -3936,8 +4264,8 @@
       "tagline": "Her safety. His mission.",
       "title": "Shelter",
       "video": false,
-      "vote_average": 7.5,
-      "vote_count": 2,
+      "vote_average": 6.75,
+      "vote_count": 4,
       "media_type": "movie"
     }
   ]
