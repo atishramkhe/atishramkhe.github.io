@@ -397,8 +397,8 @@
     }
 
     #server-indicators .indicator {
-      width: 10px;
-      height: 10px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: #222;
       cursor: pointer;
@@ -854,26 +854,66 @@
     }
 
     @media (max-width: 640px) {
+      /* Hide hero showcase and platform selector on small screens */
       #showcase {
-        padding: 40px 26px 54px 26px;
-        gap: 34px;
+        display: none !important;
       }
 
-      .showcase-title {
-        font-size: clamp(1.9em, 9.5vw, 3.1em);
+      #platforms-container {
+        display: none !important;
       }
 
-      .showcase-btn {
-        width: 100%;
-        justify-content: center;
+      /* Keep floating action buttons fully on-screen on mobile (bottom-right cluster) */
+      #section-nav-toggle {
+        bottom: 16px !important;
+        right: 36px !important;
+        width: 64px !important;
+        height: 64px !important;
+        font-size: 1.6em !important;
       }
 
-      .showcase-meta {
-        font-size: 0.8em;
+      #backtotop-btn {
+        bottom: 16px !important;
+        right: 106px !important;
+        width: 64px !important;
+        height: 64px !important;
+        font-size: 3em !important;
       }
 
-      .showcase-left {
-        max-width: 300px;
+      #continue-btn {
+        bottom: 16px !important;
+        right: 180px !important;
+        font-size: 0.85em !important;
+        padding: 6px 10px !important;
+      }
+
+      #watchlater-btn {
+        bottom: 50px !important;
+        right: 180px !important;
+        font-size: 0.85em !important;
+        padding: 6px 10px !important;
+      }
+
+      #section-nav-list {
+        bottom: 96px !important;
+        right: 16px !important;
+        max-width: calc(100vw - 32px);
+      }
+
+      /* Make posters/grid adapt better to phone screens: max 3 per row */
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        padding: 20px 12px;
+        margin-bottom: 60px;
+      }
+
+      .poster {
+        --hover-scale: 1.1;
+      }
+
+      .player-content{ 
+        width: 90% !important;
+        height: 60% !important;
       }
     }
   </style>
