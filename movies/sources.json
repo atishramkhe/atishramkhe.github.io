@@ -18,6 +18,11 @@
 				"shows": "https://vidsrc-embed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}&autoplay=1&autonext=1&color-e02735"
 			},
 			{
+				"name": "cinesrc.st", 
+				"movies": "https://cinesrc.st/embed/movie/${id}&color=%23e02735", 
+				"shows": "https://cinesrc.st/embed/tv/${id}?s=${season}&e=${episode}&color=%23e02735"
+			}, 
+			{
 				"name": "moviesapi.club",
 				"movies": "https://moviesapi.to/movie/${id}&autoplay=1&color-e02735",
 				"shows": "https://moviesapi.to/tv/${id}-${season}-${episode}&autoplay=1&autonext=1&color-e02735"
@@ -53,9 +58,9 @@
 	{
 		"VF": [
 			{
-				"name": "frembed.best",
-				"movies": "https://frembed.best/api/film.php?id=${id}",
-				"shows": "https://frembed.best/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.life",
+				"movies": "https://frembed.life/api/film.php?id=${id}",
+				"shows": "https://frembed.life/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
 			}
 		]
 	}
