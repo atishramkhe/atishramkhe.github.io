@@ -184,7 +184,7 @@ a:focus-visible {
 .section__inner {
   max-width: 100%;
   margin: 0;
-  padding: 30px 5px 60px;
+  padding: 15px 5px 60px;
 }
 
 .projects {
@@ -222,7 +222,7 @@ a:focus-visible {
 }
 
 .project-card__title {
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0em;
   text-transform: uppercase;
   font-size: 14px;
@@ -331,6 +331,19 @@ a:focus-visible {
   height: auto;
 }
 
+/* Remove video controls UI */
+.gallery__item video {
+  outline: none;
+}
+
+.gallery__item video::-webkit-media-controls {
+  display: none !important;
+}
+
+.gallery__item video::-webkit-media-controls-panel {
+  display: none !important;
+}
+
 .footer {
   border-top: 1px solid var(--border);
   padding: 22px 0;
@@ -339,9 +352,10 @@ a:focus-visible {
 }
 
 .footer__inner {
-  max-width: var(--max);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   padding: 0 20px;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -366,6 +380,7 @@ a:focus-visible {
   gap: 18px;
   letter-spacing: 0em;
   text-transform: uppercase;
+  margin-left: auto;
 }
 
 .footer__link {
@@ -374,6 +389,14 @@ a:focus-visible {
 
 .footer__link:hover {
   opacity: 1;
+}
+
+/* Push Instagram and LinkedIn to the right */
+.footer a[href*="instagram"],
+.footer a[href*="linkedin"] {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: flex-start;
 }
 
 @media (max-width: 860px) {
