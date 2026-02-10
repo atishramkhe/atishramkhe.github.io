@@ -94,9 +94,9 @@ a:focus-visible {
 }
 
 .is-home .site-header--overlay.site-header--solid {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
 }
 
 .site-header__inner {
@@ -184,13 +184,13 @@ a:focus-visible {
 .section__inner {
   max-width: 100%;
   margin: 0;
-  padding: 30px 20px 60px;
+  padding: 30px 5px 60px;
 }
 
 .projects {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
+  gap: 5px;
 }
 
 .project-card {
