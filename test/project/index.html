@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projet</title>
+    <link rel="icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../assets/css/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="../">FANILO BINI</a>
+        <nav class="nav">
+          <a class="nav__link" href="../">Travaux</a>
+          <a class="nav__link" href="../infos/">Infos</a>
+          <a class="nav__link" href="../shop/">Shop</a>
+          <a class="nav__link" href="https://www.instagram.com/fanilo.bini" target="_blank" rel="noopener noreferrer">Insta</a>
+          <a class="nav__link" href="https://www.malt.fr/profile/fanilobini" target="_blank" rel="noopener noreferrer">Malt</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="project-hero" id="projectHero" aria-label="Bannière projet"></div>
+
+    <main class="project project--detail">
+      <div class="project__header project__header--detail">
+        <div class="project__titleCol">
+          <h1 class="project__title" id="projectTitle"></h1>
+        </div>
+        <div class="project__metaCol">
+          <div class="project__body" id="projectBody"></div>
+          <aside class="project__infos" id="projectInfos"></aside>
+          <div class="project__credit">© Fanilo Bini</div>
+        </div>
+      </div>
+
+      <section class="gallery" id="gallery" aria-label="Galerie"></section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__left">
+          <div class="footer__title">FANILO BINI</div>
+          <div class="footer__line">EMAIL: <a class="footer__link" href="mailto:FANILO.F@GMAIL.COM">FANILO.F@GMAIL.COM</a></div>
+        </div>
+        <div class="footer__right">
+          <a class="footer__link" href="https://www.instagram.com/fanilo.bini" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+          <a class="footer__link" href="https://www.linkedin.com/in/fanilo-bini" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/projects.js"></script>
+    <script>
+      (function () {
+        const params = new URLSearchParams(location.search);
+        const slug = params.get('p');
+        if (!slug) {
+          location.href = '../';
+          return;
+        }
+
+        window.PortfolioData.loadProjects()
+          .then((projects) => {
+            const p = window.PortfolioData.findProject(projects, slug);
+            if (!p) {
+              location.href = '../';
+              return;
+            }
+
+            document.title = p.title ? `${p.title} – Portfolio` : 'Projet – Portfolio';
+
+            const hero = document.getElementById('projectHero');
+            if (hero && p.banner) hero.style.backgroundImage = `url("${window.PortfolioData.resolveAssetPath(p.banner)}")`;
+
+            const title = document.getElementById('projectTitle');
+            if (title) title.textContent = p.title ?? p.name ?? '';
+
+            const body = document.getElementById('projectBody');
+            if (body) body.textContent = p.main_body ?? '';
+
+            const infos = document.getElementById('projectInfos');
+            if (infos) infos.textContent = p.infos ?? '';
+
+            const gallery = document.getElementById('gallery');
+            if (!gallery) return;
+
+            const items = Array.isArray(p.media) ? p.media : [];
+            const frag = document.createDocumentFragment();
+
+            for (const m of items) {
+              const wrap = document.createElement('div');
+              wrap.className = 'gallery__item';
+
+              if (m.type === 'video') {
+                const v = document.createElement('video');
+                v.controls = true;
+                v.playsInline = true;
+                v.preload = 'metadata';
+                v.src = window.PortfolioData.resolveAssetPath(m.src);
+                wrap.appendChild(v);
+              } else {
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.alt = p.title ?? 'Image';
+                img.src = window.PortfolioData.resolveAssetPath(m.src);
+                wrap.appendChild(img);
+              }
+
+              frag.appendChild(wrap);
+            }
+
+            gallery.innerHTML = '';
+            gallery.appendChild(frag);
+          })
+          .catch(() => {
+            location.href = '../';
+          });
+      })();
+    </script>
+  </body>
+</html>
