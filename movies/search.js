@@ -316,7 +316,7 @@ const prevEpisodeBtn = document.getElementById('prev-episode-btn');
 const nextEpisodeBtn = document.getElementById('next-episode-btn');
 
 // Helper to show/hide episode arrows and handle navigation
-function updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisode }) {
+function updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisode, seasonEpisodeCount, prevSeasonEpisodeCount }) {
     if (!prevEpisodeBtn || !nextEpisodeBtn) return;
 
     // Only show for TV shows
@@ -334,13 +334,14 @@ function updateEpisodeArrows({ type, id, season, episode, lastSeason, lastEpisod
     } else if (season > 1) {
         hasPrev = true;
         prevSeason = season - 1;
-        prevEpisode = lastEpisode; // fallback: last ep of previous season
+        prevEpisode = prevSeasonEpisodeCount || lastEpisode; // fallback: last ep of previous season
     }
 
     // Next episode logic
     let hasNext = false;
     let nextSeason = season, nextEpisode = episode + 1;
-    if (episode < lastEpisode) {
+    const currentSeasonCount = seasonEpisodeCount || lastEpisode;
+    if (episode < currentSeasonCount) {
         hasNext = true;
     } else if (season < lastSeason) {
         hasNext = true;
@@ -419,90 +420,35 @@ function openPlayer(type, id, season = 1, episode = 1) {
         `;
     }
 
-    // Update arrows based on the current (requested) season/episode.
-    // For TV, fetch the last season/episode info then call updateEpisodeArrows.
+    // Update arrows and selector based on the current (requested) season/episode.
+    // For TV, fetch the last season/episode info and season episode counts.
     if (type === 'tv') {
-        getTVLastEpisodeInfo(id).then(info => {
+        Promise.all([
+            getTVLastEpisodeInfo(id),
+            getTVSeasonEpisodeCount(id, Number(season)),
+            Number(season) > 1 ? getTVSeasonEpisodeCount(id, Number(season) - 1) : Promise.resolve(null)
+        ]).then(([info, seasonCount, prevSeasonCount]) => {
             const lastSeasonVal = info.lastSeason || season;
             const lastEpisodeVal = info.lastEpisode || episode;
+            const seasonEpisodeCount = seasonCount || lastEpisodeVal;
             updateEpisodeArrows({
                 type,
                 id,
                 season: Number(season),
                 episode: Number(episode),
                 lastSeason: lastSeasonVal,
-                lastEpisode: lastEpisodeVal
+                lastEpisode: lastEpisodeVal,
+                seasonEpisodeCount,
+                prevSeasonEpisodeCount: prevSeasonCount || null
             });
 
-            // --- Add Season/Episode Selector ---
-            let selectorBar = playerContainer.querySelector('#season-episode-selector');
-            if (selectorBar) selectorBar.remove();
-
-            selectorBar = document.createElement('div');
-            selectorBar.id = 'season-episode-selector';
-            selectorBar.style.position = 'absolute';
-            selectorBar.style.top = '12px';
-            selectorBar.style.left = '50%';
-            selectorBar.style.transform = 'translateX(-50%)';
-            selectorBar.style.zIndex = '1001';
-            selectorBar.style.display = 'flex';
-            selectorBar.style.alignItems = 'center';
-            selectorBar.style.gap = '12px';
-            selectorBar.style.background = 'rgba(0,0,0,0.7)';
-            selectorBar.style.borderRadius = '8px';
-            selectorBar.style.padding = '8px 18px';
-            selectorBar.style.boxShadow = '0 2px 8px #0008';
-
-            // Season dropdown
-            const seasonSelect = document.createElement('select');
-            seasonSelect.style.marginRight = '8px';
-            seasonSelect.style.fontSize = '1em';
-            seasonSelect.style.fontFamily = 'inherit';
-            seasonSelect.style.padding = '4px 8px';
-            seasonSelect.style.borderRadius = '4px';
-            seasonSelect.style.border = 'none';
-            seasonSelect.style.background = '#000';
-            seasonSelect.style.color = '#fff';
-            for (let s = 1; s <= lastSeasonVal; s++) {
-                const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = `Season ${s}`;
-                if (s === Number(season)) opt.selected = true;
-                seasonSelect.appendChild(opt);
-            }
-
-            // Episode dropdown
-            const episodeSelect = document.createElement('select');
-            episodeSelect.style.fontSize = '1em';
-            episodeSelect.style.fontFamily = 'inherit';
-            episodeSelect.style.padding = '4px 8px';
-            episodeSelect.style.borderRadius = '4px';
-            episodeSelect.style.border = 'none';
-            episodeSelect.style.background = '#000';
-            episodeSelect.style.color = '#fff';
-            for (let e = 1; e <= lastEpisodeVal; e++) {
-                const opt = document.createElement('option');
-                opt.value = e;
-                opt.textContent = `Episode ${e}`;
-                if (e === Number(episode)) opt.selected = true;
-                episodeSelect.appendChild(opt);
-            }
-
-            // Change handlers
-            seasonSelect.onchange = () => {
-                // When season changes, reset episode to 1 and reload player
-                openPlayer('tv', id, Number(seasonSelect.value), 1);
-            };
-            episodeSelect.onchange = () => {
-                openPlayer('tv', id, Number(seasonSelect.value), Number(episodeSelect.value));
-            };
-
-            selectorBar.appendChild(seasonSelect);
-            selectorBar.appendChild(episodeSelect);
-
-            // Remove previous selector if any, then add
-            playerContainer.querySelectorAll('#season-episode-selector').forEach(el => el.remove());
-            playerContainer.appendChild(selectorBar);
+            renderSeasonEpisodeSelector({
+                id,
+                season: Number(season),
+                episode: Number(episode),
+                lastSeason: lastSeasonVal,
+                seasonEpisodeCount
+            });
         }).catch(() => {
             updateEpisodeArrows({ type, id, season: Number(season), episode: Number(episode), lastSeason: season, lastEpisode: episode });
         });
@@ -583,6 +529,7 @@ function extractPayload(obj) {
 }
 // Add TMDB helpers to resolve the last available TV episode (cached for 24h)
 const TV_LAST_CACHE_TTL = 24 * 60 * 60 * 1000;
+const TV_SEASON_CACHE_TTL = 24 * 60 * 60 * 1000;
 async function getTVLastEpisodeInfo(tvId) {
     const key = `tv_last_${tvId}`;
     try {
@@ -609,6 +556,96 @@ async function getTVLastEpisodeInfo(tvId) {
         }
     } catch { }
     return { lastSeason: null, lastEpisode: null, cachedAt: Date.now() };
+}
+
+async function getTVSeasonEpisodeCount(tvId, seasonNumber) {
+    if (!tvId || !seasonNumber) return null;
+    const key = `tv_season_${tvId}_${seasonNumber}`;
+    try {
+        const cached = JSON.parse(localStorage.getItem(key) || 'null');
+        if (cached && (Date.now() - (cached.cachedAt || 0)) < TV_SEASON_CACHE_TTL) {
+            return cached.episodeCount || null;
+        }
+    } catch { }
+
+    const url = `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNumber}?api_key=${apiKey}`;
+    try {
+        const res = await fetch(url);
+        if (res.ok) {
+            const j = await res.json();
+            const episodeCount = j?.episodes?.length || j?.episode_count || null;
+            localStorage.setItem(key, JSON.stringify({ episodeCount, cachedAt: Date.now() }));
+            return episodeCount || null;
+        }
+    } catch { }
+    return null;
+}
+
+function renderSeasonEpisodeSelector({ id, season, episode, lastSeason, seasonEpisodeCount }) {
+    if (!playerContainer) return;
+    let selectorBar = playerContainer.querySelector('#season-episode-selector');
+    if (selectorBar) selectorBar.remove();
+
+    selectorBar = document.createElement('div');
+    selectorBar.id = 'season-episode-selector';
+    selectorBar.style.position = 'absolute';
+    selectorBar.style.top = '12px';
+    selectorBar.style.left = '50%';
+    selectorBar.style.transform = 'translateX(-50%)';
+    selectorBar.style.zIndex = '1001';
+    selectorBar.style.display = 'flex';
+    selectorBar.style.alignItems = 'center';
+    selectorBar.style.gap = '12px';
+    selectorBar.style.background = 'rgba(0,0,0,0.7)';
+    selectorBar.style.borderRadius = '8px';
+    selectorBar.style.padding = '8px 18px';
+    selectorBar.style.boxShadow = '0 2px 8px #0008';
+
+    const seasonSelect = document.createElement('select');
+    seasonSelect.style.marginRight = '8px';
+    seasonSelect.style.fontSize = '1em';
+    seasonSelect.style.fontFamily = 'inherit';
+    seasonSelect.style.padding = '4px 8px';
+    seasonSelect.style.borderRadius = '4px';
+    seasonSelect.style.border = 'none';
+    seasonSelect.style.background = '#000';
+    seasonSelect.style.color = '#fff';
+    for (let s = 1; s <= lastSeason; s++) {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = `Season ${s}`;
+        if (s === Number(season)) opt.selected = true;
+        seasonSelect.appendChild(opt);
+    }
+
+    const episodeSelect = document.createElement('select');
+    episodeSelect.style.fontSize = '1em';
+    episodeSelect.style.fontFamily = 'inherit';
+    episodeSelect.style.padding = '4px 8px';
+    episodeSelect.style.borderRadius = '4px';
+    episodeSelect.style.border = 'none';
+    episodeSelect.style.background = '#000';
+    episodeSelect.style.color = '#fff';
+    const count = seasonEpisodeCount || episode;
+    for (let e = 1; e <= count; e++) {
+        const opt = document.createElement('option');
+        opt.value = e;
+        opt.textContent = `Episode ${e}`;
+        if (e === Number(episode)) opt.selected = true;
+        episodeSelect.appendChild(opt);
+    }
+
+    seasonSelect.onchange = () => {
+        openPlayer('tv', id, Number(seasonSelect.value), 1);
+    };
+    episodeSelect.onchange = () => {
+        openPlayer('tv', id, Number(seasonSelect.value), Number(episodeSelect.value));
+    };
+
+    selectorBar.appendChild(seasonSelect);
+    selectorBar.appendChild(episodeSelect);
+    playerContainer.querySelectorAll('#season-episode-selector').forEach(el => el.remove());
+    playerContainer.appendChild(selectorBar);
 }
 async function maybeAutoRemoveFromWatchLater(data, frac) {
     if (!WATCH_LATER_POLICY) return;
@@ -700,7 +737,28 @@ window.addEventListener("message", function (event) {
         if (timestamp === null && typeof event.data?.timestamp === 'number') timestamp = event.data.timestamp;
 
         // If still missing, try to parse from iframe src (for known servers)
-        // ...existing fallback code...
+        let iframeSeason = null;
+        let iframeEpisode = null;
+        if (playerContent) {
+            const iframe = playerContent.querySelector('iframe');
+            const src = iframe?.src || '';
+            if (src) {
+                if (!type && (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src))) {
+                    type = 'movie';
+                }
+                if (!type && (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src))) {
+                    type = 'tv';
+                }
+                if (!id && (/videasy\.net\/(?:movie|tv)\/(\d+)/.test(src) || /frembed\.best\/api\/(?:film|serie)\.php\?id=(\d+)/.test(src))) {
+                    id = (src.match(/\/(?:movie|tv)\/(\d+)/) || src.match(/id=(\d+)/))[1];
+                }
+                const m = src.match(/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
+                if (m) {
+                    iframeSeason = m[2];
+                    iframeEpisode = m[3];
+                }
+            }
+        }
 
         // Canonicalize type to avoid multiple keys for same content (tv vs serie/series/show)
         type = canonicalType(type);
@@ -714,8 +772,8 @@ window.addEventListener("message", function (event) {
             progress: progressNum,
             timestamp: timestamp,
             duration: parsed.duration ?? parsed.totalDuration ?? null,
-            season: parsed.season ?? parsed.season_number ?? null,
-            episode: parsed.episode ?? parsed.episode_number ?? null,
+            season: parsed.season ?? parsed.season_number ?? iframeSeason ?? null,
+            episode: parsed.episode ?? parsed.episode_number ?? iframeEpisode ?? null,
             lastSeason: parsed.lastSeason ?? parsed.last_season ?? null,
             lastEpisode: parsed.lastEpisode ?? parsed.last_episode ?? null,
             title: parsed.title ?? parsed.name ?? null,
@@ -753,14 +811,30 @@ window.addEventListener("message", function (event) {
             const curEpisode = toStore.episode ? Number(toStore.episode) : 1;
             const curType = (toStore.mediaType || toStore.type) || type;
             if (playerContainer && playerContainer.style.display === 'block' && curType === 'tv') {
-                getTVLastEpisodeInfo(toStore.id).then(info => {
+                Promise.all([
+                    getTVLastEpisodeInfo(toStore.id),
+                    getTVSeasonEpisodeCount(toStore.id, curSeason),
+                    curSeason > 1 ? getTVSeasonEpisodeCount(toStore.id, curSeason - 1) : Promise.resolve(null)
+                ]).then(([info, seasonCount, prevSeasonCount]) => {
+                    const lastSeasonVal = info.lastSeason || curSeason;
+                    const lastEpisodeVal = info.lastEpisode || curEpisode;
+                    const seasonEpisodeCount = seasonCount || lastEpisodeVal;
                     updateEpisodeArrows({
                         type: 'tv',
                         id: toStore.id,
                         season: curSeason,
                         episode: curEpisode,
-                        lastSeason: info.lastSeason || curSeason,
-                        lastEpisode: info.lastEpisode || curEpisode
+                        lastSeason: lastSeasonVal,
+                        lastEpisode: lastEpisodeVal,
+                        seasonEpisodeCount,
+                        prevSeasonEpisodeCount: prevSeasonCount || null
+                    });
+                    renderSeasonEpisodeSelector({
+                        id: toStore.id,
+                        season: curSeason,
+                        episode: curEpisode,
+                        lastSeason: lastSeasonVal,
+                        seasonEpisodeCount
                     });
                 }).catch(() => {
                     updateEpisodeArrows({
