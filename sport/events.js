@@ -114,11 +114,33 @@ class EventsManager {
       .filter(match => this.hasPlayableSource(match))
       .filter(match => !this.isAlwaysLive(match))
       .filter(match => {
+        // Streamed events from the "live" endpoint don't always have accurate dates
+        // Keep them if they're from Streamed and we're on the live endpoint
+        if (match._provider === 'streamed' && this.lastEndpoint === 'live') {
+          console.log(`Keeping Streamed live event: ${match.title}`);
+          return true;
+        }
+        
         const dateMs = this.normalizeDateMs(match.date);
-        if (!dateMs) return false;
-        return dateMs >= (now - this.pastEventCutoffMs) && dateMs <= windowEnd;
+        if (!dateMs) {
+          console.log(`Filtering out event with no valid date: ${match.title}`);
+          return false;
+        }
+        const inWindow = dateMs >= (now - this.pastEventCutoffMs) && dateMs <= windowEnd;
+        if (!inWindow) {
+          console.log(`Filtering out event outside time window: ${match.title}, date: ${new Date(dateMs)}`);
+        }
+        return inWindow;
       })
-      .sort((a, b) => (this.normalizeDateMs(a.date) || 0) - (this.normalizeDateMs(b.date) || 0));
+      .sort((a, b) => {
+        const aDate = this.normalizeDateMs(a.date);
+        const bDate = this.normalizeDateMs(b.date);
+        // Events without dates go to the end
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        return aDate - bDate;
+      });
   }
 
   hasPlayableSource(match) {
