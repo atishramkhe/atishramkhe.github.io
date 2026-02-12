@@ -6,6 +6,7 @@ const searchWrapper = document.getElementById('results');
 const playerContainer = document.getElementById('player-container');
 const playerContent = document.getElementById('player-content');
 const closePlayer = document.getElementById('close-player');
+const hostFullscreenBtn = document.getElementById('host-fullscreen-btn');
 const clearSearchBtn = document.getElementById('clear-search-btn');
 
 const apiKey = '792f6fa1e1c53d234af7859d10bdf833';
@@ -416,7 +417,7 @@ function openPlayer(type, id, season = 1, episode = 1) {
     // Inject iframe only (do not inject duplicate arrow buttons)
     if (playerContent) {
         playerContent.innerHTML = `
-            <iframe src="${getEmbedUrl(season, episode)}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+            <iframe src="${getEmbedUrl(season, episode)}" width="100%" height="100%" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe>
         `;
     }
 
@@ -481,6 +482,27 @@ function openPlayer(type, id, season = 1, episode = 1) {
     }
 }
 
+function requestPlayerFullscreen() {
+    const iframe = playerContent ? playerContent.querySelector('iframe') : null;
+    const target = iframe || playerContent || playerContainer;
+    if (!target) return;
+    const request = target.requestFullscreen || target.webkitRequestFullscreen || target.mozRequestFullScreen || target.msRequestFullscreen;
+    if (request) request.call(target);
+}
+
+function exitPlayerFullscreen() {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+    if (exit) exit.call(document);
+}
+
+function togglePlayerFullscreen() {
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        exitPlayerFullscreen();
+    } else {
+        requestPlayerFullscreen();
+    }
+}
+
 // Listen for toggle changes and reload player if open
 if (voVfToggle) {
     voVfToggle.addEventListener('change', function () {
@@ -503,6 +525,19 @@ if (voVfToggle) {
             }
             if (id && type) openPlayer(type, id, season, episode);
         }
+    });
+}
+
+if (hostFullscreenBtn) {
+    hostFullscreenBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayerFullscreen();
+    });
+}
+
+if (playerContent) {
+    playerContent.addEventListener('dblclick', () => {
+        togglePlayerFullscreen();
     });
 }
 

@@ -223,6 +223,32 @@
       font-size: 3em;
     }
 
+    #host-fullscreen-btn {
+      position: absolute;
+      top: 20px;
+      right: 72px;
+      z-index: 102;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
+
+      color: #fff;
+      font-size: 2.6em;
+    }
+
+    #host-fullscreen-btn:hover {
+      background: transparent;
+      transform: scale(1.05);
+    }
+
     #close-player:hover {
       background: transparent;
       /* ensure no hover BG */
@@ -947,6 +973,10 @@
     <button id="close-player" class="material-symbols-outlined" style="position:absolute;top:20px;right:20px;z-index:102;background:none;border:none;
                    color:#fff;font-size:3rem;cursor:pointer;">
       close
+    </button>
+
+    <button id="host-fullscreen-btn" class="material-symbols-outlined" aria-label="Fullscreen">
+      fullscreen
     </button>
 
     <!-- Episode arrows (if you have these in your CSS) -->
