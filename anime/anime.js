@@ -28,13 +28,26 @@ function ensureAnimeProgressMessageListener() {
     window.addEventListener('message', (event) => {
         const msg = event && event.data;
         if (!msg || typeof msg !== 'object') return;
-        if (msg.type !== 'ateaish_player_progress') return;
+        if (msg.type !== 'ateaish_player_progress' && msg.type !== 'ateaish_player_ended') return;
 
         // Validate current session
         const session = currentAnimePlayerSession;
         if (!session || !session.malId || !session.token) return;
         if (String(msg.token || '') !== String(session.token)) return;
         if (String(msg.malId || '') !== String(session.malId)) return;
+
+        if (msg.type === 'ateaish_player_ended') {
+            // Auto-next is only meaningful for series (not movies)
+            if (session.isMovie) return;
+            if (typeof session.onAutoNext !== 'function') return;
+
+            const now = Date.now();
+            if (session._lastAutoNextAt && now - session._lastAutoNextAt < 3000) return;
+            session._lastAutoNextAt = now;
+
+            try { session.onAutoNext(); } catch { }
+            return;
+        }
 
         const ts = Number(msg.currentTime);
         const dur = Number(msg.duration);
@@ -1083,6 +1096,8 @@ async function openAnimeFromJikan(anime) {
         malId: String(malId),
         token: progressToken,
         isMovie: !!isMovie,
+        onAutoNext: null,
+        _lastAutoNextAt: 0,
         _lastSaveAt: 0
     };
 
@@ -1742,6 +1757,13 @@ async function openAnimeFromJikan(anime) {
     arrows.nextBtn.addEventListener('click', goToNextEpisode);
     arrows.prevBtn.addEventListener('click', goToPrevEpisode);
     updateEpisodeArrows();
+
+    // Wire auto-next from the userscript (iframe sends ateaish_player_ended)
+    try {
+        if (currentAnimePlayerSession && !currentAnimePlayerSession.isMovie) {
+            currentAnimePlayerSession.onAutoNext = goToNextEpisode;
+        }
+    } catch { }
 }
 
 async function resolveAniListId(malId) {
@@ -1784,6 +1806,11 @@ async function resolveAniListId(malId) {
 
 closePlayer.addEventListener('click', () => {
     currentAnimePlayerOpenToken = null;
+    try {
+        if (currentAnimePlayerSession) {
+            currentAnimePlayerSession.onAutoNext = null;
+        }
+    } catch { }
     playerContainer.style.display = 'none';
     searchContainer.style.display = 'flex';
     playerContent.innerHTML = '';
