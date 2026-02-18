@@ -1088,7 +1088,7 @@ async function openAnimeFromJikan(anime) {
     const resumeEpisodeWanted = resumeProgress && resumeProgress.episode ? parseInt(resumeProgress.episode, 10) : null;
     const resumePlayerGroupWanted = resumeProgress && resumeProgress.playerGroup ? String(resumeProgress.playerGroup) : null;
     const resumePlayerHostWanted = resumeProgress && resumeProgress.playerHost ? String(resumeProgress.playerHost).toLowerCase() : null;
-    const resumeSeekWanted = resumeProgress && Number.isFinite(Number(resumeProgress.timestamp)) ? Number(resumeProgress.timestamp) : null;
+    let resumeSeekWanted = resumeProgress && Number.isFinite(Number(resumeProgress.timestamp)) ? Number(resumeProgress.timestamp) : null;
 
     // New per-open session token for postMessage validation
     const progressToken = `${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
@@ -1262,6 +1262,33 @@ async function openAnimeFromJikan(anime) {
         }
     }
 
+    function getResumeSeekForCurrentEpisode() {
+        if (!Number.isFinite(Number(resumeSeekWanted)) || Number(resumeSeekWanted) <= 0) return null;
+        if (Number.isFinite(Number(resumeEpisodeWanted)) && Number(currentEpisode) !== Number(resumeEpisodeWanted)) return null;
+        if (resumeSeasonWanted && String(currentSeason) !== String(resumeSeasonWanted)) return null;
+        return resumeSeekWanted;
+    }
+
+    function clearResumeSeekIfDifferent() {
+        if (!Number.isFinite(Number(resumeEpisodeWanted))) return;
+        if (Number(currentEpisode) !== Number(resumeEpisodeWanted) || (resumeSeasonWanted && String(currentSeason) !== String(resumeSeasonWanted))) {
+            resumeSeekWanted = null;
+        }
+    }
+
+    function resetResumeSeekForAutoNext() {
+        resumeSeekWanted = null;
+        if (isMovie) return;
+        upsertAnimeProgressRecord(malId, {
+            season: String(currentSeason),
+            episode: Number(currentEpisode),
+            timestamp: 0,
+            progress: 0,
+            updatedAt: Date.now()
+        });
+        try { loadAnimeContinueWatching(); } catch { }
+    }
+
     // Helper to get max episode for a season
     function getMaxEpisode(season) {
         if (!animeSamaData || !animeSamaData[season]) return 1;
@@ -1348,12 +1375,14 @@ async function openAnimeFromJikan(anime) {
         seasonSelect.onchange = () => {
             currentSeason = seasonSelect.value;
             currentEpisode = 1;
+            clearResumeSeekIfDifferent();
             renderSeasonEpisodeSelector();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
         };
         episodeSelect.onchange = () => {
             currentEpisode = parseInt(episodeSelect.value, 10);
+            clearResumeSeekIfDifferent();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
         };
@@ -1389,7 +1418,7 @@ async function openAnimeFromJikan(anime) {
 
     // Initial render (iframe + overlay controls)
     playerContent.innerHTML = `
-        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.icu/embed/anime/${aniListId}/1/0&autoplay=1`, { seekSeconds: resumeSeekWanted })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.icu/embed/anime/${aniListId}/1/0&autoplay=1`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
     `;
 
     function ensureSettingsButton() {
@@ -1546,7 +1575,7 @@ async function openAnimeFromJikan(anime) {
         if (!/[?&]autoplay=1/.test(url)) url += (url.includes('?') ? '&' : '?') + 'autoplay=1';
 
         // Decorate the URL so the userscript can report timing, and pass seek for resume.
-        iframe.src = decoratePlayerUrl(url, { seekSeconds: resumeSeekWanted });
+        iframe.src = decoratePlayerUrl(url, { seekSeconds: getResumeSeekForCurrentEpisode() });
         activeSelection = { group: grp.key, idx };
         if (persistLastUsed) {
             sessionUserSelection = { group: grp.key, idx };
@@ -1732,6 +1761,8 @@ async function openAnimeFromJikan(anime) {
                 return;
             }
         }
+        resetResumeSeekForAutoNext();
+        clearResumeSeekIfDifferent();
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
         updateEpisodeArrows();
@@ -1749,6 +1780,7 @@ async function openAnimeFromJikan(anime) {
                 return;
             }
         }
+        clearResumeSeekIfDifferent();
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
         updateEpisodeArrows();
