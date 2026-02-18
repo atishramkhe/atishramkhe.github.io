@@ -359,6 +359,35 @@ function sendAnimePlayerHook(data) {
             skipOutro: data.skipOutro,
         }, '*');
     } catch { }
+    
+    // Also expose data as attributes on hidden video element for direct access by userscripts
+    updateAnimePlayerDataElement(data);
+}
+
+function updateAnimePlayerDataElement(data) {
+    // Find or create hidden video element that stores current anime player state
+    let vidElement = document.getElementById('ateaish-anime-data');
+    if (!vidElement) {
+        vidElement = document.createElement('video');
+        vidElement.id = 'ateaish-anime-data';
+        vidElement.style.display = 'none';
+        vidElement.style.visibility = 'hidden';
+        document.documentElement.appendChild(vidElement);
+    }
+    
+    // Update data attributes
+    if (data.malId !== null && data.malId !== undefined) {
+        vidElement.setAttribute('data-mal-id', String(data.malId));
+    }
+    if (data.aniListId !== null && data.aniListId !== undefined) {
+        vidElement.setAttribute('data-anilist-id', String(data.aniListId));
+    }
+    if (data.episodeNumber !== null && data.episodeNumber !== undefined) {
+        vidElement.setAttribute('data-episode', String(data.episodeNumber));
+    }
+    if (data.seasonNumber !== null && data.seasonNumber !== undefined) {
+        vidElement.setAttribute('data-season', String(data.seasonNumber));
+    }
 }
 
 // Watch Later (anime)
