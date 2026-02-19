@@ -347,21 +347,37 @@ function setAnimeSkipSettings(malId, settings) {
 }
 
 function sendAnimePlayerHook(data) {
-    // Send player info to userscript via postMessage
+    // Resolve absolute episode: prefer explicit, then global, then per-season fallback
+    const absEp = data.absoluteEpisodeNumber
+        || window.currentAbsoluteEpisodeNumber
+        || data.episodeNumber;
+
+    const payload = {
+        type: 'ateaish_anime_player_info',
+        malId: data.malId,
+        aniListId: data.aniListId,
+        episodeNumber: data.episodeNumber,
+        absoluteEpisodeNumber: absEp,
+        seasonNumber: data.seasonNumber,
+        skipIntro: data.skipIntro,
+        skipOutro: data.skipOutro,
+    };
+
+    // Send to same window (for userscript running on parent page)
     try {
-        window.postMessage({
-            type: 'ateaish_anime_player_info',
-            malId: data.malId,
-            aniListId: data.aniListId,
-            episodeNumber: data.episodeNumber,
-            seasonNumber: data.seasonNumber,
-            skipIntro: data.skipIntro,
-            skipOutro: data.skipOutro,
-        }, '*');
+        window.postMessage(payload, '*');
+    } catch { }
+
+    // Also relay to iframe (for userscript running inside embedded player like sibnet)
+    try {
+        const iframe = document.getElementById('anime-player-iframe');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(payload, '*');
+        }
     } catch { }
     
     // Also expose data as attributes on hidden video element for direct access by userscripts
-    updateAnimePlayerDataElement(data);
+    updateAnimePlayerDataElement({ ...data, absoluteEpisodeNumber: absEp });
 }
 
 function updateAnimePlayerDataElement(data) {
@@ -384,6 +400,9 @@ function updateAnimePlayerDataElement(data) {
     }
     if (data.episodeNumber !== null && data.episodeNumber !== undefined) {
         vidElement.setAttribute('data-episode', String(data.episodeNumber));
+    }
+    if (data.absoluteEpisodeNumber !== null && data.absoluteEpisodeNumber !== undefined) {
+        vidElement.setAttribute('data-absolute-episode', String(data.absoluteEpisodeNumber));
     }
     if (data.seasonNumber !== null && data.seasonNumber !== undefined) {
         vidElement.setAttribute('data-season', String(data.seasonNumber));
@@ -1408,9 +1427,11 @@ async function openAnimeFromJikan(anime) {
 
     function decoratePlayerUrl(rawUrl, { seekSeconds = null } = {}) {
         if (!rawUrl) return rawUrl;
+        const absEp = computeAbsoluteEpisode(currentSeason, currentEpisode);
         try {
             const u = new URL(rawUrl);
             u.searchParams.set('ateaish_mal', String(malId));
+            u.searchParams.set('ateaish_ep', String(absEp));
             u.searchParams.set('ateaish_token', String(progressToken));
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 u.searchParams.set('ateaish_seek', String(Math.floor(Number(seekSeconds))));
@@ -1418,7 +1439,7 @@ async function openAnimeFromJikan(anime) {
             return u.toString();
         } catch {
             const sep = rawUrl.includes('?') ? '&' : '?';
-            let out = `${rawUrl}${sep}ateaish_mal=${encodeURIComponent(String(malId))}&ateaish_token=${encodeURIComponent(String(progressToken))}`;
+            let out = `${rawUrl}${sep}ateaish_mal=${encodeURIComponent(String(malId))}&ateaish_ep=${encodeURIComponent(String(absEp))}&ateaish_token=${encodeURIComponent(String(progressToken))}`;
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 out += `&ateaish_seek=${encodeURIComponent(String(Math.floor(Number(seekSeconds))))}`;
             }
@@ -1457,6 +1478,23 @@ async function openAnimeFromJikan(anime) {
     function getMaxEpisode(season) {
         if (!animeSamaData || !animeSamaData[season]) return 1;
         return Math.max(...Object.keys(animeSamaData[season]).map(e => parseInt(e, 10)).filter(e => !isNaN(e)));
+    }
+
+    // Compute the absolute (MAL-style) episode number from a per-season episode.
+    // AniSkip needs the absolute episode across all seasons (e.g. Naruto Shippuden 1-500).
+    function computeAbsoluteEpisode(seasonKey, episodeNum) {
+        const ep = Number(episodeNum) || 1;
+        if (!animeSamaData || !seasons || seasons.length <= 1) return ep;
+        let absolute = 0;
+        for (const s of seasons) {
+            if (s === seasonKey) break;
+            absolute += getMaxEpisode(s);
+        }
+        return absolute + ep;
+    }
+
+    function updateGlobalAbsoluteEpisode() {
+        window.currentAbsoluteEpisodeNumber = computeAbsoluteEpisode(currentSeason, currentEpisode);
     }
 
     function normalizeUrls(val) {
@@ -1542,6 +1580,7 @@ async function openAnimeFromJikan(anime) {
             clearResumeSeekIfDifferent();
             window.currentSeasonNumber = currentSeason;
             window.currentEpisodeNumber = 1;
+            updateGlobalAbsoluteEpisode();
             renderSeasonEpisodeSelector();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
@@ -1559,6 +1598,7 @@ async function openAnimeFromJikan(anime) {
             currentEpisode = parseInt(episodeSelect.value, 10);
             clearResumeSeekIfDifferent();
             window.currentEpisodeNumber = currentEpisode;
+            updateGlobalAbsoluteEpisode();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
             // Send hook to userscript
@@ -1636,6 +1676,7 @@ async function openAnimeFromJikan(anime) {
     window.currentAniListId = aniListId;
     window.currentEpisodeNumber = currentEpisode;
     window.currentSeasonNumber = currentSeason;
+    updateGlobalAbsoluteEpisode();
     
     // Send initial hook to userscript
     const initialSkipSettings = getAnimeSkipSettings(malId);
@@ -1891,6 +1932,20 @@ async function openAnimeFromJikan(anime) {
 
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
+
+        // Season data is now loaded — recompute absolute episode and re-send hook
+        // so the userscript (including iframe instances) gets the correct episode number.
+        updateGlobalAbsoluteEpisode();
+        window.currentEpisodeNumber = currentEpisode;
+        window.currentSeasonNumber = currentSeason;
+        const skipSettings = getAnimeSkipSettings(malId);
+        sendAnimePlayerHook({
+            malId,
+            aniListId,
+            episodeNumber: currentEpisode,
+            seasonNumber: currentSeason,
+            ...skipSettings,
+        });
     })();
 
     // Update movie sources once TMDB id is ready
