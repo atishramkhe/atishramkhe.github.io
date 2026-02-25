@@ -513,10 +513,10 @@ if (voVfToggle) {
             if (!iframe) return;
             const src = iframe.src;
             let type, id, season = 1, episode = 1;
-            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src)) {
+            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.work\/api\/film\.php\?id=(\d+)/.test(src)) {
                 type = 'movie';
                 id = (src.match(/movie\/(\d+)/) || src.match(/film\.php\?id=(\d+)/))[1];
-            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
+            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.work\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
                 type = 'tv';
                 let m = src.match(/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
                 id = m[1];
@@ -778,13 +778,13 @@ window.addEventListener("message", function (event) {
             const iframe = playerContent.querySelector('iframe');
             const src = iframe?.src || '';
             if (src) {
-                if (!type && (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src))) {
+                if (!type && (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.work\/api\/film\.php\?id=(\d+)/.test(src))) {
                     type = 'movie';
                 }
-                if (!type && (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src))) {
+                if (!type && (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.work\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src))) {
                     type = 'tv';
                 }
-                if (!id && (/videasy\.net\/(?:movie|tv)\/(\d+)/.test(src) || /frembed\.best\/api\/(?:film|serie)\.php\?id=(\d+)/.test(src))) {
+                if (!id && (/videasy\.net\/(?:movie|tv)\/(\d+)/.test(src) || /frembed\.work\/api\/(?:film|serie)\.php\?id=(\d+)/.test(src))) {
                     id = (src.match(/\/(?:movie|tv)\/(\d+)/) || src.match(/id=(\d+)/))[1];
                 }
                 const m = src.match(/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
