@@ -274,32 +274,20 @@ class EventsManager {
   createEventItem(match, index) {
     const item = document.createElement('div');
     item.className = 'channel-item event-item';
-    item.style.cursor = 'pointer';
+    item.style.cssText = 'cursor:pointer;position:relative;overflow:hidden;padding:0;justify-content:stretch;align-items:stretch;';
     item.setAttribute('data-match-index', index);
     item.setAttribute('data-match-id', match.id);
 
-    // Create poster container
-    const posterContainer = document.createElement('div');
-    posterContainer.style.width = '100%';
-    posterContainer.style.height = '80px';
-    posterContainer.style.marginBottom = '8px';
-    posterContainer.style.borderRadius = '4px';
-    posterContainer.style.overflow = 'hidden';
-    posterContainer.style.backgroundColor = '#1a1a1a';
-    posterContainer.style.display = 'flex';
-    posterContainer.style.alignItems = 'center';
-    posterContainer.style.justifyContent = 'center';
+    // --- Poster / badges layer (fills entire card) ---
+    const posterLayer = document.createElement('div');
+    posterLayer.style.cssText = 'position:absolute;inset:0;background:#1a1a1a;display:flex;align-items:center;justify-content:center;border-radius:6px;overflow:hidden;';
 
-    // Add poster image if available
     const posterUrl = this.getPosterUrl(match);
     if (posterUrl) {
       const posterImg = document.createElement('img');
       posterImg.src = posterUrl;
       posterImg.alt = match.title;
-      posterImg.style.width = '100%';
-      posterImg.style.height = '100%';
-      posterImg.style.objectFit = 'cover';
-      posterImg.style.borderRadius = '4px';
+      posterImg.style.cssText = 'width:100%;height:100%;object-fit:cover;';
       posterImg.onerror = () => {
         const fallbackUrl = this.getPosterFallbackUrl(match);
         if (fallbackUrl && posterImg.dataset.fallback !== '1') {
@@ -307,91 +295,75 @@ class EventsManager {
           posterImg.src = fallbackUrl;
           return;
         }
-        posterContainer.style.backgroundColor = '#0a0a0a';
+        posterLayer.style.backgroundColor = '#0a0a0a';
         posterImg.style.display = 'none';
         const badges = this.createBadgesContainer(match);
-        if (badges) posterContainer.appendChild(badges);
+        if (badges) posterLayer.appendChild(badges);
       };
-      posterContainer.appendChild(posterImg);
+      posterLayer.appendChild(posterImg);
     } else {
       const badges = this.createBadgesContainer(match);
-      if (badges) posterContainer.appendChild(badges);
+      if (badges) posterLayer.appendChild(badges);
     }
+    item.appendChild(posterLayer);
 
-    item.appendChild(posterContainer);
+    // --- Text overlay at the bottom ---
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:relative;z-index:1;margin-top:auto;background:linear-gradient(transparent, rgba(0,0,0,0.85) 30%);padding:6px 6px 5px;border-radius:0 0 6px 6px;';
 
-    // Add title
+    // Title
     const title = document.createElement('div');
-    title.style.fontSize = '0.85em';
-    title.style.fontWeight = '500';
-    title.style.marginBottom = '4px';
-    title.style.color = '#fff';
-    title.style.textAlign = 'center';
+    title.style.cssText = 'font-size:0.78em;font-weight:600;color:#fff;text-align:center;line-height:1.15;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;';
     title.textContent = match.title;
-    item.appendChild(title);
+    overlay.appendChild(title);
 
-    // Add sport/category label
+    // Category + time row
+    const meta = document.createElement('div');
+    meta.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:6px;margin-top:2px;font-size:0.65em;';
+
     if (match.category) {
-      const category = document.createElement('div');
-      category.style.fontSize = '0.7em';
-      category.style.color = '#66c8f3';
-      category.style.textTransform = 'uppercase';
-      category.style.letterSpacing = '0.4px';
-      item.style.position = 'relative';
-
-      if (this.isLiveMatch(match)) {
-        const liveBadge = document.createElement('div');
-        liveBadge.className = 'event-live-badge';
-        liveBadge.textContent = 'LIVE';
-        item.appendChild(liveBadge);
-      }
-      category.style.marginBottom = '4px';
-      category.textContent = match.category;
-      item.appendChild(category);
+      const cat = document.createElement('span');
+      cat.style.cssText = 'color:#66c8f3;text-transform:uppercase;letter-spacing:0.3px;';
+      cat.textContent = match.category;
+      meta.appendChild(cat);
     }
 
-    // Add tournament info for CDN Live TV events
-    if (match._provider === 'cdnlive' && match._cdnlive?.tournament) {
-      const tournament = document.createElement('div');
-      tournament.style.fontSize = '0.65em';
-      tournament.style.color = '#aaa';
-      tournament.style.textAlign = 'center';
-      tournament.style.marginBottom = '4px';
-      tournament.textContent = match._cdnlive.tournament;
-      item.appendChild(tournament);
-    }
-
-    // Add date/time
-    const dateInfo = document.createElement('div');
-    dateInfo.style.fontSize = '0.75em';
-    dateInfo.style.color = '#999';
-    dateInfo.style.textAlign = 'center';
     const matchDateMs = this.normalizeDateMs(match.date);
     if (matchDateMs) {
-      const matchTime = new Date(matchDateMs);
-      dateInfo.textContent = matchTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    } else {
-      dateInfo.textContent = 'TBD';
+      const timeSpan = document.createElement('span');
+      timeSpan.style.color = '#aaa';
+      timeSpan.textContent = new Date(matchDateMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      meta.appendChild(timeSpan);
     }
-    item.appendChild(dateInfo);
+    overlay.appendChild(meta);
 
-    // Add popular badge if applicable
+    // Tournament line (CDN Live TV)
+    if (match._provider === 'cdnlive' && match._cdnlive?.tournament) {
+      const tournament = document.createElement('div');
+      tournament.style.cssText = 'font-size:0.6em;color:#999;text-align:center;margin-top:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
+      tournament.textContent = match._cdnlive.tournament;
+      overlay.appendChild(tournament);
+    }
+
+    item.appendChild(overlay);
+
+    // --- Floating badges (top corners) ---
+    if (this.isLiveMatch(match)) {
+      const liveBadge = document.createElement('div');
+      liveBadge.className = 'event-live-badge';
+      liveBadge.style.cssText = 'position:absolute;top:4px;left:4px;z-index:2;';
+      liveBadge.textContent = 'LIVE';
+      item.appendChild(liveBadge);
+    }
+
     if (match.popular) {
       const popularBadge = document.createElement('div');
-      popularBadge.style.position = 'absolute';
-      popularBadge.style.top = '4px';
-      popularBadge.style.right = '4px';
-      popularBadge.style.backgroundColor = '#ff6b6b';
-      popularBadge.style.color = '#fff';
-      popularBadge.style.fontSize = '0.65em';
-      popularBadge.style.padding = '2px 6px';
-      popularBadge.style.borderRadius = '3px';
+      popularBadge.style.cssText = 'position:absolute;top:4px;right:4px;z-index:2;background:#ff6b6b;color:#fff;font-size:0.65em;padding:2px 6px;border-radius:3px;';
       popularBadge.textContent = 'POPULAR';
-      item.style.position = 'relative';
       item.appendChild(popularBadge);
     }
 
-    // Add click handler
+    // Click handler
     item.addEventListener('click', () => this.selectEvent(match, index));
 
     return item;
