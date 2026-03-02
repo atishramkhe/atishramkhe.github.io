@@ -21,6 +21,10 @@
     ],
     "logo": "logos/US/NBC_2023.png",
     "sources": [
+      {     
+          "type" : "iframe", 
+          "url" : "https://cdn-live.tv/api/v1/channels/player/?name=nbc&code=us&user=cdnlivetv&plan=free" 
+      }, 
       {
         "type": "daddylive",
         "channel_id": "53"
