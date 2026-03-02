@@ -1188,8 +1188,10 @@
       if (!eventsManager) {
         eventsManager = new EventsManager('#channel-list');
       }
-      // Fetch live events by default
-      eventsManager.fetchMatches('live');
+      // Fetch live events by default, then auto-select first working event
+      eventsManager.fetchMatches('live').then(() => {
+        eventsManager.autoSelectFirstEvent();
+      });
       eventsManager.startAutoRefresh();
       if (switchServerBtn) switchServerBtn.style.display = 'none';
       const serverIndicatorsEl = document.getElementById('server-indicators');
@@ -1204,7 +1206,14 @@
         .then(response => response.json())
         .then(data => {
           channels = data;
+          // Find the first actual channel (skip country headers with empty sources)
           currentChannelIndex = 0;
+          for (let i = 0; i < channels.length; i++) {
+            if (channels[i].sources && channels[i].sources.length > 0) {
+              currentChannelIndex = i;
+              break;
+            }
+          }
           populateChannelList();
           updatePlayer(currentChannelIndex);
           ensureLiveTvPlayer();
