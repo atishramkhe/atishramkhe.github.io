@@ -317,6 +317,98 @@ function loadAnimeContinueWatching() {
     });
 }
 
+// Skip Settings (anime) - stored per anime
+const ANIME_SKIP_SETTINGS_PREFIX = 'animeSkipSettings_';
+
+function getAnimeSkipSettings(malId) {
+    if (!malId) return { skipIntro: true, skipOutro: true };
+    try {
+        const key = `${ANIME_SKIP_SETTINGS_PREFIX}${malId}`;
+        const raw = JSON.parse(localStorage.getItem(key) || 'null');
+        if (!raw || typeof raw !== 'object') return { skipIntro: true, skipOutro: true };
+        return {
+            skipIntro: raw.skipIntro !== false,
+            skipOutro: raw.skipOutro !== false,
+        };
+    } catch {
+        return { skipIntro: true, skipOutro: true };
+    }
+}
+
+function setAnimeSkipSettings(malId, settings) {
+    if (!malId) return;
+    try {
+        const key = `${ANIME_SKIP_SETTINGS_PREFIX}${malId}`;
+        localStorage.setItem(key, JSON.stringify({
+            skipIntro: !!settings.skipIntro,
+            skipOutro: !!settings.skipOutro,
+        }));
+    } catch { }
+}
+
+function sendAnimePlayerHook(data) {
+    // Resolve absolute episode: prefer explicit, then global, then per-season fallback
+    const absEp = data.absoluteEpisodeNumber
+        || window.currentAbsoluteEpisodeNumber
+        || data.episodeNumber;
+
+    const payload = {
+        type: 'ateaish_anime_player_info',
+        malId: data.malId,
+        aniListId: data.aniListId,
+        episodeNumber: data.episodeNumber,
+        absoluteEpisodeNumber: absEp,
+        seasonNumber: data.seasonNumber,
+        skipIntro: data.skipIntro,
+        skipOutro: data.skipOutro,
+    };
+
+    // Send to same window (for userscript running on parent page)
+    try {
+        window.postMessage(payload, '*');
+    } catch { }
+
+    // Also relay to iframe (for userscript running inside embedded player like sibnet)
+    try {
+        const iframe = document.getElementById('anime-player-iframe');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(payload, '*');
+        }
+    } catch { }
+    
+    // Also expose data as attributes on hidden video element for direct access by userscripts
+    updateAnimePlayerDataElement({ ...data, absoluteEpisodeNumber: absEp });
+}
+
+function updateAnimePlayerDataElement(data) {
+    // Find or create hidden video element that stores current anime player state
+    let vidElement = document.getElementById('ateaish-anime-data');
+    if (!vidElement) {
+        vidElement = document.createElement('video');
+        vidElement.id = 'ateaish-anime-data';
+        vidElement.style.display = 'none';
+        vidElement.style.visibility = 'hidden';
+        document.documentElement.appendChild(vidElement);
+    }
+    
+    // Update data attributes
+    if (data.malId !== null && data.malId !== undefined) {
+        vidElement.setAttribute('data-mal-id', String(data.malId));
+    }
+    if (data.aniListId !== null && data.aniListId !== undefined) {
+        vidElement.setAttribute('data-anilist-id', String(data.aniListId));
+    }
+    if (data.episodeNumber !== null && data.episodeNumber !== undefined) {
+        vidElement.setAttribute('data-episode', String(data.episodeNumber));
+    }
+    if (data.absoluteEpisodeNumber !== null && data.absoluteEpisodeNumber !== undefined) {
+        vidElement.setAttribute('data-absolute-episode', String(data.absoluteEpisodeNumber));
+    }
+    if (data.seasonNumber !== null && data.seasonNumber !== undefined) {
+        vidElement.setAttribute('data-season', String(data.seasonNumber));
+    }
+}
+
 // Watch Later (anime)
 const ANIME_WATCH_LATER_KEY = 'animeWatchLater';
 
@@ -1067,6 +1159,97 @@ async function getAnimeSamaSeasonsEpisodes(aniListId) {
     }
 }
 
+function renderSkipCheckboxes(malId) {
+    const settings = getAnimeSkipSettings(malId);
+    
+    let container = playerContainer.querySelector('#anime-skip-controls');
+    if (container) container.remove();
+    
+    container = document.createElement('div');
+    container.id = 'anime-skip-controls';
+    container.style.cssText = `
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 6px;
+        backdrop-filter: blur(4px);
+        font-family: inherit;
+        font-size: 0.9rem;
+    `;
+    
+    // Skip Intro checkbox
+    const introLabel = document.createElement('label');
+    introLabel.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+    `;
+    const introCheckbox = document.createElement('input');
+    introCheckbox.type = 'checkbox';
+    introCheckbox.checked = settings.skipIntro;
+    introCheckbox.style.cursor = 'pointer';
+    introCheckbox.addEventListener('change', (e) => {
+        const newSettings = { 
+            skipIntro: e.target.checked, 
+            skipOutro: settings.skipOutro 
+        };
+        setAnimeSkipSettings(malId, newSettings);
+        sendAnimePlayerHook({
+            malId,
+            aniListId: window.currentAniListId,
+            episodeNumber: window.currentEpisodeNumber,
+            seasonNumber: window.currentSeasonNumber,
+            ...newSettings,
+        });
+    });
+    introLabel.appendChild(introCheckbox);
+    introLabel.appendChild(document.createTextNode('Skip Intro'));
+    container.appendChild(introLabel);
+    
+    // Skip Outro checkbox
+    const outroLabel = document.createElement('label');
+    outroLabel.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+    `;
+    const outroCheckbox = document.createElement('input');
+    outroCheckbox.type = 'checkbox';
+    outroCheckbox.checked = settings.skipOutro;
+    outroCheckbox.style.cursor = 'pointer';
+    outroCheckbox.addEventListener('change', (e) => {
+        const newSettings = { 
+            skipIntro: settings.skipIntro, 
+            skipOutro: e.target.checked 
+        };
+        setAnimeSkipSettings(malId, newSettings);
+        sendAnimePlayerHook({
+            malId,
+            aniListId: window.currentAniListId,
+            episodeNumber: window.currentEpisodeNumber,
+            seasonNumber: window.currentSeasonNumber,
+            ...newSettings,
+        });
+    });
+    outroLabel.appendChild(outroCheckbox);
+    outroLabel.appendChild(document.createTextNode('Skip Outro'));
+    container.appendChild(outroLabel);
+    
+    playerContainer.appendChild(container);
+}
+
 async function openAnimeFromJikan(anime) {
     const malId = anime.mal_id;
     const isMovie = (anime.type || '').toLowerCase() === 'movie';
@@ -1088,7 +1271,7 @@ async function openAnimeFromJikan(anime) {
     const resumeEpisodeWanted = resumeProgress && resumeProgress.episode ? parseInt(resumeProgress.episode, 10) : null;
     const resumePlayerGroupWanted = resumeProgress && resumeProgress.playerGroup ? String(resumeProgress.playerGroup) : null;
     const resumePlayerHostWanted = resumeProgress && resumeProgress.playerHost ? String(resumeProgress.playerHost).toLowerCase() : null;
-    const resumeSeekWanted = resumeProgress && Number.isFinite(Number(resumeProgress.timestamp)) ? Number(resumeProgress.timestamp) : null;
+    let resumeSeekWanted = resumeProgress && Number.isFinite(Number(resumeProgress.timestamp)) ? Number(resumeProgress.timestamp) : null;
 
     // New per-open session token for postMessage validation
     const progressToken = `${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
@@ -1244,9 +1427,11 @@ async function openAnimeFromJikan(anime) {
 
     function decoratePlayerUrl(rawUrl, { seekSeconds = null } = {}) {
         if (!rawUrl) return rawUrl;
+        const absEp = computeAbsoluteEpisode(currentSeason, currentEpisode);
         try {
             const u = new URL(rawUrl);
             u.searchParams.set('ateaish_mal', String(malId));
+            u.searchParams.set('ateaish_ep', String(absEp));
             u.searchParams.set('ateaish_token', String(progressToken));
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 u.searchParams.set('ateaish_seek', String(Math.floor(Number(seekSeconds))));
@@ -1254,7 +1439,7 @@ async function openAnimeFromJikan(anime) {
             return u.toString();
         } catch {
             const sep = rawUrl.includes('?') ? '&' : '?';
-            let out = `${rawUrl}${sep}ateaish_mal=${encodeURIComponent(String(malId))}&ateaish_token=${encodeURIComponent(String(progressToken))}`;
+            let out = `${rawUrl}${sep}ateaish_mal=${encodeURIComponent(String(malId))}&ateaish_ep=${encodeURIComponent(String(absEp))}&ateaish_token=${encodeURIComponent(String(progressToken))}`;
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 out += `&ateaish_seek=${encodeURIComponent(String(Math.floor(Number(seekSeconds))))}`;
             }
@@ -1262,10 +1447,54 @@ async function openAnimeFromJikan(anime) {
         }
     }
 
+    function getResumeSeekForCurrentEpisode() {
+        if (!Number.isFinite(Number(resumeSeekWanted)) || Number(resumeSeekWanted) <= 0) return null;
+        if (Number.isFinite(Number(resumeEpisodeWanted)) && Number(currentEpisode) !== Number(resumeEpisodeWanted)) return null;
+        if (resumeSeasonWanted && String(currentSeason) !== String(resumeSeasonWanted)) return null;
+        return resumeSeekWanted;
+    }
+
+    function clearResumeSeekIfDifferent() {
+        if (!Number.isFinite(Number(resumeEpisodeWanted))) return;
+        if (Number(currentEpisode) !== Number(resumeEpisodeWanted) || (resumeSeasonWanted && String(currentSeason) !== String(resumeSeasonWanted))) {
+            resumeSeekWanted = null;
+        }
+    }
+
+    function resetResumeSeekForAutoNext() {
+        resumeSeekWanted = null;
+        if (isMovie) return;
+        upsertAnimeProgressRecord(malId, {
+            season: String(currentSeason),
+            episode: Number(currentEpisode),
+            timestamp: 0,
+            progress: 0,
+            updatedAt: Date.now()
+        });
+        try { loadAnimeContinueWatching(); } catch { }
+    }
+
     // Helper to get max episode for a season
     function getMaxEpisode(season) {
         if (!animeSamaData || !animeSamaData[season]) return 1;
         return Math.max(...Object.keys(animeSamaData[season]).map(e => parseInt(e, 10)).filter(e => !isNaN(e)));
+    }
+
+    // Compute the absolute (MAL-style) episode number from a per-season episode.
+    // AniSkip needs the absolute episode across all seasons (e.g. Naruto Shippuden 1-500).
+    function computeAbsoluteEpisode(seasonKey, episodeNum) {
+        const ep = Number(episodeNum) || 1;
+        if (!animeSamaData || !seasons || seasons.length <= 1) return ep;
+        let absolute = 0;
+        for (const s of seasons) {
+            if (s === seasonKey) break;
+            absolute += getMaxEpisode(s);
+        }
+        return absolute + ep;
+    }
+
+    function updateGlobalAbsoluteEpisode() {
+        window.currentAbsoluteEpisodeNumber = computeAbsoluteEpisode(currentSeason, currentEpisode);
     }
 
     function normalizeUrls(val) {
@@ -1348,14 +1577,39 @@ async function openAnimeFromJikan(anime) {
         seasonSelect.onchange = () => {
             currentSeason = seasonSelect.value;
             currentEpisode = 1;
+            clearResumeSeekIfDifferent();
+            window.currentSeasonNumber = currentSeason;
+            window.currentEpisodeNumber = 1;
+            updateGlobalAbsoluteEpisode();
             renderSeasonEpisodeSelector();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
+            // Send hook to userscript
+            const settings = getAnimeSkipSettings(malId);
+            sendAnimePlayerHook({
+                malId,
+                aniListId: window.currentAniListId,
+                episodeNumber: 1,
+                seasonNumber: currentSeason,
+                ...settings,
+            });
         };
         episodeSelect.onchange = () => {
             currentEpisode = parseInt(episodeSelect.value, 10);
+            clearResumeSeekIfDifferent();
+            window.currentEpisodeNumber = currentEpisode;
+            updateGlobalAbsoluteEpisode();
             renderAnimeSourceIndicators();
             updateEpisodeArrows();
+            // Send hook to userscript
+            const settings = getAnimeSkipSettings(malId);
+            sendAnimePlayerHook({
+                malId,
+                aniListId: window.currentAniListId,
+                episodeNumber: currentEpisode,
+                seasonNumber: currentSeason,
+                ...settings,
+            });
         };
 
         selectorBar.appendChild(seasonSelect);
@@ -1389,7 +1643,7 @@ async function openAnimeFromJikan(anime) {
 
     // Initial render (iframe + overlay controls)
     playerContent.innerHTML = `
-        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.icu/embed/anime/${aniListId}/1/0&autoplay=1`, { seekSeconds: resumeSeekWanted })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.icu/embed/anime/${aniListId}/1/0&autoplay=1`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
     `;
 
     function ensureSettingsButton() {
@@ -1414,6 +1668,25 @@ async function openAnimeFromJikan(anime) {
         // Movies: no season/episode selector
         playerContainer.querySelectorAll('#season-episode-selector').forEach(el => el.remove());
     }
+    
+    // Add skip intro/outro checkboxes
+    renderSkipCheckboxes(malId);
+    
+    // Store player info globally for postMessage hook
+    window.currentAniListId = aniListId;
+    window.currentEpisodeNumber = currentEpisode;
+    window.currentSeasonNumber = currentSeason;
+    updateGlobalAbsoluteEpisode();
+    
+    // Send initial hook to userscript
+    const initialSkipSettings = getAnimeSkipSettings(malId);
+    sendAnimePlayerHook({
+        malId,
+        aniListId,
+        episodeNumber: currentEpisode,
+        seasonNumber: currentSeason,
+        ...initialSkipSettings,
+    });
 
     function ensureEpisodeArrows() {
         let prevBtn = playerContainer.querySelector('#anime-prev-episode');
@@ -1546,7 +1819,7 @@ async function openAnimeFromJikan(anime) {
         if (!/[?&]autoplay=1/.test(url)) url += (url.includes('?') ? '&' : '?') + 'autoplay=1';
 
         // Decorate the URL so the userscript can report timing, and pass seek for resume.
-        iframe.src = decoratePlayerUrl(url, { seekSeconds: resumeSeekWanted });
+        iframe.src = decoratePlayerUrl(url, { seekSeconds: getResumeSeekForCurrentEpisode() });
         activeSelection = { group: grp.key, idx };
         if (persistLastUsed) {
             sessionUserSelection = { group: grp.key, idx };
@@ -1659,6 +1932,20 @@ async function openAnimeFromJikan(anime) {
 
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
+
+        // Season data is now loaded — recompute absolute episode and re-send hook
+        // so the userscript (including iframe instances) gets the correct episode number.
+        updateGlobalAbsoluteEpisode();
+        window.currentEpisodeNumber = currentEpisode;
+        window.currentSeasonNumber = currentSeason;
+        const skipSettings = getAnimeSkipSettings(malId);
+        sendAnimePlayerHook({
+            malId,
+            aniListId,
+            episodeNumber: currentEpisode,
+            seasonNumber: currentSeason,
+            ...skipSettings,
+        });
     })();
 
     // Update movie sources once TMDB id is ready
@@ -1732,6 +2019,8 @@ async function openAnimeFromJikan(anime) {
                 return;
             }
         }
+        resetResumeSeekForAutoNext();
+        clearResumeSeekIfDifferent();
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
         updateEpisodeArrows();
@@ -1749,6 +2038,7 @@ async function openAnimeFromJikan(anime) {
                 return;
             }
         }
+        clearResumeSeekIfDifferent();
         renderSeasonEpisodeSelector();
         renderAnimeSourceIndicators();
         updateEpisodeArrows();
