@@ -391,11 +391,20 @@
         { gridId: 'animeGrid',     params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
     ];
 
-    // ── CORS proxy list (for GitHub Pages static hosting) ──
+    // ── CORS proxy list ──
+    // Detect local dev: if running on localhost, use the local proxy first
+    const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
     const CORS_PROXIES = [
-        (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        // Local proxy (server.py /proxy endpoint, only works in dev)
+        ...(IS_LOCAL ? [(url) => `${location.protocol}//${location.host}/proxy?url=${encodeURIComponent(url)}`] : []),
+        // Public CORS proxies
         (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
         (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+        (url) => `https://corsproxy.org/?url=${encodeURIComponent(url)}`,
+        (url) => `https://proxy.cors.sh/${url}`,
+        (url) => `https://thingproxy.freeboard.io/fetch/${url}`,
     ];
     let activeProxyIndex = 0;
 
@@ -419,7 +428,8 @@
                     activeProxyIndex = idx; // remember which one works
                     return res.json();
                 }
-            } catch (e) { /* try next proxy */ }
+                // 403/429 = proxy rejected, try next
+            } catch (e) { /* network error, try next proxy */ }
         }
         throw new Error(`All fetch attempts failed for ${endpoint}`);
     }
@@ -528,10 +538,31 @@
         }
     }
 
-    // ── Load home view ──
+    // ── Load home view (lazy – only first section + continue watching load immediately) ──
     function loadHome() {
-        HOME_SECTIONS.forEach(s => loadSection(s.gridId, s.params));
         loadContinueWatching();
+
+        // Load first section (Latest Update) right away
+        if (HOME_SECTIONS.length > 0) {
+            loadSection(HOME_SECTIONS[0].gridId, HOME_SECTIONS[0].params);
+        }
+
+        // Lazy-load remaining sections when scrolled into view
+        HOME_SECTIONS.slice(1).forEach(s => {
+            const grid = document.getElementById(s.gridId);
+            if (!grid) return;
+            const section = grid.closest('section');
+            loadSkeletons(grid, 6); // placeholder skeletons
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadSection(s.gridId, s.params);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '300px' });
+            observer.observe(section);
+        });
     }
 
     // ── Load filtered view ──
@@ -673,16 +704,21 @@
     }
 
     // ── Player ──
-    function openPlayer(dramaId, title, episodeNumber) {
+    function openPlayer(dramaId, title, episodeNumber, resumeTime) {
         const slug = slugify(title);
         // kisskh uses integer episode numbers in the URL
         const epNum = Math.floor(Number(episodeNumber));
-        const url = `${KISSKH_BASE}/Drama/${slug}/Episode-${epNum}?id=${dramaId}`;
+        let url = `${KISSKH_BASE}/Drama/${slug}/Episode-${epNum}?id=${dramaId}`;
+
+        // Append resume position as hash so userscript can pick it up
+        if (resumeTime && resumeTime > 5) {
+            url += `#ateaish_resume=${Math.floor(resumeTime)}`;
+        }
 
         const playerContainer = document.getElementById('player-container');
         const playerContent = document.getElementById('player-content');
 
-        playerContent.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>`;
+        playerContent.innerHTML = `<iframe id="player-iframe" src="${url}" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>`;
         playerContainer.style.display = 'block';
         document.body.style.overflow = 'hidden';
 
@@ -691,6 +727,24 @@
 
         // Close detail modal if open
         document.getElementById('detail-modal').style.display = 'none';
+
+        // Backup: send seek command via postMessage after iframe loads
+        if (resumeTime && resumeTime > 5) {
+            const iframe = document.getElementById('player-iframe');
+            const sendSeek = () => {
+                try {
+                    iframe.contentWindow.postMessage({
+                        source: 'ateaish-drama',
+                        command: 'seek',
+                        time: resumeTime
+                    }, '*');
+                } catch (e) {}
+            };
+            // Try multiple times to account for video loading delay
+            setTimeout(sendSeek, 3000);
+            setTimeout(sendSeek, 6000);
+            setTimeout(sendSeek, 10000);
+        }
     }
 
     let _currentPlaying = null;
@@ -723,7 +777,10 @@
             existing.videoDuration = duration || 0;
             existing.videoPercent = percent || 0;
             existing.updatedAt = Date.now();
-            // Keep title/thumbnail from existing data
+            // Save slug from userscript if available
+            if (event.data.slug) existing.slug = event.data.slug;
+            // Backfill title from current playing context
+            if (!existing.title && _currentPlaying) existing.title = _currentPlaying.title;
             localStorage.setItem(key, JSON.stringify(existing));
         }
 
@@ -789,7 +846,14 @@
             div.className = 'poster';
             div.style.position = 'relative';
 
-            const percent = item.totalEpisodes ? Math.round((item.episode / item.totalEpisodes) * 100) : 0;
+            // Use video-level progress if available, else episode-level
+            let percent = 0;
+            if (item.videoPercent && item.videoPercent > 0) {
+                // Within-episode progress from the userscript
+                percent = Math.min(100, Math.round(item.videoPercent));
+            } else if (item.totalEpisodes) {
+                percent = Math.round((item.episode / item.totalEpisodes) * 100);
+            }
 
             // Remove button
             const removeBtn = document.createElement('button');
@@ -818,7 +882,7 @@
                 </div>
                 <div class="continue-progress"><div class="continue-progress-bar" style="width:${percent}%"></div></div>
             `;
-            div.onclick = () => openPlayer(item.id, item.title, item.episode);
+            div.onclick = () => openPlayer(item.id, item.title, item.episode, item.currentTime);
             div.appendChild(removeBtn);
             grid.appendChild(div);
         });
