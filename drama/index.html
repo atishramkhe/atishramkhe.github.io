@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ateaish drama</title>
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @font-face { font-family: 'OumaTrialBold'; src: url('../fonts/OumaTrial-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'OumaTrialLight'; src: url('../fonts/OumaTrial-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            border-bottom: 1px solid #111;
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #000;
+        }
+        .logo-placeholder {
+            width: 100px; height: 100px;
+            background: #000; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: #888; font-size: 1.2rem; font-weight: 500; letter-spacing: 2px;
+            cursor: pointer;
+        }
+        .logo-placeholder img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute;
+            background-color: #000; min-width: 120px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            padding: 8px 0; z-index: 60; right: 0; top: 100%; border-radius: 8px;
+        }
+        .dropdown.open .dropdown-content { display: block; }
+        .dropdown-content a {
+            display: flex; align-items: center; justify-content: center;
+            padding: 8px 0; text-decoration: none; background: none;
+        }
+        .dropdown-content a img { height: 100px; width: 100px; object-fit: contain; }
+
+        /* ===== SEARCH ===== */
+        #search-container {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px 0 10px 0; position: relative;
+        }
+        .search-wrapper { position: relative; width: 90%; max-width: 500px; }
+        #search-input {
+            width: 100%; padding: 0.6em 2.5em 0.6em 0.8em;
+            font-size: 1.1em; background: #000; color: #fff;
+            font-family: 'OumaTrialLight'; border: 1px solid #222; border-radius: 4px;
+            outline: none; transition: border-color 0.2s;
+        }
+        #search-input:focus { border-color: #e02735; }
+        #clear-search-btn {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            font-size: 1.5rem; background: transparent; border: none;
+            color: #fff; cursor: pointer; z-index: 2; display: none;
+        }
+        #search-results {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 12px; padding: 10px 40px; max-width: 2000px; margin: 0 auto;
+        }
+
+        /* ===== FILTER TABS ===== */
+        .filter-bar {
+            display: flex; justify-content: center; gap: 8px;
+            padding: 12px 20px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #111; color: #aaa; border: 1px solid #222;
+            padding: 6px 16px; border-radius: 20px; cursor: pointer;
+            font-family: 'OumaTrialLight'; font-size: 0.9em; transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active { background: #e02735; color: #fff; border-color: #e02735; }
+
+        /* ===== SECTIONS & GRID ===== */
+        h2 { padding-left: 40px; margin-block-end: 0; font-family: 'OumaTrialBold'; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px; padding: 20px 40px; max-width: 2000px; margin: 0 auto;
+        }
+        .poster {
+            cursor: pointer; border-radius: 0; overflow: hidden;
+            box-shadow: 0 2px 12px #000a; transition: transform 0.15s;
+            background: #111; position: relative;
+        }
+        .poster:hover { transform: scale(1.04); }
+        .poster img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+        .poster .poster-info {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 30px 10px 8px; font-size: 0.85em;
+        }
+        .poster .poster-title {
+            font-family: 'OumaTrialBold'; font-size: 0.95em;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .poster .poster-meta { color: #aaa; font-size: 0.8em; margin-top: 2px; }
+        .poster .poster-label {
+            position: absolute; top: 8px; left: 8px;
+            background: #e02735; color: #fff; font-size: 0.7em;
+            padding: 2px 8px; border-radius: 3px; font-family: 'OumaTrialBold';
+        }
+        .poster .poster-eps {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(0,0,0,0.7); color: #fff; font-size: 0.7em;
+            padding: 2px 8px; border-radius: 3px;
+        }
+
+        /* ===== DRAMA DETAIL MODAL ===== */
+        #detail-modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.92);
+            z-index: 200; overflow-y: auto;
+        }
+        #detail-content {
+            max-width: 900px; margin: 40px auto; padding: 0 20px;
+        }
+        #detail-close {
+            position: fixed; top: 20px; right: 30px;
+            font-size: 2.5em; color: #fff; cursor: pointer; z-index: 210;
+            background: none; border: none; line-height: 1;
+        }
+        #detail-close:hover { color: #e02735; }
+        .detail-header {
+            display: flex; gap: 24px; margin-bottom: 20px; flex-wrap: wrap;
+        }
+        .detail-thumb {
+            width: 100%; max-width: 400px; border-radius: 4px;
+            aspect-ratio: 16/9; object-fit: cover;
+        }
+        .detail-info { flex: 1; min-width: 250px; }
+        .detail-title { font-family: 'OumaTrialBold'; font-size: 1.8em; margin-bottom: 8px; }
+        .detail-meta { color: #aaa; margin-bottom: 12px; font-size: 0.95em; }
+        .detail-meta span { margin-right: 16px; }
+        .detail-desc { line-height: 1.6; color: #ccc; font-size: 0.95em; margin-bottom: 20px; }
+
+        .episodes-header {
+            font-family: 'OumaTrialBold'; font-size: 1.2em;
+            margin-bottom: 12px; border-bottom: 1px solid #222; padding-bottom: 8px;
+        }
+        .episodes-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px; margin-bottom: 40px;
+        }
+        .episode-btn {
+            background: #111; color: #fff; border: 1px solid #222;
+            padding: 10px 0; text-align: center; cursor: pointer;
+            border-radius: 4px; font-family: 'OumaTrialLight'; font-size: 0.95em;
+            transition: all 0.15s;
+        }
+        .episode-btn:hover { background: #e02735; border-color: #e02735; }
+        .episode-btn.has-sub { border-color: #444; }
+        .episode-btn.last-watched { background: #1a0507; border-color: #e02735; box-shadow: 0 0 6px #e0273555; }
+        .episode-btn .sub-indicator { font-size: 0.6em; display: block; color: #4CAF50; }
+
+        /* ===== PLAYER MODAL ===== */
+        #player-container {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 300;
+        }
+        #player-content {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; height: 85%;
+        }
+        #player-content iframe { width: 100%; height: 100%; border: none; }
+        #close-player {
+            position: absolute; top: 15px; right: 25px;
+            font-size: 2.5em; color: white; cursor: pointer; z-index: 310;
+        }
+        #close-player:hover { color: #e02735; }
+
+        /* ===== CONTINUE WATCHING ===== */
+        .continue-progress {
+            width: 100%; height: 4px; background: #222; margin-top: 0;
+            overflow: hidden; position: absolute; bottom: 0;
+        }
+        .continue-progress-bar { height: 100%; background: #e02735; }
+
+        /* ===== LOAD MORE ===== */
+        .load-more-container { text-align: center; padding: 10px 0 30px; }
+        .load-more-btn {
+            background: #111; color: #fff; border: 1px solid #222;
+            padding: 10px 32px; border-radius: 4px; cursor: pointer;
+            font-family: 'OumaTrialLight'; font-size: 1em; transition: all 0.2s;
+        }
+        .load-more-btn:hover { background: #e02735; border-color: #e02735; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+        ::-webkit-scrollbar-button { display: none; }
+
+        /* ===== PREVIEW ===== */
+        #posterPreview {
+            background: #111; border-radius: 4px; box-shadow: 0 4px 32px #000a;
+            padding: 12px; min-width: 250px; max-width: 300px; color: #fff;
+            font-family: inherit; pointer-events: none; transition: opacity 0.15s;
+            display: none; position: absolute; z-index: 1000;
+        }
+        #posterPreview img {
+            width: 100%; border-radius: 2px; margin-bottom: 8px;
+            object-fit: cover; aspect-ratio: 16/9;
+        }
+        #posterPreview .preview-title {
+            font-family: 'OumaTrialBold'; font-size: 1em; margin-bottom: 4px;
+        }
+        #posterPreview .preview-meta { font-size: 0.85em; color: #aaa; }
+        #posterPreview .preview-desc { font-size: 0.85em; color: #ccc; margin-top: 6px; line-height: 1.4; }
+
+        /* ===== LOADING SKELETON ===== */
+        .skeleton {
+            background: linear-gradient(90deg, #111 25%, #1a1a1a 50%, #111 75%);
+            background-size: 200% 100%; animation: shimmer 1.5s infinite;
+            aspect-ratio: 16/9; border-radius: 0;
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000; color: #555; text-align: center;
+            padding: 24px 0 16px; font-size: 0.7em; font-family: 'OumaTrialLight';
+        }
+        footer a { color: #555; text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); padding: 10px 16px; gap: 6px; }
+            h2 { padding-left: 16px; font-size: 1.1em; }
+            .search-wrapper { width: 95%; }
+            .detail-header { flex-direction: column; }
+            .detail-thumb { max-width: 100%; }
+            .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
+            #player-content { width: 100%; height: 60%; }
+            #detail-content { margin: 20px auto; }
+            .filter-btn { padding: 5px 12px; font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="dropdown" id="mainDropdown">
+            <div class="logo-placeholder" id="dropdownToggle" tabindex="0">
+                <span style="font-family:'OumaTrialBold'; font-size:1.1em; letter-spacing:1px;">ateaish drama</span>&nbsp;○○○
+            </div>
+            <div class="dropdown-content" id="dropdownMenu">
+                <a href="https://atishramkhe.github.io/">
+                    <img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="ateaish homepage" style="height:60px;width:auto;">
+                </a>
+                <a href="https://atishramkhe.github.io/movies">
+                    <img src="../assets/logo.png" alt="ateaish movies" style="height:40px;width:auto;">
+                </a>
+                <a href="https://atishramkhe.github.io/tv">
+                    <img src="../assets/logo.png" alt="ateaish tv" style="height:40px;width:auto;">
+                </a>
+                <a href="https://atishramkhe.github.io/sport">
+                    <img src="../assets/logo.png" alt="ateaish sport" style="height:40px;width:auto;">
+                </a>
+                <a href="https://atishramkhe.github.io/radio">
+                    <img src="../assets/logo.png" alt="ateaish radio" style="height:40px;width:auto;">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH -->
+    <div id="search-container">
+        <div class="search-wrapper">
+            <input type="text" id="search-input" placeholder="Search dramas, movies, anime...">
+            <button id="clear-search-btn">&times;</button>
+        </div>
+    </div>
+    <div id="search-results"></div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="home">Home</button>
+        <button class="filter-btn" data-filter="kdrama">K-Drama</button>
+        <button class="filter-btn" data-filter="cdrama">C-Drama</button>
+        <button class="filter-btn" data-filter="hollywood">Hollywood</button>
+        <button class="filter-btn" data-filter="anime">Anime</button>
+        <button class="filter-btn" data-filter="movies">Movies</button>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="mainContent">
+        <!-- HOME VIEW (multiple sections) -->
+        <div id="homeView">
+            <section>
+                <h2>Continue Watching</h2>
+                <div class="grid" id="continueGrid"></div>
+            </section>
+            <section>
+                <h2>Latest Update</h2>
+                <div class="grid" id="latestGrid"></div>
+            </section>
+            <section>
+                <h2>Top K-Drama</h2>
+                <div class="grid" id="kdramaGrid"></div>
+            </section>
+            <section>
+                <h2>Top C-Drama</h2>
+                <div class="grid" id="cdramaGrid"></div>
+            </section>
+            <section>
+                <h2>Hollywood</h2>
+                <div class="grid" id="hollywoodGrid"></div>
+            </section>
+            <section>
+                <h2>Anime</h2>
+                <div class="grid" id="animeGrid"></div>
+            </section>
+        </div>
+
+        <!-- FILTERED VIEW (single grid with load more) -->
+        <div id="filteredView" style="display:none;">
+            <div class="grid" id="filteredGrid"></div>
+            <div class="load-more-container">
+                <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- DRAMA DETAIL MODAL -->
+    <div id="detail-modal">
+        <button id="detail-close">&times;</button>
+        <div id="detail-content"></div>
+    </div>
+
+    <!-- PLAYER MODAL -->
+    <div id="player-container">
+        <span id="close-player">&times;</span>
+        <div id="player-content"></div>
+    </div>
+
+    <!-- HOVER PREVIEW -->
+    <div id="posterPreview"></div>
+
+    <footer>
+        Powered by kisskh
+    </footer>
+
+    <script>
+    /* ========================================================
+       ateaish drama — Frontend for kisskh.ovh
+       ======================================================== */
+
+    const API_BASE = 'https://kisskh.ovh/api/DramaList';
+    const KISSKH_BASE = 'https://kisskh.ovh';
+
+    // ── State ──
+    let currentFilter = 'home';
+    let filteredPage = 0;
+    let filteredLoading = false;
+    let filteredHasMore = true;
+    let searchTimeout = null;
+
+    // ── Filter configs: { type, sub, country, status, order } ──
+    const FILTER_CONFIG = {
+        kdrama:    { type: 0, sub: 0, country: 2, status: 0, order: 1 },
+        cdrama:    { type: 0, sub: 0, country: 3, status: 0, order: 1 },
+        hollywood: { type: 4, sub: 0, country: 0, status: 0, order: 1 },
+        anime:     { type: 3, sub: 0, country: 0, status: 0, order: 1 },
+        movies:    { type: 2, sub: 0, country: 0, status: 0, order: 1 },
+    };
+
+    const HOME_SECTIONS = [
+        { gridId: 'latestGrid',    params: { type: 0, sub: 0, country: 0, status: 0, order: 2, pageSize: 20, page: 0 } },
+        { gridId: 'kdramaGrid',    params: { type: 0, sub: 0, country: 2, status: 0, order: 1, pageSize: 20, page: 0 } },
+        { gridId: 'cdramaGrid',    params: { type: 0, sub: 0, country: 3, status: 0, order: 1, pageSize: 20, page: 0 } },
+        { gridId: 'hollywoodGrid', params: { type: 4, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
+        { gridId: 'animeGrid',     params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
+    ];
+
+    // ── CORS proxy list (for GitHub Pages static hosting) ──
+    const CORS_PROXIES = [
+        (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    ];
+    let activeProxyIndex = 0;
+
+    // ── API fetch helper (tries direct first, then CORS proxies) ──
+    async function kisskh(endpoint) {
+        const url = `${API_BASE}${endpoint}`;
+
+        // Try direct first (works if same-origin or CORS allowed)
+        try {
+            const res = await fetch(url);
+            if (res.ok) return res.json();
+        } catch (e) { /* CORS blocked – fall through to proxies */ }
+
+        // Try proxies starting from the last one that worked
+        for (let attempt = 0; attempt < CORS_PROXIES.length; attempt++) {
+            const idx = (activeProxyIndex + attempt) % CORS_PROXIES.length;
+            try {
+                const proxied = CORS_PROXIES[idx](url);
+                const res = await fetch(proxied);
+                if (res.ok) {
+                    activeProxyIndex = idx; // remember which one works
+                    return res.json();
+                }
+            } catch (e) { /* try next proxy */ }
+        }
+        throw new Error(`All fetch attempts failed for ${endpoint}`);
+    }
+
+    // ── Slug helper ──
+    function slugify(title) {
+        return title.replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-');
+    }
+
+    // ── Truncate text ──
+    function truncate(text, max = 120) {
+        if (!text) return '';
+        return text.length > max ? text.slice(0, max).trim() + '...' : text;
+    }
+
+    // ── Create poster card ──
+    function createPosterCard(drama, gridId) {
+        const div = document.createElement('div');
+        div.className = 'poster';
+
+        const thumb = drama.thumbnail || '';
+        const label = drama.label || '';
+        const eps = drama.episodesCount || 0;
+
+        div.innerHTML = `
+            ${label ? `<span class="poster-label">${label}</span>` : ''}
+            <span class="poster-eps">EP ${eps}</span>
+            <img src="${thumb}" alt="${drama.title}" loading="lazy" 
+                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22><rect fill=%22%23111%22 width=%2216%22 height=%229%22/><text x=%228%22 y=%225%22 fill=%22%23333%22 text-anchor=%22middle%22 font-size=%221.5%22>No Image</text></svg>'">
+            <div class="poster-info">
+                <div class="poster-title">${drama.title}</div>
+            </div>
+        `;
+
+        div.addEventListener('click', () => openDetail(drama.id));
+
+        // Hover preview
+        div.addEventListener('mouseenter', (e) => showPreview(div, drama));
+        div.addEventListener('mouseleave', hidePreview);
+
+        return div;
+    }
+
+    // ── Show hover preview ──
+    function showPreview(posterDiv, drama) {
+        const preview = document.getElementById('posterPreview');
+        preview.innerHTML = `
+            <img src="${drama.thumbnail}" alt="${drama.title}">
+            <div class="preview-title">${drama.title}</div>
+            <div class="preview-meta">EP ${drama.episodesCount || '?'}${drama.label ? ' · ' + drama.label : ''}</div>
+        `;
+        preview.style.display = 'block';
+        preview.style.opacity = '1';
+
+        requestAnimationFrame(() => {
+            const rect = posterDiv.getBoundingClientRect();
+            const previewRect = preview.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
+            const margin = 8;
+
+            let left = rect.left + scrollX + (rect.width / 2) - (previewRect.width / 2);
+            let top = rect.top + scrollY - previewRect.height - margin;
+
+            left = Math.max(scrollX + margin, left);
+            left = Math.min(scrollX + window.innerWidth - previewRect.width - margin, left);
+            top = Math.max(scrollY + margin, top);
+
+            preview.style.left = `${left}px`;
+            preview.style.top = `${top}px`;
+        });
+    }
+
+    function hidePreview() {
+        const preview = document.getElementById('posterPreview');
+        preview.style.display = 'none';
+        preview.style.opacity = '0';
+    }
+
+    // ── Load skeletons ──
+    function loadSkeletons(grid, count = 10) {
+        for (let i = 0; i < count; i++) {
+            const div = document.createElement('div');
+            div.className = 'skeleton';
+            grid.appendChild(div);
+        }
+    }
+
+    // ── Load a grid section ──
+    async function loadSection(gridId, params) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.innerHTML = '';
+        loadSkeletons(grid);
+
+        try {
+            const qs = Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&');
+            const data = await kisskh(`/List?${qs}`);
+            grid.innerHTML = '';
+            (data.data || []).forEach(drama => {
+                grid.appendChild(createPosterCard(drama, gridId));
+            });
+        } catch (err) {
+            console.error(`Failed to load ${gridId}:`, err);
+            grid.innerHTML = '<p style="color:#555;padding:20px;">Failed to load. Check connection.</p>';
+        }
+    }
+
+    // ── Load home view ──
+    function loadHome() {
+        HOME_SECTIONS.forEach(s => loadSection(s.gridId, s.params));
+        loadContinueWatching();
+    }
+
+    // ── Load filtered view ──
+    async function loadFiltered(filter, reset = true) {
+        if (filteredLoading) return;
+        const config = FILTER_CONFIG[filter];
+        if (!config) return;
+
+        const grid = document.getElementById('filteredGrid');
+        const loadBtn = document.getElementById('loadMoreBtn');
+
+        if (reset) {
+            filteredPage = 0;
+            filteredHasMore = true;
+            grid.innerHTML = '';
+        }
+
+        filteredLoading = true;
+        loadBtn.textContent = 'Loading...';
+        loadBtn.disabled = true;
+
+        try {
+            const qs = `type=${config.type}&sub=${config.sub}&country=${config.country}&status=${config.status}&order=${config.order}&pageSize=40&page=${filteredPage}`;
+            const data = await kisskh(`/List?${qs}`);
+            const items = data.data || [];
+            items.forEach(drama => {
+                grid.appendChild(createPosterCard(drama, 'filteredGrid'));
+            });
+
+            filteredPage++;
+            filteredHasMore = items.length >= 40 && (filteredPage * 40) < data.totalCount;
+            loadBtn.style.display = filteredHasMore ? 'inline-block' : 'none';
+        } catch (err) {
+            console.error('Failed to load filtered:', err);
+            if (reset) grid.innerHTML = '<p style="color:#555;padding:20px;">Failed to load.</p>';
+        }
+
+        filteredLoading = false;
+        loadBtn.textContent = 'Load More';
+        loadBtn.disabled = false;
+    }
+
+    // ── Search ──
+    async function performSearch(query) {
+        const results = document.getElementById('search-results');
+        if (query.length < 2) { results.innerHTML = ''; return; }
+
+        results.innerHTML = '<p style="color:#555;text-align:center;">Searching...</p>';
+
+        try {
+            const data = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
+            results.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                results.innerHTML = '<p style="color:#555;text-align:center;">No results found.</p>';
+                return;
+            }
+
+            data.forEach(drama => {
+                results.appendChild(createPosterCard(drama, 'search-results'));
+            });
+        } catch (err) {
+            console.error('Search error:', err);
+            results.innerHTML = '<p style="color:#555;text-align:center;">Search failed. Try again.</p>';
+        }
+    }
+
+    // ── Open drama detail ──
+    async function openDetail(dramaId) {
+        const modal = document.getElementById('detail-modal');
+        const content = document.getElementById('detail-content');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        content.innerHTML = '<div style="text-align:center;padding:60px;color:#555;">Loading...</div>';
+
+        try {
+            const drama = await kisskh(`/Drama/${dramaId}?is498=false`);
+
+            const episodes = (drama.episodes || []).sort((a, b) => a.number - b.number);
+
+            content.innerHTML = `
+                <div class="detail-header">
+                    <img class="detail-thumb" src="${drama.thumbnail}" alt="${drama.title}"
+                         onerror="this.style.display='none'">
+                    <div class="detail-info">
+                        <div class="detail-title">${drama.title}</div>
+                        <div class="detail-meta">
+                            <span>${drama.releaseDate ? drama.releaseDate.slice(0, 10) : ''}</span>
+                            <span>${drama.country || ''}</span>
+                            <span>${drama.status || ''}</span>
+                            <span>${drama.type || ''}</span>
+                            <span>${drama.episodesCount || 0} Episodes</span>
+                        </div>
+                        <div class="detail-desc">${drama.description || 'No description available.'}</div>
+                    </div>
+                </div>
+                <div class="episodes-header">Episodes</div>
+                <div class="episodes-grid" id="episodesList"></div>
+            `;
+
+            // Check if there's saved progress for this drama
+            const savedProgress = localStorage.getItem(`kisskh_progress_${dramaId}`);
+            const savedEp = savedProgress ? JSON.parse(savedProgress).episode : null;
+
+            const episodesList = document.getElementById('episodesList');
+            episodes.forEach(ep => {
+                const epNum = Math.floor(Number(ep.number));
+                const btn = document.createElement('button');
+                const isLastWatched = savedEp && epNum === savedEp;
+                btn.className = 'episode-btn' + (ep.sub > 0 ? ' has-sub' : '') + (isLastWatched ? ' last-watched' : '');
+                btn.innerHTML = `
+                    EP ${epNum}
+                    ${ep.sub > 0 ? '<span class="sub-indicator">SUB</span>' : ''}
+                    ${isLastWatched ? '<span class="sub-indicator" style="color:#e02735;">RESUME</span>' : ''}
+                `;
+                btn.addEventListener('click', () => {
+                    openPlayer(dramaId, drama.title, epNum);
+                    // Save to continue watching
+                    saveContinueWatching(dramaId, drama.title, drama.thumbnail, epNum, drama.episodesCount);
+                });
+                episodesList.appendChild(btn);
+            });
+
+            // Auto-scroll to the last watched episode if exists
+            if (savedEp) {
+                const lastBtn = episodesList.querySelector('.last-watched');
+                if (lastBtn) lastBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+        } catch (err) {
+            console.error('Detail error:', err);
+            content.innerHTML = '<p style="color:#555;text-align:center;padding:60px;">Failed to load drama details.</p>';
+        }
+    }
+
+    function closeDetail() {
+        document.getElementById('detail-modal').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // ── Player ──
+    function openPlayer(dramaId, title, episodeNumber) {
+        const slug = slugify(title);
+        // kisskh uses integer episode numbers in the URL
+        const epNum = Math.floor(Number(episodeNumber));
+        const url = `${KISSKH_BASE}/Drama/${slug}/Episode-${epNum}?id=${dramaId}`;
+
+        const playerContainer = document.getElementById('player-container');
+        const playerContent = document.getElementById('player-content');
+
+        playerContent.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>`;
+        playerContainer.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+
+        // Track what's playing for continue watching
+        _currentPlaying = { dramaId, title, episode: epNum };
+
+        // Close detail modal if open
+        document.getElementById('detail-modal').style.display = 'none';
+    }
+
+    let _currentPlaying = null;
+
+    function closePlayer() {
+        const playerContainer = document.getElementById('player-container');
+        const playerContent = document.getElementById('player-content');
+        playerContainer.style.display = 'none';
+        playerContent.innerHTML = '';
+        document.body.style.overflow = '';
+        _currentPlaying = null;
+        loadContinueWatching();
+    }
+
+    // ── Listen for messages from ateaish_drama_helpers userscript ──
+    window.addEventListener('message', (event) => {
+        if (!event.data || event.data.source !== 'ateaish-drama-helper') return;
+
+        const { type, dramaId, episode, currentTime, duration, percent } = event.data;
+
+        if (!dramaId) return;
+
+        // Update continue watching with real progress from the userscript
+        if (type === 'progress' || type === 'pause' || type === 'ended') {
+            const key = `kisskh_progress_${dramaId}`;
+            const existing = JSON.parse(localStorage.getItem(key) || '{}');
+            existing.id = dramaId;
+            existing.episode = episode || existing.episode;
+            existing.currentTime = currentTime || 0;
+            existing.videoDuration = duration || 0;
+            existing.videoPercent = percent || 0;
+            existing.updatedAt = Date.now();
+            // Keep title/thumbnail from existing data
+            localStorage.setItem(key, JSON.stringify(existing));
+        }
+
+        // When episode changes inside the iframe, update tracking
+        if (type === 'episodeChange' && episode) {
+            const key = `kisskh_progress_${dramaId}`;
+            const existing = JSON.parse(localStorage.getItem(key) || '{}');
+            existing.id = dramaId;
+            existing.episode = episode;
+            existing.currentTime = 0;
+            existing.videoPercent = 0;
+            existing.updatedAt = Date.now();
+            localStorage.setItem(key, JSON.stringify(existing));
+            _currentPlaying = { ...(_currentPlaying || {}), dramaId, episode };
+        }
+
+        // When episode ends, could auto-refresh continue watching
+        if (type === 'ended') {
+            console.log(`[ateaish drama] EP ${episode} ended`);
+        }
+    });
+
+    // ── Continue Watching ──
+    function saveContinueWatching(dramaId, title, thumbnail, episode, totalEpisodes) {
+        const key = `kisskh_progress_${dramaId}`;
+        const data = {
+            id: dramaId,
+            title: title,
+            thumbnail: thumbnail,
+            episode: episode,
+            totalEpisodes: totalEpisodes,
+            updatedAt: Date.now()
+        };
+        localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    function loadContinueWatching() {
+        const grid = document.getElementById('continueGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        const items = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('kisskh_progress_')) {
+                try {
+                    items.push(JSON.parse(localStorage.getItem(key)));
+                } catch (e) {}
+            }
+        }
+
+        items.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+        const toShow = items.slice(0, 10);
+
+        if (toShow.length === 0) {
+            grid.closest('section').style.display = 'none';
+            return;
+        }
+        grid.closest('section').style.display = '';
+
+        toShow.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'poster';
+            div.style.position = 'relative';
+
+            const percent = item.totalEpisodes ? Math.round((item.episode / item.totalEpisodes) * 100) : 0;
+
+            // Remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.title = 'Remove';
+            removeBtn.style.cssText = `
+                position:absolute; top:6px; right:8px; background:rgba(0,0,0,0.7);
+                color:#fff; border:none; font-size:1.5em; cursor:pointer;
+                padding:0 6px; border-radius:50%; display:none; z-index:2;
+            `;
+            div.addEventListener('mouseenter', () => removeBtn.style.display = 'block');
+            div.addEventListener('mouseleave', () => removeBtn.style.display = 'none');
+            removeBtn.onclick = (e) => {
+                e.stopPropagation();
+                localStorage.removeItem(`kisskh_progress_${item.id}`);
+                loadContinueWatching();
+            };
+
+            div.innerHTML = `
+                <img src="${item.thumbnail}" alt="${item.title}" loading="lazy"
+                     onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22><rect fill=%22%23111%22 width=%2216%22 height=%229%22/></svg>'">
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3em;opacity:0.7;pointer-events:none;text-shadow:0 2px 8px #000;">&#9654;</div>
+                <div class="poster-info">
+                    <div class="poster-title">${item.title}</div>
+                    <div class="poster-meta">&#9654; Resume EP ${item.episode}/${item.totalEpisodes || '?'}</div>
+                </div>
+                <div class="continue-progress"><div class="continue-progress-bar" style="width:${percent}%"></div></div>
+            `;
+            div.onclick = () => openPlayer(item.id, item.title, item.episode);
+            div.appendChild(removeBtn);
+            grid.appendChild(div);
+        });
+    }
+
+    // ── Event Listeners ──
+    document.addEventListener('DOMContentLoaded', () => {
+        // Load home
+        loadHome();
+
+        // Search
+        const searchInput = document.getElementById('search-input');
+        const clearBtn = document.getElementById('clear-search-btn');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            clearBtn.style.display = val ? 'block' : 'none';
+
+            clearTimeout(searchTimeout);
+            if (val.length < 2) { searchResults.innerHTML = ''; return; }
+
+            // Show/hide main content based on search
+            document.getElementById('mainContent').style.display = val ? 'none' : '';
+            document.getElementById('filterBar').style.display = val ? 'none' : '';
+
+            searchTimeout = setTimeout(() => performSearch(val), 400);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            searchResults.innerHTML = '';
+            document.getElementById('mainContent').style.display = '';
+            document.getElementById('filterBar').style.display = '';
+            searchInput.focus();
+        });
+
+        // Filter tabs
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                currentFilter = filter;
+
+                if (filter === 'home') {
+                    document.getElementById('homeView').style.display = '';
+                    document.getElementById('filteredView').style.display = 'none';
+                } else {
+                    document.getElementById('homeView').style.display = 'none';
+                    document.getElementById('filteredView').style.display = '';
+                    loadFiltered(filter, true);
+                }
+            });
+        });
+
+        // Load more
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            loadFiltered(currentFilter, false);
+        });
+
+        // Close detail modal
+        document.getElementById('detail-close').addEventListener('click', closeDetail);
+        document.getElementById('detail-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('detail-modal')) closeDetail();
+        });
+
+        // Close player
+        document.getElementById('close-player').addEventListener('click', closePlayer);
+
+        // Dropdown toggle
+        const dropdown = document.getElementById('mainDropdown');
+        const toggle = document.getElementById('dropdownToggle');
+        toggle.addEventListener('click', (e) => {
+            dropdown.classList.toggle('open');
+            e.stopPropagation();
+        });
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+        });
+
+        // Keyboard: Escape closes modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('player-container').style.display === 'block') {
+                    closePlayer();
+                } else if (document.getElementById('detail-modal').style.display === 'block') {
+                    closeDetail();
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>
