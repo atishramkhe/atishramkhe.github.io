@@ -86,6 +86,7 @@
     /* Search container sits in the center area */
     #search-container {
       display: flex;
+      flex-direction: column;
       align-items: center;
       border: none;
       position: relative;
@@ -361,6 +362,18 @@
     ::-webkit-scrollbar-button {
       display: none;
       /* hides arrows */
+    }
+
+    .related-row::-webkit-scrollbar {
+      height: 8px;
+      background: transparent;
+    }
+    .related-row::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+    .related-row::-webkit-scrollbar-button {
+      display: none;
     }
 
     /* Toggle styles from Uiverse.io by mobinkakei */
@@ -861,6 +874,269 @@
     }
 
 
+    /* === Genre Filter Chips === */
+    #genre-chips-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 40px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.95) 70%, transparent);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    #genre-chips-bar::-webkit-scrollbar { display: none; }
+    .genre-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid #444;
+      background: transparent;
+      color: #ccc;
+      font-family: 'OumaTrialBold';
+      font-size: 0.85em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .genre-chip:hover {
+      border-color: #e02735;
+      color: #fff;
+    }
+    .genre-chip.active {
+      background: #e02735;
+      border-color: #e02735;
+      color: #fff;
+    }
+
+    /* === Mood Discovery === */
+    #mood-section {
+      padding: 20px 40px;
+      display: none;
+    }
+    #mood-section.visible { display: block; }
+    #mood-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .mood-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 18px 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(224,39,53,0.15), rgba(0,0,0,0.6));
+      border: 1px solid #333;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      min-width: 140px;
+      font-family: 'OumaTrialBold';
+    }
+    .mood-card:hover {
+      border-color: #e02735;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(224,39,53,0.25);
+    }
+    .mood-card.active {
+      background: linear-gradient(135deg, rgba(224,39,53,0.4), rgba(0,0,0,0.8));
+      border-color: #e02735;
+    }
+    .mood-emoji { font-size: 2em; }
+    .mood-label { font-size: 0.9em; letter-spacing: 0.5px; }
+    #mood-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      padding: 0;
+      max-width: 2000px;
+    }
+
+    /* === Enhanced Search Filters === */
+    #search-filters {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #search-filters.visible {
+      display: flex;
+    }
+    #search-results-wrapper {
+      display: none;
+    }
+    #search-results-wrapper.active {
+      display: block;
+    }
+    #close-search-results {
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      z-index: 1002;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #555;
+      color: #ccc;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.3em;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    #close-search-results:hover {
+      background: #e02735;
+      border-color: #e02735;
+      color: #fff;
+    }
+    #close-search-results.visible {
+      display: flex;
+    }
+    .search-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 16px;
+      border: 1px solid #555;
+      background: transparent;
+      color: #aaa;
+      font-family: 'OumaTrialLight';
+      font-size: 0.8em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .search-filter-chip:hover { border-color: #e02735; color: #fff; }
+    .search-filter-chip.active {
+      background: #e02735;
+      border-color: #e02735;
+      color: #fff;
+    }
+    .search-filter-select {
+      background: #111;
+      color: #ccc;
+      border: 1px solid #555;
+      border-radius: 16px;
+      padding: 4px 12px;
+      font-family: 'OumaTrialLight';
+      font-size: 0.8em;
+      outline: none;
+      cursor: pointer;
+    }
+    .search-filter-select:focus { border-color: #e02735; }
+    /* Pagination */
+    #search-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 18px 0 10px;
+    }
+    .pagination-btn {
+      background: transparent;
+      border: 1px solid #555;
+      color: #ccc;
+      padding: 6px 14px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-family: 'OumaTrialLight';
+      font-size: 0.85em;
+      transition: all 0.2s;
+    }
+    .pagination-btn:hover { border-color: #e02735; color: #fff; }
+    .pagination-btn.active { background: #e02735; border-color: #e02735; color: #fff; }
+    .pagination-btn:disabled { opacity: 0.3; cursor: default; }
+    .pagination-info { color: #888; font-size: 0.8em; font-family: 'OumaTrialLight'; }
+
+    /* === Showcase Carousel === */
+    #showcase {
+      transition: opacity 0.6s ease;
+    }
+    #showcase.fading { opacity: 0; }
+    #showcase-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 0 10px 0;
+      position: relative;
+      z-index: 10;
+    }
+    .showcase-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
+    .showcase-dot:hover { background: rgba(255,255,255,0.5); }
+    .showcase-dot.active {
+      background: #e02735;
+      transform: scale(1.3);
+    }
+    /* progress ring on active dot */
+    .showcase-dot.active::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid rgba(224,39,53,0.4);
+    }
+    .showcase-dot { position: relative; }
+
+    /* === Surprise Me Button === */
+    #surprise-me-btn {
+      position: fixed;
+      bottom: 116px;
+      right: 42px;
+      z-index: 91;
+      background: #000;
+      color: #e02735;
+      border: 0px solid #333;
+      border-radius: 16px;
+      width: 72px;
+      height: 72px;
+      font-size: 2.4em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px #0006;
+      transition: all 0.3s ease;
+    }
+    #surprise-me-btn:hover {
+      transform: scale(1.1);
+      border-color: #e02735;
+      box-shadow: 0 4px 20px rgba(224,39,53,0.3);
+    }
+    #surprise-me-btn .material-symbols-outlined {
+      font-size: 1em;
+      animation: none;
+    }
+    #surprise-me-btn:hover .material-symbols-outlined {
+      animation: dice-spin 0.5s ease;
+    }
+    @keyframes dice-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     @media (max-width: 1200px) {
       #showcase {
         flex-direction: column;
@@ -888,6 +1164,24 @@
       #platforms-container {
         display: none !important;
       }
+
+      #genre-chips-bar {
+        padding: 8px 12px;
+        gap: 6px;
+      }
+      .genre-chip { font-size: 0.75em; padding: 4px 10px; }
+
+      #surprise-me-btn {
+        bottom: 96px !important;
+        right: 36px !important;
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 2em !important;
+      }
+
+      #mood-section { padding: 12px; }
+      .mood-card { min-width: 100px; padding: 12px 16px; }
+      #showcase-dots { display: none !important; }
 
       /* Keep floating action buttons fully on-screen on mobile (bottom-right cluster) */
       #section-nav-toggle {
@@ -1015,6 +1309,52 @@
               <input type="text" id="search-input" placeholder="Search for movies and TV shows...">
               <button id="clear-search-btn">&times;</button>
             </div>
+            <!-- Enhanced Search Filters -->
+            <div id="search-filters">
+              <button class="search-filter-chip active" data-type="all">All</button>
+              <button class="search-filter-chip" data-type="movie">Movies</button>
+              <button class="search-filter-chip" data-type="tv">TV Shows</button>
+              <select class="search-filter-select" id="search-category-filter">
+                <option value="">Any Genre</option>
+                <option value="28">Action</option>
+                <option value="12">Adventure</option>
+                <option value="16">Animation</option>
+                <option value="35">Comedy</option>
+                <option value="80">Crime</option>
+                <option value="99">Documentary</option>
+                <option value="18">Drama</option>
+                <option value="10751">Family</option>
+                <option value="14">Fantasy</option>
+                <option value="36">History</option>
+                <option value="27">Horror</option>
+                <option value="10402">Music</option>
+                <option value="9648">Mystery</option>
+                <option value="10749">Romance</option>
+                <option value="878">Sci-Fi</option>
+                <option value="53">Thriller</option>
+                <option value="10752">War</option>
+                <option value="37">Western</option>
+              </select>
+              <select class="search-filter-select" id="search-year-filter">
+                <option value="">Any Year</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2020s">2020s</option>
+                <option value="2010s">2010s</option>
+                <option value="2000s">2000s</option>
+                <option value="classic">Before 2000</option>
+              </select>
+              <select class="search-filter-select" id="search-rating-filter">
+                <option value="">Any Rating</option>
+                <option value="9">9+ Excellent</option>
+                <option value="8">8+ Great</option>
+                <option value="7">7+ Good</option>
+                <option value="6">6+ Above Avg</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -1024,8 +1364,10 @@
 
       <main>
         <!-- Keep results exactly where they are now -->
+        <button id="close-search-results" title="Close search">&times;</button>
         <div id="search-results-wrapper" style="background-color:rgba(0,0,0,0.6);">
           <div id="results" style="display:none"></div>
+          <div id="search-pagination"></div>
         </div>
 
         <!-- Showcase -->
@@ -1067,6 +1409,8 @@
 
           </div>
         </section>
+        <!-- Showcase Dots -->
+        <div id="showcase-dots"></div>
         <!-- === End Showcase Section === -->
 
         <div class="grid" id="showsGrid" style="display:none"></div>
@@ -1112,6 +1456,73 @@
       </button>
     </div>
 
+    <!-- Genre Filter Chips Bar -->
+    <div id="genre-chips-bar">
+      <button class="genre-chip active" data-genre="all">All</button>
+      <button class="genre-chip" data-genre="trending">🔥 Trending</button>
+      <button class="genre-chip" data-genre="new">✨ New</button>
+      <button class="genre-chip" data-genre="netflixfrance">Netflix FR</button>
+      <button class="genre-chip" data-genre="bollywood">Bollywood</button>
+      <button class="genre-chip" data-genre="kdrama">K-Drama</button>
+      <button class="genre-chip" data-genre="animation">Animation</button>
+      <button class="genre-chip" data-genre="family">Family</button>
+      <button class="genre-chip" data-genre="comedy">😂 Comedy</button>
+      <button class="genre-chip" data-genre="adventure">Adventure</button>
+      <button class="genre-chip" data-genre="fantasy">Fantasy</button>
+      <button class="genre-chip" data-genre="scifi">🚀 Sci-Fi</button>
+      <button class="genre-chip" data-genre="action">💥 Action</button>
+      <button class="genre-chip" data-genre="thriller">Thriller</button>
+      <button class="genre-chip" data-genre="crime">Crime</button>
+      <button class="genre-chip" data-genre="horror">👻 Horror</button>
+      <button class="genre-chip" data-genre="drama">Drama</button>
+      <button class="genre-chip" data-genre="romance">Romance</button>
+      <button class="genre-chip" data-genre="thailand">🇹🇭 Thailand</button>
+      <button class="genre-chip" data-genre="philippines">🇵🇭 Philippines</button>
+      <button class="genre-chip" data-genre="chinese">🇨🇳 Chinese</button>
+      <button class="genre-chip" data-genre="japan">🇯🇵 Japan</button>
+      <button class="genre-chip" data-genre="mood" id="mood-chip">🎭 Moods</button>
+    </div>
+
+    <!-- Mood Discovery Section -->
+    <section id="mood-section">
+      <div id="mood-buttons">
+        <div class="mood-card" data-mood="feel-good">
+          <span class="mood-emoji">😊</span>
+          <span class="mood-label">Feel Good</span>
+        </div>
+        <div class="mood-card" data-mood="edge-of-seat">
+          <span class="mood-emoji">😰</span>
+          <span class="mood-label">Edge of Seat</span>
+        </div>
+        <div class="mood-card" data-mood="binge-worthy">
+          <span class="mood-emoji">📺</span>
+          <span class="mood-label">Binge-Worthy</span>
+        </div>
+        <div class="mood-card" data-mood="epic-adventure">
+          <span class="mood-emoji">⚔️</span>
+          <span class="mood-label">Epic Adventure</span>
+        </div>
+        <div class="mood-card" data-mood="dark-twisted">
+          <span class="mood-emoji">🌑</span>
+          <span class="mood-label">Dark & Twisted</span>
+        </div>
+        <div class="mood-card" data-mood="date-night">
+          <span class="mood-emoji">💕</span>
+          <span class="mood-label">Date Night</span>
+        </div>
+        <div class="mood-card" data-mood="mind-bending">
+          <span class="mood-emoji">🧠</span>
+          <span class="mood-label">Mind-Bending</span>
+        </div>
+        <div class="mood-card" data-mood="family-time">
+          <span class="mood-emoji">👨‍👩‍👧‍👦</span>
+          <span class="mood-label">Family Time</span>
+        </div>
+      </div>
+      <h2 id="mood-results-title" style="display:none;"></h2>
+      <div id="mood-results-grid"></div>
+    </section>
+
     <!-- NEW: platform content section that the JS expects -->
     <section id="platform-section" style="display:none;">
       <h2 id="platform-title">
@@ -1145,7 +1556,7 @@
       <div class="grid" id="bestXmasGrid"></div>
     </section>-->
 
-    <section>
+    <section id="trendingSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         Trending
@@ -1167,6 +1578,14 @@
       <div class="grid" id="continueGrid"></div>
     </section>
 
+    <section id="becauseWatchedSection" style="display:none;">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
+        Because you watched
+      </h2>
+      <div class="grid" id="becauseWatchedGrid"></div>
+    </section>
+
     <section id="watchLaterSection" style="display:none;">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
@@ -1181,7 +1600,21 @@
       <div class="grid" id="watchLaterGrid"></div>
     </section>
 
-    <section>
+    <section id="watchedSection" style="display:none;">
+      <h2>
+        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;">
+        <span class="material-symbols-outlined"
+          style="vertical-align: bottom; font-size: inherit; margin-right: 4px;margin-bottom:0px;">
+          done_all
+        </span>
+
+        Watched
+
+      </h2>
+      <div class="grid" id="watchedGrid"></div>
+    </section>
+
+    <section id="newSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         New Releases
@@ -1189,7 +1622,7 @@
       <div class="grid" id="newGrid"></div>
     </section>
 
-    <section>
+    <section id="netflixfranceSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         Netflix France
@@ -1197,7 +1630,7 @@
       <div class="grid" id="netflixfranceGrid"></div>
     </section>
 
-    <section>
+    <section id="bollywoodSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         Bollywood
@@ -1205,7 +1638,7 @@
       <div class="grid" id="bollywoodGrid"></div>
     </section>
 
-    <section>
+    <section id="kdramaSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         K-Dramas
@@ -1286,7 +1719,7 @@
       <div class="grid" id="crimeGrid"></div>
     </section>
 
-    <section>
+    <section id="horrorSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
         Horror
@@ -1330,31 +1763,13 @@
       <div class="grid" id="philippinesGrid"></div>
     </section>
 
-    <!-- China Section -->
-    <section id="chinaSection">
+    <!-- Chinese Section (China + Taiwan + Hong Kong) -->
+    <section id="chineseSection">
       <h2>
         <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
-        China
+        Chinese
       </h2>
-      <div class="grid" id="chinaGrid"></div>
-    </section>
-
-    <!-- Taiwan Section -->
-    <section id="taiwanSection">
-      <h2>
-        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
-        Taiwan
-      </h2>
-      <div class="grid" id="taiwanGrid"></div>
-    </section>
-
-    <!-- Hong Kong Section -->
-    <section id="hongkongSection">
-      <h2>
-        <img src="assets/bar.svg" alt="" style="height:1em;vertical-align:middle;margin-right:10px;margin-bottom:9px;">
-        Hong Kong
-      </h2>
-      <div class="grid" id="hongkongGrid"></div>
+      <div class="grid" id="chineseGrid"></div>
     </section>
 
     <!-- Japan Section -->
@@ -1369,6 +1784,8 @@
     <!-- Add more sections as needed -->
 
     <script src="search.js"></script>
+    <script src="recommendations.js"></script>
+    <script src="discovery.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('search-input');
@@ -1438,6 +1855,11 @@
 
   <div>
     <!-- Section Navigator -->
+    <!-- Surprise Me Button -->
+    <button id="surprise-me-btn" title="Surprise Me! Pick a random title">
+      <span class="material-symbols-outlined">casino</span>
+    </button>
+
     <button id="continue-btn" style="
     position: fixed;
     bottom: 32px;
