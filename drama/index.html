@@ -391,21 +391,24 @@
         { gridId: 'animeGrid',     params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
     ];
 
-    // ── CORS proxy list ──
-    // Detect local dev: if running on localhost, use the local proxy first
+    // ── CORS proxy ──
     const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
-    const CORS_PROXIES = [
-        // Local proxy (server.py /proxy endpoint, only works in dev)
-        ...(IS_LOCAL ? [(url) => `${location.protocol}//${location.host}/proxy?url=${encodeURIComponent(url)}`] : []),
-        // Public CORS proxies
-        (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-        (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-        (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-        (url) => `https://corsproxy.org/?url=${encodeURIComponent(url)}`,
-        (url) => `https://proxy.cors.sh/${url}`,
-        (url) => `https://thingproxy.freeboard.io/fetch/${url}`,
-    ];
+    // ⚠️  After deploying the Cloudflare Worker (cors-worker.js), replace this URL:
+    const WORKER_URL = 'https://kisskh-proxy.atishramkhe.workers.dev';
+
+    const CORS_PROXIES = IS_LOCAL
+        ? [
+            // Dev: local proxy is fastest and most reliable
+            (url) => `${location.protocol}//${location.host}/proxy?url=${encodeURIComponent(url)}`,
+          ]
+        : [
+            // Production: Cloudflare Worker first, then public fallbacks
+            (url) => `${WORKER_URL}/?url=${encodeURIComponent(url)}`,
+            (url) => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+            (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+            (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+          ];
     let activeProxyIndex = 0;
 
     // ── API fetch helper (tries direct first, then CORS proxies) ──
@@ -424,12 +427,19 @@
             try {
                 const proxied = CORS_PROXIES[idx](url);
                 const res = await fetch(proxied);
-                if (res.ok) {
-                    activeProxyIndex = idx; // remember which one works
-                    return res.json();
+                if (!res.ok) continue;
+
+                // allorigins /get wraps response in { contents: "..." }
+                const ct = res.headers.get('content-type') || '';
+                if (proxied.includes('allorigins.win/get')) {
+                    const wrapper = await res.json();
+                    activeProxyIndex = idx;
+                    return JSON.parse(wrapper.contents);
                 }
-                // 403/429 = proxy rejected, try next
-            } catch (e) { /* network error, try next proxy */ }
+
+                activeProxyIndex = idx;
+                return res.json();
+            } catch (e) { /* network error or parse error, try next proxy */ }
         }
         throw new Error(`All fetch attempts failed for ${endpoint}`);
     }
@@ -728,19 +738,20 @@
         // Close detail modal if open
         document.getElementById('detail-modal').style.display = 'none';
 
-        // Backup: send seek command via postMessage after iframe loads
+        // Backup: send commands via postMessage after iframe loads
+        const iframe = document.getElementById('player-iframe');
+        const sendCommand = (cmd) => {
+            try { iframe.contentWindow.postMessage({ source: 'ateaish-drama', ...cmd }, '*'); } catch (e) {}
+        };
+
+        // Tell userscript which episode to navigate to + highlight
+        const sendNav = () => sendCommand({ command: 'navigateEpisode', episode: epNum });
+        setTimeout(sendNav, 2000);
+        setTimeout(sendNav, 5000);
+
+        // Send seek for resume position
         if (resumeTime && resumeTime > 5) {
-            const iframe = document.getElementById('player-iframe');
-            const sendSeek = () => {
-                try {
-                    iframe.contentWindow.postMessage({
-                        source: 'ateaish-drama',
-                        command: 'seek',
-                        time: resumeTime
-                    }, '*');
-                } catch (e) {}
-            };
-            // Try multiple times to account for video loading delay
+            const sendSeek = () => sendCommand({ command: 'seek', time: resumeTime });
             setTimeout(sendSeek, 3000);
             setTimeout(sendSeek, 6000);
             setTimeout(sendSeek, 10000);
