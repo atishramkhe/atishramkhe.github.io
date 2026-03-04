@@ -1916,11 +1916,11 @@ function loadContinueWatching() {
         };
         clearBtn.onclick = function () {
             if (window.confirm('Are you sure you want to clear all Continue Watching data? This cannot be undone.')) {
-                // Remove all progress_* keys from localStorage
+                // Remove all progress_* keys except anime entries
                 const keysToRemove = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
-                    if (key && key.startsWith('progress_')) keysToRemove.push(key);
+                    if (key && key.startsWith('progress_') && !key.endsWith('_anime')) keysToRemove.push(key);
                 }
                 keysToRemove.forEach(k => localStorage.removeItem(k));
                 loadContinueWatching();
@@ -1939,6 +1939,9 @@ function loadContinueWatching() {
             const raw = JSON.parse(localStorage.getItem(key));
             const norm = normalizeProgress(raw, key);
             if (!norm || !norm.id || !norm.mediaType) continue;
+
+            // Skip anime entries — they belong to /anime, not /movies
+            if (norm.mediaType === 'anime') continue;
 
             // Auto-remove if >= threshold (movies only; TV handled on progress update)
             if (typeof threshold === 'number') {
@@ -2068,8 +2071,41 @@ function loadContinueWatching() {
                 display: 'none',
                 zIndex: '2'
             });
-            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
-            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
+            // More Info button
+            const moreInfoBtn = document.createElement('button');
+            moreInfoBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">info</span>';
+            moreInfoBtn.title = 'More Info';
+            Object.assign(moreInfoBtn.style, {
+                position: 'absolute',
+                top: '6px',
+                left: '8px',
+                background: 'rgba(0,0,0,0.7)',
+                color: '#e02735',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px 6px',
+                borderRadius: '50%',
+                display: 'none',
+                zIndex: '2',
+                lineHeight: '1'
+            });
+            moreInfoBtn.onclick = (e) => {
+                e.stopPropagation();
+                showMorePosterInfo({
+                    id: data.id,
+                    mediaType: data.mediaType,
+                    poster,
+                    title,
+                    year: data.year || '',
+                    date: data.date || '',
+                    overview: data.overview || '',
+                    isTV: data.mediaType === 'tv'
+                });
+            };
+            div.appendChild(moreInfoBtn);
+
+            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; moreInfoBtn.style.display = 'block'; });
+            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; moreInfoBtn.style.display = 'none'; });
             removeBtn.onclick = (e) => {
                 e.stopPropagation();
                 removeFromContinueWatching(data.id, data.mediaType);
@@ -2169,8 +2205,41 @@ function loadWatchLater() {
                 zIndex: '2'
             });
 
-            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
-            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
+            // More Info button
+            const moreInfoBtn = document.createElement('button');
+            moreInfoBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">info</span>';
+            moreInfoBtn.title = 'More Info';
+            Object.assign(moreInfoBtn.style, {
+                position: 'absolute',
+                top: '6px',
+                left: '8px',
+                background: 'rgba(0,0,0,0.7)',
+                color: '#e02735',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px 6px',
+                borderRadius: '50%',
+                display: 'none',
+                zIndex: '2',
+                lineHeight: '1'
+            });
+            moreInfoBtn.onclick = (e) => {
+                e.stopPropagation();
+                showMorePosterInfo({
+                    id: it.id,
+                    mediaType: it.mediaType,
+                    poster,
+                    title,
+                    year: it.year || '',
+                    date: it.date || '',
+                    overview: it.overview || '',
+                    isTV: it.mediaType === 'tv'
+                });
+            };
+            div.appendChild(moreInfoBtn);
+
+            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; moreInfoBtn.style.display = 'block'; });
+            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; moreInfoBtn.style.display = 'none'; });
 
             removeBtn.onclick = (e) => {
                 e.stopPropagation();
@@ -2262,8 +2331,41 @@ function loadWatchedList() {
                 zIndex: '2'
             });
 
-            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
-            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
+            // More Info button
+            const moreInfoBtn = document.createElement('button');
+            moreInfoBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">info</span>';
+            moreInfoBtn.title = 'More Info';
+            Object.assign(moreInfoBtn.style, {
+                position: 'absolute',
+                top: '6px',
+                left: '8px',
+                background: 'rgba(0,0,0,0.7)',
+                color: '#e02735',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px 6px',
+                borderRadius: '50%',
+                display: 'none',
+                zIndex: '2',
+                lineHeight: '1'
+            });
+            moreInfoBtn.onclick = (e) => {
+                e.stopPropagation();
+                showMorePosterInfo({
+                    id: it.id,
+                    mediaType: it.mediaType,
+                    poster,
+                    title,
+                    year: it.year || '',
+                    date: it.date || '',
+                    overview: it.overview || '',
+                    isTV: it.mediaType === 'tv'
+                });
+            };
+            div.appendChild(moreInfoBtn);
+
+            div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; moreInfoBtn.style.display = 'block'; });
+            div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; moreInfoBtn.style.display = 'none'; });
 
             removeBtn.onclick = (e) => {
                 e.stopPropagation();
