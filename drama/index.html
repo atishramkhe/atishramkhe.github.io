@@ -408,9 +408,16 @@
         if (!e.data || e.data.source !== 'ateaish-drama-api') return;
 
         if (e.data.type === 'ready') {
+            const wasReady = _apiBridgeReady;
             _apiBridgeReady = true;
             _bridgeReadyResolve(true);
             console.log('[drama] API bridge connected');
+
+            // If bridge arrived after initial load failed, retry home
+            if (!wasReady && _homeLoadAttempted) {
+                console.log('[drama] Late bridge — reloading home sections');
+                loadHome();
+            }
             return;
         }
 
@@ -598,7 +605,9 @@
     }
 
     // ── Load home view (lazy – only first section + continue watching load immediately) ──
+    let _homeLoadAttempted = false;
     function loadHome() {
+        _homeLoadAttempted = true;
         loadContinueWatching();
 
         // Load first section (Latest Update) right away
