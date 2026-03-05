@@ -212,9 +212,12 @@ class EventsManager {
         return inWindow;
       })
       .sort((a, b) => {
+        const providerOrder = { streamed: 0, ppv: 1, cdnlive: 2 };
+        const aOrder = providerOrder[a._provider] ?? 3;
+        const bOrder = providerOrder[b._provider] ?? 3;
+        if (aOrder !== bOrder) return aOrder - bOrder;
         const aDate = this.normalizeDateMs(a.date);
         const bDate = this.normalizeDateMs(b.date);
-        // Events without dates go to the end
         if (!aDate && !bDate) return 0;
         if (!aDate) return 1;
         if (!bDate) return -1;
@@ -351,7 +354,6 @@ class EventsManager {
     if (this.isLiveMatch(match)) {
       const liveBadge = document.createElement('div');
       liveBadge.className = 'event-live-badge';
-      liveBadge.style.cssText = 'position:absolute;top:4px;left:4px;z-index:2;';
       liveBadge.textContent = 'LIVE';
       item.appendChild(liveBadge);
     }
