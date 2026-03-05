@@ -1010,20 +1010,6 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
         }
     }
 
-    // Production company badge: show first company with a logo at bottom-right
-    if (productionCompanies && productionCompanies.length) {
-        const comp = productionCompanies.find(c => c.logo_path);
-        if (comp) {
-            const prodBadge = document.createElement('img');
-            prodBadge.className = 'production-badge';
-            prodBadge.src = `https://image.tmdb.org/t/p/w92${comp.logo_path}`;
-            prodBadge.alt = comp.name || '';
-            prodBadge.title = comp.name || '';
-            prodBadge.onerror = () => { prodBadge.remove(); };
-            posterDiv.appendChild(prodBadge);
-        }
-    }
-
     if (withPreview) {
         const infoDiv = document.createElement('div');
         infoDiv.className = 'poster-info';
@@ -1159,7 +1145,8 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
 // Helper to fetch full TMDB details and credits for more poster info
 async function fetchMorePosterInfo(id, mediaType) {
     const apiType = mediaType === 'tv' ? 'tv' : 'movie';
-    const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`;
+    const appendParam = mediaType === 'tv' ? 'content_ratings' : 'release_dates';
+    const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}&append_to_response=${appendParam}`;
     const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
 
     let details = {};
@@ -1198,6 +1185,24 @@ async function fetchMorePosterInfo(id, mediaType) {
     const networks = Array.isArray(details.networks) ? details.networks : [];
     const productionCompanies = Array.isArray(details.production_companies) ? details.production_companies : [];
 
+    // Age rating / certification
+    let ageRating = '';
+    if (mediaType === 'tv') {
+        const ratings = details.content_ratings?.results || [];
+        const us = ratings.find(r => r.iso_3166_1 === 'US');
+        const fr = ratings.find(r => r.iso_3166_1 === 'FR');
+        ageRating = us?.rating || fr?.rating || (ratings[0]?.rating || '');
+    } else {
+        const releases = details.release_dates?.results || [];
+        const us = releases.find(r => r.iso_3166_1 === 'US');
+        const fr = releases.find(r => r.iso_3166_1 === 'FR');
+        const entry = us || fr || releases[0];
+        if (entry) {
+            const cert = (entry.release_dates || []).find(rd => rd.certification);
+            ageRating = cert?.certification || '';
+        }
+    }
+
     return {
         genres,
         voteAverage,
@@ -1208,7 +1213,8 @@ async function fetchMorePosterInfo(id, mediaType) {
         castArr,
         crew,
         networks,
-        productionCompanies
+        productionCompanies,
+        ageRating
     };
 }
 
@@ -1409,7 +1415,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 <div style="margin-bottom:14px;color:#fff;font-size:1.08em;font-family:'OumaTrialLight';">${overview || 'No description available.'}</div>
                 <div style="font-size:1.08em;color:#FFF;margin-bottom:10px;">
                     ${(extra.genres ? extra.genres.split(',').map(g => `<span class="showcase-tag">${g.trim()}</span>`).join(' ') : '<span class="showcase-tag">N/A</span>')}<br><br>
-                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}<br><br>
+                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}${extra.ageRating ? `<b>&nbsp;Age Rating:</b> <span style="border:1px solid #e02735;padding:1px 6px;border-radius:4px;color:#e02735;font-weight:600;">${extra.ageRating}</span>` : ''}<br><br>
                     ${isTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
                 </div>
                 <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;"><b>Cast:</b></div>
@@ -1417,6 +1423,19 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 <div style="font-size:1.08em;color:#e02735;margin-top:10px;">
                     ${extra.crew ? `<b>Crew:</b> <span style="color:#FFF">${extra.crew}</span>` : ''}
                 </div>
+                ${extra.productionCompanies.length ? `
+                <div style="margin-top:16px;padding-top:12px;border-top:1px solid #333;">
+                    <div style="font-size:1.08em;color:#e02735;font-weight:700;margin-bottom:10px;">Production</div>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+                        ${extra.productionCompanies.map(c => {
+                            if (c.logo_path) {
+                                return `<img src="https://image.tmdb.org/t/p/w92${c.logo_path}" alt="${c.name}" title="${c.name}" style="height:24px;max-width:80px;object-fit:contain;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.8));">`;
+                            } else {
+                                return `<span style="color:#aaa;font-size:0.85em;padding:3px 8px;border:1px solid #444;border-radius:4px;">${c.name}</span>`;
+                            }
+                        }).join('')}
+                    </div>
+                </div>` : ''}
             </div>
         </div>
     `;
