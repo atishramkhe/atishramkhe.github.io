@@ -695,6 +695,38 @@
       align-items: center;
       margin-left: auto; /* <-- pushes it to the right */
     }
+
+    .event-live-badge {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(220, 30, 30, 0.85);
+      color: #fff;
+      font-size: 0.6em;
+      font-weight: 700;
+      padding: 2px 7px 2px 5px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .event-live-badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #ff4444;
+      border-radius: 50%;
+      box-shadow: 0 0 4px 1px rgba(255, 68, 68, 0.7);
+      animation: livePulse 1.2s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
   </style>
 </head>
 <body>
@@ -1635,7 +1667,7 @@
         player.play(); player.unmute();
       }, 500);
     } else if (sourceType === 'daddylive' && source.channel_id) {
-      const streamUrl = `https://dlhd.link/stream/stream-${source.channel_id}.php`;
+      const streamUrl = `https://dlstreams.top/stream/stream-${source.channel_id}.php`;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
       playerIframe.src = streamUrl;
