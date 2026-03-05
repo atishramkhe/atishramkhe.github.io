@@ -1214,7 +1214,11 @@ async function fetchMorePosterInfo(id, mediaType) {
         crew,
         networks,
         productionCompanies,
-        ageRating
+        ageRating,
+        overview: details.overview || '',
+        releaseDate: details.release_date || details.first_air_date || '',
+        title: details.title || details.name || '',
+        posterPath: details.poster_path || ''
     };
 }
 
@@ -1291,15 +1295,26 @@ function buildRelatedRow(titles, mediaType, modal, dimmer) {
 }
 
 // Update showMorePosterInfo to style Play button as a red circle and move Watch Later below Play
-async function showMorePosterInfo({ id, mediaType, poster, title, year, date, overview, isTV }) {
+async function showMorePosterInfo({ id, mediaType, poster, title: _title, year: _year, date: _date, overview: _overview, isTV }) {
     // 1. Start with the exact poster used in search/grid
     let posterUrl = poster || '';
+    let title = _title || '';
+    let year = _year || '';
+    let date = _date || '';
+    let overview = _overview || '';
 
     // 2. Local generated path, used only as a fallback in onerror
     const localGeneratedPoster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
 
     // 3. Fetch extra info (unchanged)
     const extra = await fetchMorePosterInfo(id, mediaType);
+
+    // Use TMDB data as fallback when passed-in values are missing
+    if (!overview && extra.overview) overview = extra.overview;
+    if (!date && extra.releaseDate) date = extra.releaseDate;
+    if (!year && date) year = date.slice(0, 4);
+    if (!title && extra.title) title = extra.title;
+    if (!posterUrl && extra.posterPath) posterUrl = `https://image.tmdb.org/t/p/w500${extra.posterPath}`;
 
     // Build / show dimmer (unchanged) ...
     let dimmer = document.getElementById('player-dimmer');
