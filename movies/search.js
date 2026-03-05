@@ -964,16 +964,26 @@ function shuffle(array) {
 
 // Build poster card. If withPreview=true, include preview box below the poster.
 // Detect if a movie is a streaming-only release (not theatrical)
+const STREAMING_PRODUCERS = ['netflix', 'amazon studios', 'amazon mgm studios', 'hulu', 'apple tv+', 'apple original films', 'peacock', 'hbo max', 'max'];
+const STREAMING_HOMEPAGE_DOMAINS = ['netflix.com', 'amazon.com', 'primevideo.com', 'disneyplus.com', 'hulu.com', 'peacocktv.com', 'tv.apple.com', 'max.com', 'paramountplus.com'];
+
 function isStreamingRelease(show) {
+    // Check production companies for known streaming studios
+    const prods = show.production_companies || [];
+    const hasStreamingProd = prods.some(c =>
+        STREAMING_PRODUCERS.some(s => (c.name || '').toLowerCase().includes(s))
+    );
+    // Check homepage for streaming platform domains
     const hp = (show.homepage || '').toLowerCase();
+    const hasStreamingHP = STREAMING_HOMEPAGE_DOMAINS.some(d => hp.includes(d));
     const rev = show.revenue || 0;
-    const streamingDomains = ['netflix.com', 'amazon.com', 'primevideo.com', 'disneyplus.com', 'hulu.com', 'peacocktv.com', 'tv.apple.com', 'max.com', 'paramountplus.com'];
-    const isStreamingHP = streamingDomains.some(d => hp.includes(d));
-    // Streaming-only: homepage is a streaming platform AND negligible box office revenue
-    return isStreamingHP && rev < 1000000;
+    // Streaming release if:
+    //   - produced by a streaming studio, OR
+    //   - homepage is a streaming platform AND negligible box office
+    return hasStreamingProd || (hasStreamingHP && rev < 1000000);
 }
 
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isStreaming }) {
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isStreaming, productionCompanies }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
@@ -997,6 +1007,20 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
             badge.className = 'cam-badge';
             badge.textContent = 'CAM';
             posterDiv.appendChild(badge);
+        }
+    }
+
+    // Production company badge: show first company with a logo at bottom-right
+    if (productionCompanies && productionCompanies.length) {
+        const comp = productionCompanies.find(c => c.logo_path);
+        if (comp) {
+            const prodBadge = document.createElement('img');
+            prodBadge.className = 'production-badge';
+            prodBadge.src = `https://image.tmdb.org/t/p/w92${comp.logo_path}`;
+            prodBadge.alt = comp.name || '';
+            prodBadge.title = comp.name || '';
+            prodBadge.onerror = () => { prodBadge.remove(); };
+            posterDiv.appendChild(prodBadge);
         }
     }
 
@@ -1615,7 +1639,8 @@ function loadGrid(jsonPath, gridId) {
                     lastSeasonEpisodes,
                     onClick: () => openPlayer(mediaType, tmdb_id, last_season),
                     withPreview: gridId,
-                    isStreaming: isStreamingRelease(show)
+                    isStreaming: isStreamingRelease(show),
+                    productionCompanies: show.production_companies || []
                 });
 
                 grid.appendChild(card);
