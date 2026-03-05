@@ -975,6 +975,20 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     img.onerror = () => { img.src = placeholderImage; };
     posterDiv.appendChild(img);
 
+    // CAM badge: show on movies released less than 1 month ago (likely still in theatres)
+    if (!isTV && mediaType !== 'tv' && date) {
+        const releaseDate = new Date(date);
+        const now = new Date();
+        const diffMs = now - releaseDate;
+        const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+        if (diffMs >= 0 && diffMs < thirtyDays) {
+            const badge = document.createElement('span');
+            badge.className = 'cam-badge';
+            badge.textContent = 'CAM';
+            posterDiv.appendChild(badge);
+        }
+    }
+
     if (withPreview) {
         const infoDiv = document.createElement('div');
         infoDiv.className = 'poster-info';
