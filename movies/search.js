@@ -963,7 +963,17 @@ function shuffle(array) {
 }
 
 // Build poster card. If withPreview=true, include preview box below the poster.
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview }) {
+// Detect if a movie is a streaming-only release (not theatrical)
+function isStreamingRelease(show) {
+    const hp = (show.homepage || '').toLowerCase();
+    const rev = show.revenue || 0;
+    const streamingDomains = ['netflix.com', 'amazon.com', 'primevideo.com', 'disneyplus.com', 'hulu.com', 'peacocktv.com', 'tv.apple.com', 'max.com', 'paramountplus.com'];
+    const isStreamingHP = streamingDomains.some(d => hp.includes(d));
+    // Streaming-only: homepage is a streaming platform AND negligible box office revenue
+    return isStreamingHP && rev < 1000000;
+}
+
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isStreaming }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
@@ -976,7 +986,8 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     posterDiv.appendChild(img);
 
     // CAM badge: show on movies released less than 1 month ago (likely still in theatres)
-    if (!isTV && mediaType !== 'tv' && date) {
+    // Skip for streaming-only releases (Netflix, Prime, etc.) — those aren't CAM quality
+    if (!isTV && mediaType !== 'tv' && date && !isStreaming) {
         const releaseDate = new Date(date);
         const now = new Date();
         const diffMs = now - releaseDate;
@@ -1603,7 +1614,8 @@ function loadGrid(jsonPath, gridId) {
                     lastSeasonNum,
                     lastSeasonEpisodes,
                     onClick: () => openPlayer(mediaType, tmdb_id, last_season),
-                    withPreview: gridId
+                    withPreview: gridId,
+                    isStreaming: isStreamingRelease(show)
                 });
 
                 grid.appendChild(card);

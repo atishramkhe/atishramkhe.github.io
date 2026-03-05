@@ -619,7 +619,8 @@
                                 lastSeasonNum,
                                 lastSeasonEpisodes,
                                 onClick: () => { if (typeof openPlayer === 'function') openPlayer(mediaType, tmdb_id, last_season); },
-                                withPreview: true
+                                withPreview: true,
+                                isStreaming: typeof isStreamingRelease === 'function' ? isStreamingRelease(show) : false
                             });
                             gridEl.appendChild(card);
                         }
