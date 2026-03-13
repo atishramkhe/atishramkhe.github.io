@@ -2,8 +2,27 @@ name: Update Comics Catalog
 
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 4 * * *'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Catalog refresh mode'
+        required: true
+        default: 'incremental'
+        type: choice
+        options:
+          - incremental
+          - full
+      build_reader:
+        description: 'Refresh reader manifests for tracked series after catalog update'
+        required: true
+        default: true
+        type: boolean
+      skip_existing:
+        description: 'Skip reader manifests that already exist and look complete'
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   update-comics-catalog:
@@ -31,11 +50,21 @@ jobs:
           pip install beautifulsoup4
 
       - name: Refresh comics catalog JSON
-        run: npm run build:comics-catalog
+        run: npm run build:comics-catalog -- --mode=${{ github.event.inputs.mode || 'incremental' }}
+
+      - name: Refresh tracked reader manifests
+        if: github.event_name == 'schedule' || github.event.inputs.build_reader == 'true'
+        run: |
+          EXTRA_FLAGS=""
+          if [ "${{ github.event.inputs.skip_existing || 'false' }}" = "true" ]; then
+            EXTRA_FLAGS="--skip-existing"
+          fi
+
+          node comics/update_reader_manifests.mjs --source=tracked ${EXTRA_FLAGS}
 
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add comics/data/catalog.json comics/data/discovery.json package.json
+          git add comics/data/catalog.json comics/data/discovery.json comics/data/reader_index.json comics/data/reader_build_state.json comics/data/series package.json
           git diff --staged --quiet || git commit -m "Automated comics catalog update" && git push

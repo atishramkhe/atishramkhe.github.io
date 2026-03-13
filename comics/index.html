@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ateaish comics</title>
-  <link rel="icon" type="image/png" href="./assets/favicon_ateaish_comics.png">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon_ateaish_comics.svg">
   <style>
     @font-face {
       font-family: 'OumaTrialBold';
@@ -23,17 +23,17 @@
     }
 
     :root {
-      --panel: rgba(16, 17, 23, 0.88);
-      --panel-strong: rgba(18, 19, 26, 0.96);
-      --text: #f8f1e7;
-      --muted: #b8ada0;
-      --line: rgba(255, 255, 255, 0.08);
-      --accent: #ff5a36;
-      --accent-soft: #ff9261;
-      --accent-cool: #5db7ff;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --panel: #050505;
+      --panel-strong: #090909;
+      --text: #f3f3f3;
+      --muted: #8c8c8c;
+      --line: transparent;
+      --accent: #ffffff;
+      --accent-soft: #d7d7d7;
+      --accent-cool: #ffffff;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
       --card-width: 172px;
-      --radius: 24px;
+      --radius: 0px;
     }
 
     * { box-sizing: border-box; }
@@ -50,182 +50,189 @@
 
     body::before,
     body::after {
-      content: '';
-      position: fixed;
-      pointer-events: none;
-      z-index: 0;
-      width: 42vw;
-      height: 42vw;
-      border-radius: 50%;
-      filter: blur(72px);
-      opacity: 0.18;
-    }
-
-    body::before {
-      top: -12vw;
-      left: -10vw;
-      background: var(--accent);
-    }
-
-    body::after {
-      right: -12vw;
-      top: 18vh;
-      background: var(--accent-cool);
+      display: none;
     }
 
     .page-shell {
       position: relative;
       z-index: 1;
-      width: min(1440px, calc(100vw - 32px));
+      width: min(1880px, calc(100vw - 28px));
       margin: 0 auto;
-      padding: 28px 0 88px;
+      padding: 12px 0 88px;
     }
 
     .topbar {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 34px;
+      padding-bottom: 10px;
       animation: rise-in 420ms ease;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
+      justify-content: center;
       text-decoration: none;
       color: inherit;
     }
 
     .brand img {
-      width: 100px;
-      height: 100px;
-      border-radius: 0px;
+      width: 108px;
+      height: 108px;
       object-fit: contain;
-      background: none; 
-      padding: 6px;
+      background: none;
+      padding: 0;
     }
 
-    .brand-copy {
+    .search-cluster {
+      width: min(100%, 760px);
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-shell,
+    .search-results,
+    .search-panel,
+    .detail-drawer {
+      background: var(--panel);
+      box-shadow: none;
+    }
+
+    .section-shell,
+    .search-results,
+    .search-panel {
+      border-radius: 0;
+    }
+
+    .search-wrap { margin-top: 0; position: relative; }
+
+    .search-panel {
+      display: grid;
+      gap: 16px;
+      padding: 16px 18px 18px;
+      background: #070707;
+    }
+
+    .search-panel[hidden] {
+      display: none;
+    }
+
+    .search-panel-head {
       display: flex;
-      flex-direction: column;
-      gap: 3px;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .brand-kicker {
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-    }
-
-    .brand-title {
+    .search-panel-title {
+      margin: 0;
       font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(1.8rem, 2.4vw, 2.7rem);
+      font-size: 1.15rem;
       line-height: 0.95;
     }
 
-    .topbar-note {
-      max-width: 440px;
+    .search-panel-copy {
+      margin: 6px 0 0;
       color: var(--muted);
-      font-size: 0.95rem;
-      text-align: right;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
-    .hero {
+    .search-panel-reset {
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+      white-space: nowrap;
+    }
+
+    .search-filter-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
-      gap: 22px;
-      margin-bottom: 22px;
-      animation: rise-in 540ms ease;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .hero-panel,
-    .hero-side,
-    .section-shell,
-    .search-results,
-    .detail-drawer {
-      border: Opx solid var(--line);
-      background: var(--panel);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-panel,
-    .hero-side,
-    .section-shell,
-    .search-results {
-      border-radius: O;
-    }
-
-    .hero-panel {
-      padding: 28px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-panel::after {
-      content: '';
-      position: absolute;
-      right: -60px;
-      bottom: -80px;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(255, 90, 54, 0.34), rgba(255, 90, 54, 0));
-      pointer-events: none;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
+    .filter-field {
+      display: grid;
       gap: 8px;
-      margin-bottom: 12px;
-      padding: 7px 12px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      color: var(--accent-soft);
-      font-size: 0.8rem;
+    }
+
+    .filter-label {
+      font-size: 0.76rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .hero h1 {
-      margin: 0 0 14px;
-      font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(2.8rem, 6vw, 5.8rem);
-      line-height: 0.9;
-      letter-spacing: -0.03em;
-    }
-
-    .hero p {
-      max-width: 64ch;
-      margin: 0;
       color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.6;
     }
 
-    .search-wrap { margin-top: 22px; position: relative; }
+    .filter-select {
+      width: 100%;
+      min-height: 44px;
+      border: 0;
+      background: #111;
+      color: var(--text);
+      font: inherit;
+      padding: 0 12px;
+    }
+
+    .search-browse-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip.is-active {
+      background: linear-gradient(135deg, rgba(255, 90, 54, 0.22), rgba(255, 146, 97, 0.16));
+      border-color: rgba(255, 146, 97, 0.32);
+    }
+
+    .search-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .search-meta-card {
+      padding: 14px 16px;
+      background: #0c0c0c;
+    }
+
+    .search-meta-value {
+      display: block;
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: 1.28rem;
+      line-height: 0.95;
+      margin-bottom: 6px;
+    }
+
+    .search-meta-label {
+      color: var(--muted);
+      font-size: 0.83rem;
+      line-height: 1.4;
+    }
 
     .search-input {
       width: 100%;
       padding: 18px 58px 18px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      background: rgba(7, 7, 10, 0.78);
+      border: 0;
+      border-radius: 0;
+      background: #050505;
       color: var(--text);
       font: inherit;
-      font-size: 1rem;
+      font-size: 1.05rem;
       outline: none;
-      transition: border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
     }
 
     .search-input:focus {
-      border-color: rgba(255, 146, 97, 0.85);
-      box-shadow: 0 0 0 3px rgba(255, 90, 54, 0.12);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
       transform: translateY(-1px);
+      background: #101010;
     }
 
     .search-icon,
@@ -245,74 +252,39 @@
     .quick-strip {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 6px;
+      width: min(100%, 1200px);
     }
 
     .chip {
       padding: 9px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
+      border-radius: 0;
+      border: 0;
+      background: #0f0f0f;
       color: var(--text);
       font: inherit;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+      transition: background 140ms ease, transform 140ms ease;
     }
 
     .chip:hover,
     .chip:focus-visible {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.18);
+      background: #171717;
       transform: translateY(-1px);
       outline: none;
     }
 
     .chip-accent {
-      background: linear-gradient(135deg, rgba(255, 90, 54, 0.22), rgba(255, 146, 97, 0.16));
-      border-color: rgba(255, 146, 97, 0.28);
+      background: #151515;
     }
 
-    .hero-side {
-      padding: 24px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .side-title {
-      font-family: 'OumaTrialBold', sans-serif;
-      font-size: 1.6rem;
-      margin: 0;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .stat-card {
-      border-radius: 18px;
-      padding: 16px;
-      min-height: 112px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    }
-
-    .stat-value {
-      font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(1.7rem, 3vw, 2.2rem);
-      margin-bottom: 8px;
-      line-height: 0.95;
-    }
-
-    .stat-label { color: var(--muted); font-size: 0.86rem; line-height: 1.4; }
-    .section-list { display: grid; gap: 18px; }
+    .section-list { display: grid; gap: 22px; }
 
     .section-shell {
-      padding: 22px 22px 24px;
+      padding: 26px 0 0;
       animation: rise-in 640ms ease;
     }
 
@@ -321,7 +293,8 @@
       align-items: end;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      padding: 0 0 0 34px;
     }
 
     .section-title {
@@ -332,21 +305,14 @@
     }
 
     .section-copy { margin: 6px 0 0; color: var(--muted); font-size: 0.92rem; }
-    .section-link { color: var(--accent-soft); text-decoration: none; font-size: 0.92rem; white-space: nowrap; }
+    .section-link { color: var(--accent-soft); text-decoration: none; font-size: 0.92rem; white-space: nowrap; padding-right: 34px; }
 
-    .rail {
+    .section-grid {
       display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: var(--card-width);
+      grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
       gap: 14px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+      padding: 0 34px 6px;
     }
-
-    .rail::-webkit-scrollbar { height: 8px; }
-    .rail::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 999px; }
 
     .comic-card {
       display: flex;
@@ -365,15 +331,13 @@
     .comic-card:hover,
     .comic-card:focus-visible { transform: translateY(-4px); outline: none; }
 
+    .comic-card:focus-within { outline: none; }
+
     .comic-cover {
       position: relative;
       aspect-ratio: 0.68;
-      border-radius: 0px;
       overflow: hidden;
-      border: 0px solid rgba(255, 255, 255, 0.08);
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-        linear-gradient(180deg, #181923, #101116);
+      background: #050505;
       box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
     }
 
@@ -390,6 +354,63 @@
       inset: auto 0 0;
       height: 45%;
       background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+    }
+
+    .cover-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .comic-card:hover .cover-actions,
+    .comic-card:focus-within .cover-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cover-action {
+      width: 34px;
+      height: 34px;
+      border: 0;
+      background: rgba(0, 0, 0, 0.78);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1rem;
+      transition: background 140ms ease, transform 140ms ease;
+    }
+
+    .cover-action:hover,
+    .cover-action:focus-visible {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .cover-action.is-active {
+      background: rgba(255, 255, 255, 0.92);
+      color: #000;
+    }
+
+    .cover-action.remove {
+      font-size: 1.1rem;
+    }
+
+    @media (hover: none) {
+      .cover-actions {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .comic-meta {
@@ -412,18 +433,17 @@
 
     .comic-badge {
       padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255, 90, 54, 0.82);
-      color: #fff8f1;
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.82);
+      color: #000;
       font-size: 0.72rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      backdrop-filter: blur(8px);
     }
 
-    .comic-badge.cool { background: rgba(93, 183, 255, 0.88); color: #eef8ff; }
+    .comic-badge.cool { background: rgba(255, 255, 255, 0.88); color: #000; }
     .comic-badge.soft { background: rgba(255, 255, 255, 0.2); color: var(--text); }
-    .comic-badge.alert { background: rgba(255, 90, 54, 0.96); color: #fff8f1; }
+    .comic-badge.alert { background: rgba(255, 255, 255, 0.96); color: #000; }
 
     .empty-rail {
       padding: 22px 0 8px;
@@ -435,9 +455,44 @@
     .comic-title { font-family: 'OumaTrialBold', sans-serif; font-size: 1.03rem; line-height: 1; }
     .comic-subtitle { color: var(--muted); font-size: 0.82rem; line-height: 1.3; min-height: 2.2em; }
 
+    .card-progress {
+      display: grid;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .progress-block {
+      display: grid;
+      gap: 4px;
+    }
+
+    .progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      transform-origin: left center;
+    }
+
     .search-results {
-      margin-top: 18px;
-      padding: 22px;
+      margin-top: 0;
+      padding: 24px 34px;
       display: none;
       animation: rise-in 220ms ease;
     }
@@ -472,15 +527,14 @@
 
     .skeleton-row {
       display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: var(--card-width);
+      grid-template-columns: repeat(auto-fit, minmax(172px, 1fr));
       gap: 14px;
       overflow: hidden;
+      padding: 0 34px;
     }
 
     .skeleton-card {
       aspect-ratio: 0.68;
-      border-radius: 20px;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
       background-size: 200% 100%;
       animation: shimmer 1.4s linear infinite;
@@ -503,9 +557,8 @@
       top: 22px;
       bottom: 22px;
       width: min(430px, calc(100vw - 28px));
-      border-radius: 28px;
       padding: 22px;
-      background: var(--panel-strong);
+      background: #050505;
       overflow: auto;
     }
 
@@ -519,7 +572,6 @@
 
     .detail-close {
       border: 0;
-      border-radius: 999px;
       width: 38px;
       height: 38px;
       font-size: 1rem;
@@ -530,10 +582,8 @@
 
     .detail-cover {
       aspect-ratio: 0.7;
-      border-radius: 22px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(180deg, #161822, #0e0f15);
+      background: #050505;
       margin-bottom: 16px;
     }
 
@@ -555,11 +605,10 @@
       justify-content: center;
       min-height: 48px;
       padding: 0 16px;
-      border-radius: 16px;
       text-decoration: none;
       color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
+      border: 0;
+      background: #111;
       transition: transform 140ms ease, background 140ms ease;
       font: inherit;
       cursor: pointer;
@@ -592,18 +641,22 @@
     }
 
     @media (max-width: 1080px) {
-      .hero { grid-template-columns: 1fr; }
-      .topbar { flex-direction: column; align-items: flex-start; }
-      .topbar-note { text-align: left; }
+      .page-shell { width: min(100vw - 20px, 1880px); }
+      .search-filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-cluster { width: min(100%, 860px); }
     }
 
     @media (max-width: 720px) {
       .page-shell { width: min(100vw - 18px, 1440px); padding-top: 18px; }
-      .hero-panel, .hero-side, .section-shell, .search-results { border-radius: 22px; }
-      .hero-panel, .hero-side, .section-shell, .search-results, .detail-drawer { padding: 18px; }
-      .stat-grid { grid-template-columns: 1fr 1fr; }
-      .rail, .skeleton-row { grid-auto-columns: minmax(142px, 44vw); }
+      .search-results, .search-panel, .detail-drawer { padding: 18px; }
+      .section-shell { padding-top: 22px; }
+      .section-head { padding-left: 0; }
+      .section-link { padding-right: 0; }
+      .section-grid { padding-inline: 0; }
+      .quick-strip { justify-content: flex-start; }
+      .section-grid, .skeleton-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-filter-grid, .search-meta { grid-template-columns: 1fr; }
       .detail-drawer { inset: auto 10px 10px 10px; width: auto; }
     }
   </style>
@@ -612,54 +665,79 @@
   <main class="page-shell">
     <header class="topbar">
       <a class="brand" href="/">
-        <img src="./assets/ateaish_comics_default.webp" alt="Ateaish logo">
+        <img src="./assets/ateaish_comics_default.webp" alt="Ateaish comics logo">
       </a>
-      <div class="search-wrap">
+      <div id="search-cluster" class="search-cluster">
+        <div id="search-wrap" class="search-wrap">
           <label class="visually-hidden" for="search-input">Search comics</label>
           <input id="search-input" class="search-input" type="search" placeholder="Search the full comics catalog" autocomplete="off" spellcheck="false">
           <button id="clear-search" class="clear-search" type="button" aria-label="Clear search">Clear</button>
           <span class="search-icon">⌕</span>
+          <section id="search-panel" class="search-panel" hidden aria-label="Advanced search options">
+            <div class="search-panel-head">
+              <div>
+                <h2 class="search-panel-title">Browse beyond title search</h2>
+                <p class="search-panel-copy">Pick a catalog scope, discovery rail, or status filter. Filters can run on their own even when the search box is empty.</p>
+              </div>
+              <button id="search-reset" class="search-panel-reset" type="button">Reset filters</button>
+            </div>
+            <div class="search-filter-grid">
+              <label class="filter-field" for="search-scope">
+                <span class="filter-label">Scope</span>
+                <select id="search-scope" class="filter-select">
+                  <option value="catalog">Full catalog</option>
+                  <option value="discovery">Discovery rails</option>
+                </select>
+              </label>
+              <label class="filter-field" for="search-section">
+                <span class="filter-label">Category</span>
+                <select id="search-section" class="filter-select">
+                  <option value="all">All categories</option>
+                </select>
+              </label>
+              <label class="filter-field" for="search-genre">
+                <span class="filter-label">Genre</span>
+                <select id="search-genre" class="filter-select">
+                  <option value="all">All genres</option>
+                </select>
+              </label>
+              <label class="filter-field" for="search-status">
+                <span class="filter-label">Status</span>
+                <select id="search-status" class="filter-select">
+                  <option value="all">Any status</option>
+                  <option value="ongoing">Ongoing</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </label>
+              <label class="filter-field" for="search-sort">
+                <span class="filter-label">Sort</span>
+                <select id="search-sort" class="filter-select">
+                  <option value="relevance">Best match</option>
+                  <option value="title-asc">Title A-Z</option>
+                  <option value="title-desc">Title Z-A</option>
+                </select>
+              </label>
+            </div>
+            <div id="search-browse-chips" class="search-browse-chips" aria-label="Quick browse options"></div>
+            <div id="search-meta" class="search-meta" aria-live="polite"></div>
+          </section>
         </div>
+        <section id="search-results" class="search-results" aria-live="polite">
+          <div class="results-head">
+            <div>
+              <h2 id="results-title" class="results-title">Search results</h2>
+              <p id="results-copy" class="results-copy">Type at least two characters to search the indexed catalog.</p>
+            </div>
+            <div id="results-status" class="status-line"></div>
+          </div>
+          <div id="results-grid" class="results-grid"></div>
+        </section>
+      </div>
 
       <div id="quick-strip" class="quick-strip" aria-label="Quick navigation"></div>
     </header>
 
-    <section class="hero">
-      <aside class="hero-side">
-        <h2 class="side-title">At a glance</h2>
-        <div id="stat-grid" class="stat-grid">
-          <div class="stat-card">
-            <div class="stat-value">...</div>
-            <div class="stat-label">Loading catalog size</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">6</div>
-            <div class="stat-label">Discovery rails pulled from the source</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">A-Z</div>
-            <div class="stat-label">Lazy-loaded search over the full site index</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">Live</div>
-            <div class="stat-label">Updated by a local generator script in this repo</div>
-          </div>
-        </div>
-      </aside>
-    </section>
-
     <section id="library-sections" class="section-list" aria-live="polite"></section>
-
-    <section id="search-results" class="search-results" aria-live="polite">
-      <div class="results-head">
-        <div>
-          <h2 id="results-title" class="results-title">Search results</h2>
-          <p id="results-copy" class="results-copy">Type at least two characters to search the indexed catalog.</p>
-        </div>
-        <div id="results-status" class="status-line"></div>
-      </div>
-      <div id="results-grid" class="results-grid"></div>
-    </section>
 
     <section id="section-list" class="section-list" aria-live="polite">
       <div class="section-shell">

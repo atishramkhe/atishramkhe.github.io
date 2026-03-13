@@ -13,10 +13,223 @@ const apiKey = '792f6fa1e1c53d234af7859d10bdf833';
 const tmdbEndpoint = 'https://api.themoviedb.org/3/search/multi';
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const placeholderImage = 'assets/no_poster.png';
-// Known CAM titles (lowercased). Add more titles here or switch to a data-driven flag later.
-const CAM_TITLES = new Set([
-    'scream 7'
+const CAM_WINDOW_DAYS = 30;
+const camMetadataCache = new Map();
+const STREAMING_HOME_PAGE_PATTERNS = [
+    /(?:^|\.)netflix\.com/i,
+    /(?:^|\.)primevideo\.com/i,
+    /amazon\.[^/]+\/(?:gp\/video|[^?]*\/video|salp\/|[^?]*\/detail\/)/i,
+    /(?:^|\.)disneyplus\.com/i,
+    /(?:^|\.)tv\.apple\.com/i,
+    /(?:^|\.)hbomax\.com/i,
+    /(?:^|\.)max\.com/i,
+    /(?:^|\.)paramountplus\.com/i,
+    /(?:^|\.)hulu\.com/i,
+    /(?:^|\.)peacocktv\.com/i,
+    /(?:^|\.)mubi\.com/i,
+    /(?:^|\.)crunchyroll\.com/i,
+    /(?:^|\.)starz\.com/i
+];
+const STREAMING_COMPANY_NAMES = new Set([
+    'netflix',
+    'disney+',
+    'apple tv+',
+    'hulu',
+    'max',
+    'peacock',
+    'paramount+',
+    'prime video',
+    'amazon prime video'
 ]);
+
+function hasOwn(obj, key) {
+    return !!obj && Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+function normalizeProductionCompanies(item) {
+    if (Array.isArray(item?.production_companies)) return item.production_companies;
+    if (Array.isArray(item?.productionCompanies)) return item.productionCompanies;
+    return [];
+}
+
+function getReleaseDateValue(item) {
+    return item?.release_date || item?.date || item?.first_air_date || '';
+}
+
+function parseReleaseDate(value) {
+    if (!value) return null;
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function hasStreamingHomepage(homepage) {
+    if (typeof homepage !== 'string' || !homepage.trim()) return false;
+    return STREAMING_HOME_PAGE_PATTERNS.some(pattern => pattern.test(homepage));
+}
+
+function isStreamingPlatformRelease(item) {
+    if (!item) return false;
+    if (hasStreamingHomepage(item.homepage)) return true;
+    return normalizeProductionCompanies(item).some(company => {
+        const companyName = String(company?.name || company || '').trim().toLowerCase();
+        return STREAMING_COMPANY_NAMES.has(companyName);
+    });
+}
+
+function hasCamMetadata(item) {
+    if (!item) return false;
+    const hasReleaseDate = Boolean(getReleaseDateValue(item));
+    const hasStreamingHints = hasOwn(item, 'homepage')
+        || hasOwn(item, 'production_companies')
+        || hasOwn(item, 'productionCompanies');
+    return hasReleaseDate && hasStreamingHints;
+}
+
+function isCamEligible(item, now = new Date()) {
+    if (!item) return false;
+    const mediaType = canonicalType(item.media_type ?? item.mediaType ?? 'movie');
+    if (mediaType !== 'movie') return false;
+
+    const releaseDate = parseReleaseDate(getReleaseDateValue(item));
+    if (!releaseDate) return false;
+    if (releaseDate > now) return false;
+
+    const ageMs = now.getTime() - releaseDate.getTime();
+    const maxAgeMs = CAM_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+    if (ageMs > maxAgeMs) return false;
+
+    return !isStreamingPlatformRelease(item);
+}
+
+function createCamBadge() {
+    const camBadge = document.createElement('div');
+    camBadge.className = 'cam-badge';
+    camBadge.textContent = 'CAM';
+    camBadge.style.position = 'absolute';
+    camBadge.style.top = '8px';
+    camBadge.style.left = '8px';
+    camBadge.style.background = 'none';
+    camBadge.style.color = '#e02735';
+    camBadge.style.fontWeight = 'bold';
+    camBadge.style.fontSize = '0.95em';
+    camBadge.style.padding = '3px 12px';
+    camBadge.style.borderRadius = '8px';
+    camBadge.style.letterSpacing = '0';
+    camBadge.style.boxShadow = '0 2px 8px #0007';
+    camBadge.style.zIndex = '10';
+    camBadge.style.pointerEvents = 'none';
+    return camBadge;
+}
+
+function setCamBadge(container, shouldShow) {
+    if (!container) return;
+    const existingBadge = container.querySelector(':scope > .cam-badge');
+    if (!shouldShow) {
+        if (existingBadge) existingBadge.remove();
+        return;
+    }
+    if (!existingBadge) {
+        container.appendChild(createCamBadge());
+    }
+}
+
+async function fetchCamMetadataFromTMDB(id, mediaType, fallbackItem = null) {
+    const normalizedType = canonicalType(mediaType);
+    if (normalizedType !== 'movie' || !id) return fallbackItem;
+
+    const detailsUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
+    const response = await fetch(detailsUrl);
+    if (!response.ok) throw new Error(`Failed to load movie details for ${id}`);
+
+    const details = await response.json();
+    return {
+        ...(fallbackItem || {}),
+        ...details,
+        id: details.id ?? fallbackItem?.id ?? id,
+        mediaType: 'movie',
+        media_type: 'movie',
+        release_date: details.release_date || fallbackItem?.release_date || fallbackItem?.date || ''
+    };
+}
+
+function resolveCamMetadata(item) {
+    if (!item) return Promise.resolve(null);
+
+    const mediaType = canonicalType(item.media_type ?? item.mediaType ?? 'movie');
+    if (mediaType !== 'movie') return Promise.resolve(item);
+
+    const id = item.id;
+    if (!id) return Promise.resolve(item);
+
+    const cacheKey = `${mediaType}:${id}`;
+    const cached = camMetadataCache.get(cacheKey);
+    if (cached) {
+        return cached instanceof Promise ? cached : Promise.resolve(cached);
+    }
+
+    if (hasCamMetadata(item)) {
+        camMetadataCache.set(cacheKey, item);
+        return Promise.resolve(item);
+    }
+
+    const pending = fetchCamMetadataFromTMDB(id, mediaType, item)
+        .then(meta => {
+            camMetadataCache.set(cacheKey, meta);
+            return meta;
+        })
+        .catch(() => item);
+
+    camMetadataCache.set(cacheKey, pending);
+    return pending;
+}
+
+function applyCamBadge(container, item, forceCam = false) {
+    if (!container) return;
+
+    const mediaType = canonicalType(item?.media_type ?? item?.mediaType ?? 'movie');
+    if (mediaType !== 'movie') {
+        setCamBadge(container, false);
+        return;
+    }
+
+    if (forceCam) {
+        setCamBadge(container, true);
+        return;
+    }
+
+    const requestKey = `${item?.id || 'unknown'}:${Date.now()}:${Math.random()}`;
+    container.dataset.camRequestKey = requestKey;
+
+    if (hasCamMetadata(item)) {
+        setCamBadge(container, isCamEligible(item));
+        return;
+    }
+
+    setCamBadge(container, false);
+    resolveCamMetadata(item).then(meta => {
+        if (container.dataset.camRequestKey !== requestKey) return;
+        setCamBadge(container, isCamEligible(meta));
+    }).catch(() => {
+        if (container.dataset.camRequestKey !== requestKey) return;
+        setCamBadge(container, false);
+    });
+}
+
+function extractStoredMetadata(item) {
+    const companies = normalizeProductionCompanies(item);
+    return {
+        homepage: item?.homepage ?? '',
+        production_companies: companies.map(company => {
+            if (typeof company === 'string') return { name: company };
+            return {
+                id: company?.id,
+                name: company?.name || '',
+                logo_path: company?.logo_path ?? null,
+                origin_country: company?.origin_country ?? ''
+            };
+        })
+    };
+}
 
 // Loading-screen logic: remove the loading video after it plays once
 document.addEventListener('DOMContentLoaded', () => {
@@ -310,7 +523,8 @@ function displayResults(results) {
             lastSeasonNum: null,
             lastSeasonEpisodes: null,
             onClick: () => openPlayer(mediaType, id, 1),
-            withPreview: true // same preview as other grids
+            withPreview: true,
+            itemMeta: item
         });
 
         resultsContainer.appendChild(card);
@@ -969,33 +1183,12 @@ function shuffle(array) {
 // Build poster card. If withPreview=true, include preview box below the poster.
 
 // Add isCam to the argument list (default false for backward compatibility)
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false }) {
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false, itemMeta = null }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
 
-    // Determine final CAM status: explicit flag OR known title list
-    const finalIsCam = Boolean(isCam) || (mediaType === 'movie' && CAM_TITLES.has((title || '').trim().toLowerCase()));
-
-    // --- CAM badge ---
-    if (finalIsCam) {
-        const camBadge = document.createElement('div');
-        camBadge.textContent = 'CAM';
-        camBadge.style.position = 'absolute';
-        camBadge.style.top = '8px';
-        camBadge.style.left = '8px';
-        camBadge.style.background = 'none';
-        camBadge.style.color = '#e02735';
-        camBadge.style.fontWeight = 'bold';
-        camBadge.style.fontSize = '0.95em';
-        camBadge.style.padding = '3px 12px 3px 12px';
-        camBadge.style.borderRadius = '8px';
-        camBadge.style.letterSpacing = '0px';
-        camBadge.style.boxShadow = '0 2px 8px #0007';
-        camBadge.style.zIndex = '10';
-        camBadge.style.pointerEvents = 'none';
-        posterDiv.appendChild(camBadge);
-    }
+    applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
 
     const img = document.createElement('img');
     img.src = poster;
@@ -1124,7 +1317,8 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
                         title: safeTitle,
                         poster,
                         date: date || '',
-                        year: year || ''
+                        year: year || '',
+                        ...extractStoredMetadata(itemMeta)
                     });
                     updateWatchLaterUI(nowSaved);
                     wlBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 200 });
@@ -1188,7 +1382,8 @@ async function fetchMorePosterInfo(id, mediaType) {
         castArr,
         crew,
         networks,
-        productionCompanies
+        productionCompanies,
+        homepage: details.homepage || ''
     };
 }
 
@@ -1446,7 +1641,17 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     const wlLabelEl = modal.querySelector(`#${wlLabelId}`);
     if (wlBtnEl) {
         wlBtnEl.addEventListener('click', () => {
-            const added = toggleWatchLater({ id, mediaType, title, poster: posterUrl, poster_path: posterUrl, year, date });
+            const added = toggleWatchLater({
+                id,
+                mediaType,
+                title,
+                poster: posterUrl,
+                poster_path: posterUrl,
+                year,
+                date,
+                homepage: extra.homepage || '',
+                production_companies: extra.productionCompanies || []
+            });
             wlBtnEl.innerHTML = added
                 ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
                 : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
@@ -1606,8 +1811,6 @@ function loadGrid(jsonPath, gridId) {
 
                 const last_season = isTV && show.seasons ? (show.seasons[show.seasons.length - 1]?.season_number || 1) : 1;
 
-                // Mark as CAM if title matches Scream 7 (case-insensitive, demo logic)
-                const isCam = (mediaType === 'movie' && title.trim().toLowerCase() === 'scream 7');
                 const card = buildPosterCard({
                     id: tmdb_id,
                     mediaType,
@@ -1621,7 +1824,7 @@ function loadGrid(jsonPath, gridId) {
                     lastSeasonEpisodes,
                     onClick: () => openPlayer(mediaType, tmdb_id, last_season),
                     withPreview: gridId,
-                    isCam
+                    itemMeta: show
                 });
 
                 grid.appendChild(card);
@@ -1667,6 +1870,8 @@ function normalizeAndDedupeWatchLater(list) {
             poster_path: it?.poster_path ?? it?.posterPath ?? it?.poster ?? '',
             date: it?.date ?? '',
             year: it?.year ?? '',
+            homepage: it?.homepage ?? '',
+            production_companies: normalizeProductionCompanies(it),
             updatedAt
         };
 
@@ -1719,6 +1924,8 @@ function toggleWatchLater(item) {
             poster_path: item.poster_path || '',
             date: item.date || '',
             year: item.year || '',
+            homepage: item.homepage || '',
+            production_companies: normalizeProductionCompanies(item),
             updatedAt: Date.now()
         };
         list.push(toAdd);
@@ -1762,6 +1969,8 @@ function normalizeAndDedupeWatched(list) {
             poster_path: it?.poster_path ?? it?.posterPath ?? it?.poster ?? '',
             date: it?.date ?? '',
             year: it?.year ?? '',
+            homepage: it?.homepage ?? '',
+            production_companies: normalizeProductionCompanies(it),
             season: it?.season ?? it?.season_number ?? null,
             episode: it?.episode ?? it?.episode_number ?? null,
             updatedAt
@@ -1787,6 +1996,8 @@ function addToWatchedList(item) {
         poster_path: item.poster_path || item.posterPath || item.poster || '',
         date: item.date || '',
         year: item.year || '',
+        homepage: item.homepage || '',
+        production_companies: normalizeProductionCompanies(item),
         season: item.season ?? item.season_number ?? null,
         episode: item.episode ?? item.episode_number ?? null,
         updatedAt: Date.now()
@@ -2107,26 +2318,7 @@ function loadContinueWatching() {
                 removeFromContinueWatching(data.id, data.mediaType);
                 loadContinueWatching();
             };
-            // CAM badge for Continue Watching items
-            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(data?.isCam || data?.is_cam);
-            if (isCamItem) {
-                const cam = document.createElement('div');
-                cam.textContent = 'CAM';
-                cam.style.position = 'absolute';
-                cam.style.top = '8px';
-                cam.style.left = '8px';
-                cam.style.background = 'none';
-                cam.style.color = '#e02735';
-                cam.style.fontWeight = 'bold';
-                cam.style.fontSize = '0.95em';
-                cam.style.padding = '3px 12px 3px 12px';
-                cam.style.border = '1px solid #e02735';
-                cam.style.letterSpacing = '1.5px';
-                cam.style.boxShadow = '0 2px 8px #0007';
-                cam.style.zIndex = '10';
-                cam.style.pointerEvents = 'none';
-                div.appendChild(cam);
-            }
+            applyCamBadge(div, { ...data, title, date: data.date || data.release_date || '' });
 
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
@@ -2229,27 +2421,7 @@ function loadWatchLater() {
                 e.stopPropagation();
                 removeFromWatchLater(it.id, it.mediaType);
             };
-
-            // CAM badge for Watch Later items
-            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(it?.isCam || it?.is_cam);
-            if (isCamItem) {
-                const cam = document.createElement('div');
-                cam.textContent = 'CAM';
-                cam.style.position = 'absolute';
-                cam.style.top = '8px';
-                cam.style.left = '8px';
-                cam.style.background = '#e02735';
-                cam.style.color = '#fff';
-                cam.style.fontWeight = 'bold';
-                cam.style.fontSize = '0.95em';
-                cam.style.padding = '3px 12px 3px 12px';
-                cam.style.borderRadius = '8px';
-                cam.style.letterSpacing = '1.5px';
-                cam.style.boxShadow = '0 2px 8px #0007';
-                cam.style.zIndex = '10';
-                cam.style.pointerEvents = 'none';
-                div.appendChild(cam);
-            }
+            applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -2343,27 +2515,7 @@ function loadWatchedList() {
                 e.stopPropagation();
                 removeFromWatchedList(it.id, it.mediaType);
             };
-
-            // CAM badge for Watched items
-            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(it?.isCam || it?.is_cam);
-            if (isCamItem) {
-                const cam = document.createElement('div');
-                cam.textContent = 'CAM';
-                cam.style.position = 'absolute';
-                cam.style.top = '8px';
-                cam.style.left = '8px';
-                cam.style.background = '#e02735';
-                cam.style.color = '#fff';
-                cam.style.fontWeight = 'bold';
-                cam.style.fontSize = '0.95em';
-                cam.style.padding = '3px 12px 3px 12px';
-                cam.style.borderRadius = '8px';
-                cam.style.letterSpacing = '1.5px';
-                cam.style.boxShadow = '0 2px 8px #0007';
-                cam.style.zIndex = '10';
-                cam.style.pointerEvents = 'none';
-                div.appendChild(cam);
-            }
+            applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -2669,6 +2821,8 @@ function normalizeProgress(raw, key) {
     // Title / poster fallbacks
     const title = raw.title ?? raw.name ?? null;
     const poster_path = raw.poster_path ?? raw.posterPath ?? raw.poster ?? null;
+    const homepage = raw.homepage ?? '';
+    const production_companies = normalizeProductionCompanies(raw);
 
     // updatedAt fallback
     const updatedAt = raw.updatedAt ?? raw.updateAt ?? raw.savedAt ?? Date.now();
@@ -2687,6 +2841,8 @@ function normalizeProgress(raw, key) {
         lastEpisode,
         title,
         poster_path,
+        homepage,
+        production_companies,
         updatedAt,
         playerType,
         playerIndex

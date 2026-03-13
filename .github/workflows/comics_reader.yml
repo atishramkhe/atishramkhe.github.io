@@ -1,16 +1,15 @@
 name: Build Comics Reader Manifests
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       source:
         description: 'Manifest source set'
         required: true
-        default: 'catalog'
+        default: 'tracked'
         type: choice
         options:
+          - tracked
           - catalog
           - discovery
       batch_start:
@@ -112,7 +111,7 @@ jobs:
           output.end();
           NODE
         env:
-          INPUT_SOURCE: ${{ github.event.inputs.source || 'catalog' }}
+          INPUT_SOURCE: ${{ github.event.inputs.source || 'tracked' }}
           INPUT_BATCH_START: ${{ github.event.inputs.batch_start || '' }}
           INPUT_BATCH_SIZE: ${{ github.event.inputs.batch_size || '150' }}
 

@@ -38,7 +38,7 @@ function parseInteger(value, fallback) {
 
 function parseOptions(argv) {
   const options = {
-    source: 'discovery',
+    source: 'tracked',
     start: 0,
     startSpecified: false,
     count: null,
@@ -82,7 +82,7 @@ function parseOptions(argv) {
     options.seriesArgs.push(arg);
   }
 
-  if (!['catalog', 'discovery', 'urls'].includes(options.source)) {
+  if (!['catalog', 'discovery', 'tracked', 'urls'].includes(options.source)) {
     throw new Error(`Unsupported source: ${options.source}`);
   }
 
@@ -262,6 +262,27 @@ async function collectTargetSeries(options) {
   }
 
   const discovery = JSON.parse(await readFile(DISCOVERY_JSON, 'utf8'));
+
+  if (options.source === 'tracked') {
+    const trackedUrls = discovery.meta?.tracked_series_urls;
+    if (Array.isArray(trackedUrls) && trackedUrls.length) {
+      return trackedUrls.filter(Boolean);
+    }
+
+    const fallbackSections = new Set(['newest', 'ongoing']);
+    const fallbackUrls = [];
+    const seenFallback = new Set();
+    for (const section of discovery.sections || []) {
+      if (!fallbackSections.has(section.id)) continue;
+      for (const item of section.items || []) {
+        if (!item.series_url || seenFallback.has(item.series_url)) continue;
+        seenFallback.add(item.series_url);
+        fallbackUrls.push(item.series_url);
+      }
+    }
+    return fallbackUrls;
+  }
+
   const seen = new Set();
   const urls = [];
   for (const section of discovery.sections || []) {

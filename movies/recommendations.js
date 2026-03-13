@@ -358,7 +358,8 @@ function renderGridContent(grid, titles) {
             lastSeasonNum,
             lastSeasonEpisodes,
             onClick: () => openPlayer(mediaType, tmdb_id, 1),
-            withPreview: true
+            withPreview: true,
+            itemMeta: show
         });
 
         grid.appendChild(card);

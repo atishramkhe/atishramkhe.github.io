@@ -1,12 +1,21 @@
 const canvas = document.getElementById('canvas');
 const seriesCover = document.getElementById('series-cover');
-const seriesTitle = document.getElementById('series-title');
-const seriesCopy = document.getElementById('series-copy');
-const seriesMeta = document.getElementById('series-meta');
 const issueSelect = document.getElementById('issue-select');
 const prevIssue = document.getElementById('prev-issue');
 const nextIssue = document.getElementById('next-issue');
 const widthSelect = document.getElementById('width-select');
+const pageFitSelect = document.getElementById('page-fit-select');
+const pageGapSelect = document.getElementById('page-gap-select');
+const zoomSelect = document.getElementById('zoom-select');
+const alignSelect = document.getElementById('align-select');
+const themeSelect = document.getElementById('theme-select');
+const toggleCaptions = document.getElementById('toggle-captions');
+const togglePanel = document.getElementById('toggle-panel');
+const zoomOut = document.getElementById('zoom-out');
+const zoomIn = document.getElementById('zoom-in');
+const floatingFullscreen = document.getElementById('floating-fullscreen');
+const floatingPanel = document.getElementById('floating-panel');
+const panel = document.querySelector('.panel');
 const seriesLink = document.getElementById('series-link');
 const issueLink = document.getElementById('issue-link');
 const toggleLater = document.getElementById('toggle-later');
@@ -19,13 +28,30 @@ const issueId = params.get('id') || '';
 const continueMode = params.get('continue') === '1';
 const initialPageParam = Number.parseInt(params.get('page') || '1', 10);
 const COMICS_LIBRARY_KEY = 'ateaish-comics-library-v1';
+const READER_SETTINGS_KEY = 'ateaish-comics-reader-settings-v1';
 const SAVE_SCROLL_DEBOUNCE_MS = 120;
+const RESTORE_BUFFER_MS = 280;
+const PANEL_IDLE_MS = 1800;
+
+const DEFAULT_READER_SETTINGS = {
+  width: 'standard',
+  fit: 'horizontal',
+  gap: 'comfortable',
+  zoom: '100',
+  align: 'center',
+  theme: 'midnight',
+  captions: false,
+  panelCollapsed: false,
+};
 
 const state = {
   manifest: null,
   currentIssueIndex: -1,
   currentPageIndex: Number.isNaN(initialPageParam) ? 0 : Math.max(0, initialPageParam - 1),
   saveTimer: null,
+  restoreToken: 0,
+  panelIdleTimer: null,
+  readerSettings: { ...DEFAULT_READER_SETTINGS },
 };
 
 function formatNumber(value) {
@@ -47,8 +73,114 @@ function writeLibrary(library) {
   localStorage.setItem(COMICS_LIBRARY_KEY, JSON.stringify(library));
 }
 
+function readReaderSettings() {
+  try {
+    const raw = localStorage.getItem(READER_SETTINGS_KEY);
+    if (!raw) return { ...DEFAULT_READER_SETTINGS };
+    const parsed = JSON.parse(raw);
+    return {
+      ...DEFAULT_READER_SETTINGS,
+      ...(parsed && typeof parsed === 'object' ? parsed : {}),
+    };
+  } catch {
+    return { ...DEFAULT_READER_SETTINGS };
+  }
+}
+
+function writeReaderSettings(settings) {
+  localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function applyReaderSettings() {
+  const settings = state.readerSettings;
+  canvas.dataset.width = settings.width;
+  canvas.dataset.fit = settings.fit;
+  canvas.dataset.gap = settings.gap;
+  canvas.dataset.zoom = settings.zoom;
+  canvas.dataset.align = settings.align;
+  canvas.dataset.captions = settings.captions ? 'visible' : 'hidden';
+  document.body.dataset.theme = settings.theme;
+  document.body.classList.toggle('panel-collapsed', Boolean(settings.panelCollapsed));
+
+  widthSelect.value = settings.width;
+  pageFitSelect.value = settings.fit;
+  pageGapSelect.value = settings.gap;
+  zoomSelect.value = settings.zoom;
+  alignSelect.value = settings.align;
+  themeSelect.value = settings.theme;
+  toggleCaptions.textContent = settings.captions ? 'Hide captions' : 'Show captions';
+  toggleCaptions.classList.toggle('primary', !settings.captions);
+  if (togglePanel) {
+    togglePanel.textContent = settings.panelCollapsed ? 'Show panel' : 'Focus mode';
+    togglePanel.classList.toggle('primary', Boolean(settings.panelCollapsed));
+  }
+  if (floatingPanel) {
+    floatingPanel.textContent = settings.panelCollapsed ? '▣' : '☰';
+    floatingPanel.setAttribute('aria-label', settings.panelCollapsed ? 'Show reader panel' : 'Hide reader panel');
+    floatingPanel.title = settings.panelCollapsed ? 'Show reader panel' : 'Hide reader panel';
+  }
+  updateZoomButtons();
+}
+
+function updateReaderSettings(partial) {
+  state.readerSettings = {
+    ...state.readerSettings,
+    ...partial,
+  };
+  writeReaderSettings(state.readerSettings);
+  applyReaderSettings();
+}
+
+function resetPanelIdleTimer() {
+  if (!panel) return;
+  if (state.readerSettings.panelCollapsed) {
+    panel.classList.remove('is-idle');
+    return;
+  }
+  panel.classList.remove('is-idle');
+  if (state.panelIdleTimer) window.clearTimeout(state.panelIdleTimer);
+  state.panelIdleTimer = window.setTimeout(() => {
+    panel.classList.add('is-idle');
+  }, PANEL_IDLE_MS);
+}
+
+function getZoomOptions() {
+  return ['70', '85', '100', '115', '130', '150'];
+}
+
+function updateZoomButtons() {
+  const options = getZoomOptions();
+  const index = options.indexOf(state.readerSettings.zoom);
+  if (zoomOut) zoomOut.disabled = index <= 0;
+  if (zoomIn) zoomIn.disabled = index === -1 || index >= options.length - 1;
+}
+
+function stepZoom(direction) {
+  const options = getZoomOptions();
+  const index = options.indexOf(state.readerSettings.zoom);
+  const nextIndex = Math.max(0, Math.min((index === -1 ? 2 : index) + direction, options.length - 1));
+  const activePageIndex = findActivePageIndex();
+  updateReaderSettings({ zoom: options[nextIndex] });
+  scrollToPage(activePageIndex, 'auto');
+}
+
+function toggleReaderPanel() {
+  updateReaderSettings({ panelCollapsed: !state.readerSettings.panelCollapsed });
+}
+
+function formatIssueOption(issue, fallbackIndex) {
+  const sequence = extractIssueSequence(issue);
+  if (sequence !== null) {
+    return Number.isInteger(sequence) ? String(sequence) : sequence.toFixed(1).replace(/\.0$/, '');
+  }
+  const slugMatch = String(issue.issue_slug || '').match(/(\d+(?:\.\d+)?)/);
+  if (slugMatch) return slugMatch[1];
+  return String(fallbackIndex + 1);
+}
+
 function getLatestIssue(manifest) {
-  return manifest?.issues?.[0] || null;
+  if (!Array.isArray(manifest?.issues) || !manifest.issues.length) return null;
+  return manifest.issues[manifest.issues.length - 1];
 }
 
 function getCurrentIssue() {
@@ -71,7 +203,7 @@ function updateLibraryEntry(updater) {
     ...existing,
     series_slug: seriesSlug,
     title: manifest?.title || existing.title || seriesSlug.replace(/-/g, ' '),
-    cover_url: manifest?.cover_url || existing.cover_url || '../assets/logo_noborder.png',
+    cover_url: manifest?.cover_url || existing.cover_url || './assets/ateaish_comics_default.webp',
     series_url: manifest?.series_url || existing.series_url || `https://readcomiconline.li/Comic/${seriesSlug}`,
     manifest_issue_count: manifest?.issue_count || existing.manifest_issue_count || 0,
     latest_issue_slug: latestIssue?.issue_slug || existing.latest_issue_slug || '',
@@ -103,7 +235,8 @@ function findActivePageIndex() {
   const cards = [...canvas.querySelectorAll('.page-card')];
   if (!cards.length) return 0;
 
-  const viewportAnchor = Math.max(120, window.innerHeight * 0.24);
+  const canvasRect = canvas.getBoundingClientRect();
+  const viewportAnchor = canvasRect.top + Math.max(72, canvas.clientHeight * 0.24);
   let bestIndex = 0;
   let bestDistance = Number.POSITIVE_INFINITY;
 
@@ -118,6 +251,29 @@ function findActivePageIndex() {
   });
 
   return bestIndex;
+}
+
+function getPageCards() {
+  return [...canvas.querySelectorAll('.page-card')];
+}
+
+function getCanvasScrollTarget(card) {
+  const offset = 8;
+  return Math.max(0, card.offsetTop - offset);
+}
+
+function scrollToPage(index, behavior = 'smooth') {
+  const cards = getPageCards();
+  if (!cards.length) return;
+  const boundedIndex = Math.max(0, Math.min(index, cards.length - 1));
+  const target = cards[boundedIndex];
+  if (!target) return;
+  state.currentPageIndex = boundedIndex;
+  canvas.scrollTo({ top: getCanvasScrollTarget(target), behavior });
+}
+
+function navigatePage(delta) {
+  scrollToPage(findActivePageIndex() + delta, 'smooth');
 }
 
 function persistReadingState() {
@@ -147,43 +303,84 @@ function queuePersistReadingState() {
   }, SAVE_SCROLL_DEBOUNCE_MS);
 }
 
-function restoreSavedPosition(issue) {
+function setRestoreState(active, copy = 'Loading saved page...') {
+  canvas.classList.toggle('restore-pending', active);
+  document.body.classList.toggle('reader-restoring', active);
+
+  const restoreCopy = canvas.querySelector('[data-restore-copy]');
+  if (restoreCopy) restoreCopy.textContent = copy;
+}
+
+function getSavedPageIndex(issue) {
   const entry = getStoredEntry();
-  const savedPageIndex = issue.issue_slug === entry?.last_issue_slug && Number.isInteger(entry?.last_page_index)
+  return issue.issue_slug === entry?.last_issue_slug && Number.isInteger(entry?.last_page_index)
     ? entry.last_page_index
     : state.currentPageIndex;
+}
+
+function waitForImageLoad(img) {
+  if (!img || (img.complete && img.naturalWidth > 0)) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    const done = () => resolve();
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+    window.setTimeout(done, 1500);
+  });
+}
+
+async function restoreSavedPosition(issue, restoreToken) {
+  const savedPageIndex = getSavedPageIndex(issue);
   const cards = canvas.querySelectorAll('.page-card');
-  if (!cards.length) return;
+  if (!cards.length) {
+    setRestoreState(false);
+    return;
+  }
 
   const boundedIndex = Math.max(0, Math.min(savedPageIndex || 0, cards.length - 1));
   state.currentPageIndex = boundedIndex;
+  const preloadCards = [...cards].slice(0, boundedIndex + 1);
 
-  window.requestAnimationFrame(() => {
-    // Scroll to the saved page, then wait for images/layout to settle before
-    // persisting. Immediate persistence can be overwritten by layout shifts
-    // caused by lazy-loading images, which results in the saved page snapping
-    // back to the top.
-    const target = cards[boundedIndex];
-    if (!target) return;
-    target.scrollIntoView({ block: 'start', behavior: 'auto' });
-
-    const img = target.querySelector('img');
-    const finalize = () => {
-      // Give a small buffer after image load/paint to allow layout to stabilise
-      window.setTimeout(() => {
-        persistReadingState();
-      }, 160);
-    };
-
-    if (img && !img.complete) {
-      img.addEventListener('load', finalize, { once: true });
-      // fallback if load event doesn't fire for any reason
-      window.setTimeout(finalize, 1000);
-    } else {
-      // image already loaded or missing — persist after a short delay
-      window.setTimeout(finalize, 120);
-    }
+  preloadCards.forEach((card, index) => {
+    const img = card.querySelector('img');
+    if (!img) return;
+    img.loading = 'eager';
+    if (index === boundedIndex) img.fetchPriority = 'high';
   });
+
+  const loadingCopy = boundedIndex > 0
+    ? `Loading pages 1-${boundedIndex + 1} so the reader can resume where you left off.`
+    : 'Loading page 1.';
+  setRestoreState(true, loadingCopy);
+
+  await Promise.all(preloadCards.map((card) => waitForImageLoad(card.querySelector('img'))));
+  await new Promise((resolve) => window.setTimeout(resolve, RESTORE_BUFFER_MS));
+
+  if (restoreToken !== state.restoreToken) return;
+
+  await new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve);
+    });
+  });
+
+  if (restoreToken !== state.restoreToken) return;
+
+  const target = cards[boundedIndex];
+  if (!target) {
+    setRestoreState(false);
+    return;
+  }
+
+  canvas.scrollTo({ top: 0, behavior: 'auto' });
+  canvas.scrollTo({ top: getCanvasScrollTarget(target), behavior: 'auto' });
+
+  await new Promise((resolve) => window.setTimeout(resolve, 180));
+
+  if (restoreToken !== state.restoreToken) return;
+
+  setRestoreState(false);
+  persistReadingState();
 }
 
 function setEmpty(title, copy, seriesUrl) {
@@ -211,20 +408,21 @@ function updateLocation(issue) {
 }
 
 function renderIssue(issue) {
+  const restoreTargetIndex = Math.max(0, Math.min(getSavedPageIndex(issue) || 0, issue.pages.length - 1));
   const pageCards = issue.pages
     .map((pageUrl, index) => `
       <figure class="page-card" id="page-${index + 1}" data-page-index="${index}">
-        <img src="${pageUrl}" alt="${issue.title} page ${index + 1}" loading="lazy" referrerpolicy="no-referrer">
+        <img src="${pageUrl}" alt="${issue.title} page ${index + 1}" loading="${index <= restoreTargetIndex ? 'eager' : 'lazy'}" referrerpolicy="no-referrer">
         <figcaption class="page-caption">Page ${index + 1} of ${issue.pages.length}</figcaption>
       </figure>
     `)
     .join('');
 
   canvas.innerHTML = `
-    <div class="canvas-head">
+    <div class="restore-shell" aria-live="polite">
       <div>
-        <h2 class="canvas-title">${issue.title}</h2>
-        <p class="status-copy">${formatNumber(issue.pages.length)} extracted pages loaded from the local reader manifest.</p>
+        <h2 class="status-title">Opening your saved page</h2>
+        <p class="status-copy" data-restore-copy>Loading saved page...</p>
       </div>
     </div>
     <div class="page-stack">${pageCards}</div>
@@ -232,7 +430,113 @@ function renderIssue(issue) {
 
   issueLink.href = issue.issue_url;
   updateLocation(issue);
-  restoreSavedPosition(issue);
+  canvas.scrollTop = 0;
+  state.restoreToken += 1;
+  void restoreSavedPosition(issue, state.restoreToken);
+}
+
+function extractIssueSequence(issue) {
+  const candidates = [issue.issue_slug, issue.title, issue.issue_url];
+  for (const candidate of candidates) {
+    const match = String(candidate || '').match(/issue[-\s#]*(\d+(?:\.\d+)?)/i);
+    if (match) return Number.parseFloat(match[1]);
+  }
+  return null;
+}
+
+function sortManifestIssues(manifest) {
+  if (!Array.isArray(manifest?.issues)) return manifest;
+  const issues = manifest.issues
+    .map((issue, index) => ({
+      ...issue,
+      _originalIndex: index,
+      _sequence: extractIssueSequence(issue),
+    }))
+    .sort((left, right) => {
+      if (left._sequence !== null && right._sequence !== null) {
+        return left._sequence - right._sequence || left._originalIndex - right._originalIndex;
+      }
+      if (left._sequence !== null) return -1;
+      if (right._sequence !== null) return 1;
+      return left._originalIndex - right._originalIndex;
+    })
+    .map(({ _originalIndex, _sequence, ...issue }) => issue);
+  return { ...manifest, issues };
+}
+
+function updateFullscreenButtons() {
+  const isFullscreen = Boolean(document.fullscreenElement);
+  if (floatingFullscreen) {
+    floatingFullscreen.textContent = isFullscreen ? '🡼' : '⛶';
+    floatingFullscreen.setAttribute('aria-label', isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen');
+    floatingFullscreen.title = isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen';
+  }
+}
+
+async function toggleFullscreen() {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      return;
+    }
+    await document.documentElement.requestFullscreen();
+  } catch {
+    // Keep the reader usable when fullscreen is unavailable.
+  }
+}
+
+function handleReaderKeydown(event) {
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  const target = event.target;
+  if (target instanceof HTMLElement) {
+    const tagName = target.tagName;
+    if (tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA' || target.isContentEditable) return;
+  }
+
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    navigatePage(-1);
+    return;
+  }
+  if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') {
+    event.preventDefault();
+    navigatePage(1);
+    return;
+  }
+  if (event.key === 'Home') {
+    event.preventDefault();
+    scrollToPage(0, 'smooth');
+    return;
+  }
+  if (event.key === 'End') {
+    event.preventDefault();
+    scrollToPage(getPageCards().length - 1, 'smooth');
+    return;
+  }
+  if (event.key === 'Escape' && document.fullscreenElement) {
+    event.preventDefault();
+    void document.exitFullscreen();
+    return;
+  }
+  if (event.key.toLowerCase() === 'f') {
+    event.preventDefault();
+    void toggleFullscreen();
+    return;
+  }
+  if (event.key.toLowerCase() === 'p') {
+    event.preventDefault();
+    toggleReaderPanel();
+    return;
+  }
+  if (event.key === '+' || event.key === '=') {
+    event.preventDefault();
+    stepZoom(1);
+    return;
+  }
+  if (event.key === '-') {
+    event.preventDefault();
+    stepZoom(-1);
+  }
 }
 
 function syncIssueControls() {
@@ -241,7 +545,7 @@ function syncIssueControls() {
   if (!issue) return;
 
   issueSelect.innerHTML = issues
-    .map((entry, index) => `<option value="${index}"${index === state.currentIssueIndex ? ' selected' : ''}>${entry.title}</option>`)
+    .map((entry, index) => `<option value="${index}"${index === state.currentIssueIndex ? ' selected' : ''}>${formatIssueOption(entry, index)}</option>`)
     .join('');
 
   prevIssue.disabled = state.currentIssueIndex <= 0;
@@ -287,25 +591,23 @@ async function loadManifest() {
   try {
     const response = await fetch(`./data/series/${encodeURIComponent(seriesSlug)}.json`);
     if (!response.ok) throw new Error(`Reader manifest request failed: ${response.status}`);
-    state.manifest = await response.json();
+    state.manifest = sortManifestIssues(await response.json());
   } catch {
     setEmpty(
       'Reader manifest missing',
       'This series has not been extracted into a local reader manifest yet. Run the reader manifest generator in the comics folder, then reload this page.',
       `https://readcomiconline.li/Comic/${seriesSlug}`
     );
-    seriesTitle.textContent = seriesSlug.replace(/-/g, ' ');
-    seriesCopy.textContent = 'Local issue data is not available for this series yet.';
+    document.title = `${seriesSlug.replace(/-/g, ' ')} | ateaish comics reader`;
+    seriesCover.alt = seriesSlug.replace(/-/g, ' ');
     seriesLink.href = `https://readcomiconline.li/Comic/${seriesSlug}`;
     issueLink.href = `https://readcomiconline.li/Comic/${seriesSlug}`;
     return;
   }
 
   const manifest = state.manifest;
-  seriesTitle.textContent = manifest.title;
-  seriesCopy.textContent = manifest.description || 'Extracted locally from the source site for in-page reading.';
-  seriesMeta.textContent = `${formatNumber(manifest.issue_count)} issues • ${formatNumber(manifest.page_count_total)} extracted pages`;
-  seriesCover.src = manifest.cover_url || '../assets/logo_noborder.png';
+  document.title = `${manifest.title} | ateaish comics reader`;
+  seriesCover.src = manifest.cover_url || './assets/ateaish_comics_default.webp';
   seriesCover.alt = `${manifest.title} cover`;
   seriesLink.href = manifest.series_url;
   updateLibraryEntry((entry) => entry);
@@ -372,14 +674,55 @@ toggleFinished.addEventListener('click', () => {
 });
 
 widthSelect.addEventListener('change', () => {
-  canvas.dataset.width = widthSelect.value;
+  updateReaderSettings({ width: widthSelect.value });
 });
 
-window.addEventListener('scroll', queuePersistReadingState, { passive: true });
+pageFitSelect.addEventListener('change', () => {
+  updateReaderSettings({ fit: pageFitSelect.value });
+  scrollToPage(findActivePageIndex(), 'auto');
+});
+
+pageGapSelect.addEventListener('change', () => {
+  updateReaderSettings({ gap: pageGapSelect.value });
+});
+
+zoomSelect.addEventListener('change', () => {
+  const activePageIndex = findActivePageIndex();
+  updateReaderSettings({ zoom: zoomSelect.value });
+  scrollToPage(activePageIndex, 'auto');
+});
+
+alignSelect.addEventListener('change', () => {
+  updateReaderSettings({ align: alignSelect.value });
+});
+
+themeSelect.addEventListener('change', () => {
+  updateReaderSettings({ theme: themeSelect.value });
+});
+
+toggleCaptions.addEventListener('click', () => {
+  updateReaderSettings({ captions: !state.readerSettings.captions });
+});
+
+if (togglePanel) {
+  togglePanel.addEventListener('click', toggleReaderPanel);
+}
+
+if (zoomOut) {
+  zoomOut.addEventListener('click', () => stepZoom(-1));
+}
+
+if (zoomIn) {
+  zoomIn.addEventListener('click', () => stepZoom(1));
+}
+
+canvas.addEventListener('scroll', queuePersistReadingState, { passive: true });
 window.addEventListener('beforeunload', persistReadingState);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') persistReadingState();
 });
+document.addEventListener('keydown', handleReaderKeydown);
+document.addEventListener('fullscreenchange', updateFullscreenButtons);
 
 // Close button in the topbar — persist current reading state then return to index
 
@@ -388,14 +731,32 @@ function handleExitReader() {
   window.location.href = './index.html';
 }
 
-const closeReader = document.getElementById('close-reader');
-if (closeReader) {
-  closeReader.addEventListener('click', handleExitReader);
-}
-
 const floatingExit = document.getElementById('floating-exit');
 if (floatingExit) {
   floatingExit.addEventListener('click', handleExitReader);
 }
 
+if (floatingFullscreen) {
+  floatingFullscreen.addEventListener('click', () => {
+    void toggleFullscreen();
+  });
+}
+
+if (floatingPanel) {
+  floatingPanel.addEventListener('click', toggleReaderPanel);
+}
+
+if (panel) {
+  panel.addEventListener('mouseenter', resetPanelIdleTimer);
+  panel.addEventListener('mousemove', resetPanelIdleTimer);
+  panel.addEventListener('mouseleave', () => {
+    if (state.readerSettings.panelCollapsed) return;
+    panel.classList.add('is-idle');
+  });
+}
+
+state.readerSettings = readReaderSettings();
+applyReaderSettings();
+updateFullscreenButtons();
+resetPanelIdleTimer();
 loadManifest();

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ateaish comics reader</title>
-  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon_ateaish_comics.svg">
   <style>
     @font-face {
       font-family: 'OumaTrialBold';
@@ -23,17 +23,18 @@
     }
 
     :root {
-      --page: #090a0f;
-      --panel: rgba(17, 19, 27, 0.92);
-      --line: rgba(255, 255, 255, 0.08);
-      --text: #f8f1e7;
-      --muted: #b7ac9f;
-      --accent: #ff5a36;
-      --accent-soft: #ff9261;
-      --accent-cool: #5db7ff;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
-      --radius: 24px;
+      --page: #000;
+      --panel: #030303;
+      --line: transparent;
+      --text: #f2f2f2;
+      --muted: #7d7d7d;
+      --accent: #ffffff;
+      --accent-soft: #d8d8d8;
+      --accent-cool: #ffffff;
+      --shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
+      --radius: 0px;
       --page-max: 980px;
+      --page-zoom: 1;
     }
 
     * { box-sizing: border-box; }
@@ -44,102 +45,97 @@
       min-height: 100vh;
       color: var(--text);
       font-family: 'OumaTrialLight', 'Segoe UI', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(255, 90, 54, 0.18), transparent 24%),
-        radial-gradient(circle at 90% 14%, rgba(93, 183, 255, 0.14), transparent 22%),
-        linear-gradient(180deg, #0a0a0d 0%, #07070b 30%, #090a0f 100%);
+      background: #000;
+      overflow: hidden;
+    }
+
+    body.panel-collapsed .layout {
+      grid-template-columns: 0 minmax(0, 1fr);
+    }
+
+    body.panel-collapsed .panel {
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    body[data-theme='slate'] {
+      --panel: #060b12;
+      --line: transparent;
+      --text: #edf5ff;
+      --muted: #a8b7c9;
+      background: #02060a;
+    }
+
+    body[data-theme='paper'] {
+      --panel: #f0e6d7;
+      --line: transparent;
+      --text: #261c14;
+      --muted: #6a594a;
+      --shadow: 0 12px 32px rgba(48, 30, 12, 0.12);
+      background: #e8dece;
+    }
+
+    body.reader-restoring {
+      overflow: hidden;
     }
 
     a { color: inherit; }
 
     .reader-shell {
-      width: min(1480px, calc(100vw - 28px));
+      width: 100vw;
       margin: 0 auto;
-      padding: 22px 0 48px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .topbar a {
-      text-decoration: none;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand img {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.04);
-      padding: 6px;
-    }
-
-    .brand-copy {
+      height: 100dvh;
+      padding: 0;
       display: grid;
-      gap: 3px;
-    }
-
-    .brand-kicker {
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-    }
-
-    .brand-title {
-      font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
-      line-height: 0.95;
-    }
-
-    .topbar-note {
-      max-width: 520px;
-      color: var(--muted);
-      text-align: right;
-      font-size: 0.95rem;
+      grid-template-rows: minmax(0, 1fr);
     }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
-      gap: 18px;
-      align-items: start;
+      grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+      min-height: 0;
     }
 
     .panel,
     .canvas {
-      border: 1px solid var(--line);
       background: var(--panel);
-      border-radius: var(--radius);
-      backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
     }
 
     .panel {
-      position: sticky;
-      top: 18px;
-      padding: 20px;
+      height: 100%;
+      min-height: 0;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+      position: relative;
+      transition: opacity 220ms ease;
+    }
+
+    .panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      pointer-events: none;
+      transition: background 220ms ease;
+    }
+
+    .panel.is-idle::after {
+      background: rgba(0, 0, 0, 0.52);
     }
 
     .panel-cover {
       width: 100%;
-      aspect-ratio: 0.72;
-      border-radius: 20px;
+      height: clamp(110px, 18vh, 176px);
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(180deg, #161822, #0f1016);
-      margin-bottom: 16px;
+      background: #050505;
     }
 
     .panel-cover img {
@@ -150,7 +146,7 @@
     }
 
     .panel-kicker {
-      color: var(--accent-soft);
+      color: var(--muted);
       font-size: 0.76rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -160,7 +156,7 @@
     .panel-title {
       margin: 0;
       font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-size: clamp(1.55rem, 2.5vw, 2.15rem);
       line-height: 0.95;
     }
 
@@ -169,18 +165,24 @@
     .status-copy,
     .empty-copy {
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.95rem;
+      line-height: 1.45;
+      font-size: 0.88rem;
     }
 
     .panel-meta {
-      margin: 12px 0 0;
+      margin: 4px 0 0;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
     }
 
     .control-group {
-      margin-top: 18px;
+      margin-top: 0;
       display: grid;
-      gap: 10px;
+      gap: 8px;
     }
 
     .control-label {
@@ -191,12 +193,13 @@
     }
 
     .issue-select,
-    .width-select {
+    .width-select,
+    .control-select {
       width: 100%;
-      min-height: 48px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(9, 10, 15, 0.88);
+      min-height: 42px;
+      border-radius: 0;
+      border: 0;
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
       font: inherit;
       padding: 0 14px;
@@ -211,10 +214,10 @@
 
     .button,
     .link-button {
-      min-height: 48px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
+      min-height: 42px;
+      border-radius: 0;
+      border: 0;
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
       font: inherit;
       text-decoration: none;
@@ -238,8 +241,8 @@
     .button.primary,
     .link-button.primary {
       border-color: transparent;
-      background: linear-gradient(135deg, rgba(255, 90, 54, 0.96), rgba(255, 146, 97, 0.92));
-      color: #fffaf4;
+      background: #fff;
+      color: #000;
     }
 
     .button:disabled {
@@ -249,37 +252,92 @@
     }
 
     .canvas {
-      padding: 18px;
+      position: relative;
+      padding: 18px 26px;
+      height: 100%;
+      min-height: 0;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
     }
 
-    .canvas-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
+    .canvas[data-fit='vertical'] {
+      padding-block: 0;
+      scroll-snap-type: y mandatory;
     }
 
-    .canvas-title {
-      margin: 0;
-      font-family: 'OumaTrialBold', sans-serif;
-      font-size: clamp(1.6rem, 2vw, 2.3rem);
-      line-height: 0.95;
+    .canvas[data-fit='horizontal'] .page-card {
+      width: min(calc(var(--page-max) * var(--page-zoom)), calc(100% * var(--page-zoom)));
+      min-height: 0;
     }
+
+    .canvas[data-fit='vertical'] .page-card {
+      width: min(calc(var(--page-max) * var(--page-zoom)), calc(100% * var(--page-zoom)));
+      min-height: 100dvh;
+      display: grid;
+      align-content: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .canvas[data-fit='native'] .page-card {
+      width: min(calc(var(--page-max) * var(--page-zoom)), calc(100% * var(--page-zoom)));
+      min-height: 0;
+    }
+
+    .canvas[data-fit='vertical'] .page-card img {
+      width: auto;
+      max-width: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
+    .restore-shell {
+      position: absolute;
+      inset: 18px;
+      display: none;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 2;
+    }
+
+    .canvas[data-align='left'] .page-stack {
+      justify-items: start;
+    }
+
+    .canvas[data-align='center'] .page-stack {
+      justify-items: center;
+    }
+
 
     .page-stack {
       display: grid;
       gap: 18px;
+      justify-items: center;
+    }
+
+    .canvas[data-fit='vertical'] .page-stack {
+      gap: 0;
+    }
+
+    .canvas[data-gap='flush'] .page-stack { gap: 0; }
+    .canvas[data-gap='tight'] .page-stack { gap: 12px; }
+    .canvas[data-gap='comfortable'] .page-stack { gap: 18px; }
+    .canvas[data-gap='airy'] .page-stack { gap: 28px; }
+
+    .canvas[data-captions='hidden'] .page-caption {
+      display: none;
     }
 
     .page-card {
       margin: 0 auto;
-      width: min(100%, var(--page-max));
-      border-radius: 22px;
+      width: min(calc(var(--page-max) * var(--page-zoom)), calc(100% * var(--page-zoom)));
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+      background: #000;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
     }
 
@@ -318,61 +376,81 @@
     .canvas[data-width='narrow'] { --page-max: 760px; }
     .canvas[data-width='standard'] { --page-max: 980px; }
     .canvas[data-width='wide'] { --page-max: 1220px; }
+    .canvas[data-width='ultra'] { --page-max: 1440px; }
+    .canvas[data-zoom='70'] { --page-zoom: 0.7; }
+    .canvas[data-zoom='85'] { --page-zoom: 0.85; }
+    .canvas[data-zoom='100'] { --page-zoom: 1; }
+    .canvas[data-zoom='115'] { --page-zoom: 1.15; }
+    .canvas[data-zoom='130'] { --page-zoom: 1.3; }
+    .canvas[data-zoom='150'] { --page-zoom: 1.5; }
 
     @media (max-width: 1020px) {
       .layout { grid-template-columns: 1fr; }
-      .panel { position: static; }
-      .topbar { flex-direction: column; align-items: flex-start; }
-      .topbar-note { text-align: left; }
+      .panel {
+        overflow: auto;
+      }
+      body { overflow: auto; }
+      .reader-shell { height: auto; min-height: 100dvh; }
+      .canvas,
+      .panel,
+      .layout { min-height: auto; height: auto; }
     }
 
     @media (max-width: 720px) {
       .reader-shell { width: min(100vw - 16px, 1480px); }
       .panel,
-      .canvas { border-radius: 22px; }
-      .panel,
       .canvas { padding: 16px; }
       .button-row,
       .link-row { grid-template-columns: 1fr; }
+      .controls-grid { grid-template-columns: 1fr; }
     }
     .close-reader {
       border: 0;
       width: 40px;
       height: 40px;
-      border-radius: 999px;
+      border-radius: 0;
       font-size: 1rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
       cursor: pointer;
       transition: transform 140ms ease, background 140ms ease;
     }
     .close-reader:hover { transform: translateY(-1px); background: rgba(255,255,255,0.08); }
+
+    .floating-controls {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 30;
+      display: grid;
+      gap: 10px;
+    }
+
+    .floating-control {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+      background: rgba(10, 10, 10, 0.9);
+    }
+
+    body[data-theme='paper'] .floating-control {
+      background: rgba(251, 244, 232, 0.92);
+    }
+
+    @media (max-width: 720px) {
+      .floating-controls {
+        right: 14px;
+        bottom: 14px;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="reader-shell">
-    <header class="topbar">
-      <a class="brand" href="./index.html">
-        <img src="../assets/logo_noborder.png" alt="Ateaish logo">
-        <span class="brand-copy">
-          <span class="brand-kicker">Local issue reader</span>
-          <span class="brand-title">ateaish comics</span>
-        </span>
-      </a>
-      <div class="topbar-note">Reads locally extracted issue manifests. No fragile cross-origin page scraping in the browser.</div>
-      <button id="close-reader" class="close-reader" type="button" aria-label="Close reader">✕</button>
-    </header>
-
     <div class="layout">
       <aside class="panel">
-        <div class="panel-cover"><img id="series-cover" src="../assets/logo_noborder.png" alt=""></div>
-        <div class="panel-kicker">Reader manifest</div>
-        <h1 id="series-title" class="panel-title">Loading series</h1>
-        <p id="series-copy" class="panel-copy">Checking the local manifest for this series.</p>
-        <div id="series-meta" class="panel-meta"></div>
+        <div class="panel-cover"><img id="series-cover" src="./assets/ateaish_comics_default.webp" alt=""></div>
 
         <div class="control-group">
           <label class="control-label" for="issue-select">Issue</label>
@@ -389,7 +467,68 @@
             <option value="narrow">Narrow</option>
             <option value="standard" selected>Standard</option>
             <option value="wide">Wide</option>
+            <option value="ultra">Ultra</option>
           </select>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-group">
+            <label class="control-label" for="page-fit-select">Page fitting</label>
+            <select id="page-fit-select" class="control-select">
+              <option value="horizontal" selected>Fit horizontally</option>
+              <option value="vertical">Fit vertically</option>
+              <option value="native">Native size</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="page-gap-select">Page spacing</label>
+            <select id="page-gap-select" class="control-select">
+              <option value="flush">Flush</option>
+              <option value="tight">Tight</option>
+              <option value="comfortable" selected>Comfortable</option>
+              <option value="airy">Airy</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="zoom-select">Zoom</label>
+            <select id="zoom-select" class="control-select">
+              <option value="70">70%</option>
+              <option value="85">85%</option>
+              <option value="100" selected>100%</option>
+              <option value="115">115%</option>
+              <option value="130">130%</option>
+              <option value="150">150%</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="align-select">Page alignment</label>
+            <select id="align-select" class="control-select">
+              <option value="center" selected>Center</option>
+              <option value="left">Left</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="theme-select">Reader theme</label>
+            <select id="theme-select" class="control-select">
+              <option value="midnight" selected>Midnight</option>
+              <option value="slate">Slate</option>
+              <option value="paper">Paper</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="button-row" style="margin-top: 10px;">
+          <button id="zoom-out" class="button" type="button">Zoom out</button>
+          <button id="zoom-in" class="button" type="button">Zoom in</button>
+        </div>
+
+        <div class="button-row" style="margin-top: 10px;">
+          <button id="toggle-captions" class="button" type="button">Hide captions</button>
+          <button id="toggle-panel" class="button" type="button">Focus mode</button>
         </div>
         
         <div class="button-row" style="margin-top: 10px;">
@@ -416,8 +555,12 @@
     </div>
   </main>
 
+  <div class="floating-controls" aria-label="Reader controls">
+    <button id="floating-panel" class="close-reader floating-control" type="button" aria-label="Toggle reader panel">☰</button>
+    <button id="floating-fullscreen" class="close-reader floating-control" type="button" aria-label="Toggle fullscreen">⛶</button>
+    <button id="floating-exit" class="close-reader floating-control" type="button" aria-label="Exit reader">✕</button>
+  </div>
+
   <script src="./reader.js" defer></script>
 </body>
 </html>
-  <!-- Floating Exit Button -->
-  <button id="floating-exit" class="close-reader floating-exit" type="button" aria-label="Exit reader" style="position:fixed;bottom:28px;right:28px;z-index:1000;box-shadow:0 4px 24px rgba(0,0,0,0.25);background:rgba(255,255,255,0.10);">✕</button>

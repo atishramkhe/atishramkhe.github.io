@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -21,6 +22,8 @@ CATALOG_JSON = DATA_DIR / 'catalog.json'
 DISCOVERY_JSON = DATA_DIR / 'discovery.json'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123 Safari/537.36'
 MAX_WORKERS = 10
+DEFAULT_MODE = 'full'
+DEFAULT_TRACKED_SECTION_IDS = ('newest', 'ongoing')
 
 SECTION_SOURCES = [
     {
@@ -94,6 +97,18 @@ class ComicItem:
             'context': self.context,
             'source_section': self.source_section,
         }
+
+    @classmethod
+    def from_dict(cls, payload: dict[str, object]) -> ComicItem:
+        return cls(
+            title=clean_text(str(payload.get('title', ''))),
+            series_url=str(payload.get('series_url', '')).strip(),
+            cover_url=str(payload.get('cover_url', '')).strip(),
+            latest_label=clean_text(str(payload.get('latest_label', ''))),
+            issue_url=str(payload.get('issue_url', '')).strip(),
+            context=clean_text(str(payload.get('context', ''))),
+            source_section=clean_text(str(payload.get('source_section', ''))),
+        )
 
 
 def fetch_html(url: str) -> str:
@@ -187,6 +202,22 @@ def parse_update_blocks(html: str, source_section: str = '') -> list[ComicItem]:
     return parse_comic_items(html, source_section=source_section)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description='Build comics catalog and discovery data.')
+    parser.add_argument(
+        '--mode',
+        choices=('full', 'incremental'),
+        default=DEFAULT_MODE,
+        help='Use full to recrawl the complete catalog or incremental to only merge active/new discovery items into the existing catalog.',
+    )
+    parser.add_argument(
+        '--tracked-sections',
+        default=','.join(DEFAULT_TRACKED_SECTION_IDS),
+        help='Comma-separated discovery section ids to treat as the active subset for automation.',
+    )
+    return parser.parse_args()
+
+
 def fetch_catalog_page(page: int) -> list[ComicItem]:
     url = f'{BASE_URL}{CATALOG_PATH}?page={page}'
     return parse_series_blocks(fetch_html(url))
@@ -233,6 +264,15 @@ def collect_catalog(last_page: int) -> list[ComicItem]:
     return sorted(collected.values(), key=lambda item: item.title.casefold())
 
 
+def merge_catalog_items(existing_items: Iterable[ComicItem], updated_items: Iterable[ComicItem]) -> list[ComicItem]:
+    merged: dict[str, ComicItem] = {item.series_url: item for item in existing_items if item.series_url}
+    for item in updated_items:
+        if not item.series_url:
+            continue
+        merged[item.series_url] = item
+    return sorted(merged.values(), key=lambda item: item.title.casefold())
+
+
 def enrich_with_catalog(items: Iterable[ComicItem], catalog_map: dict[str, ComicItem]) -> list[ComicItem]:
     enriched: list[ComicItem] = []
     seen: set[str] = set()
@@ -248,15 +288,17 @@ def enrich_with_catalog(items: Iterable[ComicItem], catalog_map: dict[str, Comic
     return enriched
 
 
-def collect_sections(catalog_map: dict[str, ComicItem]) -> list[dict[str, object]]:
+def collect_sections(catalog_map: dict[str, ComicItem]) -> tuple[list[dict[str, object]], dict[str, list[ComicItem]]]:
     sections: list[dict[str, object]] = []
+    section_items: dict[str, list[ComicItem]] = {}
     for source in SECTION_SOURCES:
         html = fetch_html(source['source_url'])
         if source['kind'] == 'series':
             items = parse_series_blocks(html, source_section=source['title'])
         else:
             items = parse_update_blocks(html, source_section=source['title'])
-        items = enrich_with_catalog(items, catalog_map)[:24]
+        items = enrich_with_catalog(items, catalog_map)
+        section_items[source['id']] = items
         sections.append(
             {
                 'id': source['id'],
@@ -264,10 +306,42 @@ def collect_sections(catalog_map: dict[str, ComicItem]) -> list[dict[str, object
                 'nav_label': source['nav_label'],
                 'description': source['description'],
                 'source_url': source['source_url'],
-                'items': [item.to_dict() for item in items],
+                'items': [item.to_dict() for item in items[:24]],
             }
         )
-    return sections
+    return sections, section_items
+
+
+def load_json(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def load_existing_catalog_items() -> list[ComicItem]:
+    payload = load_json(CATALOG_JSON)
+    items = payload.get('items', [])
+    if not isinstance(items, list):
+        return []
+    return [ComicItem.from_dict(item) for item in items if isinstance(item, dict)]
+
+
+def unique_items(items: Iterable[ComicItem]) -> list[ComicItem]:
+    unique: list[ComicItem] = []
+    seen: set[str] = set()
+    for item in items:
+        if not item.series_url or item.series_url in seen:
+            continue
+        seen.add(item.series_url)
+        unique.append(item)
+    return unique
+
+
+def collect_tracked_items(section_items: dict[str, list[ComicItem]], tracked_section_ids: set[str]) -> list[ComicItem]:
+    tracked: list[ComicItem] = []
+    for section_id in tracked_section_ids:
+        tracked.extend(section_items.get(section_id, []))
+    return unique_items(tracked)
 
 
 def write_json(path: Path, payload: dict[str, object]) -> None:
@@ -275,11 +349,67 @@ def write_json(path: Path, payload: dict[str, object]) -> None:
 
 
 def main() -> None:
+    args = parse_args()
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     generated_at = datetime.now(UTC).isoformat().replace('+00:00', 'Z')
+    tracked_section_ids = {section_id.strip() for section_id in args.tracked_sections.split(',') if section_id.strip()}
+    if not tracked_section_ids:
+        tracked_section_ids = set(DEFAULT_TRACKED_SECTION_IDS)
+
+    catalog_pages: int | None = None
+
+    if args.mode == 'incremental':
+        catalog_items = load_existing_catalog_items()
+        if not catalog_items:
+            print('No existing catalog.json found. Falling back to full crawl.')
+            args.mode = 'full'
+        else:
+            print('Loading existing catalog...')
+            catalog_map = {item.series_url: item for item in catalog_items}
+            print('Collecting discovery sections...')
+            sections, section_items = collect_sections(catalog_map)
+            tracked_items = collect_tracked_items(section_items, tracked_section_ids)
+            catalog_items = merge_catalog_items(catalog_items, tracked_items)
+            catalog_map = {item.series_url: item for item in catalog_items}
+            print(f'Merged {len(tracked_items)} tracked series into existing catalog.')
+
+            previous_discovery = load_json(DISCOVERY_JSON)
+            previous_meta = previous_discovery.get('meta', {}) if isinstance(previous_discovery, dict) else {}
+            catalog_pages_value = previous_meta.get('catalog_pages') if isinstance(previous_meta, dict) else None
+            catalog_pages = int(catalog_pages_value) if isinstance(catalog_pages_value, int) else None
+
+            tracked_series_urls = [item.series_url for item in tracked_items]
+            catalog_payload = {
+                'generated_at': generated_at,
+                'mode': args.mode,
+                'tracked_series_total': len(tracked_series_urls),
+                'total': len(catalog_items),
+                'items': [item.to_dict() for item in catalog_items],
+            }
+            discovery_payload = {
+                'meta': {
+                    'generated_at': generated_at,
+                    'catalog_pages': catalog_pages,
+                    'catalog_total': len(catalog_items),
+                    'section_count': len(sections),
+                    'source': BASE_URL,
+                    'update_mode': args.mode,
+                    'tracked_section_ids': sorted(tracked_section_ids),
+                    'tracked_series_total': len(tracked_series_urls),
+                    'tracked_series_urls': tracked_series_urls,
+                },
+                'sections': sections,
+            }
+
+            write_json(CATALOG_JSON, catalog_payload)
+            write_json(DISCOVERY_JSON, discovery_payload)
+            print(f'Wrote {CATALOG_JSON}')
+            print(f'Wrote {DISCOVERY_JSON}')
+            return
 
     print('Finding last catalog page...')
     last_page = find_last_catalog_page()
+    catalog_pages = last_page
     print(f'Last catalog page: {last_page}')
 
     print('Collecting full catalog...')
@@ -287,20 +417,28 @@ def main() -> None:
     catalog_map = {item.series_url: item for item in catalog_items}
 
     print('Collecting discovery sections...')
-    sections = collect_sections(catalog_map)
+    sections, section_items = collect_sections(catalog_map)
+    tracked_items = collect_tracked_items(section_items, tracked_section_ids)
+    tracked_series_urls = [item.series_url for item in tracked_items]
 
     catalog_payload = {
         'generated_at': generated_at,
+        'mode': args.mode,
+        'tracked_series_total': len(tracked_series_urls),
         'total': len(catalog_items),
         'items': [item.to_dict() for item in catalog_items],
     }
     discovery_payload = {
         'meta': {
             'generated_at': generated_at,
-            'catalog_pages': last_page,
+            'catalog_pages': catalog_pages,
             'catalog_total': len(catalog_items),
             'section_count': len(sections),
             'source': BASE_URL,
+            'update_mode': args.mode,
+            'tracked_section_ids': sorted(tracked_section_ids),
+            'tracked_series_total': len(tracked_series_urls),
+            'tracked_series_urls': tracked_series_urls,
         },
         'sections': sections,
     }
