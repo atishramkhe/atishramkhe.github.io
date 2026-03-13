@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ateaish comics</title>
+  <link rel="icon" type="image/png" href="./assets/favicon_ateaish_comics.png">
+  <style>
+    @font-face {
+      font-family: 'OumaTrialBold';
+      src: url('../fonts/OumaTrial-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'OumaTrialLight';
+      src: url('../fonts/OumaTrial-Light.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --panel: rgba(16, 17, 23, 0.88);
+      --panel-strong: rgba(18, 19, 26, 0.96);
+      --text: #f8f1e7;
+      --muted: #b8ada0;
+      --line: rgba(255, 255, 255, 0.08);
+      --accent: #ff5a36;
+      --accent-soft: #ff9261;
+      --accent-cool: #5db7ff;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --card-width: 172px;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      color: #FFF;
+      font-family: 'OumaTrialLight', 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      width: 42vw;
+      height: 42vw;
+      border-radius: 50%;
+      filter: blur(72px);
+      opacity: 0.18;
+    }
+
+    body::before {
+      top: -12vw;
+      left: -10vw;
+      background: var(--accent);
+    }
+
+    body::after {
+      right: -12vw;
+      top: 18vh;
+      background: var(--accent-cool);
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      width: min(1440px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 88px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      animation: rise-in 420ms ease;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand img {
+      width: 100px;
+      height: 100px;
+      border-radius: 0px;
+      object-fit: contain;
+      background: none; 
+      padding: 6px;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .brand-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .brand-title {
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: clamp(1.8rem, 2.4vw, 2.7rem);
+      line-height: 0.95;
+    }
+
+    .topbar-note {
+      max-width: 440px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: right;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
+      gap: 22px;
+      margin-bottom: 22px;
+      animation: rise-in 540ms ease;
+    }
+
+    .hero-panel,
+    .hero-side,
+    .section-shell,
+    .search-results,
+    .detail-drawer {
+      border: Opx solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel,
+    .hero-side,
+    .section-shell,
+    .search-results {
+      border-radius: O;
+    }
+
+    .hero-panel {
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-panel::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      bottom: -80px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(255, 90, 54, 0.34), rgba(255, 90, 54, 0));
+      pointer-events: none;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      max-width: 64ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .search-wrap { margin-top: 22px; position: relative; }
+
+    .search-input {
+      width: 100%;
+      padding: 18px 58px 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      background: rgba(7, 7, 10, 0.78);
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .search-input:focus {
+      border-color: rgba(255, 146, 97, 0.85);
+      box-shadow: 0 0 0 3px rgba(255, 90, 54, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .search-icon,
+    .clear-search {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      border: 0;
+      background: transparent;
+      font: inherit;
+    }
+
+    .search-icon { right: 19px; pointer-events: none; font-size: 1.15rem; }
+    .clear-search { right: 44px; cursor: pointer; display: none; font-size: 0.95rem; }
+
+    .quick-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+    }
+
+    .chip:hover,
+    .chip:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .chip-accent {
+      background: linear-gradient(135deg, rgba(255, 90, 54, 0.22), rgba(255, 146, 97, 0.16));
+      border-color: rgba(255, 146, 97, 0.28);
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .side-title {
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: 1.6rem;
+      margin: 0;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 112px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    }
+
+    .stat-value {
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      margin-bottom: 8px;
+      line-height: 0.95;
+    }
+
+    .stat-label { color: var(--muted); font-size: 0.86rem; line-height: 1.4; }
+    .section-list { display: grid; gap: 18px; }
+
+    .section-shell {
+      padding: 22px 22px 24px;
+      animation: rise-in 640ms ease;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      line-height: 0.95;
+    }
+
+    .section-copy { margin: 6px 0 0; color: var(--muted); font-size: 0.92rem; }
+    .section-link { color: var(--accent-soft); text-decoration: none; font-size: 0.92rem; white-space: nowrap; }
+
+    .rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: var(--card-width);
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+    }
+
+    .rail::-webkit-scrollbar { height: 8px; }
+    .rail::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 999px; }
+
+    .comic-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      transform-origin: center top;
+      transition: transform 150ms ease;
+    }
+
+    .comic-card:hover,
+    .comic-card:focus-visible { transform: translateY(-4px); outline: none; }
+
+    .comic-cover {
+      position: relative;
+      aspect-ratio: 0.68;
+      border-radius: 0px;
+      overflow: hidden;
+      border: 0px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+        linear-gradient(180deg, #181923, #101116);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+    }
+
+    .comic-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .comic-cover::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 45%;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+    }
+
+    .comic-meta {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .comic-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .comic-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 90, 54, 0.82);
+      color: #fff8f1;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .comic-badge.cool { background: rgba(93, 183, 255, 0.88); color: #eef8ff; }
+    .comic-badge.soft { background: rgba(255, 255, 255, 0.2); color: var(--text); }
+    .comic-badge.alert { background: rgba(255, 90, 54, 0.96); color: #fff8f1; }
+
+    .empty-rail {
+      padding: 22px 0 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .comic-title { font-family: 'OumaTrialBold', sans-serif; font-size: 1.03rem; line-height: 1; }
+    .comic-subtitle { color: var(--muted); font-size: 0.82rem; line-height: 1.3; min-height: 2.2em; }
+
+    .search-results {
+      margin-top: 18px;
+      padding: 22px;
+      display: none;
+      animation: rise-in 220ms ease;
+    }
+
+    .search-results.active { display: block; }
+
+    .results-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .results-title {
+      margin: 0;
+      font-family: 'OumaTrialBold', sans-serif;
+      font-size: clamp(1.6rem, 2vw, 2.1rem);
+      line-height: 0.95;
+    }
+
+    .results-copy { margin: 6px 0 0; color: var(--muted); }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .status-line { margin-top: 14px; color: var(--muted); font-size: 0.9rem; }
+    .empty-state, .loading-state { padding: 28px 0 8px; color: var(--muted); font-size: 0.98rem; }
+
+    .skeleton-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: var(--card-width);
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    .skeleton-card {
+      aspect-ratio: 0.68;
+      border-radius: 20px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+      background-size: 200% 100%;
+      animation: shimmer 1.4s linear infinite;
+    }
+
+    .detail-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 20;
+      background: rgba(2, 3, 6, 0.68);
+      backdrop-filter: blur(8px);
+    }
+
+    .detail-backdrop.open { display: block; }
+
+    .detail-drawer {
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      bottom: 22px;
+      width: min(430px, calc(100vw - 28px));
+      border-radius: 28px;
+      padding: 22px;
+      background: var(--panel-strong);
+      overflow: auto;
+    }
+
+    .detail-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .detail-close {
+      border: 0;
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .detail-cover {
+      aspect-ratio: 0.7;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, #161822, #0e0f15);
+      margin-bottom: 16px;
+    }
+
+    .detail-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .detail-kicker { color: var(--accent-soft); font-size: 0.77rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+    .detail-title { margin: 0 0 10px; font-family: 'OumaTrialBold', sans-serif; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 0.95; }
+    .detail-copy, .detail-meta { color: var(--muted); line-height: 1.6; font-size: 0.97rem; }
+
+    .detail-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 16px;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      transition: transform 140ms ease, background 140ms ease;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .action-link:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.08); }
+    .action-link.primary { background: linear-gradient(135deg, rgba(255, 90, 54, 0.96), rgba(255, 146, 97, 0.92)); border-color: transparent; color: #fffaf4; }
+    .footer-note { margin-top: 26px; color: rgba(248, 241, 231, 0.58); font-size: 0.82rem; text-align: center; line-height: 1.6; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+
+    @media (max-width: 1080px) {
+      .hero { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .topbar-note { text-align: left; }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell { width: min(100vw - 18px, 1440px); padding-top: 18px; }
+      .hero-panel, .hero-side, .section-shell, .search-results { border-radius: 22px; }
+      .hero-panel, .hero-side, .section-shell, .search-results, .detail-drawer { padding: 18px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .rail, .skeleton-row { grid-auto-columns: minmax(142px, 44vw); }
+      .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .detail-drawer { inset: auto 10px 10px 10px; width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <img src="./assets/ateaish_comics_default.webp" alt="Ateaish logo">
+      </a>
+      <div class="topbar-note">Keep a local reading shelf for what you paused, what you parked for later, and what already has a fresh issue waiting.</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="hero-kicker">Static front end · source-linked · local reader</div>
+        <h1>Find the next run before it finds you.</h1>
+        <p>Browse what is new, what is moving, what Marvel and DC pushed lately, then open extracted issues inside this site when a local reader manifest exists. The homepage stays light. The full index only loads when you ask for it.</p>
+
+        <div class="search-wrap">
+          <label class="visually-hidden" for="search-input">Search comics</label>
+          <input id="search-input" class="search-input" type="search" placeholder="Search the full comics catalog" autocomplete="off" spellcheck="false">
+          <button id="clear-search" class="clear-search" type="button" aria-label="Clear search">Clear</button>
+          <span class="search-icon">⌕</span>
+        </div>
+
+        <div id="quick-strip" class="quick-strip" aria-label="Quick navigation"></div>
+      </div>
+
+      <aside class="hero-side">
+        <h2 class="side-title">At a glance</h2>
+        <div id="stat-grid" class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">...</div>
+            <div class="stat-label">Loading catalog size</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Discovery rails pulled from the source</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">A-Z</div>
+            <div class="stat-label">Lazy-loaded search over the full site index</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">Live</div>
+            <div class="stat-label">Updated by a local generator script in this repo</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="library-sections" class="section-list" aria-live="polite"></section>
+
+    <section id="search-results" class="search-results" aria-live="polite">
+      <div class="results-head">
+        <div>
+          <h2 id="results-title" class="results-title">Search results</h2>
+          <p id="results-copy" class="results-copy">Type at least two characters to search the indexed catalog.</p>
+        </div>
+        <div id="results-status" class="status-line"></div>
+      </div>
+      <div id="results-grid" class="results-grid"></div>
+    </section>
+
+    <section id="section-list" class="section-list" aria-live="polite">
+      <div class="section-shell">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Loading discovery rails</h2>
+            <p class="section-copy">Pulling recent, popular, and publisher-specific sections from the local snapshot.</p>
+          </div>
+        </div>
+        <div class="skeleton-row" aria-hidden="true">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">This page indexes source content and can read locally extracted issues inside the site when reader manifests have been generated for a series.</p>
+  </main>
+
+  <div id="detail-backdrop" class="detail-backdrop" aria-hidden="true">
+    <aside class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <div class="detail-head">
+        <div>
+          <div id="detail-kicker" class="detail-kicker">Comic details</div>
+          <h2 id="detail-title" class="detail-title">Loading</h2>
+        </div>
+        <button id="detail-close" class="detail-close" type="button" aria-label="Close details">✕</button>
+      </div>
+      <div class="detail-cover"><img id="detail-image" alt=""></div>
+      <div id="detail-meta" class="detail-meta"></div>
+      <p id="detail-copy" class="detail-copy"></p>
+      <div class="detail-actions">
+        <a id="detail-reader" class="action-link primary" href="#">Read here</a>
+        <button id="detail-later" class="action-link" type="button">Read later</button>
+        <button id="detail-finished" class="action-link" type="button">Mark finished</button>
+        <a id="detail-series" class="action-link primary" href="#" target="_blank" rel="noreferrer">Series page</a>
+        <a id="detail-latest" class="action-link" href="#" target="_blank" rel="noreferrer">Latest issue</a>
+      </div>
+    </aside>
+  </div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

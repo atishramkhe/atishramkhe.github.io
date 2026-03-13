@@ -1,0 +1,137 @@
+name: Build Comics Reader Manifests
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Manifest source set'
+        required: true
+        default: 'catalog'
+        type: choice
+        options:
+          - catalog
+          - discovery
+      batch_start:
+        description: '0-based start index. Leave empty to resume from state.'
+        required: false
+        default: ''
+        type: string
+      batch_size:
+        description: 'How many series to process in this run'
+        required: true
+        default: '150'
+        type: string
+      skip_existing:
+        description: 'Skip manifests already present in comics/data/series'
+        required: true
+        default: true
+        type: boolean
+      refresh_catalog:
+        description: 'Refresh catalog.json and discovery.json before building reader manifests'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  build-comics-reader:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4
+
+      - name: Refresh comics catalog data
+        if: github.event.inputs.refresh_catalog == 'true'
+        run: npm run build:comics-catalog
+
+      - name: Resolve batch window
+        id: batch
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+
+          const dataDir = path.join(process.cwd(), 'comics', 'data');
+          const statePath = path.join(dataDir, 'reader_build_state.json');
+          const catalogPath = path.join(dataDir, 'catalog.json');
+          const discoveryPath = path.join(dataDir, 'discovery.json');
+
+          const source = process.env.INPUT_SOURCE || 'catalog';
+          const requestedStart = process.env.INPUT_BATCH_START || '';
+          const batchSize = Math.max(1, Number.parseInt(process.env.INPUT_BATCH_SIZE || '150', 10) || 150);
+
+          let total = 0;
+          if (source === 'catalog' && fs.existsSync(catalogPath)) {
+            total = JSON.parse(fs.readFileSync(catalogPath, 'utf8')).items?.length || 0;
+          } else if (source === 'discovery' && fs.existsSync(discoveryPath)) {
+            const discovery = JSON.parse(fs.readFileSync(discoveryPath, 'utf8'));
+            const seen = new Set();
+            for (const section of discovery.sections || []) {
+              for (const item of section.items || []) {
+                if (item.series_url) seen.add(item.series_url);
+              }
+            }
+            total = seen.size;
+          }
+
+          let start = 0;
+          if (requestedStart !== '') {
+            start = Math.max(0, Number.parseInt(requestedStart, 10) || 0);
+          } else if (fs.existsSync(statePath)) {
+            start = Math.max(0, JSON.parse(fs.readFileSync(statePath, 'utf8')).next_start || 0);
+          }
+
+          if (total > 0 && start >= total) {
+            start = 0;
+          }
+
+          const output = fs.createWriteStream(process.env.GITHUB_OUTPUT, { flags: 'a' });
+          output.write(`source=${source}\n`);
+          output.write(`start=${start}\n`);
+          output.write(`count=${batchSize}\n`);
+          output.write(`total=${total}\n`);
+          output.end();
+          NODE
+        env:
+          INPUT_SOURCE: ${{ github.event.inputs.source || 'catalog' }}
+          INPUT_BATCH_START: ${{ github.event.inputs.batch_start || '' }}
+          INPUT_BATCH_SIZE: ${{ github.event.inputs.batch_size || '150' }}
+
+      - name: Build manifest batch
+        run: |
+          EXTRA_FLAGS=""
+          if [ "${{ github.event.inputs.skip_existing || 'true' }}" = "true" ]; then
+            EXTRA_FLAGS="--skip-existing"
+          fi
+
+          node comics/update_reader_manifests.mjs \
+            --source=${{ steps.batch.outputs.source }} \
+            --start=${{ steps.batch.outputs.start }} \
+            --count=${{ steps.batch.outputs.count }} \
+            ${EXTRA_FLAGS}
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add comics/data/catalog.json comics/data/discovery.json comics/data/reader_index.json comics/data/reader_build_state.json comics/data/series package.json
+          git diff --staged --quiet || git commit -m "Automated comics reader batch" && git push

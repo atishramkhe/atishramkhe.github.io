@@ -1,0 +1,1188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>ateaish manga (beta)</title>
+	<link rel="icon" type="image/png" href="../assets/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+	<style>
+		@font-face{font-family:'OumaTrialBold';src:url('../fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
+		@font-face{font-family:'OumaTrialLight';src:url('../fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+
+		:root { --accent: #f1892f; }
+
+		.material-symbols-outlined {
+			font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+			vertical-align: middle;
+		}
+
+		body {
+			background: #000;
+			color: #fff;
+			margin: 0;
+			font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+		}
+
+		header {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 90px;
+			border-bottom: 0px solid #000;
+			font-family:'OumaTrialBold','OumaTrialLight';
+			padding: 0 40px;
+		}
+
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #000;
+			min-width: 120px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 8px 0;
+			z-index: 3;
+			left: 0;
+			top: 100%;
+			border-radius: 8px;
+		}
+
+		.dropdown.open .dropdown-content,
+		.dropdown:hover .dropdown-content,
+		.dropdown:focus-within .dropdown-content {
+			display: block;
+		}
+
+		.dropdown-content a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 8px 0;
+			text-decoration: none;
+			background: none;
+		}
+
+		.dropdown-content a img {
+			height: 90px;
+			width: 90px;
+			object-fit: contain;
+			margin: 0;
+			padding: 0;
+		}
+
+		.logo-placeholder {
+			width: 100px;
+			height: 100px;
+			background: none;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #888;
+			font-size: 1.2rem;
+			font-weight: 500;
+			letter-spacing: 2px;
+			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.logo-placeholder img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+		/* Search bar (match /anime) */
+		#search-container{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border: none;
+			position: relative;
+			width: 100%;
+		}
+
+		#search-input-wrapper {
+			position: relative;
+			width: 320px;
+			margin-top: 14px;
+		}
+
+		#search-icon {
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #aaa;
+			pointer-events: none;
+			font-size: 1.3em;
+		}
+
+		#search-input {
+			width: 100%;
+			padding: 0.5em 2.5em 0.5em 2.5em;
+			font-size: 1.0em;
+			background: #000;
+			color: #fff;
+			font-family: 'OumaTrialLight';
+			border: none;
+			border-radius: 10px;
+			outline: none;
+		}
+
+		#clear-search-btn {
+			position: absolute;
+			right: 0rem;
+			top: 50%;
+			transform: translateY(-50%);
+			font-size: 1.2rem;
+			background: transparent;
+			border: none;
+			color: #fff;
+			cursor: pointer;
+			z-index: 2;
+			display: none;
+		}
+
+		/* Filters */
+		#filters-wrap {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			justify-content: center;
+			align-items: center;
+			margin-top: 10px;
+			max-width: 980px;
+			padding: 0 16px;
+		}
+
+		.search-filter-select {
+			background: #000;
+			color: #aaa;
+			border: 1px solid #333;
+			border-radius: 16px;
+			padding: 4px 12px;
+			font-family: 'OumaTrialLight', sans-serif;
+			font-size: 0.78em;
+			cursor: pointer;
+			outline: none;
+			-webkit-appearance: none;
+			appearance: none;
+			min-width: 120px;
+		}
+
+		.search-filter-select:hover,
+		.search-filter-select:focus {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+
+		.filter-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			border: 1px solid #333;
+			border-radius: 16px;
+			padding: 4px 12px;
+			color: #aaa;
+			font-size: 0.78em;
+			font-family: 'OumaTrialLight', sans-serif;
+			background: #000;
+			user-select: none;
+		}
+
+		.filter-pill label {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			cursor: pointer;
+		}
+
+		.filter-pill input[type="checkbox"] { accent-color: var(--accent); }
+
+		/* Tag include/exclude */
+		.tag-input {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			border: 1px solid #333;
+			border-radius: 16px;
+			padding: 4px 10px;
+			background: #000;
+		}
+
+		.tag-input input {
+			background: transparent;
+			color: #fff;
+			border: none;
+			outline: none;
+			font-family: 'OumaTrialLight', sans-serif;
+			font-size: 0.85em;
+			width: 190px;
+		}
+
+		.small-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			background: transparent;
+			color: var(--accent);
+			border: 1px solid rgba(241,137,47,0.35);
+			border-radius: 12px;
+			padding: 6px 12px;
+			cursor: pointer;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.85em;
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.small-btn:hover { transform: scale(1.02); }
+
+		.tag-chips {
+			display: none;
+			flex-wrap: wrap;
+			gap: 6px;
+			justify-content: center;
+			max-width: 980px;
+			margin: 10px auto 0;
+			padding: 0 16px;
+		}
+
+		.tag-chip {
+			background: rgba(241,137,47,0.10);
+			color: var(--accent);
+			border: 1px solid rgba(241,137,47,0.25);
+			border-radius: 14px;
+			padding: 4px 10px;
+			font-size: 0.78em;
+			font-family: 'OumaTrialLight', sans-serif;
+			cursor: pointer;
+		}
+
+		.tag-chip:hover { background: rgba(241,137,47,0.16); }
+
+		/* Results overlay (like /movies) */
+		#search-results-wrapper { display: none; }
+		#search-results-wrapper.active { display: block; }
+		#close-search-results {
+			position: fixed;
+			top: 86px;
+			right: 24px;
+			z-index: 1002;
+			background: rgba(0,0,0,0.7);
+			border: 1px solid #555;
+			color: #ccc;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			font-size: 1.3em;
+			cursor: pointer;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.2s;
+		}
+		#close-search-results.visible { display: flex; }
+		#close-search-results:hover { background: var(--accent); border-color: var(--accent); color: #000; }
+
+		#results {
+			margin-top: 1em;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 8px;
+			padding: 20px 40px;
+			width: 100%;
+			max-width: 2000px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.pagination {
+			display: flex;
+			gap: 8px;
+			justify-content: center;
+			align-items: center;
+			padding: 16px 0 10px;
+		}
+		.pagination-btn {
+			background: transparent;
+			border: 1px solid #555;
+			color: #ccc;
+			padding: 6px 14px;
+			border-radius: 16px;
+			cursor: pointer;
+			font-family: 'OumaTrialLight';
+			font-size: 0.85em;
+			transition: all 0.2s;
+		}
+		.pagination-btn:hover { border-color: var(--accent); color: #fff; }
+		.pagination-btn.active { background: var(--accent); border-color: var(--accent); color: #000; }
+		.pagination-btn:disabled { opacity: 0.3; cursor: default; }
+		.pagination-info { color: #888; font-size: 0.8em; font-family: 'OumaTrialLight'; text-align:center; padding-bottom: 8px; }
+
+		/* Posters & grids */
+		h2 {
+			padding-left: 40px;
+			margin-block-end: 0;
+			margin-block-start: 1.5em;
+			font-family: 'OumaTrialBold', 'OumaTrialLight';
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			gap: 8px;
+			padding: 40px;
+			max-width: 2000px;
+			margin: 0 auto;
+		}
+
+		.poster {
+			cursor: pointer;
+			border-radius: 0;
+			overflow: visible;
+			box-shadow: 0 2px 12px #000a;
+			transition: box-shadow 0.2s ease, transform 0.2s ease;
+			background: #000;
+			position: relative;
+			transform-origin: top center;
+			--hover-scale: 1.5;
+		}
+		.poster:hover {
+			transform: scale(var(--hover-scale));
+			z-index: 30;
+			box-shadow: 0 8px 32px #000c;
+		}
+		.poster img {
+			width: 100%;
+			height: auto;
+			display: block;
+			aspect-ratio: 2 / 3;
+			object-fit: contain;
+			background: #000;
+		}
+
+		.poster-info {
+			display: none;
+			position: absolute;
+			top: calc(100% + 0px);
+			left: 0;
+			width: 100%;
+			background: #000;
+			color: #fff;
+			padding: 12px 10px;
+			line-height: 1.35;
+			box-sizing: border-box;
+			border: 1px solid #000;
+			margin: 0;
+			z-index: 40;
+		}
+		.poster:hover .poster-info { display: block; font-size: 0.75em; }
+
+		.poster-title {
+			padding: 6px 4px 2px;
+			font-family: 'OumaTrialLight', sans-serif;
+			font-size: 0.75em;
+			color: #ccc;
+			text-align: center;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			line-height: 1.3;
+		}
+		.poster:hover .poster-title { display: none; }
+
+		.badge-new {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			background: var(--accent);
+			color: #000;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.78em;
+			border-radius: 10px;
+			padding: 4px 8px;
+			box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+		}
+
+		/* Showcase (like /anime) */
+		#showcase {
+			position: relative;
+			width: 100%;
+			max-width: 2000px;
+			margin: 0 auto;
+			padding: 20px 40px 0 40px;
+			box-sizing: border-box;
+		}
+		#showcase-card {
+			position: relative;
+			width: 100%;
+			height: 420px;
+			border-radius: 14px;
+			overflow: hidden;
+			background: #000;
+			box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+		}
+		#showcase-bg {
+			position: absolute;
+			inset: 0;
+			background-size: cover;
+			background-position: center;
+			filter: saturate(1.05) contrast(1.05);
+			transform: scale(1.02);
+		}
+		#showcase-grad {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.05) 100%);
+		}
+		#showcase-content {
+			position: absolute;
+			left: 28px;
+			bottom: 24px;
+			right: 28px;
+			display: flex;
+			gap: 20px;
+			align-items: flex-end;
+		}
+		#showcase-poster {
+			width: 160px;
+			aspect-ratio: 2 / 3;
+			object-fit: cover;
+			box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+			background: #000;
+		}
+		#showcase-text { flex: 1; min-width: 0; }
+		#showcase-title {
+			font-family: 'OumaTrialBold', 'OumaTrialLight';
+			font-size: 2.2em;
+			margin: 0;
+			line-height: 1.05;
+		}
+		#showcase-meta {
+			margin-top: 10px;
+			opacity: 0.85;
+			font-family: 'OumaTrialLight';
+		}
+		#showcase-overview {
+			margin-top: 12px;
+			max-width: 880px;
+			font-family: 'OumaTrialLight';
+			line-height: 1.35;
+			opacity: 0.95;
+			max-height: 120px;
+			overflow: hidden;
+		}
+		#showcase-actions {
+			margin-top: 14px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		.showcase-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: #000;
+			color: var(--accent);
+			border: 1px solid rgba(255,255,255,0.15);
+			border-radius: 10px;
+			padding: 10px 12px;
+			cursor: pointer;
+			font-family: 'OumaTrialBold', 'OumaTrialLight';
+			box-shadow: 0 2px 12px #0006;
+		}
+		.showcase-btn:hover { transform: scale(1.02); }
+		@media (max-width: 700px) {
+			#showcase-card { height: 360px; }
+			#showcase-content { left: 18px; right: 18px; }
+			#showcase-poster { width: 120px; }
+			#showcase-title { font-size: 1.6em; }
+		}
+
+		/* Detail overlay (like /anime) */
+		#manga-detail-overlay {
+			display: none;
+			position: fixed;
+			top: 0; left: 0; width: 100%; height: 100%;
+			background: rgba(0,0,0,0.85);
+			z-index: 200;
+			overflow-y: auto;
+			backdrop-filter: blur(6px);
+		}
+		#manga-detail-overlay.open { display: flex; }
+		#manga-detail-panel {
+			margin: auto;
+			max-width: 980px;
+			width: 92%;
+			padding: 40px 0;
+		}
+		.detail-header { display: flex; gap: 24px; align-items: flex-start; }
+		.detail-poster {
+			width: 220px;
+			min-width: 220px;
+			aspect-ratio: 2/3;
+			object-fit: cover;
+			border-radius: 10px;
+			box-shadow: 0 8px 32px #000a;
+			background: #111;
+		}
+		.detail-info { flex: 1; min-width: 0; }
+		.detail-title {
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 2em;
+			margin: 0 0 8px;
+			line-height: 1.1;
+		}
+		.detail-meta { font-family: 'OumaTrialLight', sans-serif; opacity: 0.8; margin-bottom: 10px; }
+		.detail-score { color: var(--accent); font-family: 'OumaTrialBold', sans-serif; font-size: 1.2em; margin-bottom: 10px; }
+		.detail-genres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+		.detail-genre-tag {
+			background: rgba(241,137,47,0.15);
+			color: var(--accent);
+			border: 1px solid rgba(241,137,47,0.3);
+			border-radius: 14px;
+			padding: 2px 10px;
+			font-size: 0.78em;
+			font-family: 'OumaTrialLight', sans-serif;
+		}
+		.detail-synopsis {
+			font-family: 'OumaTrialLight', sans-serif;
+			line-height: 1.55;
+			opacity: 0.92;
+			margin-top: 14px;
+			max-height: 200px;
+			overflow-y: auto;
+		}
+		.detail-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+		.detail-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: var(--accent);
+			color: #000;
+			border: none;
+			border-radius: 10px;
+			padding: 10px 20px;
+			cursor: pointer;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 1em;
+			transition: transform 0.12s;
+		}
+		.detail-btn:hover { transform: scale(1.03); }
+		.detail-btn.secondary {
+			background: transparent;
+			color: var(--accent);
+			border: 1px solid rgba(241,137,47,0.4);
+		}
+		.detail-close {
+			position: absolute;
+			top: 16px;
+			right: 24px;
+			font-size: 2em;
+			color: #fff;
+			cursor: pointer;
+			z-index: 201;
+			background: none;
+			border: none;
+			opacity: 0.7;
+			transition: opacity 0.15s;
+		}
+		.detail-close:hover { opacity: 1; }
+		.detail-studios { font-family: 'OumaTrialLight', sans-serif; font-size: 0.85em; opacity: 0.65; margin-bottom: 8px; }
+		.pill-badge {
+			display: inline-flex;
+			align-items: center;
+			padding: 4px 10px;
+			border-radius: 999px;
+			background: rgba(241,137,47,0.16);
+			border: 1px solid rgba(241,137,47,0.25);
+			color: var(--accent);
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.75em;
+		}
+
+		/* Chapters list */
+		.chapter-list {
+			margin-top: 10px;
+			border: 1px solid rgba(255,255,255,0.10);
+			border-radius: 12px;
+			overflow: hidden;
+			background: rgba(0,0,0,0.35);
+		}
+		.chapter-row {
+			width: 100%;
+			text-align: left;
+			padding: 12px 14px;
+			background: transparent;
+			border: none;
+			border-bottom: 1px solid rgba(255,255,255,0.08);
+			color: #fff;
+			cursor: pointer;
+			font-family: 'OumaTrialLight', sans-serif;
+		}
+		.chapter-row:hover { background: rgba(241,137,47,0.08); }
+		.chapter-row.active { background: rgba(241,137,47,0.16); }
+		.chapter-main { display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; }
+		.chapter-left { flex: 1; min-width: 0; }
+		.chapter-right { opacity: 0.65; font-size: 0.85em; white-space: nowrap; }
+		.chapter-num { font-family: 'OumaTrialBold', sans-serif; }
+		.chapter-title { opacity: 0.9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.chapter-sub { opacity: 0.65; font-size: 0.85em; margin-top: 2px; }
+
+		@media (max-width: 700px) {
+			.detail-header { flex-direction: column; align-items: center; text-align: center; }
+			.detail-poster { width: 160px; min-width: 160px; }
+			.detail-title { font-size: 1.5em; }
+			.detail-actions { justify-content: center; }
+			.detail-genres { justify-content: center; }
+			.chapter-main { flex-direction: column; }
+			.chapter-right { white-space: normal; }
+			.grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 20px 12px; }
+			.poster { --hover-scale: 1.1; }
+		}
+
+		/* Reader overlay */
+		#manga-reader-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			background: rgba(0,0,0,0.95);
+			z-index: 500;
+		}
+
+		#reader-topbar {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 320px;
+			z-index: 501;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			padding: 14px 14px;
+			background: rgba(0,0,0,0.82);
+			backdrop-filter: blur(8px);
+			border-right: 1px solid rgba(255,255,255,0.10);
+			box-sizing: border-box;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+
+		#reader-topbar .bar-row {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+		}
+
+		#reader-topbar .bar-col {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		#reader-close {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 42px;
+			height: 42px;
+			border-radius: 12px;
+			border: 1px solid rgba(255,255,255,0.14);
+			background: transparent;
+			color: #fff;
+			cursor: pointer;
+			-webkit-tap-highlight-color: transparent;
+			opacity: 0.9;
+			font-size: 1.8em;
+			line-height: 1;
+		}
+		#reader-close:hover { opacity: 1; border-color: rgba(241,137,47,0.5); color: var(--accent); }
+
+		#reader-title {
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 1.05em;
+			margin-right: 8px;
+			max-width: 220px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		#reader-badge {
+			display: none;
+			align-items: center;
+			padding: 4px 10px;
+			border-radius: 999px;
+			background: rgba(241,137,47,0.16);
+			border: 1px solid rgba(241,137,47,0.25);
+			color: var(--accent);
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.78em;
+		}
+
+		#reader-controls {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.reader-field {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+
+		.reader-label {
+			font-family: 'OumaTrialLight', sans-serif;
+			font-size: 0.78em;
+			opacity: 0.65;
+		}
+
+		.reader-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 38px;
+			height: 38px;
+			border-radius: 10px;
+			border: 1px solid rgba(255,255,255,0.15);
+			background: transparent;
+			color: #fff;
+			cursor: pointer;
+		}
+		.reader-btn:hover { border-color: rgba(241,137,47,0.5); color: var(--accent); }
+		.reader-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+		#reader-scroll {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 320px;
+			overflow-y: auto;
+			padding-top: 14px;
+		}
+
+		#reader-pages {
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 0 14px 80px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.reader-page {
+			width: 100%;
+			height: auto;
+			object-fit: contain;
+			background: #000;
+			border-radius: 10px;
+			border: 1px solid rgba(255,255,255,0.08);
+		}
+
+		/* Reader fit modes (applied via data-fit on #manga-reader-overlay) */
+		#manga-reader-overlay[data-fit="vertical"] .reader-page {
+			width: 100%;
+			height: auto;
+			max-width: none;
+			max-height: none;
+			margin: 0;
+		}
+		#manga-reader-overlay[data-fit="page"] #reader-pages {
+			align-items: center;
+		}
+		#manga-reader-overlay[data-fit="page"] .reader-page {
+			width: auto;
+			max-width: 100%;
+			max-height: calc(100vh - 28px);
+			height: auto;
+			margin: 0 auto;
+			display: block;
+		}
+		#manga-reader-overlay[data-fit="horizontal"] #reader-pages {
+			align-items: center;
+		}
+		#manga-reader-overlay[data-fit="horizontal"] .reader-page {
+			width: auto;
+			height: calc(100vh - 28px);
+			max-height: calc(100vh - 28px);
+			max-width: 100%;
+			margin: 0 auto;
+			display: block;
+		}
+
+		#reader-proxy-hint {
+			display: none;
+			color: #ddd;
+			opacity: 0.85;
+			font-size: 0.85em;
+			padding: 8px 12px;
+			border-radius: 10px;
+			border: 1px solid rgba(255,255,255,0.12);
+			background: rgba(0,0,0,0.65);
+			max-width: 680px;
+		}
+
+		#reader-proxy-hint.inbar {
+			max-width: none;
+		}
+
+		@media (max-width: 900px) {
+			#reader-topbar { width: 260px; }
+			#reader-scroll { left: 260px; }
+			#reader-title { max-width: 170px; }
+		}
+
+		@media (max-width: 700px) {
+			#reader-topbar { width: 220px; }
+			#reader-scroll { left: 220px; }
+			#reader-title { max-width: 140px; }
+			#fab-continue, #fab-readlater {
+				right: 16px !important;
+				font-size: 0.85em !important;
+				padding: 5px 8px !important;
+			}
+			#fab-continue { bottom: 62px !important; }
+			#fab-readlater { bottom: 16px !important; }
+		}
+
+		#status-bar {
+			display: none;
+			position: fixed;
+			left: 16px;
+			bottom: 16px;
+			z-index: 1200;
+			background: rgba(0,0,0,0.75);
+			border: 1px solid rgba(255,255,255,0.12);
+			border-radius: 12px;
+			padding: 10px 12px;
+			color: #ddd;
+			font-family: 'OumaTrialLight', sans-serif;
+			font-size: 0.85em;
+			backdrop-filter: blur(6px);
+		}
+
+		::-webkit-scrollbar { width: 8px; background: transparent; }
+		::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+		::-webkit-scrollbar-button { display: none; }
+	</style>
+	<script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+	<header>
+		<div class="dropdown">
+			<div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
+				<img src="../assets/logo_noborder.png" alt="ateaish manga" style="padding-right: 8px;" />
+			</div>
+			<div class="dropdown-content" id="dropdownMenu" role="menu">
+				<a href="https://atishramkhe.github.io/" role="menuitem">
+					<img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="ateaish homepage" />
+				</a>
+				<a href="https://atishramkhe.github.io/anime" role="menuitem">
+					<img src="../anime/assets/ateaish_anime default.png" alt="ateaish anime" />
+				</a>
+				<a href="https://atishramkhe.github.io/movies" role="menuitem">
+					<img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="ateaish movies" />
+				</a>
+				<a href="https://atishramkhe.github.io/tv" role="menuitem">
+					<img src="../movies/assets/ateaish_tv_blanc_150ppi.png" alt="ateaish tv" />
+				</a>
+				<a href="https://atishramkhe.github.io/sport" role="menuitem">
+					<img src="../movies/assets/ateaish_sport_blanc_150ppi.png" alt="ateaish sport" />
+				</a>
+				<a href="https://atishramkhe.github.io/radio" role="menuitem">
+					<img src="../movies/assets/ateaish_radio_blanc_150ppi.png" alt="ateaish radio" />
+				</a>
+				<a href="https://atishramkhe.github.io/drama" role="menuitem" style="color:#fff;font-family:'OumaTrialBold';font-size:14px;text-decoration:none;">
+					drama
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<div id="search-container">
+			<div id="search-input-wrapper">
+				<span id="search-icon" class="material-symbols-outlined">search</span>
+				<input type="text" id="search-input" placeholder="Search for manga..." />
+				<button id="clear-search-btn" style="display:none;">&times;</button>
+			</div>
+
+			<div style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top: 10px; flex-wrap:wrap; padding: 0 16px;">
+				<button id="jump-continue" class="small-btn" type="button" title="Jump to Continue Reading">
+					<span class="material-symbols-outlined">history</span>
+					Continue
+				</button>
+				<button id="jump-readlater" class="small-btn" type="button" title="Jump to Read Later">
+					<span class="material-symbols-outlined">bookmark</span>
+					Read Later
+				</button>
+			</div>
+
+			<div id="filters-wrap">
+				<select id="filter-sort" class="search-filter-select" title="Sort">
+					<option value="relevance">Sort: Relevance</option>
+					<option value="latestUploadedChapter">Sort: Latest Updated</option>
+					<option value="followedCount">Sort: Popular</option>
+					<option value="rating">Sort: Top Rated</option>
+					<option value="createdAt">Sort: New</option>
+					<option value="updatedAt">Sort: Recently Edited</option>
+					<option value="title">Sort: Title</option>
+					<option value="year">Sort: Year</option>
+				</select>
+
+				<select id="filter-status" class="search-filter-select" title="Status">
+					<option value="">Status: Any</option>
+					<option value="ongoing">Ongoing</option>
+					<option value="completed">Completed</option>
+					<option value="hiatus">Hiatus</option>
+					<option value="cancelled">Cancelled</option>
+				</select>
+
+				<select id="filter-demo" class="search-filter-select" title="Demographic">
+					<option value="">Demographic: Any</option>
+					<option value="shounen">Shounen</option>
+					<option value="shoujo">Shoujo</option>
+					<option value="seinen">Seinen</option>
+					<option value="josei">Josei</option>
+				</select>
+
+				<select id="filter-original-lang" class="search-filter-select" title="Original language">
+					<option value="">Original: Any</option>
+					<option value="ja">Japanese</option>
+					<option value="ko">Korean</option>
+					<option value="zh">Chinese</option>
+					<option value="en">English</option>
+					<option value="fr">French</option>
+				</select>
+
+				<input id="filter-year" class="search-filter-select" title="Year" placeholder="Year" inputmode="numeric" style="min-width:100px;" />
+
+				<div class="filter-pill" id="content-rating-checks" title="Content rating">
+					<label><input type="checkbox" value="safe" /> Safe</label>
+					<label><input type="checkbox" value="suggestive" /> Suggestive</label>
+					<label><input type="checkbox" value="erotica" /> Erotica</label>
+					<label><input type="checkbox" value="pornographic" /> Porn</label>
+				</div>
+
+				<label class="filter-pill" title="Only manga with available chapters">
+					<input type="checkbox" id="filter-has-chapters" checked /> Has chapters
+				</label>
+
+				<div class="tag-input" title="Include tags">
+					<span style="opacity:0.7;">+tags</span>
+					<input id="include-tag-input" list="tag-datalist" placeholder="Action, Romance..." />
+					<button id="include-tag-add" class="small-btn" type="button">Add</button>
+				</div>
+
+				<select id="tags-mode-include" class="search-filter-select" title="Included tags mode" style="min-width:110px;">
+					<option value="AND">Include: AND</option>
+					<option value="OR">Include: OR</option>
+				</select>
+
+				<div class="tag-input" title="Exclude tags">
+					<span style="opacity:0.7;">-tags</span>
+					<input id="exclude-tag-input" list="tag-datalist" placeholder="Harem..." />
+					<button id="exclude-tag-add" class="small-btn" type="button">Add</button>
+				</div>
+
+				<select id="tags-mode-exclude" class="search-filter-select" title="Excluded tags mode" style="min-width:110px;">
+					<option value="OR">Exclude: OR</option>
+					<option value="AND">Exclude: AND</option>
+				</select>
+
+				<datalist id="tag-datalist"></datalist>
+			</div>
+
+			<div class="tag-chips" id="include-tag-chips"></div>
+			<div class="tag-chips" id="exclude-tag-chips"></div>
+		</div>
+
+		<button id="close-search-results" title="Close search">&times;</button>
+		<div id="search-results-wrapper">
+			<div id="results"></div>
+			<div id="search-pagination"></div>
+		</div>
+
+		<section id="showcase">
+			<div id="showcase-card">
+				<div id="showcase-bg"></div>
+				<div id="showcase-grad"></div>
+				<div id="showcase-content">
+					<img id="showcase-poster" alt="Showcase poster" />
+					<div id="showcase-text">
+						<h2 id="showcase-title">Loading...</h2>
+						<div id="showcase-meta"></div>
+						<div id="showcase-overview"></div>
+						<div id="showcase-actions" style="display:none;">
+							<button id="showcase-read" class="showcase-btn" type="button">
+								<span class="material-symbols-outlined">menu_book</span>
+								Read
+							</button>
+							<button id="showcase-readlater" class="showcase-btn" type="button">
+								<span class="material-symbols-outlined">bookmark</span>
+								Read Later
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="trendingSection">
+			<h2>Trending</h2>
+			<div class="grid" id="trendingGrid"></div>
+		</section>
+
+		<section id="popularSection">
+			<h2>Popular</h2>
+			<div class="grid" id="popularGrid"></div>
+		</section>
+
+		<section id="topRatedSection">
+			<h2>Top Rated</h2>
+			<div class="grid" id="topRatedGrid"></div>
+		</section>
+
+		<section id="newSection">
+			<h2>New</h2>
+			<div class="grid" id="newGrid"></div>
+		</section>
+
+		<section id="continueSection" style="display:none;">
+			<h2>
+				<span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
+					history
+				</span>
+				Continue Reading
+			</h2>
+			<div class="grid" id="continueGrid"></div>
+		</section>
+
+		<section id="readLaterSection" style="display:none;">
+			<h2>
+				<span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 6px;">bookmark</span>
+				Read Later
+			</h2>
+			<div class="grid" id="readLaterGrid"></div>
+		</section>
+
+		<section id="finishedSection" style="display:none;">
+			<h2>
+				<span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 6px;">check_circle</span>
+				Finished
+			</h2>
+			<div class="grid" id="finishedGrid"></div>
+		</section>
+	</main>
+
+	<!-- Detail overlay -->
+	<div id="manga-detail-overlay">
+		<button class="detail-close" id="detail-close">&times;</button>
+		<div id="manga-detail-panel"></div>
+	</div>
+
+	<!-- Reader overlay -->
+	<div id="manga-reader-overlay">
+		<div id="reader-topbar">
+			<div class="bar-row">
+				<button id="reader-close" class="material-symbols-outlined" aria-label="Close" title="Close">close</button>
+				<div class="bar-col" style="min-width:0; flex:1;">
+					<div id="reader-title"></div>
+					<span id="reader-badge"></span>
+				</div>
+			</div>
+
+			<div id="reader-controls">
+				<div class="bar-row" style="justify-content:space-between;">
+					<button id="reader-prev" class="reader-btn" type="button" title="Previous chapter">
+						<span class="material-symbols-outlined">chevron_left</span>
+					</button>
+					<button id="reader-next" class="reader-btn" type="button" title="Next chapter">
+						<span class="material-symbols-outlined">chevron_right</span>
+					</button>
+					<button id="reader-reload" class="reader-btn" type="button" title="Reload">
+						<span class="material-symbols-outlined">refresh</span>
+					</button>
+					<button id="reader-fullscreen" class="reader-btn" type="button" title="Fullscreen">
+						<span class="material-symbols-outlined">fullscreen</span>
+					</button>
+				</div>
+
+				<div class="reader-field">
+					<div class="reader-label">Language</div>
+					<select id="reader-lang-select" class="search-filter-select" title="Chapter language" style="min-width:0; width:100%;"></select>
+				</div>
+
+				<div class="reader-field">
+					<div class="reader-label">Chapter</div>
+					<select id="reader-chapter-select" class="search-filter-select" title="Chapter" style="min-width:0; width:100%;"></select>
+				</div>
+
+				<div class="reader-field">
+					<div class="reader-label">Quality</div>
+					<select id="reader-quality" class="search-filter-select" title="Quality" style="min-width:0; width:100%;">
+						<option value="data-saver">Data Saver</option>
+						<option value="data">Original</option>
+					</select>
+				</div>
+
+				<div class="reader-field">
+					<div class="reader-label">Fit</div>
+					<select id="reader-fit-mode" class="search-filter-select" title="Fit" style="min-width:0; width:100%;">
+						<option value="vertical">Fit Vertical</option>
+						<option value="page">Fit Page</option>
+						<option value="horizontal">Fit Horizontal</option>
+					</select>
+				</div>
+
+				<div id="reader-proxy-hint" class="inbar"></div>
+			</div>
+		</div>
+		<div id="reader-scroll">
+			<div id="reader-pages"></div>
+		</div>
+	</div>
+
+	<!-- Floating nav buttons -->
+	<button id="fab-continue" style="
+		position:fixed; bottom:74px; right:32px; z-index:91;
+		background:#000; color:#f1892f; border:none; border-radius:8px;
+		padding:6px 10px; font-size:1em; cursor:pointer;
+		font-family:'OumaTrialBold'; box-shadow:0 2px 12px #0006;
+		transition:background 0.2s; display:none;">
+		<span class="material-symbols-outlined" style="vertical-align:bottom;font-size:inherit;margin-right:2px;margin-bottom:4px;">history</span>
+		Continue Reading
+	</button>
+	<button id="fab-readlater" style="
+		position:fixed; bottom:32px; right:32px; z-index:91;
+		background:#000; color:#f1892f; border:none; border-radius:8px;
+		padding:6px 10px; font-size:1em; cursor:pointer;
+		font-family:'OumaTrialBold'; box-shadow:0 2px 12px #0006;
+		transition:background 0.2s; display:none;">
+		<span class="material-symbols-outlined" style="vertical-align:bottom;font-size:inherit;margin-right:4px;">bookmark</span>
+		Read Later
+	</button>
+
+	<div id="status-bar"><span id="status-text"></span></div>
+
+	<footer style="background:#000; color:#ccc; text-align:right; padding:24px 0 16px 0; font-size:8px; font-family:'OumaTrialLight',sans-serif;">
+		Powered by
+		<span style="margin:0 8px;">MangaDex API</span>
+	</footer>
+
+	<script src="manga.js"></script>
+</body>
+</html>
+

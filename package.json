@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "build:comics-catalog": "python comics/update_catalog.py",
+    "build:comics-reader": "node comics/update_reader_manifests.mjs",
+    "build:comics-reader:catalog": "node comics/update_reader_manifests.mjs --source=catalog --skip-existing",
+    "build:comics-reader:catalog:resume": "node comics/update_reader_manifests.mjs --source=catalog --skip-existing --resume"
+  }
+}
