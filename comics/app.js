@@ -132,7 +132,7 @@ function getIssueId(issueUrl) {
   return match ? match[1] : '';
 }
 
-function getReaderUrl(item, progressEntry = null) {
+function getReaderUrl(item, progressEntry = null, forceContinue = false) {
   const seriesSlug = progressEntry?.series_slug || getSeriesSlug(item);
   if (!seriesSlug) return './reader.html';
   const params = new URLSearchParams({ series: seriesSlug });
@@ -142,6 +142,7 @@ function getReaderUrl(item, progressEntry = null) {
   if (issueSlug) params.set('issue', issueSlug);
   if (issueId) params.set('id', issueId);
   if (pageNumber) params.set('page', String(pageNumber));
+  if (forceContinue) params.set('continue', '1');
   return `./reader.html?${params.toString()}`;
 }
 
@@ -254,7 +255,7 @@ function buildLibraryCard(entry, sectionTitle, mode) {
   if (mode === 'continue') {
     const pagePart = entry.last_page_count ? `Page ${entry.last_page_number || 1}/${entry.last_page_count}` : 'Resume from last page';
     subtitle = `${entry.last_issue_title || 'Last opened issue'} · ${pagePart}`;
-    onClick = () => openReader(getReaderUrl(entry, entry));
+    onClick = () => openReader(getReaderUrl(entry, entry, true));
   } else if (mode === 'later') {
     subtitle = entry.read_later_at ? `Saved ${formatRelativeDate(entry.read_later_at)}` : 'Queued to pick up later';
   } else if (mode === 'finished') {

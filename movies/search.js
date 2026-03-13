@@ -13,6 +13,10 @@ const apiKey = '792f6fa1e1c53d234af7859d10bdf833';
 const tmdbEndpoint = 'https://api.themoviedb.org/3/search/multi';
 const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const placeholderImage = 'assets/no_poster.png';
+// Known CAM titles (lowercased). Add more titles here or switch to a data-driven flag later.
+const CAM_TITLES = new Set([
+    'scream 7'
+]);
 
 // Loading-screen logic: remove the loading video after it plays once
 document.addEventListener('DOMContentLoaded', () => {
@@ -963,10 +967,35 @@ function shuffle(array) {
 }
 
 // Build poster card. If withPreview=true, include preview box below the poster.
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview }) {
+
+// Add isCam to the argument list (default false for backward compatibility)
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
+
+    // Determine final CAM status: explicit flag OR known title list
+    const finalIsCam = Boolean(isCam) || (mediaType === 'movie' && CAM_TITLES.has((title || '').trim().toLowerCase()));
+
+    // --- CAM badge ---
+    if (finalIsCam) {
+        const camBadge = document.createElement('div');
+        camBadge.textContent = 'CAM';
+        camBadge.style.position = 'absolute';
+        camBadge.style.top = '8px';
+        camBadge.style.left = '8px';
+        camBadge.style.background = 'none';
+        camBadge.style.color = '#e02735';
+        camBadge.style.fontWeight = 'bold';
+        camBadge.style.fontSize = '0.95em';
+        camBadge.style.padding = '3px 12px 3px 12px';
+        camBadge.style.borderRadius = '8px';
+        camBadge.style.letterSpacing = '0px';
+        camBadge.style.boxShadow = '0 2px 8px #0007';
+        camBadge.style.zIndex = '10';
+        camBadge.style.pointerEvents = 'none';
+        posterDiv.appendChild(camBadge);
+    }
 
     const img = document.createElement('img');
     img.src = poster;
@@ -1577,6 +1606,8 @@ function loadGrid(jsonPath, gridId) {
 
                 const last_season = isTV && show.seasons ? (show.seasons[show.seasons.length - 1]?.season_number || 1) : 1;
 
+                // Mark as CAM if title matches Scream 7 (case-insensitive, demo logic)
+                const isCam = (mediaType === 'movie' && title.trim().toLowerCase() === 'scream 7');
                 const card = buildPosterCard({
                     id: tmdb_id,
                     mediaType,
@@ -1589,7 +1620,8 @@ function loadGrid(jsonPath, gridId) {
                     lastSeasonNum,
                     lastSeasonEpisodes,
                     onClick: () => openPlayer(mediaType, tmdb_id, last_season),
-                    withPreview: gridId
+                    withPreview: gridId,
+                    isCam
                 });
 
                 grid.appendChild(card);
@@ -2040,7 +2072,7 @@ function loadContinueWatching() {
                 <div style="width:100%;height:6px;background:#222;margin-top:4px;overflow:hidden;">
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
-                ${hasNewEpisode ? `<div style="position:absolute;left:8px;top:8px;background:#e02735;color:#fff;font-size:0.65em;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:.4px;">New episode</div>` : ''}
+                ${hasNewEpisode ? `<div style="position:absolute;right:8px;top:8px;background:#e02735;color:#fff;font-size:0.65em;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:.4px;">New episode</div>` : ''}
             `;
 
             div.onclick = () => openPlayer(
@@ -2075,6 +2107,27 @@ function loadContinueWatching() {
                 removeFromContinueWatching(data.id, data.mediaType);
                 loadContinueWatching();
             };
+            // CAM badge for Continue Watching items
+            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(data?.isCam || data?.is_cam);
+            if (isCamItem) {
+                const cam = document.createElement('div');
+                cam.textContent = 'CAM';
+                cam.style.position = 'absolute';
+                cam.style.top = '8px';
+                cam.style.left = '8px';
+                cam.style.background = 'none';
+                cam.style.color = '#e02735';
+                cam.style.fontWeight = 'bold';
+                cam.style.fontSize = '0.95em';
+                cam.style.padding = '3px 12px 3px 12px';
+                cam.style.border = '1px solid #e02735';
+                cam.style.letterSpacing = '1.5px';
+                cam.style.boxShadow = '0 2px 8px #0007';
+                cam.style.zIndex = '10';
+                cam.style.pointerEvents = 'none';
+                div.appendChild(cam);
+            }
+
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
         });
@@ -2177,6 +2230,27 @@ function loadWatchLater() {
                 removeFromWatchLater(it.id, it.mediaType);
             };
 
+            // CAM badge for Watch Later items
+            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(it?.isCam || it?.is_cam);
+            if (isCamItem) {
+                const cam = document.createElement('div');
+                cam.textContent = 'CAM';
+                cam.style.position = 'absolute';
+                cam.style.top = '8px';
+                cam.style.left = '8px';
+                cam.style.background = '#e02735';
+                cam.style.color = '#fff';
+                cam.style.fontWeight = 'bold';
+                cam.style.fontSize = '0.95em';
+                cam.style.padding = '3px 12px 3px 12px';
+                cam.style.borderRadius = '8px';
+                cam.style.letterSpacing = '1.5px';
+                cam.style.boxShadow = '0 2px 8px #0007';
+                cam.style.zIndex = '10';
+                cam.style.pointerEvents = 'none';
+                div.appendChild(cam);
+            }
+
             div.appendChild(removeBtn);
             grid.appendChild(div);
         });
@@ -2269,6 +2343,27 @@ function loadWatchedList() {
                 e.stopPropagation();
                 removeFromWatchedList(it.id, it.mediaType);
             };
+
+            // CAM badge for Watched items
+            const isCamItem = CAM_TITLES.has((title || '').trim().toLowerCase()) || Boolean(it?.isCam || it?.is_cam);
+            if (isCamItem) {
+                const cam = document.createElement('div');
+                cam.textContent = 'CAM';
+                cam.style.position = 'absolute';
+                cam.style.top = '8px';
+                cam.style.left = '8px';
+                cam.style.background = '#e02735';
+                cam.style.color = '#fff';
+                cam.style.fontWeight = 'bold';
+                cam.style.fontSize = '0.95em';
+                cam.style.padding = '3px 12px 3px 12px';
+                cam.style.borderRadius = '8px';
+                cam.style.letterSpacing = '1.5px';
+                cam.style.boxShadow = '0 2px 8px #0007';
+                cam.style.zIndex = '10';
+                cam.style.pointerEvents = 'none';
+                div.appendChild(cam);
+            }
 
             div.appendChild(removeBtn);
             grid.appendChild(div);

@@ -16,6 +16,7 @@ const params = new URLSearchParams(window.location.search);
 const seriesSlug = params.get('series') || '';
 const issueSlug = params.get('issue') || '';
 const issueId = params.get('id') || '';
+const continueMode = params.get('continue') === '1';
 const initialPageParam = Number.parseInt(params.get('page') || '1', 10);
 const COMICS_LIBRARY_KEY = 'ateaish-comics-library-v1';
 const SAVE_SCROLL_DEBOUNCE_MS = 120;
@@ -158,10 +159,30 @@ function restoreSavedPosition(issue) {
   state.currentPageIndex = boundedIndex;
 
   window.requestAnimationFrame(() => {
-    window.setTimeout(() => {
-      cards[boundedIndex]?.scrollIntoView({ block: 'start', behavior: 'auto' });
-      persistReadingState();
-    }, 40);
+    // Scroll to the saved page, then wait for images/layout to settle before
+    // persisting. Immediate persistence can be overwritten by layout shifts
+    // caused by lazy-loading images, which results in the saved page snapping
+    // back to the top.
+    const target = cards[boundedIndex];
+    if (!target) return;
+    target.scrollIntoView({ block: 'start', behavior: 'auto' });
+
+    const img = target.querySelector('img');
+    const finalize = () => {
+      // Give a small buffer after image load/paint to allow layout to stabilise
+      window.setTimeout(() => {
+        persistReadingState();
+      }, 160);
+    };
+
+    if (img && !img.complete) {
+      img.addEventListener('load', finalize, { once: true });
+      // fallback if load event doesn't fire for any reason
+      window.setTimeout(finalize, 1000);
+    } else {
+      // image already loaded or missing — persist after a short delay
+      window.setTimeout(finalize, 120);
+    }
   });
 }
 
@@ -295,7 +316,17 @@ async function loadManifest() {
     return;
   }
 
-  const initialIssueIndex = findInitialIssueIndex(manifest.issues);
+  let initialIssueIndex = findInitialIssueIndex(manifest.issues);
+  if (continueMode) {
+    const entry = getStoredEntry();
+    if (entry && entry.last_issue_slug) {
+      const found = manifest.issues.findIndex((iss) => iss.issue_slug === entry.last_issue_slug);
+      if (found !== -1) {
+        initialIssueIndex = found;
+        state.currentPageIndex = Number.isInteger(entry.last_page_index) ? entry.last_page_index : 0;
+      }
+    }
+  }
   showIssue(initialIssueIndex);
 }
 
@@ -349,5 +380,22 @@ window.addEventListener('beforeunload', persistReadingState);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') persistReadingState();
 });
+
+// Close button in the topbar — persist current reading state then return to index
+
+function handleExitReader() {
+  persistReadingState();
+  window.location.href = './index.html';
+}
+
+const closeReader = document.getElementById('close-reader');
+if (closeReader) {
+  closeReader.addEventListener('click', handleExitReader);
+}
+
+const floatingExit = document.getElementById('floating-exit');
+if (floatingExit) {
+  floatingExit.addEventListener('click', handleExitReader);
+}
 
 loadManifest();
