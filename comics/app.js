@@ -2,8 +2,8 @@ const DISCOVERY_URL = './data/discovery.json';
 const CATALOG_URL = './data/catalog.json';
 const SERIES_MANIFEST_BASE_URL = './data/series/';
 const COMICS_LIBRARY_KEY = 'ateaish-comics-library-v1';
-const CARD_LIMIT = 120;
-const SEARCH_DEBOUNCE_MS = 140;
+const CARD_LIMIT = 72;
+const SEARCH_DEBOUNCE_MS = 220;
 const GENRE_OPTIONS = [
   'Action', 'Adventure', 'Anthology', 'Anthropomorphic', 'Biography', 'Children', 'Comedy', 'Crime', 'Drama', 'Family',
   'Fantasy', 'Fighting', 'Graphic Novels', 'Historical', 'Horror', 'Leading Ladies', 'LGBTQ', 'Literature', 'Manga',
@@ -23,6 +23,7 @@ const searchStatus = document.getElementById('search-status');
 const searchSort = document.getElementById('search-sort');
 const searchBrowseChips = document.getElementById('search-browse-chips');
 const searchMeta = document.getElementById('search-meta');
+const featuredSections = document.getElementById('featured-sections');
 const librarySections = document.getElementById('library-sections');
 const sectionList = document.getElementById('section-list');
 const quickStrip = document.getElementById('quick-strip');
@@ -63,7 +64,21 @@ const state = {
     sort: 'relevance',
   },
   activeDetailItem: null,
+  libraryState: {
+    hasContinue: false,
+    hasLater: false,
+    hasFinished: false,
+  },
+  searchRequestId: 0,
 };
+
+function getFreshDropsSections(sections = []) {
+  return sections.filter((section) => /fresh\s*drops|fresh\s*drop|newest/i.test(section.title || ''));
+}
+
+function getNonFeaturedSections(sections = []) {
+  return sections.filter((section) => !/fresh\s*drops|fresh\s*drop|newest/i.test(section.title || ''));
+}
 
 function formatNumber(value) {
   return new Intl.NumberFormat('en-US').format(value);
@@ -227,6 +242,45 @@ function renderSearchBrowseChips() {
   });
 }
 
+function renderQuickStrip() {
+  const buttons = [
+    {
+      label: 'Random comic',
+      icon: '⚄',
+      accent: true,
+      action: (button) => {
+        const icon = button.querySelector('.chip-icon');
+        if (icon) {
+          icon.classList.remove('is-spinning');
+          void icon.offsetWidth;
+          icon.classList.add('is-spinning');
+          window.setTimeout(() => icon.classList.remove('is-spinning'), 560);
+        }
+        void surpriseMe();
+      },
+    },
+  ];
+
+  if (state.libraryState.hasContinue) {
+    buttons.push({ label: 'Continue reading', action: () => document.getElementById('continue-reading-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) });
+  }
+  if (state.libraryState.hasLater) {
+    buttons.push({ label: 'Read later', action: () => document.getElementById('read-later-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) });
+  }
+
+  quickStrip.innerHTML = '';
+  buttons.forEach((entry) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `chip${entry.accent ? ' chip-accent' : ''}`;
+    button.innerHTML = entry.icon
+      ? `<span class="chip-icon" aria-hidden="true">${escapeHtml(entry.icon)}</span><span>${escapeHtml(entry.label)}</span>`
+      : `<span>${escapeHtml(entry.label)}</span>`;
+    button.addEventListener('click', () => entry.action(button));
+    quickStrip.appendChild(button);
+  });
+}
+
 function renderSearchGenreOptions() {
   const options = ['<option value="all">All genres</option>']
     .concat(GENRE_OPTIONS.map((genre) => `<option value="${escapeHtml(normalize(genre))}">${escapeHtml(genre)}</option>`));
@@ -343,7 +397,7 @@ function updateLibraryEntry(seriesSlug, updater) {
   const updated = updater(current);
   const next = updated === undefined ? current : updated;
   const hasProgress = Boolean(next?.last_read_at || Number.isInteger(next?.last_page_index) || next?.last_issue_slug);
-  const hasPinnedState = Boolean(next?.read_later || next?.finished);
+  const hasPinnedState = Boolean(next?.read_later || next?.finished || next?.completed_series || next?.finished_dismissed);
   if (!next || (!hasProgress && !hasPinnedState)) {
     delete library[seriesSlug];
     writeLibraryMap(library);
@@ -426,6 +480,7 @@ function clearLibrarySectionEntry(entry, mode) {
         ...current,
         finished: false,
         finished_at: null,
+        finished_dismissed: Boolean(current.completed_series || entry.completed_series),
         updated_at: Date.now(),
       };
     }
@@ -497,6 +552,33 @@ function getLatestIssueFromItem(item) {
 
 function openReader(url) {
   window.location.href = url;
+}
+
+function isIssueProgressComplete(entry) {
+  if (!entry) return false;
+  const lastPageCount = Number.isInteger(entry.last_page_count) ? entry.last_page_count : 0;
+  if (lastPageCount <= 0) return false;
+  const lastPageNumber = Number.isInteger(entry.last_page_number)
+    ? entry.last_page_number
+    : Number.isInteger(entry.last_page_index)
+      ? entry.last_page_index + 1
+      : 0;
+  return lastPageNumber >= lastPageCount;
+}
+
+function getResumeEntry(entry) {
+  if (!entry) return null;
+  if (!entry.resume_on_next_issue || !entry.next_issue_slug) return entry;
+  return {
+    ...entry,
+    last_issue_slug: entry.next_issue_slug,
+    last_issue_id: entry.next_issue_id || '',
+    last_issue_title: entry.next_issue_title || '',
+    last_issue_url: entry.next_issue_url || '',
+    last_page_index: 0,
+    last_page_number: 1,
+    last_page_count: Number.isInteger(entry.next_issue_page_count) ? entry.next_issue_page_count : null,
+  };
 }
 
 function formatRelativeDate(value) {
@@ -593,16 +675,19 @@ async function prepareDiscoveryPayload(payload) {
       items: filteredItems,
     });
   }
+  const freshSections = filteredSections.filter((section) => /fresh\s*drops|fresh\s*drop|newest/i.test(section.title || ''));
+  const standardSections = filteredSections.filter((section) => !/fresh\s*drops|fresh\s*drop|newest/i.test(section.title || ''));
+  const orderedSections = [...freshSections, ...standardSections];
   const discoveryItems = getDiscoveryItems(filteredSections);
   if (discoveryItems.length) {
-    filteredSections.unshift(buildRandomDiscoverySection(discoveryItems));
+    orderedSections.push(buildRandomDiscoverySection(discoveryItems));
   }
   return {
     ...payload,
-    sections: filteredSections,
+    sections: orderedSections,
     meta: {
       ...payload.meta,
-      section_count: filteredSections.length,
+      section_count: orderedSections.length,
     },
   };
 }
@@ -719,12 +804,22 @@ async function enrichLibraryEntry(entry) {
   const currentIssueIndex = entry.last_issue_slug
     ? sortedIssues.findIndex((issue) => issue.issue_slug === entry.last_issue_slug)
     : -1;
+  const nextIssue = currentIssueIndex >= 0 ? sortedIssues[currentIssueIndex + 1] || null : null;
   const issueRatio = Number.isInteger(entry.last_page_count) && entry.last_page_count > 0
     ? Math.max(0, Math.min((entry.last_page_number || 1) / entry.last_page_count, 1))
     : null;
+  const completedSeries = Boolean(
+    !hasNewChapter
+    && issueCount > 0
+    && currentIssueIndex === issueCount - 1
+    && issueRatio !== null
+    && issueRatio >= 1
+  );
+  const finishedDismissed = Boolean(entry.finished_dismissed && completedSeries);
+  const visibleFinished = Boolean(entry.finished || (completedSeries && !finishedDismissed));
   const seriesRatio = issueCount > 0 && currentIssueIndex >= 0
     ? Math.max(0, Math.min((currentIssueIndex + (issueRatio ?? 0)) / issueCount, 1))
-    : entry.finished
+    : visibleFinished
       ? 1
       : null;
   const merged = {
@@ -740,6 +835,15 @@ async function enrichLibraryEntry(entry) {
     progress_issue_ratio: issueRatio,
     progress_series_ratio: seriesRatio,
     manifest_issue_count: issueCount,
+    next_issue_slug: nextIssue?.issue_slug || '',
+    next_issue_id: nextIssue?.issue_id || '',
+    next_issue_title: nextIssue?.title || '',
+    next_issue_url: nextIssue?.issue_url || '',
+    next_issue_page_count: Array.isArray(nextIssue?.pages) ? nextIssue.pages.length : null,
+    resume_on_next_issue: Boolean(nextIssue && isIssueProgressComplete(entry)),
+    completed_series: completedSeries,
+    finished_dismissed: finishedDismissed,
+    visible_finished: visibleFinished,
   };
   return merged;
 }
@@ -754,13 +858,16 @@ function buildLibraryCard(entry, sectionTitle, mode) {
   let subtitle = entry.latest_issue_title || 'Series saved locally';
   let onClick = () => openReader(getReaderUrl(entry, entry.last_read_at ? entry : null));
   if (mode === 'continue') {
+    const resumeEntry = getResumeEntry(entry);
     const pagePart = entry.last_page_count ? `Page ${entry.last_page_number || 1}/${entry.last_page_count}` : 'Resume from last page';
-    subtitle = `${entry.last_issue_title || 'Last opened issue'} · ${pagePart}`;
-    onClick = () => openReader(getReaderUrl(entry, entry, true));
+    subtitle = entry.resume_on_next_issue && entry.next_issue_title
+      ? `${entry.next_issue_title} · Start at page 1`
+      : `${entry.last_issue_title || 'Last opened issue'} · ${pagePart}`;
+    onClick = () => openReader(getReaderUrl(entry, resumeEntry, true));
   } else if (mode === 'later') {
     subtitle = entry.read_later_at ? `Saved ${formatRelativeDate(entry.read_later_at)}` : 'Queued to pick up later';
   } else if (mode === 'finished') {
-    subtitle = entry.finished_at ? `Finished ${formatRelativeDate(entry.finished_at)}` : 'Marked finished';
+    subtitle = entry.finished_at ? `Finished ${formatRelativeDate(entry.finished_at)}` : 'Completed locally';
   }
 
   return buildCard(entry, {
@@ -786,10 +893,10 @@ function buildLibraryCard(entry, sectionTitle, mode) {
 }
 
 async function renderLibrarySections() {
-  const entries = getLibraryEntries();
-  const continueEntries = entries.filter((entry) => entry.last_read_at && !entry.finished && !entry.read_later);
-  const laterEntries = entries.filter((entry) => entry.read_later && !entry.finished);
-  const finishedEntries = entries.filter((entry) => entry.finished);
+  const entries = await Promise.all(getLibraryEntries().map((entry) => enrichLibraryEntry(entry)));
+  const continueEntries = entries.filter((entry) => entry.last_read_at && !entry.visible_finished && !entry.completed_series && !entry.read_later);
+  const laterEntries = entries.filter((entry) => entry.read_later && !entry.visible_finished);
+  const finishedEntries = entries.filter((entry) => entry.visible_finished);
 
   librarySections.innerHTML = '';
 
@@ -821,18 +928,14 @@ async function renderLibrarySections() {
   ];
 
   for (const config of sectionConfigs) {
-    if (!config.entries.length) {
-      librarySections.appendChild(buildLibraryPlaceholder(config.title, config.description, config.empty, config.id));
-      continue;
-    }
+    if (!config.entries.length) continue;
 
     const shell = document.createElement('section');
     shell.className = 'section-shell';
     shell.id = config.id;
     const rail = document.createElement('div');
     rail.className = 'section-grid';
-    const items = await Promise.all(config.entries.map((entry) => enrichLibraryEntry(entry)));
-    items.forEach((entry) => rail.appendChild(buildLibraryCard(entry, config.title, config.mode)));
+    config.entries.forEach((entry) => rail.appendChild(buildLibraryCard(entry, config.title, config.mode)));
 
     shell.innerHTML = `
       <div class="section-head">
@@ -845,6 +948,13 @@ async function renderLibrarySections() {
     shell.appendChild(rail);
     librarySections.appendChild(shell);
   }
+
+  state.libraryState = {
+    hasContinue: continueEntries.length > 0,
+    hasLater: laterEntries.length > 0,
+    hasFinished: finishedEntries.length > 0,
+  };
+  renderQuickStrip();
 }
 
 function renderStats(meta) {
@@ -852,38 +962,7 @@ function renderStats(meta) {
   buildSearchMeta(meta);
 }
 
-function renderQuickStrip(sections) {
-  const buttons = [
-    { label: 'Continue reading', action: () => document.getElementById('continue-reading-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { label: 'Read later', action: () => document.getElementById('read-later-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { label: 'Finished', action: () => document.getElementById('finished-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { label: 'Home rails', action: resetHomeView },
-    ...sections.map((section) => ({
-      label: section.nav_label || section.title,
-      action: () => document.getElementById(`section-${section.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
-    })),
-    { label: 'A-Z catalog', action: showAlphabeticalCatalog, accent: true },
-    { label: 'Surprise me', action: surpriseMe, accent: true },
-  ];
-
-  quickStrip.innerHTML = '';
-  buttons.forEach((entry) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = `chip${entry.accent ? ' chip-accent' : ''}`;
-    button.textContent = entry.label;
-    button.addEventListener('click', entry.action);
-    quickStrip.appendChild(button);
-  });
-}
-
-function renderDiscovery() {
-  if (!state.discovery) return;
-
-  const sections = state.discovery.sections || [];
-  sectionList.innerHTML = '';
-
-  sections.forEach((section, index) => {
+function buildDiscoverySection(section, index) {
     const shell = document.createElement('section');
     shell.className = 'section-shell';
     shell.id = `section-${section.id}`;
@@ -919,10 +998,27 @@ function renderDiscovery() {
       </div>
     `;
     shell.appendChild(items);
-    sectionList.appendChild(shell);
+    return shell;
+}
+
+function renderDiscovery() {
+  if (!state.discovery) return;
+
+  const sections = state.discovery.sections || [];
+  const freshSections = getFreshDropsSections(sections);
+  const remainingSections = getNonFeaturedSections(sections);
+  featuredSections.innerHTML = '';
+  sectionList.innerHTML = '';
+
+  freshSections.forEach((section, index) => {
+    featuredSections.appendChild(buildDiscoverySection(section, index));
   });
 
-  renderQuickStrip(sections);
+  remainingSections.forEach((section, index) => {
+    sectionList.appendChild(buildDiscoverySection(section, index + freshSections.length));
+  });
+
+  renderQuickStrip();
 }
 
 async function loadCatalog() {
@@ -975,9 +1071,11 @@ function renderResults(items, title, copy, countLabel) {
     return;
   }
 
+  const libraryMap = readLibraryMap();
+  const fragment = document.createDocumentFragment();
   items.forEach((item) => {
-    const readLaterEntry = getLibraryEntry(getSeriesSlug(item)) || {};
-    resultsGrid.appendChild(buildCard(item, {
+    const readLaterEntry = libraryMap[getSeriesSlug(item)] || {};
+    fragment.appendChild(buildCard(item, {
       badge: item.latest_label || 'Series',
       subtitle: item.context || 'Series page',
       sectionTitle: title,
@@ -991,6 +1089,7 @@ function renderResults(items, title, copy, countLabel) {
       ],
     }));
   });
+  resultsGrid.appendChild(fragment);
 
   resultsStatus.textContent = countLabel;
 }
@@ -1002,21 +1101,27 @@ async function runSearch(term) {
 }
 
 async function updateSearchResults() {
+  const requestId = ++state.searchRequestId;
   const context = getSearchContext();
   if (!context.hasQuery && !context.hasBrowseFilter) {
     hideSearchResults();
     return;
   }
 
-  const loadingLabel = context.usingDiscovery ? 'Loading discovery matches...' : 'Loading the full catalog snapshot...';
-  showSearchResults('Searching catalog', 'Loading matching comics from the local snapshot.');
-  resultsGrid.innerHTML = `<div class="loading-state">${loadingLabel}</div>`;
-  resultsStatus.textContent = '';
+  const needsCatalogLoad = !context.usingDiscovery && !state.catalog && !state.catalogPromise;
+  if (needsCatalogLoad) {
+    const loadingLabel = 'Loading the full catalog snapshot...';
+    showSearchResults('Searching catalog', 'Loading matching comics from the local snapshot.');
+    resultsGrid.innerHTML = `<div class="loading-state">${loadingLabel}</div>`;
+    resultsStatus.textContent = '';
+  }
 
   try {
     const pool = context.usingDiscovery
       ? state.discoveryItems
       : (await loadCatalog()).items;
+
+    if (requestId !== state.searchRequestId) return;
 
     const filtered = pool.filter((item) => {
       if (context.hasQuery && item._search.indexOf(context.query) === -1) return false;
@@ -1038,8 +1143,8 @@ async function updateSearchResults() {
       heading.copy,
       `${formatNumber(filtered.length)} matches`
     );
-    renderSearchBrowseChips();
   } catch (error) {
+    if (requestId !== state.searchRequestId) return;
     resultsGrid.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
     resultsStatus.textContent = 'Catalog unavailable';
   }
@@ -1071,9 +1176,9 @@ async function showAlphabeticalCatalog() {
 
 async function surpriseMe() {
   try {
-    const catalog = await loadCatalog();
-    if (!catalog.items.length) return;
-    const item = catalog.items[Math.floor(Math.random() * catalog.items.length)];
+    const pool = state.discoveryItems.length ? state.discoveryItems : (await loadCatalog()).items;
+    if (!pool.length) return;
+    const item = pool[Math.floor(Math.random() * pool.length)];
     openReader(getReaderUrl(item, null));
   } catch {
       // Keep the UI stable if the catalog is unavailable.
@@ -1095,15 +1200,15 @@ function openDetail(item, label) {
   const seriesSlug = getSeriesSlug(item);
   const entry = getLibraryEntry(seriesSlug) || {};
   detailCopy.textContent = 'Open the local reader when a manifest exists for this series, save it for later, or mark it as finished when you are caught up.';
-  detailReader.href = getReaderUrl(item, entry.last_read_at ? entry : null);
-  detailReader.textContent = entry.last_read_at && !entry.finished ? 'Continue here' : 'Read here';
+  detailReader.href = getReaderUrl(item, entry.last_read_at ? getResumeEntry(entry) : null, Boolean(entry.last_read_at));
+  detailReader.textContent = entry.last_read_at && !entry.finished && !entry.completed_series ? 'Continue here' : 'Read here';
   detailSeries.href = withAbsoluteUrl(item.series_url || item.issue_url || '/');
   detailLatest.href = withAbsoluteUrl(item.issue_url || item.series_url || '/');
   detailLatest.textContent = item.issue_url ? 'Latest issue' : 'Open source';
   detailLater.textContent = entry.read_later ? 'Saved for later' : 'Read later';
-  detailFinished.textContent = entry.finished ? 'Finished' : 'Mark finished';
+  detailFinished.textContent = (entry.finished || (entry.completed_series && !entry.finished_dismissed)) ? 'Finished' : 'Mark finished';
   detailLater.classList.toggle('primary', Boolean(entry.read_later));
-  detailFinished.classList.toggle('primary', Boolean(entry.finished));
+  detailFinished.classList.toggle('primary', Boolean(entry.finished || (entry.completed_series && !entry.finished_dismissed)));
 
   detailBackdrop.classList.add('open');
   detailBackdrop.setAttribute('aria-hidden', 'false');
@@ -1218,6 +1323,7 @@ detailLater.addEventListener('click', () => {
     read_later_at: !current.read_later ? Date.now() : null,
     finished: false,
     finished_at: null,
+    finished_dismissed: false,
   }));
   openDetail(item, detailKicker.textContent || 'Comic detail');
   rerenderLibrarySurfaces();
@@ -1228,8 +1334,11 @@ detailFinished.addEventListener('click', () => {
   const seriesSlug = getSeriesSlug(item);
   updateLibraryEntry(seriesSlug, (current) => ({
     ...buildLibrarySeed(item, current, seriesSlug),
-    finished: !current.finished,
-    finished_at: !current.finished ? Date.now() : null,
+    finished: !(current.finished || (current.completed_series && !current.finished_dismissed)),
+    finished_at: !(current.finished || (current.completed_series && !current.finished_dismissed)) ? Date.now() : null,
+    finished_dismissed: current.completed_series
+      ? (current.finished || (current.completed_series && !current.finished_dismissed))
+      : false,
     read_later: false,
     read_later_at: null,
   }));

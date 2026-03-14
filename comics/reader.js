@@ -225,10 +225,11 @@ function updateLibraryEntry(updater) {
 
 function updateActionButtons() {
   const entry = getStoredEntry() || {};
+  const isVisibleFinished = Boolean(entry.finished || (entry.completed_series && !entry.finished_dismissed));
   toggleLater.textContent = entry.read_later ? 'Saved for later' : 'Read later';
-  toggleFinished.textContent = entry.finished ? 'Finished' : 'Mark finished';
+  toggleFinished.textContent = isVisibleFinished ? 'Finished' : 'Mark finished';
   toggleLater.classList.toggle('primary', Boolean(entry.read_later));
-  toggleFinished.classList.toggle('primary', Boolean(entry.finished));
+  toggleFinished.classList.toggle('primary', isVisibleFinished);
 }
 
 function findActivePageIndex() {
@@ -262,6 +263,97 @@ function getCanvasScrollTarget(card) {
   return Math.max(0, card.offsetTop - offset);
 }
 
+function getPageViewportState(index = findActivePageIndex()) {
+  const cards = getPageCards();
+  const boundedIndex = Math.max(0, Math.min(index, cards.length - 1));
+  const card = cards[boundedIndex];
+  if (!card) {
+    return {
+      index: 0,
+      card: null,
+      isFirst: true,
+      isLast: true,
+      fullyVisible: false,
+      atTop: true,
+      atBottom: true,
+    };
+  }
+
+  const canvasRect = canvas.getBoundingClientRect();
+  const rect = card.getBoundingClientRect();
+  const tolerance = 6;
+
+  return {
+    index: boundedIndex,
+    card,
+    isFirst: boundedIndex === 0,
+    isLast: boundedIndex === cards.length - 1,
+    fullyVisible: rect.top >= canvasRect.top - tolerance && rect.bottom <= canvasRect.bottom + tolerance,
+    atTop: rect.top >= canvasRect.top - tolerance,
+    atBottom: rect.bottom <= canvasRect.bottom + tolerance,
+  };
+}
+
+function scrollReaderViewport(direction) {
+  const amount = Math.max(120, Math.round(canvas.clientHeight * 0.82));
+  canvas.scrollBy({ top: amount * direction, behavior: 'smooth' });
+}
+
+function isStoredIssueComplete(entry) {
+  if (!entry) return false;
+  const lastPageCount = Number.isInteger(entry.last_page_count) ? entry.last_page_count : 0;
+  if (lastPageCount <= 0) return false;
+  const lastPageNumber = Number.isInteger(entry.last_page_number)
+    ? entry.last_page_number
+    : Number.isInteger(entry.last_page_index)
+      ? entry.last_page_index + 1
+      : 0;
+  return lastPageNumber >= lastPageCount;
+}
+
+function resolveContinueTarget(issues, entry) {
+  if (!Array.isArray(issues) || !issues.length) {
+    return { issueIndex: 0, pageIndex: 0 };
+  }
+
+  const fallbackPageIndex = Number.isInteger(entry?.last_page_index) ? Math.max(0, entry.last_page_index) : 0;
+  if (!entry?.last_issue_slug) {
+    return { issueIndex: 0, pageIndex: fallbackPageIndex };
+  }
+
+  const storedIndex = issues.findIndex((issue) => issue.issue_slug === entry.last_issue_slug);
+  if (storedIndex === -1) {
+    return { issueIndex: 0, pageIndex: fallbackPageIndex };
+  }
+
+  if (isStoredIssueComplete(entry) && storedIndex < issues.length - 1) {
+    return { issueIndex: storedIndex + 1, pageIndex: 0 };
+  }
+
+  return { issueIndex: storedIndex, pageIndex: fallbackPageIndex };
+}
+
+function showAdjacentIssue(delta, pageIndex = 0) {
+  const issues = state.manifest?.issues || [];
+  const targetIndex = state.currentIssueIndex + delta;
+  if (targetIndex < 0 || targetIndex >= issues.length) return false;
+  state.currentPageIndex = Math.max(0, pageIndex);
+  showIssue(targetIndex);
+  return true;
+}
+
+function isIssueCompleteInViewport() {
+  const viewportState = getPageViewportState();
+  return Boolean(viewportState.card && viewportState.isLast && viewportState.atBottom);
+}
+
+function isSeriesCompleteAt(pageIndex) {
+  const issue = getCurrentIssue();
+  const issues = state.manifest?.issues || [];
+  if (!issue || !issues.length) return false;
+  return state.currentIssueIndex === issues.length - 1 && pageIndex >= issue.pages.length - 1;
+}
+
 function scrollToPage(index, behavior = 'smooth') {
   const cards = getPageCards();
   if (!cards.length) return;
@@ -273,7 +365,19 @@ function scrollToPage(index, behavior = 'smooth') {
 }
 
 function navigatePage(delta) {
-  scrollToPage(findActivePageIndex() + delta, 'smooth');
+  const cards = getPageCards();
+  if (!cards.length) return;
+
+  const activeIndex = findActivePageIndex();
+  const targetIndex = activeIndex + delta;
+  if (targetIndex >= 0 && targetIndex < cards.length) {
+    scrollToPage(targetIndex, 'smooth');
+    return;
+  }
+
+  if (delta > 0 && isIssueCompleteInViewport()) {
+    showAdjacentIssue(1, 0);
+  }
 }
 
 function persistReadingState() {
@@ -281,6 +385,7 @@ function persistReadingState() {
   if (!state.manifest || !issue) return;
 
   const pageIndex = findActivePageIndex();
+  const completedSeries = isSeriesCompleteAt(pageIndex);
   state.currentPageIndex = pageIndex;
 
   updateLibraryEntry((entry) => ({
@@ -290,6 +395,12 @@ function persistReadingState() {
     last_page_count: issue.pages.length,
     last_read_at: Date.now(),
     read_later: false,
+    completed_series: completedSeries,
+    finished: completedSeries ? !entry.finished_dismissed : entry.finished,
+    finished_at: completedSeries
+      ? (entry.finished_dismissed ? null : (entry.finished_at || Date.now()))
+      : entry.finished_at,
+    finished_dismissed: completedSeries ? Boolean(entry.finished_dismissed) : false,
   }));
 
   updateActionButtons();
@@ -493,14 +604,24 @@ function handleReaderKeydown(event) {
     if (tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA' || target.isContentEditable) return;
   }
 
-  if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowUp' || event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') {
+    const direction = (event.key === 'ArrowLeft' || event.key === 'ArrowUp') ? -1 : 1;
+    const viewportState = getPageViewportState();
     event.preventDefault();
-    navigatePage(-1);
-    return;
-  }
-  if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ') {
-    event.preventDefault();
-    navigatePage(1);
+
+    if (!viewportState.card) return;
+
+    if (viewportState.fullyVisible) {
+      navigatePage(direction);
+      return;
+    }
+
+    if (direction > 0 && viewportState.isLast && viewportState.atBottom) {
+      navigatePage(direction);
+      return;
+    }
+
+    scrollReaderViewport(direction);
     return;
   }
   if (event.key === 'Home') {
@@ -621,12 +742,10 @@ async function loadManifest() {
   let initialIssueIndex = findInitialIssueIndex(manifest.issues);
   if (continueMode) {
     const entry = getStoredEntry();
-    if (entry && entry.last_issue_slug) {
-      const found = manifest.issues.findIndex((iss) => iss.issue_slug === entry.last_issue_slug);
-      if (found !== -1) {
-        initialIssueIndex = found;
-        state.currentPageIndex = Number.isInteger(entry.last_page_index) ? entry.last_page_index : 0;
-      }
+    if (entry) {
+      const target = resolveContinueTarget(manifest.issues, entry);
+      initialIssueIndex = target.issueIndex;
+      state.currentPageIndex = target.pageIndex;
     }
   }
   showIssue(initialIssueIndex);
@@ -662,8 +781,11 @@ toggleLater.addEventListener('click', () => {
 toggleFinished.addEventListener('click', () => {
   const entry = updateLibraryEntry((current) => ({
     ...current,
-    finished: !current.finished,
-    finished_at: !current.finished ? Date.now() : null,
+    finished: !(current.finished || (current.completed_series && !current.finished_dismissed)),
+    finished_at: !(current.finished || (current.completed_series && !current.finished_dismissed)) ? Date.now() : null,
+    finished_dismissed: current.completed_series
+      ? (current.finished || (current.completed_series && !current.finished_dismissed))
+      : false,
     read_later: false,
     read_later_at: null,
   }));

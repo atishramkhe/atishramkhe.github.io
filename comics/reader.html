@@ -28,9 +28,9 @@
       --line: transparent;
       --text: #f2f2f2;
       --muted: #7d7d7d;
-      --accent: #ffffff;
-      --accent-soft: #d8d8d8;
-      --accent-cool: #ffffff;
+      --accent: #83fdc4;
+      --accent-soft: #bfffe4;
+      --accent-cool: #83fdc4;
       --shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
       --radius: 0px;
       --page-max: 980px;
@@ -201,8 +201,28 @@
       border: 0;
       background: rgba(255, 255, 255, 0.06);
       color: var(--text);
+      color-scheme: dark;
       font: inherit;
       padding: 0 14px;
+      outline: 1px solid transparent;
+      transition: outline-color 140ms ease, background 140ms ease;
+    }
+
+    .issue-select:focus,
+    .width-select:focus,
+    .control-select:focus {
+      outline-color: rgba(131, 253, 196, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .issue-select option,
+    .width-select option,
+    .control-select option,
+    .issue-select optgroup,
+    .width-select optgroup,
+    .control-select optgroup {
+      background: #070d0b;
+      color: #f3fffb;
     }
 
     .button-row,
@@ -241,8 +261,8 @@
     .button.primary,
     .link-button.primary {
       border-color: transparent;
-      background: #fff;
-      color: #000;
+      background: var(--accent);
+      color: #03130d;
     }
 
     .button:disabled {
@@ -320,10 +340,6 @@
       justify-items: center;
     }
 
-    .canvas[data-fit='vertical'] .page-stack {
-      gap: 0;
-    }
-
     .canvas[data-gap='flush'] .page-stack { gap: 0; }
     .canvas[data-gap='tight'] .page-stack { gap: 12px; }
     .canvas[data-gap='comfortable'] .page-stack { gap: 18px; }
@@ -334,7 +350,7 @@
     }
 
     .page-card {
-      margin: 0 auto;
+      margin: 0;
       width: min(calc(var(--page-max) * var(--page-zoom)), calc(100% * var(--page-zoom)));
       overflow: hidden;
       background: #000;
@@ -432,6 +448,8 @@
     .floating-control {
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
       background: rgba(10, 10, 10, 0.9);
+      color: var(--accent);
+      border: 1px solid rgba(131, 253, 196, 0.22);
     }
 
     body[data-theme='paper'] .floating-control {
