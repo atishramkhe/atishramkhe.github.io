@@ -3,7 +3,7 @@ const CATALOG_URL = './data/catalog.json';
 const SERIES_MANIFEST_BASE_URL = './data/series/';
 const COMICS_LIBRARY_KEY = 'ateaish-comics-library-v1';
 const CARD_LIMIT = 72;
-const SEARCH_DEBOUNCE_MS = 220;
+const SEARCH_DEBOUNCE_MS = 70;
 const GENRE_OPTIONS = [
   'Action', 'Adventure', 'Anthology', 'Anthropomorphic', 'Biography', 'Children', 'Comedy', 'Crime', 'Drama', 'Family',
   'Fantasy', 'Fighting', 'Graphic Novels', 'Historical', 'Horror', 'Leading Ladies', 'LGBTQ', 'Literature', 'Manga',
@@ -70,7 +70,30 @@ const state = {
     hasFinished: false,
   },
   searchRequestId: 0,
+  seriesStatusBySlug: {},
 };
+
+function rememberSeriesStatuses(items = []) {
+  items.forEach((item) => {
+    const seriesSlug = getSeriesSlug(item);
+    if (!seriesSlug) return;
+    const status = item._status || extractStatus(item.context) || '';
+    if (status) state.seriesStatusBySlug[seriesSlug] = status;
+  });
+}
+
+function getStoredSeriesStatus(seriesSlug, fallback = '') {
+  return state.seriesStatusBySlug[seriesSlug] || fallback || '';
+}
+
+function isOngoingStatus(status) {
+  return status === 'ongoing';
+}
+
+function isVisibleFinishedEntry(entry) {
+  const seriesStatus = getStoredSeriesStatus(entry?.series_slug, entry?.series_status || '');
+  return Boolean(entry?.finished || (entry?.completed_series && !entry?.finished_dismissed && !isOngoingStatus(seriesStatus)));
+}
 
 function getFreshDropsSections(sections = []) {
   return sections.filter((section) => /fresh\s*drops|fresh\s*drop|newest/i.test(section.title || ''));
@@ -136,7 +159,7 @@ function dedupeItems(items) {
 }
 
 function getDiscoveryItems(sections = []) {
-  return dedupeItems(
+  const items = dedupeItems(
     sections.flatMap((section) =>
       (section.items || []).map((item) => ({
         ...item,
@@ -147,6 +170,8 @@ function getDiscoveryItems(sections = []) {
       }))
     )
   );
+  rememberSeriesStatuses(items);
+  return items;
 }
 
 function updateClearSearchVisibility() {
@@ -410,12 +435,14 @@ function updateLibraryEntry(seriesSlug, updater) {
 
 function buildLibrarySeed(item, current, seriesSlug) {
   const latestIssue = getLatestIssueFromItem(item);
+  const seriesStatus = item?._status || extractStatus(item?.context) || current.series_status || '';
   return {
     ...current,
     series_slug: seriesSlug,
     title: item.title || current.title || seriesSlug.replace(/-/g, ' '),
     cover_url: item.cover_url || current.cover_url || './assets/ateaish_comics_default.webp',
     series_url: withAbsoluteUrl(item.series_url || current.series_url || ''),
+    series_status: seriesStatus,
     updated_at: Date.now(),
     last_issue_slug: current.last_issue_slug || latestIssue?.issue_slug || '',
     last_issue_id: current.last_issue_id || latestIssue?.issue_id || '',
@@ -815,8 +842,10 @@ async function enrichLibraryEntry(entry) {
     && issueRatio !== null
     && issueRatio >= 1
   );
+  const seriesStatus = getStoredSeriesStatus(entry.series_slug, entry.series_status || '');
+  const ongoingSeries = isOngoingStatus(seriesStatus);
   const finishedDismissed = Boolean(entry.finished_dismissed && completedSeries);
-  const visibleFinished = Boolean(entry.finished || (completedSeries && !finishedDismissed));
+  const visibleFinished = Boolean(entry.finished || (completedSeries && !finishedDismissed && !ongoingSeries));
   const seriesRatio = issueCount > 0 && currentIssueIndex >= 0
     ? Math.max(0, Math.min((currentIssueIndex + (issueRatio ?? 0)) / issueCount, 1))
     : visibleFinished
@@ -831,6 +860,8 @@ async function enrichLibraryEntry(entry) {
     latest_issue_title: latestIssue?.title || entry.latest_issue_title || '',
     latest_issue_id: latestIssue?.issue_id || entry.latest_issue_id || '',
     latest_issue_url: latestIssue?.issue_url || entry.latest_issue_url || '',
+    series_status: seriesStatus,
+    ongoing_series: ongoingSeries,
     has_new_chapter: hasNewChapter,
     progress_issue_ratio: issueRatio,
     progress_series_ratio: seriesRatio,
@@ -894,7 +925,7 @@ function buildLibraryCard(entry, sectionTitle, mode) {
 
 async function renderLibrarySections() {
   const entries = await Promise.all(getLibraryEntries().map((entry) => enrichLibraryEntry(entry)));
-  const continueEntries = entries.filter((entry) => entry.last_read_at && !entry.visible_finished && !entry.completed_series && !entry.read_later);
+  const continueEntries = entries.filter((entry) => entry.last_read_at && !entry.visible_finished && (!entry.completed_series || entry.ongoing_series) && !entry.read_later);
   const laterEntries = entries.filter((entry) => entry.read_later && !entry.visible_finished);
   const finishedEntries = entries.filter((entry) => entry.visible_finished);
 
@@ -1029,15 +1060,15 @@ async function loadCatalog() {
         if (!response.ok) throw new Error(`Catalog request failed: ${response.status}`);
         return response.json();
       })
-      .then(async (payload) => {
-        const availableItems = await filterItemsWithManifest(payload.items || []);
-        const items = availableItems.map((item) => ({
+      .then((payload) => {
+        const items = (payload.items || []).map((item) => ({
           ...item,
           _search: normalize(`${item.title} ${item.latest_label || ''} ${item.context || ''} ${item.source_section || ''}`),
           _status: extractStatus(item.context),
           _section: normalize(item.source_section || ''),
           _genres: inferGenres(item),
         }));
+        rememberSeriesStatuses(items);
         state.catalog = { ...payload, items, total: items.length };
         return state.catalog;
       })
@@ -1200,15 +1231,16 @@ function openDetail(item, label) {
   const seriesSlug = getSeriesSlug(item);
   const entry = getLibraryEntry(seriesSlug) || {};
   detailCopy.textContent = 'Open the local reader when a manifest exists for this series, save it for later, or mark it as finished when you are caught up.';
+  const visibleFinished = isVisibleFinishedEntry(entry);
   detailReader.href = getReaderUrl(item, entry.last_read_at ? getResumeEntry(entry) : null, Boolean(entry.last_read_at));
-  detailReader.textContent = entry.last_read_at && !entry.finished && !entry.completed_series ? 'Continue here' : 'Read here';
+  detailReader.textContent = entry.last_read_at && !visibleFinished ? 'Continue here' : 'Read here';
   detailSeries.href = withAbsoluteUrl(item.series_url || item.issue_url || '/');
   detailLatest.href = withAbsoluteUrl(item.issue_url || item.series_url || '/');
   detailLatest.textContent = item.issue_url ? 'Latest issue' : 'Open source';
   detailLater.textContent = entry.read_later ? 'Saved for later' : 'Read later';
-  detailFinished.textContent = (entry.finished || (entry.completed_series && !entry.finished_dismissed)) ? 'Finished' : 'Mark finished';
+  detailFinished.textContent = visibleFinished ? 'Finished' : 'Mark finished';
   detailLater.classList.toggle('primary', Boolean(entry.read_later));
-  detailFinished.classList.toggle('primary', Boolean(entry.finished || (entry.completed_series && !entry.finished_dismissed)));
+  detailFinished.classList.toggle('primary', visibleFinished);
 
   detailBackdrop.classList.add('open');
   detailBackdrop.setAttribute('aria-hidden', 'false');
@@ -1244,8 +1276,13 @@ searchInput.addEventListener('input', () => {
   updateClearSearchVisibility();
 
   if (searchTimer) window.clearTimeout(searchTimer);
+  if (state.catalog || state.searchFilters.scope === 'discovery' || state.searchFilters.section !== 'all') {
+    void runSearch(state.searchTerm);
+    return;
+  }
+
   searchTimer = window.setTimeout(() => {
-    runSearch(state.searchTerm);
+    void runSearch(state.searchTerm);
   }, SEARCH_DEBOUNCE_MS);
 });
 
@@ -1374,6 +1411,9 @@ fetch(DISCOVERY_URL)
     renderSearchBrowseChips();
     void renderLibrarySections();
     renderDiscovery();
+    loadCatalog().catch(() => {
+      // Search gracefully handles a missing catalog when the user types.
+    });
   })
   .catch((error) => {
     void renderLibrarySections();

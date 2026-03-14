@@ -225,7 +225,8 @@ function updateLibraryEntry(updater) {
 
 function updateActionButtons() {
   const entry = getStoredEntry() || {};
-  const isVisibleFinished = Boolean(entry.finished || (entry.completed_series && !entry.finished_dismissed));
+  const isOngoingSeries = entry.series_status === 'ongoing';
+  const isVisibleFinished = Boolean(entry.finished || (entry.completed_series && !entry.finished_dismissed && !isOngoingSeries));
   toggleLater.textContent = entry.read_later ? 'Saved for later' : 'Read later';
   toggleFinished.textContent = isVisibleFinished ? 'Finished' : 'Mark finished';
   toggleLater.classList.toggle('primary', Boolean(entry.read_later));
@@ -396,9 +397,11 @@ function persistReadingState() {
     last_read_at: Date.now(),
     read_later: false,
     completed_series: completedSeries,
-    finished: completedSeries ? !entry.finished_dismissed : entry.finished,
+    finished: completedSeries
+      ? (entry.series_status === 'ongoing' ? false : !entry.finished_dismissed)
+      : entry.finished,
     finished_at: completedSeries
-      ? (entry.finished_dismissed ? null : (entry.finished_at || Date.now()))
+      ? ((entry.finished_dismissed || entry.series_status === 'ongoing') ? null : (entry.finished_at || Date.now()))
       : entry.finished_at,
     finished_dismissed: completedSeries ? Boolean(entry.finished_dismissed) : false,
   }));
