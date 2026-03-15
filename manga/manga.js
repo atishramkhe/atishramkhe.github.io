@@ -1087,6 +1087,27 @@
     return filtered.slice(0, limit);
   }
 
+  function mergeDiscoveryPools(pools, limit = DISCOVERY_SECTION_LIMIT) {
+    const queue = Array.isArray(pools) ? pools.map((pool) => (Array.isArray(pool) ? pool.slice() : [])) : [];
+    const merged = [];
+    const seen = new Set();
+
+    while (merged.length < limit && queue.some((pool) => pool.length)) {
+      for (const pool of queue) {
+        while (pool.length) {
+          const next = pool.shift();
+          if (!next?.id || seen.has(next.id)) continue;
+          seen.add(next.id);
+          merged.push(next);
+          break;
+        }
+        if (merged.length >= limit) break;
+      }
+    }
+
+    return merged;
+  }
+
   function filterSearchItems(items, query = '') {
     const list = Array.isArray(items) ? items : [];
     const ratings = selectedContentRatings();
@@ -1897,14 +1918,14 @@
 
     return {
       ...base,
-      genreIn: null,
+      genreIn: adultMode === 'suggestive' ? ['Ecchi'] : null,
       genreNotIn: null,
       tagIn: null,
       tagNotIn: null,
       status: null,
       countryOfOrigin: null,
       startDateLike: null,
-      isAdult: adultMode === 'adult' ? null : false,
+      isAdult: adultMode === 'adult' ? true : false,
     };
   }
 
@@ -1912,25 +1933,47 @@
     setStatus('Loading discovery…');
 
     try {
-      const discoveryPerPage = state.settings.adultEnabled ? DISCOVERY_SECTION_LIMIT * 3 : DISCOVERY_SECTION_LIMIT * 2;
-      const discoveryMode = state.settings.adultEnabled ? 'adult' : 'default';
+      const discoveryPerPage = state.settings.adultEnabled ? DISCOVERY_SECTION_LIMIT * 2 : DISCOVERY_SECTION_LIMIT * 2;
 
-      const trending = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'relevance', adultMode: discoveryMode }));
-      const trendingItems = filterDiscoveryItems(trending.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
+      const loadDiscoveryBucket = async (sortValue) => {
+        if (!state.settings.adultEnabled) {
+          const safeResult = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue, adultMode: 'default' }));
+          return filterDiscoveryItems(safeResult.items, { adultMode: false, limit: DISCOVERY_SECTION_LIMIT });
+        }
+
+        const [suggestiveResult, adultResult] = await Promise.all([
+          searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue, adultMode: 'suggestive' })),
+          searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue, adultMode: 'adult' })),
+        ]);
+
+        const suggestiveItems = filterDiscoveryItems(suggestiveResult.items, { adultMode: true, limit: discoveryPerPage });
+        const adultItems = filterDiscoveryItems(adultResult.items, { adultMode: true, limit: discoveryPerPage });
+        return mergeDiscoveryPools([suggestiveItems, adultItems], DISCOVERY_SECTION_LIMIT);
+      };
+
+      const trendingItems = await loadDiscoveryBucket('relevance');
       renderPosterGrid(el.trendingGrid, trendingItems, { context: 'trending' });
       if (!el.showcaseSection?.hidden && trendingItems[0]) await renderShowcase(trendingItems[0]);
 
       setStatus('Loading more…');
 
-      const popular = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: discoveryMode }));
-      const topRated = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'rating', adultMode: discoveryMode }));
-      const newTitles = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'updatedAt', adultMode: discoveryMode }));
-      const adultTitles = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: 'adult' }));
+      const [popularItems, ratedItems, newItems] = await Promise.all([
+        loadDiscoveryBucket('followedCount'),
+        loadDiscoveryBucket('rating'),
+        loadDiscoveryBucket('updatedAt'),
+      ]);
 
-      const popularItems = filterDiscoveryItems(popular.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
-      const ratedItems = filterDiscoveryItems(topRated.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
-      const newItems = filterDiscoveryItems(newTitles.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
-      const adultItems = filterDiscoveryItems(adultTitles.items, { adultMode: true, limit: DISCOVERY_SECTION_LIMIT });
+      let adultItems = [];
+      if (!state.settings.adultEnabled) {
+        const [suggestiveExtra, adultExtra] = await Promise.all([
+          searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: 'suggestive' })),
+          searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: 'adult' })),
+        ]);
+        adultItems = mergeDiscoveryPools([
+          filterDiscoveryItems(suggestiveExtra.items, { adultMode: true, limit: discoveryPerPage }),
+          filterDiscoveryItems(adultExtra.items, { adultMode: true, limit: discoveryPerPage }),
+        ], DISCOVERY_SECTION_LIMIT);
+      }
 
       renderPosterGrid(el.popularGrid, popularItems, { context: 'popular' });
       renderPosterGrid(el.topRatedGrid, ratedItems, { context: 'top-rated' });
