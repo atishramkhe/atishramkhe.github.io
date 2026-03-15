@@ -2,6 +2,11 @@
 (() => {
   const API_BASE = 'https://api.mangadex.org';
   const PUBLIC_API_PROXY_BASE = 'https://api.codetabs.com/v1/proxy/?quest=';
+  const VIDSRC_EMBED_BASE = 'https://vidsrc.icu/embed/manga';
+  const READER_SOURCES = Object.freeze({
+    VIDSRC: 'vidsrc',
+    MANGADEX: 'mangadex',
+  });
 
   const STORAGE = {
     SETTINGS: 'ateaish_manga_settings_v1',
@@ -18,6 +23,7 @@
     quality: 'data-saver', // data | data-saver
     includedTagsMode: 'AND',
     excludedTagsMode: 'OR',
+    readerSource: READER_SOURCES.VIDSRC,
     readerFitMode: 'vertical', // vertical | page | horizontal
   };
 
@@ -33,10 +39,12 @@
       mangaId: null,
       mangaTitle: null,
       coverUrl: null,
+      anilistId: null,
       chapters: [],
       chapterIndexById: new Map(),
       chapterLangs: [],
       currentChapterId: null,
+      currentSource: READER_SOURCES.VIDSRC,
       latestChapterId: null,
     },
     detailChaptersCache: [],
@@ -71,6 +79,7 @@
           ? saved.preferredChapterLangs
           : DEFAULT_SETTINGS.preferredChapterLangs,
         contentRatings: Array.isArray(saved.contentRatings) ? saved.contentRatings : DEFAULT_SETTINGS.contentRatings,
+        readerSource: normalizeReaderSource(saved.readerSource),
         readerFitMode: typeof saved.readerFitMode === 'string' ? saved.readerFitMode : DEFAULT_SETTINGS.readerFitMode,
       };
 
@@ -97,6 +106,10 @@
 
   function saveSettings() {
     localStorage.setItem(STORAGE.SETTINGS, JSON.stringify(state.settings));
+  }
+
+  function normalizeReaderSource(source) {
+    return source === READER_SOURCES.MANGADEX ? READER_SOURCES.MANGADEX : READER_SOURCES.VIDSRC;
   }
 
   function applyReaderFitMode(mode) {
@@ -282,6 +295,99 @@
   function mangaDescription(manga) {
     const attrs = manga?.attributes;
     return bestLocalizedString(attrs?.description, state.settings.preferredDescriptionLangs) || '';
+  }
+
+  function mangaAniListId(manga) {
+    const raw = manga?.attributes?.links?.al;
+    if (raw === undefined || raw === null || raw === '') return null;
+
+    const match = String(raw).match(/\d+/);
+    return match ? match[0] : null;
+  }
+
+  function chapterNumberForReader(chapter) {
+    const raw = String(chapter?.attributes?.chapter || '').trim();
+    if (!raw) return null;
+    return /^\d+(?:\.\d+)?$/.test(raw) ? raw : null;
+  }
+
+  function buildVidsrcEmbedUrl(anilistId, chapterNumber) {
+    return `${VIDSRC_EMBED_BASE}/${encodeURIComponent(anilistId)}/${encodeURIComponent(chapterNumber)}`;
+  }
+
+  function resolveReaderSource(chapter, preferredSource = state.settings.readerSource) {
+    const anilistId = state.current.anilistId;
+    const chapterNumber = chapterNumberForReader(chapter);
+    const requested = normalizeReaderSource(preferredSource);
+
+    if (requested === READER_SOURCES.MANGADEX) {
+      return {
+        requested,
+        source: READER_SOURCES.MANGADEX,
+        anilistId,
+        chapterNumber,
+        fallbackReason: '',
+      };
+    }
+
+    if (!anilistId) {
+      return {
+        requested,
+        source: READER_SOURCES.MANGADEX,
+        anilistId: null,
+        chapterNumber,
+        fallbackReason: 'Missing AniList ID on MangaDex metadata.',
+      };
+    }
+
+    if (!chapterNumber) {
+      return {
+        requested,
+        source: READER_SOURCES.MANGADEX,
+        anilistId,
+        chapterNumber: null,
+        fallbackReason: 'This chapter does not have a numeric chapter number.',
+      };
+    }
+
+    return {
+      requested,
+      source: READER_SOURCES.VIDSRC,
+      anilistId,
+      chapterNumber,
+      fallbackReason: '',
+    };
+  }
+
+  function setReaderNotice(text) {
+    el.readerProxyHint.style.display = text ? 'block' : 'none';
+    el.readerProxyHint.textContent = text || '';
+  }
+
+  function syncReaderSourceUI(info) {
+    if (!el.readerSourceSelect) return;
+
+    const vidsrcOption = [...el.readerSourceSelect.options].find((option) => option.value === READER_SOURCES.VIDSRC);
+    if (vidsrcOption) {
+      const available = Boolean(info?.anilistId && info?.chapterNumber);
+      vidsrcOption.disabled = !available;
+      vidsrcOption.textContent = available ? 'Vidsrc (Primary)' : 'Vidsrc (Unavailable)';
+    }
+
+    const mangadexOption = [...el.readerSourceSelect.options].find((option) => option.value === READER_SOURCES.MANGADEX);
+    if (mangadexOption) {
+      mangadexOption.textContent = 'MangaDex (Fallback)';
+    }
+
+    el.readerSourceSelect.value = info?.source || normalizeReaderSource(state.settings.readerSource);
+
+    if (el.readerQualitySelect) {
+      el.readerQualitySelect.disabled = info?.source !== READER_SOURCES.MANGADEX;
+    }
+
+    if (el.readerFitModeSelect) {
+      el.readerFitModeSelect.disabled = info?.source !== READER_SOURCES.MANGADEX;
+    }
   }
 
   function relationshipByType(entity, type) {
@@ -1202,10 +1308,11 @@
     el.readerOverlay.style.display = 'none';
     document.body.classList.remove('reader-open');
     el.readerPages.innerHTML = '';
+    el.readerPages.classList.remove('embed-mode');
     el.readerTitle.textContent = '';
     el.readerChapterSelect.innerHTML = '';
     el.readerBadge.style.display = 'none';
-    el.readerProxyHint.style.display = 'none';
+    setReaderNotice('');
     // Do not clear fit mode; keep persisted setting
 
     if (document.fullscreenElement) {
@@ -1217,6 +1324,7 @@
     state.current.mangaId = manga.id;
     state.current.mangaTitle = mangaTitle(manga);
     state.current.coverUrl = coverUrlFromManga(manga, 256);
+    state.current.anilistId = mangaAniListId(manga);
     state.current.chapterLangs = chapterLangs || state.settings.preferredChapterLangs;
 
     // Normalize chapter list: distinct + sorted by chapter number where possible
@@ -1261,6 +1369,17 @@
     });
 
     el.readerQualitySelect.value = state.settings.quality;
+
+    if (el.readerSourceSelect) {
+      el.readerSourceSelect.value = normalizeReaderSource(state.settings.readerSource);
+      el.readerSourceSelect.onchange = async () => {
+        state.settings.readerSource = normalizeReaderSource(el.readerSourceSelect.value);
+        saveSettings();
+        if (state.current.currentChapterId) {
+          await loadChapter(state.current.currentChapterId);
+        }
+      };
+    }
 
     el.readerChapterSelect.onchange = async () => {
       await loadChapter(el.readerChapterSelect.value);
@@ -1343,6 +1462,163 @@
     return { urls: files.map((fn) => `${baseUrl}/${quality}/${hash}/${fn}`), hash, files };
   }
 
+  function persistReaderProgress(chapterId) {
+    const chapter = state.current.chapters.find((item) => item.id === chapterId) || null;
+    const chapterNumber = chapter?.attributes?.chapter || null;
+
+    ensureContinue(
+      { id: state.current.mangaId, attributes: { title: { en: state.current.mangaTitle } }, relationships: [] },
+      {
+        title: state.current.mangaTitle,
+        coverUrl: state.current.coverUrl,
+        lastChapterId: chapterId,
+        lastChapter: chapterNumber,
+        lastReadAt: Date.now(),
+        chapterLangs: state.current.chapterLangs,
+      }
+    );
+
+    removeEntry(STORAGE.FINISHED, state.current.mangaId);
+    checkLatestChapterForCurrent().catch(() => {});
+    checkNewChaptersBadges().catch(() => {});
+  }
+
+  async function renderVidsrcChapter(chapterId, readerInfo) {
+    const url = buildVidsrcEmbedUrl(readerInfo.anilistId, readerInfo.chapterNumber);
+
+    el.readerPages.classList.add('embed-mode');
+    el.readerPages.innerHTML = '';
+
+    const shell = document.createElement('div');
+    shell.className = 'reader-embed-shell';
+
+    const frame = document.createElement('iframe');
+    frame.id = 'reader-embed-frame';
+    frame.src = url;
+    frame.title = `${state.current.mangaTitle} chapter ${readerInfo.chapterNumber}`;
+    frame.loading = 'eager';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+
+    shell.appendChild(frame);
+    el.readerPages.appendChild(shell);
+
+    state.current.currentSource = READER_SOURCES.VIDSRC;
+    persistReaderProgress(chapterId);
+    el.readerScroll.scrollTop = 0;
+
+    setReaderNotice('Using Vidsrc as the primary source. If this embed does not load the chapter properly, switch Source to MangaDex.');
+  }
+
+  async function renderMangadexChapter(chapterId) {
+    el.readerPages.classList.remove('embed-mode');
+
+    const quality = state.settings.quality === 'data' ? 'data' : 'data-saver';
+    let atHome = await getAtHome(chapterId);
+    let pageInfo = buildPageUrls(atHome, quality);
+
+    if (!pageInfo) {
+      atHome = await getAtHome(chapterId, true);
+      pageInfo = buildPageUrls(atHome, quality);
+    }
+    if (!pageInfo) throw new Error('Missing at-home data');
+
+    let { urls } = pageInfo;
+
+    el.readerPages.innerHTML = '';
+    const frag = document.createDocumentFragment();
+
+    let failedCount = 0;
+    const totalPages = urls.length;
+
+    const loadImage = (img, pageIndex, wrap) => {
+      let retryStage = 0;
+      const directUrl = urls[pageIndex];
+
+      const tryLoad = (src) => {
+        const next = new Image();
+        next.className = 'reader-page';
+        next.loading = pageIndex < 3 ? 'eager' : 'lazy';
+        next.decoding = 'async';
+        next.alt = `Page ${pageIndex + 1}`;
+
+        next.onload = () => {
+          wrap.innerHTML = '';
+          wrap.appendChild(next);
+        };
+
+        next.onerror = () => handleError();
+        next.src = src;
+      };
+
+      const showPlaceholder = () => {
+        failedCount++;
+        wrap.innerHTML = '';
+        const ph = document.createElement('div');
+        ph.style.cssText = 'padding:22px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.03);color:#ddd;opacity:0.9;text-align:center;';
+        ph.style.fontFamily = "'OumaTrialLight', sans-serif";
+        ph.textContent = `Failed to load page ${pageIndex + 1}.`;
+        wrap.appendChild(ph);
+
+        if (failedCount >= Math.ceil(totalPages * 0.4)) {
+          setReaderNotice('Many MangaDex pages failed. The CDN node may be down. Try Reload, or switch quality.');
+        }
+      };
+
+      const handleError = () => {
+        retryStage++;
+        if (retryStage === 1 && state.proxyAvailable) {
+          tryLoad(`/proxy?url=${encodeURIComponent(directUrl)}`);
+        } else if (retryStage <= 2) {
+          getAtHome(chapterId, true)
+            .then((freshAtHome) => {
+              const freshInfo = buildPageUrls(freshAtHome, quality);
+              if (freshInfo && freshInfo.urls[pageIndex]) {
+                urls[pageIndex] = freshInfo.urls[pageIndex];
+                freshInfo.urls.forEach((u, j) => {
+                  urls[j] = u;
+                });
+                tryLoad(freshInfo.urls[pageIndex]);
+              } else {
+                showPlaceholder();
+              }
+            })
+            .catch(() => showPlaceholder());
+        } else if (retryStage === 3 && state.proxyAvailable) {
+          tryLoad(`/proxy?url=${encodeURIComponent(urls[pageIndex])}`);
+        } else {
+          showPlaceholder();
+        }
+      };
+
+      img.onload = () => {};
+      img.onerror = () => handleError();
+      img.src = directUrl;
+    };
+
+    urls.forEach((u, i) => {
+      const wrap = document.createElement('div');
+      wrap.style.position = 'relative';
+
+      const img = document.createElement('img');
+      img.className = 'reader-page';
+      img.loading = i < 3 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.alt = `Page ${i + 1}`;
+
+      wrap.appendChild(img);
+      frag.appendChild(wrap);
+
+      loadImage(img, i, wrap);
+    });
+
+    el.readerPages.appendChild(frag);
+
+    state.current.currentSource = READER_SOURCES.MANGADEX;
+    persistReaderProgress(chapterId);
+    el.readerScroll.scrollTop = 0;
+  }
+
   async function loadChapter(chapterId) {
     if (!chapterId) return;
     if (state.chapterLoading) return; // prevent concurrent loads
@@ -1358,154 +1634,30 @@
     el.readerNextBtn.disabled = idx === undefined ? true : idx >= state.current.chapters.length - 1;
 
     el.readerPages.innerHTML = '<div style="padding:18px; opacity:0.75; text-align:center;">Loading pages…</div>';
-    el.readerProxyHint.style.display = 'none';
-    el.readerProxyHint.textContent = '';
+    el.readerPages.classList.remove('embed-mode');
+    setReaderNotice('');
 
     try {
-      const quality = state.settings.quality === 'data' ? 'data' : 'data-saver';
-      let atHome = await getAtHome(chapterId);
-      let pageInfo = buildPageUrls(atHome, quality);
-
-      if (!pageInfo) {
-        // force refresh in case of stale cache
-        atHome = await getAtHome(chapterId, true);
-        pageInfo = buildPageUrls(atHome, quality);
-      }
-      if (!pageInfo) throw new Error('Missing at-home data');
-
-      let { urls } = pageInfo;
-
-      el.readerPages.innerHTML = '';
-      const frag = document.createDocumentFragment();
-
-      let failedCount = 0;
-      const totalPages = urls.length;
-
-      // Attempt order for each image:
-      // 1. Direct (MD@Home images usually have permissive CORS)
-      // 2. Local /proxy (if available)
-      // 3. Re-fetch /at-home to get a fresh CDN node -> direct
-      // 4. Re-fetch /at-home -> proxy
-      const loadImage = (img, pageIndex, wrap) => {
-        let retryStage = 0;
-        const directUrl = urls[pageIndex];
-
-        const tryLoad = (src) => {
-          const next = new Image();
-          next.className = 'reader-page';
-          next.loading = pageIndex < 3 ? 'eager' : 'lazy';
-          next.decoding = 'async';
-          next.alt = `Page ${pageIndex + 1}`;
-
-          next.onload = () => {
-            // Replace whatever is in the wrapper
-            wrap.innerHTML = '';
-            wrap.appendChild(next);
-          };
-
-          next.onerror = () => handleError(next);
-          next.src = src;
-        };
-
-        const handleError = (failedImg) => {
-          retryStage++;
-          if (retryStage === 1 && state.proxyAvailable) {
-            // Stage 2: try through local proxy
-            tryLoad(`/proxy?url=${encodeURIComponent(directUrl)}`);
-          } else if (retryStage <= 2) {
-            // Stage 3: re-fetch at-home for a fresh CDN node, then direct
-            getAtHome(chapterId, true)
-              .then((freshAtHome) => {
-                const freshInfo = buildPageUrls(freshAtHome, quality);
-                if (freshInfo && freshInfo.urls[pageIndex]) {
-                  urls[pageIndex] = freshInfo.urls[pageIndex];
-                  // Update all other page URLs too for subsequent loads
-                  freshInfo.urls.forEach((u, j) => { urls[j] = u; });
-                  tryLoad(freshInfo.urls[pageIndex]);
-                } else {
-                  showPlaceholder(wrap, pageIndex);
-                }
-              })
-              .catch(() => showPlaceholder(wrap, pageIndex));
-          } else if (retryStage === 3 && state.proxyAvailable) {
-            // Stage 4: fresh CDN node + proxy
-            tryLoad(`/proxy?url=${encodeURIComponent(urls[pageIndex])}`);
-          } else {
-            showPlaceholder(wrap, pageIndex);
-          }
-        };
-
-        const showPlaceholder = (w, pi) => {
-          failedCount++;
-          w.innerHTML = '';
-          const ph = document.createElement('div');
-          ph.style.cssText = 'padding:22px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.03);color:#ddd;opacity:0.9;text-align:center;';
-          ph.style.fontFamily = "'OumaTrialLight', sans-serif";
-          ph.textContent = `Failed to load page ${pi + 1}.`;
-          w.appendChild(ph);
-
-          // Show aggregate hint after most images have been attempted
-          if (failedCount >= Math.ceil(totalPages * 0.4)) {
-            el.readerProxyHint.style.display = 'block';
-            el.readerProxyHint.textContent = 'Many pages failed. The CDN node may be down — try Reload to get a fresh server, or switch quality.';
-          }
-        };
-
-        // Start: try direct (no proxy)
-        img.onload = () => { /* success, nothing to do */ };
-        img.onerror = () => handleError(img);
-        img.src = directUrl;
-      };
-
-      urls.forEach((u, i) => {
-        const wrap = document.createElement('div');
-        wrap.style.position = 'relative';
-
-        const img = document.createElement('img');
-        img.className = 'reader-page';
-        img.loading = i < 3 ? 'eager' : 'lazy';
-        img.decoding = 'async';
-        img.alt = `Page ${i + 1}`;
-
-        wrap.appendChild(img);
-        frag.appendChild(wrap);
-
-        loadImage(img, i, wrap);
-      });
-
-      el.readerPages.appendChild(frag);
-
-      // Persist continue reading progress
       const chapter = state.current.chapters.find((c) => c.id === chapterId) || null;
-      const chNum = chapter?.attributes?.chapter || null;
+      const readerInfo = resolveReaderSource(chapter);
+      state.current.currentSource = readerInfo.source;
+      syncReaderSourceUI(readerInfo);
 
-      ensureContinue(
-        { id: state.current.mangaId, attributes: { title: { en: state.current.mangaTitle } }, relationships: [] },
-        {
-          title: state.current.mangaTitle,
-          coverUrl: state.current.coverUrl,
-          lastChapterId: chapterId,
-          lastChapter: chNum,
-          lastReadAt: Date.now(),
-          chapterLangs: state.current.chapterLangs,
+      if (readerInfo.source === READER_SOURCES.VIDSRC) {
+        await renderVidsrcChapter(chapterId, readerInfo);
+      } else {
+        await renderMangadexChapter(chapterId);
+        if (readerInfo.requested === READER_SOURCES.VIDSRC && readerInfo.fallbackReason) {
+          setReaderNotice(`Using MangaDex fallback. ${readerInfo.fallbackReason}`);
+        } else {
+          setReaderNotice('Using MangaDex as the fallback source.');
         }
-      );
-
-      // When reading, remove from finished
-      removeEntry(STORAGE.FINISHED, state.current.mangaId);
-
-      // Refresh badges asynchronously
-      checkLatestChapterForCurrent().catch(() => {});
-      checkNewChaptersBadges().catch(() => {});
-
-      // Scroll to top
-      el.readerScroll.scrollTop = 0;
+      }
 
     } catch (e) {
       console.error(e);
       el.readerPages.innerHTML = '<div style="padding:18px; opacity:0.75; text-align:center;">Failed to load chapter pages. Hit Reload to try again.</div>';
-      el.readerProxyHint.style.display = 'block';
-      el.readerProxyHint.textContent = 'Could not reach the MangaDex page server. Try Reload or switch quality.';
+      setReaderNotice('Could not load the current reader source. Try Reload or switch Source.');
     } finally {
       state.chapterLoading = false;
     }
@@ -1757,6 +1909,7 @@
     el.readerTitle = $('reader-title');
     el.readerBadge = $('reader-badge');
     el.readerProxyHint = $('reader-proxy-hint');
+    el.readerSourceSelect = $('reader-source-select');
     el.readerChapterSelect = $('reader-chapter-select');
     el.readerQualitySelect = $('reader-quality');
     el.readerPrevBtn = $('reader-prev');

@@ -184,6 +184,11 @@
 			color: var(--accent);
 		}
 
+		.search-filter-select:disabled {
+			opacity: 0.45;
+			cursor: not-allowed;
+		}
+
 		.filter-pill {
 			display: inline-flex;
 			align-items: center;
@@ -781,6 +786,26 @@
 			gap: 10px;
 		}
 
+		#reader-pages.embed-mode {
+			max-width: none;
+			padding: 0 14px 40px;
+			min-height: calc(100vh - 28px);
+		}
+
+		.reader-embed-shell {
+			width: 100%;
+			min-height: calc(100vh - 28px);
+		}
+
+		#reader-embed-frame {
+			width: 100%;
+			height: calc(100vh - 28px);
+			border: 1px solid rgba(255,255,255,0.10);
+			border-radius: 12px;
+			background: #050505;
+			box-sizing: border-box;
+		}
+
 		.reader-page {
 			width: 100%;
 			height: auto;
@@ -1121,8 +1146,11 @@
 				</div>
 
 				<div class="reader-field">
-					<div class="reader-label">Language</div>
-					<select id="reader-lang-select" class="search-filter-select" title="Chapter language" style="min-width:0; width:100%;"></select>
+					<div class="reader-label">Source</div>
+					<select id="reader-source-select" class="search-filter-select" title="Reader source" style="min-width:0; width:100%;">
+						<option value="vidsrc">Vidsrc</option>
+						<option value="mangadex">MangaDex</option>
+					</select>
 				</div>
 
 				<div class="reader-field">
