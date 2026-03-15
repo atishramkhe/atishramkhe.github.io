@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>ateaish manga (beta)</title>
-	<link rel="icon" type="image/png" href="../assets/favicon.png" />
+	<title>ateaish manga</title>
+	<link rel="icon" type="image/png" href="../anime/assets/favicon_ateaish_anime.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
@@ -12,7 +12,17 @@
 		@font-face{font-family:'OumaTrialBold';src:url('../fonts/OumaTrial-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
 		@font-face{font-family:'OumaTrialLight';src:url('../fonts/OumaTrial-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
 
-		:root { --accent: #f1892f; }
+		:root {
+			--panel: #050505;
+			--panel-strong: #090909;
+			--text: #f3f3f3;
+			--muted: #8f8f8f;
+			--line: rgba(255, 211, 60, 0.14);
+			--accent: #ffd43b;
+			--accent-soft: #ffe78a;
+			--accent-cool: #ffd43b;
+			--shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
+		}
 
 		.material-symbols-outlined {
 			font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
@@ -21,19 +31,23 @@
 
 		body {
 			background: #000;
-			color: #fff;
+			color: var(--text);
 			margin: 0;
+			min-height: 100vh;
 			font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
+			overflow-x: hidden;
 		}
 
 		header {
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			height: 90px;
-			border-bottom: 0px solid #000;
+			gap: 12px;
+			min-height: 108px;
 			font-family:'OumaTrialBold','OumaTrialLight';
-			padding: 0 40px;
+			padding: 12px 0 10px;
+			margin-bottom: 12px;
 		}
 
 		.dropdown {
@@ -897,6 +911,323 @@
 			backdrop-filter: blur(6px);
 		}
 
+		.page-shell {
+			position: relative;
+			z-index: 1;
+			width: min(1880px, calc(100vw - 28px));
+			margin: 0 auto;
+			padding: 12px 0 88px;
+		}
+
+		.topbar {
+			animation: rise-in 420ms ease;
+		}
+
+		main.page-shell > section,
+		#search-results-wrapper.active,
+		#showcase {
+			background: var(--panel);
+			box-shadow: none;
+		}
+
+		main.page-shell > section,
+		#search-results-wrapper.active {
+			padding-top: 26px;
+			margin-bottom: 22px;
+		}
+
+		#search-container {
+			width: min(100%, 1320px);
+			display: grid;
+			gap: 12px;
+			margin: 0 auto 22px;
+		}
+
+		#search-input-wrapper {
+			width: 100%;
+			margin-top: 0;
+		}
+
+		#search-input {
+			width: 100%;
+			padding: 18px 58px 18px 20px;
+			border: 0;
+			border-radius: 0;
+			background: #050505;
+			color: var(--text);
+			font: inherit;
+			font-size: 1.05rem;
+			outline: none;
+			transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+		}
+
+		#search-input:focus {
+			box-shadow: 0 0 0 2px rgba(255, 212, 59, 0.18);
+			transform: translateY(-1px);
+			background: #101010;
+		}
+
+		#search-icon,
+		#clear-search-btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--muted);
+			border: 0;
+			background: transparent;
+			font: inherit;
+		}
+
+		#search-icon {
+			right: 19px;
+			left: auto;
+			pointer-events: none;
+			font-size: 1.15rem;
+		}
+
+		#clear-search-btn {
+			right: 46px;
+			cursor: pointer;
+			font-size: 0.95rem;
+		}
+
+		#quick-strip {
+			position: fixed;
+			right: 22px;
+			bottom: 22px;
+			z-index: 18;
+			display: grid !important;
+			gap: 12px;
+			justify-items: stretch;
+			width: min(236px, calc(100vw - 28px));
+			padding: 0 !important;
+		}
+
+		#quick-strip .small-btn {
+			width: 100%;
+			min-height: 52px;
+			padding: 12px 16px;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 212, 59, 0.18);
+			background: rgba(7, 7, 7, 0.94);
+			color: var(--accent);
+			font-size: 0.92rem;
+			justify-content: center;
+			box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+		}
+
+		#quick-strip .small-btn:hover .chip-icon,
+		#quick-strip .small-btn:focus-visible .chip-icon,
+		#quick-strip .small-btn .chip-icon.is-spinning {
+			animation: dice-spin 0.55s ease;
+		}
+
+		.chip-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.3rem;
+			height: 1.3rem;
+			font-size: 1.18rem;
+			transform-origin: center;
+		}
+
+		#filters-wrap {
+			display: grid;
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+			gap: 12px;
+			justify-content: stretch;
+			align-items: start;
+			margin-top: 0;
+			max-width: none;
+			padding: 14px 18px 16px;
+			background: #070707;
+			border: 1px solid rgba(255, 212, 59, 0.14);
+			box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46);
+		}
+
+		.search-filter-select,
+		.tag-input,
+		.filter-pill {
+			min-height: 40px;
+			border-radius: 0;
+			border: 0;
+			background: #111;
+			color: var(--text);
+			outline: 1px solid rgba(255, 212, 59, 0.12);
+		}
+
+		.search-filter-select {
+			padding: 0 12px;
+			font-size: 0.9rem;
+		}
+
+		.search-filter-select:hover,
+		.search-filter-select:focus,
+		.tag-input:focus-within {
+			outline-color: rgba(255, 212, 59, 0.44);
+			box-shadow: 0 0 0 2px rgba(255, 212, 59, 0.12);
+			background: #15130b;
+			color: var(--text);
+		}
+
+		.tag-input input {
+			width: 100%;
+		}
+
+		#include-tag-chips,
+		#exclude-tag-chips {
+			justify-content: flex-start;
+			max-width: 1320px;
+			padding: 0;
+		}
+
+		#search-results-wrapper {
+			display: none;
+			padding: 24px 34px;
+			animation: rise-in 220ms ease;
+		}
+
+		#search-results-wrapper.active {
+			display: block;
+		}
+
+		#close-search-results {
+			display: none !important;
+		}
+
+		#results {
+			margin-top: 0;
+			padding: 0;
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 16px;
+			max-width: none;
+		}
+
+		h2 {
+			padding-left: 34px;
+			margin-block-start: 0;
+			margin-block-end: 12px;
+			font-family: 'OumaTrialBold', 'OumaTrialLight';
+			font-size: clamp(1.5rem, 2vw, 2rem);
+			line-height: 0.95;
+		}
+
+		.grid {
+			grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+			gap: 14px;
+			padding: 0 34px 6px;
+			max-width: none;
+		}
+
+		.poster {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			box-shadow: none;
+			background: transparent;
+			transform-origin: center top;
+		}
+
+		.poster:hover {
+			transform: translateY(-4px);
+			box-shadow: none;
+		}
+
+		.poster img {
+			aspect-ratio: 0.68;
+			object-fit: cover;
+			box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+			background: #050505;
+		}
+
+		.poster-info {
+			top: auto;
+			bottom: 38px;
+			left: 10px;
+			right: 10px;
+			width: auto;
+			background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.92));
+			padding: 40px 0 0;
+			border: 0;
+		}
+
+		.poster-title {
+			padding: 0;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 1.03rem;
+			line-height: 1;
+			color: var(--text);
+			text-align: left;
+			white-space: normal;
+		}
+
+		#showcase {
+			padding: 26px 34px 18px;
+			margin-bottom: 22px;
+		}
+
+		#showcase-card {
+			height: 460px;
+			border-radius: 0;
+			box-shadow: none;
+		}
+
+		.showcase-btn,
+		.detail-btn {
+			border-radius: 0;
+		}
+
+		.detail-btn {
+			background: var(--accent);
+			color: #111;
+		}
+
+		.detail-btn.secondary {
+			background: #111;
+			color: var(--accent);
+			border: 1px solid rgba(255, 212, 59, 0.32);
+		}
+
+		.pill-badge,
+		.badge-new,
+		.detail-genre-tag,
+		.tag-chip {
+			background: rgba(255, 212, 59, 0.14);
+			color: var(--accent);
+			border-color: rgba(255, 212, 59, 0.3);
+		}
+
+		@keyframes rise-in {
+			from { opacity: 0; transform: translateY(18px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		@keyframes dice-spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+
+		@media (max-width: 1080px) {
+			.page-shell { width: min(100vw - 20px, 1880px); }
+			#filters-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			#search-container { width: min(100%, 960px); }
+		}
+
+		@media (max-width: 720px) {
+			.page-shell { width: min(100vw - 18px, 1440px); padding-top: 18px; }
+			#showcase, #search-results-wrapper { padding: 18px; }
+			#filters-wrap { grid-template-columns: 1fr; padding: 16px 18px 18px; }
+			.grid, #results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.grid { padding-inline: 0; }
+			h2 { padding-left: 0; }
+			#quick-strip {
+				right: 12px;
+				bottom: 12px;
+				width: min(200px, calc(100vw - 24px));
+			}
+		}
+
 		::-webkit-scrollbar { width: 8px; background: transparent; }
 		::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 		::-webkit-scrollbar-button { display: none; }
@@ -905,10 +1236,10 @@
 </head>
 
 <body>
-	<header>
+	<header class="topbar">
 		<div class="dropdown">
 			<div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
-				<img src="../assets/logo_noborder.png" alt="ateaish manga" style="padding-right: 8px;" />
+				<img src="../anime/assets/ateaish_anime default.png" alt="ateaish manga" style="padding-right: 8px;" />
 			</div>
 			<div class="dropdown-content" id="dropdownMenu" role="menu">
 				<a href="https://atishramkhe.github.io/" role="menuitem">
@@ -936,7 +1267,7 @@
 		</div>
 	</header>
 
-	<main>
+	<main class="page-shell">
 		<div id="search-container">
 			<div id="search-input-wrapper">
 				<span id="search-icon" class="material-symbols-outlined">search</span>
@@ -944,7 +1275,11 @@
 				<button id="clear-search-btn" style="display:none;">&times;</button>
 			</div>
 
-			<div style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top: 10px; flex-wrap:wrap; padding: 0 16px;">
+			<div id="quick-strip" style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top: 10px; flex-wrap:wrap; padding: 0 16px;">
+				<button id="jump-random" class="small-btn" type="button" title="Open a random manga">
+					<span class="material-symbols-outlined chip-icon" id="jump-random-icon">casino</span>
+					Random Manga
+				</button>
 				<button id="jump-continue" class="small-btn" type="button" title="Jump to Continue Reading">
 					<span class="material-symbols-outlined">history</span>
 					Continue
@@ -961,7 +1296,7 @@
 					<option value="latestUploadedChapter">Sort: Latest Updated</option>
 					<option value="followedCount">Sort: Popular</option>
 					<option value="rating">Sort: Top Rated</option>
-					<option value="createdAt">Sort: New</option>
+					<option value="createdAt">Sort: Recently Released</option>
 					<option value="updatedAt">Sort: Recently Edited</option>
 					<option value="title">Sort: Title</option>
 					<option value="year">Sort: Year</option>
@@ -1081,7 +1416,7 @@
 		</section>
 
 		<section id="newSection">
-			<h2>New</h2>
+			<h2>Recently Updated</h2>
 			<div class="grid" id="newGrid"></div>
 		</section>
 

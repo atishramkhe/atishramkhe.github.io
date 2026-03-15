@@ -1,11 +1,28 @@
 /* global localStorage, URLSearchParams */
 (() => {
   const API_BASE = 'https://api.mangadex.org';
+  const ANILIST_API_BASE = 'https://graphql.anilist.co';
   const PUBLIC_API_PROXY_BASE = 'https://api.codetabs.com/v1/proxy/?quest=';
   const VIDSRC_EMBED_BASE = 'https://vidsrc.icu/embed/manga';
   const READER_SOURCES = Object.freeze({
     VIDSRC: 'vidsrc',
     MANGADEX: 'mangadex',
+  });
+  const COUNTRY_TO_LANG = Object.freeze({
+    JP: 'ja',
+    KR: 'ko',
+    CN: 'zh',
+    TW: 'zh',
+    US: 'en',
+    GB: 'en',
+    FR: 'fr',
+  });
+  const LANG_TO_COUNTRY = Object.freeze({
+    ja: 'JP',
+    ko: 'KR',
+    zh: 'CN',
+    en: 'US',
+    fr: 'FR',
   });
 
   const STORAGE = {
@@ -33,6 +50,9 @@
     tags: [],
     tagByName: new Map(),
     tagById: new Map(),
+    mediaById: new Map(),
+    mangadexByAniListId: new Map(),
+    searchPageInfoCache: new Map(),
     includeTags: new Set(),
     excludeTags: new Set(),
     current: {
@@ -40,6 +60,7 @@
       mangaTitle: null,
       coverUrl: null,
       anilistId: null,
+      mangadexId: null,
       chapters: [],
       chapterIndexById: new Map(),
       chapterLangs: [],
@@ -50,6 +71,97 @@
     detailChaptersCache: [],
     chapterLoading: false,
   };
+
+  const ANILIST_PAGE_MEDIA_FIELDS = `
+    id
+    title { romaji english native userPreferred }
+    description(asHtml: false)
+    status
+    startDate { year month day }
+    endDate { year month day }
+    updatedAt
+    coverImage { large extraLarge color }
+    bannerImage
+    countryOfOrigin
+    genres
+    tags { name rank isAdult }
+    averageScore
+    meanScore
+    popularity
+    favourites
+    chapters
+    volumes
+    isAdult
+  `;
+
+  const ANILIST_DETAIL_MEDIA_FIELDS = `
+    ${ANILIST_PAGE_MEDIA_FIELDS}
+    staff(perPage: 12) {
+      edges {
+        role
+        node {
+          name { full native }
+        }
+      }
+    }
+  `;
+
+  const ANILIST_PAGE_QUERY = `
+    query MangaPage(
+      $page: Int,
+      $perPage: Int,
+      $search: String,
+      $sort: [MediaSort],
+      $status: MediaStatus,
+      $countryOfOrigin: CountryCode,
+      $startDateLike: String,
+      $chaptersGreater: Int,
+      $genreIn: [String],
+      $genreNotIn: [String],
+      $tagIn: [String],
+      $tagNotIn: [String],
+      $isAdult: Boolean
+    ) {
+      Page(page: $page, perPage: $perPage) {
+        pageInfo {
+          total
+          currentPage
+          lastPage
+          hasNextPage
+        }
+        media(
+          type: MANGA,
+          search: $search,
+          sort: $sort,
+          status: $status,
+          countryOfOrigin: $countryOfOrigin,
+          startDate_like: $startDateLike,
+          chapters_greater: $chaptersGreater,
+          genre_in: $genreIn,
+          genre_not_in: $genreNotIn,
+          tag_in: $tagIn,
+          tag_not_in: $tagNotIn,
+          isAdult: $isAdult
+        ) {
+          ${ANILIST_PAGE_MEDIA_FIELDS}
+        }
+      }
+    }
+  `;
+
+  const ANILIST_DETAIL_QUERY = `
+    query MangaById($id: Int) {
+      Media(id: $id, type: MANGA) {
+        ${ANILIST_DETAIL_MEDIA_FIELDS}
+      }
+    }
+  `;
+
+  const ANILIST_GENRES_QUERY = `
+    query MangaGenres {
+      GenreCollection
+    }
+  `;
 
   const el = {};
 
@@ -186,6 +298,48 @@
     return res.json();
   }
 
+  async function postJson(urlStr, payload, { signal } = {}) {
+    const res = await fetch(urlStr, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+      signal,
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw Object.assign(new Error(`API ${res.status} ${res.statusText}: ${text.slice(0, 250)}`), {
+        status: res.status,
+        retryable: res.status === 429 || res.status >= 500,
+      });
+    }
+
+    return res.json();
+  }
+
+  function cleanObject(value) {
+    if (Array.isArray(value)) {
+      const next = value
+        .map((item) => cleanObject(item))
+        .filter((item) => item !== undefined && item !== null && item !== '');
+      return next.length ? next : undefined;
+    }
+
+    if (value && typeof value === 'object') {
+      const next = Object.fromEntries(
+        Object.entries(value)
+          .map(([key, inner]) => [key, cleanObject(inner)])
+          .filter(([, inner]) => inner !== undefined && inner !== null && inner !== '')
+      );
+      return Object.keys(next).length ? next : undefined;
+    }
+
+    return value;
+  }
+
   async function apiGet(path, params) {
     const url = new URL(API_BASE + path);
     const qs = buildQuery(params);
@@ -274,6 +428,42 @@
     return `/proxy?url=${encodeURIComponent(url)}`;
   }
 
+  async function anilistQuery(query, variables = {}) {
+    const maxAttempts = 3;
+    let attempt = 0;
+    let lastErr = null;
+
+    while (attempt < maxAttempts) {
+      attempt++;
+      const controller = new AbortController();
+      const timeoutMs = 12000;
+      const t = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const payload = { query, variables: cleanObject(variables) || {} };
+        const json = await postJson(ANILIST_API_BASE, payload, { signal: controller.signal });
+        if (Array.isArray(json?.errors) && json.errors.length) {
+          throw new Error(json.errors.map((item) => item?.message || 'AniList query failed').join(' | '));
+        }
+        return json?.data || null;
+      } catch (e) {
+        lastErr = e;
+        const status = Number(e?.status || 0);
+        const retryable = String(e?.name) === 'AbortError' || status === 429 || status >= 500;
+        if (retryable && attempt < maxAttempts) {
+          const backoff = 350 * attempt + Math.floor(Math.random() * 250);
+          await new Promise((resolve) => setTimeout(resolve, backoff));
+          continue;
+        }
+        throw e;
+      } finally {
+        clearTimeout(t);
+      }
+    }
+
+    throw lastErr || new Error('AniList request failed');
+  }
+
   function bestLocalizedString(localized, preferredLangs) {
     if (!localized || typeof localized !== 'object') return '';
     for (const lang of preferredLangs) {
@@ -281,6 +471,165 @@
     }
     const first = Object.values(localized)[0];
     return typeof first === 'string' ? first : '';
+  }
+
+  function stripHtmlText(html) {
+    return String(html || '')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+\n/g, '\n')
+      .replace(/[ \t]{2,}/g, ' ')
+      .trim();
+  }
+
+  function fuzzyDateToIso(dateObj) {
+    const year = Number(dateObj?.year || 0);
+    if (!year) return '';
+    const month = Number(dateObj?.month || 1);
+    const day = Number(dateObj?.day || 1);
+    return `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  function formatAniListStatus(status) {
+    const map = {
+      FINISHED: 'Completed',
+      RELEASING: 'Ongoing',
+      HIATUS: 'Hiatus',
+      CANCELLED: 'Cancelled',
+      NOT_YET_RELEASED: 'Not Yet Released',
+    };
+    return map[String(status || '').toUpperCase()] || '';
+  }
+
+  function statusToAniList(status) {
+    const map = {
+      ongoing: 'RELEASING',
+      completed: 'FINISHED',
+      hiatus: 'HIATUS',
+      cancelled: 'CANCELLED',
+    };
+    return map[String(status || '').toLowerCase()] || null;
+  }
+
+  function originalLangToCountry(lang) {
+    return LANG_TO_COUNTRY[String(lang || '').toLowerCase()] || null;
+  }
+
+  function countryToOriginalLang(country) {
+    return COUNTRY_TO_LANG[String(country || '').toUpperCase()] || String(country || '').toLowerCase();
+  }
+
+  function mapSortToAniList(sortValue, hasSearch) {
+    const map = {
+      relevance: hasSearch ? ['POPULARITY_DESC'] : ['TRENDING_DESC'],
+      latestUploadedChapter: ['UPDATED_AT_DESC'],
+      followedCount: ['POPULARITY_DESC'],
+      rating: ['SCORE_DESC'],
+      createdAt: ['START_DATE_DESC'],
+      updatedAt: ['UPDATED_AT_DESC'],
+      title: ['TITLE_ROMAJI'],
+      year: ['START_DATE_DESC'],
+    };
+    return map[sortValue] || (hasSearch ? ['POPULARITY_DESC'] : ['TRENDING_DESC']);
+  }
+
+  function inferDemographicFromTags(tags) {
+    const names = (tags || []).map((tag) => String(tag?.name || '').toLowerCase());
+    if (names.includes('shounen')) return 'shounen';
+    if (names.includes('shoujo')) return 'shoujo';
+    if (names.includes('seinen')) return 'seinen';
+    if (names.includes('josei')) return 'josei';
+    return '';
+  }
+
+  function buildNormalizedRelationship(type, data) {
+    return { type, attributes: { ...data } };
+  }
+
+  function normalizeAniListMedia(media) {
+    if (!media?.id) return null;
+
+    const title = media.title || {};
+    const genres = Array.isArray(media.genres) ? media.genres.filter(Boolean) : [];
+    const tags = Array.isArray(media.tags) ? media.tags.filter((tag) => tag?.name) : [];
+    const tagNames = [...new Set([...genres, ...tags.map((tag) => tag.name)])];
+    const relationships = [];
+
+    relationships.push(buildNormalizedRelationship('cover_art', {
+      coverUrl: media.coverImage?.extraLarge || media.coverImage?.large || '../movies/assets/no_poster.png',
+    }));
+
+    tagNames.forEach((name) => {
+      relationships.push(buildNormalizedRelationship('tag', { name: { en: name } }));
+    });
+
+    (media.staff?.edges || []).forEach((edge) => {
+      const fullName = edge?.node?.name?.full || edge?.node?.name?.native;
+      if (!fullName) return;
+      const role = String(edge?.role || '').toLowerCase();
+      if (role.includes('art')) {
+        relationships.push(buildNormalizedRelationship('artist', { name: fullName }));
+      }
+      if (role.includes('story') || !role.includes('art')) {
+        relationships.push(buildNormalizedRelationship('author', { name: fullName }));
+      }
+    });
+
+    const normalized = {
+      id: String(media.id),
+      provider: 'anilist',
+      sourceIds: {
+        anilist: String(media.id),
+        mangadex: null,
+      },
+      attributes: {
+        title: {
+          en: title.english || title.romaji || title.native || title.userPreferred || 'Untitled',
+          'ja-ro': title.romaji || title.english || title.userPreferred || '',
+          ja: title.native || '',
+        },
+        description: {
+          en: stripHtmlText(media.description || ''),
+        },
+        year: media.startDate?.year || null,
+        status: formatAniListStatus(media.status),
+        originalLanguage: countryToOriginalLang(media.countryOfOrigin),
+        publicationDemographic: inferDemographicFromTags(tags),
+        links: {
+          al: String(media.id),
+        },
+        tags: tagNames.map((name) => ({ attributes: { name: { en: name } } })),
+        startDateIso: fuzzyDateToIso(media.startDate),
+        endDateIso: fuzzyDateToIso(media.endDate),
+        updatedAtIso: media.updatedAt ? new Date(media.updatedAt * 1000).toISOString() : '',
+      },
+      relationships,
+      anilist: {
+        id: media.id,
+        title,
+        countryOfOrigin: media.countryOfOrigin || '',
+        averageScore: media.averageScore,
+        meanScore: media.meanScore,
+        popularity: media.popularity,
+        favourites: media.favourites,
+        chapters: media.chapters,
+        volumes: media.volumes,
+        bannerImage: media.bannerImage,
+        coverImage: media.coverImage,
+        genres,
+        tags,
+        updatedAt: media.updatedAt,
+        startDate: media.startDate,
+        endDate: media.endDate,
+      },
+    };
+
+    state.mediaById.set(normalized.id, normalized);
+    return normalized;
   }
 
   function mangaTitle(manga) {
@@ -298,6 +647,7 @@
   }
 
   function mangaAniListId(manga) {
+    if (manga?.sourceIds?.anilist) return String(manga.sourceIds.anilist);
     const raw = manga?.attributes?.links?.al;
     if (raw === undefined || raw === null || raw === '') return null;
 
@@ -319,8 +669,19 @@
     const anilistId = state.current.anilistId;
     const chapterNumber = chapterNumberForReader(chapter);
     const requested = normalizeReaderSource(preferredSource);
+    const hasMangaDexPages = Boolean(state.current.mangadexId && chapter?.id && !String(chapter.id).startsWith('al:'));
 
     if (requested === READER_SOURCES.MANGADEX) {
+      if (!hasMangaDexPages && anilistId && chapterNumber) {
+        return {
+          requested,
+          source: READER_SOURCES.VIDSRC,
+          anilistId,
+          chapterNumber,
+          fallbackReason: 'MangaDex chapter pages are unavailable for this title.',
+        };
+      }
+
       return {
         requested,
         source: READER_SOURCES.MANGADEX,
@@ -366,6 +727,7 @@
 
   function syncReaderSourceUI(info) {
     if (!el.readerSourceSelect) return;
+    const mangadexAvailable = Boolean(state.current.mangadexId && state.current.currentChapterId && !String(state.current.currentChapterId).startsWith('al:'));
 
     const vidsrcOption = [...el.readerSourceSelect.options].find((option) => option.value === READER_SOURCES.VIDSRC);
     if (vidsrcOption) {
@@ -376,7 +738,8 @@
 
     const mangadexOption = [...el.readerSourceSelect.options].find((option) => option.value === READER_SOURCES.MANGADEX);
     if (mangadexOption) {
-      mangadexOption.textContent = 'MangaDex (Fallback)';
+      mangadexOption.disabled = !mangadexAvailable;
+      mangadexOption.textContent = mangadexAvailable ? 'MangaDex (Fallback)' : 'MangaDex (Unavailable)';
     }
 
     el.readerSourceSelect.value = info?.source || normalizeReaderSource(state.settings.readerSource);
@@ -404,6 +767,8 @@
 
   function coverUrlFromManga(manga, size = 256) {
     const coverRel = relationshipByType(manga, 'cover_art');
+    const directCover = coverRel?.attributes?.coverUrl;
+    if (directCover) return directCover;
     const fileName = coverRel?.attributes?.fileName;
     if (!fileName) return '../movies/assets/no_poster.png';
     const safeSize = Number(size) === 512 ? 512 : 256;
@@ -414,6 +779,275 @@
   function coverFileNameFromManga(manga) {
     const coverRel = relationshipByType(manga, 'cover_art');
     return coverRel?.attributes?.fileName || null;
+  }
+
+  function mangaReleaseDate(manga) {
+    return manga?.attributes?.startDateIso || '';
+  }
+
+  function mangaNativeTitle(manga) {
+    return bestLocalizedString(manga?.attributes?.title, ['ja', 'ja-ro', 'en']);
+  }
+
+  function normalizeSearchText(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+  }
+
+  function mangaSearchTitles(manga) {
+    const title = manga?.anilist?.title || {};
+    const attrs = manga?.attributes?.title || {};
+    return [...new Set([
+      title.english,
+      title.romaji,
+      title.native,
+      title.userPreferred,
+      attrs.en,
+      attrs['ja-ro'],
+      attrs.ja,
+    ].map((value) => String(value || '').trim()).filter(Boolean))];
+  }
+
+  function mangaSearchScore(manga, query) {
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) return 0;
+
+    const titles = mangaSearchTitles(manga).map(normalizeSearchText).filter(Boolean);
+    const popularity = Number(manga?.anilist?.popularity || 0);
+    let score = 0;
+
+    for (const title of titles) {
+      if (title === normalizedQuery) score = Math.max(score, 1000);
+      else if (title.startsWith(`${normalizedQuery} `) || title.startsWith(normalizedQuery)) score = Math.max(score, 800);
+      else if (title.includes(` ${normalizedQuery} `) || title.includes(normalizedQuery)) score = Math.max(score, 600);
+
+      const words = normalizedQuery.split(' ').filter(Boolean);
+      if (words.length && words.every((word) => title.includes(word))) {
+        score = Math.max(score, 500);
+      }
+    }
+
+    return score + Math.min(popularity / 1000, 199);
+  }
+
+  function sortSearchResults(items, query, sortValue) {
+    if (!query || sortValue !== 'relevance') return items;
+
+    return items.slice().sort((left, right) => {
+      const scoreDiff = mangaSearchScore(right, query) - mangaSearchScore(left, query);
+      if (scoreDiff !== 0) return scoreDiff;
+
+      const popularityDiff = Number(right?.anilist?.popularity || 0) - Number(left?.anilist?.popularity || 0);
+      if (popularityDiff !== 0) return popularityDiff;
+
+      return mangaTitle(left).localeCompare(mangaTitle(right));
+    });
+  }
+
+  function buildAniListSearchVariables({ title, page, perPage, sortValue }) {
+    const includeLabels = [...state.includeTags]
+      .map((id) => state.tagById.get(id)?.label)
+      .filter(Boolean);
+    const excludeLabels = [...state.excludeTags]
+      .map((id) => state.tagById.get(id)?.label)
+      .filter(Boolean);
+
+    const demoLabel = el.filterDemo.value
+      ? el.filterDemo.value.charAt(0).toUpperCase() + el.filterDemo.value.slice(1)
+      : '';
+
+    const ratings = selectedContentRatings();
+    let isAdult = null;
+    const allowsAdult = ratings.includes('erotica') || ratings.includes('pornographic');
+    const allowsSafe = ratings.includes('safe') || ratings.includes('suggestive');
+    if (allowsAdult && !allowsSafe) isAdult = true;
+    if (!allowsAdult && allowsSafe) isAdult = false;
+
+    return {
+      page,
+      perPage,
+      search: title || undefined,
+      sort: mapSortToAniList(sortValue, Boolean(title)),
+      status: statusToAniList(el.filterStatus.value),
+      countryOfOrigin: originalLangToCountry(el.filterOriginalLang.value),
+      startDateLike: el.filterYear.value ? `${String(el.filterYear.value).trim()}%` : null,
+      chaptersGreater: el.filterHasChapters.checked ? 0 : null,
+      genreIn: includeLabels.length ? includeLabels : null,
+      genreNotIn: excludeLabels.length ? excludeLabels : null,
+      tagIn: demoLabel ? [demoLabel] : null,
+      tagNotIn: null,
+      isAdult,
+    };
+  }
+
+  async function searchAniListManga(variables) {
+    const data = await anilistQuery(ANILIST_PAGE_QUERY, variables);
+    const page = data?.Page || {};
+    const items = Array.isArray(page.media) ? page.media.map(normalizeAniListMedia).filter(Boolean) : [];
+    return {
+      items,
+      total: Number(page?.pageInfo?.total || 0),
+      currentPage: Number(page?.pageInfo?.currentPage || variables.page || 1),
+      lastPage: Number(page?.pageInfo?.lastPage || 1),
+      hasNextPage: Boolean(page?.pageInfo?.hasNextPage),
+    };
+  }
+
+  function buildSearchPageCacheKey(variables) {
+    const cloned = { ...variables };
+    delete cloned.page;
+    delete cloned.perPage;
+    return JSON.stringify(cloned);
+  }
+
+  async function resolveSearchLastPage(result, variables) {
+    const cacheKey = buildSearchPageCacheKey(variables);
+    const cached = state.searchPageInfoCache.get(cacheKey);
+
+    if (cached && cached.lastPage >= result.currentPage) {
+      return cached.lastPage;
+    }
+
+    let resolved = result.lastPage || result.currentPage || 1;
+    const hasSearchTerm = Boolean(variables?.search);
+    const suspiciousFirstPage = hasSearchTerm && result.currentPage === 1 && resolved > 10;
+
+    if (suspiciousFirstPage) {
+      const maxProbePages = 8;
+      resolved = 1;
+
+      for (let probePage = 2; probePage <= maxProbePages; probePage++) {
+        const probe = await searchAniListManga({ ...variables, page: probePage });
+
+        if (!probe.items.length) {
+          resolved = probePage - 1;
+          break;
+        }
+
+        resolved = probePage;
+
+        if (probe.lastPage && probe.lastPage <= probePage) {
+          resolved = probe.lastPage;
+          break;
+        }
+
+        if (!probe.hasNextPage || probe.items.length < Number(variables?.perPage || 24)) {
+          resolved = probePage;
+          break;
+        }
+      }
+    }
+
+    const safeLastPage = Math.max(result.currentPage || 1, resolved || 1);
+    state.searchPageInfoCache.set(cacheKey, { lastPage: safeLastPage, updatedAt: Date.now() });
+    return safeLastPage;
+  }
+
+  async function getAniListMedia(mangaId) {
+    const key = String(mangaId || '');
+    if (state.mediaById.has(key)) return state.mediaById.get(key);
+
+    const data = await anilistQuery(ANILIST_DETAIL_QUERY, { id: Number(mangaId) });
+    const normalized = normalizeAniListMedia(data?.Media || null);
+    if (!normalized) throw new Error('No AniList manga data');
+    return normalized;
+  }
+
+  function isAniListNumericId(value) {
+    return /^\d+$/.test(String(value || '').trim());
+  }
+
+  async function resolveAniListMediaFromAnyId(mangaId) {
+    const key = String(mangaId || '').trim();
+    if (!key) throw new Error('Missing manga id');
+
+    if (isAniListNumericId(key)) {
+      return getAniListMedia(key);
+    }
+
+    const md = await apiGet(`/manga/${key}`, {
+      'includes[]': ['cover_art', 'author', 'artist'],
+    });
+    const mangaDexData = md?.data;
+    if (!mangaDexData) throw new Error('No MangaDex data for legacy entry');
+
+    const linkedAniListId = mangaAniListId(mangaDexData);
+    if (linkedAniListId) {
+      const media = await getAniListMedia(linkedAniListId);
+      media.sourceIds.mangadex = mangaDexData.id;
+      state.mangadexByAniListId.set(String(linkedAniListId), mangaDexData);
+      return media;
+    }
+
+    const fallbackTitle = mangaTitle(mangaDexData);
+    const result = await searchAniListManga({
+      page: 1,
+      perPage: 5,
+      search: fallbackTitle,
+      sort: ['SEARCH_MATCH'],
+    });
+    const media = result.items[0] || null;
+    if (!media) throw new Error('No AniList match for legacy MangaDex entry');
+
+    media.sourceIds.mangadex = mangaDexData.id;
+    state.mangadexByAniListId.set(String(media.id), mangaDexData);
+    return media;
+  }
+
+  function titleCandidatesForMatch(manga) {
+    const attrs = manga?.attributes?.title || {};
+    return [...new Set([attrs.en, attrs['ja-ro'], attrs.ja].map((value) => String(value || '').trim()).filter(Boolean))];
+  }
+
+  async function resolveMangaDexMangaForMedia(manga) {
+    const anilistId = mangaAniListId(manga);
+    if (!anilistId) return null;
+    if (state.mangadexByAniListId.has(anilistId)) return state.mangadexByAniListId.get(anilistId);
+
+    const titles = titleCandidatesForMatch(manga);
+    for (const title of titles) {
+      try {
+        const json = await apiGet('/manga', {
+          limit: 10,
+          offset: 0,
+          title,
+          'includes[]': ['cover_art', 'author', 'artist'],
+          'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
+        });
+        const items = Array.isArray(json?.data) ? json.data : [];
+        const exact = items.find((item) => mangaAniListId(item) === anilistId);
+        if (exact) {
+          state.mangadexByAniListId.set(anilistId, exact);
+          manga.sourceIds.mangadex = exact.id;
+          return exact;
+        }
+      } catch {
+        // ignore and try next title
+      }
+    }
+
+    state.mangadexByAniListId.set(anilistId, null);
+    return null;
+  }
+
+  function buildSyntheticChapters(manga, totalChapters) {
+    const maxChapters = Math.max(0, Number(totalChapters || 0));
+    const items = [];
+    for (let chapterNumber = maxChapters; chapterNumber >= 1; chapterNumber--) {
+      items.push({
+        id: `al:${manga.id}:${chapterNumber}`,
+        attributes: {
+          chapter: String(chapterNumber),
+          title: '',
+          translatedLanguage: '',
+          readableAt: mangaReleaseDate(manga) || null,
+        },
+        relationships: [],
+      });
+    }
+    return items;
   }
 
   function formatCompactDate(iso) {
@@ -448,6 +1082,22 @@
       // only clear if unchanged
       if (el.statusText && el.statusText.textContent === text) setStatus('');
     }, ms);
+  }
+
+  function spinRandomIcon() {
+    const icon = $('jump-random-icon');
+    if (!icon) return;
+    icon.classList.remove('is-spinning');
+    void icon.offsetWidth;
+    icon.classList.add('is-spinning');
+    window.setTimeout(() => icon.classList.remove('is-spinning'), 560);
+  }
+
+  function randomLoadedManga() {
+    const pool = [...state.mediaById.values()].filter((item) => item?.id);
+    if (!pool.length) return null;
+    const index = Math.floor(Math.random() * pool.length);
+    return pool[index] || null;
   }
 
   function renderPosterGrid(container, items, opts = {}) {
@@ -526,14 +1176,15 @@
   }
 
   async function loadTags() {
-    const json = await apiGet('/manga/tag', {});
-    state.tags = Array.isArray(json?.data) ? json.data : [];
+    const data = await anilistQuery(ANILIST_GENRES_QUERY, {});
+    const genres = Array.isArray(data?.GenreCollection) ? data.GenreCollection.filter(Boolean) : [];
+    state.tags = genres.map((name) => ({ id: name, label: name }));
 
     state.tagByName.clear();
     state.tagById.clear();
 
     state.tags.forEach((t) => {
-      const name = t?.attributes?.name?.en;
+      const name = t?.label;
       if (name) state.tagByName.set(name.toLowerCase(), t);
       if (t?.id) state.tagById.set(t.id, t);
     });
@@ -541,7 +1192,7 @@
     // Fill datalist
     el.tagDatalist.innerHTML = '';
     state.tags
-      .map((t) => t?.attributes?.name?.en)
+      .map((t) => t?.label)
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b))
       .forEach((name) => {
@@ -557,7 +1208,7 @@
 
     const makeChip = (tagId, kind) => {
       const tag = state.tagById.get(tagId);
-      const label = tag?.attributes?.name?.en || 'Tag';
+      const label = tag?.label || 'Tag';
 
       const chip = document.createElement('button');
       chip.type = 'button';
@@ -592,33 +1243,6 @@
     return ratings;
   }
 
-  function buildSearchParams({ title, limit, offset, orderKey, orderDir }) {
-    const params = {
-      limit,
-      offset,
-      'includes[]': ['cover_art'],
-      'contentRating[]': selectedContentRatings(),
-      'status[]': el.filterStatus.value ? [el.filterStatus.value] : [],
-      'publicationDemographic[]': el.filterDemo.value ? [el.filterDemo.value] : [],
-      'originalLanguage[]': el.filterOriginalLang.value ? [el.filterOriginalLang.value] : [],
-      year: el.filterYear.value || '',
-      hasAvailableChapters: el.filterHasChapters.checked ? 'true' : '',
-      'includedTagsMode': state.settings.includedTagsMode,
-      'excludedTagsMode': state.settings.excludedTagsMode,
-      'includedTags[]': [...state.includeTags],
-      'excludedTags[]': [...state.excludeTags],
-    };
-
-    if (title) params.title = title;
-
-    if (orderKey) {
-      params[`order[${orderKey}]`] = orderDir || 'desc';
-    }
-
-    // Search uses relevance by default; only apply explicit order if selected
-    return params;
-  }
-
   function showResults(open) {
     el.searchResultsWrapper.classList.toggle('active', !!open);
     el.closeSearchBtn.classList.toggle('visible', !!open);
@@ -639,28 +1263,24 @@
     showResults(true);
 
     const limit = 24;
-    const offset = (page - 1) * limit;
-
     const sortVal = el.filterSort.value || 'relevance';
-    let orderKey = null;
-    let orderDir = 'desc';
-
-    if (sortVal && sortVal !== 'relevance') {
-      orderKey = sortVal;
-      orderDir = sortVal === 'title' ? 'asc' : 'desc';
-    }
 
     setStatus('Searching…');
 
     try {
-      const params = buildSearchParams({ title: q || undefined, limit, offset, orderKey, orderDir });
-      const json = await apiGet('/manga', params);
-      const items = Array.isArray(json?.data) ? json.data : [];
+      const searchVariables = buildAniListSearchVariables({
+        title: q || undefined,
+        page,
+        perPage: limit,
+        sortValue: sortVal,
+      });
+      const result = await searchAniListManga(searchVariables);
+      const items = sortSearchResults(result.items, q, sortVal);
+      const safeLastPage = await resolveSearchLastPage(result, searchVariables);
 
       renderPosterGrid(el.results, items, { context: 'search' });
 
-      const total = Number(json?.total || 0);
-      renderSearchPagination(page, Math.ceil(total / limit));
+      renderSearchPagination(page, safeLastPage || Math.ceil(result.total / limit));
 
       setStatus('');
     } catch (e) {
@@ -708,38 +1328,41 @@
   }
 
   async function fetchDiscoveryList(orderKey, orderDir = 'desc', limit = 12) {
-    const params = {
-      limit,
-      offset: 0,
-      'includes[]': ['cover_art'],
-      'contentRating[]': state.settings.contentRatings,
-      hasAvailableChapters: 'true',
-      [`order[${orderKey}]`]: orderDir,
-    };
-    return apiGet('/manga', params);
+    const sortValue = orderKey === 'latestUploadedChapter'
+      ? 'updatedAt'
+      : orderKey === 'followedCount'
+        ? 'followedCount'
+        : orderKey === 'rating'
+          ? 'rating'
+          : orderKey === 'createdAt'
+            ? 'createdAt'
+            : 'relevance';
+
+    return searchAniListManga(buildAniListSearchVariables({
+      page: 1,
+      perPage: limit,
+      sortValue,
+    }));
   }
 
   async function loadDiscovery() {
     setStatus('Loading discovery…');
 
     try {
-      // Progressive render: show Trending (and the showcase) ASAP, then load the rest.
-      const trending = await fetchDiscoveryList('latestUploadedChapter', 'desc', 12);
-      const trendingItems = Array.isArray(trending?.data) ? trending.data : [];
+      const trending = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'relevance' }));
+      const trendingItems = trending.items;
       renderPosterGrid(el.trendingGrid, trendingItems, { context: 'trending' });
       if (trendingItems[0]) await renderShowcase(trendingItems[0]);
 
       setStatus('Loading more…');
 
-      const [popular, topRated, newTitles] = await Promise.all([
-        fetchDiscoveryList('followedCount', 'desc', 12),
-        fetchDiscoveryList('rating', 'desc', 12),
-        fetchDiscoveryList('createdAt', 'desc', 12),
-      ]);
+      const popular = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'followedCount' }));
+      const topRated = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'rating' }));
+      const newTitles = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'updatedAt' }));
 
-      const popularItems = Array.isArray(popular?.data) ? popular.data : [];
-      const ratedItems = Array.isArray(topRated?.data) ? topRated.data : [];
-      const newItems = Array.isArray(newTitles?.data) ? newTitles.data : [];
+      const popularItems = popular.items;
+      const ratedItems = topRated.items;
+      const newItems = newTitles.items;
 
       renderPosterGrid(el.popularGrid, popularItems, { context: 'popular' });
       renderPosterGrid(el.topRatedGrid, ratedItems, { context: 'top-rated' });
@@ -765,14 +1388,14 @@
     el.showcasePoster.src = cover;
     el.showcaseTitle.textContent = title;
 
-    const year = manga?.attributes?.year ? String(manga.attributes.year) : '';
+    const releaseDate = formatCompactDate(mangaReleaseDate(manga));
     const status = manga?.attributes?.status ? String(manga.attributes.status) : '';
     const ogLang = manga?.attributes?.originalLanguage ? String(manga.attributes.originalLanguage).toUpperCase() : '';
 
-    el.showcaseMeta.textContent = [year, status, ogLang].filter(Boolean).join(' • ');
+    el.showcaseMeta.textContent = [releaseDate || manga?.attributes?.year || '', status, ogLang].filter(Boolean).join(' • ');
 
     const overview = mangaDescription(manga);
-    el.showcaseOverview.textContent = overview || 'Discover new manga on MangaDex.';
+    el.showcaseOverview.textContent = overview || 'Discover live-updated manga on AniList.';
 
     el.showcaseActions.style.display = 'flex';
     el.showcaseReadBtn.onclick = () => openMangaDetail(manga.id, { autoRead: true });
@@ -789,10 +1412,14 @@
 
     obj[manga.id] = {
       mangaId: manga.id,
+      anilistId: mangaAniListId(manga),
+      mangadexId: manga?.sourceIds?.mangadex || null,
       title,
+      nativeTitle: mangaNativeTitle(manga),
       coverUrl: cover,
       updatedAt: Date.now(),
       year: manga?.attributes?.year || null,
+      releaseDate: mangaReleaseDate(manga) || null,
       status: manga?.attributes?.status || null,
       originalLanguage: manga?.attributes?.originalLanguage || null,
     };
@@ -830,6 +1457,8 @@
     const cont = loadMap(STORAGE.CONTINUE);
     const base = cont[manga.id] || {
       mangaId: manga.id,
+      anilistId: mangaAniListId(manga),
+      mangadexId: manga?.sourceIds?.mangadex || null,
       title: mangaTitle(manga),
       coverUrl: coverUrlFromManga(manga, 256),
       updatedAt: Date.now(),
@@ -895,10 +1524,11 @@
       poster.appendChild(titleDiv);
 
       poster.addEventListener('click', () => {
+        const targetId = entry.anilistId || entry.mangaId;
         if (opts.resume && entry.lastChapterId) {
-          openMangaDetail(entry.mangaId, { autoRead: true, chapterId: entry.lastChapterId });
+          openMangaDetail(targetId, { autoRead: true, chapterId: entry.lastChapterId });
         } else {
-          openMangaDetail(entry.mangaId);
+          openMangaDetail(targetId);
         }
       });
 
@@ -936,8 +1566,13 @@
     await Promise.all(
       slice.map(async (entry) => {
         try {
+          if (!entry.mangadexId) {
+            cont[entry.mangaId] = { ...entry, newChapters: false, latestCheckedAt: Date.now() };
+            return;
+          }
+
           const langs = Array.isArray(entry.chapterLangs) && entry.chapterLangs.length ? entry.chapterLangs : state.settings.preferredChapterLangs;
-          const feed = await apiGet(`/manga/${entry.mangaId}/feed`, {
+          const feed = await apiGet(`/manga/${entry.mangadexId}/feed`, {
             limit: 1,
             offset: 0,
             'translatedLanguage[]': langs,
@@ -964,31 +1599,26 @@
     el.detailPanel.innerHTML = '<div style="padding:20px; opacity:0.75;">Loading…</div>';
 
     try {
-      const manga = await apiGet(`/manga/${mangaId}`, {
-        'includes[]': ['cover_art', 'author', 'artist'],
-      });
-
-      const mangaData = manga?.data;
+      const mangaData = await resolveAniListMediaFromAnyId(mangaId);
       if (!mangaData) throw new Error('No manga data');
+
+      const mangadexManga = await resolveMangaDexMangaForMedia(mangaData).catch(() => null);
+      const resolvedMangadexId = mangadexManga?.id || null;
+      if (resolvedMangadexId) {
+        mangaData.sourceIds.mangadex = resolvedMangadexId;
+      }
 
       const title = mangaTitle(mangaData);
       const cover = coverUrlFromManga(mangaData, 512);
       const desc = mangaDescription(mangaData);
-
-      // Stats (rating + follows)
-      let stats = null;
-      try {
-        stats = await apiGet(`/statistics/manga/${mangaId}`, {});
-      } catch {
-        stats = null;
-      }
-
-      const statObj = stats?.statistics?.[mangaId] || null;
-      const rating = statObj?.rating?.bayesian || statObj?.rating?.average || null;
-      const follows = statObj?.follows || null;
+      const nativeTitle = mangaData?.anilist?.title?.native || '';
+      const englishTitle = mangaData?.anilist?.title?.english || '';
+      const rating = mangaData?.anilist?.averageScore || mangaData?.anilist?.meanScore || null;
+      const follows = mangaData?.anilist?.popularity || mangaData?.anilist?.favourites || null;
 
       const attrs = mangaData.attributes || {};
       const year = attrs.year || '';
+      const releaseDate = formatCompactDate(attrs.startDateIso);
       const status = attrs.status || '';
       const demo = attrs.publicationDemographic || '';
       const og = attrs.originalLanguage ? String(attrs.originalLanguage).toUpperCase() : '';
@@ -1021,14 +1651,16 @@
               <h1 class="detail-title">${escapeHtml(title)}</h1>
               ${hasNew ? '<span class="pill-badge">New chapters</span>' : ''}
             </div>
-            <div class="detail-meta">${escapeHtml([year, status, demo, og].filter(Boolean).join(' • '))}</div>
-            ${rating ? `<div class="detail-score">★ ${Number(rating).toFixed(2)}${follows ? `  ·  ${Number(follows).toLocaleString()} follows` : ''}</div>` : (follows ? `<div class="detail-score">${Number(follows).toLocaleString()} follows</div>` : '')}
+            <div class="detail-meta">${escapeHtml([releaseDate || year, status, demo, og].filter(Boolean).join(' • '))}</div>
+            ${rating ? `<div class="detail-score">★ ${Number(rating).toFixed(2)}${follows ? `  ·  ${Number(follows).toLocaleString()} readers` : ''}</div>` : (follows ? `<div class="detail-score">${Number(follows).toLocaleString()} readers</div>` : '')}
 
             <div class="detail-genres">
               ${tagList.map((t) => `<span class="detail-genre-tag">${escapeHtml(t)}</span>`).join('')}
             </div>
 
             <div class="detail-studios">${escapeHtml([
+              englishTitle && englishTitle !== title ? `English: ${englishTitle}` : '',
+              nativeTitle && nativeTitle !== title ? `Native: ${nativeTitle}` : '',
               authors.length ? `Author: ${authors.slice(0, 2).join(', ')}` : '',
               artists.length ? `Artist: ${artists.slice(0, 2).join(', ')}` : '',
             ].filter(Boolean).join(' · '))}</div>
@@ -1073,7 +1705,7 @@
         </div>
 
         <div style="opacity:0.55; font-size: 0.8em; margin-top: 20px;">
-          Powered by MangaDex API · Chapters credited to scanlation groups.
+          Metadata by AniList · Chapters by MangaDex when a source match exists.
         </div>
       `;
 
@@ -1101,6 +1733,7 @@
       const chapterLimit = 100;
       let chaptersCache = [];
       state.detailChaptersCache = chaptersCache;
+      chapterLangSelect.disabled = !resolvedMangadexId;
 
       // Default selection: EN + FR (or saved preferred).
       try {
@@ -1133,52 +1766,71 @@
           chapterList.innerHTML = '';
         }
 
-        const langs = currentLangs();
+        if (resolvedMangadexId) {
+          const langs = currentLangs();
 
-        const feed = await apiGet(`/manga/${mangaId}/feed`, {
-          limit: chapterLimit,
-          offset: chapterOffset,
-          'translatedLanguage[]': langs,
-          'order[chapter]': 'desc',
-          'includes[]': ['scanlation_group'],
-        });
+          const feed = await apiGet(`/manga/${resolvedMangadexId}/feed`, {
+            limit: chapterLimit,
+            offset: chapterOffset,
+            'translatedLanguage[]': langs,
+            'order[chapter]': 'desc',
+            'includes[]': ['scanlation_group'],
+          });
 
-        const items = Array.isArray(feed?.data) ? feed.data : [];
-        const total = Number(feed?.total || 0);
-        chaptersCache = chaptersCache.concat(items);
+          const items = Array.isArray(feed?.data) ? feed.data : [];
+          const total = Number(feed?.total || 0);
+          chaptersCache = chaptersCache.concat(items);
+          state.detailChaptersCache = chaptersCache;
+          chapterOffset += chapterLimit;
+
+          renderChapterList(chapterList, mangaData, items, { append: true, allChapters: () => state.detailChaptersCache });
+
+          if (reset && total === 0) {
+            hint.textContent = 'No chapters available for this manga on MangaDex right now.';
+            return;
+          }
+
+          if (reset && chaptersCache.length === 0) {
+            hint.textContent = 'No chapters found for selected language(s). Try changing the language dropdown or choosing All languages.';
+            return;
+          }
+
+          const shown = chaptersCache.length;
+          hint.textContent = `${shown} / ${total || '?'} loaded from MangaDex`;
+
+          if (total && shown < total) {
+            moreBtn.style.display = 'inline-flex';
+          }
+
+          if (langs.length) {
+            state.settings.preferredChapterLangs = langs;
+            saveSettings();
+          }
+
+          if (opts.autoRead && reset) {
+            const target = opts.chapterId || contEntry?.lastChapterId || chaptersCache[chaptersCache.length - 1]?.id;
+            if (target) {
+              await openReader({ manga: mangaData, chapters: chaptersCache, chapterId: target, chapterLangs: langs });
+            }
+          }
+          return;
+        }
+
+        const totalChapters = Number(mangaData?.anilist?.chapters || 0);
+        if (!totalChapters) {
+          hint.textContent = 'AniList metadata loaded, but no chapter feed or chapter count is available for this title yet.';
+          return;
+        }
+
+        chaptersCache = buildSyntheticChapters(mangaData, totalChapters);
         state.detailChaptersCache = chaptersCache;
-        chapterOffset += chapterLimit;
+        renderChapterList(chapterList, mangaData, chaptersCache, { append: true, allChapters: () => state.detailChaptersCache });
+        hint.textContent = `Using AniList chapter count (${totalChapters}). MangaDex chapter feed not matched for this title.`;
 
-        renderChapterList(chapterList, mangaData, items, { append: true, allChapters: () => state.detailChaptersCache });
-
-        if (reset && total === 0) {
-          hint.textContent = 'No chapters available for this manga on MangaDex right now.';
-          return;
-        }
-
-        if (reset && chaptersCache.length === 0) {
-          hint.textContent = 'No chapters found for selected language(s). Try changing the language dropdown or choosing All languages.';
-          return;
-        }
-
-        const shown = chaptersCache.length;
-        hint.textContent = `${shown} / ${total || '?'} loaded`;
-
-        if (total && shown < total) {
-          moreBtn.style.display = 'inline-flex';
-        }
-
-        // Persist preferred langs (but don't overwrite with "All languages")
-        if (langs.length) {
-          state.settings.preferredChapterLangs = langs;
-          saveSettings();
-        }
-
-        // If requested auto read, open immediately with target chapter
         if (opts.autoRead && reset) {
-          const target = opts.chapterId || contEntry?.lastChapterId || items[0]?.id;
+          const target = opts.chapterId || contEntry?.lastChapterId || chaptersCache[chaptersCache.length - 1]?.id;
           if (target) {
-            await openReader({ manga: mangaData, chapters: chaptersCache, chapterId: target, chapterLangs: langs });
+            await openReader({ manga: mangaData, chapters: chaptersCache, chapterId: target, chapterLangs: currentLangs() });
           }
         }
       }
@@ -1199,7 +1851,9 @@
         }
 
         if (!chaptersCache.length) {
-          hint.textContent = 'No chapters found for selected language(s). Try changing the language dropdown.';
+          hint.textContent = resolvedMangadexId
+            ? 'No chapters found for selected language(s). Try changing the language dropdown.'
+            : 'No chapter list available for this title yet.';
           return;
         }
 
@@ -1325,6 +1979,7 @@
     state.current.mangaTitle = mangaTitle(manga);
     state.current.coverUrl = coverUrlFromManga(manga, 256);
     state.current.anilistId = mangaAniListId(manga);
+    state.current.mangadexId = manga?.sourceIds?.mangadex || null;
     state.current.chapterLangs = chapterLangs || state.settings.preferredChapterLangs;
 
     // Normalize chapter list: distinct + sorted by chapter number where possible
@@ -1417,10 +2072,15 @@
 
   async function checkLatestChapterForCurrent() {
     const mangaId = state.current.mangaId;
-    if (!mangaId) return;
+    const mangadexId = state.current.mangadexId;
+    if (!mangaId || !mangadexId) {
+      el.readerBadge.style.display = 'none';
+      el.readerBadge.textContent = '';
+      return;
+    }
 
     try {
-      const feed = await apiGet(`/manga/${mangaId}/feed`, {
+      const feed = await apiGet(`/manga/${mangadexId}/feed`, {
         limit: 1,
         offset: 0,
         'translatedLanguage[]': state.current.chapterLangs,
@@ -1471,6 +2131,8 @@
       {
         title: state.current.mangaTitle,
         coverUrl: state.current.coverUrl,
+        anilistId: state.current.anilistId,
+        mangadexId: state.current.mangadexId,
         lastChapterId: chapterId,
         lastChapter: chapterNumber,
         lastReadAt: Date.now(),
@@ -1848,6 +2510,31 @@
     }
   }
 
+  function migrateStoredEntries() {
+    [STORAGE.CONTINUE, STORAGE.READ_LATER, STORAGE.FINISHED].forEach((key) => {
+      const map = loadMap(key);
+      let changed = false;
+
+      Object.values(map).forEach((entry) => {
+        if (!entry || typeof entry !== 'object') return;
+
+        if (!entry.anilistId && isAniListNumericId(entry.mangaId)) {
+          entry.anilistId = String(entry.mangaId);
+          changed = true;
+        }
+
+        if (!entry.mangadexId && !isAniListNumericId(entry.mangaId)) {
+          entry.mangadexId = String(entry.mangaId);
+          changed = true;
+        }
+      });
+
+      if (changed) {
+        saveMap(key, map);
+      }
+    });
+  }
+
   async function init() {
     // elements
     el.searchInput = $('search-input');
@@ -1857,6 +2544,7 @@
     el.searchResultsWrapper = $('search-results-wrapper');
     el.closeSearchBtn = $('close-search-results');
 
+    el.jumpRandomBtn = $('jump-random');
     el.jumpContinueBtn = $('jump-continue');
     el.jumpReadLaterBtn = $('jump-readlater');
 
@@ -1924,6 +2612,7 @@
     el.statusText = $('status-text');
 
     loadSettings();
+    migrateStoredEntries();
     await checkProxyAvailability();
 
     // Apply fit mode to UI
@@ -1942,6 +2631,18 @@
       sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return true;
     };
+
+    if (el.jumpRandomBtn) {
+      el.jumpRandomBtn.addEventListener('click', () => {
+        spinRandomIcon();
+        const target = randomLoadedManga();
+        if (!target) {
+          flashStatus('No manga loaded yet.');
+          return;
+        }
+        openMangaDetail(target.id);
+      });
+    }
 
     if (el.jumpContinueBtn) {
       el.jumpContinueBtn.addEventListener('click', () => {
