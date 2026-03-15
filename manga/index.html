@@ -50,47 +50,6 @@
 			margin-bottom: 12px;
 		}
 
-		.dropdown {
-			position: relative;
-			display: inline-block;
-		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #000;
-			min-width: 120px;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-			padding: 8px 0;
-			z-index: 3;
-			left: 0;
-			top: 100%;
-			border-radius: 8px;
-		}
-
-		.dropdown.open .dropdown-content,
-		.dropdown:hover .dropdown-content,
-		.dropdown:focus-within .dropdown-content {
-			display: block;
-		}
-
-		.dropdown-content a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 8px 0;
-			text-decoration: none;
-			background: none;
-		}
-
-		.dropdown-content a img {
-			height: 90px;
-			width: 90px;
-			object-fit: contain;
-			margin: 0;
-			padding: 0;
-		}
-
 		.logo-placeholder {
 			width: 100px;
 			height: 100px;
@@ -103,7 +62,6 @@
 			font-size: 1.2rem;
 			font-weight: 500;
 			letter-spacing: 2px;
-			cursor: pointer;
 			-webkit-tap-highlight-color: transparent;
 		}
 
@@ -111,6 +69,313 @@
 			max-width: 100%;
 			max-height: 100%;
 			object-fit: contain;
+		}
+
+		.master-nav {
+			position: fixed;
+			top: 50%;
+			right: 22px;
+			transform: translateY(-50%);
+			z-index: 95;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			pointer-events: none;
+			width: 66px;
+			height: 66px;
+			transition: width 280ms ease;
+		}
+
+		.master-nav.is-open,
+		.master-nav.open {
+			pointer-events: auto;
+		}
+
+		.master-nav:hover,
+		.master-nav:focus-within,
+		.master-nav.is-open,
+		.master-nav.open {
+			width: 548px;
+		}
+
+		.master-nav-toggle,
+		.master-nav-panel {
+			pointer-events: auto;
+		}
+
+		.master-nav-toggle {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 66px;
+			height: 66px;
+			padding: 0;
+			border: 0;
+			border-radius: 999px;
+			background:
+				linear-gradient(135deg, rgba(117, 254, 78, 0.18), transparent 40%),
+				rgba(22, 22, 22, 0.96);
+			box-shadow: 16px 16px 28px rgba(0, 0, 0, 0.34);
+			color: var(--text);
+			cursor: pointer;
+			font: inherit;
+			backdrop-filter: blur(10px);
+			transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+			position: relative;
+			overflow: hidden;
+			flex: 0 0 66px;
+			z-index: 2;
+		}
+
+		.master-nav-toggle::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background:
+				linear-gradient(90deg, rgba(117, 254, 78, 0.44), transparent 18%),
+				linear-gradient(0deg, rgba(117, 254, 78, 0.3), transparent 14%);
+			opacity: 0.9;
+			pointer-events: none;
+			border-radius: inherit;
+		}
+
+		.master-nav-toggle:hover,
+		.master-nav-toggle:focus-visible {
+			transform: scale(1.12);
+			box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.4);
+			outline: none;
+		}
+
+		.master-nav-toggle img {
+			width: 42px;
+			height: 42px;
+			object-fit: contain;
+			position: relative;
+			z-index: 1;
+			transition: transform 180ms ease;
+		}
+
+		.master-nav:hover .master-nav-toggle img,
+		.master-nav:focus-within .master-nav-toggle img,
+		.master-nav.is-open .master-nav-toggle img,
+		.master-nav.open .master-nav-toggle img {
+			transform: scale(1.16);
+		}
+
+		.master-nav-toggle:hover img,
+		.master-nav-toggle:focus-visible img {
+			transform: scale(2.25);
+		}
+
+		.master-nav-copy {
+			display: none;
+		}
+
+		.master-nav-label {
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.84rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.master-nav-subcopy {
+			color: var(--muted);
+			font-size: 0.72rem;
+			line-height: 1.25;
+		}
+
+		.master-nav-panel {
+			position: absolute;
+			right: 0;
+			top: 0;
+			transform: translateX(0);
+			width: 100%;
+			height: 66px;
+			padding: 0 72px 0 14px;
+			display: flex;
+			align-items: center;
+			background:
+				linear-gradient(90deg, rgba(117, 254, 78, 0.12), transparent 12%),
+				rgba(28, 28, 28, 0.97);
+			border: 0;
+			box-shadow: 22px 22px 40px rgba(0, 0, 0, 0.34);
+			border-radius: 999px;
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transition: opacity 220ms ease, visibility 220ms ease;
+			overflow: hidden;
+		}
+
+		.master-nav-panel::before,
+		.master-nav-panel::after {
+			content: '';
+			position: absolute;
+			background: rgba(117, 254, 78, 0.38);
+			pointer-events: none;
+		}
+
+		.master-nav-panel::before {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			border-radius: 999px 999px 0 0;
+		}
+
+		.master-nav-panel::after {
+			top: 0;
+			right: 0;
+			width: 1px;
+			height: 100%;
+			border-radius: 0 999px 999px 0;
+		}
+
+		.master-nav:hover .master-nav-panel,
+		.master-nav:focus-within .master-nav-panel,
+		.master-nav.is-open .master-nav-panel,
+		.master-nav.open .master-nav-panel {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+			transform: translateX(0);
+		}
+
+		.master-nav-panel-head {
+			display: none;
+		}
+
+		.master-nav-links {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			gap: 9px;
+			height: 100%;
+			width: 100%;
+			padding-left: 14px;
+		}
+
+		.master-nav-link {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0;
+			width: 54px;
+			height: 66px;
+			min-height: 66px;
+			padding: 0;
+			text-decoration: none;
+			color: var(--text);
+			background: transparent;
+			border: 0;
+			border-radius: 999px;
+			transition: transform 160ms ease, background 160ms ease, filter 160ms ease;
+			position: relative;
+			overflow: hidden;
+			opacity: 0;
+			transform: translateY(26px);
+			animation: none;
+		}
+
+		.master-nav-link::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 2px;
+			background: transparent;
+			transition: background 140ms ease;
+		}
+
+		.master-nav:hover .master-nav-link,
+		.master-nav:focus-within .master-nav-link,
+		.master-nav.is-open .master-nav-link,
+		.master-nav.open .master-nav-link {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.master-nav:hover .master-nav-link:nth-child(1),
+		.master-nav:focus-within .master-nav-link:nth-child(1),
+		.master-nav.is-open .master-nav-link:nth-child(1),
+		.master-nav.open .master-nav-link:nth-child(1) { transition-delay: 40ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(2),
+		.master-nav:focus-within .master-nav-link:nth-child(2),
+		.master-nav.is-open .master-nav-link:nth-child(2),
+		.master-nav.open .master-nav-link:nth-child(2) { transition-delay: 80ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(3),
+		.master-nav:focus-within .master-nav-link:nth-child(3),
+		.master-nav.is-open .master-nav-link:nth-child(3),
+		.master-nav.open .master-nav-link:nth-child(3) { transition-delay: 120ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(4),
+		.master-nav:focus-within .master-nav-link:nth-child(4),
+		.master-nav.is-open .master-nav-link:nth-child(4),
+		.master-nav.open .master-nav-link:nth-child(4) { transition-delay: 160ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(5),
+		.master-nav:focus-within .master-nav-link:nth-child(5),
+		.master-nav.is-open .master-nav-link:nth-child(5),
+		.master-nav.open .master-nav-link:nth-child(5) { transition-delay: 200ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(6),
+		.master-nav:focus-within .master-nav-link:nth-child(6),
+		.master-nav.is-open .master-nav-link:nth-child(6),
+		.master-nav.open .master-nav-link:nth-child(6) { transition-delay: 240ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(7),
+		.master-nav:focus-within .master-nav-link:nth-child(7),
+		.master-nav.is-open .master-nav-link:nth-child(7),
+		.master-nav.open .master-nav-link:nth-child(7) { transition-delay: 280ms; }
+
+		.master-nav:hover .master-nav-link:nth-child(8),
+		.master-nav:focus-within .master-nav-link:nth-child(8),
+		.master-nav.is-open .master-nav-link:nth-child(8),
+		.master-nav.open .master-nav-link:nth-child(8) { transition-delay: 320ms; }
+
+		.master-nav-link:hover,
+		.master-nav-link:focus-visible,
+		.master-nav-link.is-active {
+			background: rgba(117, 254, 78, 0.1);
+			transform: scale(1.24);
+			filter: brightness(1.08);
+			outline: none;
+		}
+
+		.master-nav-link:hover::before,
+		.master-nav-link:focus-visible::before,
+		.master-nav-link.is-active::before {
+			background: var(--accent);
+		}
+
+		.master-nav-link img {
+			width: 40px;
+			height: 40px;
+			object-fit: contain;
+			justify-self: center;
+			filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.18));
+			transition: transform 180ms ease;
+		}
+
+		.master-nav:hover .master-nav-link img,
+		.master-nav:focus-within .master-nav-link img,
+		.master-nav.is-open .master-nav-link img,
+		.master-nav.open .master-nav-link img {
+			transform: scale(1.28);
+		}
+
+		.master-nav-link:hover img,
+		.master-nav-link:focus-visible img,
+		.master-nav-link.is-active img {
+			transform: scale(2.1);
+		}
+
+		.master-nav-link-copy {
+			display: none;
 		}
 
 		/* Search bar (match /anime) */
@@ -1462,6 +1727,59 @@
 				bottom: 12px;
 				width: min(200px, calc(100vw - 24px));
 			}
+			.master-nav {
+				top: auto;
+				bottom: 144px;
+				right: 0px;
+				transform: none;
+				width: 58px;
+				height: 58px;
+				
+			}
+			.master-nav:hover,
+			.master-nav:focus-within,
+			.master-nav.is-open,
+			.master-nav.open {
+				width: min(420px, calc(100vw - 8px));
+			}
+			.master-nav-toggle {
+				width: 58px;
+				height: 58px;
+				flex: 0 0 58px;
+			}
+			.master-nav-toggle img {
+				width: 38px;
+				height: 38px;
+			}
+			.master-nav-panel {
+				right: 0;
+				top: auto;
+				bottom: 0;
+				transform: translateX(0);
+				width: 100%;
+				height: 58px;
+				padding: 0 64px 0 10px;
+				border-radius: 999px;
+			}
+			.master-nav-links {
+				gap: 6px;
+				padding-left: 10px;
+			}
+			.master-nav-link {
+				width: 44px;
+				height: 58px;
+				min-height: 58px;
+			}
+			.master-nav-link img {
+				width: 32px;
+				height: 32px;
+			}
+			.master-nav:hover .master-nav-panel,
+			.master-nav:focus-within .master-nav-panel,
+			.master-nav.is-open .master-nav-panel,
+			.master-nav.open .master-nav-panel {
+				transform: translateX(0);
+			}
 			.search-panel {
 				width: min(calc(100vw - 18px), 1320px);
 			}
@@ -1488,35 +1806,44 @@
 
 <body>
 	<header class="topbar">
-		<div class="dropdown">
-			<div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
-				<img src="./assets/ateaish_m.png" alt="ateaish manga" style="padding-right: 8px;" />
-			</div>
-			<div class="dropdown-content" id="dropdownMenu" role="menu">
-				<a href="https://atishramkhe.github.io/" role="menuitem">
-					<img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="ateaish homepage" />
+		<div class="logo-placeholder" aria-label="ateaish manga home mark">
+			<img src="./assets/ateaish_m.png" alt="ateaish manga" style="padding-right: 8px;" />
+		</div>
+	</header>
+
+	<div class="master-nav dropdown" aria-label="Website navigation">
+		<button class="master-nav-toggle" id="dropdownToggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open website navigation" title="Open website navigation">
+			<img src="./assets/ateaish_m.png" alt="ateaish manga" />
+		</button>
+		<div class="master-nav-panel dropdown-content" id="dropdownMenu" role="menu">
+			<div class="master-nav-links">
+				<a class="master-nav-link" href="https://atishramkhe.github.io/" role="menuitem" aria-label="Home / Main" title="Home / Main">
+					<img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="Ateaish home">
 				</a>
-				<a href="https://atishramkhe.github.io/anime" role="menuitem">
-					<img src="../anime/assets/ateaish_anime default.png" alt="ateaish anime" />
+				<a class="master-nav-link" href="https://atishramkhe.github.io/anime" role="menuitem" aria-label="Anime" title="Anime">
+					<img src="../anime/assets/ateaish_anime default.png" alt="Ateaish anime">
 				</a>
-				<a href="https://atishramkhe.github.io/movies" role="menuitem">
-					<img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="ateaish movies" />
+				<a class="master-nav-link" href="https://atishramkhe.github.io/drama" role="menuitem" aria-label="Drama" title="Drama">
+					<img src="../drama/assets/ateaish dramas default.png" alt="Ateaish drama">
 				</a>
-				<a href="https://atishramkhe.github.io/tv" role="menuitem">
-					<img src="../movies/assets/ateaish_tv_blanc_150ppi.png" alt="ateaish tv" />
+				<a class="master-nav-link is-active" href="https://atishramkhe.github.io/manga" role="menuitem" aria-current="page" aria-label="Manga" title="Manga">
+					<img src="./assets/ateaish_m.png" alt="Ateaish manga">
 				</a>
-				<a href="https://atishramkhe.github.io/sport" role="menuitem">
-					<img src="../movies/assets/ateaish_sport_blanc_150ppi.png" alt="ateaish sport" />
+				<a class="master-nav-link" href="https://atishramkhe.github.io/movies" role="menuitem" aria-label="Movies" title="Movies">
+					<img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="Ateaish movies">
 				</a>
-				<a href="https://atishramkhe.github.io/radio" role="menuitem">
-					<img src="../movies/assets/ateaish_radio_blanc_150ppi.png" alt="ateaish radio" />
+				<a class="master-nav-link" href="https://atishramkhe.github.io/radio" role="menuitem" aria-label="Radio" title="Radio">
+					<img src="../radio/assets/ateaish_radio_blanc_150ppi.png" alt="Ateaish radio">
 				</a>
-				<a href="https://atishramkhe.github.io/drama" role="menuitem" style="color:#fff;font-family:'OumaTrialBold';font-size:14px;text-decoration:none;">
-					drama
+				<a class="master-nav-link" href="https://atishramkhe.github.io/sport" role="menuitem" aria-label="Sport" title="Sport">
+					<img src="../sport/assets/ateaish_sport_blanc_150ppi.png" alt="Ateaish sport">
+				</a>
+				<a class="master-nav-link" href="https://atishramkhe.github.io/tv" role="menuitem" aria-label="TV" title="TV">
+					<img src="../tv/assets/ateaish_tv_blanc_150ppi_noborder.png" alt="Ateaish TV">
 				</a>
 			</div>
 		</div>
-	</header>
+	</div>
 
 	<main class="page-shell">
 		<div id="search-container">
@@ -1633,10 +1960,6 @@
 				<button id="jump-readlater" class="small-btn" type="button" title="Jump to Read Later">
 					<span class="material-symbols-outlined">bookmark</span>
 					Read Later
-				</button>
-				<button id="jump-finished" class="small-btn" type="button" title="Jump to Finished">
-					<span class="material-symbols-outlined">check_circle</span>
-					Finished
 				</button>
 			</div>
 		</div>
