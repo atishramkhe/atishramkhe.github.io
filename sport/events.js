@@ -18,6 +18,7 @@ class EventsManager {
     this.refreshTimer = null;
     this.pastEventCutoffMs = 2 * 60 * 60 * 1000;
     this.serverIndicatorsEl = document.getElementById('server-indicators');
+    this.sourceStreamsCache = new Map();
   }
 
   /**
@@ -44,10 +45,11 @@ class EventsManager {
       console.log(`Fetched ${combined.length} events (combined)`);
 
       const filtered = this.filterMatches(combined);
-      this.currentMatches = filtered;
-      this.displayMatches(filtered);
-      await this.ensureActiveEventSelection(filtered);
-      return filtered;
+      const working = await this.filterMatchesByWorkingStreams(filtered);
+      this.currentMatches = working;
+      this.displayMatches(working);
+      await this.ensureActiveEventSelection(working);
+      return working;
     } catch (error) {
       console.error('Error fetching matches:', error);
       this.showError(`Failed to load events: ${error.message}`);
@@ -160,6 +162,22 @@ class EventsManager {
       return match._ppv.always_live === 1;
     }
     return false;
+  }
+
+  isUsableStream(stream) {
+    return Boolean(stream && typeof stream.embedUrl === 'string' && stream.embedUrl.trim());
+  }
+
+  async matchHasWorkingStream(match) {
+    if (!match || !Array.isArray(match.sources) || match.sources.length === 0) return false;
+    const results = await Promise.allSettled(match.sources.map((source) => this.fetchStreamsForSource(source)));
+    return results.some((result) => result.status === 'fulfilled' && Array.isArray(result.value) && result.value.some((stream) => this.isUsableStream(stream)));
+  }
+
+  async filterMatchesByWorkingStreams(matches) {
+    const list = Array.isArray(matches) ? matches : [];
+    const checks = await Promise.allSettled(list.map((match) => this.matchHasWorkingStream(match)));
+    return list.filter((_, index) => checks[index]?.status === 'fulfilled' && checks[index].value === true);
   }
 
   /**
@@ -447,29 +465,43 @@ class EventsManager {
 
   async fetchStreamsForSource(source) {
     if (!source) return [];
+    const cacheKey = this.getSourceKey(source);
+    if (cacheKey && this.sourceStreamsCache.has(cacheKey)) {
+      return this.sourceStreamsCache.get(cacheKey);
+    }
+
+    let streams = [];
     if (source.source === 'ppv') {
-      if (!source.iframe) return [];
-      return [
-        {
-          id: `ppv_${source.id}`,
-          streamNo: 1,
-          language: '',
-          hd: false,
-          embedUrl: source.iframe,
-          source: 'ppv'
+      if (source.iframe) {
+        streams = [
+          {
+            id: `ppv_${source.id}`,
+            streamNo: 1,
+            language: '',
+            hd: false,
+            embedUrl: source.iframe,
+            source: 'ppv'
+          }
+        ];
+      }
+    } else {
+      try {
+        const url = `${this.apiBase}/stream/${source.source}/${source.id}`;
+        const response = await fetch(url);
+        if (response.ok) {
+          const json = await response.json();
+          streams = Array.isArray(json) ? json : [];
         }
-      ];
+      } catch (error) {
+        console.warn('Failed to fetch streams for source:', source?.source, error);
+      }
     }
-    try {
-      const url = `${this.apiBase}/stream/${source.source}/${source.id}`;
-      const response = await fetch(url);
-      if (!response.ok) return [];
-      const streams = await response.json();
-      return Array.isArray(streams) ? streams : [];
-    } catch (error) {
-      console.warn('Failed to fetch streams for source:', source?.source, error);
-      return [];
+
+    const usableStreams = streams.filter((stream) => this.isUsableStream(stream));
+    if (cacheKey) {
+      this.sourceStreamsCache.set(cacheKey, usableStreams);
     }
+    return usableStreams;
   }
 
   /**

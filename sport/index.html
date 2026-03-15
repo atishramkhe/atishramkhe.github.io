@@ -583,6 +583,66 @@
       opacity: 1;
     }
 
+    @keyframes cloud-jiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-8deg) scale(1.05); }
+      40% { transform: rotate(7deg) scale(1.05); }
+      60% { transform: rotate(-5deg) scale(1.03); }
+      80% { transform: rotate(4deg) scale(1.02); }
+    }
+
+    #switch-server-btn.hint-jiggle {
+      animation: cloud-jiggle 460ms ease;
+    }
+
+    #playback-hint {
+      position: fixed;
+      z-index: 5001;
+      max-width: min(220px, calc(100vw - 32px));
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(11, 14, 18, 0.82);
+      border: 1px solid rgba(102, 200, 243, 0.28);
+      color: #e9f7ff;
+      font-size: 0.77rem;
+      line-height: 1.2;
+      white-space: nowrap;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(-4px) scale(0.96);
+      pointer-events: none;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    #playback-hint.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    #playback-hint::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 8px;
+      height: 8px;
+      background: rgba(11, 14, 18, 0.88);
+      border-right: 1px solid rgba(102, 200, 243, 0.28);
+      border-bottom: 1px solid rgba(102, 200, 243, 0.28);
+      transform: translate(-4px, -50%) rotate(-45deg);
+    }
+
+    #playback-hint[data-side="left"]::after {
+      left: auto;
+      right: 100%;
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid rgba(102, 200, 243, 0.28);
+      border-top: 1px solid rgba(102, 200, 243, 0.28);
+      transform: translate(4px, -50%) rotate(-45deg);
+    }
+
     /* MOBILE: fixed player, scrolling channel list */
     @media (max-width: 900px) {
       :root { --player-mobile-h: 46vh; }
@@ -859,6 +919,7 @@
         <iframe id="player-iframe" allow="fullscreen" allowfullscreen></iframe>
         <video id="player-video" controls autoplay playsinline></video>
         <div id="volume-osd"></div>
+        <div id="playback-hint" aria-live="polite"></div>
       </div>
     </div>
     <div id="menu-section">
@@ -1101,12 +1162,14 @@
   const eventsRefreshBtn = document.getElementById('events-refresh-btn');
   const countrySelect = document.getElementById('country-select');
   const mobileActionsBar = document.getElementById('mobile-player-actions');
+  const playbackHint = document.getElementById('playback-hint');
 
   let channels = [];
   let player;
   let currentChannelIndex = 1;
   let currentFlattenedIndex = 0;
   let flattenedSources = [];
+  let playbackHintTimer = null;
 
   let m3u8Timeout = null;
   let m3u8Tried = false;
@@ -1126,6 +1189,36 @@
   // ADD: playback helper state & functions
   let hlsInstance = null;
   let dashPlayer = null;
+
+  function showPlaybackHint(message, timeout = 2600) {
+    if (!playbackHint || !message || !switchServerBtn) return;
+    const rect = switchServerBtn.getBoundingClientRect();
+    const preferLeft = rect.left > window.innerWidth * 0.58;
+    const bubbleWidth = Math.min(220, Math.max(120, playbackHint.offsetWidth || 160));
+    const top = Math.max(10, rect.top + rect.height / 2 - 16);
+    const left = preferLeft
+      ? Math.max(10, rect.left - bubbleWidth - 14)
+      : Math.min(window.innerWidth - bubbleWidth - 10, rect.right + 14);
+
+    playbackHint.textContent = message;
+    playbackHint.dataset.side = preferLeft ? 'left' : 'right';
+    playbackHint.style.top = `${top}px`;
+    playbackHint.style.left = `${left}px`;
+    playbackHint.classList.add('show');
+    switchServerBtn.classList.remove('hint-jiggle');
+    void switchServerBtn.offsetWidth;
+    switchServerBtn.classList.add('hint-jiggle');
+    if (playbackHintTimer) clearTimeout(playbackHintTimer);
+    playbackHintTimer = setTimeout(() => {
+      playbackHint.classList.remove('show');
+      switchServerBtn.classList.remove('hint-jiggle');
+    }, timeout);
+  }
+
+  function findFirstPlayableChannelIndex(list) {
+    if (!Array.isArray(list)) return -1;
+    return list.findIndex((channel) => Array.isArray(channel?.sources) && channel.sources.length > 0);
+  }
 
   function cleanupPlayers() {
     if (m3u8Timeout) { clearTimeout(m3u8Timeout); m3u8Timeout = null; }
@@ -1240,7 +1333,7 @@
             hlsInstance.recoverMediaError();
             break;
           default:
-            tryNextSource();
+            tryNextSource('Try the cloud ;)');
         }
       }
     });
@@ -1318,7 +1411,7 @@
         .then(response => response.json())
         .then(data => {
           channels = data;
-          currentChannelIndex = 0;
+          currentChannelIndex = Math.max(findFirstPlayableChannelIndex(data), 0);
           populateChannelList();
           updatePlayer(currentChannelIndex);
           ensureLiveTvPlayer();
@@ -1423,7 +1516,7 @@
       .then(response => response.json())
       .then(data => {
         channels = data;
-        currentChannelIndex = 0;
+        currentChannelIndex = Math.max(findFirstPlayableChannelIndex(data), 0);
         populateChannelList();
         updatePlayer(currentChannelIndex);
       });
@@ -1627,7 +1720,13 @@
   }
 
   // Replace old tryNextSource with flattened fallback
-  function tryNextSource() {
+  function tryNextSource(reason = '') {
+    if (!flattenedSources.length) return;
+    if (flattenedSources.length > 1) {
+      showPlaybackHint(reason || 'This link looks sleepy. Trying another server...');
+    } else if (reason) {
+      showPlaybackHint(reason);
+    }
     cycleNextFlattened();
   }
 
@@ -1643,7 +1742,13 @@
   // Main channel load (rebuild flattened list then play first or keep index if possible)
   function updatePlayer(channelIndex, preservedFlatIndex = 0) {
     currentChannelIndex = channelIndex;
-    const channel = channels[currentChannelIndex];
+    let channel = channels[currentChannelIndex];
+    if (!channel || !Array.isArray(channel.sources) || channel.sources.length === 0) {
+      const fallbackIndex = findFirstPlayableChannelIndex(channels);
+      if (fallbackIndex < 0) return;
+      currentChannelIndex = fallbackIndex;
+      channel = channels[currentChannelIndex];
+    }
     document.getElementById('current-channel-name').textContent = channel ? channel.name : '';
     if (!channel) return;
 
@@ -1653,6 +1758,9 @@
     // Clamp preserved index
     if (preservedFlatIndex >= flattenedSources.length) preservedFlatIndex = 0;
     playFlattenedIndex(preservedFlatIndex);
+    if (flattenedSources.length > 1) {
+      showPlaybackHint('Cloud wink: switch me ;)', 2200);
+    }
     populateChannelList(); // keep highlighting logic consistent
   }
 
@@ -1713,7 +1821,7 @@
       m3u8Timeout = setTimeout(() => {
         if (playerVideo.paused && !m3u8Tried) {
           m3u8Tried = true;
-          tryNextSource();
+          tryNextSource('This one is sleepy. Cloud time ;)');
         }
       }, 10000);
       player = {
@@ -1791,6 +1899,7 @@
 
   // Button: cycle to next flattened link
   switchServerBtn.addEventListener('click', () => {
+    showPlaybackHint('Trying another one ;)');
     cycleNextFlattened();
   });
 
