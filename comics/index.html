@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ateaish comics</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon_ateaish_comics.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
   <style>
     @font-face {
       font-family: 'OumaTrialBold';
@@ -34,6 +35,11 @@
       --shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
       --card-width: 172px;
       --radius: 0px;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 200, "opsz" 24;
+      vertical-align: middle;
     }
 
     * { box-sizing: border-box; }
@@ -242,15 +248,31 @@
 
     .search-input {
       width: 100%;
-      padding: 18px 58px 18px 20px;
+      padding: 18px 58px 18px 58px;
       border: 0;
       border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
       background: #050505;
       color: var(--text);
       font: inherit;
       font-size: 1.05rem;
       outline: none;
       transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--muted);
+      opacity: 1;
+    }
+
+    .search-input::-webkit-search-decoration,
+    .search-input::-webkit-search-cancel-button,
+    .search-input::-webkit-search-results-button,
+    .search-input::-webkit-search-results-decoration {
+      appearance: none;
+      -webkit-appearance: none;
+      display: none;
     }
 
     .search-input:focus {
@@ -270,7 +292,12 @@
       font: inherit;
     }
 
-    .search-icon { right: 19px; pointer-events: none; font-size: 1.15rem; }
+    .search-icon {
+      left: 18px;
+      right: auto;
+      pointer-events: none;
+      font-size: 1.3rem;
+    }
     .clear-search { right: 44px; cursor: pointer; display: none; font-size: 0.95rem; }
 
     .quick-strip {
@@ -776,7 +803,7 @@
           <label class="visually-hidden" for="search-input">Search comics</label>
           <input id="search-input" class="search-input" type="search" placeholder="Search the full comics catalog" autocomplete="off" spellcheck="false">
           <button id="clear-search" class="clear-search" type="button" aria-label="Clear search">Clear</button>
-          <span class="search-icon">⌕</span>
+          <span class="search-icon material-symbols-outlined" aria-hidden="true">search</span>
           <section id="search-panel" class="search-panel" hidden aria-label="Advanced search options">
             <div class="search-panel-head">
               <div>

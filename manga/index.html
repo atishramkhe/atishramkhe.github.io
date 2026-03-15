@@ -406,7 +406,7 @@
 
 		#search-input {
 			width: 100%;
-			padding: 0.5em 2.5em 0.5em 2.5em;
+			padding: 0.5em 3.25em 0.5em 3.25em;
 			font-size: 1.0em;
 			background: #000;
 			color: #fff;
@@ -414,6 +414,11 @@
 			border: none;
 			border-radius: 10px;
 			outline: none;
+		}
+
+		#search-input::placeholder {
+			color: var(--muted);
+			opacity: 1;
 		}
 
 		#clear-search-btn {
@@ -471,6 +476,7 @@
 		.filter-pill {
 			display: inline-flex;
 			align-items: center;
+			flex-wrap: wrap;
 			gap: 8px;
 			border: 1px solid #333;
 			border-radius: 16px;
@@ -487,19 +493,41 @@
 			align-items: center;
 			gap: 6px;
 			cursor: pointer;
+			white-space: nowrap;
 		}
 
 		.filter-pill input[type="checkbox"] { accent-color: var(--accent); }
+
+		#content-rating-checks {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, max-content));
+			justify-content: start;
+			align-content: start;
+			row-gap: 8px;
+			column-gap: 14px;
+			padding-block: 8px;
+		}
 
 		/* Tag include/exclude */
 		.tag-input {
 			display: inline-flex;
 			align-items: center;
+			flex-wrap: wrap;
 			gap: 6px;
 			border: 1px solid #333;
 			border-radius: 16px;
 			padding: 4px 10px;
 			background: #000;
+		}
+
+		.tag-input-label {
+			flex: 0 0 auto;
+			opacity: 0.7;
+		}
+
+		.tag-input-label.exclude {
+			color: #ff6262;
+			opacity: 1;
 		}
 
 		.tag-input input {
@@ -551,6 +579,18 @@
 		}
 
 		.tag-chip:hover { background: rgba(117, 254, 78, 0.16); }
+
+		#exclude-tag-chips .tag-chip,
+		.tag-chip.exclude {
+			background: rgba(255, 98, 98, 0.12);
+			color: #ff7d7d;
+			border-color: rgba(255, 98, 98, 0.32);
+		}
+
+		#exclude-tag-chips .tag-chip:hover,
+		.tag-chip.exclude:hover {
+			background: rgba(255, 98, 98, 0.18);
+		}
 
 		/* Results overlay (like /movies) */
 		#search-results-wrapper { display: none; }
@@ -1215,15 +1255,26 @@
 
 		#search-input {
 			width: 100%;
-			padding: 18px 58px 18px 20px;
+			padding: 18px 58px 18px 58px;
 			border: 0;
 			border-radius: 0;
+			appearance: none;
+			-webkit-appearance: none;
 			background: #050505;
 			color: var(--text);
 			font: inherit;
 			font-size: 1.05rem;
 			outline: none;
 			transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+		}
+
+		#search-input::-webkit-search-decoration,
+		#search-input::-webkit-search-cancel-button,
+		#search-input::-webkit-search-results-button,
+		#search-input::-webkit-search-results-decoration {
+			appearance: none;
+			-webkit-appearance: none;
+			display: none;
 		}
 
 		#search-input:focus {
@@ -1244,10 +1295,10 @@
 		}
 
 		#search-icon {
-			right: 19px;
-			left: auto;
+			left: 10px;
+			right: auto;
 			pointer-events: none;
-			font-size: 1.15rem;
+			font-size: 1.3rem;
 		}
 
 		#clear-search-btn {
@@ -1567,6 +1618,51 @@
 			color: #051002;
 		}
 
+		.cover-actions {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			z-index: 3;
+			display: flex;
+			gap: 8px;
+			opacity: 0;
+			transform: translateY(-4px);
+			transition: opacity 140ms ease, transform 140ms ease;
+		}
+
+		.poster:hover .cover-actions,
+		.poster:focus-within .cover-actions {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.cover-action {
+			width: 34px;
+			height: 34px;
+			border: 0;
+			background: rgba(0, 0, 0, 0.78);
+			color: #fff;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			font: inherit;
+			font-size: 1rem;
+			transition: background 140ms ease, transform 140ms ease;
+		}
+
+		.cover-action:hover,
+		.cover-action:focus-visible {
+			background: rgba(255, 255, 255, 0.9);
+			color: #000;
+			transform: translateY(-1px);
+			outline: none;
+		}
+
+		.cover-action.remove {
+			font-size: 1.1rem;
+		}
+
 		.card-progress {
 			display: grid;
 			gap: 10px;
@@ -1637,6 +1733,13 @@
 			background: rgba(117, 254, 78, 0.14);
 			color: var(--accent);
 			border-color: rgba(117, 254, 78, 0.3);
+		}
+
+		#exclude-tag-chips .tag-chip,
+		.tag-chip.exclude {
+			background: rgba(255, 98, 98, 0.14);
+			color: #ff7d7d;
+			border-color: rgba(255, 98, 98, 0.3);
 		}
 
 		#reader-topbar {
@@ -1719,6 +1822,7 @@
 			.page-shell { width: min(100vw - 18px, 1440px); padding-top: 18px; }
 			#showcase, #search-results-wrapper { padding: 18px; }
 			#filters-wrap { grid-template-columns: 1fr; padding: 16px 18px 18px; }
+			#content-rating-checks { grid-template-columns: 1fr; }
 			.grid, #results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 			.grid { padding-inline: 0; }
 			h2 { padding-left: 0; }
@@ -1794,6 +1898,13 @@
 			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
 				left: 12px;
 				bottom: 12px;
+			}
+		}
+
+		@media (hover: none) {
+			.cover-actions {
+				opacity: 1;
+				transform: none;
 			}
 		}
 
@@ -1909,7 +2020,7 @@
 							<label><input type="checkbox" value="safe" /> Safe</label>
 							<label><input type="checkbox" value="suggestive" /> Suggestive</label>
 							<label><input type="checkbox" value="erotica" /> Erotica</label>
-							<label><input type="checkbox" value="pornographic" /> Porn</label>
+							<label><input type="checkbox" value="pornographic" /> Hentai</label>
 						</div>
 
 						<label class="filter-pill" title="Only manga with available chapters">
@@ -1917,7 +2028,7 @@
 						</label>
 
 						<div class="tag-input" title="Include tags">
-							<span style="opacity:0.7;">+tags</span>
+							<span class="tag-input-label">+tags</span>
 							<input id="include-tag-input" list="tag-datalist" placeholder="Action, Romance..." />
 							<button id="include-tag-add" class="small-btn" type="button">Add</button>
 						</div>
@@ -1928,7 +2039,7 @@
 						</select>
 
 						<div class="tag-input" title="Exclude tags">
-							<span style="opacity:0.7;">-tags</span>
+							<span class="tag-input-label exclude">-tags</span>
 							<input id="exclude-tag-input" list="tag-datalist" placeholder="Harem..." />
 							<button id="exclude-tag-add" class="small-btn" type="button">Add</button>
 						</div>
@@ -2077,24 +2188,8 @@
 				</div>
 
 				<div class="reader-field">
-					<div class="reader-label">Source</div>
-					<select id="reader-source-select" class="search-filter-select" title="Reader source" style="min-width:0; width:100%;">
-						<option value="vidsrc">Vidsrc</option>
-						<option value="mangadex">MangaDex</option>
-					</select>
-				</div>
-
-				<div class="reader-field">
 					<div class="reader-label">Chapter</div>
 					<select id="reader-chapter-select" class="search-filter-select" title="Chapter" style="min-width:0; width:100%;"></select>
-				</div>
-
-				<div class="reader-field">
-					<div class="reader-label">Quality</div>
-					<select id="reader-quality" class="search-filter-select" title="Quality" style="min-width:0; width:100%;">
-						<option value="data-saver">Data Saver</option>
-						<option value="data">Original</option>
-					</select>
 				</div>
 
 				<div class="reader-field">
@@ -2139,7 +2234,7 @@
 
 	<footer style="background:#000; color:#ccc; text-align:right; padding:24px 0 16px 0; font-size:8px; font-family:'OumaTrialLight',sans-serif;">
 		Powered by
-		<span style="margin:0 8px;">AniList and MangaDex</span>
+		<span style="margin:0 8px;">AniList and Vidsrc</span>
 	</footer>
 
 	<script src="manga.js"></script>
