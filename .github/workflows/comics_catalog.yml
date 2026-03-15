@@ -1,5 +1,9 @@
 name: Update Comics Catalog
 
+concurrency:
+  group: comics-catalog
+  cancel-in-progress: false
+
 on:
   schedule:
     - cron: '0 4 * * *'
@@ -27,6 +31,7 @@ on:
 jobs:
   update-comics-catalog:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     permissions:
       contents: write
 
@@ -67,4 +72,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add comics/data/catalog.json comics/data/discovery.json comics/data/reader_index.json comics/data/reader_build_state.json comics/data/series package.json
-          git diff --staged --quiet || git commit -m "Automated comics catalog update" && git push
+          if ! git diff --staged --quiet; then
+            git commit -m "Automated comics catalog update"
+            git push
+          fi

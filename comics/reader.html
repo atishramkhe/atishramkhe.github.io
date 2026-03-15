@@ -280,6 +280,8 @@
       overflow: auto;
       overscroll-behavior: contain;
       scrollbar-gutter: stable;
+      touch-action: pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
     }
 
     .canvas[data-fit='vertical'] {
@@ -356,6 +358,7 @@
       overflow: hidden;
       background: #000;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      touch-action: pan-y pinch-zoom;
     }
 
     .page-card img {
@@ -363,6 +366,7 @@
       width: 100%;
       height: auto;
       background: #0c0d12;
+      touch-action: pan-y pinch-zoom;
     }
 
     .page-caption {
@@ -411,6 +415,10 @@
       .canvas,
       .panel,
       .layout { min-height: auto; height: auto; }
+      .canvas {
+        overflow: visible;
+        overscroll-behavior: auto;
+      }
     }
 
     @media (max-width: 720px) {
