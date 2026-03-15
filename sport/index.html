@@ -336,6 +336,7 @@
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 8px;
       padding: 10px;
+      align-items: stretch;
     }
 
     .channel-item {
@@ -366,6 +367,111 @@
     }
     .channel-item.active {
       border: 1px solid #444;
+    }
+
+    .channel-section-header {
+      grid-column: 1 / -1;
+      padding: 12px 10px 4px;
+      color: #66c8f3;
+      font-family: 'OumaBold', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(102, 200, 243, 0.18);
+      margin-top: 6px;
+    }
+
+    .event-item {
+      position: relative;
+      height: auto;
+      min-height: 210px;
+      padding: 10px;
+      justify-content: flex-start;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    .event-item:hover {
+      transform: scale(1.04);
+    }
+
+    .event-poster {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 84px;
+      margin-bottom: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .event-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .event-title {
+      color: #fff;
+      font-size: 0.84em;
+      font-weight: 500;
+      line-height: 1.25;
+      text-align: center;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.1em;
+    }
+
+    .event-category,
+    .event-time {
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .event-category {
+      font-size: 0.7em;
+      color: #66c8f3;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .event-time {
+      font-size: 0.75em;
+      color: #999;
+      margin-top: auto;
+    }
+
+    .event-live-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 2;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255, 59, 59, 0.92);
+      color: #fff;
+      font-size: 0.62em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .event-popular-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      background: #ff6b6b;
+      color: #fff;
+      font-size: 0.65em;
+      padding: 2px 6px;
+      border-radius: 999px;
     }
 
     h2, #current-channel-name {
@@ -526,6 +632,14 @@
       #channel-list {
         grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
         padding-bottom: 40px;
+      }
+
+      .event-item {
+        min-height: 196px;
+      }
+
+      .event-poster {
+        min-height: 78px;
       }
 
       #controls img {
@@ -1188,10 +1302,8 @@
       if (!eventsManager) {
         eventsManager = new EventsManager('#channel-list');
       }
-      // Fetch live events by default, then auto-select first working event
-      eventsManager.fetchMatches('live').then(() => {
-        eventsManager.autoSelectFirstEvent();
-      });
+      // Fetch live events by default
+      eventsManager.fetchMatches('live');
       eventsManager.startAutoRefresh();
       if (switchServerBtn) switchServerBtn.style.display = 'none';
       const serverIndicatorsEl = document.getElementById('server-indicators');
@@ -1206,14 +1318,7 @@
         .then(response => response.json())
         .then(data => {
           channels = data;
-          // Find the first actual channel (skip country headers with empty sources)
           currentChannelIndex = 0;
-          for (let i = 0; i < channels.length; i++) {
-            if (channels[i].sources && channels[i].sources.length > 0) {
-              currentChannelIndex = i;
-              break;
-            }
-          }
           populateChannelList();
           updatePlayer(currentChannelIndex);
           ensureLiveTvPlayer();
@@ -1395,6 +1500,10 @@
         </svg>`;
   }
 
+  function isChannelSectionHeader(channel) {
+    return Boolean(channel) && Array.isArray(channel.sources) && channel.sources.length === 0;
+  }
+
   sportsToggleBtn.addEventListener('click', () => {
     sportsOnly = !sportsOnly;
     updateSportsToggleIcon();
@@ -1406,9 +1515,17 @@
     channelList.innerHTML = '';
     let filteredChannels = channels;
     if (sportsOnly) {
-      filteredChannels = channels.filter(isSportsChannel);
+      filteredChannels = channels.filter(channel => isChannelSectionHeader(channel) || isSportsChannel(channel));
     }
     filteredChannels.forEach((channel, index) => {
+      if (isChannelSectionHeader(channel)) {
+        const header = document.createElement('div');
+        header.className = 'channel-section-header';
+        header.textContent = channel.name;
+        channelList.appendChild(header);
+        return;
+      }
+
       const div = document.createElement('div');
       div.className = 'channel-item';
 
@@ -1635,7 +1752,7 @@
         player.play(); player.unmute();
       }, 500);
     } else if (sourceType === 'daddylive' && source.channel_id) {
-      const streamUrl = `https://dlhd.link/stream/stream-${source.channel_id}.php`;
+      const streamUrl = `https://dlstreams.top/stream/stream-${source.channel_id}.php`;
       playerIframe.classList.add('active');
       playerIframe.style.display = 'block';
       playerIframe.src = streamUrl;

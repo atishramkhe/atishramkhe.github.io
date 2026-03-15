@@ -8,8 +8,6 @@ class EventsManager {
     this.apiBase = 'https://streamed.pk/api';
     this.originBase = 'https://streamed.pk';
     this.ppvApiBase = 'https://old.ppv.to/api';
-    this.cdnLiveApiBase = 'https://api.cdn-live.tv/api/v1';
-    this.cdnLiveOrigin = 'https://cdn-live.tv';
     this.channelListSelector = channelListSelector;
     this.currentMatches = [];
     this.selectedMatch = null;
@@ -31,27 +29,24 @@ class EventsManager {
       this.lastEndpoint = endpoint;
       const streamedUrl = `${this.apiBase}/matches/${endpoint}`;
       const ppvUrl = `${this.ppvApiBase}/streams`;
-      const cdnLiveUrl = `${this.cdnLiveApiBase}/events/sports/?user=cdnlivetv&plan=free`;
       console.log(`Fetching events from: ${streamedUrl}`);
       console.log(`Fetching events from: ${ppvUrl}`);
-      console.log(`Fetching events from: ${cdnLiveUrl}`);
 
-      const [streamedResult, ppvResult, cdnLiveResult] = await Promise.allSettled([
+      const [streamedResult, ppvResult] = await Promise.allSettled([
         fetch(streamedUrl),
-        fetch(ppvUrl),
-        fetch(cdnLiveUrl)
+        fetch(ppvUrl)
       ]);
 
       const streamedMatches = await this.parseStreamedMatches(streamedResult);
       const ppvMatches = await this.parsePpvMatches(ppvResult);
-      const cdnLiveMatches = await this.parseCdnLiveMatches(cdnLiveResult);
 
-      const combined = [...streamedMatches, ...ppvMatches, ...cdnLiveMatches];
+      const combined = [...streamedMatches, ...ppvMatches];
       console.log(`Fetched ${combined.length} events (combined)`);
 
       const filtered = this.filterMatches(combined);
       this.currentMatches = filtered;
       this.displayMatches(filtered);
+      await this.ensureActiveEventSelection(filtered);
       return filtered;
     } catch (error) {
       console.error('Error fetching matches:', error);
@@ -113,70 +108,6 @@ class EventsManager {
     }
   }
 
-  async parseCdnLiveMatches(result) {
-    if (!result || result.status !== 'fulfilled') return [];
-    const response = result.value;
-    if (!response || !response.ok) return [];
-    try {
-      const data = await response.json();
-      if (!data || !data['cdn-live-tv']) return [];
-      const sportsData = data['cdn-live-tv'];
-      const matches = [];
-      const sportCategories = ['Soccer', 'NBA', 'NHL', 'NFL', 'MLB', 'UFC', 'Boxing', 'MMA', 'Tennis', 'F1', 'Cricket'];
-
-      for (const key of Object.keys(sportsData)) {
-        const events = sportsData[key];
-        if (!Array.isArray(events)) continue;
-
-        events.forEach(event => {
-          const channels = Array.isArray(event.channels) ? event.channels : [];
-          if (channels.length === 0) return;
-
-          const sources = channels.map((ch, idx) => ({
-            source: 'cdnlive',
-            id: `${event.gameID}_ch${idx}`,
-            iframe: ch.url,
-            channel_name: ch.channel_name,
-            channel_code: ch.channel_code,
-            channel_image: ch.image
-          }));
-
-          const startMs = event.start ? new Date(event.start).getTime() : null;
-          const endMs = event.end ? new Date(event.end).getTime() : null;
-
-          matches.push({
-            id: `cdnlive_${event.gameID}`,
-            title: `${event.homeTeam} vs ${event.awayTeam}`,
-            category: key,
-            date: startMs,
-            poster: null,
-            popular: false,
-            teams: {
-              home: { name: event.homeTeam, badge: null, img: event.homeTeamIMG },
-              away: { name: event.awayTeam, badge: null, img: event.awayTeamIMG }
-            },
-            sources: sources,
-            _provider: 'cdnlive',
-            _cdnlive: {
-              ...event,
-              startMs,
-              endMs,
-              tournament: event.tournament,
-              country: event.country,
-              countryIMG: event.countryIMG
-            }
-          });
-        });
-      }
-
-      console.log(`Parsed ${matches.length} CDN Live TV events`);
-      return matches;
-    } catch (error) {
-      console.warn('Failed to parse CDN Live TV events', error);
-      return [];
-    }
-  }
-
   filterMatches(matches) {
     const now = Date.now();
     const windowEnd = now + (20 * 60 * 60 * 1000);
@@ -189,15 +120,6 @@ class EventsManager {
         if (match._provider === 'streamed' && this.lastEndpoint === 'live') {
           console.log(`Keeping Streamed live event: ${match.title}`);
           return true;
-        }
-
-        // CDN Live TV events have a status field - keep live and upcoming ones
-        if (match._provider === 'cdnlive' && match._cdnlive) {
-          const status = match._cdnlive.status;
-          if (status === 'live' || status === 'upcoming') {
-            console.log(`Keeping CDN Live TV ${status} event: ${match.title}`);
-            return true;
-          }
         }
         
         const dateMs = this.normalizeDateMs(match.date);
@@ -225,7 +147,7 @@ class EventsManager {
   hasPlayableSource(match) {
     if (!match || !Array.isArray(match.sources) || match.sources.length === 0) return false;
     return match.sources.some(source => {
-      if (source.source === 'ppv' || source.source === 'cdnlive') {
+      if (source.source === 'ppv') {
         return Boolean(source.iframe);
       }
       return Boolean(source.source && source.id);
@@ -236,9 +158,6 @@ class EventsManager {
     if (!match) return false;
     if (match._provider === 'ppv' && match._ppv) {
       return match._ppv.always_live === 1;
-    }
-    if (match._provider === 'cdnlive' && match._cdnlive) {
-      return match._cdnlive.status === 'finished';
     }
     return false;
   }
@@ -266,6 +185,64 @@ class EventsManager {
     });
   }
 
+  async ensureActiveEventSelection(matches) {
+    const list = Array.isArray(matches) ? matches : [];
+    if (!list.length) {
+      this.selectedMatch = null;
+      this.selectedStream = null;
+      this.selectedSourceKey = null;
+      this.renderStreamIndicators([], null);
+      return false;
+    }
+
+    const currentId = String(this.selectedMatch?.id || '');
+    const currentIndex = currentId ? list.findIndex((match) => String(match?.id || '') === currentId) : -1;
+    if (currentIndex >= 0) {
+      const restored = await this.selectEvent(list[currentIndex], currentIndex, { silentOnFailure: true });
+      if (restored) return true;
+    }
+
+    const liveCandidates = [];
+    const fallbackCandidates = [];
+    list.forEach((match, index) => {
+      if (this.isLiveMatch(match)) {
+        liveCandidates.push({ match, index });
+      } else {
+        fallbackCandidates.push({ match, index });
+      }
+    });
+
+    for (const candidate of [...liveCandidates, ...fallbackCandidates]) {
+      const activated = await this.selectEvent(candidate.match, candidate.index, { silentOnFailure: true });
+      if (activated) return true;
+    }
+
+    this.selectedMatch = null;
+    this.selectedStream = null;
+    this.selectedSourceKey = null;
+    this.renderStreamIndicators([], null);
+    return false;
+  }
+
+  updateSelectedEventUI(index, match) {
+    document.querySelectorAll('.event-item').forEach((el) => {
+      el.style.borderColor = '#666';
+      el.style.borderWidth = '1px';
+    });
+
+    const activeItem = document.querySelector(`[data-match-index="${index}"]`);
+    if (activeItem) {
+      activeItem.style.borderColor = '#66c8f3';
+      activeItem.style.borderWidth = '2px';
+    }
+
+    const channelNameEl = document.getElementById('current-channel-name');
+    if (channelNameEl) {
+      channelNameEl.textContent = match?.title || '';
+      channelNameEl.style.display = match?.title ? 'inline-block' : 'none';
+    }
+  }
+
   /**
    * Create a channel item element for an event
    * @param {Object} match - Match object from the API
@@ -274,20 +251,19 @@ class EventsManager {
   createEventItem(match, index) {
     const item = document.createElement('div');
     item.className = 'channel-item event-item';
-    item.style.cssText = 'cursor:pointer;position:relative;overflow:hidden;padding:0;justify-content:stretch;align-items:stretch;';
     item.setAttribute('data-match-index', index);
     item.setAttribute('data-match-id', match.id);
 
-    // --- Poster / badges layer (fills entire card) ---
-    const posterLayer = document.createElement('div');
-    posterLayer.style.cssText = 'position:absolute;inset:0;background:#1a1a1a;display:flex;align-items:center;justify-content:center;border-radius:6px;overflow:hidden;';
+    // Create poster container
+    const posterContainer = document.createElement('div');
+    posterContainer.className = 'event-poster';
 
+    // Add poster image if available
     const posterUrl = this.getPosterUrl(match);
     if (posterUrl) {
       const posterImg = document.createElement('img');
       posterImg.src = posterUrl;
       posterImg.alt = match.title;
-      posterImg.style.cssText = 'width:100%;height:100%;object-fit:cover;';
       posterImg.onerror = () => {
         const fallbackUrl = this.getPosterFallbackUrl(match);
         if (fallbackUrl && posterImg.dataset.fallback !== '1') {
@@ -295,75 +271,61 @@ class EventsManager {
           posterImg.src = fallbackUrl;
           return;
         }
-        posterLayer.style.backgroundColor = '#0a0a0a';
+        posterContainer.style.backgroundColor = '#0a0a0a';
         posterImg.style.display = 'none';
         const badges = this.createBadgesContainer(match);
-        if (badges) posterLayer.appendChild(badges);
+        if (badges) posterContainer.appendChild(badges);
       };
-      posterLayer.appendChild(posterImg);
+      posterContainer.appendChild(posterImg);
     } else {
       const badges = this.createBadgesContainer(match);
-      if (badges) posterLayer.appendChild(badges);
+      if (badges) posterContainer.appendChild(badges);
     }
-    item.appendChild(posterLayer);
 
-    // --- Text overlay at the bottom ---
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:relative;z-index:1;margin-top:auto;background:linear-gradient(transparent, rgba(0,0,0,0.85) 30%);padding:6px 6px 5px;border-radius:0 0 6px 6px;';
+    item.appendChild(posterContainer);
 
-    // Title
+    // Add title
     const title = document.createElement('div');
-    title.style.cssText = 'font-size:0.78em;font-weight:600;color:#fff;text-align:center;line-height:1.15;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;';
+    title.className = 'event-title';
     title.textContent = match.title;
-    overlay.appendChild(title);
+    item.appendChild(title);
 
-    // Category + time row
-    const meta = document.createElement('div');
-    meta.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:6px;margin-top:2px;font-size:0.65em;';
-
+    // Add sport/category label
     if (match.category) {
-      const cat = document.createElement('span');
-      cat.style.cssText = 'color:#66c8f3;text-transform:uppercase;letter-spacing:0.3px;';
-      cat.textContent = match.category;
-      meta.appendChild(cat);
+      const category = document.createElement('div');
+      category.className = 'event-category';
+
+      if (this.isLiveMatch(match)) {
+        const liveBadge = document.createElement('div');
+        liveBadge.className = 'event-live-badge';
+        liveBadge.textContent = 'LIVE';
+        item.appendChild(liveBadge);
+      }
+      category.textContent = match.category;
+      item.appendChild(category);
     }
 
+    // Add date/time
+    const dateInfo = document.createElement('div');
+    dateInfo.className = 'event-time';
     const matchDateMs = this.normalizeDateMs(match.date);
     if (matchDateMs) {
-      const timeSpan = document.createElement('span');
-      timeSpan.style.color = '#aaa';
-      timeSpan.textContent = new Date(matchDateMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      meta.appendChild(timeSpan);
+      const matchTime = new Date(matchDateMs);
+      dateInfo.textContent = matchTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else {
+      dateInfo.textContent = 'TBD';
     }
-    overlay.appendChild(meta);
+    item.appendChild(dateInfo);
 
-    // Tournament line (CDN Live TV)
-    if (match._provider === 'cdnlive' && match._cdnlive?.tournament) {
-      const tournament = document.createElement('div');
-      tournament.style.cssText = 'font-size:0.6em;color:#999;text-align:center;margin-top:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
-      tournament.textContent = match._cdnlive.tournament;
-      overlay.appendChild(tournament);
-    }
-
-    item.appendChild(overlay);
-
-    // --- Floating badges (top corners) ---
-    if (this.isLiveMatch(match)) {
-      const liveBadge = document.createElement('div');
-      liveBadge.className = 'event-live-badge';
-      liveBadge.style.cssText = 'position:absolute;top:4px;left:4px;z-index:2;';
-      liveBadge.textContent = 'LIVE';
-      item.appendChild(liveBadge);
-    }
-
+    // Add popular badge if applicable
     if (match.popular) {
       const popularBadge = document.createElement('div');
-      popularBadge.style.cssText = 'position:absolute;top:4px;right:4px;z-index:2;background:#ff6b6b;color:#fff;font-size:0.65em;padding:2px 6px;border-radius:3px;';
+      popularBadge.className = 'event-popular-badge';
       popularBadge.textContent = 'POPULAR';
       item.appendChild(popularBadge);
     }
 
-    // Click handler
+    // Add click handler
     item.addEventListener('click', () => this.selectEvent(match, index));
 
     return item;
@@ -374,38 +336,38 @@ class EventsManager {
    * @param {Object} match - The selected match
    * @param {number} index - Match index
    */
-  async selectEvent(match, index) {
+  async selectEvent(match, index, { silentOnFailure = false } = {}) {
     try {
       console.log(`Selected event: ${match.title}`);
-      this.selectedMatch = match;
-
-      // Update UI to show selected event
-      document.querySelectorAll('.event-item').forEach(el => {
-        el.style.borderColor = '#666';
-        el.style.borderWidth = '1px';
-      });
-      document.querySelector(`[data-match-index="${index}"]`).style.borderColor = '#66c8f3';
-      document.querySelector(`[data-match-index="${index}"]`).style.borderWidth = '2px';
-
-      // Update current channel name
-      const channelNameEl = document.getElementById('current-channel-name');
-      if (channelNameEl) {
-        channelNameEl.textContent = match.title;
-        channelNameEl.style.display = 'inline-block';
-      }
 
       // If the match has sources, fetch streams from all sources
       if (match.sources && match.sources.length > 0) {
         this.renderStreamIndicators([], null);
-        await this.loadStreamsForAllSources(match.sources);
+        const loadedStream = await this.loadStreamsForAllSources(match.sources);
+        if (!loadedStream) {
+          if (!silentOnFailure) {
+            this.showError('No streams available for this event');
+          }
+          return false;
+        }
+
+        this.selectedMatch = match;
+        this.updateSelectedEventUI(index, match);
+        return true;
       } else {
         console.warn('No sources available for this match');
         this.renderStreamIndicators([], null);
-        this.showError('No streams available for this event');
+        if (!silentOnFailure) {
+          this.showError('No streams available for this event');
+        }
+        return false;
       }
     } catch (error) {
       console.error('Error selecting event:', error);
-      this.showError(`Failed to load event: ${error.message}`);
+      if (!silentOnFailure) {
+        this.showError(`Failed to load event: ${error.message}`);
+      }
+      return false;
     }
   }
 
@@ -449,7 +411,7 @@ class EventsManager {
     if (!Array.isArray(sources) || sources.length === 0) {
       this.renderStreamIndicators([], null);
       this.showError('No streams available for this event');
-      return;
+      return null;
     }
 
     const results = await Promise.allSettled(
@@ -473,14 +435,14 @@ class EventsManager {
 
     if (combined.length === 0) {
       this.renderStreamIndicators([], null);
-      this.showError('No streams available');
-      return;
+      return null;
     }
 
     const selectedStream = this.chooseDefaultStream(combined);
     this.selectedStream = selectedStream;
     this.renderStreamIndicators(combined, this.getStreamKey(selectedStream));
     this.playStream(selectedStream);
+    return selectedStream;
   }
 
   async fetchStreamsForSource(source) {
@@ -498,20 +460,6 @@ class EventsManager {
         }
       ];
     }
-    if (source.source === 'cdnlive') {
-      if (!source.iframe) return [];
-      return [
-        {
-          id: `cdnlive_${source.id}`,
-          streamNo: 1,
-          language: source.channel_name || '',
-          hd: false,
-          embedUrl: source.iframe,
-          source: 'cdnlive',
-          channelImage: source.channel_image
-        }
-      ];
-    }
     try {
       const url = `${this.apiBase}/stream/${source.source}/${source.id}`;
       const response = await fetch(url);
@@ -522,36 +470,6 @@ class EventsManager {
       console.warn('Failed to fetch streams for source:', source?.source, error);
       return [];
     }
-  }
-
-  /**
-   * Auto-select the first event that has working streams.
-   * Iterates through currentMatches, fetching streams for each until one succeeds.
-   */
-  async autoSelectFirstEvent() {
-    if (!this.currentMatches || this.currentMatches.length === 0) return;
-
-    for (let i = 0; i < this.currentMatches.length; i++) {
-      const match = this.currentMatches[i];
-      if (!match.sources || match.sources.length === 0) continue;
-
-      // Check if any source returns streams
-      const results = await Promise.allSettled(
-        match.sources.map(source => this.fetchStreamsForSource(source))
-      );
-
-      const hasStreams = results.some(
-        res => res.status === 'fulfilled' && Array.isArray(res.value) && res.value.length > 0
-      );
-
-      if (hasStreams) {
-        console.log(`Auto-selecting event: ${match.title}`);
-        this.selectEvent(match, i);
-        return;
-      }
-    }
-
-    console.warn('No events with available streams found for auto-select');
   }
 
   /**
@@ -706,10 +624,8 @@ class EventsManager {
     streams.forEach((stream, idx) => {
       const streamKey = this.getStreamKey(stream, idx);
       const dot = document.createElement('span');
-      const srcName = String(stream._sourceName || stream.source || '').toLowerCase();
-      const isPpv = srcName === 'ppv';
-      const isCdnLive = srcName === 'cdnlive';
-      dot.className = 'indicator' + (isPpv ? ' ppv' : '') + (isCdnLive ? ' cdnlive' : '') + (streamKey === activeStreamId ? ' active' : '');
+      const isPpv = String(stream._sourceName || stream.source || '').toLowerCase() === 'ppv';
+      dot.className = 'indicator' + (isPpv ? ' ppv' : '') + (streamKey === activeStreamId ? ' active' : '');
       const label = stream.language ? ` ${stream.language}` : '';
       const quality = stream.hd ? ' HD' : '';
       const sourceLabel = stream._sourceName || stream.source || 'source';
@@ -734,10 +650,6 @@ class EventsManager {
       if (start) return now >= start;
     }
 
-    if (match._provider === 'cdnlive' && match._cdnlive) {
-      return match._cdnlive.status === 'live';
-    }
-
     if (match.date) {
       const start = this.normalizeDateMs(match.date);
       const liveWindowMs = 2 * 60 * 60 * 1000;
@@ -754,13 +666,7 @@ class EventsManager {
   }
 
   getPosterUrl(match) {
-    if (!match || !match.poster) {
-      // For CDN Live TV events, use team images as poster fallback
-      if (match && match._provider === 'cdnlive' && match.teams) {
-        return match.teams.home?.img || match.teams.away?.img || null;
-      }
-      return null;
-    }
+    if (!match || !match.poster) return null;
     const poster = String(match.poster);
     if (/^https?:\/\//i.test(poster)) return poster;
     if (poster.startsWith('/')) return `${this.originBase}${poster}`;
@@ -778,24 +684,17 @@ class EventsManager {
   }
 
   createBadgesContainer(match) {
-    const hasBadge = match?.teams?.home?.badge || match?.teams?.away?.badge;
-    const hasImg = match?.teams?.home?.img || match?.teams?.away?.img;
-    if (!hasBadge && !hasImg) return null;
-
+    if (!match?.teams?.home?.badge && !match?.teams?.away?.badge) return null;
     const badgesContainer = document.createElement('div');
     badgesContainer.style.display = 'flex';
     badgesContainer.style.alignItems = 'center';
     badgesContainer.style.gap = '8px';
     badgesContainer.style.padding = '0 8px';
 
-    const homeImgSrc = match.teams?.home?.badge
-      ? `${this.apiBase}/images/badge/${match.teams.home.badge}.webp`
-      : match.teams?.home?.img || null;
-
-    if (homeImgSrc) {
+    if (match.teams?.home?.badge) {
       const homeBadge = document.createElement('img');
-      homeBadge.src = homeImgSrc;
-      homeBadge.alt = match.teams.home?.name || 'Home';
+      homeBadge.src = `${this.apiBase}/images/badge/${match.teams.home.badge}.webp`;
+      homeBadge.alt = match.teams.home.name || 'Home';
       homeBadge.style.width = '40px';
       homeBadge.style.height = '40px';
       homeBadge.style.objectFit = 'contain';
@@ -808,14 +707,10 @@ class EventsManager {
     vsText.style.fontSize = '0.8em';
     badgesContainer.appendChild(vsText);
 
-    const awayImgSrc = match.teams?.away?.badge
-      ? `${this.apiBase}/images/badge/${match.teams.away.badge}.webp`
-      : match.teams?.away?.img || null;
-
-    if (awayImgSrc) {
+    if (match.teams?.away?.badge) {
       const awayBadge = document.createElement('img');
-      awayBadge.src = awayImgSrc;
-      awayBadge.alt = match.teams.away?.name || 'Away';
+      awayBadge.src = `${this.apiBase}/images/badge/${match.teams.away.badge}.webp`;
+      awayBadge.alt = match.teams.away.name || 'Away';
       awayBadge.style.width = '40px';
       awayBadge.style.height = '40px';
       awayBadge.style.objectFit = 'contain';

@@ -38,7 +38,8 @@
     preferredTitleLangs: ['en', 'fr', 'ja-ro', 'ja', 'ko', 'zh-hk', 'zh'],
     preferredDescriptionLangs: ['en', 'fr'],
     preferredChapterLangs: ['en', 'fr'],
-    contentRatings: ['safe', 'suggestive'],
+    contentRatings: ['safe'],
+    adultEnabled: false,
     quality: 'data-saver', // data | data-saver
     includedTagsMode: 'AND',
     excludedTagsMode: 'OR',
@@ -58,6 +59,7 @@
     chapterCatalogByMangaId: new Map(),
     vidsrcChapterCountByAniListId: new Map(),
     vidsrcChapterAvailability: new Map(),
+    vidsrcResolvedAniListIdByMangaId: new Map(),
     searchPageInfoCache: new Map(),
     includeTags: new Set(),
     excludeTags: new Set(),
@@ -196,6 +198,7 @@
           ? saved.preferredChapterLangs
           : DEFAULT_SETTINGS.preferredChapterLangs,
         contentRatings: Array.isArray(saved.contentRatings) ? saved.contentRatings : DEFAULT_SETTINGS.contentRatings,
+        adultEnabled: typeof saved.adultEnabled === 'boolean' ? saved.adultEnabled : DEFAULT_SETTINGS.adultEnabled,
         readerSource: normalizeReaderSource(saved.readerSource),
         readerFitMode: typeof saved.readerFitMode === 'string' ? saved.readerFitMode : DEFAULT_SETTINGS.readerFitMode,
         readerPanelCollapsed: typeof saved.readerPanelCollapsed === 'boolean'
@@ -319,7 +322,7 @@
     return fetchJson(buildVidsrcChapterApiUrl(anilistId, chapterNumber), { signal });
   }
 
-  async function hasVidsrcChapter(anilistId, chapterNumber) {
+  async function hasVidsrcChapter(anilistId, chapterNumber, { retries = 1 } = {}) {
     const normalizedId = String(anilistId || '').trim();
     const normalizedChapter = Number(chapterNumber);
     if (!normalizedId || !Number.isFinite(normalizedChapter) || normalizedChapter < 1) return false;
@@ -329,33 +332,47 @@
       return state.vidsrcChapterAvailability.get(cacheKey);
     }
 
-    try {
-      const json = await fetchVidsrcChapterApi(normalizedId, Math.floor(normalizedChapter));
-      const available = typeof json?.images === 'string' && json.images.length > 20;
-      state.vidsrcChapterAvailability.set(cacheKey, available);
-      return available;
-    } catch {
-      state.vidsrcChapterAvailability.set(cacheKey, false);
-      return false;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const json = await fetchVidsrcChapterApi(normalizedId, Math.floor(normalizedChapter));
+        const available = typeof json?.images === 'string' && json.images.length > 20;
+        const explicitlyMissing = typeof json?.error === 'string' && /can't find the manga/i.test(json.error);
+        if (available || explicitlyMissing) {
+          state.vidsrcChapterAvailability.set(cacheKey, available);
+        }
+        return available;
+      } catch {
+        if (attempt >= retries) {
+          return false;
+        }
+      }
     }
+
+    return false;
   }
 
   async function probeVidsrcChapterCount(anilistId, hint = 0) {
     const normalizedId = String(anilistId || '').trim();
     if (!normalizedId) return 0;
 
-    const firstExists = await hasVidsrcChapter(normalizedId, 1);
-    if (!firstExists) return 0;
+    let firstAvailableChapter = 0;
+    for (const chapterNumber of [1, 2, 3, 4, 5]) {
+      if (await hasVidsrcChapter(normalizedId, chapterNumber, { retries: 2 })) {
+        firstAvailableChapter = chapterNumber;
+        break;
+      }
+    }
+    if (!firstAvailableChapter) return 0;
 
-    let low = Math.max(1, Math.floor(Number(hint) || 1));
-    if (!(await hasVidsrcChapter(normalizedId, low))) {
-      low = 1;
+    let low = Math.max(firstAvailableChapter, Math.floor(Number(hint) || firstAvailableChapter));
+    if (!(await hasVidsrcChapter(normalizedId, low, { retries: 2 }))) {
+      low = firstAvailableChapter;
     }
 
     let high = Math.max(low, 2);
     const hardLimit = 4096;
 
-    while (high <= hardLimit && await hasVidsrcChapter(normalizedId, high)) {
+    while (high <= hardLimit && await hasVidsrcChapter(normalizedId, high, { retries: 2 })) {
       low = high;
       high *= 2;
     }
@@ -364,7 +381,7 @@
 
     while (low + 1 < high) {
       const mid = Math.floor((low + high) / 2);
-      if (await hasVidsrcChapter(normalizedId, mid)) {
+      if (await hasVidsrcChapter(normalizedId, mid, { retries: 2 })) {
         low = mid;
       } else {
         high = mid;
@@ -375,7 +392,7 @@
   }
 
   async function resolveAvailableChapterCount(manga) {
-    const anilistId = mangaAniListId(manga);
+    const anilistId = await resolvePlayableVidsrcAniListId(manga);
     const cacheKey = String(anilistId || '');
     if (cacheKey && state.vidsrcChapterCountByAniListId.has(cacheKey)) {
       return state.vidsrcChapterCountByAniListId.get(cacheKey);
@@ -741,6 +758,7 @@
         meanScore: media.meanScore,
         popularity: media.popularity,
         favourites: media.favourites,
+        isAdult: Boolean(media.isAdult),
         chapters: media.chapters,
         volumes: media.volumes,
         bannerImage: media.bannerImage,
@@ -974,17 +992,129 @@
     };
   }
 
-  function filterSearchItems(items) {
-    const list = Array.isArray(items) ? items : [];
-    if (!el.filterHasChapters?.checked) return list;
+  function searchQueryVariants(query) {
+    const raw = String(query || '').trim();
+    if (!raw) return [];
 
-    return list.filter((item) => {
+    const normalizedSpace = raw.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+    const normalizedHyphen = normalizedSpace.split(' ').filter(Boolean).join('-');
+    const compact = normalizedSpace.replace(/[^a-zA-Z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+    return [...new Set([raw, normalizedSpace, normalizedHyphen, compact].filter(Boolean))];
+  }
+
+  async function searchAniListMangaWithVariants(variables) {
+    const primary = await searchAniListManga(variables);
+    const rawQuery = String(variables?.search || '').trim();
+    if (!rawQuery || Number(variables?.page || 1) !== 1) {
+      return primary;
+    }
+
+    const variants = searchQueryVariants(rawQuery)
+      .filter((variant) => variant !== rawQuery)
+      .slice(0, 3);
+
+    if (!variants.length) {
+      return primary;
+    }
+
+    const variantResults = await Promise.allSettled(
+      variants.map((variant) => searchAniListManga({ ...variables, search: variant, page: 1, perPage: Math.min(Number(variables?.perPage || 24), 12) }))
+    );
+
+    const merged = new Map(primary.items.map((item) => [item.id, item]));
+    variantResults.forEach((result) => {
+      if (result.status !== 'fulfilled') return;
+      result.value.items.forEach((item) => {
+        if (!merged.has(item.id)) {
+          merged.set(item.id, item);
+        }
+      });
+    });
+
+    return {
+      ...primary,
+      items: [...merged.values()],
+    };
+  }
+
+  function isSuggestiveManga(manga) {
+    const genreNames = Array.isArray(manga?.anilist?.genres) ? manga.anilist.genres : [];
+    const tagNames = Array.isArray(manga?.anilist?.tags) ? manga.anilist.tags.map((tag) => tag?.name).filter(Boolean) : [];
+    const names = [...genreNames, ...tagNames].map((name) => String(name || '').toLowerCase());
+    const suggestiveSignals = new Set(['ecchi', 'smut', 'nudity', 'bondage', 'fetish', 'sexual violence']);
+    return names.some((name) => suggestiveSignals.has(name));
+  }
+
+  function isAdultManga(manga) {
+    if (Boolean(manga?.anilist?.isAdult)) return true;
+    const tagNames = Array.isArray(manga?.anilist?.tags) ? manga.anilist.tags.map((tag) => tag?.name).filter(Boolean) : [];
+    const names = tagNames.map((name) => String(name || '').toLowerCase());
+    const adultSignals = new Set(['hentai', 'rape', 'fellatio', 'nakadashi', 'incest']);
+    return names.some((name) => adultSignals.has(name));
+  }
+
+  function isStrongTitleMatch(manga, query) {
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) return true;
+
+    const compactQuery = normalizedQuery.replace(/\s+/g, '');
+    const words = normalizedQuery.split(' ').filter(Boolean);
+
+    return mangaSearchTitles(manga).some((title) => {
+      const normalizedTitle = normalizeSearchText(title);
+      if (!normalizedTitle) return false;
+
+      if (normalizedTitle === normalizedQuery) return true;
+      if (normalizedTitle.startsWith(`${normalizedQuery} `) || normalizedTitle.includes(` ${normalizedQuery} `) || normalizedTitle.includes(normalizedQuery)) return true;
+
+      const compactTitle = normalizedTitle.replace(/\s+/g, '');
+      if (compactTitle === compactQuery || compactTitle.includes(compactQuery)) return true;
+
+      if (words.length >= 2 && words.every((word) => normalizedTitle.includes(word))) return true;
+      if (words.length === 1 && normalizedTitle.startsWith(words[0])) return true;
+
+      return false;
+    });
+  }
+
+  function filterDiscoveryItems(items, { adultMode = false, limit = DISCOVERY_SECTION_LIMIT } = {}) {
+    const filtered = (Array.isArray(items) ? items : []).filter((item) => {
+      const unsafe = isAdultManga(item) || isSuggestiveManga(item);
+      return adultMode ? unsafe : !unsafe;
+    });
+
+    return filtered.slice(0, limit);
+  }
+
+  function filterSearchItems(items, query = '') {
+    const list = Array.isArray(items) ? items : [];
+    const ratings = selectedContentRatings();
+    const allowSafe = ratings.includes('safe');
+    const allowSuggestive = ratings.includes('suggestive');
+    const allowAdult = ratings.includes('erotica') || ratings.includes('pornographic');
+
+    const filtered = list.filter((item) => {
+      const isAdult = isAdultManga(item);
+      const isSuggestive = !isAdult && isSuggestiveManga(item);
+
+      if (isAdult && !allowAdult) return false;
+      if (isSuggestive && !allowSuggestive) return false;
+      if (!isAdult && !isSuggestive && !allowSafe) return false;
+
+      if (!el.filterHasChapters?.checked) return true;
+
       const chapterCount = Number(item?.anilist?.chapters);
       if (Number.isFinite(chapterCount)) return chapterCount > 0;
 
       const status = String(item?.attributes?.status || '').toLowerCase();
       return status !== 'not yet released';
     });
+
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) return filtered;
+
+    return filtered.filter((item) => isStrongTitleMatch(item, normalizedQuery) || mangaSearchScore(item, normalizedQuery) >= 350);
   }
 
   function buildSearchPageCacheKey(variables) {
@@ -1065,6 +1195,58 @@
   function titleCandidatesForMatch(manga) {
     const attrs = manga?.attributes?.title || {};
     return [...new Set([attrs.en, attrs['ja-ro'], attrs.ja].map((value) => String(value || '').trim()).filter(Boolean))];
+  }
+
+  async function resolvePlayableVidsrcAniListId(manga) {
+    const cacheKey = String(manga?.id || mangaAniListId(manga) || '').trim();
+    if (cacheKey && state.vidsrcResolvedAniListIdByMangaId.has(cacheKey)) {
+      return state.vidsrcResolvedAniListIdByMangaId.get(cacheKey);
+    }
+
+    const candidates = [];
+    const seen = new Set();
+    const addCandidate = (value) => {
+      const normalized = String(value || '').trim();
+      if (!normalized || seen.has(normalized)) return;
+      seen.add(normalized);
+      candidates.push(normalized);
+    };
+
+    addCandidate(manga?.sourceIds?.vidsrcAnilist);
+    addCandidate(mangaAniListId(manga));
+
+    const titles = titleCandidatesForMatch(manga);
+    for (const title of titles.slice(0, 3)) {
+      try {
+        const result = await searchAniListManga({
+          page: 1,
+          perPage: 8,
+          search: title,
+          sort: ['SEARCH_MATCH'],
+        });
+        result.items.forEach((item) => addCandidate(mangaAniListId(item)));
+      } catch {
+        // Ignore search fallback failures and keep current candidates.
+      }
+    }
+
+    let resolved = candidates[0] || null;
+    for (const candidateId of candidates) {
+      if (await hasVidsrcChapter(candidateId, 1)) {
+        resolved = candidateId;
+        break;
+      }
+    }
+
+    if (manga?.sourceIds && resolved) {
+      manga.sourceIds.vidsrcAnilist = resolved;
+    }
+
+    if (cacheKey) {
+      state.vidsrcResolvedAniListIdByMangaId.set(cacheKey, resolved);
+    }
+
+    return resolved;
   }
 
   async function resolveMangaDexMangaForMedia(manga) {
@@ -1179,7 +1361,10 @@
   async function loadReaderChapterCatalog(manga) {
     const cacheKey = String(manga?.id || '');
     if (cacheKey && state.chapterCatalogByMangaId.has(cacheKey)) {
-      return state.chapterCatalogByMangaId.get(cacheKey);
+      const cached = state.chapterCatalogByMangaId.get(cacheKey);
+      if (Array.isArray(cached) && cached.length) {
+        return cached;
+      }
     }
 
     let chapters = [];
@@ -1190,7 +1375,24 @@
       }
     }
 
-    if (cacheKey) {
+    if (!chapters.length) {
+      const playableAniListId = await resolvePlayableVidsrcAniListId(manga).catch(() => null);
+      let firstAvailableChapter = null;
+
+      for (const chapterNumber of [1, 2, 3, 4, 5]) {
+        if (playableAniListId && await hasVidsrcChapter(playableAniListId, chapterNumber, { retries: 2 })) {
+          firstAvailableChapter = chapterNumber;
+          break;
+        }
+      }
+
+      if (firstAvailableChapter !== null) {
+        const fallbackTotal = await probeVidsrcChapterCount(playableAniListId, firstAvailableChapter).catch(() => firstAvailableChapter);
+        chapters = buildSyntheticChapters(manga, Math.max(firstAvailableChapter, fallbackTotal || 0));
+      }
+    }
+
+    if (cacheKey && chapters.length) {
       state.chapterCatalogByMangaId.set(cacheKey, chapters);
     }
 
@@ -1296,6 +1498,35 @@
     cover.appendChild(row);
   }
 
+  function appendPosterCornerBadge(cover, badge) {
+    if (!cover || !badge?.label) return;
+
+    const chip = document.createElement('span');
+    chip.className = `poster-corner-badge${badge.tone ? ` ${badge.tone}` : ''}`;
+    chip.textContent = badge.label;
+    cover.appendChild(chip);
+  }
+
+  function syncPosterReadLaterBadge(mangaId) {
+    const normalizedId = String(mangaId || '').trim();
+    if (!normalizedId) return;
+
+    const isLater = Boolean(loadMap(STORAGE.READ_LATER)[normalizedId]);
+    document.querySelectorAll(`.poster[data-manga-id="${CSS.escape(normalizedId)}"] .poster-cover`).forEach((cover) => {
+      const existing = cover.querySelector('.poster-corner-badge.saved');
+      if (isLater && !existing) {
+        appendPosterCornerBadge(cover, { label: 'Read Later', tone: 'saved' });
+      }
+      if (!isLater && existing) {
+        existing.remove();
+      }
+    });
+
+    if (el.showcaseLaterBtn && String(el.showcaseLaterBtn.dataset.mangaId || '') === normalizedId) {
+      el.showcaseLaterBtn.innerHTML = `<span class="material-symbols-outlined">bookmark</span> ${isLater ? 'Saved' : 'Read Later'}`;
+    }
+  }
+
   function appendPosterActions(cover, actions) {
     const valid = Array.isArray(actions) ? actions.filter((action) => action && action.label && typeof action.onClick === 'function') : [];
     if (!valid.length) return;
@@ -1356,6 +1587,7 @@
   function renderPosterGrid(container, items, opts = {}) {
     const { context = 'generic', showNewBadge = false, newBadgeMap = {} } = opts;
     container.innerHTML = '';
+    const readLaterMap = loadMap(STORAGE.READ_LATER);
 
     const frag = document.createDocumentFragment();
     items.forEach((manga) => {
@@ -1410,6 +1642,9 @@
 
       coverShell.appendChild(img);
       appendPosterBadges(coverShell, badges);
+      if (readLaterMap[manga.id]) {
+        appendPosterCornerBadge(coverShell, { label: 'Read Later', tone: 'saved' });
+      }
 
       poster.appendChild(coverShell);
       poster.appendChild(titleDiv);
@@ -1489,12 +1724,66 @@
     el.excludeTagChips.style.display = state.excludeTags.size ? 'flex' : 'none';
   }
 
+  function defaultContentRatingsForAdultMode(enabled) {
+    return enabled ? ['safe', 'suggestive', 'erotica', 'pornographic'] : ['safe'];
+  }
+
+  function applyAdultToggleUI() {
+    const enabled = Boolean(state.settings.adultEnabled);
+    if (el.adultToggleBtn) {
+      el.adultToggleBtn.dataset.active = enabled ? 'true' : 'false';
+      el.adultToggleBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+      el.adultToggleBtn.innerHTML = `<span class="material-symbols-outlined">${enabled ? 'visibility' : 'visibility_off'}</span>${enabled ? 'Adult On' : 'Adult Off'}`;
+    }
+
+    if (el.contentRatingChecks) {
+      el.contentRatingChecks.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+        const value = String(cb.value || '');
+        const isSafe = value === 'safe';
+        cb.disabled = !enabled && !isSafe;
+        if (!enabled && !isSafe) {
+          cb.checked = false;
+        }
+        if (!enabled && isSafe) {
+          cb.checked = true;
+        }
+      });
+    }
+
+    if (el.adultSection && !enabled) {
+      el.adultSection.style.display = 'none';
+    }
+  }
+
+  async function setAdultMode(enabled) {
+    const next = Boolean(enabled);
+    const previous = Boolean(state.settings.adultEnabled);
+    state.settings.adultEnabled = next;
+
+    if (next) {
+      const current = new Set(Array.isArray(state.settings.contentRatings) ? state.settings.contentRatings : []);
+      if (!previous || (current.size === 1 && current.has('safe'))) {
+        state.settings.contentRatings = defaultContentRatingsForAdultMode(true);
+      }
+    } else {
+      state.settings.contentRatings = defaultContentRatingsForAdultMode(false);
+    }
+
+    saveSettings();
+    initContentRatingUI();
+    applyAdultToggleUI();
+    await loadDiscovery();
+    await performSearch(1);
+  }
+
   function selectedContentRatings() {
+    if (!state.settings.adultEnabled) return ['safe'];
+
     const ratings = [];
     for (const cb of el.contentRatingChecks.querySelectorAll('input[type="checkbox"]')) {
       if (cb.checked) ratings.push(cb.value);
     }
-    return ratings;
+    return ratings.length ? ratings : defaultContentRatingsForAdultMode(true);
   }
 
   function showResults(open) {
@@ -1528,8 +1817,8 @@
         perPage: limit,
         sortValue: sortVal,
       });
-      const result = await searchAniListManga(searchVariables);
-      const items = sortSearchResults(filterSearchItems(result.items), q, sortVal);
+      const result = await searchAniListMangaWithVariants(searchVariables);
+      const items = sortSearchResults(filterSearchItems(result.items, q), q, sortVal);
       const safeLastPage = await resolveSearchLastPage(result, searchVariables);
 
       renderPosterGrid(el.results, items, { context: 'search' });
@@ -1592,35 +1881,66 @@
             ? 'createdAt'
             : 'relevance';
 
-    return searchAniListManga(buildAniListSearchVariables({
+    return searchAniListManga(buildDiscoverySearchVariables({
       page: 1,
       perPage: limit,
       sortValue,
     }));
   }
 
+  function buildDiscoverySearchVariables({ page = 1, perPage = DISCOVERY_SECTION_LIMIT, sortValue = 'relevance', adultMode = 'default' } = {}) {
+    const base = buildAniListSearchVariables({
+      page,
+      perPage,
+      sortValue,
+    });
+
+    return {
+      ...base,
+      genreIn: null,
+      genreNotIn: null,
+      tagIn: null,
+      tagNotIn: null,
+      status: null,
+      countryOfOrigin: null,
+      startDateLike: null,
+      isAdult: adultMode === 'adult' ? null : false,
+    };
+  }
+
   async function loadDiscovery() {
     setStatus('Loading discovery…');
 
     try {
-      const trending = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'relevance' }));
-      const trendingItems = trending.items;
+      const discoveryPerPage = state.settings.adultEnabled ? DISCOVERY_SECTION_LIMIT * 3 : DISCOVERY_SECTION_LIMIT * 2;
+      const discoveryMode = state.settings.adultEnabled ? 'adult' : 'default';
+
+      const trending = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'relevance', adultMode: discoveryMode }));
+      const trendingItems = filterDiscoveryItems(trending.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
       renderPosterGrid(el.trendingGrid, trendingItems, { context: 'trending' });
       if (!el.showcaseSection?.hidden && trendingItems[0]) await renderShowcase(trendingItems[0]);
 
       setStatus('Loading more…');
 
-      const popular = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'followedCount' }));
-      const topRated = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'rating' }));
-      const newTitles = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'updatedAt' }));
+      const popular = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: discoveryMode }));
+      const topRated = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'rating', adultMode: discoveryMode }));
+      const newTitles = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'updatedAt', adultMode: discoveryMode }));
+      const adultTitles = await searchAniListManga(buildDiscoverySearchVariables({ page: 1, perPage: discoveryPerPage, sortValue: 'followedCount', adultMode: 'adult' }));
 
-      const popularItems = popular.items;
-      const ratedItems = topRated.items;
-      const newItems = newTitles.items;
+      const popularItems = filterDiscoveryItems(popular.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
+      const ratedItems = filterDiscoveryItems(topRated.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
+      const newItems = filterDiscoveryItems(newTitles.items, { adultMode: state.settings.adultEnabled, limit: DISCOVERY_SECTION_LIMIT });
+      const adultItems = filterDiscoveryItems(adultTitles.items, { adultMode: true, limit: DISCOVERY_SECTION_LIMIT });
 
       renderPosterGrid(el.popularGrid, popularItems, { context: 'popular' });
       renderPosterGrid(el.topRatedGrid, ratedItems, { context: 'top-rated' });
       renderPosterGrid(el.newGrid, newItems, { context: 'new' });
+      if (el.adultGrid) {
+        renderPosterGrid(el.adultGrid, adultItems, { context: 'adult' });
+      }
+      if (el.adultSection) {
+        el.adultSection.style.display = state.settings.adultEnabled ? 'none' : (adultItems.length ? '' : 'none');
+      }
 
       // Showcase fallback if trending was empty
       if (!el.showcaseSection?.hidden && !trendingItems[0]) {
@@ -1654,6 +1974,8 @@
     el.showcaseActions.style.display = 'flex';
     el.showcaseReadBtn.onclick = () => openMangaDetail(manga.id, { autoRead: true });
     el.showcaseLaterBtn.onclick = () => toggleReadLater(manga);
+    el.showcaseLaterBtn.dataset.mangaId = manga.id;
+    el.showcaseLaterBtn.innerHTML = `<span class="material-symbols-outlined">bookmark</span> ${loadMap(STORAGE.READ_LATER)[manga.id] ? 'Saved' : 'Read Later'}`;
 
     const bgUrl = coverUrlFromManga(manga, 512);
     el.showcaseBg.style.backgroundImage = `url('${bgUrl}')`;
@@ -1707,6 +2029,7 @@
       removeEntry(STORAGE.FINISHED, manga.id);
     }
     renderLibrarySections();
+    syncPosterReadLaterBadge(manga.id);
   }
 
   function markFinished(manga) {
@@ -2157,7 +2480,7 @@
     state.current.mangaId = manga.id;
     state.current.mangaTitle = mangaTitle(manga);
     state.current.coverUrl = coverUrlFromManga(manga, 256);
-    state.current.anilistId = mangaAniListId(manga);
+    state.current.anilistId = await resolvePlayableVidsrcAniListId(manga);
     state.current.chapterLangs = chapterLangs || state.settings.preferredChapterLangs;
 
     // Normalize chapter list: distinct + sorted by chapter number where possible
@@ -2578,13 +2901,14 @@
       el.filterHasChapters.checked = true;
       state.includeTags.clear();
       state.excludeTags.clear();
-      state.settings.contentRatings = [...DEFAULT_SETTINGS.contentRatings];
+      state.settings.contentRatings = defaultContentRatingsForAdultMode(state.settings.adultEnabled);
       state.settings.includedTagsMode = DEFAULT_SETTINGS.includedTagsMode;
       state.settings.excludedTagsMode = DEFAULT_SETTINGS.excludedTagsMode;
       el.tagsModeInclude.value = state.settings.includedTagsMode;
       el.tagsModeExclude.value = state.settings.excludedTagsMode;
       saveSettings();
       initContentRatingUI();
+      applyAdultToggleUI();
       renderTagChips();
       performSearch(1);
     };
@@ -2757,6 +3081,7 @@
     for (const cb of el.contentRatingChecks.querySelectorAll('input[type="checkbox"]')) {
       cb.checked = selected.has(cb.value);
     }
+    applyAdultToggleUI();
   }
 
   function migrateStoredEntries() {
@@ -2787,6 +3112,7 @@
   async function init() {
     // elements
     el.searchInput = $('search-input');
+    el.adultToggleBtn = $('adult-toggle');
     el.searchWrap = $('search-wrap');
     el.searchPanel = $('search-panel');
     el.searchResetBtn = $('search-reset');
@@ -2835,6 +3161,8 @@
     el.showcaseActions = $('showcase-actions');
     el.showcaseReadBtn = $('showcase-read');
     el.showcaseLaterBtn = $('showcase-readlater');
+    el.adultSection = $('adultSection');
+    el.adultGrid = $('adultGrid');
 
     el.continueSection = $('continueSection');
     el.readLaterSection = $('readLaterSection');
@@ -2877,11 +3205,18 @@
     applyReaderPanelState();
 
     initContentRatingUI();
+    applyAdultToggleUI();
 
     wireDropdownMenu();
     wireOverlays();
     wireSearchUI();
     wireReaderTools();
+
+    if (el.adultToggleBtn) {
+      el.adultToggleBtn.addEventListener('click', async () => {
+        await setAdultMode(!state.settings.adultEnabled);
+      });
+    }
 
     // Library quick jumps
     const scrollTo = (sectionEl) => {

@@ -1102,6 +1102,7 @@
 			padding: 0 14px 80px;
 			display: flex;
 			flex-direction: column;
+			align-items: stretch;
 			gap: 10px;
 		}
 
@@ -1109,16 +1110,20 @@
 			max-width: none;
 			padding: 0 14px 40px;
 			min-height: calc(100vh - 28px);
+			align-items: center;
+			--reader-embed-width: min(100%, 1180px);
+			--reader-embed-height: calc(100dvh - 28px);
 		}
 
 		.reader-embed-shell {
-			width: 100%;
-			min-height: calc(100vh - 28px);
+			width: var(--reader-embed-width, 100%);
+			max-width: 100%;
+			min-height: var(--reader-embed-height, calc(100vh - 28px));
 		}
 
 		#reader-embed-frame {
 			width: 100%;
-			height: calc(100vh - 28px);
+			height: var(--reader-embed-height, calc(100vh - 28px));
 			border: 1px solid rgba(255,255,255,0.10);
 			border-radius: 12px;
 			background: #050505;
@@ -1142,8 +1147,16 @@
 			max-height: none;
 			margin: 0;
 		}
+		#manga-reader-overlay[data-fit="vertical"] #reader-pages.embed-mode {
+			--reader-embed-width: min(100%, 860px);
+			--reader-embed-height: clamp(960px, 165dvh, 2200px);
+		}
 		#manga-reader-overlay[data-fit="page"] #reader-pages {
 			align-items: center;
+		}
+		#manga-reader-overlay[data-fit="page"] #reader-pages.embed-mode {
+			--reader-embed-width: min(100%, 1180px);
+			--reader-embed-height: calc(100dvh - 28px);
 		}
 		#manga-reader-overlay[data-fit="page"] .reader-page {
 			width: auto;
@@ -1155,6 +1168,10 @@
 		}
 		#manga-reader-overlay[data-fit="horizontal"] #reader-pages {
 			align-items: center;
+		}
+		#manga-reader-overlay[data-fit="horizontal"] #reader-pages.embed-mode {
+			--reader-embed-width: min(100%, 1380px);
+			--reader-embed-height: clamp(560px, 84dvh, 1080px);
 		}
 		#manga-reader-overlay[data-fit="horizontal"] .reader-page {
 			width: auto;
@@ -1226,6 +1243,44 @@
 
 		.topbar {
 			animation: rise-in 420ms ease;
+			position: relative;
+		}
+
+		#adult-toggle {
+			position: fixed;
+			top: 18px;
+			right: 22px;
+			z-index: 96;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-height: 44px;
+			padding: 10px 14px;
+			border: 1px solid rgba(117, 254, 78, 0.18);
+			background: rgba(7, 7, 7, 0.94);
+			color: var(--text);
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.82rem;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			cursor: pointer;
+			box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+			transition: background 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms ease;
+		}
+
+		#adult-toggle:hover,
+		#adult-toggle:focus-visible {
+			transform: translateY(-1px);
+			border-color: rgba(117, 254, 78, 0.42);
+			color: var(--accent);
+			outline: none;
+		}
+
+		#adult-toggle[data-active="true"] {
+			background: rgba(117, 254, 78, 0.14);
+			border-color: rgba(117, 254, 78, 0.34);
+			color: var(--accent);
 		}
 
 		main.page-shell > section,
@@ -1618,6 +1673,30 @@
 			color: #051002;
 		}
 
+		.poster-corner-badge {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			z-index: 3;
+			display: inline-flex;
+			align-items: center;
+			padding: 5px 8px;
+			background: rgba(0, 0, 0, 0.82);
+			border: 1px solid rgba(255,255,255,0.16);
+			color: #f3f3f3;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.68rem;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			backdrop-filter: blur(6px);
+		}
+
+		.poster-corner-badge.saved {
+			background: rgba(117, 254, 78, 0.18);
+			border-color: rgba(117, 254, 78, 0.3);
+			color: #e6ffd8;
+		}
+
 		.cover-actions {
 			position: absolute;
 			top: 10px;
@@ -1820,6 +1899,13 @@
 
 		@media (max-width: 720px) {
 			.page-shell { width: min(100vw - 18px, 1440px); padding-top: 18px; }
+			#adult-toggle {
+				top: 12px;
+				right: 12px;
+				min-height: 40px;
+				padding: 8px 12px;
+				font-size: 0.75rem;
+			}
 			#showcase, #search-results-wrapper { padding: 18px; }
 			#filters-wrap { grid-template-columns: 1fr; padding: 16px 18px 18px; }
 			#content-rating-checks { grid-template-columns: 1fr; }
@@ -1894,10 +1980,78 @@
 				width: 100%;
 				justify-content: flex-end;
 			}
+			#reader-topbar {
+				top: auto;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: auto;
+				max-height: min(46dvh, 360px);
+				padding: 14px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+				background: rgba(0,0,0,0.92);
+				border-right: none;
+				border-top: 1px solid rgba(255,255,255,0.10);
+				border-radius: 18px 18px 0 0;
+				gap: 12px;
+			}
+			#reader-topbar .bar-row:first-child {
+				align-items: flex-start;
+			}
+			#reader-title {
+				max-width: none;
+				white-space: normal;
+				line-height: 1.08;
+			}
+			#reader-controls {
+				padding-bottom: 2px;
+			}
+			#reader-scroll {
+				left: 0;
+				bottom: 212px;
+				padding-top: 8px;
+			}
+			#manga-reader-overlay.panel-collapsed #reader-topbar {
+				transform: translateY(calc(100% + 10px));
+			}
+			#manga-reader-overlay.panel-collapsed #reader-scroll {
+				bottom: 0;
+			}
+			#reader-pages {
+				padding: 0 10px 24px;
+				gap: 8px;
+			}
+			#reader-pages.embed-mode {
+				padding: 0 10px 14px;
+				min-height: auto;
+				--reader-embed-width: 100%;
+				--reader-embed-height: calc(100dvh - 232px);
+			}
+			#manga-reader-overlay[data-fit="vertical"] #reader-pages.embed-mode {
+				--reader-embed-height: clamp(820px, 170dvh, 1800px);
+			}
+			#manga-reader-overlay[data-fit="page"] #reader-pages.embed-mode {
+				--reader-embed-height: calc(100dvh - 232px);
+			}
+			#manga-reader-overlay[data-fit="horizontal"] #reader-pages.embed-mode {
+				--reader-embed-height: clamp(400px, 62dvh, 720px);
+			}
+			#reader-embed-frame {
+				border-radius: 10px;
+			}
 			#reader-floating-panel,
 			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
-				left: 12px;
-				bottom: 12px;
+				left: auto;
+				right: 12px;
+				bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+			}
+			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
+				opacity: 0;
+				pointer-events: none;
+			}
+			#reader-floating-panel,
+			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
+				left: auto;
+				right: 12px;
 			}
 		}
 
@@ -1921,6 +2075,10 @@
 			<img src="./assets/ateaish_m.png" alt="ateaish manga" style="padding-right: 8px;" />
 		</div>
 	</header>
+	<button id="adult-toggle" type="button" aria-pressed="false" title="Toggle adult manga visibility">
+		<span class="material-symbols-outlined">visibility_off</span>
+		Adult Off
+	</button>
 
 	<div class="master-nav dropdown" aria-label="Website navigation">
 		<button class="master-nav-toggle" id="dropdownToggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open website navigation" title="Open website navigation">
@@ -2150,6 +2308,11 @@
 				Finished
 			</h2>
 			<div class="grid" id="finishedGrid"></div>
+		</section>
+
+		<section id="adultSection" style="display:none;">
+			<h2>Adult Manga</h2>
+			<div class="grid" id="adultGrid"></div>
 		</section>
 	</main>
 
