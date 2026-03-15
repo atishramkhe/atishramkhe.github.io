@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -24,6 +25,10 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 MAX_WORKERS = 10
 DEFAULT_MODE = 'full'
 DEFAULT_TRACKED_SECTION_IDS = ('newest', 'ongoing')
+REQUEST_TIMEOUT_SECONDS = 30
+REQUEST_RETRIES = 3
+RETRYABLE_HTTP_STATUSES = {429, 500, 502, 503, 504}
+RETRY_BACKOFF_SECONDS = 2
 
 SECTION_SOURCES = [
     {
@@ -113,8 +118,24 @@ class ComicItem:
 
 def fetch_html(url: str) -> str:
     request = Request(url, headers={'User-Agent': USER_AGENT})
-    with urlopen(request, timeout=30) as response:
-        return response.read().decode('utf-8', errors='ignore')
+    last_error: Exception | None = None
+    for attempt in range(1, REQUEST_RETRIES + 1):
+        try:
+            with urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
+                return response.read().decode('utf-8', errors='ignore')
+        except HTTPError as error:
+            last_error = error
+            if error.code not in RETRYABLE_HTTP_STATUSES or attempt == REQUEST_RETRIES:
+                raise
+        except (URLError, TimeoutError) as error:
+            last_error = error
+            if attempt == REQUEST_RETRIES:
+                raise
+        time.sleep(RETRY_BACKOFF_SECONDS * attempt)
+
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError(f'Failed to fetch {url}')
 
 
 def clean_text(value: str) -> str:

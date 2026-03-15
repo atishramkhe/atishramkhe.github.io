@@ -14,6 +14,9 @@ const CATALOG_JSON = path.join(DATA_DIR, 'catalog.json');
 const READER_INDEX_JSON = path.join(DATA_DIR, 'reader_index.json');
 const READER_STATE_JSON = path.join(DATA_DIR, 'reader_build_state.json');
 const DEFAULT_CONCURRENCY = 4;
+const REQUEST_RETRIES = 3;
+const RETRYABLE_HTTP_STATUSES = new Set([429, 500, 502, 503, 504]);
+const RETRY_BACKOFF_MS = 2000;
 
 function cleanText(value) {
   return String(value ?? '')
@@ -109,15 +112,30 @@ function issueIdFromUrl(issueUrl) {
 }
 
 async function fetchHtml(url) {
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': USER_AGENT,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`Request failed for ${url}: ${response.status}`);
+  let lastError;
+  for (let attempt = 1; attempt <= REQUEST_RETRIES; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': USER_AGENT,
+        },
+      });
+      if (!response.ok) {
+        if (!RETRYABLE_HTTP_STATUSES.has(response.status) || attempt === REQUEST_RETRIES) {
+          throw new Error(`Request failed for ${url}: ${response.status}`);
+        }
+      } else {
+        return response.text();
+      }
+    } catch (error) {
+      lastError = error;
+      if (attempt === REQUEST_RETRIES) {
+        throw error;
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, RETRY_BACKOFF_MS * attempt));
   }
-  return response.text();
+  throw lastError ?? new Error(`Request failed for ${url}`);
 }
 
 function step1(value) {
