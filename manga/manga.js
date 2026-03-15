@@ -8,6 +8,8 @@
     VIDSRC: 'vidsrc',
     MANGADEX: 'mangadex',
   });
+  const DISCOVERY_SECTION_LIMIT = 22;
+  const RECENT_WINDOW_DAYS = 14;
   const COUNTRY_TO_LANG = Object.freeze({
     JP: 'ja',
     KR: 'ko',
@@ -42,6 +44,7 @@
     excludedTagsMode: 'OR',
     readerSource: READER_SOURCES.VIDSRC,
     readerFitMode: 'vertical', // vertical | page | horizontal
+    readerPanelCollapsed: false,
   };
 
   const state = {
@@ -193,6 +196,9 @@
         contentRatings: Array.isArray(saved.contentRatings) ? saved.contentRatings : DEFAULT_SETTINGS.contentRatings,
         readerSource: normalizeReaderSource(saved.readerSource),
         readerFitMode: typeof saved.readerFitMode === 'string' ? saved.readerFitMode : DEFAULT_SETTINGS.readerFitMode,
+        readerPanelCollapsed: typeof saved.readerPanelCollapsed === 'boolean'
+          ? saved.readerPanelCollapsed
+          : DEFAULT_SETTINGS.readerPanelCollapsed,
       };
 
       // Migration: older default was EN only; new default is EN+FR.
@@ -235,6 +241,31 @@
     if (el.readerFitModeSelect) {
       el.readerFitModeSelect.value = normalized;
     }
+  }
+
+  function applyReaderPanelState() {
+    const collapsed = Boolean(state.settings.readerPanelCollapsed);
+    if (el.readerOverlay) {
+      el.readerOverlay.classList.toggle('panel-collapsed', collapsed);
+    }
+    if (el.readerPanelToggleBtn) {
+      el.readerPanelToggleBtn.textContent = collapsed ? 'left_panel_open' : 'left_panel_close';
+      el.readerPanelToggleBtn.title = collapsed ? 'Show reader panel' : 'Focus mode';
+      el.readerPanelToggleBtn.setAttribute('aria-label', collapsed ? 'Show reader panel' : 'Hide reader panel');
+    }
+    if (el.readerFloatingPanelBtn) {
+      el.readerFloatingPanelBtn.textContent = collapsed ? 'dock_to_left' : 'dock_to_right';
+      el.readerFloatingPanelBtn.title = collapsed ? 'Show reader panel' : 'Hide reader panel';
+      el.readerFloatingPanelBtn.setAttribute('aria-label', collapsed ? 'Show reader panel' : 'Hide reader panel');
+    }
+  }
+
+  function toggleReaderPanel(forceState) {
+    state.settings.readerPanelCollapsed = typeof forceState === 'boolean'
+      ? forceState
+      : !state.settings.readerPanelCollapsed;
+    saveSettings();
+    applyReaderPanelState();
   }
 
   async function toggleReaderFullscreen() {
@@ -1060,6 +1091,27 @@
     }
   }
 
+  function formatTimestamp(ts) {
+    if (!ts) return '';
+    try {
+      return formatCompactDate(new Date(ts).toISOString());
+    } catch {
+      return '';
+    }
+  }
+
+  function parseNumericChapter(value) {
+    const parsed = Number.parseFloat(String(value || '').trim());
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function isRecentDateValue(value) {
+    if (!value) return false;
+    const timestamp = typeof value === 'number' ? value : new Date(value).getTime();
+    if (!Number.isFinite(timestamp) || timestamp <= 0) return false;
+    return (Date.now() - timestamp) <= RECENT_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+  }
+
   function escapeHtml(str) {
     return String(str || '')
       .replaceAll('&', '&amp;')
@@ -1067,6 +1119,45 @@
       .replaceAll('>', '&gt;')
       .replaceAll('"', '&quot;')
       .replaceAll("'", '&#39;');
+  }
+
+  function buildProgressMarkup(rows) {
+    const validRows = Array.isArray(rows) ? rows.filter((row) => row && row.ratio !== null && row.ratio !== undefined) : [];
+    if (!validRows.length) return '';
+
+    return `
+      <div class="card-progress">
+        ${validRows.map((row) => {
+          const bounded = Math.max(0, Math.min(Number(row.ratio) || 0, 1));
+          return `
+            <div class="progress-block">
+              <div class="progress-meta">
+                <span>${escapeHtml(row.label || 'Progress')}</span>
+                <span>${Math.round(bounded * 100)}%</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" style="width:${bounded * 100}%"></div></div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  function appendPosterBadges(cover, badges) {
+    const valid = Array.isArray(badges) ? badges.filter((badge) => badge && badge.label) : [];
+    if (!valid.length) return;
+
+    const row = document.createElement('div');
+    row.className = 'poster-badge-row';
+
+    valid.forEach((badge) => {
+      const chip = document.createElement('span');
+      chip.className = `poster-badge${badge.tone ? ` ${badge.tone}` : ''}`;
+      chip.textContent = badge.label;
+      row.appendChild(chip);
+    });
+
+    cover.appendChild(row);
   }
 
   function setStatus(text) {
@@ -1111,10 +1202,15 @@
       const cover = coverUrlFromManga(manga, 256);
       const coverFile = coverFileNameFromManga(manga);
 
-      const poster = document.createElement('div');
+      const poster = document.createElement('article');
       poster.className = 'poster';
       poster.dataset.mangaId = manga.id;
       poster.dataset.context = context;
+      poster.tabIndex = 0;
+      poster.setAttribute('role', 'button');
+
+      const coverShell = document.createElement('span');
+      coverShell.className = 'poster-cover';
 
       const img = document.createElement('img');
       img.loading = 'lazy';
@@ -1134,40 +1230,36 @@
       const titleDiv = document.createElement('div');
       titleDiv.className = 'poster-title';
       titleDiv.textContent = title;
-
-      const info = document.createElement('div');
-      info.className = 'poster-info';
       const year = manga?.attributes?.year ? String(manga.attributes.year) : '';
       const status = manga?.attributes?.status ? String(manga.attributes.status) : '';
-      const tags = relationshipManyByType(manga, 'tag')
-        .slice(0, 6)
-        .map((t) => {
-          const name = t?.attributes?.name?.en;
-          return name ? `#${name}` : '';
-        })
-        .filter(Boolean)
-        .join(' ');
 
-      info.innerHTML = `
-        <div style="font-family:'OumaTrialBold',sans-serif; font-size: 0.95em; margin-bottom: 6px;">${escapeHtml(title)}</div>
-        <div style="opacity:0.8; font-size:0.85em; margin-bottom: 8px;">${escapeHtml([year, status].filter(Boolean).join(' • '))}</div>
-        <div style="opacity:0.9; font-size:0.82em; line-height:1.35; max-height: 110px; overflow:hidden;">${escapeHtml(desc || 'No description.')}</div>
-        <div style="opacity:0.75; font-size:0.78em; margin-top: 10px;">${escapeHtml(tags)}</div>
-      `;
+      const subtitleDiv = document.createElement('div');
+      subtitleDiv.className = 'poster-subtitle';
+      subtitleDiv.textContent = [year, status].filter(Boolean).join(' • ') || desc || 'Open details';
 
-      poster.appendChild(img);
-
+      const badges = [];
+      const totalChapters = Number(manga?.anilist?.chapters || 0);
+      if (totalChapters > 0) badges.push({ label: `Ch. ${totalChapters}`, tone: 'soft' });
       if (showNewBadge && newBadgeMap[manga.id]) {
-        const badge = document.createElement('div');
-        badge.className = 'badge-new';
-        badge.textContent = 'NEW';
-        poster.appendChild(badge);
+        badges.push({ label: 'New', tone: 'alert' });
+      } else if (context === 'new' || isRecentDateValue(manga?.attributes?.updatedAtIso || manga?.attributes?.startDateIso)) {
+        badges.push({ label: 'Recent', tone: 'cool' });
       }
 
-      poster.appendChild(info);
-      poster.appendChild(titleDiv);
+      coverShell.appendChild(img);
+      appendPosterBadges(coverShell, badges);
 
-      poster.addEventListener('click', () => openMangaDetail(manga.id));
+      poster.appendChild(coverShell);
+      poster.appendChild(titleDiv);
+      poster.appendChild(subtitleDiv);
+
+      const activate = () => openMangaDetail(manga.id);
+      poster.addEventListener('click', activate);
+      poster.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        activate();
+      });
 
       frag.appendChild(poster);
     });
@@ -1327,7 +1419,7 @@
     el.searchPagination.appendChild(info);
   }
 
-  async function fetchDiscoveryList(orderKey, orderDir = 'desc', limit = 12) {
+  async function fetchDiscoveryList(orderKey, orderDir = 'desc', limit = DISCOVERY_SECTION_LIMIT) {
     const sortValue = orderKey === 'latestUploadedChapter'
       ? 'updatedAt'
       : orderKey === 'followedCount'
@@ -1349,16 +1441,16 @@
     setStatus('Loading discovery…');
 
     try {
-      const trending = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'relevance' }));
+      const trending = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'relevance' }));
       const trendingItems = trending.items;
       renderPosterGrid(el.trendingGrid, trendingItems, { context: 'trending' });
-      if (trendingItems[0]) await renderShowcase(trendingItems[0]);
+      if (!el.showcaseSection?.hidden && trendingItems[0]) await renderShowcase(trendingItems[0]);
 
       setStatus('Loading more…');
 
-      const popular = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'followedCount' }));
-      const topRated = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'rating' }));
-      const newTitles = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: 12, sortValue: 'updatedAt' }));
+      const popular = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'followedCount' }));
+      const topRated = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'rating' }));
+      const newTitles = await searchAniListManga(buildAniListSearchVariables({ page: 1, perPage: DISCOVERY_SECTION_LIMIT, sortValue: 'updatedAt' }));
 
       const popularItems = popular.items;
       const ratedItems = topRated.items;
@@ -1369,7 +1461,7 @@
       renderPosterGrid(el.newGrid, newItems, { context: 'new' });
 
       // Showcase fallback if trending was empty
-      if (!trendingItems[0]) {
+      if (!el.showcaseSection?.hidden && !trendingItems[0]) {
         const featured = popularItems[0] || ratedItems[0] || newItems[0];
         if (featured) await renderShowcase(featured);
       }
@@ -1419,6 +1511,7 @@
       coverUrl: cover,
       updatedAt: Date.now(),
       year: manga?.attributes?.year || null,
+      totalChapters: manga?.anilist?.chapters || null,
       releaseDate: mangaReleaseDate(manga) || null,
       status: manga?.attributes?.status || null,
       originalLanguage: manga?.attributes?.originalLanguage || null,
@@ -1462,6 +1555,7 @@
       title: mangaTitle(manga),
       coverUrl: coverUrlFromManga(manga, 256),
       updatedAt: Date.now(),
+      totalChapters: manga?.anilist?.chapters || null,
     };
     cont[manga.id] = {
       ...base,
@@ -1476,9 +1570,14 @@
     const frag = document.createDocumentFragment();
 
     entries.forEach((entry) => {
-      const poster = document.createElement('div');
+      const poster = document.createElement('article');
       poster.className = 'poster';
       poster.dataset.mangaId = entry.mangaId;
+      poster.tabIndex = 0;
+      poster.setAttribute('role', 'button');
+
+      const coverShell = document.createElement('span');
+      coverShell.className = 'poster-cover';
 
       const img = document.createElement('img');
       img.loading = 'lazy';
@@ -1498,38 +1597,65 @@
       titleDiv.className = 'poster-title';
       titleDiv.textContent = entry.title || 'Untitled';
 
-      const info = document.createElement('div');
-      info.className = 'poster-info';
-      const metaBits = [];
-      if (entry.lastChapter) metaBits.push(`Ch. ${entry.lastChapter}`);
-      if (entry.lastReadAt) metaBits.push(`Read ${formatCompactDate(new Date(entry.lastReadAt).toISOString())}`);
-      if (entry.status) metaBits.push(entry.status);
-
-      info.innerHTML = `
-        <div style="font-family:'OumaTrialBold',sans-serif; font-size: 0.95em; margin-bottom: 6px;">${escapeHtml(entry.title)}</div>
-        <div style="opacity:0.8; font-size:0.85em; margin-bottom: 8px;">${escapeHtml(metaBits.join(' • ') || ' ')}</div>
-        <div style="opacity:0.9; font-size:0.82em; line-height:1.35;">${escapeHtml(entry.newChapters ? 'New chapters available.' : (opts.hint || ' '))}</div>
-      `;
-
-      poster.appendChild(img);
-
-      if (entry.newChapters) {
-        const badge = document.createElement('div');
-        badge.className = 'badge-new';
-        badge.textContent = 'NEW';
-        poster.appendChild(badge);
+      const subtitleDiv = document.createElement('div');
+      subtitleDiv.className = 'poster-subtitle';
+      if (opts.mode === 'continue') {
+        subtitleDiv.textContent = [
+          entry.lastChapter ? `Resume chapter ${entry.lastChapter}` : 'Resume reading',
+          formatTimestamp(entry.lastReadAt),
+        ].filter(Boolean).join(' • ');
+      } else if (opts.mode === 'later') {
+        subtitleDiv.textContent = entry.updatedAt ? `Saved ${formatTimestamp(entry.updatedAt)}` : 'Saved for later';
+      } else if (opts.mode === 'finished') {
+        subtitleDiv.textContent = entry.updatedAt ? `Finished ${formatTimestamp(entry.updatedAt)}` : 'Completed';
+      } else {
+        subtitleDiv.textContent = opts.hint || '';
       }
 
-      poster.appendChild(info);
-      poster.appendChild(titleDiv);
+      const badges = [];
+      if (opts.mode === 'continue') badges.push({ label: 'Continue', tone: 'cool' });
+      if (opts.mode === 'later') badges.push({ label: 'Later', tone: 'soft' });
+      if (opts.mode === 'finished') badges.push({ label: 'Finished', tone: 'soft' });
+      if (entry.lastChapter) badges.push({ label: `Ch. ${entry.lastChapter}`, tone: 'soft' });
+      if (entry.newChapters) badges.push({ label: 'New', tone: 'alert' });
 
-      poster.addEventListener('click', () => {
+      let progressMarkup = '';
+      if (opts.mode === 'continue') {
+        const lastChapter = parseNumericChapter(entry.lastChapter);
+        const totalChapters = parseNumericChapter(entry.totalChapters);
+        if (lastChapter !== null && totalChapters !== null && totalChapters > 0) {
+          progressMarkup = buildProgressMarkup([{ label: 'Series', ratio: lastChapter / totalChapters }]);
+        }
+      }
+
+      coverShell.appendChild(img);
+      appendPosterBadges(coverShell, badges);
+
+      poster.appendChild(coverShell);
+      poster.appendChild(titleDiv);
+      poster.appendChild(subtitleDiv);
+      if (progressMarkup) {
+        const progressWrap = document.createElement('div');
+        progressWrap.innerHTML = progressMarkup;
+        if (progressWrap.firstElementChild) {
+          poster.appendChild(progressWrap.firstElementChild);
+        }
+      }
+
+      const activate = () => {
         const targetId = entry.anilistId || entry.mangaId;
         if (opts.resume && entry.lastChapterId) {
           openMangaDetail(targetId, { autoRead: true, chapterId: entry.lastChapterId });
         } else {
           openMangaDetail(targetId);
         }
+      };
+
+      poster.addEventListener('click', activate);
+      poster.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        activate();
       });
 
       frag.appendChild(poster);
@@ -1543,13 +1669,17 @@
     const rl = Object.values(loadMap(STORAGE.READ_LATER)).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
     const fin = Object.values(loadMap(STORAGE.FINISHED)).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
 
-    el.continueSection.style.display = cont.length ? 'block' : 'none';
-    el.readLaterSection.style.display = rl.length ? 'block' : 'none';
+    const finishedIds = new Set(fin.map((entry) => entry.mangaId));
+    const continueEntries = cont.filter((entry) => !finishedIds.has(entry.mangaId));
+    const laterEntries = rl.filter((entry) => !finishedIds.has(entry.mangaId));
+
+    el.continueSection.style.display = continueEntries.length ? 'block' : 'none';
+    el.readLaterSection.style.display = laterEntries.length ? 'block' : 'none';
     el.finishedSection.style.display = fin.length ? 'block' : 'none';
 
-    renderLibraryGrid(el.continueGrid, cont, { resume: true, hint: 'Resume reading.' });
-    renderLibraryGrid(el.readLaterGrid, rl, { resume: false, hint: 'Saved for later.' });
-    renderLibraryGrid(el.finishedGrid, fin, { resume: false, hint: 'Completed.' });
+    renderLibraryGrid(el.continueGrid, continueEntries, { resume: true, hint: 'Resume reading.', mode: 'continue' });
+    renderLibraryGrid(el.readLaterGrid, laterEntries, { resume: false, hint: 'Saved for later.', mode: 'later' });
+    renderLibraryGrid(el.finishedGrid, fin, { resume: false, hint: 'Completed.', mode: 'finished' });
   }
 
   async function checkNewChaptersBadges() {
@@ -1952,14 +2082,17 @@
     // Hide detail overlay so it doesn't intercept events behind the reader
     el.detailOverlay.classList.remove('open');
     el.readerOverlay.style.display = 'block';
+    el.readerOverlay.classList.add('is-open');
     document.body.classList.add('reader-open');
 
     // Apply persisted fit mode
     el.readerOverlay.dataset.fit = state.settings.readerFitMode || 'vertical';
+    applyReaderPanelState();
   }
 
   function closeReaderUI() {
     el.readerOverlay.style.display = 'none';
+    el.readerOverlay.classList.remove('is-open');
     document.body.classList.remove('reader-open');
     el.readerPages.innerHTML = '';
     el.readerPages.classList.remove('embed-mode');
@@ -2126,8 +2259,23 @@
     const chapter = state.current.chapters.find((item) => item.id === chapterId) || null;
     const chapterNumber = chapter?.attributes?.chapter || null;
 
+    const activeManga = state.mediaById.get(String(state.current.mangaId)) || {
+      id: state.current.mangaId,
+      sourceIds: {
+        anilist: state.current.anilistId,
+        mangadex: state.current.mangadexId,
+      },
+      attributes: {
+        title: { en: state.current.mangaTitle },
+      },
+      relationships: [{ type: 'cover_art', attributes: { coverUrl: state.current.coverUrl } }],
+      anilist: {
+        chapters: state.current.chapters.length || null,
+      },
+    };
+
     ensureContinue(
-      { id: state.current.mangaId, attributes: { title: { en: state.current.mangaTitle } }, relationships: [] },
+      activeManga,
       {
         title: state.current.mangaTitle,
         coverUrl: state.current.coverUrl,
@@ -2137,6 +2285,7 @@
         lastChapter: chapterNumber,
         lastReadAt: Date.now(),
         chapterLangs: state.current.chapterLangs,
+        totalChapters: activeManga?.anilist?.chapters || state.current.chapters.length || null,
       }
     );
 
@@ -2373,6 +2522,42 @@
   }
 
   function wireSearchUI() {
+    const openSearchPanel = () => {
+      if (el.searchPanel) el.searchPanel.hidden = false;
+    };
+
+    const closeSearchPanel = () => {
+      if (el.searchPanel) el.searchPanel.hidden = true;
+    };
+
+    const resetSearchFilters = () => {
+      el.filterSort.value = 'relevance';
+      el.filterStatus.value = '';
+      el.filterDemo.value = '';
+      el.filterOriginalLang.value = '';
+      el.filterYear.value = '';
+      el.filterHasChapters.checked = true;
+      state.includeTags.clear();
+      state.excludeTags.clear();
+      state.settings.contentRatings = [...DEFAULT_SETTINGS.contentRatings];
+      state.settings.includedTagsMode = DEFAULT_SETTINGS.includedTagsMode;
+      state.settings.excludedTagsMode = DEFAULT_SETTINGS.excludedTagsMode;
+      el.tagsModeInclude.value = state.settings.includedTagsMode;
+      el.tagsModeExclude.value = state.settings.excludedTagsMode;
+      saveSettings();
+      initContentRatingUI();
+      renderTagChips();
+      performSearch(1);
+    };
+
+    el.searchInput.addEventListener('focus', openSearchPanel);
+    if (el.searchWrap) {
+      el.searchWrap.addEventListener('click', (event) => {
+        if (event.target instanceof HTMLElement && event.target.closest('#search-panel-close')) return;
+        openSearchPanel();
+      });
+    }
+
     el.searchInput.addEventListener('input', () => {
       el.clearBtn.style.display = el.searchInput.value ? 'block' : 'none';
 
@@ -2387,12 +2572,29 @@
       el.searchInput.focus();
     });
 
+    if (el.searchResetBtn) {
+      el.searchResetBtn.addEventListener('click', resetSearchFilters);
+    }
+
+    if (el.searchPanelCloseBtn) {
+      el.searchPanelCloseBtn.addEventListener('click', () => {
+        closeSearchPanel();
+      });
+    }
+
     el.closeSearchBtn.addEventListener('click', () => {
       el.searchInput.value = '';
       el.clearBtn.style.display = 'none';
       el.results.innerHTML = '';
       el.searchPagination.innerHTML = '';
       showResults(false);
+      closeSearchPanel();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!el.searchWrap?.contains(event.target)) {
+        closeSearchPanel();
+      }
     });
 
     // Filter changes trigger a new search
@@ -2487,6 +2689,14 @@
       });
     }
 
+    if (el.readerPanelToggleBtn) {
+      el.readerPanelToggleBtn.addEventListener('click', () => toggleReaderPanel());
+    }
+
+    if (el.readerFloatingPanelBtn) {
+      el.readerFloatingPanelBtn.addEventListener('click', () => toggleReaderPanel());
+    }
+
     if (el.readerFullscreenBtn) {
       el.readerFullscreenBtn.addEventListener('click', () => {
         toggleReaderFullscreen();
@@ -2538,6 +2748,10 @@
   async function init() {
     // elements
     el.searchInput = $('search-input');
+    el.searchWrap = $('search-wrap');
+    el.searchPanel = $('search-panel');
+    el.searchResetBtn = $('search-reset');
+    el.searchPanelCloseBtn = $('search-panel-close');
     el.clearBtn = $('clear-search-btn');
     el.results = $('results');
     el.searchPagination = $('search-pagination');
@@ -2547,6 +2761,7 @@
     el.jumpRandomBtn = $('jump-random');
     el.jumpContinueBtn = $('jump-continue');
     el.jumpReadLaterBtn = $('jump-readlater');
+    el.jumpFinishedBtn = $('jump-finished');
 
     el.filterSort = $('filter-sort');
     el.filterStatus = $('filter-status');
@@ -2573,6 +2788,7 @@
     el.newGrid = $('newGrid');
 
     el.showcaseBg = $('showcase-bg');
+    el.showcaseSection = $('showcase');
     el.showcasePoster = $('showcase-poster');
     el.showcaseTitle = $('showcase-title');
     el.showcaseMeta = $('showcase-meta');
@@ -2594,6 +2810,8 @@
 
     el.readerOverlay = $('manga-reader-overlay');
     el.readerClose = $('reader-close');
+    el.readerPanelToggleBtn = $('reader-panel-toggle');
+    el.readerFloatingPanelBtn = $('reader-floating-panel');
     el.readerTitle = $('reader-title');
     el.readerBadge = $('reader-badge');
     el.readerProxyHint = $('reader-proxy-hint');
@@ -2617,6 +2835,7 @@
 
     // Apply fit mode to UI
     applyReaderFitMode(state.settings.readerFitMode);
+    applyReaderPanelState();
 
     initContentRatingUI();
 
@@ -2652,6 +2871,11 @@
     if (el.jumpReadLaterBtn) {
       el.jumpReadLaterBtn.addEventListener('click', () => {
         if (!scrollTo(el.readLaterSection)) flashStatus('No Read Later yet.');
+      });
+    }
+    if (el.jumpFinishedBtn) {
+      el.jumpFinishedBtn.addEventListener('click', () => {
+        if (!scrollTo(el.finishedSection)) flashStatus('No Finished list yet.');
       });
     }
 

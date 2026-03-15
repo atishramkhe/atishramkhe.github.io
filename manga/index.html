@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>ateaish manga</title>
-	<link rel="icon" type="image/png" href="../anime/assets/favicon_ateaish_anime.png" />
+	<link rel="icon" type="image/png" href="./assets/favicon_ateaish_manga.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
@@ -17,10 +17,10 @@
 			--panel-strong: #090909;
 			--text: #f3f3f3;
 			--muted: #8f8f8f;
-			--line: rgba(255, 211, 60, 0.14);
-			--accent: #ffd43b;
-			--accent-soft: #ffe78a;
-			--accent-cool: #ffd43b;
+			--line: rgba(117, 254, 78, 0.16);
+			--accent: #75fe4e;
+			--accent-soft: #b8ff9f;
+			--accent-cool: #75fe4e;
 			--shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
 		}
 
@@ -253,7 +253,7 @@
 			gap: 6px;
 			background: transparent;
 			color: var(--accent);
-			border: 1px solid rgba(241,137,47,0.35);
+			border: 1px solid rgba(117, 254, 78, 0.35);
 			border-radius: 12px;
 			padding: 6px 12px;
 			cursor: pointer;
@@ -275,9 +275,9 @@
 		}
 
 		.tag-chip {
-			background: rgba(241,137,47,0.10);
+			background: rgba(117, 254, 78, 0.10);
 			color: var(--accent);
-			border: 1px solid rgba(241,137,47,0.25);
+			border: 1px solid rgba(117, 254, 78, 0.25);
 			border-radius: 14px;
 			padding: 4px 10px;
 			font-size: 0.78em;
@@ -285,7 +285,7 @@
 			cursor: pointer;
 		}
 
-		.tag-chip:hover { background: rgba(241,137,47,0.16); }
+		.tag-chip:hover { background: rgba(117, 254, 78, 0.16); }
 
 		/* Results overlay (like /movies) */
 		#search-results-wrapper { display: none; }
@@ -564,9 +564,9 @@
 		.detail-score { color: var(--accent); font-family: 'OumaTrialBold', sans-serif; font-size: 1.2em; margin-bottom: 10px; }
 		.detail-genres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 		.detail-genre-tag {
-			background: rgba(241,137,47,0.15);
+			background: rgba(117, 254, 78, 0.15);
 			color: var(--accent);
-			border: 1px solid rgba(241,137,47,0.3);
+			border: 1px solid rgba(117, 254, 78, 0.3);
 			border-radius: 14px;
 			padding: 2px 10px;
 			font-size: 0.78em;
@@ -599,7 +599,7 @@
 		.detail-btn.secondary {
 			background: transparent;
 			color: var(--accent);
-			border: 1px solid rgba(241,137,47,0.4);
+			border: 1px solid rgba(117, 254, 78, 0.4);
 		}
 		.detail-close {
 			position: absolute;
@@ -621,8 +621,8 @@
 			align-items: center;
 			padding: 4px 10px;
 			border-radius: 999px;
-			background: rgba(241,137,47,0.16);
-			border: 1px solid rgba(241,137,47,0.25);
+			background: rgba(117, 254, 78, 0.16);
+			border: 1px solid rgba(117, 254, 78, 0.25);
 			color: var(--accent);
 			font-family: 'OumaTrialBold', sans-serif;
 			font-size: 0.75em;
@@ -647,8 +647,8 @@
 			cursor: pointer;
 			font-family: 'OumaTrialLight', sans-serif;
 		}
-		.chapter-row:hover { background: rgba(241,137,47,0.08); }
-		.chapter-row.active { background: rgba(241,137,47,0.16); }
+		.chapter-row:hover { background: rgba(117, 254, 78, 0.08); }
+		.chapter-row.active { background: rgba(117, 254, 78, 0.16); }
 		.chapter-main { display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; }
 		.chapter-left { flex: 1; min-width: 0; }
 		.chapter-right { opacity: 0.65; font-size: 0.85em; white-space: nowrap; }
@@ -724,7 +724,7 @@
 			font-size: 1.8em;
 			line-height: 1;
 		}
-		#reader-close:hover { opacity: 1; border-color: rgba(241,137,47,0.5); color: var(--accent); }
+		#reader-close:hover { opacity: 1; border-color: rgba(117, 254, 78, 0.5); color: var(--accent); }
 
 		#reader-title {
 			font-family: 'OumaTrialBold', sans-serif;
@@ -741,8 +741,8 @@
 			align-items: center;
 			padding: 4px 10px;
 			border-radius: 999px;
-			background: rgba(241,137,47,0.16);
-			border: 1px solid rgba(241,137,47,0.25);
+			background: rgba(117, 254, 78, 0.16);
+			border: 1px solid rgba(117, 254, 78, 0.25);
 			color: var(--accent);
 			font-family: 'OumaTrialBold', sans-serif;
 			font-size: 0.78em;
@@ -778,7 +778,7 @@
 			color: #fff;
 			cursor: pointer;
 		}
-		.reader-btn:hover { border-color: rgba(241,137,47,0.5); color: var(--accent); }
+		.reader-btn:hover { border-color: rgba(117, 254, 78, 0.5); color: var(--accent); }
 		.reader-btn:disabled { opacity: 0.25; cursor: not-allowed; }
 
 		#reader-scroll {
@@ -962,7 +962,7 @@
 		}
 
 		#search-input:focus {
-			box-shadow: 0 0 0 2px rgba(255, 212, 59, 0.18);
+			box-shadow: 0 0 0 2px rgba(117, 254, 78, 0.18);
 			transform: translateY(-1px);
 			background: #101010;
 		}
@@ -1008,7 +1008,7 @@
 			min-height: 52px;
 			padding: 12px 16px;
 			border-radius: 16px;
-			border: 1px solid rgba(255, 212, 59, 0.18);
+			border: 1px solid rgba(117, 254, 78, 0.18);
 			background: rgba(7, 7, 7, 0.94);
 			color: var(--accent);
 			font-size: 0.92rem;
@@ -1032,6 +1032,75 @@
 			transform-origin: center;
 		}
 
+		.search-wrap {
+			margin-top: 0;
+			position: relative;
+			z-index: 12;
+		}
+
+		.search-panel {
+			display: grid;
+			gap: 14px;
+			padding: 14px 18px 16px;
+			background: #070707;
+			position: absolute;
+			top: calc(100% + 10px);
+			left: 50%;
+			transform: translateX(-50%);
+			width: min(1320px, calc(100vw - 28px));
+			border: 1px solid rgba(117, 254, 78, 0.14);
+			box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46);
+		}
+
+		.search-panel[hidden] {
+			display: none;
+		}
+
+		.search-panel-head {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 12px;
+		}
+
+		.search-panel-title {
+			margin: 0;
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 1.02rem;
+			line-height: 0.95;
+		}
+
+		.search-panel-copy {
+			margin: 4px 0 0;
+			color: var(--muted);
+			font-size: 0.82rem;
+			line-height: 1.35;
+		}
+
+		.search-panel-actions {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.search-panel-btn {
+			min-height: 38px;
+			padding: 0 14px;
+			border: 0;
+			background: #111;
+			color: var(--text);
+			font: inherit;
+			cursor: pointer;
+			outline: 1px solid rgba(117, 254, 78, 0.12);
+		}
+
+		.search-panel-btn:hover,
+		.search-panel-btn:focus-visible {
+			outline-color: rgba(117, 254, 78, 0.42);
+			box-shadow: 0 0 0 2px rgba(117, 254, 78, 0.12);
+			background: #121712;
+		}
+
 		#filters-wrap {
 			display: grid;
 			grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1040,10 +1109,10 @@
 			align-items: start;
 			margin-top: 0;
 			max-width: none;
-			padding: 14px 18px 16px;
-			background: #070707;
-			border: 1px solid rgba(255, 212, 59, 0.14);
-			box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46);
+			padding: 0;
+			background: transparent;
+			border: 0;
+			box-shadow: none;
 		}
 
 		.search-filter-select,
@@ -1054,7 +1123,7 @@
 			border: 0;
 			background: #111;
 			color: var(--text);
-			outline: 1px solid rgba(255, 212, 59, 0.12);
+			outline: 1px solid rgba(117, 254, 78, 0.12);
 		}
 
 		.search-filter-select {
@@ -1065,9 +1134,9 @@
 		.search-filter-select:hover,
 		.search-filter-select:focus,
 		.tag-input:focus-within {
-			outline-color: rgba(255, 212, 59, 0.44);
-			box-shadow: 0 0 0 2px rgba(255, 212, 59, 0.12);
-			background: #15130b;
+			outline-color: rgba(117, 254, 78, 0.44);
+			box-shadow: 0 0 0 2px rgba(117, 254, 78, 0.12);
+			background: #0d140b;
 			color: var(--text);
 		}
 
@@ -1077,9 +1146,16 @@
 
 		#include-tag-chips,
 		#exclude-tag-chips {
+			display: flex;
 			justify-content: flex-start;
-			max-width: 1320px;
+			max-width: none;
 			padding: 0;
+			margin: 0;
+		}
+
+		.tag-rails {
+			display: grid;
+			gap: 10px;
 		}
 
 		#search-results-wrapper {
@@ -1093,7 +1169,11 @@
 		}
 
 		#close-search-results {
-			display: none !important;
+			display: none;
+		}
+
+		#close-search-results.visible {
+			display: flex;
 		}
 
 		#results {
@@ -1121,12 +1201,13 @@
 		}
 
 		.poster {
-			display: flex;
-			flex-direction: column;
+			display: grid;
 			gap: 10px;
 			box-shadow: none;
 			background: transparent;
 			transform-origin: center top;
+			cursor: pointer;
+			outline: none;
 		}
 
 		.poster:hover {
@@ -1134,35 +1215,130 @@
 			box-shadow: none;
 		}
 
+		.poster:focus-visible {
+			transform: translateY(-4px);
+		}
+
+		.poster-cover {
+			position: relative;
+			display: block;
+			background: #050505;
+			overflow: hidden;
+		}
+
 		.poster img {
 			aspect-ratio: 0.68;
 			object-fit: cover;
+			width: 100%;
 			box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
 			background: #050505;
 		}
 
 		.poster-info {
-			top: auto;
-			bottom: 38px;
-			left: 10px;
-			right: 10px;
-			width: auto;
-			background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.92));
-			padding: 40px 0 0;
-			border: 0;
+			display: none !important;
 		}
 
 		.poster-title {
 			padding: 0;
 			font-family: 'OumaTrialBold', sans-serif;
-			font-size: 1.03rem;
+			font-size: 1rem;
 			line-height: 1;
 			color: var(--text);
 			text-align: left;
 			white-space: normal;
 		}
 
+		.poster-subtitle {
+			color: var(--muted);
+			font-size: 0.78rem;
+			line-height: 1.35;
+			min-height: 2.1em;
+			display: -webkit-box;
+			line-clamp: 2;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.poster-badge-row {
+			position: absolute;
+			left: 10px;
+			right: 10px;
+			bottom: 10px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
+			z-index: 2;
+		}
+
+		.poster-badge {
+			display: inline-flex;
+			align-items: center;
+			padding: 4px 8px;
+			background: rgba(117, 254, 78, 0.14);
+			border: 1px solid rgba(117, 254, 78, 0.26);
+			color: var(--text);
+			font-family: 'OumaTrialBold', sans-serif;
+			font-size: 0.72rem;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			backdrop-filter: blur(4px);
+		}
+
+		.poster-badge.cool {
+			background: rgba(117, 254, 78, 0.2);
+			color: #dfffd3;
+		}
+
+		.poster-badge.soft {
+			background: rgba(255,255,255,0.08);
+			border-color: rgba(255,255,255,0.14);
+			color: #ededed;
+		}
+
+		.poster-badge.alert {
+			background: var(--accent);
+			border-color: var(--accent);
+			color: #051002;
+		}
+
+		.card-progress {
+			display: grid;
+			gap: 10px;
+		}
+
+		.progress-block {
+			display: grid;
+			gap: 6px;
+		}
+
+		.progress-meta {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 10px;
+			color: var(--muted);
+			font-size: 0.72rem;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+		}
+
+		.progress-track {
+			width: 100%;
+			height: 5px;
+			background: rgba(117, 254, 78, 0.12);
+			border: 1px solid rgba(117, 254, 78, 0.16);
+			overflow: hidden;
+		}
+
+		.progress-fill {
+			height: 100%;
+			background: linear-gradient(90deg, rgba(117, 254, 78, 0.76), rgba(117, 254, 78, 1));
+			transform-origin: left center;
+		}
+
 		#showcase {
+			display: none;
 			padding: 26px 34px 18px;
 			margin-bottom: 22px;
 		}
@@ -1186,16 +1362,73 @@
 		.detail-btn.secondary {
 			background: #111;
 			color: var(--accent);
-			border: 1px solid rgba(255, 212, 59, 0.32);
+			border: 1px solid rgba(117, 254, 78, 0.32);
 		}
 
 		.pill-badge,
 		.badge-new,
 		.detail-genre-tag,
 		.tag-chip {
-			background: rgba(255, 212, 59, 0.14);
+			background: rgba(117, 254, 78, 0.14);
 			color: var(--accent);
-			border-color: rgba(255, 212, 59, 0.3);
+			border-color: rgba(117, 254, 78, 0.3);
+		}
+
+		#reader-topbar {
+			transition: transform 220ms ease, opacity 220ms ease;
+		}
+
+		#manga-reader-overlay.panel-collapsed #reader-topbar {
+			transform: translateX(-100%);
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		#manga-reader-overlay.panel-collapsed #reader-scroll {
+			left: 0;
+		}
+
+		#reader-panel-toggle,
+		#reader-floating-panel {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 42px;
+			height: 42px;
+			border-radius: 12px;
+			border: 1px solid rgba(255,255,255,0.14);
+			background: transparent;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		#reader-panel-toggle:hover,
+		#reader-floating-panel:hover {
+			border-color: rgba(117, 254, 78, 0.5);
+			color: var(--accent);
+		}
+
+		#reader-floating-panel {
+			position: fixed;
+			left: 16px;
+			bottom: 16px;
+			z-index: 520;
+			display: none;
+			background: rgba(0,0,0,0.76);
+			backdrop-filter: blur(8px);
+		}
+
+		#manga-reader-overlay.is-open #reader-floating-panel {
+			display: inline-flex;
+		}
+
+		#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
+			left: 276px;
+		}
+
+		#fab-continue,
+		#fab-readlater {
+			color: var(--accent) !important;
 		}
 
 		@keyframes rise-in {
@@ -1212,6 +1445,9 @@
 			.page-shell { width: min(100vw - 20px, 1880px); }
 			#filters-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 			#search-container { width: min(100%, 960px); }
+			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
+				left: 216px;
+			}
 		}
 
 		@media (max-width: 720px) {
@@ -1226,6 +1462,21 @@
 				bottom: 12px;
 				width: min(200px, calc(100vw - 24px));
 			}
+			.search-panel {
+				width: min(calc(100vw - 18px), 1320px);
+			}
+			.search-panel-head {
+				flex-direction: column;
+			}
+			.search-panel-actions {
+				width: 100%;
+				justify-content: flex-end;
+			}
+			#reader-floating-panel,
+			#manga-reader-overlay:not(.panel-collapsed) #reader-floating-panel {
+				left: 12px;
+				bottom: 12px;
+			}
 		}
 
 		::-webkit-scrollbar { width: 8px; background: transparent; }
@@ -1239,7 +1490,7 @@
 	<header class="topbar">
 		<div class="dropdown">
 			<div class="logo-placeholder" id="dropdownToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
-				<img src="../anime/assets/ateaish_anime default.png" alt="ateaish manga" style="padding-right: 8px;" />
+				<img src="./assets/ateaish_m.png" alt="ateaish manga" style="padding-right: 8px;" />
 			</div>
 			<div class="dropdown-content" id="dropdownMenu" role="menu">
 				<a href="https://atishramkhe.github.io/" role="menuitem">
@@ -1269,10 +1520,105 @@
 
 	<main class="page-shell">
 		<div id="search-container">
-			<div id="search-input-wrapper">
-				<span id="search-icon" class="material-symbols-outlined">search</span>
-				<input type="text" id="search-input" placeholder="Search for manga..." />
-				<button id="clear-search-btn" style="display:none;">&times;</button>
+			<div id="search-wrap" class="search-wrap">
+				<div id="search-input-wrapper">
+					<span id="search-icon" class="material-symbols-outlined">search</span>
+					<input type="text" id="search-input" placeholder="Search the manga catalog" />
+					<button id="clear-search-btn" style="display:none;">&times;</button>
+				</div>
+
+				<section id="search-panel" class="search-panel" hidden aria-label="Advanced search options">
+					<div class="search-panel-head">
+						<div>
+							<h2 class="search-panel-title">Search and refine</h2>
+							<p class="search-panel-copy">Filters stay hidden until you step into search. Use them to narrow by status, language, year, and tags.</p>
+						</div>
+						<div class="search-panel-actions">
+							<button id="search-reset" class="search-panel-btn" type="button">Reset</button>
+							<button id="search-panel-close" class="search-panel-btn" type="button">Close</button>
+						</div>
+					</div>
+
+					<div id="filters-wrap">
+						<select id="filter-sort" class="search-filter-select" title="Sort">
+							<option value="relevance">Sort: Relevance</option>
+							<option value="latestUploadedChapter">Sort: Latest Updated</option>
+							<option value="followedCount">Sort: Popular</option>
+							<option value="rating">Sort: Top Rated</option>
+							<option value="createdAt">Sort: Recently Released</option>
+							<option value="updatedAt">Sort: Recently Edited</option>
+							<option value="title">Sort: Title</option>
+							<option value="year">Sort: Year</option>
+						</select>
+
+						<select id="filter-status" class="search-filter-select" title="Status">
+							<option value="">Status: Any</option>
+							<option value="ongoing">Ongoing</option>
+							<option value="completed">Completed</option>
+							<option value="hiatus">Hiatus</option>
+							<option value="cancelled">Cancelled</option>
+						</select>
+
+						<select id="filter-demo" class="search-filter-select" title="Demographic">
+							<option value="">Demographic: Any</option>
+							<option value="shounen">Shounen</option>
+							<option value="shoujo">Shoujo</option>
+							<option value="seinen">Seinen</option>
+							<option value="josei">Josei</option>
+						</select>
+
+						<select id="filter-original-lang" class="search-filter-select" title="Original language">
+							<option value="">Original: Any</option>
+							<option value="ja">Japanese</option>
+							<option value="ko">Korean</option>
+							<option value="zh">Chinese</option>
+							<option value="en">English</option>
+							<option value="fr">French</option>
+						</select>
+
+						<input id="filter-year" class="search-filter-select" title="Year" placeholder="Year" inputmode="numeric" style="min-width:100px;" />
+
+						<div class="filter-pill" id="content-rating-checks" title="Content rating">
+							<label><input type="checkbox" value="safe" /> Safe</label>
+							<label><input type="checkbox" value="suggestive" /> Suggestive</label>
+							<label><input type="checkbox" value="erotica" /> Erotica</label>
+							<label><input type="checkbox" value="pornographic" /> Porn</label>
+						</div>
+
+						<label class="filter-pill" title="Only manga with available chapters">
+							<input type="checkbox" id="filter-has-chapters" checked /> Has chapters
+						</label>
+
+						<div class="tag-input" title="Include tags">
+							<span style="opacity:0.7;">+tags</span>
+							<input id="include-tag-input" list="tag-datalist" placeholder="Action, Romance..." />
+							<button id="include-tag-add" class="small-btn" type="button">Add</button>
+						</div>
+
+						<select id="tags-mode-include" class="search-filter-select" title="Included tags mode" style="min-width:110px;">
+							<option value="AND">Include: AND</option>
+							<option value="OR">Include: OR</option>
+						</select>
+
+						<div class="tag-input" title="Exclude tags">
+							<span style="opacity:0.7;">-tags</span>
+							<input id="exclude-tag-input" list="tag-datalist" placeholder="Harem..." />
+							<button id="exclude-tag-add" class="small-btn" type="button">Add</button>
+						</div>
+
+						<select id="tags-mode-exclude" class="search-filter-select" title="Excluded tags mode" style="min-width:110px;">
+							<option value="OR">Exclude: OR</option>
+							<option value="AND">Exclude: AND</option>
+						</select>
+
+						<datalist id="tag-datalist"></datalist>
+					</div>
+
+					<div class="tag-rails">
+						<div class="tag-chips" id="include-tag-chips"></div>
+						<div class="tag-chips" id="exclude-tag-chips"></div>
+					</div>
+				</section>
 			</div>
 
 			<div id="quick-strip" style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top: 10px; flex-wrap:wrap; padding: 0 16px;">
@@ -1288,85 +1634,11 @@
 					<span class="material-symbols-outlined">bookmark</span>
 					Read Later
 				</button>
+				<button id="jump-finished" class="small-btn" type="button" title="Jump to Finished">
+					<span class="material-symbols-outlined">check_circle</span>
+					Finished
+				</button>
 			</div>
-
-			<div id="filters-wrap">
-				<select id="filter-sort" class="search-filter-select" title="Sort">
-					<option value="relevance">Sort: Relevance</option>
-					<option value="latestUploadedChapter">Sort: Latest Updated</option>
-					<option value="followedCount">Sort: Popular</option>
-					<option value="rating">Sort: Top Rated</option>
-					<option value="createdAt">Sort: Recently Released</option>
-					<option value="updatedAt">Sort: Recently Edited</option>
-					<option value="title">Sort: Title</option>
-					<option value="year">Sort: Year</option>
-				</select>
-
-				<select id="filter-status" class="search-filter-select" title="Status">
-					<option value="">Status: Any</option>
-					<option value="ongoing">Ongoing</option>
-					<option value="completed">Completed</option>
-					<option value="hiatus">Hiatus</option>
-					<option value="cancelled">Cancelled</option>
-				</select>
-
-				<select id="filter-demo" class="search-filter-select" title="Demographic">
-					<option value="">Demographic: Any</option>
-					<option value="shounen">Shounen</option>
-					<option value="shoujo">Shoujo</option>
-					<option value="seinen">Seinen</option>
-					<option value="josei">Josei</option>
-				</select>
-
-				<select id="filter-original-lang" class="search-filter-select" title="Original language">
-					<option value="">Original: Any</option>
-					<option value="ja">Japanese</option>
-					<option value="ko">Korean</option>
-					<option value="zh">Chinese</option>
-					<option value="en">English</option>
-					<option value="fr">French</option>
-				</select>
-
-				<input id="filter-year" class="search-filter-select" title="Year" placeholder="Year" inputmode="numeric" style="min-width:100px;" />
-
-				<div class="filter-pill" id="content-rating-checks" title="Content rating">
-					<label><input type="checkbox" value="safe" /> Safe</label>
-					<label><input type="checkbox" value="suggestive" /> Suggestive</label>
-					<label><input type="checkbox" value="erotica" /> Erotica</label>
-					<label><input type="checkbox" value="pornographic" /> Porn</label>
-				</div>
-
-				<label class="filter-pill" title="Only manga with available chapters">
-					<input type="checkbox" id="filter-has-chapters" checked /> Has chapters
-				</label>
-
-				<div class="tag-input" title="Include tags">
-					<span style="opacity:0.7;">+tags</span>
-					<input id="include-tag-input" list="tag-datalist" placeholder="Action, Romance..." />
-					<button id="include-tag-add" class="small-btn" type="button">Add</button>
-				</div>
-
-				<select id="tags-mode-include" class="search-filter-select" title="Included tags mode" style="min-width:110px;">
-					<option value="AND">Include: AND</option>
-					<option value="OR">Include: OR</option>
-				</select>
-
-				<div class="tag-input" title="Exclude tags">
-					<span style="opacity:0.7;">-tags</span>
-					<input id="exclude-tag-input" list="tag-datalist" placeholder="Harem..." />
-					<button id="exclude-tag-add" class="small-btn" type="button">Add</button>
-				</div>
-
-				<select id="tags-mode-exclude" class="search-filter-select" title="Excluded tags mode" style="min-width:110px;">
-					<option value="OR">Exclude: OR</option>
-					<option value="AND">Exclude: AND</option>
-				</select>
-
-				<datalist id="tag-datalist"></datalist>
-			</div>
-
-			<div class="tag-chips" id="include-tag-chips"></div>
-			<div class="tag-chips" id="exclude-tag-chips"></div>
 		</div>
 
 		<button id="close-search-results" title="Close search">&times;</button>
@@ -1375,7 +1647,7 @@
 			<div id="search-pagination"></div>
 		</div>
 
-		<section id="showcase">
+		<section id="showcase" hidden>
 			<div id="showcase-card">
 				<div id="showcase-bg"></div>
 				<div id="showcase-grad"></div>
@@ -1458,6 +1730,7 @@
 		<div id="reader-topbar">
 			<div class="bar-row">
 				<button id="reader-close" class="material-symbols-outlined" aria-label="Close" title="Close">close</button>
+				<button id="reader-panel-toggle" class="material-symbols-outlined" aria-label="Toggle reader panel" title="Focus mode">left_panel_close</button>
 				<div class="bar-col" style="min-width:0; flex:1;">
 					<div id="reader-title"></div>
 					<span id="reader-badge"></span>
@@ -1516,12 +1789,13 @@
 		<div id="reader-scroll">
 			<div id="reader-pages"></div>
 		</div>
+		<button id="reader-floating-panel" class="material-symbols-outlined" aria-label="Toggle reader panel" title="Toggle reader panel">dock_to_right</button>
 	</div>
 
 	<!-- Floating nav buttons -->
 	<button id="fab-continue" style="
 		position:fixed; bottom:74px; right:32px; z-index:91;
-		background:#000; color:#f1892f; border:none; border-radius:8px;
+		background:#000; color:var(--accent); border:none; border-radius:8px;
 		padding:6px 10px; font-size:1em; cursor:pointer;
 		font-family:'OumaTrialBold'; box-shadow:0 2px 12px #0006;
 		transition:background 0.2s; display:none;">
@@ -1530,7 +1804,7 @@
 	</button>
 	<button id="fab-readlater" style="
 		position:fixed; bottom:32px; right:32px; z-index:91;
-		background:#000; color:#f1892f; border:none; border-radius:8px;
+		background:#000; color:var(--accent); border:none; border-radius:8px;
 		padding:6px 10px; font-size:1em; cursor:pointer;
 		font-family:'OumaTrialBold'; box-shadow:0 2px 12px #0006;
 		transition:background 0.2s; display:none;">
@@ -1542,7 +1816,7 @@
 
 	<footer style="background:#000; color:#ccc; text-align:right; padding:24px 0 16px 0; font-size:8px; font-family:'OumaTrialLight',sans-serif;">
 		Powered by
-		<span style="margin:0 8px;">MangaDex API</span>
+		<span style="margin:0 8px;">AniList and MangaDex</span>
 	</footer>
 
 	<script src="manga.js"></script>
