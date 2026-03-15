@@ -171,7 +171,8 @@ function parseSeriesTitle(html, seriesSlug) {
 }
 
 function parseSeriesIssues(html, seriesSlug) {
-  const issuePattern = new RegExp(`href=["'](/Comic/${seriesSlug}/[^"']*Issue-[^"']*)["']`, 'gi');
+  const escapedSlug = seriesSlug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const issuePattern = new RegExp(`href=["'](/Comic/${escapedSlug}/[^"'#?]+\\?id=\\d+)["']`, 'gi');
   const issues = [];
   const seen = new Set();
   for (const match of html.matchAll(issuePattern)) {

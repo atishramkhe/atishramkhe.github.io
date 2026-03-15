@@ -127,6 +127,12 @@ def absolute(url: str) -> str:
     return urljoin(BASE_URL, url)
 
 
+def is_series_url(url: str) -> bool:
+    parsed = urlparse(absolute(url))
+    parts = [part for part in parsed.path.split('/') if part]
+    return len(parts) == 2 and parts[0].lower() == 'comic' and bool(parts[1])
+
+
 def derive_series_url(issue_url: str) -> str:
     parsed = urlparse(issue_url)
     parts = [part for part in parsed.path.split('/') if part]
@@ -165,6 +171,147 @@ def parse_item_title(block: BeautifulSoup, fallback: str) -> str:
             if title:
                 return title
     return clean_text(fallback)
+
+
+def parse_series_page_title(html: str, series_url: str) -> str:
+    soup = BeautifulSoup(html, 'html.parser')
+    meta_title = soup.select_one('meta[property="og:title"]')
+    if meta_title and meta_title.get('content'):
+        title = clean_text(meta_title.get('content', ''))
+        if title:
+            return title
+
+    title_node = soup.find('title')
+    if title_node:
+        title = clean_text(title_node.get_text(' ', strip=True))
+        title = re.sub(r'\s*-\s*Read.*$', '', title, flags=re.IGNORECASE)
+        title = re.sub(r'\s+comic online in high quality$', '', title, flags=re.IGNORECASE)
+        if title:
+            return title
+
+    parsed = urlparse(series_url)
+    parts = [part for part in parsed.path.split('/') if part]
+    slug = parts[1] if len(parts) >= 2 else series_url.rstrip('/').rsplit('/', 1)[-1]
+    return clean_text(slug.replace('-', ' '))
+
+
+def extract_series_page_field(html: str, label: str) -> str:
+    soup = BeautifulSoup(html, 'html.parser')
+    lines = [clean_text(line) for line in soup.get_text('\n').splitlines() if clean_text(line)]
+    label_lower = f'{label.lower()}:'
+    for line in lines:
+        lowered = line.lower()
+        if not lowered.startswith(label_lower):
+            continue
+        value = clean_text(line.split(':', 1)[1])
+        if label.lower() == 'status':
+            value = clean_text(value.split('Views:', 1)[0])
+        if value:
+            return value
+    return ''
+
+
+def parse_series_page_cover(html: str) -> str:
+    soup = BeautifulSoup(html, 'html.parser')
+    meta_cover = soup.select_one('meta[property="og:image"]')
+    if meta_cover and meta_cover.get('content'):
+        return absolute(meta_cover.get('content', ''))
+
+    cover_image = soup.select_one('img[src*="/Uploads/"]')
+    if cover_image and cover_image.get('src'):
+        return absolute(cover_image.get('src', ''))
+    return ''
+
+
+def parse_related_series_urls(html: str, current_url: str) -> list[str]:
+    soup = BeautifulSoup(html, 'html.parser')
+    current = absolute(current_url)
+    related: list[str] = []
+    seen: set[str] = set()
+    for anchor in soup.select('a[href^="/Comic/"]'):
+        href = anchor.get('href', '').strip()
+        if not href or not is_series_url(href):
+            continue
+        series_url = absolute(href)
+        if series_url == current or series_url in seen:
+            continue
+        seen.add(series_url)
+        related.append(series_url)
+    return related
+
+
+def fetch_series_page_item(series_url: str, source_section: str = '') -> ComicItem:
+    html = fetch_html(series_url)
+    status = extract_series_page_field(html, 'Status')
+    publication = extract_series_page_field(html, 'Publication date')
+    context_parts = []
+    if status:
+        context_parts.append(f'Status: {status}')
+    if publication:
+        context_parts.append(f'Publication: {publication}')
+    return ComicItem(
+        title=parse_series_page_title(html, series_url),
+        series_url=absolute(series_url),
+        cover_url=parse_series_page_cover(html),
+        context=' | '.join(context_parts),
+        source_section=source_section,
+    )
+
+
+def discover_related_catalog_items(seed_items: Iterable[ComicItem], existing_series_urls: Iterable[str]) -> list[ComicItem]:
+    seed_urls = unique_items(seed_items)
+    known_urls = {absolute(url) for url in existing_series_urls if url}
+    related_urls: set[str] = set()
+    scanned_count = 0
+    seed_total = len(seed_urls)
+
+    with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, 6)) as executor:
+        futures = {executor.submit(fetch_html, item.series_url): item.series_url for item in seed_urls if item.series_url}
+        for future in as_completed(futures):
+            series_url = futures[future]
+            scanned_count += 1
+            try:
+                html = future.result()
+            except (HTTPError, URLError, TimeoutError, ValueError):
+                if scanned_count % 50 == 0 or scanned_count == seed_total:
+                    print(f'Related seed pages scanned: {scanned_count}/{seed_total} | candidates: {len(related_urls)}')
+                continue
+            for related_url in parse_related_series_urls(html, series_url):
+                if related_url in known_urls:
+                    continue
+                related_urls.add(related_url)
+            if scanned_count % 50 == 0 or scanned_count == seed_total:
+                print(f'Related seed pages scanned: {scanned_count}/{seed_total} | candidates: {len(related_urls)}')
+
+    if not related_urls:
+        return []
+
+    discovered: list[ComicItem] = []
+    fetched_count = 0
+    related_total = len(related_urls)
+    with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, 6)) as executor:
+        futures = {
+            executor.submit(fetch_series_page_item, series_url, 'Related picks'): series_url
+            for series_url in sorted(related_urls)
+        }
+        for future in as_completed(futures):
+            fetched_count += 1
+            try:
+                item = future.result()
+            except (HTTPError, URLError, TimeoutError, ValueError):
+                if fetched_count % 25 == 0 or fetched_count == related_total:
+                    print(f'Related series fetched: {fetched_count}/{related_total} | discovered: {len(discovered)}')
+                continue
+            if not item.series_url or item.series_url in known_urls:
+                if fetched_count % 25 == 0 or fetched_count == related_total:
+                    print(f'Related series fetched: {fetched_count}/{related_total} | discovered: {len(discovered)}')
+                continue
+            known_urls.add(item.series_url)
+            discovered.append(item)
+            if fetched_count % 25 == 0 or fetched_count == related_total:
+                print(f'Related series fetched: {fetched_count}/{related_total} | discovered: {len(discovered)}')
+
+    return sorted(discovered, key=lambda item: item.title.casefold())
 
 
 def parse_comic_items(html: str, source_section: str = '') -> list[ComicItem]:
@@ -369,6 +516,11 @@ def main() -> None:
             print('Collecting discovery sections...')
             sections, section_items = collect_sections(catalog_map)
             tracked_items = collect_tracked_items(section_items, tracked_section_ids)
+            print('Discovering hidden related series from tracked pages...')
+            related_items = discover_related_catalog_items(tracked_items, catalog_map.keys())
+            if related_items:
+                tracked_items = merge_catalog_items(tracked_items, related_items)
+                print(f'Discovered {len(related_items)} related series.')
             catalog_items = merge_catalog_items(catalog_items, tracked_items)
             catalog_map = {item.series_url: item for item in catalog_items}
             print(f'Merged {len(tracked_items)} tracked series into existing catalog.')
@@ -419,6 +571,13 @@ def main() -> None:
     print('Collecting discovery sections...')
     sections, section_items = collect_sections(catalog_map)
     tracked_items = collect_tracked_items(section_items, tracked_section_ids)
+    print('Discovering hidden related series from catalog pages...')
+    related_items = discover_related_catalog_items(catalog_items, catalog_map.keys())
+    if related_items:
+        catalog_items = merge_catalog_items(catalog_items, related_items)
+        tracked_items = merge_catalog_items(tracked_items, related_items)
+        catalog_map = {item.series_url: item for item in catalog_items}
+        print(f'Discovered {len(related_items)} related series.')
     tracked_series_urls = [item.series_url for item in tracked_items]
 
     catalog_payload = {
