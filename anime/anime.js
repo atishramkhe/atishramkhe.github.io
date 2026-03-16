@@ -11,11 +11,13 @@ const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
 const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
 const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 
-// Continue Watching (anime) - mirror /movies progress_* storage shape
+// Continue Watching (anime) - stored separately from /movies
 const ANIME_PROGRESS_TYPE = 'anime';
-const ANIME_PROGRESS_KEY_PREFIX = 'progress_';
+const ANIME_PROGRESS_KEY_PREFIX = 'anime_progress_';
+const ANIME_LEGACY_PROGRESS_KEY_PREFIX = 'progress_';
 const ANIME_CONTINUE_SHOW_LIMIT = 24;
 let animeContinueShowAllExpanded = false;
+const ANIME_WATCHED_LIST_KEY = 'animeWatchedList';
 
 // Current open player session info (used to validate postMessage progress updates)
 let currentAnimePlayerSession = null;
@@ -37,6 +39,7 @@ function ensureAnimeProgressMessageListener() {
         if (String(msg.malId || '') !== String(session.malId)) return;
 
         if (msg.type === 'ateaish_player_ended') {
+            try { addAnimeToWatched(session.malId); } catch { }
             // Auto-next is only meaningful for series (not movies)
             if (session.isMovie) return;
             if (typeof session.onAutoNext !== 'function') return;
@@ -69,20 +72,36 @@ function ensureAnimeProgressMessageListener() {
             playerHost: host,
             updatedAt: now
         });
+        try { maybeAddAnimeToWatched(session.malId, frac); } catch { }
         try { loadAnimeContinueWatching(); } catch { }
     }, false);
 }
 
 function animeProgressKey(malId) {
     const id = String(malId ?? '').trim();
-    return id ? `${ANIME_PROGRESS_KEY_PREFIX}${id}_${ANIME_PROGRESS_TYPE}` : '';
+    return id ? `${ANIME_PROGRESS_KEY_PREFIX}${id}` : '';
+}
+
+function animeLegacyProgressKey(malId) {
+    const id = String(malId ?? '').trim();
+    return id ? `${ANIME_LEGACY_PROGRESS_KEY_PREFIX}${id}_${ANIME_PROGRESS_TYPE}` : '';
 }
 
 function getAnimeProgressRecord(malId) {
     const key = animeProgressKey(malId);
+    const legacyKey = animeLegacyProgressKey(malId);
     if (!key) return null;
     try {
-        const raw = JSON.parse(localStorage.getItem(key) || 'null');
+        let raw = JSON.parse(localStorage.getItem(key) || 'null');
+        if ((!raw || typeof raw !== 'object') && legacyKey) {
+            raw = JSON.parse(localStorage.getItem(legacyKey) || 'null');
+            if (raw && typeof raw === 'object') {
+                try {
+                    localStorage.setItem(key, JSON.stringify(raw));
+                    localStorage.removeItem(legacyKey);
+                } catch { }
+            }
+        }
         if (!raw || typeof raw !== 'object') return null;
         return raw;
     } catch {
@@ -107,8 +126,127 @@ function upsertAnimeProgressRecord(malId, patch) {
 
 function removeFromAnimeContinueWatching(malId) {
     const key = animeProgressKey(malId);
+    const legacyKey = animeLegacyProgressKey(malId);
     if (!key) return;
     try { localStorage.removeItem(key); } catch { }
+    try { if (legacyKey) localStorage.removeItem(legacyKey); } catch { }
+}
+
+function getAnimeWatchedList() {
+    try { return JSON.parse(localStorage.getItem(ANIME_WATCHED_LIST_KEY) || '[]'); } catch { return []; }
+}
+
+function setAnimeWatchedList(list) {
+    try { localStorage.setItem(ANIME_WATCHED_LIST_KEY, JSON.stringify(Array.isArray(list) ? list : [])); } catch { }
+}
+
+function normalizeAndDedupeAnimeWatched(list) {
+    const map = new Map();
+    for (const it of Array.isArray(list) ? list : []) {
+        const id = String(it?.id ?? '').trim();
+        if (!id) continue;
+        const updatedAt = it?.updatedAt ?? it?.watchedAt ?? 0;
+        const normalized = {
+            id,
+            title: it?.title ?? '',
+            poster: it?.poster ?? '',
+            year: it?.year ?? '',
+            updatedAt,
+            watchedAt: it?.watchedAt ?? updatedAt,
+            playerGroup: it?.playerGroup ?? null,
+            playerHost: it?.playerHost ?? null
+        };
+        const prev = map.get(id);
+        if (!prev || (updatedAt || 0) > (prev.updatedAt || 0)) map.set(id, normalized);
+    }
+    return Array.from(map.values());
+}
+
+function addAnimeToWatched(malId) {
+    const id = String(malId ?? '').trim();
+    if (!id) return;
+    const record = getAnimeProgressRecord(id);
+    if (!record) return;
+    const list = getAnimeWatchedList();
+    list.push({
+        id,
+        title: record.title || '',
+        poster: record.poster || '',
+        year: record.year || '',
+        updatedAt: Date.now(),
+        watchedAt: Date.now(),
+        playerGroup: record.playerGroup || null,
+        playerHost: record.playerHost || null
+    });
+    setAnimeWatchedList(normalizeAndDedupeAnimeWatched(list));
+    try { loadAnimeWatched(); } catch { }
+}
+
+function maybeAddAnimeToWatched(malId, frac = null) {
+    if (frac != null && (!(Number.isFinite(frac)) || frac < 0.9)) return;
+    addAnimeToWatched(malId);
+}
+
+function removeFromAnimeWatched(malId) {
+    const id = String(malId ?? '').trim();
+    if (!id) return;
+    const list = getAnimeWatchedList().filter(x => String(x?.id ?? '').trim() !== id);
+    setAnimeWatchedList(list);
+    try { loadAnimeWatched(); } catch { }
+}
+
+function loadAnimeWatched() {
+    const section = document.getElementById('watchedSection');
+    const grid = document.getElementById('watchedGrid');
+    if (!section || !grid) return;
+
+    const list = normalizeAndDedupeAnimeWatched(getAnimeWatchedList())
+        .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+    if (!list.length) {
+        grid.innerHTML = '';
+        section.style.display = 'none';
+        return;
+    }
+
+    section.style.display = 'block';
+    grid.innerHTML = '';
+
+    list.forEach((it) => {
+        const div = document.createElement('div');
+        div.className = 'poster';
+        div.style.position = 'relative';
+        const title = it.title || 'Unknown';
+        const poster = it.poster || '';
+        div.innerHTML = `<img src="${poster}" alt="${escapeHtml(title)}">`;
+        div.onclick = () => openAnimeByMalId(it.id);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = '&times;';
+        removeBtn.title = 'Remove';
+        Object.assign(removeBtn.style, {
+            position: 'absolute',
+            top: '6px',
+            right: '8px',
+            background: 'rgba(0,0,0,0.7)',
+            color: '#fff',
+            border: 'none',
+            fontSize: '1.5em',
+            cursor: 'pointer',
+            padding: '0 6px',
+            borderRadius: '50%',
+            display: 'none',
+            zIndex: '2'
+        });
+        div.addEventListener('mouseenter', () => { removeBtn.style.display = 'block'; });
+        div.addEventListener('mouseleave', () => { removeBtn.style.display = 'none'; });
+        removeBtn.onclick = (e) => {
+            e.stopPropagation();
+            removeFromAnimeWatched(it.id);
+        };
+        div.appendChild(removeBtn);
+        grid.appendChild(div);
+    });
 }
 
 function estimateAnimeProgressFraction(record) {
@@ -142,9 +280,8 @@ function loadAnimeContinueWatching() {
     const items = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (!key || !key.startsWith(ANIME_PROGRESS_KEY_PREFIX)) continue;
-        // Only keep anime entries: progress_<id>_anime
-        const m = /^progress_(\d+)_anime$/i.exec(key);
+        if (!key) continue;
+        const m = /^anime_progress_(\d+)$/i.exec(key) || /^progress_(\d+)_anime$/i.exec(key);
         if (!m) continue;
         try {
             const raw = JSON.parse(localStorage.getItem(key) || 'null');
@@ -255,6 +392,7 @@ function loadAnimeContinueWatching() {
                 const keysToRemove = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const k = localStorage.key(i);
+                    if (k && /^anime_progress_\d+$/i.test(k)) keysToRemove.push(k);
                     if (k && /^progress_\d+_anime$/i.test(k)) keysToRemove.push(k);
                 }
                 keysToRemove.forEach(k => localStorage.removeItem(k));
@@ -1210,6 +1348,9 @@ function renderSkipCheckboxes(malId) {
             seasonNumber: window.currentSeasonNumber,
             ...newSettings,
         });
+        if (activeSelection && activeSelection.group) {
+            switchToSelection(activeSelection, { persistLastUsed: false });
+        }
     });
     introLabel.appendChild(introCheckbox);
     introLabel.appendChild(document.createTextNode('Skip Intro'));
@@ -1242,6 +1383,9 @@ function renderSkipCheckboxes(malId) {
             seasonNumber: window.currentSeasonNumber,
             ...newSettings,
         });
+        if (activeSelection && activeSelection.group) {
+            switchToSelection(activeSelection, { persistLastUsed: false });
+        }
     });
     outroLabel.appendChild(outroCheckbox);
     outroLabel.appendChild(document.createTextNode('Skip Outro'));
@@ -1428,11 +1572,18 @@ async function openAnimeFromJikan(anime) {
     function decoratePlayerUrl(rawUrl, { seekSeconds = null } = {}) {
         if (!rawUrl) return rawUrl;
         const absEp = computeAbsoluteEpisode(currentSeason, currentEpisode);
+        const skipSettings = getAnimeSkipSettings(malId);
+        const shouldAutoSkipIntro = !!(skipSettings && skipSettings.skipIntro && skipSettings.skipOutro);
         try {
             const u = new URL(rawUrl);
             u.searchParams.set('ateaish_mal', String(malId));
             u.searchParams.set('ateaish_ep', String(absEp));
             u.searchParams.set('ateaish_token', String(progressToken));
+            if (shouldAutoSkipIntro) {
+                u.searchParams.set('autoSkipIntro', 'true');
+            } else {
+                u.searchParams.delete('autoSkipIntro');
+            }
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 u.searchParams.set('ateaish_seek', String(Math.floor(Number(seekSeconds))));
             }
@@ -1440,6 +1591,9 @@ async function openAnimeFromJikan(anime) {
         } catch {
             const sep = rawUrl.includes('?') ? '&' : '?';
             let out = `${rawUrl}${sep}ateaish_mal=${encodeURIComponent(String(malId))}&ateaish_ep=${encodeURIComponent(String(absEp))}&ateaish_token=${encodeURIComponent(String(progressToken))}`;
+            if (shouldAutoSkipIntro) {
+                out += `&autoSkipIntro=true`;
+            }
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 out += `&ateaish_seek=${encodeURIComponent(String(Math.floor(Number(seekSeconds))))}`;
             }
@@ -1519,8 +1673,11 @@ async function openAnimeFromJikan(anime) {
         }
 
         // Series mode
-        const vidsrcSub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/0`;
-        const vidsrcDub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/1`;
+        const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
+        const vidsrcSub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`;
+        const vidsrcDub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`;
+        const vidsrcIcuSub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/0`;
+        const vidsrcIcuDub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/1`;
         const videasySub = `https://player.videasy.net/anime/${aniListId}/${episode}?dub=false`;
         const videasyDub = `https://player.videasy.net/anime/${aniListId}/${episode}?dub=true`;
 
@@ -1533,8 +1690,8 @@ async function openAnimeFromJikan(anime) {
         }
 
         return [
-            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub, videasySub].filter(Boolean) },
-            { key: 'va', label: 'VA', urls: [vidsrcDub, videasyDub].filter(Boolean) },
+            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub, videasySub, vidsrcIcuSub].filter(Boolean) },
+            { key: 'va', label: 'VA', urls: [vidsrcDub, videasyDub, vidsrcIcuDub].filter(Boolean) },
             { key: 'vostfr', label: 'VOSTFR', urls: vostfrUrls },
             { key: 'vf', label: 'VF', urls: vfUrls }
         ].filter(g => g.urls && g.urls.length);
@@ -1643,7 +1800,7 @@ async function openAnimeFromJikan(anime) {
 
     // Initial render (iframe + overlay controls)
     playerContent.innerHTML = `
-        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.icu/embed/anime/${aniListId}/1/0&autoplay=1`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.cc/v2/embed/anime/${malId ? String(malId) : `ani${aniListId}`}/1/sub?autoPlay=true`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
     `;
 
     function ensureSettingsButton() {
@@ -1718,12 +1875,6 @@ async function openAnimeFromJikan(anime) {
     let activeSelection = null;
     let sessionUserSelection = null;
     const arrows = isMovie ? null : ensureEpisodeArrows();
-
-    // If we have a per-title remembered player (host/group), try to resume it first.
-    if (resumePlayerGroupWanted) {
-        sessionUserSelection = { group: resumePlayerGroupWanted, idx: 0 };
-        if (resumePlayerHostWanted) setLastUsedHost(resumePlayerGroupWanted, resumePlayerHostWanted);
-    }
 
     function persistContinueWatchingFromSelection(groupKey, url) {
         let host = null;
@@ -1862,43 +2013,27 @@ async function openAnimeFromJikan(anime) {
             });
         });
 
-        const lastUsed = getLastUsed();
-
-        // 1) If user explicitly chose a source this session, keep it (prefer same host)
+        // 1) If user explicitly chose a source this session, keep it
         if (sessionUserSelection && sessionUserSelection.group) {
             const grp = currentGroups.find(g => g.key === sessionUserSelection.group);
             if (grp && grp.urls && grp.urls.length) {
-                const byHost = pickIndexByHost(grp.urls, lastUsed && lastUsed.group === grp.key ? lastUsed.host : null);
-                const idx = byHost !== null ? byHost : Math.min(sessionUserSelection.idx || 0, grp.urls.length - 1);
+                const idx = Math.min(sessionUserSelection.idx || 0, grp.urls.length - 1);
                 switchToSelection({ group: grp.key, idx }, { persistLastUsed: false });
                 return;
             }
         }
 
-        // 2) Use primary group from settings (VF stays primary when available)
-        const primaryGroup = getPrimaryGroupKey();
-        if (primaryGroup) {
-            const grp = currentGroups.find(g => g.key === primaryGroup);
-            if (grp && grp.urls && grp.urls.length) {
-                const byHost = pickIndexByHost(grp.urls, lastUsed && lastUsed.group === grp.key ? lastUsed.host : null);
-                const idx = byHost !== null ? byHost : 0;
-                switchToSelection({ group: grp.key, idx }, { persistLastUsed: false });
-                return;
-            }
-        }
-
-        // 3) Stick to current (automatic) selection if still available
+        // 2) Stick to current selection while moving between episodes
         if (activeSelection && activeSelection.group) {
             const grp = currentGroups.find(g => g.key === activeSelection.group);
             if (grp && grp.urls && grp.urls.length) {
-                const byHost = pickIndexByHost(grp.urls, lastUsed && lastUsed.group === grp.key ? lastUsed.host : null);
-                const idx = byHost !== null ? byHost : Math.min(activeSelection.idx || 0, grp.urls.length - 1);
+                const idx = Math.min(activeSelection.idx || 0, grp.urls.length - 1);
                 switchToSelection({ group: grp.key, idx }, { persistLastUsed: false });
                 return;
             }
         }
 
-        // 4) Fallback order
+        // 3) Fresh open fallback order: VOSTA source 1 first
         const fallback = pickBestAvailableSelection(null, currentGroups);
         if (fallback) switchToSelection(fallback, { persistLastUsed: false });
     }
@@ -1957,7 +2092,7 @@ async function openAnimeFromJikan(anime) {
     // Settings button logic
     settingsBtn.addEventListener('click', () => {
         // Show modal
-        const modalHtml = buildSettingsModal(labelFromGroupKey(getPrimaryGroupKey()) || selectionLabelForSettings(activeSelection));
+        const modalHtml = buildSettingsModal(selectionLabelForSettings(activeSelection));
         const modalDiv = document.createElement('div');
         modalDiv.innerHTML = modalHtml;
         document.body.appendChild(modalDiv.firstElementChild);
@@ -1969,12 +2104,9 @@ async function openAnimeFromJikan(anime) {
         saveBtn.addEventListener('click', () => {
             const nextSel = buildSelectionFromSettingsLabel(select.value);
             if (nextSel) {
-                setPrimaryGroupKey(nextSel.group);
                 const grp = currentGroups.find(g => g.key === nextSel.group);
                 if (grp && grp.urls && grp.urls.length) {
-                    const lastUsed = getLastUsed();
-                    const byHost = pickIndexByHost(grp.urls, lastUsed && lastUsed.group === grp.key ? lastUsed.host : null);
-                    const idx = byHost !== null ? byHost : 0;
+                    const idx = 0;
                     switchToSelection({ group: grp.key, idx }, { persistLastUsed: true });
                 } else {
                     // Primary set but not currently available; keep current playback
@@ -2348,6 +2480,7 @@ window.addEventListener('DOMContentLoaded', () => {
     loadShowcase();
     loadAnimeContinueWatching();
     loadAnimeWatchLater();
+    loadAnimeWatched();
 });
 
 // Random helper for rotating Jikan sections
