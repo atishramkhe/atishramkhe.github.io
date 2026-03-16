@@ -1408,7 +1408,7 @@
 			right: auto;
 			transform: none;
 			width: 100%;
-			height: 52px;
+			height: 100%;
 			justify-content: flex-end;
 			pointer-events: auto;
 			overflow: visible;
@@ -1423,9 +1423,9 @@
 		}
 
 		.master-nav-inline .master-nav-toggle {
-			width: 52px;
-			height: 52px;
-			flex: 0 0 52px;
+			width: 100%;
+			height: 100%;
+			flex: 1 1 auto;
 			border-radius: 16px;
 			box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
 		}
@@ -1436,12 +1436,12 @@
 		}
 
 		.master-nav-inline .master-nav-panel {
-			right: 0;
+			right: calc(100% - 8px);
 			top: 0;
 			bottom: auto;
 			width: min(520px, calc(100vw - 28px));
-			height: 52px;
-			padding: 0 60px 0 12px;
+			height: 100%;
+			padding: 0 12px;
 			border-radius: 16px;
 			box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46);
 		}
@@ -1454,8 +1454,8 @@
 
 		.master-nav-inline .master-nav-link {
 			width: 42px;
-			height: 52px;
-			min-height: 52px;
+			height: 100%;
+			min-height: 100%;
 		}
 
 		.master-nav-inline .master-nav-link img {
@@ -2043,8 +2043,8 @@
 				height: 32px;
 			}
 			.master-nav-inline .master-nav-toggle {
-				width: 52px;
-				height: 52px;
+				width: 100%;
+				height: 100%;
 			}
 			.master-nav-inline .master-nav-toggle img {
 				width: 32px;
@@ -2052,8 +2052,9 @@
 			}
 			.master-nav-inline .master-nav-panel {
 				width: min(420px, calc(100vw - 24px));
-				height: 52px;
-				padding: 0 60px 0 10px;
+				height: 100%;
+				right: calc(100% - 6px);
+				padding: 0 10px;
 			}
 			.master-nav-inline .master-nav-links {
 				gap: 6px;

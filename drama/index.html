@@ -17,6 +17,9 @@
             color: #fff;
             font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
+            --ateaish-master-nav-accent: #e02735;
+            --ateaish-master-nav-accent-rgb: 224, 39, 53;
+            --ateaish-master-nav-text: #fff5f6;
         }
 
         /* ===== HEADER ===== */
@@ -53,6 +56,15 @@
             padding: 8px 0; text-decoration: none; background: none;
         }
         .dropdown-content a img { height: 100px; width: 100px; object-fit: contain; }
+
+        .floating-master-nav-slot {
+            position: fixed;
+            right: 32px;
+            bottom: 32px;
+            width: 72px;
+            height: 72px;
+            z-index: 91;
+        }
 
         /* ===== SEARCH ===== */
         #search-container {
@@ -253,6 +265,7 @@
             #player-content { width: 100%; height: 60%; }
             #detail-content { margin: 20px auto; }
             .filter-btn { padding: 5px 12px; font-size: 0.8em; }
+            .floating-master-nav-slot { right: 16px; bottom: 16px; width: 64px; height: 64px; }
         }
     </style>
     <script defer src="/_vercel/insights/script.js"></script>
@@ -260,29 +273,12 @@
 <body>
     <!-- HEADER -->
     <header>
-        <div class="dropdown" id="mainDropdown">
-            <div class="logo-placeholder" id="dropdownToggle" tabindex="0">
+            <div class="logo-placeholder" aria-label="ateaish drama home mark">
                 <span style="font-family:'OumaTrialBold'; font-size:1.1em; letter-spacing:1px;">ateaish drama</span>&nbsp;○○○
             </div>
-            <div class="dropdown-content" id="dropdownMenu">
-                <a href="https://atishramkhe.github.io/">
-                    <img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="ateaish homepage" style="height:60px;width:auto;">
-                </a>
-                <a href="https://atishramkhe.github.io/movies">
-                    <img src="../assets/logo.png" alt="ateaish movies" style="height:40px;width:auto;">
-                </a>
-                <a href="https://atishramkhe.github.io/tv">
-                    <img src="../assets/logo.png" alt="ateaish tv" style="height:40px;width:auto;">
-                </a>
-                <a href="https://atishramkhe.github.io/sport">
-                    <img src="../assets/logo.png" alt="ateaish sport" style="height:40px;width:auto;">
-                </a>
-                <a href="https://atishramkhe.github.io/radio">
-                    <img src="../assets/logo.png" alt="ateaish radio" style="height:40px;width:auto;">
-                </a>
-            </div>
-        </div>
     </header>
+
+    <div class="floating-master-nav-slot" data-ateaish-master-nav-slot="inline"></div>
 
     <!-- SEARCH -->
     <div id="search-container">
@@ -1030,17 +1026,6 @@
 
         // Close player
         document.getElementById('close-player').addEventListener('click', closePlayer);
-
-        // Dropdown toggle
-        const dropdown = document.getElementById('mainDropdown');
-        const toggle = document.getElementById('dropdownToggle');
-        toggle.addEventListener('click', (e) => {
-            dropdown.classList.toggle('open');
-            e.stopPropagation();
-        });
-        document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
-        });
 
         // Keyboard: Escape closes modals
         document.addEventListener('keydown', (e) => {

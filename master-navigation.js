@@ -176,15 +176,25 @@
       '.ateaish-master-nav:hover .ateaish-master-nav__link img,.ateaish-master-nav:focus-within .ateaish-master-nav__link img,.ateaish-master-nav.is-open .ateaish-master-nav__link img{transform:scale(1.28);}',
       '.ateaish-master-nav__link:hover img,.ateaish-master-nav__link:focus-visible img,.ateaish-master-nav__link.is-active img{transform:scale(2.1);}',
       '.ateaish-master-nav__label{display:none;}',
-      '.ateaish-master-nav--inline{position:relative;top:auto;right:auto;transform:none;width:100%;height:52px;justify-content:flex-end;pointer-events:auto;overflow:visible;z-index:19;}',
+      '.ateaish-master-nav--inline{position:relative;top:auto;right:auto;transform:none;width:100%;height:100%;justify-content:flex-end;pointer-events:auto;overflow:visible;z-index:19;}',
       '.ateaish-master-nav--inline:hover,.ateaish-master-nav--inline:focus-within,.ateaish-master-nav--inline.is-open{width:100%;}',
-      '.ateaish-master-nav--inline .ateaish-master-nav__toggle{width:52px;height:52px;flex:0 0 52px;border-radius:16px;box-shadow:0 10px 26px rgba(0,0,0,.34);}',
+      '.ateaish-master-nav--inline .ateaish-master-nav__toggle{width:100%;height:100%;flex:1 1 auto;border-radius:16px;box-shadow:0 10px 26px rgba(0,0,0,.34);}',
       '.ateaish-master-nav--inline .ateaish-master-nav__toggle img{width:34px;height:34px;}',
-      '.ateaish-master-nav--inline .ateaish-master-nav__panel{right:0;top:0;bottom:auto;width:min(520px,calc(100vw - 28px));height:52px;padding:0 60px 0 12px;border-radius:16px;box-shadow:0 18px 38px rgba(0,0,0,.46);}',
+      '.ateaish-master-nav--inline .ateaish-master-nav__panel{right:calc(100% - 8px);top:0;bottom:auto;width:min(520px,calc(100vw - 28px));height:100%;padding:0 12px;border-radius:16px;box-shadow:0 18px 38px rgba(0,0,0,.46);}',
       '.ateaish-master-nav--inline .ateaish-master-nav__links{gap:8px;padding-left:0;justify-content:flex-start;}',
-      '.ateaish-master-nav--inline .ateaish-master-nav__link{width:42px;height:52px;min-height:52px;}',
+      '.ateaish-master-nav--inline .ateaish-master-nav__link{width:42px;height:100%;min-height:100%;}',
       '.ateaish-master-nav--inline .ateaish-master-nav__link img{width:34px;height:34px;}',
-      '@media (max-width:720px){.ateaish-master-nav{top:auto;bottom:144px;right:0;transform:none;width:58px;height:58px;}.ateaish-master-nav:hover,.ateaish-master-nav:focus-within,.ateaish-master-nav.is-open{width:var(--master-nav-expanded-width-mobile);}.ateaish-master-nav__toggle{width:58px;height:58px;flex:0 0 58px;}.ateaish-master-nav__toggle img{width:38px;height:38px;}.ateaish-master-nav__panel{right:0;top:auto;bottom:0;transform:translateX(0);width:100%;height:58px;padding:0 64px 0 10px;border-radius:999px;}.ateaish-master-nav__links{gap:6px;padding-left:10px;}.ateaish-master-nav__link{width:44px;height:58px;min-height:58px;}.ateaish-master-nav__link img{width:32px;height:32px;}}'
+      '.ateaish-master-nav--player{top:auto;right:22px;bottom:22px;transform:none;width:60px;height:60px;z-index:95;}',
+      '.ateaish-master-nav--player:hover,.ateaish-master-nav--player:focus-within,.ateaish-master-nav--player.is-open{width:min(560px,calc(100vw - 28px));}',
+      '.ateaish-master-nav--player .ateaish-master-nav__toggle{width:60px;height:60px;flex:0 0 60px;border-radius:14px;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__toggle::before{border-width:1px;border-color:rgba(var(--master-nav-accent-rgb),.34);}',
+      '.ateaish-master-nav--player .ateaish-master-nav__panel{height:60px;padding:0 66px 0 10px;border-radius:16px;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__links{gap:6px;padding-left:0;justify-content:flex-start;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__link{width:44px;height:60px;min-height:60px;border-radius:10px;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__link img{width:30px;height:30px;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__link::before{display:none;}',
+      '.ateaish-master-nav--player .ateaish-master-nav__link:hover,.ateaish-master-nav--player .ateaish-master-nav__link:focus-visible,.ateaish-master-nav--player .ateaish-master-nav__link.is-active{background:transparent;}',
+      '@media (max-width:720px){.ateaish-master-nav{top:auto;bottom:144px;right:0;transform:none;width:58px;height:58px;}.ateaish-master-nav:hover,.ateaish-master-nav:focus-within,.ateaish-master-nav.is-open{width:var(--master-nav-expanded-width-mobile);}.ateaish-master-nav__toggle{width:58px;height:58px;flex:0 0 58px;}.ateaish-master-nav__toggle img{width:38px;height:38px;}.ateaish-master-nav__panel{right:0;top:auto;bottom:0;transform:translateX(0);width:100%;height:58px;padding:0 64px 0 10px;border-radius:999px;}.ateaish-master-nav__links{gap:6px;padding-left:10px;}.ateaish-master-nav__link{width:44px;height:58px;min-height:58px;}.ateaish-master-nav__link img{width:32px;height:32px;}.ateaish-master-nav--inline .ateaish-master-nav__panel{right:calc(100% - 6px);width:min(420px,calc(100vw - 24px));height:100%;padding:0 10px;}.ateaish-master-nav--player{right:12px;bottom:12px;width:56px;height:56px;}.ateaish-master-nav--player:hover,.ateaish-master-nav--player:focus-within,.ateaish-master-nav--player.is-open{width:min(420px,calc(100vw - 20px));}.ateaish-master-nav--player .ateaish-master-nav__toggle{width:56px;height:56px;flex:0 0 56px;}.ateaish-master-nav--player .ateaish-master-nav__panel{height:56px;padding:0 60px 0 8px;}.ateaish-master-nav--player .ateaish-master-nav__link{width:40px;height:56px;min-height:56px;}.ateaish-master-nav--player .ateaish-master-nav__link img{width:28px;height:28px;}}'
     ].join('');
     document.head.appendChild(style);
   }
@@ -251,9 +261,12 @@
     const activeItem = NAV_ITEMS.find((item) => item.id === currentSection) || NAV_ITEMS[0];
     const mountTarget = getMountTarget();
     const inline = mountTarget !== document.body;
+    const playerMode = ['tv', 'sport', 'radio'].includes(currentSection);
 
     const nav = document.querySelector('[data-ateaish-master-nav]') || document.createElement('div');
-    nav.className = 'ateaish-master-nav' + (inline ? ' ateaish-master-nav--inline' : '');
+    nav.className = 'ateaish-master-nav'
+      + (inline ? ' ateaish-master-nav--inline' : '')
+      + (!inline && playerMode ? ' ateaish-master-nav--player' : '');
     nav.dataset.ateaishMasterNav = 'true';
     nav.dataset.open = nav.dataset.open || 'false';
     nav.classList.toggle('is-open', nav.dataset.open === 'true');
