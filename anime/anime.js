@@ -964,6 +964,68 @@ async function fetchJson(url, maxRetries = 4) {
     throw lastError || new Error('Unknown fetch error');
 }
 
+const animeEpisodeCountCache = new Map();
+
+async function resolveAnimeEpisodeCount(anime) {
+    const malId = Number(anime?.mal_id);
+    if (!Number.isFinite(malId) || malId <= 0) return null;
+
+    const directCount = Number(anime?.episodes);
+    if (Number.isFinite(directCount) && directCount > 0) return directCount;
+
+    if (animeEpisodeCountCache.has(malId)) {
+        return animeEpisodeCountCache.get(malId);
+    }
+
+    let resolvedCount = null;
+
+    try {
+        const details = await fetchJson(`${JIKAN_BASE}/anime/${malId}?sfw`, 2);
+        const detailCount = Number(details?.data?.episodes);
+        if (Number.isFinite(detailCount) && detailCount > 0) {
+            resolvedCount = detailCount;
+        }
+    } catch (e) {
+        console.warn('Failed to resolve anime episode count from details endpoint', malId, e);
+    }
+
+    if (!resolvedCount) {
+        try {
+            const page1 = await fetchJson(`${JIKAN_BASE}/anime/${malId}/episodes?page=1`, 2);
+            const itemsTotal = Number(page1?.pagination?.items?.total);
+            if (Number.isFinite(itemsTotal) && itemsTotal > 0) {
+                resolvedCount = itemsTotal;
+            } else {
+                const lastPage = Number(page1?.pagination?.last_visible_page);
+                const firstPageLen = Array.isArray(page1?.data) ? page1.data.length : 0;
+
+                const perPage = Number(page1?.pagination?.items?.per_page);
+                const inferredPerPage = Number.isFinite(perPage) && perPage > 0
+                    ? perPage
+                    : firstPageLen;
+
+                if (Number.isFinite(lastPage) && lastPage > 1 && inferredPerPage > 0) {
+                    const lastPageData = await fetchJson(`${JIKAN_BASE}/anime/${malId}/episodes?page=${lastPage}`, 2);
+                    const lastPageLen = Array.isArray(lastPageData?.data) ? lastPageData.data.length : 0;
+                    resolvedCount = lastPageLen > 0
+                        ? ((lastPage - 1) * inferredPerPage) + lastPageLen
+                        : lastPage * inferredPerPage;
+                } else if (firstPageLen > 0) {
+                    resolvedCount = firstPageLen;
+                }
+            }
+        } catch (e) {
+            console.warn('Failed to resolve anime episode count from episodes endpoint', malId, e);
+        }
+    }
+
+    const normalizedCount = Number.isFinite(Number(resolvedCount)) && Number(resolvedCount) > 0
+        ? Number(resolvedCount)
+        : null;
+    animeEpisodeCountCache.set(malId, normalizedCount);
+    return normalizedCount;
+}
+
 // Ensure search results use the exact same grid sizing as the homepage grids
 let _resultsGridRO = null;
 function setupResultsGridLayout() {
@@ -1400,6 +1462,12 @@ async function openAnimeFromJikan(anime) {
     const openToken = Symbol('anime-player-open');
     currentAnimePlayerOpenToken = openToken;
 
+    let resolvedEpisodes = Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null;
+    if (!isMovie) {
+        resolvedEpisodes = await resolveAnimeEpisodeCount(anime);
+        if (currentAnimePlayerOpenToken !== openToken) return;
+    }
+
     // Install message listener once (for timing capture via userscript)
     ensureAnimeProgressMessageListener();
 
@@ -1407,7 +1475,7 @@ async function openAnimeFromJikan(anime) {
     const postersForProgress = buildPosterVariants(anime);
     const titleForProgress = anime.title || anime.title_english || anime.title_japanese || 'Unknown';
     const yearForProgress = buildYear(anime);
-    const episodesTotalForProgress = Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null;
+    const episodesTotalForProgress = resolvedEpisodes;
 
     // If a progress entry exists, we'll resume season/episode + preferred player later.
     const resumeProgress = getAnimeProgressRecord(malId);
@@ -1456,30 +1524,21 @@ async function openAnimeFromJikan(anime) {
     // Kick off movie TMDB lookup early (in parallel)
     const tmdbPromise = isMovie ? getTmdbIdForAnimeMovie(anime) : Promise.resolve(null);
 
-    // Resolve AniList id (cached)
+    // Resolve AniList id opportunistically for AniSkip/userscript metadata.
     const cached = getCachedAniListId(malId);
     const aniListId = cached || await resolveAniListId(malId);
     if (currentAnimePlayerOpenToken !== openToken) return;
     if (aniListId) setCachedAniListId(malId, aniListId);
-    if (!aniListId) {
-        playerContent.innerHTML = `
-            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit;">
-                No streaming source available.
-            </div>
-        `;
-        return;
-    }
 
-    // State (filled asynchronously)
-    let animeSamaData = null;
+    // State
     let tmdbId = null;
 
-    // Build season/episode lists (start minimal; expand once anime-sama data loads)
+    // Build season/episode lists directly from Jikan episode metadata.
     let seasons = ['saison1'];
     let currentSeason = seasons[0];
     let currentEpisode = 1;
 
-    // Apply resume episode early (season will be applied once anime-sama data is loaded)
+    // Apply resume episode early.
     if (!isMovie && Number.isFinite(resumeEpisodeWanted) && resumeEpisodeWanted > 0) {
         currentEpisode = resumeEpisodeWanted;
     }
@@ -1630,21 +1689,14 @@ async function openAnimeFromJikan(anime) {
 
     // Helper to get max episode for a season
     function getMaxEpisode(season) {
-        if (!animeSamaData || !animeSamaData[season]) return 1;
-        return Math.max(...Object.keys(animeSamaData[season]).map(e => parseInt(e, 10)).filter(e => !isNaN(e)));
+        if (isMovie) return 1;
+        const jikanEpisodes = resolvedEpisodes;
+        const floor = Math.max(1, Number.isFinite(Number(currentEpisode)) ? Number(currentEpisode) : 1);
+        return Math.max(jikanEpisodes || 1, floor);
     }
 
-    // Compute the absolute (MAL-style) episode number from a per-season episode.
-    // AniSkip needs the absolute episode across all seasons (e.g. Naruto Shippuden 1-500).
     function computeAbsoluteEpisode(seasonKey, episodeNum) {
-        const ep = Number(episodeNum) || 1;
-        if (!animeSamaData || !seasons || seasons.length <= 1) return ep;
-        let absolute = 0;
-        for (const s of seasons) {
-            if (s === seasonKey) break;
-            absolute += getMaxEpisode(s);
-        }
-        return absolute + ep;
+        return Number(episodeNum) || 1;
     }
 
     function updateGlobalAbsoluteEpisode() {
@@ -1676,24 +1728,10 @@ async function openAnimeFromJikan(anime) {
         const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
         const vidsrcSub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`;
         const vidsrcDub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`;
-        const vidsrcIcuSub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/0`;
-        const vidsrcIcuDub = `https://vidsrc.icu/embed/anime/${aniListId}/${episode}/1`;
-        const videasySub = `https://player.videasy.net/anime/${aniListId}/${episode}?dub=false`;
-        const videasyDub = `https://player.videasy.net/anime/${aniListId}/${episode}?dub=true`;
-
-        let vostfrUrls = [];
-        let vfUrls = [];
-        if (animeSamaData && animeSamaData[season] && animeSamaData[season][episode]) {
-            const langs = animeSamaData[season][episode];
-            vostfrUrls = normalizeUrls(langs.vostfr);
-            vfUrls = normalizeUrls(langs.vf);
-        }
 
         return [
-            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub, videasySub, vidsrcIcuSub].filter(Boolean) },
-            { key: 'va', label: 'VA', urls: [vidsrcDub, videasyDub, vidsrcIcuDub].filter(Boolean) },
-            { key: 'vostfr', label: 'VOSTFR', urls: vostfrUrls },
-            { key: 'vf', label: 'VF', urls: vfUrls }
+            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub].filter(Boolean) },
+            { key: 'va', label: 'VA', urls: [vidsrcDub].filter(Boolean) }
         ].filter(g => g.urls && g.urls.length);
     }
 
@@ -1701,6 +1739,8 @@ async function openAnimeFromJikan(anime) {
         const n = parseInt(String(seasonKey).replace(/\D/g, ''), 10);
         return Number.isFinite(n) && n > 0 ? String(n) : String(seasonKey);
     }
+
+    currentEpisode = Math.min(currentEpisode, getMaxEpisode(currentSeason));
 
     function renderSeasonEpisodeSelector() {
         let selectorBar = playerContainer.querySelector('#season-episode-selector');
@@ -1775,7 +1815,7 @@ async function openAnimeFromJikan(anime) {
     }
 
     function getSettingsGroups() {
-        return isMovie ? ['VO', 'VF'] : ['VOSTA', 'VA', 'VOSTFR', 'VF'];
+        return isMovie ? ['VO', 'VF'] : ['VOSTA', 'VA'];
     }
 
     // Settings modal HTML
@@ -1800,7 +1840,7 @@ async function openAnimeFromJikan(anime) {
 
     // Initial render (iframe + overlay controls)
     playerContent.innerHTML = `
-        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.cc/v2/embed/anime/${malId ? String(malId) : `ani${aniListId}`}/1/sub?autoPlay=true`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
+        <iframe id="anime-player-iframe" src="${decoratePlayerUrl(`https://vidsrc.cc/v2/embed/anime/${malId ? String(malId) : `ani${aniListId}`}/${currentEpisode}/sub?autoPlay=true`, { seekSeconds: getResumeSeekForCurrentEpisode() })}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
     `;
 
     function ensureSettingsButton() {
@@ -1941,7 +1981,7 @@ async function openAnimeFromJikan(anime) {
         // Default order
         const preferredOrder = isMovie
             ? ['vo', 'vf']
-            : ['vosta', 'va', 'vostfr', 'vf'];
+            : ['vosta', 'va'];
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
@@ -2040,48 +2080,6 @@ async function openAnimeFromJikan(anime) {
 
     // Initial indicators render
     renderAnimeSourceIndicators();
-
-    // Load anime-sama sources in the background (so the overlay opens fast)
-    (async () => {
-        let data = await getAnimeSamaSeasonsEpisodesCached(aniListId);
-        if (!data) {
-            const baseId = await resolveBaseAniListId(aniListId);
-            if (baseId && baseId !== aniListId) {
-                data = await getAnimeSamaSeasonsEpisodesCached(baseId);
-            }
-        }
-        if (currentAnimePlayerOpenToken !== openToken) return;
-        if (!data) return;
-
-        animeSamaData = data;
-        seasons = Object.keys(animeSamaData);
-        seasons.sort((a, b) => {
-            const nA = parseInt(String(a).replace(/\D/g, ''), 10) || 0;
-            const nB = parseInt(String(b).replace(/\D/g, ''), 10) || 0;
-            return nA - nB;
-        });
-        if (resumeSeasonWanted && seasons.includes(resumeSeasonWanted)) currentSeason = resumeSeasonWanted;
-        if (!seasons.includes(currentSeason)) currentSeason = seasons[0] || 'saison1';
-        const maxEp = getMaxEpisode(currentSeason);
-        if (currentEpisode > maxEp) currentEpisode = maxEp;
-
-        renderSeasonEpisodeSelector();
-        renderAnimeSourceIndicators();
-
-        // Season data is now loaded — recompute absolute episode and re-send hook
-        // so the userscript (including iframe instances) gets the correct episode number.
-        updateGlobalAbsoluteEpisode();
-        window.currentEpisodeNumber = currentEpisode;
-        window.currentSeasonNumber = currentSeason;
-        const skipSettings = getAnimeSkipSettings(malId);
-        sendAnimePlayerHook({
-            malId,
-            aniListId,
-            episodeNumber: currentEpisode,
-            seasonNumber: currentSeason,
-            ...skipSettings,
-        });
-    })();
 
     // Update movie sources once TMDB id is ready
     tmdbPromise.then(id => {
