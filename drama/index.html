@@ -62,16 +62,16 @@
         .floating-master-nav-slot {
             position: fixed;
             right: 32px;
-            bottom: 32px;
+            bottom: 116px;
             width: 72px;
             height: 72px;
-            z-index: 91;
+            z-index: 95;
         }
 
         .page-float-strip {
             position: fixed;
             right: 32px;
-            bottom: 116px;
+            bottom: 32px;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 72px));
             gap: 12px;
@@ -149,8 +149,37 @@
             color: #fff; cursor: pointer; z-index: 2; display: none;
         }
         #search-results {
-            display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 12px; padding: 10px 40px; max-width: 2000px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
+            padding: 20px 40px;
+            max-width: 2000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        #search-action-row {
+            display: flex;
+            justify-content: center;
+            min-height: 42px;
+            padding-top: 10px;
+        }
+        #close-search-view {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(var(--accent-rgb), 0.14);
+            color: var(--accent);
+            border: 1px solid rgba(var(--accent-rgb), 0.45);
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-family: 'OumaTrialBold';
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+        #close-search-view:hover {
+            transform: translateY(-1px);
+            background: rgba(var(--accent-rgb), 0.2);
         }
         #search-tools {
             display: flex;
@@ -220,28 +249,96 @@
             cursor: pointer; border-radius: 0; overflow: hidden;
             box-shadow: 0 2px 12px #000a; transition: transform 0.15s;
             background: #111; position: relative;
+            display: flex;
+            flex-direction: column;
         }
         .poster:hover { transform: scale(1.04); }
         .poster img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
         .poster .poster-info {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 30px 10px 8px; font-size: 0.85em;
+            position: static;
+            background: #0d0d0d;
+            padding: 10px 10px 12px;
+            font-size: 0.85em;
+            min-height: 82px;
         }
         .poster .poster-title {
             font-family: 'OumaTrialBold'; font-size: 0.95em;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .poster .poster-meta { color: #aaa; font-size: 0.8em; margin-top: 2px; }
+        .poster .poster-meta {
+            color: #d0d0d0;
+            font-size: 0.75em;
+            margin-top: 5px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .poster .poster-pill {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+            padding: 2px 7px;
+        }
         .poster .poster-label {
-            position: absolute; top: 8px; left: 8px;
             background: var(--accent); color: #fff; font-size: 0.7em;
             padding: 2px 8px; border-radius: 3px; font-family: 'OumaTrialBold';
         }
-        .poster .poster-eps {
-            position: absolute; top: 8px; right: 8px;
-            background: rgba(0,0,0,0.7); color: #fff; font-size: 0.7em;
-            padding: 2px 8px; border-radius: 3px;
+        .poster .poster-badges-left,
+        .poster .poster-badges-right {
+            position: absolute;
+            top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 2;
+        }
+        .poster .poster-badges-left { left: 8px; }
+        .poster .poster-badges-right { right: 8px; align-items: flex-end; }
+        .poster .poster-watchlater-btn,
+        .poster .poster-state-badge {
+            border: none;
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 0.68em;
+            font-family: 'OumaTrialBold';
+            letter-spacing: 0.04em;
+        }
+        .poster .poster-watchlater-btn {
+            background: rgba(0,0,0,0.72);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.18);
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .poster:hover .poster-watchlater-btn { opacity: 1; pointer-events: auto; }
+        .poster .poster-watchlater-btn:hover,
+        .poster .poster-watchlater-btn.is-active {
+            background: rgba(var(--accent-rgb), 0.16);
+            border-color: rgba(var(--accent-rgb), 0.55);
+            color: var(--accent);
+        }
+        .poster .poster-watchlater-btn .icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .poster .poster-state-badge {
+            background: rgba(12, 12, 12, 0.9);
+            color: #d8d8d8;
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+        .poster .poster-state-badge.is-finished {
+            color: #fff;
+            background: rgba(var(--accent-rgb), 0.22);
+            border-color: rgba(var(--accent-rgb), 0.5);
         }
 
         /* ===== DRAMA DETAIL MODAL ===== */
@@ -271,6 +368,29 @@
         .detail-meta { color: #aaa; margin-bottom: 12px; font-size: 0.95em; }
         .detail-meta span { margin-right: 16px; }
         .detail-desc { line-height: 1.6; color: #ccc; font-size: 0.95em; margin-bottom: 20px; }
+        .detail-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .detail-action-btn {
+            background: #111;
+            color: #fff;
+            border: 1px solid #242424;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-family: 'OumaTrialBold';
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+        }
+        .detail-action-btn:hover,
+        .detail-action-btn.is-active {
+            background: rgba(var(--accent-rgb), 0.14);
+            border-color: rgba(var(--accent-rgb), 0.55);
+            color: var(--accent);
+        }
 
         .episodes-header {
             font-family: 'OumaTrialBold'; font-size: 1.2em;
@@ -367,19 +487,22 @@
             .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); padding: 10px 16px; gap: 6px; }
             h2 { padding-left: 16px; font-size: 1.1em; }
             .search-wrapper { width: 95%; }
+            #search-results { padding: 10px 16px; gap: 6px; }
             #search-tools { padding: 10px 12px 4px; gap: 6px; }
             .search-filter-chip, .search-filter-select { font-size: 0.78rem; padding: 7px 11px; }
             .search-filter-select { min-width: 108px; }
             .detail-header { flex-direction: column; }
             .detail-thumb { max-width: 100%; }
+            .detail-actions { gap: 8px; }
+            .detail-action-btn { width: 100%; justify-content: center; }
             .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
             #player-content { width: 100%; height: 60%; }
             #detail-content { margin: 20px auto; }
             .filter-btn { padding: 5px 12px; font-size: 0.8em; }
-            .floating-master-nav-slot { right: 16px; bottom: 16px; width: 64px; height: 64px; }
+            .floating-master-nav-slot { right: 16px; bottom: 96px; width: 64px; height: 64px; }
             .page-float-strip {
                 right: 16px;
-                bottom: 96px;
+                bottom: 16px;
                 grid-template-columns: repeat(2, minmax(0, 64px));
                 gap: 8px;
             }
@@ -418,6 +541,9 @@
         <div class="search-wrapper">
             <input type="text" id="search-input" placeholder="Search dramas, movies, anime...">
             <button id="clear-search-btn">&times;</button>
+        </div>
+        <div id="search-action-row">
+            <button id="close-search-view" type="button">Close Search</button>
         </div>
     </div>
     <div id="search-tools">
@@ -467,6 +593,14 @@
             <section id="continueSection">
                 <h2>Continue Watching</h2>
                 <div class="grid" id="continueGrid"></div>
+            </section>
+            <section id="watchLaterSection">
+                <h2>Watch Later</h2>
+                <div class="grid" id="watchLaterGrid"></div>
+            </section>
+            <section id="finishedSection">
+                <h2>Finished</h2>
+                <div class="grid" id="finishedGrid"></div>
             </section>
             <section id="latestSection">
                 <h2>Latest Update</h2>
@@ -526,6 +660,8 @@
     const API_BASE = 'https://kisskh.ovh/api/DramaList';
     const KISSKH_BASE = 'https://kisskh.ovh';
     const SNAPSHOT_URL = './data/catalog_snapshot.json';
+    const WATCH_LATER_KEY_PREFIX = 'kisskh_watch_later_';
+    const FINISHED_KEY_PREFIX = 'kisskh_finished_';
 
     // ── State ──
     let currentFilter = 'home';
@@ -566,6 +702,8 @@
 
     const SECTION_NAV_CONFIG = [
         { label: 'Continue Watching', targetId: 'continueSection' },
+        { label: 'Watch Later', targetId: 'watchLaterSection' },
+        { label: 'Finished', targetId: 'finishedSection' },
         { label: 'Latest Update', targetId: 'latestSection' },
         { label: 'Top K-Drama', targetId: 'kdramaSection' },
         { label: 'Top C-Drama', targetId: 'cdramaSection' },
@@ -616,7 +754,7 @@
 
                 const searchInput = document.getElementById('search-input');
                 const activeQuery = searchInput ? searchInput.value.trim() : '';
-                if (activeQuery.length >= 2) {
+                if (hasSearchConstraints(activeQuery)) {
                     console.log('[drama] Late bridge — retrying live search');
                     performSearch(activeQuery);
                 }
@@ -811,18 +949,43 @@
         return score;
     }
 
-    async function searchSnapshotCatalog(query) {
-        const snapshot = await ensureSnapshotLoaded();
-        const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
-        const entries = getSnapshotSearchEntries(snapshot);
+    function enrichSearchEntry(entry) {
+        const base = normalizeSnapshotItem(entry);
+        const snapshotData = getSnapshotDramaData(base.id) || {};
+        const detail = snapshotData.detail || {};
+        const item = snapshotData.item || {};
 
+        const description = entry.description || detail.description || '';
+        const country = entry.country || detail.country || item.country || '';
+        const status = entry.status || detail.status || item.status || '';
+        const type = entry.type || detail.type || item.type || '';
+        const releaseDate = entry.releaseDate || detail.releaseDate || item.releaseDate || '';
+        const year = entry.year || detail.year || item.year || (releaseDate && /^\d{4}/.test(releaseDate) ? releaseDate.slice(0, 4) : '');
+        const genres = Array.isArray(entry.genres) && entry.genres.length
+            ? entry.genres
+            : (Array.isArray(detail.genres) && detail.genres.length ? detail.genres : (item.genres || []));
+
+        return {
+            ...base,
+            description,
+            country,
+            status,
+            type,
+            releaseDate,
+            year,
+            genres,
+            searchText: [base.title, description, country, status, type, ...genres].join(' ').toLowerCase(),
+        };
+    }
+
+    function applySearchFilters(entries, queryTerms) {
         let results = entries.filter(entry => {
             if (_searchFilters.tag !== 'all' && !(entry.genres || []).includes(_searchFilters.tag)) return false;
             if (_searchFilters.country && entry.country !== _searchFilters.country) return false;
             if (_searchFilters.year && entry.year !== _searchFilters.year) return false;
             if (_searchFilters.status && entry.status !== _searchFilters.status) return false;
             if (_searchFilters.type && entry.type !== _searchFilters.type) return false;
-            if (queryTerms.length && !queryTerms.every(term => entry.searchText.includes(term))) return false;
+            if (queryTerms.length && !queryTerms.every(term => (entry.searchText || '').includes(term))) return false;
             return true;
         }).map(entry => ({ ...entry, _score: computeSearchScore(entry, queryTerms) }));
 
@@ -841,13 +1004,32 @@
                 break;
         }
 
-        return results.slice(0, 200);
+        return results;
+    }
+
+    async function searchSnapshotCatalog(query) {
+        const snapshot = await ensureSnapshotLoaded();
+        const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const entries = getSnapshotSearchEntries(snapshot);
+        return applySearchFilters(entries, queryTerms).slice(0, 200);
+    }
+
+    async function searchLiveCatalog(query) {
+        const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
+        const items = Array.isArray(response)
+            ? response
+            : (response && (response.data || response.items)) || [];
+
+        const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const entries = items.map(enrichSearchEntry);
+        return applySearchFilters(entries, queryTerms).slice(0, 200);
     }
 
     function setSearchUiState(query) {
         const active = hasSearchConstraints(query);
         document.getElementById('mainContent').style.display = active ? 'none' : '';
         document.getElementById('filterBar').style.display = active ? 'none' : '';
+        document.getElementById('close-search-view').style.display = active ? 'inline-flex' : 'none';
         document.getElementById('search-results-status').textContent = '';
         if (!active) {
             document.getElementById('search-results').innerHTML = '';
@@ -955,6 +1137,253 @@
         return text.length > max ? text.slice(0, max).trim() + '...' : text;
     }
 
+    function normalizeStoredDrama(drama, overrides = {}) {
+        return {
+            id: drama.id,
+            title: drama.title || '',
+            thumbnail: drama.thumbnail || '',
+            episodesCount: drama.episodesCount || drama.totalEpisodes || 0,
+            label: drama.label || '',
+            country: drama.country || '',
+            status: drama.status || '',
+            type: drama.type || '',
+            releaseDate: drama.releaseDate || '',
+            year: drama.year || '',
+            genres: Array.isArray(drama.genres) ? drama.genres : [],
+            totalEpisodes: drama.totalEpisodes || drama.episodesCount || 0,
+            updatedAt: drama.updatedAt || Date.now(),
+            ...overrides,
+        };
+    }
+
+    function readStoredDrama(key) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    function collectStoredDramas(prefix) {
+        const items = [];
+        for (let index = 0; index < localStorage.length; index++) {
+            const key = localStorage.key(index);
+            if (!key || !key.startsWith(prefix)) continue;
+            const item = readStoredDrama(key);
+            if (item && item.id) items.push(item);
+        }
+        return items;
+    }
+
+    function getWatchLaterKey(dramaId) {
+        return `${WATCH_LATER_KEY_PREFIX}${dramaId}`;
+    }
+
+    function getFinishedKey(dramaId) {
+        return `${FINISHED_KEY_PREFIX}${dramaId}`;
+    }
+
+    function isWatchLater(dramaId) {
+        return Boolean(readStoredDrama(getWatchLaterKey(dramaId)));
+    }
+
+    function isFinished(dramaId) {
+        return Boolean(readStoredDrama(getFinishedKey(dramaId)));
+    }
+
+    function storeWatchLater(drama) {
+        const payload = normalizeStoredDrama(drama, { updatedAt: Date.now() });
+        localStorage.setItem(getWatchLaterKey(drama.id), JSON.stringify(payload));
+    }
+
+    function removeWatchLater(dramaId) {
+        localStorage.removeItem(getWatchLaterKey(dramaId));
+    }
+
+    function storeFinished(drama, overrides = {}) {
+        const payload = normalizeStoredDrama(drama, { updatedAt: Date.now(), ...overrides });
+        localStorage.setItem(getFinishedKey(drama.id), JSON.stringify(payload));
+        removeWatchLater(drama.id);
+    }
+
+    function removeFinished(dramaId) {
+        localStorage.removeItem(getFinishedKey(dramaId));
+    }
+
+    function syncPosterStateBadges(dramaId) {
+        document.querySelectorAll(`.poster-watchlater-btn[data-drama-id="${dramaId}"]`).forEach(button => {
+            const active = isWatchLater(dramaId);
+            button.classList.toggle('is-active', active);
+            button.title = active ? 'Remove from watch later' : 'Add to watch later';
+            button.setAttribute('aria-label', button.title);
+        });
+
+        document.querySelectorAll(`.poster-state-badge[data-drama-id="${dramaId}"]`).forEach(badge => {
+            const finished = isFinished(dramaId);
+            badge.classList.toggle('is-finished', finished);
+            badge.textContent = finished ? 'Finished' : `EP ${badge.dataset.episodesCount || '?'}`;
+        });
+
+        const watchLaterBtn = document.getElementById('detail-watch-later-btn');
+        if (watchLaterBtn && Number(watchLaterBtn.dataset.dramaId) === Number(dramaId)) {
+            const active = isWatchLater(dramaId);
+            watchLaterBtn.classList.toggle('is-active', active);
+            watchLaterBtn.textContent = active ? 'Saved to Watch Later' : 'Add to Watch Later';
+        }
+
+        const finishedBtn = document.getElementById('detail-finished-btn');
+        if (finishedBtn && Number(finishedBtn.dataset.dramaId) === Number(dramaId)) {
+            const active = isFinished(dramaId);
+            finishedBtn.classList.toggle('is-active', active);
+            finishedBtn.textContent = active ? 'Finished' : 'Mark as Finished';
+        }
+    }
+
+    function refreshSavedSections() {
+        loadContinueWatching();
+        loadWatchLater();
+        loadFinished();
+        renderSectionNav();
+        refreshAllPosterMetadata();
+    }
+
+    function toggleWatchLater(drama) {
+        if (isWatchLater(drama.id)) removeWatchLater(drama.id);
+        else storeWatchLater(drama);
+        syncPosterStateBadges(drama.id);
+        refreshSavedSections();
+    }
+
+    function toggleFinished(drama, overrides = {}) {
+        if (isFinished(drama.id)) removeFinished(drama.id);
+        else storeFinished(drama, overrides);
+        syncPosterStateBadges(drama.id);
+        refreshSavedSections();
+    }
+
+    function resetSearchFilters() {
+        _searchFilters = {
+            tag: 'all',
+            country: '',
+            year: '',
+            status: '',
+            type: '',
+            sort: 'relevance',
+        };
+
+        document.querySelectorAll('.search-filter-chip').forEach(chip => {
+            chip.classList.toggle('active', chip.dataset.searchTag === 'all');
+        });
+
+        [
+            'search-country-filter',
+            'search-year-filter',
+            'search-status-filter',
+            'search-type-filter',
+            'search-sort-filter',
+        ].forEach(id => {
+            const element = document.getElementById(id);
+            if (!element) return;
+            element.value = id === 'search-sort-filter' ? 'relevance' : '';
+        });
+    }
+
+    function closeSearchView() {
+        const searchInput = document.getElementById('search-input');
+        const clearBtn = document.getElementById('clear-search-btn');
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        resetSearchFilters();
+        setSearchUiState('');
+    }
+
+    function getSavedProgress(dramaId) {
+        try {
+            const raw = localStorage.getItem(`kisskh_progress_${dramaId}`);
+            return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    function getSnapshotDramaData(dramaId) {
+        if (!_snapshotCache || !dramaId) return null;
+        const item = _snapshotCache.items && _snapshotCache.items[String(dramaId)]
+            ? normalizeSnapshotItem(_snapshotCache.items[String(dramaId)])
+            : null;
+        const detail = _snapshotCache.details && _snapshotCache.details[String(dramaId)]
+            ? _snapshotCache.details[String(dramaId)]
+            : null;
+        if (!item && !detail) return null;
+        return { item, detail };
+    }
+
+    function getCardDisplayData(drama) {
+        const snapshotData = getSnapshotDramaData(drama.id);
+        const snapshotItem = snapshotData ? snapshotData.item : null;
+        const snapshotDetail = snapshotData ? snapshotData.detail : null;
+        const savedProgress = getSavedProgress(drama.id);
+        const year = (drama.year || (drama.releaseDate && drama.releaseDate.slice(0, 4)) || (snapshotDetail && snapshotDetail.year) || (snapshotItem && snapshotItem.year) || '').trim();
+        const country = drama.country || (snapshotDetail && snapshotDetail.country) || (snapshotItem && snapshotItem.country) || '';
+        const type = drama.type || (snapshotDetail && snapshotDetail.type) || (snapshotItem && snapshotItem.type) || '';
+        const description = truncate(
+            drama.description
+            || (snapshotDetail && snapshotDetail.description)
+            || '',
+            110
+        );
+
+        return {
+            year,
+            country,
+            type,
+            description,
+            savedProgress,
+        };
+    }
+
+    function refreshAllPosterMetadata() {
+        document.querySelectorAll('.poster[data-drama-id]').forEach(card => {
+            const meta = card.querySelector('.poster-meta');
+            if (!meta) return;
+
+            const drama = {
+                id: Number(card.dataset.dramaId),
+                title: card.dataset.title || '',
+                thumbnail: card.dataset.thumbnail || '',
+                episodesCount: Number(card.dataset.episodesCount || 0),
+                label: card.dataset.label || '',
+                country: card.dataset.country || '',
+                type: card.dataset.type || '',
+                year: card.dataset.year || '',
+                releaseDate: card.dataset.releaseDate || '',
+                description: card.dataset.description || '',
+            };
+
+            const displayData = getCardDisplayData(drama);
+            const metaBits = [];
+            if (displayData.country) metaBits.push(`<span class="poster-pill">${displayData.country}</span>`);
+            if (displayData.year) metaBits.push(`<span class="poster-pill">${displayData.year}</span>`);
+            if (displayData.type) metaBits.push(`<span class="poster-pill">${displayData.type}</span>`);
+            if (displayData.savedProgress && displayData.savedProgress.episode && !isFinished(drama.id)) {
+                const percent = Number(displayData.savedProgress.videoPercent || 0);
+                metaBits.push(`<span class="poster-pill">Resume EP ${displayData.savedProgress.episode}${percent ? ` · ${percent}%` : ''}</span>`);
+            }
+
+            meta.innerHTML = metaBits.join('');
+        });
+    }
+
+    function handlePosterSelection(drama) {
+        const savedProgress = getSavedProgress(drama.id);
+        if (savedProgress && savedProgress.episode && !isFinished(drama.id)) {
+            openPlayer(drama.id, drama.title, savedProgress.episode, savedProgress.currentTime || 0);
+            return;
+        }
+        openDetail(drama.id);
+    }
+
     // ── Create poster card ──
     function createPosterCard(drama, gridId) {
         const div = document.createElement('div');
@@ -963,18 +1392,58 @@
         const thumb = drama.thumbnail || '';
         const label = drama.label || '';
         const eps = drama.episodesCount || 0;
+        const watchLaterActive = isWatchLater(drama.id);
+        const finishedActive = isFinished(drama.id);
+        const displayData = getCardDisplayData(drama);
+        const metaBits = [];
+        if (displayData.country) metaBits.push(`<span class="poster-pill">${displayData.country}</span>`);
+        if (displayData.year) metaBits.push(`<span class="poster-pill">${displayData.year}</span>`);
+        if (displayData.type) metaBits.push(`<span class="poster-pill">${displayData.type}</span>`);
+        if (displayData.savedProgress && displayData.savedProgress.episode && !finishedActive) {
+            const percent = Number(displayData.savedProgress.videoPercent || 0);
+            metaBits.push(`<span class="poster-pill">Resume EP ${displayData.savedProgress.episode}${percent ? ` · ${percent}%` : ''}</span>`);
+        }
 
         div.innerHTML = `
-            ${label ? `<span class="poster-label">${label}</span>` : ''}
-            <span class="poster-eps">EP ${eps}</span>
+            <div class="poster-badges-left">
+                <button class="poster-watchlater-btn ${watchLaterActive ? 'is-active' : ''}" type="button" data-drama-id="${drama.id}" title="${watchLaterActive ? 'Remove from watch later' : 'Add to watch later'}"><span class="icon" aria-hidden="true">◷</span></button>
+                ${label ? `<span class="poster-label">${label}</span>` : ''}
+            </div>
+            <div class="poster-badges-right">
+                <span class="poster-state-badge ${finishedActive ? 'is-finished' : ''}" data-drama-id="${drama.id}" data-episodes-count="${eps}" title="Open details">${finishedActive ? 'Finished' : `EP ${eps}`}</span>
+            </div>
             <img src="${thumb}" alt="${drama.title}" loading="lazy" 
                  onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 9%22><rect fill=%22%23111%22 width=%2216%22 height=%229%22/><text x=%228%22 y=%225%22 fill=%22%23333%22 text-anchor=%22middle%22 font-size=%221.5%22>No Image</text></svg>'">
             <div class="poster-info">
                 <div class="poster-title">${drama.title}</div>
+                <div class="poster-meta">${metaBits.join('')}</div>
             </div>
         `;
 
-        div.addEventListener('click', () => openDetail(drama.id));
+        div.dataset.dramaId = drama.id;
+        div.dataset.title = drama.title || '';
+        div.dataset.thumbnail = drama.thumbnail || '';
+        div.dataset.episodesCount = String(eps || 0);
+        div.dataset.label = drama.label || '';
+        div.dataset.country = drama.country || '';
+        div.dataset.type = drama.type || '';
+        div.dataset.year = drama.year || '';
+        div.dataset.releaseDate = drama.releaseDate || '';
+        div.dataset.description = drama.description || '';
+
+        div.addEventListener('click', () => handlePosterSelection(drama));
+
+        const watchLaterBtn = div.querySelector('.poster-watchlater-btn');
+        watchLaterBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleWatchLater(drama);
+        });
+
+        const stateBadge = div.querySelector('.poster-state-badge');
+        stateBadge.addEventListener('click', (event) => {
+            event.stopPropagation();
+            openDetail(drama.id);
+        });
 
         // Hover preview
         div.addEventListener('mouseenter', (e) => showPreview(div, drama));
@@ -1053,6 +1522,8 @@
     function loadHome() {
         _homeLoadAttempted = true;
         loadContinueWatching();
+        loadWatchLater();
+        loadFinished();
 
         // Load first section (Latest Update) right away
         if (HOME_SECTIONS.length > 0) {
@@ -1132,17 +1603,16 @@
 
         try {
             let items = [];
-            const useSnapshotSearch = _preferSnapshot || hasActiveAdvancedSearchFilters();
+            const canUseLiveSearch = Boolean(query.length >= 2 && (_apiBridgeReady || IS_LOCAL));
 
-            if (useSnapshotSearch) {
+            if (canUseLiveSearch) {
+                items = await searchLiveCatalog(query);
+                status.textContent = hasActiveAdvancedSearchFilters()
+                    ? 'Live kisskh search with local filters'
+                    : 'Live kisskh search';
+            } else {
                 items = await searchSnapshotCatalog(query);
                 status.textContent = `Snapshot search across cached titles${hasActiveAdvancedSearchFilters() ? ' with filters' : ''}`;
-            } else {
-                const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
-                items = Array.isArray(response)
-                    ? response
-                    : (response && (response.data || response.items)) || [];
-                status.textContent = 'Live search';
             }
 
             results.innerHTML = '';
@@ -1188,6 +1658,11 @@
                             <span>${drama.episodesCount || 0} Episodes</span>
                         </div>
                         <div class="detail-desc">${drama.description || 'No description available.'}</div>
+                        <div class="detail-actions">
+                            <button id="detail-resume-btn" class="detail-action-btn" type="button"></button>
+                            <button id="detail-watch-later-btn" class="detail-action-btn" type="button" data-drama-id="${drama.id}"></button>
+                            <button id="detail-finished-btn" class="detail-action-btn" type="button" data-drama-id="${drama.id}"></button>
+                        </div>
                     </div>
                 </div>
                 <div class="episodes-header">Episodes</div>
@@ -1196,7 +1671,26 @@
 
             // Check if there's saved progress for this drama
             const savedProgress = localStorage.getItem(`kisskh_progress_${dramaId}`);
-            const savedEp = savedProgress ? JSON.parse(savedProgress).episode : null;
+            const parsedProgress = savedProgress ? JSON.parse(savedProgress) : null;
+            const savedEp = parsedProgress ? parsedProgress.episode : null;
+            const savedTime = parsedProgress ? parsedProgress.currentTime : null;
+            const firstEpisode = episodes[0] ? Math.floor(Number(episodes[0].number)) : 1;
+
+            const resumeBtn = document.getElementById('detail-resume-btn');
+            resumeBtn.textContent = savedEp ? `Continue Watching EP ${savedEp}` : `Start Watching EP ${firstEpisode}`;
+            resumeBtn.addEventListener('click', () => {
+                const targetEpisode = savedEp || firstEpisode;
+                openPlayer(dramaId, drama.title, targetEpisode, savedEp ? savedTime : null);
+                saveContinueWatching(dramaId, drama.title, drama.thumbnail, targetEpisode, drama.episodesCount);
+            });
+
+            const watchLaterBtn = document.getElementById('detail-watch-later-btn');
+            watchLaterBtn.addEventListener('click', () => toggleWatchLater(drama));
+
+            const finishedBtn = document.getElementById('detail-finished-btn');
+            finishedBtn.addEventListener('click', () => toggleFinished(drama, { episode: savedEp || drama.episodesCount || firstEpisode }));
+
+            syncPosterStateBadges(drama.id);
 
             const episodesList = document.getElementById('episodesList');
             episodes.forEach(ep => {
@@ -1241,10 +1735,14 @@
         const epNum = Math.floor(Number(episodeNumber));
         let url = `${KISSKH_BASE}/Drama/${slug}/Episode-${epNum}?id=${dramaId}`;
 
+        const hashParts = [`ateaish_episode=${epNum}`];
+
         // Append resume position as hash so userscript can pick it up
         if (resumeTime && resumeTime > 5) {
-            url += `#ateaish_resume=${Math.floor(resumeTime)}`;
+            hashParts.push(`ateaish_resume=${Math.floor(resumeTime)}`);
         }
+
+        url += `#${hashParts.join('&')}`;
 
         const playerContainer = document.getElementById('player-container');
         const playerContent = document.getElementById('player-content');
@@ -1267,8 +1765,16 @@
 
         // Tell userscript which episode to navigate to + highlight
         const sendNav = () => sendCommand({ command: 'navigateEpisode', episode: epNum });
+        const sendHighlight = () => sendCommand({ command: 'highlightEpisode', episode: epNum });
         setTimeout(sendNav, 2000);
         setTimeout(sendNav, 5000);
+        setTimeout(sendHighlight, 2500);
+        setTimeout(sendHighlight, 5500);
+
+        iframe.addEventListener('load', () => {
+            setTimeout(sendNav, 1200);
+            setTimeout(sendHighlight, 1800);
+        });
 
         // Send seek for resume position
         if (resumeTime && resumeTime > 5) {
@@ -1354,6 +1860,11 @@
             // Backfill title from current playing context
             if (!existing.title && _currentPlaying) existing.title = _currentPlaying.title;
             localStorage.setItem(key, JSON.stringify(existing));
+
+            if (existing.totalEpisodes && Number(existing.episode) >= Number(existing.totalEpisodes) && (type === 'ended' || Number(existing.videoPercent || 0) >= 90)) {
+                storeFinished(existing, { episode: existing.episode });
+                syncPosterStateBadges(dramaId);
+            }
         }
 
         // When episode changes inside the iframe, update tracking
@@ -1373,20 +1884,27 @@
         if (type === 'ended') {
             console.log(`[ateaish drama] EP ${episode} ended`);
         }
+
+        refreshSavedSections();
     });
 
     // ── Continue Watching ──
     function saveContinueWatching(dramaId, title, thumbnail, episode, totalEpisodes) {
         const key = `kisskh_progress_${dramaId}`;
+        const existing = getSavedProgress(dramaId) || {};
         const data = {
             id: dramaId,
             title: title,
             thumbnail: thumbnail,
             episode: episode,
             totalEpisodes: totalEpisodes,
+            currentTime: existing.episode === episode ? (existing.currentTime || 0) : 0,
+            videoDuration: existing.episode === episode ? (existing.videoDuration || 0) : 0,
+            videoPercent: existing.episode === episode ? (existing.videoPercent || 0) : 0,
             updatedAt: Date.now()
         };
         localStorage.setItem(key, JSON.stringify(data));
+        refreshAllPosterMetadata();
     }
 
     function loadContinueWatching() {
@@ -1405,7 +1923,7 @@
         }
 
         items.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-        const toShow = items.slice(0, 10);
+        const toShow = items.filter(item => !isFinished(item.id)).slice(0, 10);
 
         if (toShow.length === 0) {
             grid.closest('section').style.display = 'none';
@@ -1460,6 +1978,36 @@
         });
     }
 
+    function loadStoredPosterSection(sectionId, gridId, prefix, limit = 16) {
+        const section = document.getElementById(sectionId);
+        const grid = document.getElementById(gridId);
+        if (!section || !grid) return;
+
+        const items = collectStoredDramas(prefix)
+            .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+            .slice(0, limit);
+
+        grid.innerHTML = '';
+
+        if (!items.length) {
+            section.style.display = 'none';
+            return;
+        }
+
+        section.style.display = '';
+        items.forEach(item => {
+            grid.appendChild(createPosterCard(item, gridId));
+        });
+    }
+
+    function loadWatchLater() {
+        loadStoredPosterSection('watchLaterSection', 'watchLaterGrid', WATCH_LATER_KEY_PREFIX);
+    }
+
+    function loadFinished() {
+        loadStoredPosterSection('finishedSection', 'finishedGrid', FINISHED_KEY_PREFIX);
+    }
+
     // ── Event Listeners ──
     document.addEventListener('DOMContentLoaded', async () => {
         // Wait for userscript API bridge on production (up to 2s)
@@ -1480,11 +2028,14 @@
         // Load home
         loadHome();
         renderSectionNav();
-        populateSearchFilters().catch(err => console.warn('[drama] Search filters failed:', err.message));
+        populateSearchFilters()
+            .then(() => refreshAllPosterMetadata())
+            .catch(err => console.warn('[drama] Search filters failed:', err.message));
 
         // Search
         const searchInput = document.getElementById('search-input');
         const clearBtn = document.getElementById('clear-search-btn');
+        const closeSearchBtn = document.getElementById('close-search-view');
         const searchResults = document.getElementById('search-results');
         const backToTopBtn = document.getElementById('backtotop-btn');
         const sectionNavToggle = document.getElementById('section-nav-toggle');
@@ -1516,6 +2067,10 @@
                 scheduleSearch();
             }
             searchInput.focus();
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            closeSearchView();
         });
 
         document.querySelectorAll('.search-filter-chip').forEach(chip => {

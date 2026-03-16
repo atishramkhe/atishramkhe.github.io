@@ -9,7 +9,7 @@ from pathlib import Path
 API_BASE = 'https://kisskh.ovh/api/DramaList'
 OUTPUT_PATH = Path(__file__).parent / 'data' / 'catalog_snapshot.json'
 PAGE_SIZE = 40
-PAGES_PER_FILTER = 5
+MAX_PAGES_PER_FILTER = None
 DETAIL_WORKERS = 10
 
 TAG_KEYWORDS = {
@@ -168,6 +168,17 @@ def fetch_detail(drama_id):
     return fetch_json(f'{API_BASE}/Drama/{drama_id}?is498=false')
 
 
+def resolve_page_count(payload):
+    total_count = int(payload.get('totalCount') or 0)
+    if total_count <= 0:
+        return 1
+
+    page_count = (total_count + PAGE_SIZE - 1) // PAGE_SIZE
+    if MAX_PAGES_PER_FILTER:
+        return min(page_count, MAX_PAGES_PER_FILTER)
+    return page_count
+
+
 def main():
     items = {}
     sections = {}
@@ -176,8 +187,12 @@ def main():
     for name, filter_params in FILTERS.items():
         ids = []
         print(f'Fetching list for {name}...')
-        for page in range(PAGES_PER_FILTER):
-            payload = fetch_list_page(filter_params, page)
+        first_payload = fetch_list_page(filter_params, 0)
+        page_count = resolve_page_count(first_payload)
+        print(f'  total pages: {page_count}')
+
+        for page in range(page_count):
+            payload = first_payload if page == 0 else fetch_list_page(filter_params, page)
             for entry in payload.get('data') or []:
                 compact = compact_item(entry)
                 items[str(compact['id'])] = compact
@@ -224,7 +239,7 @@ def main():
     snapshot = {
         'generatedAt': int(time.time()),
         'pageSize': PAGE_SIZE,
-        'pagesPerFilter': PAGES_PER_FILTER,
+        'pagesPerFilter': MAX_PAGES_PER_FILTER or 'all',
         'sections': sections,
         'filters': filters,
         'facets': facets,
