@@ -273,6 +273,8 @@ function renderQuickStrip() {
       label: 'Random comic',
       icon: '⚄',
       accent: true,
+      compact: true,
+      ariaLabel: 'Open a random comic',
       action: (button) => {
         const icon = button.querySelector('.chip-icon');
         if (icon) {
@@ -294,16 +296,37 @@ function renderQuickStrip() {
   }
 
   quickStrip.innerHTML = '';
+  const primaryRow = document.createElement('div');
+  primaryRow.className = 'quick-strip-primary';
+
+  const navSlot = document.createElement('div');
+  navSlot.className = 'quick-strip-slot';
+  navSlot.dataset.ateaishMasterNavSlot = 'inline';
+  primaryRow.appendChild(navSlot);
+
   buttons.forEach((entry) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = `chip${entry.accent ? ' chip-accent' : ''}`;
+    button.className = `chip${entry.accent ? ' chip-accent' : ''}${entry.compact ? ' quick-strip-icon' : ''}`;
+    if (entry.ariaLabel) {
+      button.setAttribute('aria-label', entry.ariaLabel);
+      button.title = entry.ariaLabel;
+    }
     button.innerHTML = entry.icon
-      ? `<span class="chip-icon" aria-hidden="true">${escapeHtml(entry.icon)}</span><span>${escapeHtml(entry.label)}</span>`
+      ? entry.compact
+        ? `<span class="chip-icon" aria-hidden="true">${escapeHtml(entry.icon)}</span>`
+        : `<span class="chip-icon" aria-hidden="true">${escapeHtml(entry.icon)}</span><span>${escapeHtml(entry.label)}</span>`
       : `<span>${escapeHtml(entry.label)}</span>`;
     button.addEventListener('click', () => entry.action(button));
+    if (entry.compact) {
+      primaryRow.appendChild(button);
+      return;
+    }
     quickStrip.appendChild(button);
   });
+
+  quickStrip.prepend(primaryRow);
+  window.dispatchEvent(new Event('ateaish-master-nav-refresh'));
 }
 
 function renderSearchGenreOptions() {

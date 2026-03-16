@@ -36,6 +36,9 @@
       color: #fff;
       margin: 0;
       font-family: 'OumaTrialBold', 'OumaTrialLight';
+      --ateaish-master-nav-accent: #e02735;
+      --ateaish-master-nav-accent-rgb: 224, 39, 53;
+      --ateaish-master-nav-text: #fff5f6;
     }
 
     /* Header: logo on the left, center area flexed */
@@ -1102,11 +1105,26 @@
     .showcase-dot { position: relative; }
 
     /* === Surprise Me Button === */
-    #surprise-me-btn {
+    .quick-float-strip {
       position: fixed;
-      bottom: 116px;
       right: 42px;
+      bottom: 116px;
       z-index: 91;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 72px));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .quick-float-strip > * {
+      min-width: 0;
+    }
+
+    #surprise-me-btn {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      z-index: auto;
       background: #000;
       color: #e02735;
       border: 0px solid #333;
@@ -1172,12 +1190,17 @@
       }
       .genre-chip { font-size: 0.75em; padding: 4px 10px; }
 
-      #surprise-me-btn {
+      .quick-float-strip {
         bottom: 96px !important;
         right: 36px !important;
-        width: 56px !important;
-        height: 56px !important;
-        font-size: 2em !important;
+        grid-template-columns: repeat(2, minmax(0, 64px));
+        gap: 8px;
+      }
+
+      #surprise-me-btn {
+        width: 64px !important;
+        height: 64px !important;
+        font-size: 1.6em !important;
       }
 
       #mood-section { padding: 12px; }
@@ -1856,10 +1879,12 @@
 
   <div>
     <!-- Section Navigator -->
-    <!-- Surprise Me Button -->
-    <button id="surprise-me-btn" title="Surprise Me! Pick a random title">
-      <span class="material-symbols-outlined">casino</span>
-    </button>
+    <div class="quick-float-strip">
+      <div class="quick-float-slot" data-ateaish-master-nav-slot="inline"></div>
+      <button id="surprise-me-btn" title="Surprise Me! Pick a random title" aria-label="Surprise Me! Pick a random title">
+        <span class="material-symbols-outlined">casino</span>
+      </button>
+    </div>
 
     <button id="continue-btn" style="
     position: fixed;

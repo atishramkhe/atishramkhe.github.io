@@ -112,9 +112,7 @@
 			padding: 0;
 			border: 0;
 			border-radius: 999px;
-			background:
-				linear-gradient(135deg, rgba(117, 254, 78, 0.18), transparent 40%),
-				rgba(22, 22, 22, 0.96);
+			background: #000;
 			box-shadow: 16px 16px 28px rgba(0, 0, 0, 0.34);
 			color: var(--text);
 			cursor: pointer;
@@ -131,10 +129,8 @@
 			content: '';
 			position: absolute;
 			inset: 0;
-			background:
-				linear-gradient(90deg, rgba(117, 254, 78, 0.44), transparent 18%),
-				linear-gradient(0deg, rgba(117, 254, 78, 0.3), transparent 14%);
-			opacity: 0.9;
+			border: 1px solid rgba(117, 254, 78, 0.22);
+			background: none;
 			pointer-events: none;
 			border-radius: inherit;
 		}
@@ -194,9 +190,7 @@
 			padding: 0 72px 0 14px;
 			display: flex;
 			align-items: center;
-			background:
-				linear-gradient(90deg, rgba(117, 254, 78, 0.12), transparent 12%),
-				rgba(28, 28, 28, 0.97);
+			background: #000;
 			border: 0;
 			box-shadow: 22px 22px 40px rgba(0, 0, 0, 0.34);
 			border-radius: 999px;
@@ -1374,6 +1368,17 @@
 			padding: 0 !important;
 		}
 
+		.quick-strip-primary {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+			align-items: stretch;
+		}
+
+		.quick-strip-primary > * {
+			min-width: 0;
+		}
+
 		#quick-strip .small-btn {
 			width: 100%;
 			min-height: 52px;
@@ -1385,6 +1390,77 @@
 			font-size: 0.92rem;
 			justify-content: center;
 			box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+		}
+
+		#quick-strip .small-btn.quick-strip-icon-btn {
+			padding-inline: 0;
+		}
+
+		#quick-strip .small-btn.quick-strip-icon-btn .chip-icon {
+			width: 1.55rem;
+			height: 1.55rem;
+			font-size: 1.4rem;
+		}
+
+		.master-nav.master-nav-inline {
+			position: relative;
+			top: auto;
+			right: auto;
+			transform: none;
+			width: 100%;
+			height: 52px;
+			justify-content: flex-end;
+			pointer-events: auto;
+			overflow: visible;
+			z-index: 19;
+		}
+
+		.master-nav.master-nav-inline:hover,
+		.master-nav.master-nav-inline:focus-within,
+		.master-nav.master-nav-inline.is-open,
+		.master-nav.master-nav-inline.open {
+			width: 100%;
+		}
+
+		.master-nav-inline .master-nav-toggle {
+			width: 52px;
+			height: 52px;
+			flex: 0 0 52px;
+			border-radius: 16px;
+			box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
+		}
+
+		.master-nav-inline .master-nav-toggle img {
+			width: 34px;
+			height: 34px;
+		}
+
+		.master-nav-inline .master-nav-panel {
+			right: 0;
+			top: 0;
+			bottom: auto;
+			width: min(520px, calc(100vw - 28px));
+			height: 52px;
+			padding: 0 60px 0 12px;
+			border-radius: 16px;
+			box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46);
+		}
+
+		.master-nav-inline .master-nav-links {
+			justify-content: flex-start;
+			gap: 8px;
+			padding-left: 0;
+		}
+
+		.master-nav-inline .master-nav-link {
+			width: 42px;
+			height: 52px;
+			min-height: 52px;
+		}
+
+		.master-nav-inline .master-nav-link img {
+			width: 34px;
+			height: 34px;
 		}
 
 		#quick-strip .small-btn:hover .chip-icon,
@@ -1917,14 +1993,16 @@
 				bottom: 12px;
 				width: min(200px, calc(100vw - 24px));
 			}
-			.master-nav {
+			.quick-strip-primary {
+				gap: 10px;
+			}
+			.master-nav:not(.master-nav-inline) {
 				top: auto;
 				bottom: 144px;
 				right: 0px;
 				transform: none;
 				width: 58px;
 				height: 58px;
-				
 			}
 			.master-nav:hover,
 			.master-nav:focus-within,
@@ -1963,6 +2041,22 @@
 			.master-nav-link img {
 				width: 32px;
 				height: 32px;
+			}
+			.master-nav-inline .master-nav-toggle {
+				width: 52px;
+				height: 52px;
+			}
+			.master-nav-inline .master-nav-toggle img {
+				width: 32px;
+				height: 32px;
+			}
+			.master-nav-inline .master-nav-panel {
+				width: min(420px, calc(100vw - 24px));
+				height: 52px;
+				padding: 0 60px 0 10px;
+			}
+			.master-nav-inline .master-nav-links {
+				gap: 6px;
 			}
 			.master-nav:hover .master-nav-panel,
 			.master-nav:focus-within .master-nav-panel,
@@ -2080,43 +2174,6 @@
 		Adult Off
 	</button>
 
-	<div class="master-nav dropdown" aria-label="Website navigation">
-		<button class="master-nav-toggle" id="dropdownToggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open website navigation" title="Open website navigation">
-			<img src="./assets/ateaish_m.png" alt="ateaish manga" />
-		</button>
-		<div class="master-nav-panel dropdown-content" id="dropdownMenu" role="menu">
-			<div class="master-nav-links">
-				<a class="master-nav-link" href="https://atishramkhe.github.io/" role="menuitem" aria-label="Home / Main" title="Home / Main">
-					<img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="Ateaish home">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/anime" role="menuitem" aria-label="Anime" title="Anime">
-					<img src="../anime/assets/ateaish_anime default.png" alt="Ateaish anime">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/drama" role="menuitem" aria-label="Drama" title="Drama">
-					<img src="../drama/assets/ateaish dramas default.png" alt="Ateaish drama">
-				</a>
-				<a class="master-nav-link is-active" href="https://atishramkhe.github.io/manga" role="menuitem" aria-current="page" aria-label="Manga" title="Manga">
-					<img src="./assets/ateaish_m.png" alt="Ateaish manga">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/comics" role="menuitem" aria-label="Comics" title="Comics">
-					<img src="../comics/assets/ateaish_comics_default.webp" alt="Ateaish comics">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/movies" role="menuitem" aria-label="Movies" title="Movies">
-					<img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="Ateaish movies">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/radio" role="menuitem" aria-label="Radio" title="Radio">
-					<img src="../radio/assets/ateaish_radio_blanc_150ppi.png" alt="Ateaish radio">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/sport" role="menuitem" aria-label="Sport" title="Sport">
-					<img src="../sport/assets/ateaish_sport_blanc_150ppi.png" alt="Ateaish sport">
-				</a>
-				<a class="master-nav-link" href="https://atishramkhe.github.io/tv" role="menuitem" aria-label="TV" title="TV">
-					<img src="../tv/assets/ateaish_tv_blanc_150ppi_noborder.png" alt="Ateaish TV">
-				</a>
-			</div>
-		</div>
-	</div>
-
 	<main class="page-shell">
 		<div id="search-container">
 			<div id="search-wrap" class="search-wrap">
@@ -2221,10 +2278,47 @@
 			</div>
 
 			<div id="quick-strip" style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top: 10px; flex-wrap:wrap; padding: 0 16px;">
-				<button id="jump-random" class="small-btn" type="button" title="Open a random manga">
-					<span class="material-symbols-outlined chip-icon" id="jump-random-icon">casino</span>
-					Random Manga
-				</button>
+				<div class="quick-strip-primary">
+					<div class="master-nav master-nav-inline dropdown" aria-label="Website navigation">
+						<button class="master-nav-toggle" id="dropdownToggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Open website navigation" title="Open website navigation">
+							<img src="./assets/ateaish_m.png" alt="ateaish manga" />
+						</button>
+						<div class="master-nav-panel dropdown-content" id="dropdownMenu" role="menu">
+							<div class="master-nav-links">
+								<a class="master-nav-link" href="https://atishramkhe.github.io/" role="menuitem" aria-label="Home / Main" title="Home / Main">
+									<img src="../assets/Logo_V2_Ateaish_bleu_blanc_RVB_2000px.png" alt="Ateaish home">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/anime" role="menuitem" aria-label="Anime" title="Anime">
+									<img src="../anime/assets/ateaish_anime default.png" alt="Ateaish anime">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/drama" role="menuitem" aria-label="Drama" title="Drama">
+									<img src="../drama/assets/ateaish dramas default.png" alt="Ateaish drama">
+								</a>
+								<a class="master-nav-link is-active" href="https://atishramkhe.github.io/manga" role="menuitem" aria-current="page" aria-label="Manga" title="Manga">
+									<img src="./assets/ateaish_m.png" alt="Ateaish manga">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/comics" role="menuitem" aria-label="Comics" title="Comics">
+									<img src="../comics/assets/ateaish_comics_default.webp" alt="Ateaish comics">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/movies" role="menuitem" aria-label="Movies" title="Movies">
+									<img src="../movies/assets/ateaish_movie_default_150ppi.png" alt="Ateaish movies">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/radio" role="menuitem" aria-label="Radio" title="Radio">
+									<img src="../radio/assets/ateaish_radio_blanc_150ppi.png" alt="Ateaish radio">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/sport" role="menuitem" aria-label="Sport" title="Sport">
+									<img src="../sport/assets/ateaish_sport_blanc_150ppi.png" alt="Ateaish sport">
+								</a>
+								<a class="master-nav-link" href="https://atishramkhe.github.io/tv" role="menuitem" aria-label="TV" title="TV">
+									<img src="../tv/assets/ateaish_tv_blanc_150ppi_noborder.png" alt="Ateaish TV">
+								</a>
+							</div>
+						</div>
+					</div>
+					<button id="jump-random" class="small-btn quick-strip-icon-btn" type="button" title="Open a random manga" aria-label="Open a random manga">
+						<span class="material-symbols-outlined chip-icon" id="jump-random-icon">casino</span>
+					</button>
+				</div>
 				<button id="jump-continue" class="small-btn" type="button" title="Jump to Continue Reading">
 					<span class="material-symbols-outlined">history</span>
 					Continue

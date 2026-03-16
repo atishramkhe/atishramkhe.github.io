@@ -36,6 +36,9 @@
       --shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
       --card-width: 172px;
       --radius: 0px;
+      --ateaish-master-nav-accent: var(--accent);
+      --ateaish-master-nav-accent-rgb: 131, 253, 196;
+      --ateaish-master-nav-text: #f3fffb;
     }
 
     .material-symbols-outlined {
@@ -312,6 +315,17 @@
       width: min(236px, calc(100vw - 28px));
     }
 
+    .quick-strip-primary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .quick-strip-primary > * {
+      min-width: 0;
+    }
+
     .quick-strip:empty {
       display: none;
     }
@@ -346,6 +360,16 @@
 
     .quick-strip .chip {
       width: 100%;
+    }
+
+    .quick-strip .chip.quick-strip-icon {
+      padding-inline: 0;
+    }
+
+    .quick-strip .chip.quick-strip-icon .chip-icon {
+      width: 1.55rem;
+      height: 1.55rem;
+      font-size: 1.4rem;
     }
 
     .chip:hover,
@@ -785,6 +809,9 @@
         right: 12px;
         bottom: 12px;
         width: min(200px, calc(100vw - 24px));
+      }
+      .quick-strip-primary {
+        gap: 10px;
       }
       .section-grid, .skeleton-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
