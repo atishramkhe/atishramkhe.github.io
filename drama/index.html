@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ateaish drama</title>
-    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <title>ateaish dramas</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon_ateaish_dramas.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="../master-navigation.js"></script>
     <style>
@@ -17,8 +17,10 @@
             color: #fff;
             font-family: 'OumaTrialLight', 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
-            --ateaish-master-nav-accent: #e02735;
-            --ateaish-master-nav-accent-rgb: 224, 39, 53;
+            --accent: #fc35a5;
+            --accent-rgb: 252, 53, 165;
+            --ateaish-master-nav-accent: var(--accent);
+            --ateaish-master-nav-accent-rgb: var(--accent-rgb);
             --ateaish-master-nav-text: #fff5f6;
         }
 
@@ -27,7 +29,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80px;
+            height: 96px;
             border-bottom: 1px solid #111;
             font-family: 'OumaTrialBold', 'OumaTrialLight';
             position: sticky;
@@ -36,8 +38,8 @@
             background: #000;
         }
         .logo-placeholder {
-            width: 100px; height: 100px;
-            background: #000; border-radius: 8px;
+            width: 220px; height: 72px;
+            background: transparent; border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             color: #888; font-size: 1.2rem; font-weight: 500; letter-spacing: 2px;
             cursor: pointer;
@@ -66,6 +68,68 @@
             z-index: 91;
         }
 
+        .page-float-strip {
+            position: fixed;
+            right: 32px;
+            bottom: 116px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 72px));
+            gap: 12px;
+            z-index: 93;
+        }
+        .floating-page-btn {
+            width: 72px;
+            height: 72px;
+            border: none;
+            border-radius: 16px;
+            background: #000;
+            color: var(--accent);
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px #0006;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+        }
+        .floating-page-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.18);
+        }
+        #section-nav-list {
+            position: fixed;
+            right: 32px;
+            bottom: 200px;
+            display: none;
+            grid-template-columns: repeat(2, minmax(140px, auto));
+            gap: 10px;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.96);
+            border: 1px solid rgba(var(--accent-rgb), 0.25);
+            border-radius: 18px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+            z-index: 94;
+        }
+        .section-nav-btn {
+            background: #0c0c0c;
+            color: #fff;
+            border: 1px solid #1e1e1e;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-family: 'OumaTrialLight';
+            font-size: 0.92rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+        }
+        .section-nav-btn:hover {
+            background: rgba(var(--accent-rgb), 0.14);
+            border-color: rgba(var(--accent-rgb), 0.5);
+            color: var(--accent);
+        }
+
         /* ===== SEARCH ===== */
         #search-container {
             display: flex; flex-direction: column; align-items: center;
@@ -78,7 +142,7 @@
             font-family: 'OumaTrialLight'; border: 1px solid #222; border-radius: 4px;
             outline: none; transition: border-color 0.2s;
         }
-        #search-input:focus { border-color: #e02735; }
+        #search-input:focus { border-color: var(--accent); }
         #clear-search-btn {
             position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
             font-size: 1.5rem; background: transparent; border: none;
@@ -99,7 +163,7 @@
             padding: 6px 16px; border-radius: 20px; cursor: pointer;
             font-family: 'OumaTrialLight'; font-size: 0.9em; transition: all 0.2s;
         }
-        .filter-btn:hover, .filter-btn.active { background: #e02735; color: #fff; border-color: #e02735; }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
         /* ===== SECTIONS & GRID ===== */
         h2 { padding-left: 40px; margin-block-end: 0; font-family: 'OumaTrialBold'; }
@@ -127,7 +191,7 @@
         .poster .poster-meta { color: #aaa; font-size: 0.8em; margin-top: 2px; }
         .poster .poster-label {
             position: absolute; top: 8px; left: 8px;
-            background: #e02735; color: #fff; font-size: 0.7em;
+            background: var(--accent); color: #fff; font-size: 0.7em;
             padding: 2px 8px; border-radius: 3px; font-family: 'OumaTrialBold';
         }
         .poster .poster-eps {
@@ -150,7 +214,7 @@
             font-size: 2.5em; color: #fff; cursor: pointer; z-index: 210;
             background: none; border: none; line-height: 1;
         }
-        #detail-close:hover { color: #e02735; }
+        #detail-close:hover { color: var(--accent); }
         .detail-header {
             display: flex; gap: 24px; margin-bottom: 20px; flex-wrap: wrap;
         }
@@ -178,9 +242,9 @@
             border-radius: 4px; font-family: 'OumaTrialLight'; font-size: 0.95em;
             transition: all 0.15s;
         }
-        .episode-btn:hover { background: #e02735; border-color: #e02735; }
+        .episode-btn:hover { background: var(--accent); border-color: var(--accent); }
         .episode-btn.has-sub { border-color: #444; }
-        .episode-btn.last-watched { background: #1a0507; border-color: #e02735; box-shadow: 0 0 6px #e0273555; }
+        .episode-btn.last-watched { background: rgba(var(--accent-rgb), 0.12); border-color: var(--accent); box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.33); }
         .episode-btn .sub-indicator { font-size: 0.6em; display: block; color: #4CAF50; }
 
         /* ===== PLAYER MODAL ===== */
@@ -199,14 +263,14 @@
             position: absolute; top: 15px; right: 25px;
             font-size: 2.5em; color: white; cursor: pointer; z-index: 310;
         }
-        #close-player:hover { color: #e02735; }
+        #close-player:hover { color: var(--accent); }
 
         /* ===== CONTINUE WATCHING ===== */
         .continue-progress {
             width: 100%; height: 4px; background: #222; margin-top: 0;
             overflow: hidden; position: absolute; bottom: 0;
         }
-        .continue-progress-bar { height: 100%; background: #e02735; }
+        .continue-progress-bar { height: 100%; background: var(--accent); }
 
         /* ===== LOAD MORE ===== */
         .load-more-container { text-align: center; padding: 10px 0 30px; }
@@ -215,7 +279,7 @@
             padding: 10px 32px; border-radius: 4px; cursor: pointer;
             font-family: 'OumaTrialLight'; font-size: 1em; transition: all 0.2s;
         }
-        .load-more-btn:hover { background: #e02735; border-color: #e02735; }
+        .load-more-btn:hover { background: var(--accent); border-color: var(--accent); }
 
         /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 8px; background: transparent; }
@@ -266,6 +330,23 @@
             #detail-content { margin: 20px auto; }
             .filter-btn { padding: 5px 12px; font-size: 0.8em; }
             .floating-master-nav-slot { right: 16px; bottom: 16px; width: 64px; height: 64px; }
+            .page-float-strip {
+                right: 16px;
+                bottom: 96px;
+                grid-template-columns: repeat(2, minmax(0, 64px));
+                gap: 8px;
+            }
+            .floating-page-btn {
+                width: 64px;
+                height: 64px;
+                font-size: 1.65rem;
+            }
+            #section-nav-list {
+                right: 16px;
+                bottom: 170px;
+                left: 16px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     </style>
     <script defer src="/_vercel/insights/script.js"></script>
@@ -273,12 +354,17 @@
 <body>
     <!-- HEADER -->
     <header>
-            <div class="logo-placeholder" aria-label="ateaish drama home mark">
-                <span style="font-family:'OumaTrialBold'; font-size:1.1em; letter-spacing:1px;">ateaish drama</span>&nbsp;○○○
+            <div class="logo-placeholder" aria-label="ateaish dramas home mark">
+                <img src="assets/ateaish dramas default.png" alt="ateaish dramas">
             </div>
     </header>
 
     <div class="floating-master-nav-slot" data-ateaish-master-nav-slot="inline"></div>
+    <div class="page-float-strip">
+        <button id="backtotop-btn" class="floating-page-btn" type="button" aria-label="Back to top" title="Back to top">↑</button>
+        <button id="section-nav-toggle" class="floating-page-btn" type="button" aria-label="Open section navigation" title="Open section navigation">☰</button>
+    </div>
+    <div id="section-nav-list" aria-label="Section navigation"></div>
 
     <!-- SEARCH -->
     <div id="search-container">
@@ -303,27 +389,27 @@
     <main id="mainContent">
         <!-- HOME VIEW (multiple sections) -->
         <div id="homeView">
-            <section>
+            <section id="continueSection">
                 <h2>Continue Watching</h2>
                 <div class="grid" id="continueGrid"></div>
             </section>
-            <section>
+            <section id="latestSection">
                 <h2>Latest Update</h2>
                 <div class="grid" id="latestGrid"></div>
             </section>
-            <section>
+            <section id="kdramaSection">
                 <h2>Top K-Drama</h2>
                 <div class="grid" id="kdramaGrid"></div>
             </section>
-            <section>
+            <section id="cdramaSection">
                 <h2>Top C-Drama</h2>
                 <div class="grid" id="cdramaGrid"></div>
             </section>
-            <section>
+            <section id="hollywoodSection">
                 <h2>Hollywood</h2>
                 <div class="grid" id="hollywoodGrid"></div>
             </section>
-            <section>
+            <section id="animeSection">
                 <h2>Anime</h2>
                 <div class="grid" id="animeGrid"></div>
             </section>
@@ -364,6 +450,7 @@
 
     const API_BASE = 'https://kisskh.ovh/api/DramaList';
     const KISSKH_BASE = 'https://kisskh.ovh';
+    const SNAPSHOT_URL = './data/catalog_snapshot.json';
 
     // ── State ──
     let currentFilter = 'home';
@@ -371,6 +458,9 @@
     let filteredLoading = false;
     let filteredHasMore = true;
     let searchTimeout = null;
+    let _preferSnapshot = false;
+    let _snapshotCache = null;
+    let _snapshotPromise = null;
 
     // ── Filter configs: { type, sub, country, status, order } ──
     const FILTER_CONFIG = {
@@ -387,6 +477,15 @@
         { gridId: 'cdramaGrid',    params: { type: 0, sub: 0, country: 3, status: 0, order: 1, pageSize: 20, page: 0 } },
         { gridId: 'hollywoodGrid', params: { type: 4, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
         { gridId: 'animeGrid',     params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
+    ];
+
+    const SECTION_NAV_CONFIG = [
+        { label: 'Continue Watching', targetId: 'continueSection' },
+        { label: 'Latest Update', targetId: 'latestSection' },
+        { label: 'Top K-Drama', targetId: 'kdramaSection' },
+        { label: 'Top C-Drama', targetId: 'cdramaSection' },
+        { label: 'Hollywood', targetId: 'hollywoodSection' },
+        { label: 'Anime', targetId: 'animeSection' },
     ];
 
     // ── CORS proxy ──
@@ -470,9 +569,105 @@
     // Fallback proxies (local dev only; production uses bridge)
     const LOCAL_PROXY = (url) => `${location.protocol}//${location.host}/proxy?url=${encodeURIComponent(url)}`;
 
+    function normalizeSnapshotItem(item) {
+        return {
+            id: item.id,
+            title: item.title || '',
+            thumbnail: item.thumbnail || '',
+            episodesCount: item.episodesCount || 0,
+            label: item.label || '',
+        };
+    }
+
+    function sameFilter(params, expected) {
+        return ['type', 'sub', 'country', 'status', 'order'].every(key => Number(params.get(key) || 0) === Number(expected[key] || 0));
+    }
+
+    function resolveSnapshotListKey(params) {
+        if (sameFilter(params, HOME_SECTIONS[0].params)) return 'latest';
+        for (const [key, config] of Object.entries(FILTER_CONFIG)) {
+            if (sameFilter(params, config)) return key;
+        }
+        return null;
+    }
+
+    async function ensureSnapshotLoaded() {
+        if (_snapshotCache) return _snapshotCache;
+        if (_snapshotPromise) return _snapshotPromise;
+
+        _snapshotPromise = fetch(SNAPSHOT_URL, { cache: 'no-store' })
+            .then(async res => {
+                if (!res.ok) throw new Error(`Snapshot HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                _snapshotCache = data;
+                return data;
+            })
+            .finally(() => {
+                _snapshotPromise = null;
+            });
+
+        return _snapshotPromise;
+    }
+
+    function getSnapshotItems(ids, snapshot) {
+        return (ids || []).map(id => normalizeSnapshotItem(snapshot.items[String(id)] || {})).filter(item => item.id);
+    }
+
+    async function snapshotKisskh(endpoint) {
+        const snapshot = await ensureSnapshotLoaded();
+        const parsed = new URL(endpoint, 'https://snapshot.local');
+
+        if (parsed.pathname === '/List') {
+            const key = resolveSnapshotListKey(parsed.searchParams);
+            if (!key) throw new Error(`Snapshot does not support ${endpoint}`);
+
+            const sourceIds = key === 'latest' ? snapshot.sections.latest : snapshot.filters[key];
+            const pageSize = Number(parsed.searchParams.get('pageSize') || snapshot.pageSize || 40);
+            const page = Number(parsed.searchParams.get('page') || 0);
+            const start = page * pageSize;
+            const data = getSnapshotItems(sourceIds.slice(start, start + pageSize), snapshot);
+
+            return {
+                page: page + 1,
+                pageSize,
+                totalCount: sourceIds.length,
+                data,
+            };
+        }
+
+        if (parsed.pathname === '/Search') {
+            const query = (parsed.searchParams.get('q') || '').trim().toLowerCase();
+            if (!query) return [];
+            const results = Object.values(snapshot.items || {})
+                .map(normalizeSnapshotItem)
+                .filter(item => item.title.toLowerCase().includes(query))
+                .slice(0, 80);
+            return results;
+        }
+
+        if (parsed.pathname.startsWith('/Drama/')) {
+            const dramaId = parsed.pathname.split('/').pop();
+            const detail = snapshot.details && snapshot.details[String(dramaId)];
+            if (!detail) throw new Error(`Snapshot detail missing for ${dramaId}`);
+            return detail;
+        }
+
+        throw new Error(`Snapshot does not support ${endpoint}`);
+    }
+
     // ── API fetch helper ──
     async function kisskh(endpoint) {
         const url = `${API_BASE}${endpoint}`;
+
+        if (_preferSnapshot) {
+            try {
+                return await snapshotKisskh(endpoint);
+            } catch (e) {
+                console.warn('[drama] Snapshot fetch failed:', e.message);
+            }
+        }
 
         // Try direct first (works if same-origin or CORS allowed)
         try {
@@ -493,6 +688,14 @@
                 const res = await fetch(LOCAL_PROXY(url));
                 if (res.ok) return res.json();
             } catch (e) { /* local proxy failed */ }
+        }
+
+        if (!_preferSnapshot) {
+            try {
+                return await snapshotKisskh(endpoint);
+            } catch (e) {
+                console.warn('[drama] Snapshot fallback failed:', e.message);
+            }
         }
 
         throw new Error(`All fetch attempts failed for ${endpoint}`);
@@ -742,7 +945,7 @@
                 btn.innerHTML = `
                     EP ${epNum}
                     ${ep.sub > 0 ? '<span class="sub-indicator">SUB</span>' : ''}
-                    ${isLastWatched ? '<span class="sub-indicator" style="color:#e02735;">RESUME</span>' : ''}
+                    ${isLastWatched ? '<span class="sub-indicator" style="color:var(--accent);">RESUME</span>' : ''}
                 `;
                 btn.addEventListener('click', () => {
                     openPlayer(dramaId, drama.title, epNum);
@@ -824,6 +1027,46 @@
         document.body.style.overflow = '';
         _currentPlaying = null;
         loadContinueWatching();
+    }
+
+    function getSectionNavItems() {
+        if (currentFilter === 'home') {
+            return SECTION_NAV_CONFIG.filter(item => {
+                const element = document.getElementById(item.targetId);
+                return element && element.style.display !== 'none';
+            });
+        }
+
+        const activeFilterButton = document.querySelector(`.filter-btn[data-filter="${currentFilter}"]`);
+        return [
+            { label: 'Top', targetId: 'search-container' },
+            { label: activeFilterButton ? activeFilterButton.textContent.trim() : 'Browse', targetId: 'filteredView' },
+        ];
+    }
+
+    function setSectionNavOpen(isOpen) {
+        const sectionNavList = document.getElementById('section-nav-list');
+        if (!sectionNavList) return;
+        sectionNavList.style.display = isOpen ? 'grid' : 'none';
+    }
+
+    function renderSectionNav() {
+        const sectionNavList = document.getElementById('section-nav-list');
+        if (!sectionNavList) return;
+        sectionNavList.innerHTML = '';
+
+        getSectionNavItems().forEach(item => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'section-nav-btn';
+            button.textContent = item.label;
+            button.addEventListener('click', () => {
+                const target = document.getElementById(item.targetId);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setSectionNavOpen(false);
+            });
+            sectionNavList.appendChild(button);
+        });
     }
 
     // ── Listen for messages from ateaish_drama_helpers userscript ──
@@ -960,16 +1203,29 @@
         // Wait for userscript API bridge on production (up to 2s)
         if (!IS_LOCAL) {
             const bridgeOk = await waitForBridge(2000);
+            _preferSnapshot = !bridgeOk;
+            if (_preferSnapshot) {
+                try {
+                    await ensureSnapshotLoaded();
+                    console.log('[drama] Snapshot fallback enabled');
+                } catch (err) {
+                    console.warn('[drama] Snapshot preload failed:', err.message);
+                }
+            }
             console.log('[drama] Bridge available:', bridgeOk);
         }
 
         // Load home
         loadHome();
+        renderSectionNav();
 
         // Search
         const searchInput = document.getElementById('search-input');
         const clearBtn = document.getElementById('clear-search-btn');
         const searchResults = document.getElementById('search-results');
+        const backToTopBtn = document.getElementById('backtotop-btn');
+        const sectionNavToggle = document.getElementById('section-nav-toggle');
+        const sectionNavList = document.getElementById('section-nav-list');
 
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.trim();
@@ -994,6 +1250,22 @@
             searchInput.focus();
         });
 
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        sectionNavToggle.addEventListener('click', () => {
+            const nextOpen = sectionNavList.style.display !== 'grid';
+            renderSectionNav();
+            setSectionNavOpen(nextOpen);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!sectionNavList.contains(event.target) && !sectionNavToggle.contains(event.target)) {
+                setSectionNavOpen(false);
+            }
+        });
+
         // Filter tabs
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1010,6 +1282,9 @@
                     document.getElementById('filteredView').style.display = '';
                     loadFiltered(filter, true);
                 }
+
+                renderSectionNav();
+                setSectionNavOpen(false);
             });
         });
 
@@ -1030,6 +1305,7 @@
         // Keyboard: Escape closes modals
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                setSectionNavOpen(false);
                 if (document.getElementById('player-container').style.display === 'block') {
                     closePlayer();
                 } else if (document.getElementById('detail-modal').style.display === 'block') {
