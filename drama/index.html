@@ -152,6 +152,50 @@
             display: flex; flex-wrap: wrap; justify-content: center;
             gap: 12px; padding: 10px 40px; max-width: 2000px; margin: 0 auto;
         }
+        #search-tools {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px 6px;
+        }
+        .search-filter-chip,
+        .search-filter-select {
+            background: #0d0d0d;
+            color: #cfcfcf;
+            border: 1px solid #242424;
+            border-radius: 999px;
+            font-family: 'OumaTrialLight';
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+        }
+        .search-filter-chip {
+            cursor: pointer;
+        }
+        .search-filter-chip:hover,
+        .search-filter-select:hover,
+        .search-filter-select:focus {
+            border-color: rgba(var(--accent-rgb), 0.5);
+            color: #fff;
+            outline: none;
+        }
+        .search-filter-chip.active {
+            background: rgba(var(--accent-rgb), 0.14);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .search-filter-select {
+            min-width: 132px;
+            cursor: pointer;
+        }
+        #search-results-status {
+            padding: 2px 40px 0;
+            color: #8a8a8a;
+            font-size: 0.82rem;
+            text-align: center;
+            min-height: 20px;
+        }
 
         /* ===== FILTER TABS ===== */
         .filter-bar {
@@ -323,6 +367,9 @@
             .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); padding: 10px 16px; gap: 6px; }
             h2 { padding-left: 16px; font-size: 1.1em; }
             .search-wrapper { width: 95%; }
+            #search-tools { padding: 10px 12px 4px; gap: 6px; }
+            .search-filter-chip, .search-filter-select { font-size: 0.78rem; padding: 7px 11px; }
+            .search-filter-select { min-width: 108px; }
             .detail-header { flex-direction: column; }
             .detail-thumb { max-width: 100%; }
             .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
@@ -373,6 +420,34 @@
             <button id="clear-search-btn">&times;</button>
         </div>
     </div>
+    <div id="search-tools">
+        <button class="search-filter-chip active" data-search-tag="all">All</button>
+        <button class="search-filter-chip" data-search-tag="historical">Historical</button>
+        <button class="search-filter-chip" data-search-tag="action">Action</button>
+        <button class="search-filter-chip" data-search-tag="comedy">Comedy</button>
+        <button class="search-filter-chip" data-search-tag="romance">Romance</button>
+        <button class="search-filter-chip" data-search-tag="fantasy">Fantasy</button>
+        <button class="search-filter-chip" data-search-tag="thriller">Thriller</button>
+        <select id="search-country-filter" class="search-filter-select">
+            <option value="">Any Country</option>
+        </select>
+        <select id="search-year-filter" class="search-filter-select">
+            <option value="">Any Year</option>
+        </select>
+        <select id="search-status-filter" class="search-filter-select">
+            <option value="">Any Status</option>
+        </select>
+        <select id="search-type-filter" class="search-filter-select">
+            <option value="">Any Type</option>
+        </select>
+        <select id="search-sort-filter" class="search-filter-select">
+            <option value="relevance">Best Match</option>
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="az">A-Z</option>
+        </select>
+    </div>
+    <div id="search-results-status"></div>
     <div id="search-results"></div>
 
     <!-- FILTER TABS -->
@@ -461,6 +536,16 @@
     let _preferSnapshot = false;
     let _snapshotCache = null;
     let _snapshotPromise = null;
+    let _snapshotSearchEntries = null;
+    let _searchFiltersReady = false;
+    let _searchFilters = {
+        tag: 'all',
+        country: '',
+        year: '',
+        status: '',
+        type: '',
+        sort: 'relevance',
+    };
 
     // ── Filter configs: { type, sub, country, status, order } ──
     const FILTER_CONFIG = {
@@ -487,6 +572,19 @@
         { label: 'Hollywood', targetId: 'hollywoodSection' },
         { label: 'Anime', targetId: 'animeSection' },
     ];
+
+    function hasActiveAdvancedSearchFilters() {
+        return _searchFilters.tag !== 'all'
+            || Boolean(_searchFilters.country)
+            || Boolean(_searchFilters.year)
+            || Boolean(_searchFilters.status)
+            || Boolean(_searchFilters.type)
+            || _searchFilters.sort !== 'relevance';
+    }
+
+    function hasSearchConstraints(query) {
+        return query.length >= 2 || hasActiveAdvancedSearchFilters();
+    }
 
     // ── CORS proxy ──
     const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -584,6 +682,12 @@
             thumbnail: item.thumbnail || '',
             episodesCount: item.episodesCount || 0,
             label: item.label || '',
+            country: item.country || '',
+            status: item.status || '',
+            type: item.type || '',
+            releaseDate: item.releaseDate || '',
+            year: item.year || '',
+            genres: Array.isArray(item.genres) ? item.genres : [],
         };
     }
 
@@ -617,6 +721,137 @@
             });
 
         return _snapshotPromise;
+    }
+
+    function getSnapshotSearchEntries(snapshot) {
+        if (_snapshotSearchEntries) return _snapshotSearchEntries;
+
+        _snapshotSearchEntries = Object.values(snapshot.items || {})
+            .map(normalizeSnapshotItem)
+            .filter(item => item.id)
+            .map(item => {
+                const detail = (snapshot.details && snapshot.details[String(item.id)]) || {};
+                const description = detail.description || '';
+                const country = detail.country || item.country || '';
+                const status = detail.status || item.status || '';
+                const type = detail.type || item.type || '';
+                const releaseDate = detail.releaseDate || item.releaseDate || '';
+                const year = detail.year || item.year || (releaseDate && /^\d{4}/.test(releaseDate) ? releaseDate.slice(0, 4) : '');
+                const genres = Array.isArray(detail.genres) && detail.genres.length ? detail.genres : item.genres;
+                const searchText = [item.title, description, country, status, type, ...(genres || [])].join(' ').toLowerCase();
+
+                return {
+                    ...item,
+                    description,
+                    country,
+                    status,
+                    type,
+                    releaseDate,
+                    year,
+                    genres: genres || [],
+                    searchText,
+                };
+            });
+
+        return _snapshotSearchEntries;
+    }
+
+    function populateSelectOptions(selectId, values, placeholder) {
+        const select = document.getElementById(selectId);
+        if (!select) return;
+        const currentValue = select.value;
+        select.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = placeholder;
+        select.appendChild(defaultOption);
+
+        values.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = value;
+            select.appendChild(option);
+        });
+
+        if (currentValue && values.includes(currentValue)) {
+            select.value = currentValue;
+        }
+    }
+
+    async function populateSearchFilters() {
+        if (_searchFiltersReady) return;
+        const snapshot = await ensureSnapshotLoaded();
+        const facets = snapshot.facets || {};
+        const entries = getSnapshotSearchEntries(snapshot);
+
+        const countries = facets.countries || [...new Set(entries.map(item => item.country).filter(Boolean))].sort();
+        const years = facets.years || [...new Set(entries.map(item => item.year).filter(Boolean))].sort((a, b) => b.localeCompare(a));
+        const statuses = facets.statuses || [...new Set(entries.map(item => item.status).filter(Boolean))].sort();
+        const types = facets.types || [...new Set(entries.map(item => item.type).filter(Boolean))].sort();
+
+        populateSelectOptions('search-country-filter', countries, 'Any Country');
+        populateSelectOptions('search-year-filter', years, 'Any Year');
+        populateSelectOptions('search-status-filter', statuses, 'Any Status');
+        populateSelectOptions('search-type-filter', types, 'Any Type');
+
+        _searchFiltersReady = true;
+    }
+
+    function computeSearchScore(entry, queryTerms) {
+        if (!queryTerms.length) return 0;
+        const title = entry.title.toLowerCase();
+        let score = 0;
+        queryTerms.forEach(term => {
+            if (title === term) score += 160;
+            else if (title.startsWith(term)) score += 100;
+            else if (title.includes(term)) score += 60;
+            if (entry.searchText.includes(term)) score += 20;
+            if ((entry.description || '').toLowerCase().includes(term)) score += 8;
+        });
+        return score;
+    }
+
+    async function searchSnapshotCatalog(query) {
+        const snapshot = await ensureSnapshotLoaded();
+        const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+        const entries = getSnapshotSearchEntries(snapshot);
+
+        let results = entries.filter(entry => {
+            if (_searchFilters.tag !== 'all' && !(entry.genres || []).includes(_searchFilters.tag)) return false;
+            if (_searchFilters.country && entry.country !== _searchFilters.country) return false;
+            if (_searchFilters.year && entry.year !== _searchFilters.year) return false;
+            if (_searchFilters.status && entry.status !== _searchFilters.status) return false;
+            if (_searchFilters.type && entry.type !== _searchFilters.type) return false;
+            if (queryTerms.length && !queryTerms.every(term => entry.searchText.includes(term))) return false;
+            return true;
+        }).map(entry => ({ ...entry, _score: computeSearchScore(entry, queryTerms) }));
+
+        switch (_searchFilters.sort) {
+            case 'newest':
+                results.sort((a, b) => (b.releaseDate || '').localeCompare(a.releaseDate || '') || a.title.localeCompare(b.title));
+                break;
+            case 'oldest':
+                results.sort((a, b) => (a.releaseDate || '').localeCompare(b.releaseDate || '') || a.title.localeCompare(b.title));
+                break;
+            case 'az':
+                results.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            default:
+                results.sort((a, b) => (b._score - a._score) || (b.releaseDate || '').localeCompare(a.releaseDate || '') || a.title.localeCompare(b.title));
+                break;
+        }
+
+        return results.slice(0, 200);
+    }
+
+    function setSearchUiState(query) {
+        const active = hasSearchConstraints(query);
+        document.getElementById('mainContent').style.display = active ? 'none' : '';
+        document.getElementById('filterBar').style.display = active ? 'none' : '';
+        document.getElementById('search-results-status').textContent = '';
+        if (!active) {
+            document.getElementById('search-results').innerHTML = '';
+        }
     }
 
     function getSnapshotItems(ids, snapshot) {
@@ -885,15 +1120,31 @@
     // ── Search ──
     async function performSearch(query) {
         const results = document.getElementById('search-results');
-        if (query.length < 2) { results.innerHTML = ''; return; }
+        const status = document.getElementById('search-results-status');
+        if (!hasSearchConstraints(query)) {
+            results.innerHTML = '';
+            status.textContent = '';
+            return;
+        }
 
         results.innerHTML = '<p style="color:#555;text-align:center;">Searching...</p>';
+        status.textContent = '';
 
         try {
-            const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
-            const items = Array.isArray(response)
-                ? response
-                : (response && (response.data || response.items)) || [];
+            let items = [];
+            const useSnapshotSearch = _preferSnapshot || hasActiveAdvancedSearchFilters();
+
+            if (useSnapshotSearch) {
+                items = await searchSnapshotCatalog(query);
+                status.textContent = `Snapshot search across cached titles${hasActiveAdvancedSearchFilters() ? ' with filters' : ''}`;
+            } else {
+                const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
+                items = Array.isArray(response)
+                    ? response
+                    : (response && (response.data || response.items)) || [];
+                status.textContent = 'Live search';
+            }
+
             results.innerHTML = '';
 
             if (!items || items.length === 0) {
@@ -1229,6 +1480,7 @@
         // Load home
         loadHome();
         renderSectionNav();
+        populateSearchFilters().catch(err => console.warn('[drama] Search filters failed:', err.message));
 
         // Search
         const searchInput = document.getElementById('search-input');
@@ -1237,28 +1489,55 @@
         const backToTopBtn = document.getElementById('backtotop-btn');
         const sectionNavToggle = document.getElementById('section-nav-toggle');
         const sectionNavList = document.getElementById('section-nav-list');
+        const searchCountryFilter = document.getElementById('search-country-filter');
+        const searchYearFilter = document.getElementById('search-year-filter');
+        const searchStatusFilter = document.getElementById('search-status-filter');
+        const searchTypeFilter = document.getElementById('search-type-filter');
+        const searchSortFilter = document.getElementById('search-sort-filter');
+
+        const scheduleSearch = () => {
+            const val = searchInput.value.trim();
+            clearBtn.style.display = val ? 'block' : 'none';
+            setSearchUiState(val);
+            clearTimeout(searchTimeout);
+            if (!hasSearchConstraints(val)) return;
+            searchTimeout = setTimeout(() => performSearch(val), 250);
+        };
 
         searchInput.addEventListener('input', (e) => {
-            const val = e.target.value.trim();
-            clearBtn.style.display = val ? 'block' : 'none';
-
-            clearTimeout(searchTimeout);
-            if (val.length < 2) { searchResults.innerHTML = ''; return; }
-
-            // Show/hide main content based on search
-            document.getElementById('mainContent').style.display = val ? 'none' : '';
-            document.getElementById('filterBar').style.display = val ? 'none' : '';
-
-            searchTimeout = setTimeout(() => performSearch(val), 400);
+            scheduleSearch();
         });
 
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
             clearBtn.style.display = 'none';
-            searchResults.innerHTML = '';
-            document.getElementById('mainContent').style.display = '';
-            document.getElementById('filterBar').style.display = '';
+            setSearchUiState('');
+            if (hasActiveAdvancedSearchFilters()) {
+                scheduleSearch();
+            }
             searchInput.focus();
+        });
+
+        document.querySelectorAll('.search-filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.search-filter-chip').forEach(item => item.classList.remove('active'));
+                chip.classList.add('active');
+                _searchFilters.tag = chip.dataset.searchTag || 'all';
+                scheduleSearch();
+            });
+        });
+
+        [
+            [searchCountryFilter, 'country'],
+            [searchYearFilter, 'year'],
+            [searchStatusFilter, 'status'],
+            [searchTypeFilter, 'type'],
+            [searchSortFilter, 'sort'],
+        ].forEach(([element, key]) => {
+            element.addEventListener('change', () => {
+                _searchFilters[key] = element.value;
+                scheduleSearch();
+            });
         });
 
         backToTopBtn.addEventListener('click', () => {
