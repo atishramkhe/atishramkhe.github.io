@@ -507,6 +507,7 @@
         if (e.data.type === 'ready') {
             const wasReady = _apiBridgeReady;
             _apiBridgeReady = true;
+            _preferSnapshot = false;
             _bridgeReadyResolve(true);
             console.log('[drama] API bridge connected');
 
@@ -514,6 +515,13 @@
             if (!wasReady && _homeLoadAttempted) {
                 console.log('[drama] Late bridge — reloading home sections');
                 loadHome();
+
+                const searchInput = document.getElementById('search-input');
+                const activeQuery = searchInput ? searchInput.value.trim() : '';
+                if (activeQuery.length >= 2) {
+                    console.log('[drama] Late bridge — retrying live search');
+                    performSearch(activeQuery);
+                }
             }
             return;
         }
@@ -882,15 +890,18 @@
         results.innerHTML = '<p style="color:#555;text-align:center;">Searching...</p>';
 
         try {
-            const data = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
+            const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
+            const items = Array.isArray(response)
+                ? response
+                : (response && (response.data || response.items)) || [];
             results.innerHTML = '';
 
-            if (!data || data.length === 0) {
+            if (!items || items.length === 0) {
                 results.innerHTML = '<p style="color:#555;text-align:center;">No results found.</p>';
                 return;
             }
 
-            data.forEach(drama => {
+            items.forEach(drama => {
                 results.appendChild(createPosterCard(drama, 'search-results'));
             });
         } catch (err) {
