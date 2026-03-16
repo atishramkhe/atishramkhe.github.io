@@ -392,25 +392,6 @@
             color: var(--accent);
         }
 
-        .episodes-header {
-            font-family: 'OumaTrialBold'; font-size: 1.2em;
-            margin-bottom: 12px; border-bottom: 1px solid #222; padding-bottom: 8px;
-        }
-        .episodes-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 8px; margin-bottom: 40px;
-        }
-        .episode-btn {
-            background: #111; color: #fff; border: 1px solid #222;
-            padding: 10px 0; text-align: center; cursor: pointer;
-            border-radius: 4px; font-family: 'OumaTrialLight'; font-size: 0.95em;
-            transition: all 0.15s;
-        }
-        .episode-btn:hover { background: var(--accent); border-color: var(--accent); }
-        .episode-btn.has-sub { border-color: #444; }
-        .episode-btn.last-watched { background: rgba(var(--accent-rgb), 0.12); border-color: var(--accent); box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.33); }
-        .episode-btn .sub-indicator { font-size: 0.6em; display: block; color: #4CAF50; }
-
         /* ===== PLAYER MODAL ===== */
         #player-container {
             display: none; position: fixed; top: 0; left: 0;
@@ -495,7 +476,6 @@
             .detail-thumb { max-width: 100%; }
             .detail-actions { gap: 8px; }
             .detail-action-btn { width: 100%; justify-content: center; }
-            .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); }
             #player-content { width: 100%; height: 60%; }
             #detail-content { margin: 20px auto; }
             .filter-btn { padding: 5px 12px; font-size: 0.8em; }
@@ -1665,8 +1645,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="episodes-header">Episodes</div>
-                <div class="episodes-grid" id="episodesList"></div>
             `;
 
             // Check if there's saved progress for this drama
@@ -1677,7 +1655,7 @@
             const firstEpisode = episodes[0] ? Math.floor(Number(episodes[0].number)) : 1;
 
             const resumeBtn = document.getElementById('detail-resume-btn');
-            resumeBtn.textContent = savedEp ? `Continue Watching EP ${savedEp}` : `Start Watching EP ${firstEpisode}`;
+            resumeBtn.textContent = savedEp ? `Continue Watching EP ${savedEp}` : 'Play';
             resumeBtn.addEventListener('click', () => {
                 const targetEpisode = savedEp || firstEpisode;
                 openPlayer(dramaId, drama.title, targetEpisode, savedEp ? savedTime : null);
@@ -1691,31 +1669,6 @@
             finishedBtn.addEventListener('click', () => toggleFinished(drama, { episode: savedEp || drama.episodesCount || firstEpisode }));
 
             syncPosterStateBadges(drama.id);
-
-            const episodesList = document.getElementById('episodesList');
-            episodes.forEach(ep => {
-                const epNum = Math.floor(Number(ep.number));
-                const btn = document.createElement('button');
-                const isLastWatched = savedEp && epNum === savedEp;
-                btn.className = 'episode-btn' + (ep.sub > 0 ? ' has-sub' : '') + (isLastWatched ? ' last-watched' : '');
-                btn.innerHTML = `
-                    EP ${epNum}
-                    ${ep.sub > 0 ? '<span class="sub-indicator">SUB</span>' : ''}
-                    ${isLastWatched ? '<span class="sub-indicator" style="color:var(--accent);">RESUME</span>' : ''}
-                `;
-                btn.addEventListener('click', () => {
-                    openPlayer(dramaId, drama.title, epNum);
-                    // Save to continue watching
-                    saveContinueWatching(dramaId, drama.title, drama.thumbnail, epNum, drama.episodesCount);
-                });
-                episodesList.appendChild(btn);
-            });
-
-            // Auto-scroll to the last watched episode if exists
-            if (savedEp) {
-                const lastBtn = episodesList.querySelector('.last-watched');
-                if (lastBtn) lastBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
 
         } catch (err) {
             console.error('Detail error:', err);
