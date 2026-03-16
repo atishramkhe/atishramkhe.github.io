@@ -24,18 +24,28 @@
             --ateaish-master-nav-text: #fff5f6;
         }
 
+        #hero-wrapper {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        #hero-wrapper.showcase-has-bg {
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
         /* ===== HEADER ===== */
         header {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 96px;
-            border-bottom: 1px solid #111;
+            border-bottom: 0px solid #111;
             font-family: 'OumaTrialBold', 'OumaTrialLight';
-            position: sticky;
-            top: 0;
             z-index: 50;
-            background: #000;
+            background: transparent;
         }
         .logo-placeholder {
             width: 220px; height: 72px;
@@ -157,11 +167,40 @@
             margin: 0 auto;
             width: 100%;
         }
+        #search-results-wrapper {
+            display: none;
+            background: rgba(0, 0, 0, 0.72);
+        }
+        #search-results-wrapper.active {
+            display: block;
+        }
         #search-action-row {
             display: flex;
             justify-content: center;
+            gap: 10px;
             min-height: 42px;
             padding-top: 10px;
+        }
+        #search-filters-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #fff;
+            border: 1px solid #242424;
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-family: 'OumaTrialBold';
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+        }
+        #search-filters-toggle:hover,
+        #search-filters-toggle.is-open {
+            transform: translateY(-1px);
+            background: rgba(var(--accent-rgb), 0.14);
+            border-color: rgba(var(--accent-rgb), 0.45);
+            color: var(--accent);
         }
         #close-search-view {
             display: none;
@@ -182,11 +221,14 @@
             background: rgba(var(--accent-rgb), 0.2);
         }
         #search-tools {
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             justify-content: center;
             gap: 8px;
             padding: 10px 20px 6px;
+        }
+        #search-tools.visible {
+            display: flex;
         }
         .search-filter-chip,
         .search-filter-select {
@@ -226,6 +268,19 @@
             min-height: 20px;
         }
 
+        #mainContent {
+            background: transparent;
+        }
+        #showcaseSection,
+        #showcaseSection > #showcase {
+            background: transparent;
+        }
+        #homeView > section:not(#showcaseSection),
+        #filteredView {
+            position: relative;
+            background: #000;
+        }
+
         /* ===== FILTER TABS ===== */
         .filter-bar {
             display: flex; justify-content: center; gap: 8px;
@@ -237,6 +292,217 @@
             font-family: 'OumaTrialLight'; font-size: 0.9em; transition: all 0.2s;
         }
         .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        /* ===== SHOWCASE (ported from /movies) ===== */
+        #showcaseSection {
+            max-width: 2000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        #showcase {
+            position: relative;
+            width: 100%;
+            max-width: 2000px;
+            margin: 0 auto 0 auto;
+            padding: 60px 60px 72px 60px;
+            box-sizing: border-box;
+            border-radius: 0;
+            overflow: hidden;
+            background: transparent;
+            display: flex;
+            align-items: flex-start;
+            gap: 60px;
+            font-family: 'OumaTrialLight';
+            isolation: isolate;
+        }
+        #showcase::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            mix-blend-mode: normal;
+            z-index: -2;
+            pointer-events: none;
+        }
+        .showcase-left {
+            flex: 0 0 320px;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            position: relative;
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+            border-radius: 12px;
+        }
+        .showcase-logo-wrapper {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 85px;
+        }
+        .showcase-logo-wrapper img {
+            height: 85px;
+            max-width: 380px;
+            align-items: center;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
+        }
+        .showcase-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: nowrap;
+        }
+        .showcase-btn {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-family: 'OumaTrialBold';
+            font-size: 1.05em;
+            letter-spacing: 0.5px;
+            padding: 14px 36px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background .22s ease, transform .18s ease, box-shadow .22s ease;
+            position: relative;
+        }
+        .showcase-btn.primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 18px -4px rgba(var(--accent-rgb), 0.55), 0 2px 6px -2px rgba(0, 0, 0, 0.65);
+        }
+        .showcase-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px -6px rgba(var(--accent-rgb), 0.7), 0 4px 10px -2px rgba(0, 0, 0, 0.75);
+        }
+        .showcase-btn.secondary {
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            backdrop-filter: blur(3px);
+            box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.85);
+        }
+        .showcase-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.20);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.7);
+        }
+        .showcase-right {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .showcase-meta {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-bottom: 16px;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            color: #ccc;
+        }
+        .showcase-left-bottom {
+            background: #0009;
+            overflow: visible;
+            border-radius: 12px;
+            padding: 10px;
+        }
+        .showcase-title {
+            display: none;
+            font-family: 'OumaTrialBold';
+            font-size: clamp(2.4em, 5.2vw, 4.4em);
+            line-height: 0.95;
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), 0 3px 10px rgba(0, 0, 0, 0.6);
+        }
+        .showcase-overview {
+            font-size: 0.95em;
+            line-height: 1.5;
+            max-width: 900px;
+            color: #ddd;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0);
+            position: relative;
+            padding-bottom: 16px;
+        }
+        .showcase-overview.long {
+            max-height: 180px;
+            overflow: hidden;
+            mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 70%, rgba(255, 255, 255, 0));
+        }
+        .showcase-overview.expanded {
+            max-height: none;
+            mask-image: none;
+        }
+        .showcase-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .showcase-tag {
+            font-size: 0.65em;
+            letter-spacing: 1px;
+            padding: 4px 8px 5px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #bbb;
+            text-transform: uppercase;
+            font-family: 'OumaTrialBold';
+        }
+        .showcase-platform-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 0.88em;
+        }
+        #showcase {
+            transition: opacity 0.6s ease;
+        }
+        #showcase.fading { opacity: 0; }
+        #showcase-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 0 10px 0;
+            position: relative;
+            z-index: 10;
+        }
+        .showcase-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0;
+            position: relative;
+        }
+        .showcase-dot:hover { background: rgba(255,255,255,0.5); }
+        .showcase-dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+        .showcase-dot.active::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(var(--accent-rgb), 0.4);
+        }
 
         /* ===== SECTIONS & GRID ===== */
         h2 { padding-left: 40px; margin-block-end: 0; font-family: 'OumaTrialBold'; }
@@ -470,6 +736,7 @@
             .search-wrapper { width: 95%; }
             #search-results { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); padding: 10px 16px; gap: 8px; }
             #search-tools { padding: 10px 12px 4px; gap: 6px; }
+            #hero-wrapper { background-attachment: scroll; }
             .search-filter-chip, .search-filter-select { font-size: 0.78rem; padding: 7px 11px; }
             .search-filter-select { min-width: 108px; }
             .detail-header { flex-direction: column; }
@@ -498,10 +765,33 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
+        @media (max-width: 1200px) {
+            #showcase {
+                flex-direction: column;
+                padding: 46px 40px 60px 40px;
+                gap: 40px;
+            }
+            .showcase-left {
+                flex: none;
+                max-width: 420px;
+                width: 100%;
+            }
+            .showcase-title {
+                font-size: clamp(2.2em, 8vw, 3.6em);
+            }
+        }
+        @media (max-width: 640px) {
+            #showcase {
+                display: none !important;
+            }
+            #showcase-dots {
+                display: none !important;
+            }
+        }
     </style>
-    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
+    <div id="hero-wrapper">
     <!-- HEADER -->
     <header>
             <div class="logo-placeholder" aria-label="ateaish dramas home mark">
@@ -523,6 +813,7 @@
             <button id="clear-search-btn">&times;</button>
         </div>
         <div id="search-action-row">
+            <button id="search-filters-toggle" type="button" aria-expanded="false">Search Options</button>
             <button id="close-search-view" type="button">Close Search</button>
         </div>
     </div>
@@ -553,21 +844,51 @@
             <option value="az">A-Z</option>
         </select>
     </div>
-    <div id="search-results-status"></div>
-    <div id="search-results"></div>
-
-    <!-- FILTER TABS -->
-    <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-filter="home">Home</button>
-        <button class="filter-btn" data-filter="kdrama">K-Drama</button>
-        <button class="filter-btn" data-filter="cdrama">C-Drama</button>
-        <button class="filter-btn" data-filter="hollywood">Hollywood</button>
-        <button class="filter-btn" data-filter="anime">Anime</button>
-        <button class="filter-btn" data-filter="movies">Movies</button>
+    <div id="search-results-wrapper">
+        <div id="search-results-status"></div>
+        <div id="search-results"></div>
     </div>
 
     <!-- MAIN CONTENT -->
     <main id="mainContent">
+        <section id="showcaseSection" hidden>
+            <section id="showcase" aria-label="Featured Title">
+                <div id="showcase-shadow"></div>
+                <div class="showcase-left">
+                    <div class="showcase-logo-wrapper">
+                        <img id="showcase-logo" src="assets/ateaish dramas default.png" alt="Featured Logo" loading="lazy">
+                    </div>
+                    <div class="showcase-buttons">
+                        <button id="play-featured" class="showcase-btn primary" type="button">Play</button>
+                        <button id="showcase-more" class="showcase-btn secondary" type="button" aria-expanded="false">Show More</button>
+                    </div>
+                    <h1 class="showcase-title" id="showcase-title">Featured Title</h1>
+                    <div class="showcase-left-bottom">
+                        <div class="showcase-meta" id="showcase-meta">
+                            <span id="showcase-year">2025</span>
+                            <span id="showcase-rating">K-Drama</span>
+                            <span id="showcase-runtime">Series</span>
+                            <span id="showcase-platform"></span>
+                        </div>
+                        <p class="showcase-overview long" id="showcase-overview">Loading featured overview...</p>
+                        <div class="showcase-tags" id="showcase-tags"></div>
+                    </div>
+                </div>
+                <div class="showcase-right"></div>
+            </section>
+            <div id="showcase-dots"></div>
+        </section>
+
+        <!-- FILTER TABS -->
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="home">Home</button>
+            <button class="filter-btn" data-filter="kdrama">K-Drama</button>
+            <button class="filter-btn" data-filter="cdrama">C-Drama</button>
+            <button class="filter-btn" data-filter="hollywood">Hollywood</button>
+            <button class="filter-btn" data-filter="anime">Anime</button>
+            <button class="filter-btn" data-filter="movies">Movies</button>
+        </div>
+
         <!-- HOME VIEW (multiple sections) -->
         <div id="homeView">
             <section id="continueSection">
@@ -612,6 +933,7 @@
             </div>
         </div>
     </main>
+    </div>
 
     <!-- DRAMA DETAIL MODAL -->
     <div id="detail-modal">
@@ -640,6 +962,8 @@
     const API_BASE = 'https://kisskh.ovh/api/DramaList';
     const KISSKH_BASE = 'https://kisskh.ovh';
     const SNAPSHOT_URL = './data/catalog_snapshot.json';
+    const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
+    const TMDB_SEARCH_MULTI_ENDPOINT = 'https://api.themoviedb.org/3/search/multi';
     const WATCH_LATER_KEY_PREFIX = 'kisskh_watch_later_';
     const FINISHED_KEY_PREFIX = 'kisskh_finished_';
 
@@ -653,6 +977,12 @@
     let _snapshotCache = null;
     let _snapshotPromise = null;
     let _snapshotSearchEntries = null;
+    let _tmdbAssetCache = new Map();
+    let _showcaseCandidates = [];
+    let _showcaseCurrentIndex = 0;
+    let _showcaseTimer = null;
+    let _showcasePaused = false;
+    let _showcaseHydrated = new Map();
     let _searchFiltersReady = false;
     let _searchFilters = {
         tag: 'all',
@@ -690,6 +1020,8 @@
         { label: 'Hollywood', targetId: 'hollywoodSection' },
         { label: 'Anime', targetId: 'animeSection' },
     ];
+
+    const SHOWCASE_ROTATE_INTERVAL_MS = 10000;
 
     function hasActiveAdvancedSearchFilters() {
         return _searchFilters.tag !== 'all'
@@ -731,6 +1063,7 @@
             if (!wasReady && _homeLoadAttempted) {
                 console.log('[drama] Late bridge — reloading home sections');
                 loadHome();
+                initShowcase();
 
                 const searchInput = document.getElementById('search-input');
                 const activeQuery = searchInput ? searchInput.value.trim() : '';
@@ -1007,10 +1340,17 @@
 
     function setSearchUiState(query) {
         const active = hasSearchConstraints(query);
+        const searchResultsWrapper = document.getElementById('search-results-wrapper');
         document.getElementById('mainContent').style.display = active ? 'none' : '';
         document.getElementById('filterBar').style.display = active ? 'none' : '';
         document.getElementById('close-search-view').style.display = active ? 'inline-flex' : 'none';
+        if (searchResultsWrapper) {
+            searchResultsWrapper.classList.toggle('active', active);
+        }
         document.getElementById('search-results-status').textContent = '';
+        if (!active && !hasActiveAdvancedSearchFilters()) {
+            setSearchFiltersVisible(false);
+        }
         if (!active) {
             document.getElementById('search-results').innerHTML = '';
         }
@@ -1115,6 +1455,102 @@
     function truncate(text, max = 120) {
         if (!text) return '';
         return text.length > max ? text.slice(0, max).trim() + '...' : text;
+    }
+
+    function truncateOverview(text, maxLength = 250) {
+        if (!text) return '';
+        return text.length > maxLength ? `${text.slice(0, maxLength).trim()}...` : text;
+    }
+
+    function getTmdbSearchTitle(value) {
+        return String(value || '')
+            .replace(/\((?:19|20)\d{2}\)/gi, '')
+            .replace(/\((?:season|series|part|vol(?:ume)?)\s*[^)]*\)/gi, '')
+            .replace(/\[(?:season|series|part|vol(?:ume)?)\s*[^\]]*\]/gi, '')
+            .replace(/\b(?:season|series|part|vol(?:ume)?)\s*\d+\b/gi, '')
+            .replace(/\bs\d+\b/gi, '')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+    }
+
+    function normalizeTitleForTmdb(value) {
+        return getTmdbSearchTitle(value)
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
+    }
+
+    async function fetchTmdbShowcaseAssets(title, year = '') {
+        const normalizedTitle = normalizeTitleForTmdb(title);
+        if (!normalizedTitle) return null;
+
+        const cacheKey = `${normalizedTitle}|${year || ''}`;
+        if (_tmdbAssetCache.has(cacheKey)) return _tmdbAssetCache.get(cacheKey);
+
+        const pending = (async () => {
+            const searchTitle = getTmdbSearchTitle(title) || title;
+            const searchUrl = `${TMDB_SEARCH_MULTI_ENDPOINT}?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(searchTitle)}`;
+            const searchResponse = await fetch(searchUrl);
+            if (!searchResponse.ok) throw new Error(`TMDB search HTTP ${searchResponse.status}`);
+            const searchPayload = await searchResponse.json();
+            const results = Array.isArray(searchPayload.results) ? searchPayload.results : [];
+
+            const ranked = results
+                .filter(item => item && item.id && (item.media_type === 'tv' || item.media_type === 'movie'))
+                .map(item => {
+                    const itemTitle = item.title || item.name || '';
+                    const itemYear = (item.first_air_date || item.release_date || '').slice(0, 4);
+                    const normalizedItemTitle = normalizeTitleForTmdb(itemTitle);
+                    let score = 0;
+                    if (normalizedItemTitle === normalizedTitle) score += 120;
+                    else if (normalizedItemTitle.includes(normalizedTitle)) score += 80;
+                    else if (normalizedTitle.includes(normalizedItemTitle)) score += 60;
+                    if (year && itemYear === String(year)) score += 30;
+                    if (item.media_type === 'tv') score += 10;
+                    return { item, score };
+                })
+                .sort((a, b) => b.score - a.score);
+
+            const best = ranked[0] && ranked[0].score >= 60 ? ranked[0].item : null;
+            if (!best) return { logoUrl: null, backdropUrl: null };
+
+            const imageType = best.media_type === 'movie' ? 'movie' : 'tv';
+            const imagesUrl = `https://api.themoviedb.org/3/${imageType}/${best.id}/images?api_key=${TMDB_API_KEY}&include_image_language=en,null`;
+            const imagesResponse = await fetch(imagesUrl);
+            const imagesPayload = imagesResponse.ok ? await imagesResponse.json() : {};
+            const logos = Array.isArray(imagesPayload.logos) ? imagesPayload.logos : [];
+            const englishLogos = logos.filter(logo => logo.iso_639_1 === 'en');
+            const chosenLogo = englishLogos[0] || logos[0] || null;
+            const logoUrl = chosenLogo && chosenLogo.file_path
+                ? `https://image.tmdb.org/t/p/original${chosenLogo.file_path}`
+                : null;
+            const backdropUrl = best.backdrop_path
+                ? `https://image.tmdb.org/t/p/original${best.backdrop_path}`
+                : null;
+
+            return {
+                logoUrl,
+                backdropUrl,
+                tmdbId: best.id,
+                mediaType: imageType,
+            };
+        })().catch(err => {
+            console.warn('[drama] TMDB asset lookup failed:', err.message);
+            return null;
+        });
+
+        _tmdbAssetCache.set(cacheKey, pending);
+        return pending;
+    }
+
+    function setSearchFiltersVisible(visible) {
+        const tools = document.getElementById('search-tools');
+        const toggle = document.getElementById('search-filters-toggle');
+        if (!tools || !toggle) return;
+        tools.classList.toggle('visible', visible);
+        toggle.classList.toggle('is-open', visible);
+        toggle.setAttribute('aria-expanded', visible ? 'true' : 'false');
+        toggle.textContent = visible ? 'Hide Options' : 'Search Options';
     }
 
     function normalizeStoredDrama(drama, overrides = {}) {
@@ -1494,6 +1930,251 @@
         } catch (err) {
             console.error(`Failed to load ${gridId}:`, err);
             grid.innerHTML = '<p style="color:#555;padding:20px;">Failed to load. Check connection.</p>';
+        }
+    }
+
+    function extractShowcaseData(drama, detail = null) {
+        const snapshotData = getSnapshotDramaData(drama.id);
+        const snapshotItem = snapshotData ? snapshotData.item : null;
+        const snapshotDetail = snapshotData ? snapshotData.detail : null;
+        const resolvedDetail = detail || snapshotDetail || null;
+        const releaseDate = drama.releaseDate || (resolvedDetail && resolvedDetail.releaseDate) || (snapshotItem && snapshotItem.releaseDate) || '';
+        const year = drama.year || (resolvedDetail && resolvedDetail.year) || (snapshotItem && snapshotItem.year) || (/^\d{4}/.test(releaseDate) ? releaseDate.slice(0, 4) : '');
+        const country = drama.country || (resolvedDetail && resolvedDetail.country) || (snapshotItem && snapshotItem.country) || '';
+        const type = drama.type || (resolvedDetail && resolvedDetail.type) || (snapshotItem && snapshotItem.type) || '';
+        const status = drama.status || (resolvedDetail && resolvedDetail.status) || (snapshotItem && snapshotItem.status) || drama.label || '';
+        const description = (resolvedDetail && resolvedDetail.description) || drama.description || '';
+        const genres = Array.isArray(resolvedDetail && resolvedDetail.genres)
+            ? resolvedDetail.genres
+            : (Array.isArray(drama.genres) && drama.genres.length ? drama.genres : ((snapshotItem && snapshotItem.genres) || []));
+
+        return {
+            id: drama.id,
+            title: drama.title || '',
+            thumbnail: drama.thumbnail || (resolvedDetail && resolvedDetail.thumbnail) || '',
+            year,
+            country,
+            type,
+            status,
+            description,
+            genres: genres || [],
+            episodesCount: drama.episodesCount || (resolvedDetail && resolvedDetail.episodesCount) || 0,
+        };
+    }
+
+    async function hydrateShowcaseDrama(drama) {
+        if (_showcaseHydrated.has(drama.id)) return _showcaseHydrated.get(drama.id);
+
+        let featured = extractShowcaseData(drama);
+        if (!featured.description || !featured.country || !featured.type || !featured.status || !featured.genres.length) {
+            try {
+                const detail = await kisskh(`/Drama/${drama.id}?is498=false`);
+                featured = extractShowcaseData({ ...drama, ...detail }, detail);
+            } catch (err) {
+                // Snapshot/base data remains the fallback.
+            }
+        }
+
+        _showcaseHydrated.set(drama.id, featured);
+        return featured;
+    }
+
+    async function loadShowcaseCandidates() {
+        const requests = [
+            { type: 0, sub: 0, country: 0, status: 0, order: 2, pageSize: 8, page: 0 },
+            { type: 0, sub: 0, country: 2, status: 0, order: 1, pageSize: 6, page: 0 },
+            { type: 0, sub: 0, country: 3, status: 0, order: 1, pageSize: 6, page: 0 },
+        ];
+
+        const results = await Promise.allSettled(requests.map(async params => {
+            const qs = Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&');
+            const data = await kisskh(`/List?${qs}`);
+            return data.data || [];
+        }));
+
+        const unique = new Map();
+        results.forEach(result => {
+            if (result.status !== 'fulfilled') return;
+            result.value.forEach(item => {
+                if (item && item.id && !unique.has(item.id)) unique.set(item.id, item);
+            });
+        });
+
+        return Array.from(unique.values()).slice(0, 8);
+    }
+
+    function buildShowcaseDots() {
+        const dotsContainer = document.getElementById('showcase-dots');
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+
+        _showcaseCandidates.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `showcase-dot${index === _showcaseCurrentIndex ? ' active' : ''}`;
+            dot.setAttribute('aria-label', `Featured title ${index + 1}`);
+            dot.type = 'button';
+            dot.addEventListener('click', () => {
+                goToShowcaseSlide(index, true);
+                resetShowcaseRotation();
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    function updateShowcaseDots(index) {
+        const dotsContainer = document.getElementById('showcase-dots');
+        if (!dotsContainer) return;
+        dotsContainer.querySelectorAll('.showcase-dot').forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === index);
+        });
+    }
+
+    function renderShowcase(featured) {
+        const showcaseSection = document.getElementById('showcaseSection');
+        const showcase = document.getElementById('showcase');
+        const heroWrapper = document.getElementById('hero-wrapper');
+        const logoWrapper = document.querySelector('.showcase-logo-wrapper');
+        const titleEl = document.getElementById('showcase-title');
+        const yearEl = document.getElementById('showcase-year');
+        const ratingEl = document.getElementById('showcase-rating');
+        const runtimeEl = document.getElementById('showcase-runtime');
+        const overviewEl = document.getElementById('showcase-overview');
+        const platformEl = document.getElementById('showcase-platform');
+        const tagsEl = document.getElementById('showcase-tags');
+        const playBtn = document.getElementById('play-featured');
+        const moreBtn = document.getElementById('showcase-more');
+
+        if (!showcaseSection || !showcase || !logoWrapper || !titleEl || !yearEl || !ratingEl || !runtimeEl || !overviewEl || !platformEl || !tagsEl || !playBtn || !moreBtn) return;
+
+        showcaseSection.hidden = false;
+        const backdropUrl = featured.backdropUrl || featured.thumbnail || '';
+        if (heroWrapper) {
+            heroWrapper.style.backgroundImage = backdropUrl ? `url('${backdropUrl}')` : 'none';
+            heroWrapper.classList.toggle('showcase-has-bg', Boolean(backdropUrl));
+        }
+        if (featured.logoUrl) {
+            logoWrapper.innerHTML = `<img src="${featured.logoUrl}" alt="${featured.title}" loading="lazy">`;
+        } else {
+            logoWrapper.innerHTML = `
+                <div style="
+                    font-family: 'OumaTrialBold', sans-serif;
+                    font-size: clamp(2.2em, 4.8vw, 3.6em);
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    color: #ffffff;
+                    text-shadow: 0 6px 18px rgba(0,0,0,0.9);
+                    line-height: 1;
+                    text-align: center;
+                ">${featured.title}</div>
+            `;
+        }
+
+        titleEl.textContent = featured.title;
+        yearEl.textContent = featured.year || '';
+        ratingEl.textContent = featured.country || '';
+        runtimeEl.textContent = featured.type || '';
+        platformEl.innerHTML = featured.status ? `<span class="showcase-platform-text">${featured.status}</span>` : '';
+        overviewEl.textContent = truncateOverview(featured.description) || 'No description available.';
+        overviewEl.classList.add('long');
+        overviewEl.classList.remove('expanded');
+        tagsEl.innerHTML = '';
+        (featured.genres || []).slice(0, 5).forEach(tag => {
+            const span = document.createElement('span');
+            span.className = 'showcase-tag';
+            span.textContent = tag;
+            tagsEl.appendChild(span);
+        });
+
+        moreBtn.setAttribute('aria-expanded', 'false');
+        moreBtn.textContent = 'Show More';
+        moreBtn.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            openDetail(featured.id);
+        };
+
+        playBtn.textContent = 'Play';
+        playBtn.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const savedProgress = getSavedProgress(featured.id);
+            const episode = savedProgress && savedProgress.episode ? savedProgress.episode : 1;
+            const resumeTime = savedProgress && savedProgress.currentTime ? savedProgress.currentTime : null;
+            openPlayer(featured.id, featured.title, episode, resumeTime);
+            saveContinueWatching(featured.id, featured.title, featured.thumbnail, episode, featured.episodesCount || 0);
+        };
+    }
+
+    async function goToShowcaseSlide(index, force = false) {
+        if (!force && index === _showcaseCurrentIndex && _showcaseCandidates.length > 1) return;
+
+        _showcaseCurrentIndex = index;
+        const showcase = document.getElementById('showcase');
+        if (!showcase) return;
+
+        if (!force) {
+            showcase.classList.add('fading');
+            await new Promise(resolve => setTimeout(resolve, 600));
+        }
+
+        const featured = await hydrateShowcaseDrama(_showcaseCandidates[index]);
+        if (!featured.logoUrl || !featured.backdropUrl) {
+            const tmdbAssets = await fetchTmdbShowcaseAssets(featured.title, featured.year);
+            if (tmdbAssets) {
+                featured.logoUrl = featured.logoUrl || tmdbAssets.logoUrl || null;
+                featured.backdropUrl = featured.backdropUrl || tmdbAssets.backdropUrl || null;
+            }
+            _showcaseHydrated.set(featured.id, featured);
+        }
+        renderShowcase(featured);
+        updateShowcaseDots(index);
+        showcase.classList.remove('fading');
+    }
+
+    function startShowcaseRotation() {
+        if (_showcaseTimer || _showcaseCandidates.length < 2) return;
+        _showcaseTimer = setInterval(() => {
+            if (_showcasePaused) return;
+            const next = (_showcaseCurrentIndex + 1) % _showcaseCandidates.length;
+            goToShowcaseSlide(next);
+        }, SHOWCASE_ROTATE_INTERVAL_MS);
+    }
+
+    function resetShowcaseRotation() {
+        if (_showcaseTimer) {
+            clearInterval(_showcaseTimer);
+            _showcaseTimer = null;
+        }
+        startShowcaseRotation();
+    }
+
+    async function initShowcase() {
+        const showcaseSection = document.getElementById('showcaseSection');
+        const showcase = document.getElementById('showcase');
+        if (!showcaseSection || !showcase) return;
+
+        try {
+            const candidates = await loadShowcaseCandidates();
+            if (!candidates.length) {
+                showcaseSection.hidden = true;
+                return;
+            }
+
+            _showcaseCandidates = candidates;
+            _showcaseCurrentIndex = Math.floor(Math.random() * _showcaseCandidates.length);
+            await goToShowcaseSlide(_showcaseCurrentIndex, true);
+            buildShowcaseDots();
+            updateShowcaseDots(_showcaseCurrentIndex);
+            resetShowcaseRotation();
+
+            if (!showcase.dataset.carouselBound) {
+                showcase.addEventListener('mouseenter', () => { _showcasePaused = true; });
+                showcase.addEventListener('mouseleave', () => { _showcasePaused = false; });
+                showcase.dataset.carouselBound = 'true';
+            }
+        } catch (err) {
+            console.warn('[drama] Showcase init failed:', err.message);
+            showcaseSection.hidden = true;
         }
     }
 
@@ -1980,6 +2661,7 @@
 
         // Load home
         loadHome();
+        initShowcase();
         renderSectionNav();
         populateSearchFilters()
             .then(() => refreshAllPosterMetadata())
@@ -1989,6 +2671,7 @@
         const searchInput = document.getElementById('search-input');
         const clearBtn = document.getElementById('clear-search-btn');
         const closeSearchBtn = document.getElementById('close-search-view');
+        const searchFiltersToggle = document.getElementById('search-filters-toggle');
         const searchResults = document.getElementById('search-results');
         const backToTopBtn = document.getElementById('backtotop-btn');
         const sectionNavToggle = document.getElementById('section-nav-toggle');
@@ -2026,8 +2709,14 @@
             closeSearchView();
         });
 
+        searchFiltersToggle.addEventListener('click', () => {
+            const searchTools = document.getElementById('search-tools');
+            setSearchFiltersVisible(!searchTools.classList.contains('visible'));
+        });
+
         document.querySelectorAll('.search-filter-chip').forEach(chip => {
             chip.addEventListener('click', () => {
+                setSearchFiltersVisible(true);
                 document.querySelectorAll('.search-filter-chip').forEach(item => item.classList.remove('active'));
                 chip.classList.add('active');
                 _searchFilters.tag = chip.dataset.searchTag || 'all';
@@ -2043,6 +2732,7 @@
             [searchSortFilter, 'sort'],
         ].forEach(([element, key]) => {
             element.addEventListener('change', () => {
+                setSearchFiltersVisible(true);
                 _searchFilters[key] = element.value;
                 scheduleSearch();
             });
@@ -2071,11 +2761,14 @@
                 btn.classList.add('active');
                 const filter = btn.dataset.filter;
                 currentFilter = filter;
+                const showcaseSection = document.getElementById('showcaseSection');
 
                 if (filter === 'home') {
+                    if (showcaseSection && _showcaseCandidates.length) showcaseSection.hidden = false;
                     document.getElementById('homeView').style.display = '';
                     document.getElementById('filteredView').style.display = 'none';
                 } else {
+                    if (showcaseSection) showcaseSection.hidden = true;
                     document.getElementById('homeView').style.display = 'none';
                     document.getElementById('filteredView').style.display = '';
                     loadFiltered(filter, true);
