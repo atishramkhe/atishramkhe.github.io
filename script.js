@@ -218,9 +218,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadLocalLogoManifest();
     await loadLocalFMHYData();
 
-    // Inject homepage styles and render the TV-style app grid hero
+    // Inject homepage styles and render the Ateaish landing view
     injectHomepageStyles();
-    try { renderAppGrid(); } catch (e) { console.warn('renderAppGrid failed', e); }
+    try { renderAteaishLanding(); } catch (e) { console.warn('renderAteaishLanding failed', e); }
 
     // Render the rest of the sections as before
     renderSectionsInOrder();
@@ -383,14 +383,14 @@ const TRADITIONAL_WEBSITES = [
 ];
 
 const ATEAISH_WEBSITES = [
-  { name: 'ateaish movies', url: 'https://atishramkhe.github.io/movies' },
-  { name: 'ateaish TV', url: 'https://atishramkhe.github.io/tv' },
-  { name: 'ateaish sport', url: 'https://atishramkhe.github.io/sport' },
-  { name: 'ateaish anime', url: 'https://atishramkhe.github.io/anime' },
-  { name: 'ateaish manga', url: 'https://atishramkhe.github.io/manga' },
-  { name: 'ateaish comics', url: 'https://atishramkhe.github.io/comics' },
-  { name: 'ateaish dramas', url: 'https://atishramkhe.github.io/drama' },
-  { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio' }
+  { name: 'ateaish movies', url: 'https://atishramkhe.github.io/movies', logo: 'ateaish_movie_blanc_150ppi.png' },
+  { name: 'ateaish TV', url: 'https://atishramkhe.github.io/tv', logo: 'ateaish_tv_blanc_150ppi_noborder.png' },
+  { name: 'ateaish sport', url: 'https://atishramkhe.github.io/sport', logo: 'ateaish_sport_blanc_150ppi.png' },
+  { name: 'ateaish anime', url: 'https://atishramkhe.github.io/anime', logo: 'ateaish_anime_default.png' },
+  { name: 'ateaish manga', url: 'https://atishramkhe.github.io/manga', logo: 'ateaish_manga.png' },
+  { name: 'ateaish comics', url: 'https://atishramkhe.github.io/comics', logo: 'ateaish_comics_default.webp' },
+  { name: 'ateaish dramas', url: 'https://atishramkhe.github.io/drama', logo: 'ateaish_dramas_default.png' },
+  { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio', logo: 'ateaish_radio_blanc_150ppi.png' }
 ];
 // Helper function to safely parse JSON from localStorage
 function safeJsonParse(key, defaultValue) {
@@ -471,6 +471,56 @@ function updateFavoriteStars() {
   });
 }
 
+function setLandingMode(showLanding) {
+  document.body.dataset.landing = showLanding ? 'true' : 'false';
+  const landingScreen = document.getElementById('ateaish-landing');
+  if (landingScreen) {
+    landingScreen.setAttribute('aria-hidden', showLanding ? 'false' : 'true');
+  }
+  const backButton = document.getElementById('directory-back-to-landing');
+  if (backButton) {
+    backButton.setAttribute('aria-hidden', showLanding ? 'true' : 'false');
+  }
+}
+
+function createLandingCard(site, index) {
+  const card = document.createElement('a');
+  card.className = 'ateaish-landing__card';
+  card.href = site.url;
+  card.target = '_blank';
+  card.rel = 'noreferrer';
+  card.title = site.name;
+  card.setAttribute('aria-label', site.name);
+
+  const media = document.createElement('div');
+  media.className = 'ateaish-landing__card-media';
+
+  const logo = document.createElement('img');
+  logo.className = 'ateaish-landing__card-logo';
+  logo.alt = site.name;
+  logo.src = getWebsiteLogo(site).src;
+  logo.onerror = () => {
+    logo.remove();
+    media.classList.add('is-fallback');
+  };
+
+  media.appendChild(logo);
+  card.appendChild(media);
+  return card;
+}
+
+function renderAteaishLanding() {
+  const landingGrid = document.getElementById('ateaish-landing-grid');
+  if (!landingGrid) return;
+
+  landingGrid.innerHTML = '';
+  ATEAISH_WEBSITES.forEach((site, index) => {
+    landingGrid.appendChild(createLandingCard(site, index));
+  });
+
+  setLandingMode(true);
+}
+
 // Replace the old getWebsiteLogo(siteName, siteUrl) with a robust version that accepts the whole site object
 function getWebsiteLogo(site) {
   if (!site) {
@@ -540,6 +590,8 @@ function renderSection(containerId, sites, sectionLabel) {
     return;
   }
 
+  const isTraditionalWebsitesSection = containerId === 'traditional-websites-grid';
+
   container.innerHTML = '';
 
   // Section title tile should be the first child inside the grid
@@ -568,6 +620,9 @@ function renderSection(containerId, sites, sectionLabel) {
 
     const div = document.createElement('div');
     div.className = 'site';
+    if (isTraditionalWebsitesSection) {
+      div.classList.add('web-section-tile');
+    }
 
     const a = document.createElement('a');
     a.href = site.url;
@@ -602,7 +657,7 @@ function renderSection(containerId, sites, sectionLabel) {
       a.appendChild(img);
     }
 
-    if (logoInfo.dominantColor) {
+    if (!isTraditionalWebsitesSection && logoInfo.dominantColor) {
       div.style.backgroundColor = logoInfo.dominantColor;
       div.classList.add('has-dominant-bg');
     }
@@ -983,6 +1038,8 @@ function setupEventListeners() {
   const saveEditLinkButton = document.getElementById('save-edit-link');
   const cancelEditLinkButton = document.getElementById('cancel-edit-link');
   const sectionVisibilityOptions = document.getElementById('section-visibility-options');
+  const landingShowMoreButton = document.getElementById('landing-show-more');
+  const directoryBackButton = document.getElementById('directory-back-to-landing');
 
   // Ensure settings modal is hidden by default even if missing the .modal class
   if (settingsModal) {
@@ -1006,6 +1063,23 @@ function setupEventListeners() {
     // keep close button support (closes flyout)
     closeSettingsButton.addEventListener('click', () => {
       hideSettingsWindow(settingsModal);
+    });
+  }
+
+  if (landingShowMoreButton) {
+    landingShowMoreButton.addEventListener('click', () => {
+      setLandingMode(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (searchBar) {
+        searchBar.focus({ preventScroll: true });
+      }
+    });
+  }
+
+  if (directoryBackButton) {
+    directoryBackButton.addEventListener('click', () => {
+      setLandingMode(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
@@ -1126,60 +1200,118 @@ function setupEventListeners() {
 function injectRuntimeOverrides() {
   if (document.getElementById('runtime-overrides')) return;
   const css = `
-    header { background: transparent !important; box-shadow: none !important; }
-    .content-grid { padding-left: 24px !important; }
-    .category { margin-top: 8px !important; }
+    header {
+      display: grid !important;
+      grid-template-columns: auto minmax(260px, 1fr) auto !important;
+      align-items: center !important;
+      gap: 18px !important;
+      width: min(1440px, calc(100vw - 28px)) !important;
+      margin: 18px auto 14px !important;
+      padding: 18px 22px !important;
+      background: rgba(10, 15, 18, 0.82) !important;
+      border: 1px solid rgba(159, 223, 206, 0.12) !important;
+      border-radius: 24px !important;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.34) !important;
+      backdrop-filter: blur(14px);
+      position: sticky !important;
+      top: 14px !important;
+      z-index: 90 !important;
+    }
+    .header-spacer { display: none !important; }
+    #logo {
+      width: 142px !important;
+      margin-right: 0 !important;
+    }
+    .directory-shell {
+      display: block;
+    }
+    body[data-landing="true"] .directory-shell {
+      display: none !important;
+    }
+    .content-grid {
+      width: min(1440px, calc(100vw - 28px)) !important;
+      margin: 0 auto !important;
+      padding: 8px 0 88px !important;
+    }
+    .directory-back-to-landing {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 95;
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+    .directory-back-to-landing:hover,
+    .directory-back-to-landing:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.38);
+      outline: none;
+    }
+    body[data-landing="true"] .directory-back-to-landing {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .category { margin-top: 18px !important; }
     .category > .grid, .category > .slider {
-      padding-left: 24px !important;
+      padding-left: 0 !important;
       scroll-snap-type: x proximity !important;
     }
     .category > .grid .site, .category > .slider .site {
       scroll-snap-align: start !important;
     }
     .category > .grid .site:not(.section-title-tile), .category > .slider .site:not(.section-title-tile) {
-      min-width: 220px;
+      min-width: 228px;
     }
-    /* --- Search bar style and positioning overrides --- */
     #search-bar {
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
+      background: rgba(255,255,255,0.05) !important;
+      border: 1px solid rgba(255,255,255,0.08) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04) !important;
       outline: none !important;
-      padding: 6px 12px !important;
+      padding: 14px 18px !important;
       font-size: 1rem;
       color: #fff;
-      border-radius: 6px;
-      margin: 0 0 0 12px !important;
-      min-width: 180px;
-      width: 220px;
-      transition: background 0.2s;
+      border-radius: 16px;
+      margin: 0 !important;
+      min-width: 0;
+      width: 100%;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
     #search-bar:focus {
       background: rgba(255,255,255,0.08) !important;
-    }
-    /* Move search bar to the right, next to settings button */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      border-color: rgba(131, 253, 196, 0.34) !important;
+      box-shadow: 0 0 0 4px rgba(131, 253, 196, 0.08) !important;
     }
     #settings-button {
-      margin-left: 16px;
-    }
-    /* Ensure search bar and settings button are on the same row */
-    #search-bar, #settings-button {
-      vertical-align: middle;
-      display: inline-block;
+      margin-left: 0 !important;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
     }
 
     .grid {
       display: flex;
       flex-wrap: nowrap;
       overflow: hidden;
-      gap: 28px;
+      gap: 18px;
       justify-content: flex-start;
       align-items: stretch;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       padding-left: 0 !important;
       margin-left: 0 !important;
     }
@@ -1194,37 +1326,34 @@ function injectRuntimeOverrides() {
       }
     }
 
-    .category > .grid .site:not(.section-title-tile) {
-      /* Website tile styles (keep as before) */
-      scroll-snap-align: start !important;
-      /* Add any other tile-specific styles here if needed */
-    }
-
     .section-title-tile {
-      width: 120px;
-      min-width: 120px;
-      max-width: 120px;
-      height: 64px;
+      width: 132px;
+      min-width: 132px;
+      max-width: 132px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgb(0,0,0);
-      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(14, 22, 26, 0.98), rgba(8, 12, 14, 0.95));
+      border: 1px solid rgba(131, 253, 196, 0.14);
+      border-radius: 18px;
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      color: #f8fffd;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
       align-self: stretch;
       justify-self: start;
-      padding: 12px;
+      padding: 12px 14px;
       flex-shrink: 0;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     @media (max-width: 1200px) {
       .section-title-tile {
-        width: 120px;
-        height: 64px;
-        border-radius: 8px;
+        width: 126px;
+        height: 68px;
+        border-radius: 16px;
         font-size: 1rem;
         padding: 10px;
       }
@@ -1233,9 +1362,33 @@ function injectRuntimeOverrides() {
       .section-title-tile {
         width: 120px;
         height: 64px;
-        border-radius: 8px;
+        border-radius: 14px;
         font-size: 0.95rem;
         padding: 8px;
+      }
+    }
+
+    #traditional-websites-grid .site.web-section-tile {
+      background: linear-gradient(135deg, rgba(245, 247, 248, 0.96), rgba(224, 228, 230, 0.92)) !important;
+    }
+
+    #traditional-websites-grid .site.web-section-tile img,
+    #traditional-websites-grid .site.web-section-tile .placeholder-icon,
+    #traditional-websites-grid .site.web-section-tile .text-logo-container {
+      background: rgba(255, 255, 255, 0.74) !important;
+    }
+
+    @media (max-width: 820px) {
+      header {
+        grid-template-columns: 1fr auto !important;
+        width: min(100vw - 18px, 1440px) !important;
+      }
+      #logo {
+        grid-column: 1 / -1;
+      }
+      .directory-back-to-landing {
+        right: 16px;
+        bottom: 16px;
       }
     }
 
@@ -1253,7 +1406,6 @@ function injectRuntimeOverrides() {
     .grid::-webkit-scrollbar-button, .slider::-webkit-scrollbar-button {
       display: none;
     }
-    /* For Firefox */
     .grid, .slider {
       scrollbar-color: rgba(120,92,230,0.22) transparent;
       scrollbar-width: thin;
@@ -1482,178 +1634,246 @@ function hideLoadingScreen() {
 function injectHomepageStyles() {
   if (document.getElementById('fmhy-homepage-styles')) return;
   const css = `
-    /* TV-like centered screen + ambient room glow */
-    .homepage-tv {
-      display: flex;
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(18, 26, 30, 0.65), transparent 30%),
+        radial-gradient(circle at 82% 12%, rgba(16, 24, 29, 0.5), transparent 24%),
+        linear-gradient(180deg, #000000 0%, #050708 42%, #000000 100%);
+      color: #edf6f3;
+    }
+
+    .main-container {
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 72px;
+    }
+
+    .ateaish-landing {
+      min-height: 100vh;
+      display: none;
       align-items: center;
       justify-content: center;
-      padding: 28px 18px;
-      background: rgb(0,0,0);
-      min-height: 360px;
-    }
-
-    .tv-frame {
-      width: 94%;
-      max-width: 1500px;
-      background: transparent;
-      border-radius: 12px;
-      padding: 14px;
+      padding: 24px;
       position: relative;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.75);
-    }
-
-    .tv-screen {
-      background: linear-gradient(180deg,#0b1013, #061017);
-      border-radius: 12px;
-      padding: 20px;
       overflow: hidden;
-      position: relative;
-      min-height: 380px;
-      box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.02);
     }
-    .tv-screen::after {
+
+    .ateaish-landing::before,
+    .ateaish-landing::after {
       content: "";
       position: absolute;
-      inset: 0;
+      border-radius: 999px;
+      filter: blur(24px);
+      opacity: 0.8;
       pointer-events: none;
-      box-shadow: inset 0 0 260px rgba(147,112,219,0.06);
-      border-radius: 12px;
     }
 
-    /* Rectangular TV app tiles: wider min width -> app-like layout */
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* wider tiles */
-      gap: 28px; /* more spacing like TV rows */
-      align-items: center;
-      z-index: 2;
-      position: relative;
+    .ateaish-landing::before {
+      width: 380px;
+      height: 380px;
+      background: rgba(255, 255, 255, 0.04);
+      top: -8%;
+      left: -4%;
     }
 
-    .app-tile {
-      height: 180px;                /* rectangular, TV-app feel */
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03); /* subtle card */
+    .ateaish-landing::after {
+      width: 420px;
+      height: 420px;
+      background: rgba(255, 255, 255, 0.03);
+      right: -6%;
+      bottom: -8%;
+    }
+
+    body[data-landing="true"] .ateaish-landing {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s ease;
-      cursor: pointer;
+    }
+
+    .ateaish-landing__panel {
+      width: min(1260px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: 28px;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
       position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.03);
-      padding: 18px;
-      backdrop-filter: blur(4px);   /* slightly glassy */
-    }
-    .app-tile:hover {
-      transform: translateY(-14px) scale(1.03);
-      box-shadow: 0 40px 90px rgba(0,0,0,0.75), 0 0 40px rgba(147,112,219,0.08);
-    }
-
-    .app-logo {
-      width: 68%;
-      height: 72%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.65));
-    }
-
-    .app-label {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
-      text-align: center;
-      font-size: 13px;
-      color: #ffffff;
-      opacity: 0.95;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-      pointer-events: none;
-    }
-
-    .ambient-backdrop {
-      position: absolute;
-      width: 66%;
-      height: 220px;
-      right: -8%;
-      bottom: -80px;
-      background: rgb(0,0,0);
-      pointer-events: none;
       z-index: 1;
     }
 
-    /* responsive - keep rectangular but scale down */
-    @media (max-width: 1200px) {
-      .app-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-      .app-tile { height: 150px; padding: 14px; border-radius: 12px; }
-      .app-logo { width: 72%; height: 68%; filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6)); }
-       }
-    @media (max-width: 720px) {
-      .app-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-      .app-tile { height: 92px; padding: 8px; border-radius: 10px; }
-      .app-logo { width: 78%; height: 60%; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.45)); }
-      .tv-screen { min-height: 220px; padding: 12px; }
+    .ateaish-landing__button {
+      width: 56px;
+      height: 56px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0;
+      font: inherit;
+      font-size: 1.4rem;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.82);
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .section-title-tile {
-      width: 120px;
-      min-width: 120px;
-      max-width: 120px;
-      height: 64px;
+    .ateaish-landing__button:hover,
+    .ateaish-landing__button:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.38);
+      outline: none;
+    }
+
+    .ateaish-landing__grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-content: start;
+      width: min(1120px, 100%);
+    }
+
+    .ateaish-landing__card {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgb(0,0,0);
-      border-radius: 8px;
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      align-self: stretch;
-      justify-self: start;
-      padding: 12px;
-      flex-shrink: 0;
+      min-height: 160px;
+      padding: 18px;
+      border-radius: 28px;
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(180deg, rgba(7, 9, 10, 0.98), rgba(2, 3, 4, 0.98));
+      border: 0;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-    @media (max-width: 1200px) {
-      .section-title-tile {
-        width: 120px;
-        height: 64px;
-        border-radius: 8px;
-        font-size: 1rem;
-        padding: 10px;
-      }
+
+    .ateaish-landing__card::after {
+      content: "";
+      position: absolute;
+      inset: auto -18% -78% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 68%);
+      pointer-events: none;
     }
-    @media (max-width: 720px) {
-      .section-title-tile {
-        width: 120px;
-        height: 64px;
-        border-radius: 8px;
-        font-size: 0.95rem;
-        padding: 8px;
+
+    .ateaish-landing__card:hover,
+    .ateaish-landing__card:focus-visible {
+      transform: translateY(-4px);
+      background: linear-gradient(180deg, rgba(11, 13, 15, 0.98), rgba(3, 4, 5, 0.98));
+      box-shadow: 0 30px 68px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+
+    .ateaish-landing__card-media {
+      width: 100%;
+      min-height: 120px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+    }
+
+    .ateaish-landing__card-media.is-fallback {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .ateaish-landing__card-logo {
+      width: 100%;
+      height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .ateaish-landing__card-fallback {
+      color: #111;
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .site {
+      background: linear-gradient(180deg, rgba(12, 18, 20, 0.96), rgba(7, 10, 12, 0.94));
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+      height: 72px;
+      padding: 6px;
+    }
+
+    .site:hover {
+      box-shadow: 0 22px 46px rgba(0,0,0,0.34);
+    }
+
+    .site a {
+      border-radius: 12px;
+    }
+
+    .site img,
+    .site .placeholder-icon,
+    .site .text-logo-container {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 10px;
+    }
+
+    .site .text-logo-name {
+      color: #f5fffb;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+    }
+
+    .favorite-star {
+      top: 10px;
+      right: 12px;
+    }
+
+    .carousel-btn {
+      background-color: rgba(10, 15, 18, 0.88);
+      border-color: rgba(255, 255, 255, 0.08);
+      width: 46px;
+      height: 46px;
+    }
+
+    @media (max-width: 1180px) {
+      .ateaish-landing__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: min(760px, 100%);
       }
     }
 
-    .grid::-webkit-scrollbar, .slider::-webkit-scrollbar {
-      height: 10px;
-      background: transparent;
+    @media (max-width: 760px) {
+      .ateaish-landing {
+        padding: 18px 12px 28px;
+      }
+      .ateaish-landing__panel {
+        gap: 20px;
+      }
+      .ateaish-landing__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .ateaish-landing__card {
+        min-height: 132px;
+        padding: 14px;
+        border-radius: 22px;
+      }
+      .ateaish-landing__card-media {
+        min-height: 96px;
+        padding: 16px;
+      }
+      .ateaish-landing__card-logo {
+        height: 58px;
+      }
     }
-    .grid::-webkit-scrollbar-thumb, .slider::-webkit-scrollbar-thumb {
-      background: rgba(120,92,230,0.22);
-      border-radius: 8px;
-    }
-    .grid::-webkit-scrollbar-track, .slider::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .grid::-webkit-scrollbar-button, .slider::-webkit-scrollbar-button {
-      display: none;
-    }
-    /* For Firefox */
-    .grid, .slider {
-      scrollbar-color: rgba(120,92,230,0.22) transparent;
-      scrollbar-width: thin;
+
+    @media (max-width: 520px) {
+      .ateaish-landing__grid {
+        grid-template-columns: 1fr;
+      }
     }
   `;
   const style = document.createElement('style');
@@ -1663,103 +1883,7 @@ function injectHomepageStyles() {
 }
 
 function renderAppGrid() {
-  const contentGrid = document.querySelector('.content-grid') || document.body;
-  // remove existing homepage-tv if present
-  const existing = document.getElementById('homepage-tv');
-  if (existing) existing.remove();
-
-  const homepage = document.createElement('div');
-  homepage.id = 'homepage-tv';
-  homepage.className = 'homepage-tv';
-
-  const frame = document.createElement('div');
-  frame.className = 'tv-frame';
-
-  const screen = document.createElement('div');
-  screen.className = 'tv-screen';
-
-  const ambient = document.createElement('div');
-  ambient.className = 'ambient-backdrop';
-
-  const grid = document.createElement('div');
-  grid.className = 'app-grid';
-
-  // Pick a compact curated list (you can adjust order/content)
-  const curatedNames = [
-    'Netflix','Prime Video','Spotify','Vevo','BBC iPlayer',
-    'ITV Hub','My5','YouTube','Disney+','Amazon Prime'
-  ];
-
-  curatedNames.forEach(name => {
-    // try to find a matching entry in your TRADITIONAL_WEBSITES or loaded data
-    let siteObj = TRADITIONAL_WEBSITES.find(s => s.name && s.name.toLowerCase() === name.toLowerCase());
-    if (!siteObj) {
-      // try to search loaded data for same name
-      for (const sectionId in loadedFMHYData) {
-        if (!loadedFMHYData.hasOwnProperty(sectionId)) continue;
-        const arr = loadedFMHYData[sectionId];
-        if (Array.isArray(arr)) {
-          const found = arr.find(i => i.name && i.name.toLowerCase() === name.toLowerCase());
-          if (found) { siteObj = found; break; }
-        } else if (typeof arr === 'object' && arr !== null) {
-          for (const sub in arr) {
-            if (!arr.hasOwnProperty(sub)) continue;
-            const subarr = arr[sub];
-            if (Array.isArray(subarr)) {
-              const found = subarr.find(i => i.name && i.name.toLowerCase() === name.toLowerCase());
-              if (found) { siteObj = found; break; }
-            }
-          }
-          if (siteObj) break;
-        }
-      }
-    }
-    // fallback minimal object
-    if (!siteObj) siteObj = { name: name, url: '#' };
-
-    const tile = document.createElement('div');
-    tile.className = 'app-tile';
-    tile.title = siteObj.name || '';
-
-    const logoDiv = document.createElement('div');
-    logoDiv.className = 'app-logo';
-
-    // Resolve logo using existing helper (falls back gracefully)
-    const logoInfo = (typeof getWebsiteLogo === 'function') ? getWebsiteLogo(siteObj) : { src: getLogoUrlForSite(siteObj) };
-    const logoSrc = (logoInfo && logoInfo.src) ? logoInfo.src : getLogoUrlForSite(siteObj);
-
-    // set background image
-
-    logoDiv.style.backgroundImage = `url("${logoSrc}")`;
-
-    const label = document.createElement('div');
-    label.className = 'app-label';
-    label.textContent = siteObj.name;
-
-    // click behavior
-    tile.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (siteObj && siteObj.url && siteObj.url !== '#') {
-        window.open(siteObj.url, '_blank');
-      }
-    });
-
-    tile.appendChild(logoDiv);
-    tile.appendChild(label);
-    grid.appendChild(tile);
-  });
-
-  screen.appendChild(grid);
-  screen.appendChild(ambient);
-  frame.appendChild(screen);
-  homepage.appendChild(frame);
-
-  // Insert at top of content grid so it appears like hero area
-  if (contentGrid && contentGrid.firstChild) {
-    contentGrid.insertBefore(homepage, contentGrid.firstChild);
-  } else {
-    (document.body || document.documentElement).appendChild(homepage);
-  }
+  renderAteaishLanding();
 }
 
 // ---- END NEW additions ----
@@ -1885,9 +2009,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadLocalLogoManifest();
     await loadLocalFMHYData();
 
-    // Inject homepage styles and render the TV-style app grid hero
+    // Inject homepage styles and render the Ateaish landing view
     injectHomepageStyles();
-    try { renderAppGrid(); } catch (e) { console.warn('renderAppGrid failed', e); }
+    try { renderAteaishLanding(); } catch (e) { console.warn('renderAteaishLanding failed', e); }
 
     // Render the rest of the sections as before
     renderSectionsInOrder();

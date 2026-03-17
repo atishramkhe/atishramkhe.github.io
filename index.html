@@ -68,46 +68,61 @@
   </div>
 
   <main class="main-container">
-    <header>
-      <img src="assets/logo.png" alt="Ateaish Logo" id="logo">
-      <div class="header-spacer"></div>
-      <input type="text" id="search-bar" placeholder="Search for a site...">
-      <button id="settings-button" class="icon-button">☰</button>
-    </header>
+    <section id="ateaish-landing" class="ateaish-landing" aria-label="Ateaish websites">
+      <div class="ateaish-landing__panel">
+        <div id="ateaish-landing-grid" class="ateaish-landing__grid" aria-label="Ateaish websites"></div>
+        <button id="landing-show-more" class="ateaish-landing__button" type="button" aria-label="Show full directory">
+          <span aria-hidden="true">&#8595;</span>
+        </button>
+      </div>
+    </section>
 
-    <div class="content-grid" id="main-content">
-      <!-- Favorites Section -->
-      <div id="favorites" class="category">
-        <div class="section-header">
-          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+    <div id="directory-shell" class="directory-shell">
+      <header>
+        <img src="assets/logo.png" alt="Ateaish Logo" id="logo">
+        <div class="header-spacer"></div>
+        <input type="text" id="search-bar" placeholder="Search for a site...">
+        <button id="settings-button" class="icon-button">☰</button>
+      </header>
+
+      <button id="directory-back-to-landing" class="directory-back-to-landing" type="button" aria-label="Back to landing page">
+        <span aria-hidden="true">&#8593;</span>
+      </button>
+
+      <div class="content-grid" id="main-content">
+        <!-- Favorites Section -->
+        <div id="favorites" class="category">
+          <div class="section-header">
+            <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+          </div>
+          <div class="grid" id="favorites-grid"></div>
         </div>
-        <div class="grid" id="favorites-grid"></div>
+
+        <!-- Traditional Websites Section -->
+        <div id="traditional-websites" class="category">
+          <div class="section-header">
+            <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+          </div>
+          <div class="grid" id="traditional-websites-grid"></div>
+        </div>
+
+        <!-- Search Results Section (initially hidden) -->
+        <div id="search-results" class="category" style="display: none;">
+          <div class="section-header">
+            <h2>🔍 Search Results</h2>
+            <button class="carousel-btn prev" aria-label="Scroll left">←</button>
+          </div>
+          <div class="grid" id="search-results-grid"></div>
+        </div>
+
+        <!-- Dynamic sections will be added here by JavaScript -->
       </div>
 
-      <!-- Traditional Websites Section -->
-      <div id="traditional-websites" class="category">
-        <div class="section-header">
-          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
-        </div>
-        <div class="grid" id="traditional-websites-grid"></div>
-      </div>
+      <!-- Footer -->
+      <footer>
 
-      <!-- Search Results Section (initially hidden) -->
-      <div id="search-results" class="category" style="display: none;">
-        <div class="section-header">
-          <h2>🔍 Search Results</h2>
-          <button class="carousel-btn prev" aria-label="Scroll left">←</button>
-        </div>
-        <div class="grid" id="search-results-grid"></div>
-      </div>
-
-      <!-- Dynamic sections will be added here by JavaScript -->
+      </footer>
     </div>
-
-    <!-- Footer -->
-    <footer>
-
-    </footer>
   </main>
 
   

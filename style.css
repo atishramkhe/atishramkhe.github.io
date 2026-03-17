@@ -265,6 +265,47 @@ header {
   overflow: hidden;
   flex-shrink: 0;
 }
+
+#traditional-websites-grid .site.web-section-tile {
+  background: #000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+#traditional-websites-grid .site.web-section-tile a {
+  padding: 6px 10px;
+}
+
+#traditional-websites-grid .site.web-section-tile img,
+#traditional-websites-grid .site.web-section-tile .placeholder-icon,
+#traditional-websites-grid .site.web-section-tile .text-logo-container {
+  background: #000;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+#traditional-websites-grid .site.web-section-tile img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#traditional-websites-grid .site.web-section-tile .text-logo-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#traditional-websites-grid .site.web-section-tile .text-logo-name {
+  color: #111;
+}
+
+#traditional-websites-grid .site.web-section-tile .placeholder-icon {
+  color: #111;
+}
+
 .site:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(0,0,0,0.55);
@@ -288,9 +329,6 @@ header {
   text-align: center;
 }
 
-.site.favorite {
-  /* No outline or box-shadow for favorites */
-}
 .site .featured-crown {
   position: absolute; top: 4px; left: 4px; z-index: 2; font-size: 1rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.45));
