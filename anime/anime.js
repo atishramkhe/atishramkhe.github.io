@@ -28,49 +28,110 @@ function ensureAnimeProgressMessageListener() {
     _animeProgressMessageListenerInstalled = true;
 
     window.addEventListener('message', (event) => {
+        const session = currentAnimePlayerSession;
+        if (!session || !session.malId) return;
+
         const msg = event && event.data;
         if (!msg || typeof msg !== 'object') return;
-        if (msg.type !== 'ateaish_player_progress' && msg.type !== 'ateaish_player_ended') return;
 
-        // Validate current session
-        const session = currentAnimePlayerSession;
-        if (!session || !session.malId || !session.token) return;
-        if (String(msg.token || '') !== String(session.token)) return;
-        if (String(msg.malId || '') !== String(session.malId)) return;
+        let eventName = null;
+        let currentTime = null;
+        let duration = null;
+        let playerHost = session.playerHost || null;
+        let seasonValue = session.currentSeason ?? null;
+        let episodeValue = session.currentEpisode ?? null;
+        let bypassThrottle = false;
 
-        if (msg.type === 'ateaish_player_ended') {
+        if (msg.type === 'ateaish_player_progress' || msg.type === 'ateaish_player_ended') {
+            if (!session.token) return;
+            if (String(msg.token || '') !== String(session.token)) return;
+            if (String(msg.malId || '') !== String(session.malId)) return;
+
+            eventName = msg.type === 'ateaish_player_ended' ? 'complete' : 'time';
+            currentTime = Number(msg.currentTime);
+            duration = Number(msg.duration);
+            playerHost = msg.host ? String(msg.host).toLowerCase() : playerHost;
+        } else if (msg.type === 'PLAYER_EVENT') {
+            const origin = String(event.origin || '').toLowerCase();
+            if (!session.playerOrigin || origin !== String(session.playerOrigin).toLowerCase()) return;
+
+            const data = msg.data;
+            if (!data || typeof data !== 'object') return;
+
+            eventName = String(data.event || '').toLowerCase();
+            if (eventName !== 'time' && eventName !== 'pause' && eventName !== 'complete') return;
+
+            if (data.mediaType && String(data.mediaType).toLowerCase() === 'movie' && !session.isMovie) return;
+            if (data.mediaType && String(data.mediaType).toLowerCase() === 'tv' && session.isMovie) return;
+
+            currentTime = Number(data.currentTime);
+            duration = Number(data.duration);
+            if (Number.isFinite(Number(data.season)) && Number(data.season) > 0) {
+                seasonValue = `saison${Math.floor(Number(data.season))}`;
+            } else if (data.season != null && data.season !== '') {
+                seasonValue = String(data.season);
+            }
+            if (Number.isFinite(Number(data.episode)) && Number(data.episode) > 0) {
+                episodeValue = Math.floor(Number(data.episode));
+            }
+            bypassThrottle = eventName === 'pause' || eventName === 'complete';
+        } else {
+            return;
+        }
+
+        if (seasonValue != null) session.currentSeason = String(seasonValue);
+        if (Number.isFinite(Number(episodeValue)) && Number(episodeValue) > 0) {
+            session.currentEpisode = Math.floor(Number(episodeValue));
+        }
+
+        if (eventName === 'complete') {
+            const completedAt = Date.now();
+            upsertAnimeProgressRecord(session.malId, {
+                season: session.isMovie ? null : (session.currentSeason ?? null),
+                episode: session.isMovie ? null : (session.currentEpisode ?? null),
+                timestamp: Number.isFinite(duration) && duration > 0
+                    ? duration
+                    : (Number.isFinite(currentTime) && currentTime >= 0 ? currentTime : null),
+                duration: Number.isFinite(duration) && duration > 0 ? duration : null,
+                progress: 1,
+                playerHost: playerHost,
+                updatedAt: completedAt
+            });
+            try { loadAnimeContinueWatching(); } catch { }
             try { addAnimeToWatched(session.malId); } catch { }
             // Auto-next is only meaningful for series (not movies)
             if (session.isMovie) return;
             if (typeof session.onAutoNext !== 'function') return;
 
-            const now = Date.now();
-            if (session._lastAutoNextAt && now - session._lastAutoNextAt < 3000) return;
-            session._lastAutoNextAt = now;
+            const autoNextAt = Date.now();
+            if (session._lastAutoNextAt && autoNextAt - session._lastAutoNextAt < 3000) return;
+            session._lastAutoNextAt = autoNextAt;
 
             try { session.onAutoNext(); } catch { }
             return;
         }
 
-        const ts = Number(msg.currentTime);
-        const dur = Number(msg.duration);
-        const host = msg.host ? String(msg.host).toLowerCase() : null;
+        const ts = Number(currentTime);
+        const dur = Number(duration);
+        const host = playerHost;
 
         if (!Number.isFinite(ts) || ts < 0) return;
         if (!Number.isFinite(dur) || dur <= 0) return;
 
         // Throttle writes to avoid hammering localStorage
-        const now = Date.now();
-        if (session._lastSaveAt && now - session._lastSaveAt < 1500) return;
-        session._lastSaveAt = now;
+        const savedAt = Date.now();
+        if (!bypassThrottle && session._lastSaveAt && savedAt - session._lastSaveAt < 1500) return;
+        session._lastSaveAt = savedAt;
 
         const frac = Math.min(1, Math.max(0, ts / dur));
         upsertAnimeProgressRecord(session.malId, {
+            season: session.isMovie ? null : (session.currentSeason ?? null),
+            episode: session.isMovie ? null : (session.currentEpisode ?? null),
             timestamp: ts,
             duration: dur,
             progress: frac,
             playerHost: host,
-            updatedAt: now
+            updatedAt: savedAt
         });
         try { maybeAddAnimeToWatched(session.malId, frac); } catch { }
         try { loadAnimeContinueWatching(); } catch { }
@@ -296,6 +357,8 @@ function loadAnimeContinueWatching() {
                 season: raw.season ?? null,
                 episode: raw.episode ?? null,
                 episodesTotal: raw.episodesTotal ?? null,
+                timestamp: raw.timestamp ?? null,
+                duration: raw.duration ?? null,
                 playerHost: raw.playerHost ?? null,
                 playerGroup: raw.playerGroup ?? null,
                 updatedAt: raw.updatedAt ?? Date.now(),
@@ -1491,6 +1554,10 @@ async function openAnimeFromJikan(anime) {
         malId: String(malId),
         token: progressToken,
         isMovie: !!isMovie,
+        currentSeason: resumeSeasonWanted || 'saison1',
+        currentEpisode: !isMovie ? (Number.isFinite(resumeEpisodeWanted) && resumeEpisodeWanted > 0 ? resumeEpisodeWanted : 1) : null,
+        playerHost: resumePlayerHostWanted,
+        playerOrigin: null,
         onAutoNext: null,
         _lastAutoNextAt: 0,
         _lastSaveAt: 0
@@ -2012,6 +2079,20 @@ async function openAnimeFromJikan(anime) {
         // Decorate the URL so the userscript can report timing, and pass seek for resume.
         iframe.src = decoratePlayerUrl(url, { seekSeconds: getResumeSeekForCurrentEpisode() });
         activeSelection = { group: grp.key, idx };
+        try {
+            const parsed = new URL(grp.urls[idx]);
+            if (currentAnimePlayerSession) {
+                currentAnimePlayerSession.playerHost = (parsed.hostname || '').toLowerCase() || null;
+                currentAnimePlayerSession.playerOrigin = parsed.origin || null;
+                currentAnimePlayerSession.currentSeason = isMovie ? null : String(currentSeason);
+                currentAnimePlayerSession.currentEpisode = isMovie ? null : Number(currentEpisode);
+            }
+        } catch {
+            if (currentAnimePlayerSession) {
+                currentAnimePlayerSession.currentSeason = isMovie ? null : String(currentSeason);
+                currentAnimePlayerSession.currentEpisode = isMovie ? null : Number(currentEpisode);
+            }
+        }
         if (persistLastUsed) {
             sessionUserSelection = { group: grp.key, idx };
             setLastUsed(grp.key, grp.urls[idx]);
@@ -2073,7 +2154,27 @@ async function openAnimeFromJikan(anime) {
             }
         }
 
-        // 3) Fresh open fallback order: VOSTA source 1 first
+        // 3) Fresh open: try the last source saved for this anime.
+        if (resumePlayerGroupWanted) {
+            const grp = currentGroups.find(g => g.key === resumePlayerGroupWanted);
+            if (grp && grp.urls && grp.urls.length) {
+                const idx = pickIndexByHost(grp.urls, resumePlayerHostWanted);
+                switchToSelection({ group: grp.key, idx: idx == null ? 0 : idx }, { persistLastUsed: false });
+                return;
+            }
+        }
+
+        if (resumePlayerHostWanted) {
+            for (const grp of currentGroups) {
+                const idx = pickIndexByHost(grp.urls, resumePlayerHostWanted);
+                if (idx != null) {
+                    switchToSelection({ group: grp.key, idx }, { persistLastUsed: false });
+                    return;
+                }
+            }
+        }
+
+        // 4) Fall back to the preferred default order.
         const fallback = pickBestAvailableSelection(null, currentGroups);
         if (fallback) switchToSelection(fallback, { persistLastUsed: false });
     }
@@ -2231,6 +2332,7 @@ closePlayer.addEventListener('click', () => {
             currentAnimePlayerSession.onAutoNext = null;
         }
     } catch { }
+    currentAnimePlayerSession = null;
     playerContainer.style.display = 'none';
     searchContainer.style.display = 'flex';
     playerContent.innerHTML = '';
