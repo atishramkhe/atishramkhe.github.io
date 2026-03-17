@@ -28,9 +28,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80px;
-            border-bottom: 1px solid #000;
+            height: 96px;
+            border-bottom: 0;
             font-family:'OumaTrialBold','OumaTrialLight';
+            position: relative;
+            z-index: 2;
         }
         .logo-placeholder {
             width: 100px;
@@ -67,6 +69,7 @@
             border: none;
             position: relative;
             width: 100%;
+            z-index: 2;
         }
 
         #search-input-wrapper {
@@ -102,12 +105,96 @@
             margin-top: 1em;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 8px;
+            gap: 10px;
             padding: 20px 40px;
             width: 100%;
             max-width: 2000px;
             margin-left: auto;
             margin-right: auto;
+        }
+        #search-tools {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px 6px;
+            max-width: 1400px;
+        }
+        #search-tools.visible {
+            display: flex;
+        }
+        .search-filter-chip,
+        .search-filter-select {
+            background: #0d0d0d;
+            color: #cfcfcf;
+            border: 1px solid #242424;
+            border-radius: 999px;
+            font-family: 'OumaTrialLight';
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+        }
+        .search-filter-chip {
+            cursor: pointer;
+        }
+        .search-filter-chip:hover,
+        .search-filter-select:hover,
+        .search-filter-select:focus {
+            border-color: rgba(241, 137, 47, 0.5);
+            color: #fff;
+            outline: none;
+        }
+        .search-filter-chip.active {
+            background: rgba(241, 137, 47, 0.14);
+            border-color: #f1892f;
+            color: #f1892f;
+        }
+        .search-filter-select {
+            min-width: 132px;
+            cursor: pointer;
+        }
+        #search-status {
+            min-height: 20px;
+            padding: 0 40px;
+            color: #9d9d9d;
+            font-size: 0.82rem;
+            text-align: center;
+        }
+        #browse-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 18px 24px 4px;
+        }
+        .toggle-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 122px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: #0d0d0d;
+            color: #cfcfcf;
+            border: 1px solid #242424;
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+        }
+        .toggle-chip:hover {
+            transform: translateY(-1px);
+            border-color: rgba(241, 137, 47, 0.45);
+            color: #fff;
+        }
+        .toggle-chip.active {
+            background: rgba(241, 137, 47, 0.14);
+            border-color: #f1892f;
+            color: #f1892f;
+        }
+        .toggle-chip[data-state="off"] {
+            color: #909090;
         }
         .result-item {
             cursor: pointer;
@@ -144,7 +231,196 @@
             transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
         }
+            .anime-player-stage {
+                position: relative;
+                flex: 1 1 auto;
+                min-height: 0;
+                border-radius: 18px;
+                overflow: hidden;
+                background:
+                    radial-gradient(circle at top, rgba(241, 137, 47, 0.12), transparent 48%),
+                    #000;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            }
+            .anime-player-stage iframe {
+                width: 100%;
+                height: 100%;
+                display: block;
+                background: #000;
+            }
+            .anime-player-loading {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background:
+                    radial-gradient(circle at 24% 35%, rgba(255, 190, 92, 0.16), transparent 28%),
+                    radial-gradient(circle at 80% 66%, rgba(241, 137, 47, 0.18), transparent 24%),
+                    linear-gradient(135deg, rgba(6, 6, 6, 0.97), rgba(12, 12, 12, 0.92));
+                z-index: 5;
+                transition: opacity 0.24s ease, visibility 0.24s ease;
+            }
+            .anime-player-loading.hidden {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+            .anime-player-loading-card {
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                max-width: min(720px, 92%);
+                padding: 28px 30px;
+                border-radius: 24px;
+                border: 1px solid rgba(241, 137, 47, 0.22);
+                background: rgba(8, 8, 8, 0.72);
+                backdrop-filter: blur(14px);
+                box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
+            }
+            .anime-player-loading-figure {
+                position: relative;
+                width: clamp(150px, 22vw, 240px);
+                flex: 0 0 auto;
+            }
+            .anime-player-loading-figure img {
+                display: block;
+                width: 100%;
+                height: auto;
+                filter: drop-shadow(0 0 14px rgba(241, 137, 47, 0.24));
+                animation: anime-loading-float 1.8s ease-in-out infinite;
+            }
+            .anime-player-loading-beam {
+                position: absolute;
+                top: 54%;
+                left: 72%;
+                width: clamp(120px, 22vw, 220px);
+                height: 26px;
+                border-radius: 999px;
+                transform-origin: left center;
+                transform: translateY(-50%);
+                background: linear-gradient(90deg, rgba(255, 244, 189, 0.95), rgba(255, 191, 79, 0.88) 38%, rgba(241, 137, 47, 0.12) 100%);
+                box-shadow:
+                    0 0 18px rgba(255, 200, 91, 0.65),
+                    0 0 42px rgba(241, 137, 47, 0.34);
+                animation: anime-loading-beam 1.1s ease-in-out infinite;
+            }
+            .anime-player-loading-beam::before,
+            .anime-player-loading-beam::after {
+                content: '';
+                position: absolute;
+                inset: -8px 0;
+                border-radius: inherit;
+                background: inherit;
+                opacity: 0.52;
+                filter: blur(11px);
+            }
+            .anime-player-loading-copy {
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .anime-player-loading-kicker {
+                color: #f7bf58;
+                font-size: 0.78rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                font-family: 'OumaTrialBold', 'OumaTrialLight';
+            }
+            .anime-player-loading-title {
+                color: #fff8ec;
+                font-family: 'OumaTrialBold', 'OumaTrialLight';
+                font-size: clamp(1.2rem, 2vw, 1.9rem);
+                line-height: 1.05;
+            }
+            .anime-player-loading-subtitle {
+                color: rgba(255, 245, 234, 0.78);
+                font-size: 0.9rem;
+                max-width: 32ch;
+            }
+            .anime-player-loading-progress {
+                position: relative;
+                width: min(260px, 100%);
+                height: 8px;
+                overflow: hidden;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.08);
+            }
+            .anime-player-loading-progress::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                width: 42%;
+                border-radius: inherit;
+                background: linear-gradient(90deg, #fff0b4, #f7bf58, #f1892f);
+                box-shadow: 0 0 18px rgba(241, 137, 47, 0.48);
+                animation: anime-loading-progress 1s ease-in-out infinite;
+            }
+            .anime-player-footer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 40px;
+            }
+            #anime-skip-controls {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                padding: 7px 12px;
+                border-radius: 999px;
+                border: 1px solid rgba(241, 137, 47, 0.3);
+                background: rgba(17, 10, 2, 0.92);
+                box-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
+                backdrop-filter: blur(10px);
+                font-family: inherit;
+                font-size: 0.76rem;
+            }
+            #anime-skip-controls label {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                color: #f7bf58;
+                cursor: pointer;
+                user-select: none;
+                white-space: nowrap;
+            }
+            #anime-skip-controls input[type="checkbox"] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 13px;
+                height: 13px;
+                margin: 0;
+                border-radius: 4px;
+                border: 1px solid rgba(241, 137, 47, 0.72);
+                background: rgba(255, 255, 255, 0.04);
+                cursor: pointer;
+                position: relative;
+                transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+            }
+            #anime-skip-controls input[type="checkbox"]:checked {
+                background: linear-gradient(135deg, #f7bf58, #f1892f);
+                border-color: #f7bf58;
+                box-shadow: 0 0 10px rgba(241, 137, 47, 0.34);
+            }
+            #anime-skip-controls input[type="checkbox"]:checked::after {
+                content: '';
+                position: absolute;
+                left: 3px;
+                top: 1px;
+                width: 4px;
+                height: 7px;
+                border: solid #1a1103;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
         #close-player {
             position: absolute;
             top: 20px;
@@ -330,6 +606,18 @@
         .anime-settings-btn:hover {
             border-color: #777;
         }
+        @keyframes anime-loading-float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02); }
+        }
+        @keyframes anime-loading-beam {
+            0%, 100% { transform: translateY(-50%) scaleX(0.92); opacity: 0.84; }
+            50% { transform: translateY(-50%) scaleX(1.05); opacity: 1; }
+        }
+        @keyframes anime-loading-progress {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(300%); }
+        }
         .source-switcher button:disabled {
             opacity: 0.45;
             cursor: not-allowed;
@@ -357,7 +645,7 @@
         .grid, .anime-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 8px;
+            gap: 10px;
             padding: 40px;
             max-width: 2000px;
             margin: 0 auto;
@@ -369,7 +657,7 @@
             overflow: visible;
             box-shadow: 0 2px 12px #000a;
             transition: box-shadow 0.2s ease, transform 0.2s ease;
-            background: #000;
+            background: #090909;
             position: relative;
             transform-origin: top center;
             --hover-scale: 1.5;
@@ -386,14 +674,42 @@
             height: auto;
             display: block;
             aspect-ratio: 2 / 3;
-            object-fit: contain;
+            object-fit: cover;
             background: #000;
+        }
+
+        .poster-title-strip {
+            padding: 10px 10px 12px;
+            background: #0d0d0d;
+            min-height: 66px;
+            box-sizing: border-box;
+        }
+
+        .poster-title-main {
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            font-size: 0.95rem;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .poster-title-meta {
+            margin-top: 6px;
+            color: #b7b7b7;
+            font-size: 0.74rem;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .poster-info {
             display: none;
             position: absolute;
-            top: calc(100% + 0px);
+            top: calc(100% - 1px);
             left: 0;
             width: 100%;
             background: #000;
@@ -477,115 +793,57 @@
             padding: 0;
         }
 
-        /* Showcase (like /movies) */
-        #showcase {
-            position: relative;
-            width: 100%;
-            max-width: 2000px;
-            margin: 0 auto;
-            padding: 20px 40px 0 40px;
-            box-sizing: border-box;
-        }
-
-        #showcase-card {
-            position: relative;
-            width: 100%;
-            height: 420px;
-            border-radius: 14px;
-            overflow: hidden;
-            background: #000;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-        }
-
-        #showcase-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: saturate(1.05) contrast(1.05);
-            transform: scale(1.02);
-        }
-
-        #showcase-grad {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.05) 100%);
-        }
-
-        #showcase-content {
-            position: absolute;
-            left: 28px;
-            bottom: 24px;
-            right: 28px;
-            display: flex;
-            gap: 20px;
-            align-items: flex-end;
-        }
-
-        #showcase-poster {
-            width: 160px;
-            aspect-ratio: 2 / 3;
-            object-fit: cover;
-            box-shadow: 0 10px 28px rgba(0,0,0,0.7);
-            background: #000;
-        }
-
-        #showcase-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        #showcase-title {
-            font-family: 'OumaTrialBold', 'OumaTrialLight';
-            font-size: 2.2em;
-            margin: 0;
-            line-height: 1.05;
-        }
-
-        #showcase-meta {
-            margin-top: 10px;
-            opacity: 0.85;
-            font-family: 'OumaTrialLight';
-        }
-
-        #showcase-overview {
-            margin-top: 12px;
-            max-width: 880px;
-            font-family: 'OumaTrialLight';
-            line-height: 1.35;
-            opacity: 0.95;
-        }
-
-        #showcase-actions {
-            margin-top: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .showcase-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #000;
-            color: #f1892f;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
-            padding: 10px 12px;
-            cursor: pointer;
-            font-family: 'OumaTrialBold', 'OumaTrialLight';
-            box-shadow: 0 2px 12px #0006;
-        }
-
-        .showcase-btn:hover {
-            transform: scale(1.02);
-        }
-
         @media (max-width: 700px) {
-            #showcase-card { height: 360px; }
-            #showcase-content { left: 18px; right: 18px; }
-            #showcase-poster { width: 120px; }
-            #showcase-title { font-size: 1.6em; }
+            #browse-controls {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .anime-player-loading-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+                padding: 22px 18px;
+            }
+            .anime-player-loading-copy {
+                align-items: center;
+            }
+            .anime-player-loading-subtitle {
+                max-width: 28ch;
+            }
+            .anime-player-loading-beam {
+                top: 56%;
+                left: 62%;
+                width: 108px;
+                height: 18px;
+            }
+        }
+        @media (max-width: 640px) {
+            #anime-source-indicators {
+                top: 8px;
+                left: 10px;
+                right: 10px;
+                gap: 4px;
+            }
+            #season-episode-selector {
+                top: auto;
+                bottom: 12px;
+                width: calc(100% - 24px);
+                justify-content: center;
+                padding: 8px 10px;
+            }
+            #season-episode-selector select {
+                max-width: 46%;
+            }
+            #anime-skip-controls {
+                gap: 8px;
+                padding: 6px 10px;
+                font-size: 0.72rem;
+            }
+        }
+            #search-tools {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
             .floating-master-nav-slot {
                 right: 24px;
                 bottom: 118px;
@@ -611,35 +869,105 @@
                 <input type="text" id="search-input" placeholder="Search for anime...">
                 <button id="clear-search-btn" style="display:none;">&times;</button>
             </div>
+            <div id="search-tools">
+                <button class="search-filter-chip active" data-search-type="series">Series</button>
+                <button class="search-filter-chip" data-search-type="movie">Movies</button>
+                <button class="search-filter-chip" data-search-type="ova">OVA</button>
+                <button class="search-filter-chip" data-search-type="special">Special</button>
+                <select class="search-filter-select" id="search-status-filter">
+                    <option value="">Any Status</option>
+                    <option value="airing">Currently Airing</option>
+                    <option value="complete">Completed</option>
+                    <option value="upcoming">Upcoming</option>
+                </select>
+                <select class="search-filter-select" id="search-rating-filter">
+                    <option value="">Any Rating</option>
+                    <option value="g">G</option>
+                    <option value="pg">PG</option>
+                    <option value="pg13">PG-13</option>
+                    <option value="r17">R - 17+</option>
+                    <option value="r">R+</option>
+                    <option value="rx">Rx</option>
+                </select>
+                <select class="search-filter-select" id="search-genre-filter">
+                    <option value="">Any Genre</option>
+                    <option value="1">Action</option>
+                    <option value="2">Adventure</option>
+                    <option value="4">Comedy</option>
+                    <option value="8">Drama</option>
+                    <option value="10">Fantasy</option>
+                    <option value="14">Horror</option>
+                    <option value="22">Romance</option>
+                    <option value="24">Sci-Fi</option>
+                    <option value="30">Sports</option>
+                    <option value="36">Slice of Life</option>
+                    <option value="37">Supernatural</option>
+                    <option value="41">Suspense</option>
+                </select>
+                <select class="search-filter-select" id="search-theme-filter">
+                    <option value="">Any Theme</option>
+                    <option value="7">Adult Cast</option>
+                    <option value="50">Childcare</option>
+                    <option value="31">Iyashikei</option>
+                    <option value="38">Military</option>
+                    <option value="39">Parody</option>
+                    <option value="74">School</option>
+                    <option value="76">Survival</option>
+                    <option value="78">Time Travel</option>
+                    <option value="79">Video Game</option>
+                </select>
+                <select class="search-filter-select" id="search-demographic-filter">
+                    <option value="">Any Demographic</option>
+                    <option value="27">Shounen</option>
+                    <option value="25">Shoujo</option>
+                    <option value="42">Seinen</option>
+                    <option value="43">Josei</option>
+                    <option value="15">Kids</option>
+                </select>
+                <select class="search-filter-select" id="search-year-filter">
+                    <option value="">Any Year</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2020s">2020s</option>
+                    <option value="2010s">2010s</option>
+                    <option value="2000s">2000s</option>
+                    <option value="classic">Before 2000</option>
+                </select>
+                <select class="search-filter-select" id="search-season-filter">
+                    <option value="">Any Season</option>
+                    <option value="winter">Winter</option>
+                    <option value="spring">Spring</option>
+                    <option value="summer">Summer</option>
+                    <option value="fall">Fall</option>
+                </select>
+                <select class="search-filter-select" id="search-score-filter">
+                    <option value="">Any Score</option>
+                    <option value="9">9+ Excellent</option>
+                    <option value="8">8+ Great</option>
+                    <option value="7">7+ Good</option>
+                    <option value="6">6+ Decent</option>
+                </select>
+                <select class="search-filter-select" id="search-sort-filter">
+                    <option value="score_desc">Top Score</option>
+                    <option value="popularity">Most Popular</option>
+                    <option value="favorites">Most Favorited</option>
+                    <option value="start_date_desc">Newest First</option>
+                    <option value="start_date_asc">Oldest First</option>
+                    <option value="title_asc">A-Z</option>
+                </select>
+            </div>
+            <div id="search-status"></div>
             <div id="results"></div>
         </div>
 
-        <section id="showcase">
-            <div id="showcase-card">
-                <div id="showcase-bg"></div>
-                <div id="showcase-grad"></div>
-                <div id="showcase-content">
-                    <img id="showcase-poster" alt="Showcase poster" />
-                    <div id="showcase-text">
-                        <h2 id="showcase-title">Loading...</h2>
-                        <div id="showcase-meta"></div>
-                        <div id="showcase-overview"></div>
-                        <div id="showcase-actions" style="display:none;">
-                            <button id="showcase-play" class="showcase-btn" type="button">
-                                <span class="material-symbols-outlined">play_circle</span>
-                                Play
-                            </button>
-                            <button id="showcase-watchlater" class="showcase-btn" type="button">
-                                <span class="material-symbols-outlined">playlist_add</span>
-                                Watch Later
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="grid" id="showsGrid"></div>
+        <div id="browse-controls">
+            <button id="series-toggle" class="toggle-chip active" type="button">Series</button>
+            <button id="movie-toggle" class="toggle-chip" type="button">Movies</button>
+            <button id="adult-toggle" class="toggle-chip" data-state="off" type="button">Adult OFF</button>
+        </div>
     </main>
     
     <div id="player-container">
@@ -647,12 +975,12 @@
         <div id="player-content"></div>
     </div>
     
-    <section>
+        <section data-media="series" data-adult="safe">
       <h2>Trending Anime</h2>
       <div class="grid" id="trendingGrid"></div>
     </section>
     
-        <section id="continueSection">
+                <section id="continueSection" data-media="all" data-adult="all">
             <h2>
                 <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 2px;margin-bottom:4px;">
                     history
@@ -662,7 +990,22 @@
             <div class="grid" id="continueGrid"></div>
         </section>
 
-    <section id="watchLaterSection" style="display:none;">
+            <section id="suggestedSection" style="display:none;" data-media="series" data-adult="all">
+                <h2>Suggested For You</h2>
+                <div class="grid" id="suggestedGrid"></div>
+            </section>
+
+            <section data-media="series" data-adult="safe">
+              <h2>Trending Isekai</h2>
+              <div class="grid" id="isekaiTrendingGrid"></div>
+            </section>
+
+            <section data-media="series" data-adult="safe">
+              <h2>New Isekai</h2>
+              <div class="grid" id="isekaiNewGrid"></div>
+            </section>
+
+    <section id="watchLaterSection" style="display:none;" data-media="all" data-adult="all">
         <h2>
             <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 6px;">acute</span>
             Watch Later
@@ -670,35 +1013,38 @@
         <div class="grid" id="watchLaterGrid"></div>
     </section>
 
-    <section id="watchedSection" style="display:none;">
+    <section id="watchedSection" style="display:none;" data-media="all" data-adult="all">
         <h2>
             <span class="material-symbols-outlined" style="vertical-align: bottom; font-size: inherit; margin-right: 6px;">done_all</span>
             Watched
         </h2>
         <div class="grid" id="watchedGrid"></div>
     </section>
-    <section>
+    <section data-media="series" data-adult="safe">
       <h2>Top Airing</h2>
       <div class="grid" id="airingGrid"></div>
     </section>
-    <section>
+    <section data-media="series" data-adult="safe">
       <h2>Upcoming</h2>
       <div class="grid" id="upcomingGrid"></div>
     </section>
-    <section>
+    <section data-media="series" data-adult="safe">
       <h2>Top All Time</h2>
       <div class="grid" id="topGrid"></div>
     </section>
 
-        <section>
-            <h2>Ecchi</h2>
+        <section data-media="series" data-adult="adult">
+            <h2>Adult Series</h2>
             <div class="grid" id="adultGrid"></div>
         </section>
 
-                <!-- Movies are intentionally placed after the main episode-focused sections -->
-                <section>
-                    <h2>Top Movies & OVAs</h2>
+                <section data-media="movie" data-adult="safe" hidden>
+                    <h2>Trending Movies & OVAs</h2>
                     <div class="grid" id="moviesGrid"></div>
+                </section>
+                <section data-media="movie" data-adult="adult" hidden>
+                    <h2>Adult Movies</h2>
+                    <div class="grid" id="adultMoviesGrid"></div>
                 </section>
 
         <!-- Watch Later Button (like /movies) -->
@@ -748,21 +1094,6 @@
     <script src="anime.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('search-input');
-        const clearBtn = document.getElementById('clear-search-btn');
-        const results = document.getElementById('results');
-
-        searchInput.addEventListener('input', function() {
-            clearBtn.style.display = searchInput.value ? 'block' : 'none';
-        });
-
-        clearBtn.addEventListener('click', function() {
-            searchInput.value = '';
-            clearBtn.style.display = 'none';
-            results.innerHTML = '';
-            searchInput.focus();
-        });
-
         const watchLaterBtn = document.getElementById('watchlater-btn');
         if (watchLaterBtn) {
             watchLaterBtn.addEventListener('click', function() {
