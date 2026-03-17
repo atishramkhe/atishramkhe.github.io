@@ -63,6 +63,19 @@
       display: none;
     }
 
+    #loading-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 9999;
+      background: #000;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
     .page-shell {
       position: relative;
       z-index: 1;
@@ -882,6 +895,16 @@
   </style>
 </head>
 <body>
+  <script>
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const loadingSrc = isMobile
+      ? 'assets/Intro%20ateaish%20comics.mp4'
+      : 'assets/Intro%20ateaish%20comics.mp4';
+    document.write(
+      `<video id="loading-video" src="${loadingSrc}" autoplay muted playsinline preload="auto"></video>`
+    );
+  </script>
+
   <main class="page-shell">
     <header class="topbar">
       <a class="brand" href="/">
@@ -1006,5 +1029,33 @@
   <div id="quick-strip" class="quick-strip" aria-label="Quick navigation"></div>
 
   <script src="./app.js" defer></script>
+  <script>
+    (function() {
+      const loadingVideo = document.getElementById('loading-video');
+      if (!loadingVideo) return;
+
+      loadingVideo.muted = true;
+      loadingVideo.playsInline = true;
+
+      loadingVideo.play().catch(() => {});
+
+      function removeLoadingVideo() {
+        if (!loadingVideo.parentNode) return;
+        loadingVideo.style.opacity = '0';
+        setTimeout(() => {
+          if (loadingVideo.parentNode) loadingVideo.parentNode.removeChild(loadingVideo);
+        }, 600);
+      }
+
+      loadingVideo.addEventListener('ended', removeLoadingVideo, { once: true });
+
+      const MAX_FALLBACK_MS = 30000;
+      setTimeout(() => {
+        if (document.getElementById('loading-video')) removeLoadingVideo();
+      }, MAX_FALLBACK_MS);
+
+      loadingVideo.addEventListener('click', removeLoadingVideo);
+    })();
+  </script>
 </body>
 </html>

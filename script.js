@@ -386,6 +386,10 @@ const ATEAISH_WEBSITES = [
   { name: 'ateaish movies', url: 'https://atishramkhe.github.io/movies' },
   { name: 'ateaish TV', url: 'https://atishramkhe.github.io/tv' },
   { name: 'ateaish sport', url: 'https://atishramkhe.github.io/sport' },
+  { name: 'ateaish anime', url: 'https://atishramkhe.github.io/anime' },
+  { name: 'ateaish manga', url: 'https://atishramkhe.github.io/manga' },
+  { name: 'ateaish comics', url: 'https://atishramkhe.github.io/comics' },
+  { name: 'ateaish dramas', url: 'https://atishramkhe.github.io/drama' },
   { name: 'ateaish Radio', url: 'https://atishramkhe.github.io/radio' }
 ];
 // Helper function to safely parse JSON from localStorage
