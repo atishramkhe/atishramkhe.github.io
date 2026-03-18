@@ -218,6 +218,8 @@ const animeApiBridgeReadyPromise = new Promise((resolve) => {
 let animeApiBridgeRequestId = 0;
 const animeApiBridgePending = new Map();
 let animeProtectedRemoteCheckComplete = false;
+let aniListApiUnavailable = false;
+let aniListApiUnavailableLogged = false;
 
 window.addEventListener('message', (event) => {
     const message = event && event.data;
@@ -1692,6 +1694,9 @@ function sleep(ms) {
 const JIKAN_MIN_INTERVAL_MS = 900;
 let jikanRequestQueue = Promise.resolve();
 let jikanLastRequestAt = 0;
+const ANILIST_MIN_INTERVAL_MS = 900;
+let aniListRequestQueue = Promise.resolve();
+let aniListLastRequestAt = 0;
 
 function isJikanUrl(url) {
     return String(url || '').startsWith(JIKAN_BASE);
@@ -1709,6 +1714,58 @@ function enqueueJikanRequest(task) {
 
     jikanRequestQueue = next.then(() => undefined, () => undefined);
     return next;
+}
+
+function disableAniListApi(reason, error = null) {
+    aniListApiUnavailable = true;
+    if (aniListApiUnavailableLogged) return;
+    aniListApiUnavailableLogged = true;
+    if (error) {
+        console.warn(reason, error);
+        return;
+    }
+    console.warn(reason);
+}
+
+function enqueueAniListRequest(task) {
+    const next = aniListRequestQueue
+        .catch(() => undefined)
+        .then(async () => {
+            const waitMs = Math.max(0, ANILIST_MIN_INTERVAL_MS - (Date.now() - aniListLastRequestAt));
+            if (waitMs > 0) await sleep(waitMs);
+            aniListLastRequestAt = Date.now();
+            return task();
+        });
+
+    aniListRequestQueue = next.then(() => undefined, () => undefined);
+    return next;
+}
+
+async function fetchAniListGraphQL(query, variables = {}, timeoutMs = 15000) {
+    if (aniListApiUnavailable) return null;
+
+    const canUseProtectedRemote = await canUseAnimeProtectedRemoteSources(600);
+    if (!canUseProtectedRemote && !isLocalAnimeDev()) {
+        disableAniListApi('AniList requests are disabled on this host without the anime helper bridge.');
+        return null;
+    }
+
+    const params = new URLSearchParams({
+        query,
+        variables: JSON.stringify(variables || {})
+    });
+
+    try {
+        return await enqueueAniListRequest(() => fetchAnimeRemoteJson(`${ANILIST_GRAPHQL}/?${params.toString()}`, timeoutMs));
+    } catch (error) {
+        const message = String(error && error.message ? error.message : error || '');
+        if (message.includes('429') || message.includes('Failed to fetch') || message.includes('timeout')) {
+            disableAniListApi('AniList requests are temporarily unavailable; continuing without AniList mapping.', error);
+            return null;
+        }
+        console.warn('AniList request failed', error);
+        return null;
+    }
 }
 
 // Wrap fetch with simple retry & backoff to be kinder to Jikan API
@@ -1881,8 +1938,8 @@ async function fetchJikanAdultEntries({ movie = false, count = 24 } = {}) {
     const collected = new Map();
     const page = String(randomPage(10));
     const variants = [
-        { genres: '9', order_by: 'popularity', sort: 'desc', limit: '50', page },
-        { genres: '9', order_by: 'members', sort: 'desc', limit: '50', page: '1' }
+        { order_by: 'popularity', sort: 'desc', limit: '50', page },
+        { order_by: 'members', sort: 'desc', limit: '50', page: '1' }
     ];
 
     for (const variant of variants) {
@@ -2005,16 +2062,10 @@ async function searchAnime(query) {
 async function malToAniListId(malId) {
     if (!malId) return null;
     try {
-        const res = await fetch(ANILIST_GRAPHQL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-                query: 'query ($idMal: Int) { Media(idMal: $idMal, type: ANIME) { id } }',
-                variables: { idMal: malId }
-            })
-        });
-        if (!res.ok) throw new Error(`AniList HTTP ${res.status}`);
-        const json = await res.json();
+        const json = await fetchAniListGraphQL(
+            'query ($idMal: Int) { Media(idMal: $idMal, type: ANIME) { id } }',
+            { idMal: Number(malId) }
+        );
         return json && json.data && json.data.Media && json.data.Media.id ? json.data.Media.id : null;
     } catch (e) {
         console.error('Failed to resolve AniList id for MAL', malId, e);
@@ -2100,6 +2151,7 @@ async function getTmdbIdForAnimeMovie(anime) {
 // For sequels/spin-offs, walk AniList relations to find the first-season/base id
 async function resolveBaseAniListId(aniListId, maxDepth = 4) {
     if (!aniListId) return null;
+    if (aniListApiUnavailable) return aniListId;
     let currentId = aniListId;
     const visited = new Set();
 
@@ -2107,29 +2159,23 @@ async function resolveBaseAniListId(aniListId, maxDepth = 4) {
         if (visited.has(currentId)) break;
         visited.add(currentId);
         try {
-            const res = await fetch(ANILIST_GRAPHQL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    query: `query ($id: Int) {
-                        Media(id: $id, type: ANIME) {
-                            id
-                            relations {
-                                edges {
-                                    relationType
-                                    node { id }
-                                }
+            const json = await fetchAniListGraphQL(
+                `query ($id: Int) {
+                    Media(id: $id, type: ANIME) {
+                        id
+                        relations {
+                            edges {
+                                relationType
+                                node { id }
                             }
                         }
-                    }`,
-                    variables: { id: currentId }
-                })
-            });
-            if (!res.ok) {
-                console.warn('AniList HTTP for resolveBaseAniListId', res.status);
+                    }
+                }`,
+                { id: Number(currentId) }
+            );
+            if (!json || !json.data || !json.data.Media) {
                 break;
             }
-            const json = await res.json();
             const media = json && json.data && json.data.Media;
             const edges = media && media.relations && Array.isArray(media.relations.edges)
                 ? media.relations.edges
@@ -2140,7 +2186,7 @@ async function resolveBaseAniListId(aniListId, maxDepth = 4) {
             if (!prequelId || visited.has(prequelId)) break;
             currentId = prequelId;
         } catch (e) {
-            console.error('Failed to resolve base AniList id', aniListId, e);
+            console.warn('Failed to resolve base AniList id', aniListId, e);
             break;
         }
     }
@@ -2840,9 +2886,10 @@ async function getAnimePlaybackProfile(anime) {
         const resolved = await resolveSeriesSourceData(aniListId);
         const animeSamaPlayable = hasAnySeriesSources(resolved.sourceData);
         const nineAnimeSourceData = animeSamaPlayable ? null : (directNineAnimeSourceData || await resolveNineAnimeSourceData(anime));
+        const vidsrcPlayable = Boolean(malId || resolved.aniListId);
         return {
             isMovie: false,
-            playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes),
+            playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || vidsrcPlayable,
             tmdbId: null,
             aniListId: resolved.aniListId,
             sourceAniListId: resolved.sourceAniListId,
