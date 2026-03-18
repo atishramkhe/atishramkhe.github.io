@@ -16,6 +16,7 @@ const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
 const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
 const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 const NINE_ANIME_BASE = 'https://9animetv.to';
+const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 
 // Continue Watching (anime) - stored separately from /movies
@@ -75,6 +76,9 @@ function isAnimeMovieType(anime) {
 function isAdultAnime(anime) {
     const rating = String(anime?.rating || '').toLowerCase();
     if (rating.includes('rx') || rating.includes('hentai') || rating.includes('r+')) return true;
+
+    const directMeta = `${String(anime?._nineAnimeMetaText || '').toLowerCase()} ${String(anime?.title || '').toLowerCase()}`.trim();
+    if (directMeta && EXPLICIT_GENRE_NAMES.some((term) => directMeta.includes(term))) return true;
 
     const buckets = [];
     if (Array.isArray(anime?.genres)) buckets.push(...anime.genres);
@@ -449,6 +453,21 @@ function animeLegacyProgressKey(malId) {
     return id ? `${ANIME_LEGACY_PROGRESS_KEY_PREFIX}${id}_${ANIME_PROGRESS_TYPE}` : '';
 }
 
+function isAnimeProgressStorageKey(key) {
+    const text = String(key || '').trim();
+    return text.startsWith(ANIME_PROGRESS_KEY_PREFIX) || /^progress_.+_anime$/i.test(text);
+}
+
+function getAnimeProgressIdFromStorageKey(key) {
+    const text = String(key || '').trim();
+    if (!text) return '';
+    if (text.startsWith(ANIME_PROGRESS_KEY_PREFIX)) {
+        return text.slice(ANIME_PROGRESS_KEY_PREFIX.length).trim();
+    }
+    const legacyMatch = text.match(/^progress_(.+)_anime$/i);
+    return legacyMatch ? String(legacyMatch[1] || '').trim() : '';
+}
+
 function getAnimeProgressRecord(malId) {
     const key = animeProgressKey(malId);
     const legacyKey = animeLegacyProgressKey(malId);
@@ -475,13 +494,14 @@ function upsertAnimeProgressRecord(malId, patch) {
     const key = animeProgressKey(malId);
     if (!key) return;
     const existing = getAnimeProgressRecord(malId) || {};
+    const nextUpdatedAt = patch && patch.updatedAt != null ? patch.updatedAt : Date.now();
     const next = {
         id: String(malId),
         type: ANIME_PROGRESS_TYPE,
         mediaType: ANIME_PROGRESS_TYPE,
-        updatedAt: Date.now(),
         ...existing,
-        ...patch
+        ...patch,
+        updatedAt: nextUpdatedAt
     };
     try { localStorage.setItem(key, JSON.stringify(next)); } catch { }
 }
@@ -666,13 +686,11 @@ function getAnimeContinueWatchingItems() {
     const items = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (!key) continue;
-        const m = /^anime_progress_(\d+)$/i.exec(key) || /^progress_(\d+)_anime$/i.exec(key);
-        if (!m) continue;
+        if (!isAnimeProgressStorageKey(key)) continue;
         try {
             const raw = JSON.parse(localStorage.getItem(key) || 'null');
             if (!raw || typeof raw !== 'object') continue;
-            const id = String(raw.id ?? m[1] ?? '').trim();
+            const id = String(raw.id ?? getAnimeProgressIdFromStorageKey(key) ?? '').trim();
             if (!id) continue;
             items.push({
                 id,
@@ -981,8 +999,7 @@ function loadAnimeContinueWatching() {
                 const keysToRemove = [];
                 for (let i = 0; i < localStorage.length; i++) {
                     const k = localStorage.key(i);
-                    if (k && /^anime_progress_\d+$/i.test(k)) keysToRemove.push(k);
-                    if (k && /^progress_\d+_anime$/i.test(k)) keysToRemove.push(k);
+                    if (isAnimeProgressStorageKey(k)) keysToRemove.push(k);
                 }
                 keysToRemove.forEach(k => localStorage.removeItem(k));
                 loadAnimeContinueWatching();
@@ -1226,6 +1243,36 @@ function removeFromAnimeWatchLater(id) {
 
 async function openAnimeByMalId(malId) {
     if (!malId) return;
+    const directWatchId = parseNineAnimeSyntheticId(malId);
+    if (directWatchId) {
+        const progressRecord = getAnimeProgressRecord(malId) || {};
+        const watchLaterItem = getAnimeWatchLater().find((item) => String(item?.id || '').trim() === String(malId).trim()) || {};
+        const title = String(progressRecord.title || watchLaterItem.title || '').trim() || `9anime ${directWatchId}`;
+        const poster = String(progressRecord.poster || watchLaterItem.poster || '').trim();
+        const year = String(progressRecord.year || watchLaterItem.year || '').trim();
+        const episodesTotal = progressRecord.episodesTotal || watchLaterItem.episodes || '?';
+        const inferredType = Number(episodesTotal) === 1 ? 'Movie' : 'TV';
+        await openAnimeFromJikan({
+            mal_id: String(malId),
+            title,
+            title_english: title,
+            year,
+            episodes: episodesTotal,
+            type: inferredType,
+            images: {
+                jpg: {
+                    image_url: poster,
+                    small_image_url: poster,
+                    large_image_url: poster
+                }
+            },
+            _nineAnimeDirect: true,
+            _nineAnimeWatchId: directWatchId,
+            _nineAnimeWatchPath: ''
+        });
+        return;
+    }
+
     try {
         const suffix = adultContentEnabled ? '' : '?sfw';
         const data = await fetchJson(`${JIKAN_BASE}/anime/${malId}${suffix}`);
@@ -1817,16 +1864,11 @@ async function searchAnime(query) {
     resultsContainer.innerHTML = 'Searching...';
     setSearchStatus('Searching...');
     try {
-        const params = buildSearchParams(query);
-        const data = await fetchJson(`${JIKAN_BASE}/anime?${params.toString()}`);
-        const released = (data.data || []).filter(isReleasedAnime);
-        const available = await Promise.all(released.map(async (anime) => ({
-            anime,
-            profile: await getAnimePlaybackProfile(anime)
-        })));
-        const list = available
-            .filter(({ anime, profile }) => profile && profile.playable && animeMatchesAdultSetting(anime))
-            .map(({ anime }) => anime);
+        const directResults = await fetchNineAnimeSearchEntries(query);
+        const list = sortNineAnimeSearchEntries(
+            directResults.filter((anime) => animeMatchesSearchType(anime) && animeMatchesSearchYear(anime) && animeMatchesAdultSetting(anime)),
+            query
+        );
         if (!list.length) {
             resultsContainer.textContent = 'No results found.';
             setSearchStatus('No matching anime found for the current filters.');
@@ -1834,10 +1876,11 @@ async function searchAnime(query) {
         }
         resultsContainer.innerHTML = '';
         list.forEach((anime) => {
-            const card = createPosterCard(anime, openAnimeFromJikan);
+            const card = createPosterCard(anime, openAnimeFromBrowseEntry);
             resultsContainer.appendChild(card);
         });
-        setSearchStatus(`${list.length} results${adultContentEnabled ? ' including adult titles' : ''}.`);
+        const filterNote = hasUnsupportedDirectSearchFilters() ? ' Some advanced filters are unavailable in direct 9anime search.' : '';
+        setSearchStatus(`${list.length} direct 9anime results${adultContentEnabled ? ' including adult titles' : ''}.${filterNote}`);
     } catch (e) {
         console.error('Search failed', e);
         resultsContainer.textContent = 'Error fetching data. Please try again later.';
@@ -1992,6 +2035,7 @@ async function resolveBaseAniListId(aniListId, maxDepth = 4) {
 
 const animePlaybackProfileCache = new Map();
 const nineAnimeSearchCache = new Map();
+const nineAnimeSearchResultCache = new Map();
 const nineAnimeEpisodeListCache = new Map();
 const nineAnimeEpisodeSourceCache = new Map();
 const nineAnimeBrowseCache = new Map();
@@ -2059,7 +2103,64 @@ function scoreNineAnimeCandidate(candidate, titleCandidates) {
     return bestScore;
 }
 
-function parseNineAnimeBrowseResults(html, { movie = false } = {}) {
+function buildNineAnimeSyntheticId(watchId) {
+    const numericWatchId = Number(watchId);
+    return Number.isFinite(numericWatchId) && numericWatchId > 0
+        ? `${NINE_ANIME_DIRECT_ID_PREFIX}${numericWatchId}`
+        : '';
+}
+
+function parseNineAnimeSyntheticId(value) {
+    const match = String(value || '').trim().match(/^9anime:(\d+)$/i);
+    if (!match) return null;
+    const parsed = Number(match[1]);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function inferNineAnimeEntryType({ movie = false, title = '', metaText = '' } = {}) {
+    const haystack = `${String(title || '')} ${String(metaText || '')}`.toLowerCase();
+    if (movie || /\bmovie\b|\bfilm\b/.test(haystack)) return 'Movie';
+    if (/\bova\b/.test(haystack)) return 'OVA';
+    if (/\bspecial\b/.test(haystack)) return 'Special';
+    return 'TV';
+}
+
+function buildNineAnimeParsedEntry({ resolvedUrl, watchId, slug = '', title = '', poster = '', metaText = '', movie = false, searchResult = false } = {}) {
+    const normalizedTitle = String(title || '').replace(/\s+/g, ' ').trim();
+    if (!normalizedTitle || !resolvedUrl || !watchId) return null;
+
+    const normalizedMeta = String(metaText || '').replace(/\s+/g, ' ').trim();
+    const yearMatch = normalizedMeta.match(/(?:19|20)\d{2}/);
+    const episodeMatch = normalizedMeta.match(/Ep\s+([^\s!]+)/i);
+    const type = inferNineAnimeEntryType({ movie, title: normalizedTitle, metaText: normalizedMeta });
+    const syntheticId = buildNineAnimeSyntheticId(watchId);
+
+    return {
+        mal_id: syntheticId || null,
+        title: normalizedTitle,
+        title_english: normalizedTitle,
+        synopsis: '',
+        type,
+        episodes: episodeMatch ? episodeMatch[1] : '?',
+        year: yearMatch ? yearMatch[0] : '',
+        images: {
+            jpg: {
+                image_url: poster,
+                small_image_url: poster,
+                large_image_url: poster
+            }
+        },
+        _nineAnimeBrowse: true,
+        _nineAnimeDirect: true,
+        _nineAnimeSearchResult: !!searchResult,
+        _nineAnimeWatchId: Number(watchId),
+        _nineAnimeWatchPath: String(resolvedUrl.pathname || '').trim(),
+        _nineAnimeSlug: String(slug || '').trim(),
+        _nineAnimeMetaText: normalizedMeta,
+    };
+}
+
+function parseNineAnimeBrowseResults(html, { movie = false, searchResult = false } = {}) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const results = new Map();
 
@@ -2087,35 +2188,19 @@ function parseNineAnimeBrowseResults(html, { movie = false } = {}) {
         if (!title) return;
 
         const img = card.querySelector('img');
-        const poster = String(img?.getAttribute('data-src') || img?.getAttribute('data-original') || img?.getAttribute('src') || '')
-            .trim();
-
+        const poster = String(img?.getAttribute('data-src') || img?.getAttribute('data-original') || img?.getAttribute('src') || '').trim();
         const metaText = String(card.textContent || '').replace(/\s+/g, ' ').trim();
-        const yearMatch = metaText.match(/(?:19|20)\d{2}/);
-        const episodeMatch = metaText.match(/Ep\s+([^\s!]+)/i);
-        const normalizedMeta = metaText.toLowerCase();
-        const inferredMovie = movie || /\bmovie\b|\bfilm\b|\bova\b|\bspecial\b/.test(normalizedMeta) || /\bmovie\b|\bova\b|\bspecial\b/.test(title.toLowerCase());
-
-        results.set(resolvedUrl.pathname, {
-            mal_id: null,
+        const parsedEntry = buildNineAnimeParsedEntry({
+            resolvedUrl,
+            watchId: Number(match[2]),
+            slug: match[1],
             title,
-            title_english: title,
-            synopsis: '',
-            type: inferredMovie ? 'Movie' : 'TV',
-            episodes: episodeMatch ? episodeMatch[1] : '?',
-            year: yearMatch ? yearMatch[0] : '',
-            images: {
-                jpg: {
-                    image_url: poster,
-                    small_image_url: poster,
-                    large_image_url: poster
-                }
-            },
-            _nineAnimeBrowse: true,
-            _nineAnimeWatchId: Number(match[2]),
-            _nineAnimeWatchPath: resolvedUrl.pathname,
-            _nineAnimeMetaText: metaText,
+            poster,
+            metaText,
+            movie,
+            searchResult,
         });
+        if (parsedEntry) results.set(resolvedUrl.pathname, parsedEntry);
     });
 
     return Array.from(results.values());
@@ -2200,6 +2285,11 @@ async function resolveBrowseEntryToJikan(entry) {
 
 async function openAnimeFromBrowseEntry(entry) {
     if (!entry) return;
+    if (entry._nineAnimeSearchResult) {
+        await openAnimeFromJikan(entry);
+        return;
+    }
+
     const resolved = await resolveBrowseEntryToJikan(entry);
     if (resolved) {
         await openAnimeFromJikan(resolved);
@@ -2217,7 +2307,7 @@ async function openAnimeFromBrowseEntry(entry) {
 
 function parseNineAnimeSearchResults(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    const results = new Map();
+    const results = new Map(parseNineAnimeBrowseResults(html, { searchResult: true }).map((entry) => [entry._nineAnimeWatchPath, entry]));
 
     Array.from(doc.querySelectorAll('a[href*="/watch/"]')).forEach((anchor) => {
         const href = String(anchor.getAttribute('href') || '').trim();
@@ -2233,7 +2323,6 @@ function parseNineAnimeSearchResults(html) {
         const match = resolvedUrl.pathname.match(/^\/watch\/([^/?#]+?)-(\d+)\/?$/);
         if (!match) return;
 
-        const key = resolvedUrl.pathname;
         let title = String(anchor.getAttribute('title') || '').trim();
         if (!title) title = String(anchor.textContent || '').replace(/\s+/g, ' ').trim();
         if (!title) {
@@ -2243,18 +2332,117 @@ function parseNineAnimeSearchResults(html) {
         }
         if (!title) title = match[1].replace(/-/g, ' ');
 
-        const existing = results.get(key);
-        if (!existing || title.length > existing.title.length) {
-            results.set(key, {
-                title,
-                slug: match[1],
-                watchId: Number(match[2]),
-                watchPath: resolvedUrl.pathname
-            });
+        const card = anchor.closest('.flw-item, .item, .film-detail, .film-poster, .film_list-wrap .flw-item');
+        const img = card && card.querySelector('img');
+        const poster = String(img?.getAttribute('data-src') || img?.getAttribute('data-original') || img?.getAttribute('src') || '').trim();
+        const metaText = String(card?.textContent || anchor.textContent || '').replace(/\s+/g, ' ').trim();
+        const parsedEntry = buildNineAnimeParsedEntry({
+            resolvedUrl,
+            watchId: Number(match[2]),
+            slug: match[1],
+            title,
+            poster,
+            metaText,
+            searchResult: true,
+        });
+        if (!parsedEntry) return;
+
+        const existing = results.get(resolvedUrl.pathname);
+        if (!existing || String(parsedEntry.title || '').length > String(existing.title || '').length) {
+            results.set(resolvedUrl.pathname, parsedEntry);
         }
     });
 
     return Array.from(results.values());
+}
+
+function animeMatchesSearchType(anime) {
+    const type = String(anime?.type || '').toLowerCase();
+    if (activeSearchType === 'movie') return type === 'movie';
+    if (activeSearchType === 'ova') return type === 'ova';
+    if (activeSearchType === 'special') return type === 'special';
+    return type !== 'movie';
+}
+
+function animeMatchesSearchYear(anime) {
+    const yearFilter = getSearchFilterValue('search-year-filter');
+    if (!yearFilter) return true;
+
+    const year = Number(anime?.year || anime?.aired?.prop?.from?.year || 0);
+    if (!Number.isFinite(year) || year <= 0) return false;
+    if (/^\d{4}$/.test(yearFilter)) return year === Number(yearFilter);
+    if (yearFilter === '2020s') return year >= 2020 && year <= 2029;
+    if (yearFilter === '2010s') return year >= 2010 && year <= 2019;
+    if (yearFilter === '2000s') return year >= 2000 && year <= 2009;
+    if (yearFilter === 'classic') return year <= 1999;
+    return true;
+}
+
+function hasUnsupportedDirectSearchFilters() {
+    return [
+        'search-status-filter',
+        'search-rating-filter',
+        'search-genre-filter',
+        'search-theme-filter',
+        'search-demographic-filter',
+        'search-season-filter',
+        'search-score-filter'
+    ].some((id) => getSearchFilterValue(id));
+}
+
+function sortNineAnimeSearchEntries(items, query) {
+    const titleCandidates = [String(query || '').trim()].filter(Boolean);
+    const sortValue = getSearchFilterValue('search-sort-filter');
+    const ranked = [...items].sort((a, b) => {
+        const scoreDiff = scoreNineAnimeCandidate(b, titleCandidates) - scoreNineAnimeCandidate(a, titleCandidates);
+        if (scoreDiff) return scoreDiff;
+
+        const yearDiff = Number(b?.year || 0) - Number(a?.year || 0);
+        if (sortValue === 'start_date_desc' && yearDiff) return yearDiff;
+        if (sortValue === 'start_date_asc' && yearDiff) return -yearDiff;
+
+        return String(a?.title || '').localeCompare(String(b?.title || ''), undefined, { numeric: true, sensitivity: 'base' });
+    });
+
+    if (sortValue === 'title_asc') {
+        ranked.sort((a, b) => String(a?.title || '').localeCompare(String(b?.title || ''), undefined, { numeric: true, sensitivity: 'base' }));
+    }
+
+    return ranked;
+}
+
+async function fetchNineAnimeSearchEntries(query) {
+    const normalizedQuery = String(query || '').trim().toLowerCase();
+    if (!normalizedQuery) return [];
+    if (nineAnimeSearchResultCache.has(normalizedQuery)) return nineAnimeSearchResultCache.get(normalizedQuery);
+
+    const pending = (async () => {
+        const html = await fetchAnimeRemoteText(`${NINE_ANIME_BASE}/search?keyword=${encodeURIComponent(query)}`);
+        return parseNineAnimeSearchResults(html);
+    })().catch((error) => {
+        console.warn('9animetv direct search failed', query, error);
+        return [];
+    });
+
+    nineAnimeSearchResultCache.set(normalizedQuery, pending);
+    return pending;
+}
+
+async function resolveDirectNineAnimeSourceData(anime) {
+    const watchId = Number(anime?._nineAnimeWatchId || parseNineAnimeSyntheticId(anime?.mal_id));
+    if (!Number.isFinite(watchId) || watchId <= 0) return null;
+
+    const episodeList = await resolveNineAnimeEpisodeList(watchId);
+    if (!episodeList || !episodeList.totalEpisodes) return null;
+
+    return {
+        provider: '9animetv',
+        watchId,
+        watchPath: String(anime?._nineAnimeWatchPath || '').trim(),
+        title: String(anime?.title || anime?.title_english || '').trim(),
+        episodesByNumber: episodeList.episodesByNumber,
+        totalEpisodes: episodeList.totalEpisodes
+    };
 }
 
 async function resolveNineAnimeEpisodeList(watchId) {
@@ -2509,8 +2697,9 @@ async function getAnimePlaybackProfile(anime) {
 
     const pending = (async () => {
         const isMovie = (anime?.type || '').toLowerCase() === 'movie';
+        const directNineAnimeSourceData = await resolveDirectNineAnimeSourceData(anime);
         if (isMovie) {
-            const nineAnimeSourceData = await resolveNineAnimeSourceData(anime);
+            const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
             const tmdbId = await getTmdbIdForAnimeMovie(anime);
             return {
                 isMovie: true,
@@ -2528,7 +2717,7 @@ async function getAnimePlaybackProfile(anime) {
         if (aniListId) setCachedAniListId(malId, aniListId);
         const resolved = await resolveSeriesSourceData(aniListId);
         const animeSamaPlayable = hasAnySeriesSources(resolved.sourceData);
-        const nineAnimeSourceData = animeSamaPlayable ? null : await resolveNineAnimeSourceData(anime);
+        const nineAnimeSourceData = animeSamaPlayable ? null : (directNineAnimeSourceData || await resolveNineAnimeSourceData(anime));
         return {
             isMovie: false,
             playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes),
@@ -3635,6 +3824,7 @@ async function openAnimeFromJikan(anime) {
 
 async function resolveAniListId(malId) {
     if (!malId) return null;
+    if (parseNineAnimeSyntheticId(malId)) return null;
 
     // Prefer the direct AniList MAL mapping first (usually faster)
     try {
