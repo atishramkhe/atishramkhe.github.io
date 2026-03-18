@@ -147,23 +147,10 @@ button {
 }
 
 .search-form,
-.playlist-form,
-.api-settings-form {
+.playlist-form {
   display: flex;
   gap: 10px;
   align-items: end;
-}
-
-.api-settings-form {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.api-settings-form label {
-  display: grid;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: var(--muted);
 }
 
 input[type='search'],
@@ -197,7 +184,6 @@ input[type='url']:focus {
 
 .search-form button,
 .playlist-form button,
-.api-settings-form button,
 .primary-button,
 .secondary-button,
 .ghost-button,
@@ -209,7 +195,6 @@ input[type='url']:focus {
 
 .search-form button,
 .playlist-form button,
-.api-settings-form button,
 .primary-button {
   background: var(--accent);
   color: white;
@@ -230,7 +215,6 @@ input[type='url']:focus {
 
 .search-form button:hover,
 .playlist-form button:hover,
-.api-settings-form button:hover,
 .primary-button:hover,
 .secondary-button:hover,
 .ghost-button:hover,
@@ -241,7 +225,6 @@ input[type='url']:focus {
 
 .search-form button:hover,
 .playlist-form button:hover,
-.api-settings-form button:hover,
 .primary-button:hover {
   background: var(--accent-strong);
 }
@@ -393,10 +376,6 @@ input[type='url']:focus {
   .layout,
   .library-columns {
     grid-template-columns: 1fr;
-  }
-
-  .api-settings-form {
-    justify-content: start;
   }
 }
 

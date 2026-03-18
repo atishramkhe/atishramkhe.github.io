@@ -6,8 +6,6 @@
     "build:comics-reader": "node comics/update_reader_manifests.mjs",
     "build:comics-reader:tracked": "node comics/update_reader_manifests.mjs --source=tracked",
     "build:comics-reader:catalog": "node comics/update_reader_manifests.mjs --source=catalog --skip-existing",
-    "build:comics-reader:catalog:resume": "node comics/update_reader_manifests.mjs --source=catalog --skip-existing --resume",
-    "music:api": "npm --prefix ateaish_music_api run dev",
-    "music:api:start": "npm --prefix ateaish_music_api run start"
+    "build:comics-reader:catalog:resume": "node comics/update_reader_manifests.mjs --source=catalog --skip-existing --resume"
   }
 }

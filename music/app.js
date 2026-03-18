@@ -7,13 +7,9 @@ import { YouTubePlayerController } from './services/youtube-player.js';
 import { createStore } from './state/store.js';
 
 const store = createStore();
-const api = new MusicApi(() => store.getState().apiBase);
+const api = new MusicApi();
 
 const elements = {
-  backendStatus: document.getElementById('backend-status'),
-  providerStatus: document.getElementById('provider-status'),
-  apiForm: document.getElementById('api-settings-form'),
-  apiBaseInput: document.getElementById('api-base-input'),
   searchForm: document.getElementById('search-form'),
   searchInput: document.getElementById('search-input'),
   searchFeedback: document.getElementById('search-feedback'),
@@ -31,16 +27,6 @@ let playerController = null;
 let renderedTrackId = '';
 let playerIsPlaying = false;
 
-function isLocalApiBase(apiBase) {
-  if (!apiBase) return false;
-  try {
-    const url = new URL(apiBase, window.location.href);
-    return url.hostname === 'localhost' || url.hostname === '127.0.0.1';
-  } catch {
-    return false;
-  }
-}
-
 function formatProviderSummary(providers = {}) {
   if (providers.catalog || providers.playback || providers.storage) {
     return `Catalog: ${providers.catalog || 'unknown'} · Playback: ${providers.playback || 'unknown'} · Storage: ${providers.storage || 'unknown'}`;
@@ -51,27 +37,9 @@ function formatProviderSummary(providers = {}) {
 async function refreshHealth() {
   try {
     const payload = await api.health();
-    store.setHealth({
-      backendOk: true,
-      providerSummary: formatProviderSummary(payload.providers)
-    });
-    return true;
+    return formatProviderSummary(payload.providers);
   } catch (error) {
-    store.setHealth({
-      backendOk: false,
-      providerSummary: error.message
-    });
-    return false;
-  }
-}
-
-async function switchToStaticMode(feedback) {
-  store.setApiBase('');
-  await refreshHealth();
-  await refreshPlaylists();
-  await loadFeaturedTracks();
-  if (feedback) {
-    store.setFeedback(feedback);
+    return error.message;
   }
 }
 
@@ -80,7 +48,6 @@ async function loadFeaturedTracks() {
     const payload = await api.featured();
     store.setResults(payload.items || []);
     store.setFeedback('Featured tracks loaded. Search the catalog or press play.');
-    store.setHealth({ backendOk: true, providerSummary: formatProviderSummary(payload.providers) });
   } catch (error) {
     store.setFeedback(`Catalog failed to load: ${error.message}`);
   }
@@ -161,7 +128,6 @@ async function handleSearchSubmit(event) {
   try {
     const payload = await api.search(query);
     store.setResults(payload.items || []);
-    store.setHealth({ backendOk: true, providerSummary: formatProviderSummary(payload.providers) });
     store.setFeedback(`${payload.items?.length || 0} tracks found for “${query}”.`);
   } catch (error) {
     store.setResults([]);
@@ -264,23 +230,6 @@ async function handleSaveQueuePlaylist() {
 }
 
 function bindStaticEvents() {
-  if (elements.apiForm) {
-    elements.apiForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const formData = new FormData(elements.apiForm);
-      const apiBase = String(formData.get('apiBase') || '').trim();
-      store.setApiBase(apiBase);
-      const healthy = await refreshHealth();
-      if (apiBase && !healthy && isLocalApiBase(apiBase)) {
-        await switchToStaticMode(`API ${apiBase} was unreachable. Switched to static mode.`);
-        return;
-      }
-      await refreshPlaylists();
-      await loadFeaturedTracks();
-      store.setFeedback(apiBase ? `Optional API base updated to ${apiBase}.` : 'Switched to static mode.');
-    });
-  }
-
   elements.searchForm.addEventListener('submit', handleSearchSubmit);
   elements.resultsContainer.addEventListener('click', (event) => {
     void handleResultsClick(event);
@@ -312,17 +261,6 @@ function render(state) {
     playerController = null;
   }
   renderedTrackId = nextTrackId;
-  if (elements.backendStatus) {
-    elements.backendStatus.textContent = state.apiBase
-      ? (state.backendOk ? 'API Connected' : 'API Unavailable')
-      : 'Static Pages';
-  }
-  if (elements.providerStatus) {
-    elements.providerStatus.textContent = state.providerSummary;
-  }
-  if (elements.apiBaseInput) {
-    elements.apiBaseInput.value = state.apiBase;
-  }
   elements.searchFeedback.textContent = state.feedback;
   renderSearchView(elements.resultsContainer, state);
   if (shouldRenderPlayer) renderPlayerShell(elements.playerShell, state);
@@ -333,11 +271,7 @@ function render(state) {
 async function bootstrap() {
   bindStaticEvents();
   store.subscribe(render);
-  const healthy = await refreshHealth();
-  if (!healthy && isLocalApiBase(store.getState().apiBase)) {
-    await switchToStaticMode('Saved local API was unreachable. Switched to static mode.');
-    return;
-  }
+  await refreshHealth();
   await refreshPlaylists();
   await loadFeaturedTracks();
 }

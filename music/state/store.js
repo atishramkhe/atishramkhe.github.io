@@ -1,5 +1,4 @@
 const STORAGE_KEYS = {
-  apiBase: 'ateaish_music_api_base',
   queue: 'ateaish_music_queue',
   favorites: 'ateaish_music_favorites',
   recents: 'ateaish_music_recents'
@@ -34,9 +33,6 @@ function dedupeTracks(items) {
 export function createStore() {
   const listeners = new Set();
   let state = {
-    apiBase: localStorage.getItem(STORAGE_KEYS.apiBase) || '',
-    backendOk: true,
-    providerSummary: 'Static catalog · YouTube embed · Local playlists',
     feedback: 'Search the catalog or start with featured tracks.',
     results: [],
     queue: readJson(STORAGE_KEYS.queue, []),
@@ -57,7 +53,6 @@ export function createStore() {
     writeJson(STORAGE_KEYS.queue, state.queue);
     writeJson(STORAGE_KEYS.favorites, state.favorites);
     writeJson(STORAGE_KEYS.recents, state.recents);
-    localStorage.setItem(STORAGE_KEYS.apiBase, state.apiBase);
     emit();
   }
 
@@ -72,12 +67,6 @@ export function createStore() {
     },
     setFeedback(feedback) {
       setState({ feedback });
-    },
-    setApiBase(apiBase) {
-      setState({ apiBase: apiBase.replace(/\/+$/, '') });
-    },
-    setHealth({ backendOk, providerSummary }) {
-      setState({ backendOk, providerSummary });
     },
     setResults(results) {
       setState({ results });
