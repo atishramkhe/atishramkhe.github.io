@@ -217,6 +217,7 @@ const animeApiBridgeReadyPromise = new Promise((resolve) => {
 });
 let animeApiBridgeRequestId = 0;
 const animeApiBridgePending = new Map();
+let animeProtectedRemoteCheckComplete = false;
 
 window.addEventListener('message', (event) => {
     const message = event && event.data;
@@ -224,6 +225,7 @@ window.addEventListener('message', (event) => {
 
     if (message.type === 'ready') {
         animeApiBridgeReady = true;
+        animeProtectedRemoteCheckComplete = true;
         if (animeApiBridgeReadyResolve) animeApiBridgeReadyResolve(true);
         return;
     }
@@ -278,6 +280,18 @@ function fetchTextViaAnimeApiBridge(url, timeoutMs = 15000) {
 function isLocalAnimeDev() {
     const host = String(location.hostname || '').toLowerCase();
     return host === 'localhost' || host === '127.0.0.1';
+}
+
+function hasAnimeProtectedRemoteAccess() {
+    return animeApiBridgeReady || isLocalAnimeDev();
+}
+
+async function canUseAnimeProtectedRemoteSources(timeoutMs = 1200) {
+    if (hasAnimeProtectedRemoteAccess()) return true;
+    if (animeProtectedRemoteCheckComplete) return false;
+    const ready = await waitForAnimeApiBridge(timeoutMs);
+    animeProtectedRemoteCheckComplete = true;
+    return ready;
 }
 
 async function fetchAnimeRemoteText(url, timeoutMs = 15000) {
@@ -1675,13 +1689,37 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const JIKAN_MIN_INTERVAL_MS = 900;
+let jikanRequestQueue = Promise.resolve();
+let jikanLastRequestAt = 0;
+
+function isJikanUrl(url) {
+    return String(url || '').startsWith(JIKAN_BASE);
+}
+
+function enqueueJikanRequest(task) {
+    const next = jikanRequestQueue
+        .catch(() => undefined)
+        .then(async () => {
+            const waitMs = Math.max(0, JIKAN_MIN_INTERVAL_MS - (Date.now() - jikanLastRequestAt));
+            if (waitMs > 0) await sleep(waitMs);
+            jikanLastRequestAt = Date.now();
+            return task();
+        });
+
+    jikanRequestQueue = next.then(() => undefined, () => undefined);
+    return next;
+}
+
 // Wrap fetch with simple retry & backoff to be kinder to Jikan API
 async function fetchJson(url, maxRetries = 4) {
     let delay = 800;
     let lastError = null;
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
-            const res = await fetch(url);
+            const res = isJikanUrl(url)
+                ? await enqueueJikanRequest(() => fetch(url))
+                : await fetch(url);
             if (res.status === 429) {
                 // Rate limited: respect Retry-After if present, otherwise backoff
                 if (attempt === maxRetries) throw new Error(`HTTP 429`);
@@ -1825,12 +1863,70 @@ function renderNineAnimeBrowseCardsIntoGrid(grid, items) {
     });
 }
 
+async function fetchJikanSearchEntries(query) {
+    const params = buildSearchParams(query);
+    let url = `${JIKAN_BASE}/anime?${params.toString()}`;
+    if (!adultContentEnabled) url += '&sfw';
+
+    const data = await fetchJson(url, 2);
+    return (Array.isArray(data?.data) ? data.data : []).filter((anime) => {
+        if (!animeMatchesSearchType(anime)) return false;
+        if (!animeMatchesSearchYear(anime)) return false;
+        if (!animeMatchesAdultSetting(anime)) return false;
+        return true;
+    });
+}
+
+async function fetchJikanAdultEntries({ movie = false, count = 24 } = {}) {
+    const collected = new Map();
+    const page = String(randomPage(10));
+    const variants = [
+        { genres: '9', order_by: 'popularity', sort: 'desc', limit: '50', page },
+        { genres: '9', order_by: 'members', sort: 'desc', limit: '50', page: '1' }
+    ];
+
+    for (const variant of variants) {
+        const params = new URLSearchParams(variant);
+        if (movie) params.set('type', 'movie');
+
+        try {
+            const data = await fetchJson(`${JIKAN_BASE}/anime?${params.toString()}`, 2);
+            const picks = Array.isArray(data?.data) ? data.data : [];
+            picks.forEach((anime) => {
+                const key = String(anime?.mal_id || '').trim();
+                if (!key || collected.has(key)) return;
+                if (!isReleasedAnime(anime)) return;
+                if (!isAdultAnime(anime)) return;
+                if (movie ? !isAnimeMovieType(anime) : isAnimeMovieType(anime)) return;
+                collected.set(key, anime);
+            });
+            if (collected.size >= count) break;
+        } catch (error) {
+            console.warn('Failed to fetch Jikan adult entries', movie ? 'movie' : 'series', error);
+        }
+    }
+
+    return Array.from(collected.values()).slice(0, count);
+}
+
+const sectionRetryCounts = new Map();
+
+function scheduleSectionRetry(url, gridId, options, delayMs, maxRetries = 1) {
+    const key = `${gridId}:${url}`;
+    const attempts = Number(sectionRetryCounts.get(key) || 0);
+    if (attempts >= maxRetries) return false;
+    sectionRetryCounts.set(key, attempts + 1);
+    setTimeout(() => loadSection(url, gridId, options), delayMs);
+    return true;
+}
+
 async function loadSection(url, gridId, options = {}) {
     const grid = document.getElementById(gridId);
     if (!grid) return;
     grid.innerHTML = '';
     try {
         const data = await fetchJson(url, 5);
+        sectionRetryCounts.delete(`${gridId}:${url}`);
         const list = data.data || [];
         const filtered = list.filter((anime) => {
             if (options.releasedOnly !== false && !isReleasedAnime(anime)) return false;
@@ -1845,11 +1941,11 @@ async function loadSection(url, gridId, options = {}) {
         console.error('Failed to load section', gridId, e);
         const msg = e && e.message ? String(e.message) : '';
         if (msg.includes('429')) {
-            grid.innerHTML = '<div>Rate limited, retrying...</div>';
-            setTimeout(() => loadSection(url, gridId, options), 6000);
+            const retrying = scheduleSectionRetry(url, gridId, options, 8000, 1);
+            grid.innerHTML = retrying ? '<div>Rate limited, retrying once...</div>' : '<div>Rate limited. Try again later.</div>';
         } else {
-            grid.innerHTML = '<div>Failed to load. Retrying...</div>';
-            setTimeout(() => loadSection(url, gridId, options), 2500);
+            const retrying = scheduleSectionRetry(url, gridId, options, 3000, 1);
+            grid.innerHTML = retrying ? '<div>Failed to load. Retrying once...</div>' : '<div>Failed to load.</div>';
         }
     }
 }
@@ -1864,23 +1960,41 @@ async function searchAnime(query) {
     resultsContainer.innerHTML = 'Searching...';
     setSearchStatus('Searching...');
     try {
-        const directResults = await fetchNineAnimeSearchEntries(query);
-        const list = sortNineAnimeSearchEntries(
-            directResults.filter((anime) => animeMatchesSearchType(anime) && animeMatchesSearchYear(anime) && animeMatchesAdultSetting(anime)),
-            query
-        );
-        if (!list.length) {
+        const unsupportedDirectFilters = hasUnsupportedDirectSearchFilters();
+        const canUseDirectNineAnime = !unsupportedDirectFilters && await canUseAnimeProtectedRemoteSources();
+
+        if (canUseDirectNineAnime) {
+            const directResults = await fetchNineAnimeSearchEntries(query);
+            const directList = sortNineAnimeSearchEntries(
+                directResults.filter((anime) => animeMatchesSearchType(anime) && animeMatchesSearchYear(anime) && animeMatchesAdultSetting(anime)),
+                query
+            );
+
+            if (directList.length) {
+                resultsContainer.innerHTML = '';
+                directList.forEach((anime) => {
+                    const card = createPosterCard(anime, openAnimeFromBrowseEntry);
+                    resultsContainer.appendChild(card);
+                });
+                setSearchStatus(`${directList.length} direct 9anime results${adultContentEnabled ? ' including adult titles' : ''}.`);
+                return;
+            }
+        }
+
+        const jikanResults = await fetchJikanSearchEntries(query);
+        if (!jikanResults.length) {
             resultsContainer.textContent = 'No results found.';
             setSearchStatus('No matching anime found for the current filters.');
             return;
         }
+
         resultsContainer.innerHTML = '';
-        list.forEach((anime) => {
-            const card = createPosterCard(anime, openAnimeFromBrowseEntry);
-            resultsContainer.appendChild(card);
-        });
-        const filterNote = hasUnsupportedDirectSearchFilters() ? ' Some advanced filters are unavailable in direct 9anime search.' : '';
-        setSearchStatus(`${list.length} direct 9anime results${adultContentEnabled ? ' including adult titles' : ''}.${filterNote}`);
+        renderAnimeCardsIntoGrid(resultsContainer, jikanResults, { clickable: true });
+
+        const reason = unsupportedDirectFilters
+            ? 'Advanced filters are using Jikan search.'
+            : (!canUseDirectNineAnime && !isLocalAnimeDev() ? 'Using Jikan because direct 9anime search is unavailable here.' : 'Using Jikan search.');
+        setSearchStatus(`${jikanResults.length} Jikan results. ${reason}`);
     } catch (e) {
         console.error('Search failed', e);
         resultsContainer.textContent = 'Error fetching data. Please try again later.';
@@ -2207,6 +2321,8 @@ function parseNineAnimeBrowseResults(html, { movie = false, searchResult = false
 }
 
 async function fetchNineAnimeBrowseEntries({ genre = 'ecchi', genres = null, movie = false, count = 24 } = {}) {
+    if (!await canUseAnimeProtectedRemoteSources()) return [];
+
     const genreList = Array.isArray(genres) && genres.length
         ? genres.map((value) => String(value || '').trim()).filter(Boolean)
         : [String(genre || '').trim()].filter(Boolean);
@@ -2414,6 +2530,7 @@ function sortNineAnimeSearchEntries(items, query) {
 async function fetchNineAnimeSearchEntries(query) {
     const normalizedQuery = String(query || '').trim().toLowerCase();
     if (!normalizedQuery) return [];
+    if (!await canUseAnimeProtectedRemoteSources()) return [];
     if (nineAnimeSearchResultCache.has(normalizedQuery)) return nineAnimeSearchResultCache.get(normalizedQuery);
 
     const pending = (async () => {
@@ -2429,6 +2546,8 @@ async function fetchNineAnimeSearchEntries(query) {
 }
 
 async function resolveDirectNineAnimeSourceData(anime) {
+    if (!await canUseAnimeProtectedRemoteSources()) return null;
+
     const watchId = Number(anime?._nineAnimeWatchId || parseNineAnimeSyntheticId(anime?.mal_id));
     if (!Number.isFinite(watchId) || watchId <= 0) return null;
 
@@ -2447,6 +2566,7 @@ async function resolveDirectNineAnimeSourceData(anime) {
 
 async function resolveNineAnimeEpisodeList(watchId) {
     if (!watchId) return null;
+    if (!await canUseAnimeProtectedRemoteSources()) return null;
     if (nineAnimeEpisodeListCache.has(watchId)) return nineAnimeEpisodeListCache.get(watchId);
 
     const pending = (async () => {
@@ -2486,6 +2606,8 @@ async function resolveNineAnimeEpisodeList(watchId) {
 }
 
 async function resolveNineAnimeSourceData(anime) {
+    if (!await canUseAnimeProtectedRemoteSources()) return null;
+
     const cacheKey = String(anime?.mal_id || anime?.title || anime?.title_english || anime?.title_japanese || 'unknown');
     if (nineAnimeSearchCache.has(cacheKey)) return nineAnimeSearchCache.get(cacheKey);
 
@@ -3900,24 +4022,15 @@ async function loadAdultSection(gridId, { movie = false, count = 24 } = {}) {
     if (!grid) return;
     grid.innerHTML = 'Loading...';
     try {
-        const nineAnimePicks = await fetchNineAnimeBrowseEntries({ genres: NINE_ANIME_ADULT_BROWSE_GENRES, movie, count });
-        if (nineAnimePicks.length) {
-            renderNineAnimeBrowseCardsIntoGrid(grid, nineAnimePicks);
-            return;
+        if (await canUseAnimeProtectedRemoteSources(700)) {
+            const nineAnimePicks = await fetchNineAnimeBrowseEntries({ genres: NINE_ANIME_ADULT_BROWSE_GENRES, movie, count });
+            if (nineAnimePicks.length) {
+                renderNineAnimeBrowseCardsIntoGrid(grid, nineAnimePicks);
+                return;
+            }
         }
 
-        const params = new URLSearchParams({
-            genres: ADULT_GENRE_IDS.join(','),
-            order_by: 'popularity',
-            sort: 'desc',
-            limit: '50',
-            page: String(randomPage(10))
-        });
-        if (movie) params.set('type', 'movie');
-        const data = await fetchJson(`${JIKAN_BASE}/anime?${params.toString()}`, 5);
-        const picks = (data.data || [])
-            .filter((anime) => isReleasedAnime(anime) && isAdultAnime(anime) && (movie ? isAnimeMovieType(anime) : !isAnimeMovieType(anime)))
-            .slice(0, count);
+        const picks = await fetchJikanAdultEntries({ movie, count });
 
         if (!picks.length) {
             grid.innerHTML = '<div>No adult anime available.</div>';
@@ -4055,6 +4168,7 @@ function loadHomeSections() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    void canUseAnimeProtectedRemoteSources(1500);
     bindSearchControls();
     bindBrowseControls();
     setActiveSearchType(DEFAULT_SEARCH_TYPE);
