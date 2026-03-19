@@ -383,43 +383,26 @@
                 font-family: inherit;
                 font-size: 0.76rem;
             }
-            #anime-skip-controls label {
+            #anime-skip-controls .anime-skip-toggle {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
+                justify-content: center;
+                min-width: 220px;
+                padding: 8px 14px;
+                border-radius: 999px;
+                border: 1px solid rgba(241, 137, 47, 0.45);
+                background: rgba(255, 255, 255, 0.03);
                 color: #f7bf58;
                 cursor: pointer;
                 user-select: none;
                 white-space: nowrap;
+                transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, color 0.16s ease;
             }
-            #anime-skip-controls input[type="checkbox"] {
-                appearance: none;
-                -webkit-appearance: none;
-                width: 13px;
-                height: 13px;
-                margin: 0;
-                border-radius: 4px;
-                border: 1px solid rgba(241, 137, 47, 0.72);
-                background: rgba(255, 255, 255, 0.04);
-                cursor: pointer;
-                position: relative;
-                transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
-            }
-            #anime-skip-controls input[type="checkbox"]:checked {
+            #anime-skip-controls .anime-skip-toggle.active {
                 background: linear-gradient(135deg, #f7bf58, #f1892f);
                 border-color: #f7bf58;
                 box-shadow: 0 0 10px rgba(241, 137, 47, 0.34);
-            }
-            #anime-skip-controls input[type="checkbox"]:checked::after {
-                content: '';
-                position: absolute;
-                left: 3px;
-                top: 1px;
-                width: 4px;
-                height: 7px;
-                border: solid #1a1103;
-                border-width: 0 2px 2px 0;
-                transform: rotate(45deg);
+                color: #1a1103;
             }
         #close-player {
             position: absolute;
@@ -461,6 +444,7 @@
             background: #222;
             cursor: pointer;
             transition: background .2s, transform .2s, box-shadow .2s;
+            position: relative;
         }
 
         #anime-source-indicators .indicator.active {
@@ -470,6 +454,23 @@
 
         #anime-source-indicators .indicator:hover {
             transform: scale(1.3);
+        }
+
+        #anime-source-indicators .indicator:hover::after {
+            content: attr(data-source-name);
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 8px);
+            transform: translateX(-50%);
+            padding: 5px 8px;
+            border-radius: 8px;
+            background: rgba(8, 8, 8, 0.92);
+            color: #fff;
+            font-size: 11px;
+            line-height: 1.2;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
         }
 
         /* Legacy pill buttons (no longer used, kept for safety) */

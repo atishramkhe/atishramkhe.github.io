@@ -2990,17 +2990,27 @@ function renderSkipCheckboxes(malId) {
     container = document.createElement('div');
     container.id = 'anime-skip-controls';
     
-    // Skip Intro checkbox
-    const introLabel = document.createElement('label');
-    const introCheckbox = document.createElement('input');
-    introCheckbox.type = 'checkbox';
-    introCheckbox.checked = settings.skipIntro;
-    introCheckbox.addEventListener('change', (e) => {
-        const newSettings = { 
-            skipIntro: e.target.checked, 
-            skipOutro: settings.skipOutro 
+    const skipToggleButton = document.createElement('button');
+    skipToggleButton.type = 'button';
+    skipToggleButton.className = 'anime-skip-toggle';
+
+    const applySkipToggleState = (nextSettings) => {
+        const enabled = !!(nextSettings && nextSettings.skipIntro && nextSettings.skipOutro);
+        skipToggleButton.classList.toggle('active', enabled);
+        skipToggleButton.textContent = enabled ? 'Auto Skip Intro/Outro ON' : 'Auto Skip Intro/Outro OFF';
+        skipToggleButton.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+    };
+
+    applySkipToggleState(settings);
+    skipToggleButton.addEventListener('click', () => {
+        const currentSettings = getAnimeSkipSettings(malId);
+        const enabled = !!(currentSettings && currentSettings.skipIntro && currentSettings.skipOutro);
+        const newSettings = {
+            skipIntro: !enabled,
+            skipOutro: !enabled
         };
         setAnimeSkipSettings(malId, newSettings);
+        applySkipToggleState(newSettings);
         sendAnimePlayerHook({
             malId,
             aniListId: window.currentAniListId,
@@ -3012,35 +3022,8 @@ function renderSkipCheckboxes(malId) {
             switchToSelection(activeSelection, { persistLastUsed: false });
         }
     });
-    introLabel.appendChild(introCheckbox);
-    introLabel.appendChild(document.createTextNode('Skip Intro'));
-    container.appendChild(introLabel);
-    
-    // Skip Outro checkbox
-    const outroLabel = document.createElement('label');
-    const outroCheckbox = document.createElement('input');
-    outroCheckbox.type = 'checkbox';
-    outroCheckbox.checked = settings.skipOutro;
-    outroCheckbox.addEventListener('change', (e) => {
-        const newSettings = { 
-            skipIntro: settings.skipIntro, 
-            skipOutro: e.target.checked 
-        };
-        setAnimeSkipSettings(malId, newSettings);
-        sendAnimePlayerHook({
-            malId,
-            aniListId: window.currentAniListId,
-            episodeNumber: window.currentEpisodeNumber,
-            seasonNumber: window.currentSeasonNumber,
-            ...newSettings,
-        });
-        if (activeSelection && activeSelection.group) {
-            switchToSelection(activeSelection, { persistLastUsed: false });
-        }
-    });
-    outroLabel.appendChild(outroCheckbox);
-    outroLabel.appendChild(document.createTextNode('Skip Outro'));
-    container.appendChild(outroLabel);
+
+    container.appendChild(skipToggleButton);
     
     footer.appendChild(container);
 }
@@ -3052,10 +3035,11 @@ async function openAnimeFromJikan(anime) {
     currentAnimePlayerOpenToken = openToken;
 
     let resolvedEpisodes = Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null;
-    if (!isMovie) {
-        resolvedEpisodes = await resolveAnimeEpisodeCount(anime);
-        if (currentAnimePlayerOpenToken !== openToken) return;
-    }
+    const resolvedEpisodesPromise = !isMovie
+        ? (Number.isFinite(Number(resolvedEpisodes)) && Number(resolvedEpisodes) > 0
+            ? Promise.resolve(Number(resolvedEpisodes))
+            : resolveAnimeEpisodeCount(anime))
+        : Promise.resolve(resolvedEpisodes);
 
     // Install message listener once (for timing capture via userscript)
     ensureAnimeProgressMessageListener();
@@ -3092,20 +3076,6 @@ async function openAnimeFromJikan(anime) {
         _lastSaveAt: 0
     };
 
-    upsertAnimeProgressRecord(malId, {
-        title: titleForProgress,
-        poster: postersForProgress.medium,
-        year: yearForProgress,
-        episodesTotal: episodesTotalForProgress,
-        season: resumeSeasonWanted || 'saison1',
-        episode: !isMovie ? (Number.isFinite(resumeEpisodeWanted) && resumeEpisodeWanted > 0 ? resumeEpisodeWanted : 1) : null,
-        playerGroup: resumePlayerGroupWanted,
-        playerHost: resumePlayerHostWanted,
-        progress: 0
-    });
-    try { loadAnimeContinueWatching(); } catch { }
-
-    // Open overlay immediately (perceived performance)
     playerContainer.style.display = 'block';
     searchContainer.style.display = 'none';
     playerContent.innerHTML = `
@@ -3127,21 +3097,41 @@ async function openAnimeFromJikan(anime) {
         </div>
     `;
 
-    // Remove any previous dynamic controls
+    // Remove any previous dynamic controls right away so the shell is clean while loading.
     playerContainer.querySelectorAll('#season-episode-selector, #anime-player-controls, #anime-settings-btn, #anime-source-indicators, #anime-prev-episode, #anime-next-episode').forEach(el => el.remove());
 
     const playbackProfilePromise = getAnimePlaybackProfile(anime);
+    const cachedAniListId = getCachedAniListId(malId);
+    let aniListId = cachedAniListId || null;
+    const aniListIdPromise = cachedAniListId
+        ? Promise.resolve(cachedAniListId)
+        : resolveAniListId(malId).then((resolvedAniListId) => {
+            if (resolvedAniListId) setCachedAniListId(malId, resolvedAniListId);
+            return resolvedAniListId;
+        }).catch(() => null);
 
-    // Resolve AniList id opportunistically for AniSkip/userscript metadata.
-    const cached = getCachedAniListId(malId);
-    let aniListId = cached || await resolveAniListId(malId);
-    if (currentAnimePlayerOpenToken !== openToken) return;
-    if (aniListId) setCachedAniListId(malId, aniListId);
+    upsertAnimeProgressRecord(malId, {
+        title: titleForProgress,
+        poster: postersForProgress.medium,
+        year: yearForProgress,
+        episodesTotal: episodesTotalForProgress,
+        season: resumeSeasonWanted || 'saison1',
+        episode: !isMovie ? (Number.isFinite(resumeEpisodeWanted) && resumeEpisodeWanted > 0 ? resumeEpisodeWanted : 1) : null,
+        playerGroup: resumePlayerGroupWanted,
+        playerHost: resumePlayerHostWanted,
+        progress: 0
+    });
+    try { loadAnimeContinueWatching(); } catch { }
 
     let seriesSourceData = null;
     let nineAnimeSourceData = null;
     const playbackProfile = await playbackProfilePromise;
     if (currentAnimePlayerOpenToken !== openToken) return;
+    resolvedEpisodes = await resolvedEpisodesPromise;
+    if (currentAnimePlayerOpenToken !== openToken) return;
+    const resolvedAniListId = await aniListIdPromise;
+    if (currentAnimePlayerOpenToken !== openToken) return;
+    if (resolvedAniListId) aniListId = resolvedAniListId;
     if (playbackProfile && playbackProfile.aniListId) {
         aniListId = playbackProfile.aniListId;
     }
@@ -3387,6 +3377,15 @@ async function openAnimeFromJikan(anime) {
         return [val].filter(Boolean);
     }
 
+    function getSourceDisplayName(url, fallbackLabel, index) {
+        try {
+            const parsed = new URL(url);
+            return parsed.hostname.replace(/^www\./i, '');
+        } catch {
+            return `${fallbackLabel || 'Source'} ${Number(index) + 1}`;
+        }
+    }
+
     async function buildSourceGroups(season, episode) {
         if (isMovie) {
             const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
@@ -3626,6 +3625,18 @@ async function openAnimeFromJikan(anime) {
     const arrows = isMovie ? null : ensureEpisodeArrows();
     let iframeLoadVersion = 0;
 
+    function syncActiveAnimePlayerHook() {
+        const settings = getAnimeSkipSettings(malId);
+        sendAnimePlayerHook({
+            malId,
+            aniListId: window.currentAniListId,
+            episodeNumber: currentEpisode,
+            seasonNumber: currentSeason,
+            absoluteEpisodeNumber: computeAbsoluteEpisode(currentSeason, currentEpisode),
+            ...settings,
+        });
+    }
+
     function showPlayerLoading() {
         if (playerLoadingOverlay) playerLoadingOverlay.classList.remove('hidden');
     }
@@ -3636,6 +3647,9 @@ async function openAnimeFromJikan(anime) {
 
     iframe.addEventListener('load', () => {
         hidePlayerLoading();
+        syncActiveAnimePlayerHook();
+        setTimeout(syncActiveAnimePlayerHook, 250);
+        setTimeout(syncActiveAnimePlayerHook, 1200);
     });
 
     function persistContinueWatchingFromSelection(groupKey, url) {
@@ -3793,6 +3807,8 @@ async function openAnimeFromJikan(anime) {
             setLastUsed(grp.key, grp.urls[idx]);
         }
 
+        syncActiveAnimePlayerHook();
+
         // Continue Watching: remember the exact player used (hostname + group)
         persistContinueWatchingFromSelection(grp.key, grp.urls[idx]);
 
@@ -3838,6 +3854,9 @@ async function openAnimeFromJikan(anime) {
                 dot.className = 'indicator';
                 dot.dataset.group = group.key;
                 dot.dataset.idx = String(idx);
+                const sourceName = getSourceDisplayName(u, group.label, idx);
+                dot.dataset.sourceName = sourceName;
+                dot.title = sourceName;
                 dot.setAttribute('aria-label', `${group.label} source ${idx + 1}`);
                 dot.addEventListener('click', () => switchToSelection({ group: group.key, idx }, { persistLastUsed: true }));
                 container.appendChild(dot);
