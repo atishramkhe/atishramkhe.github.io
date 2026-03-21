@@ -1761,12 +1761,6 @@ function enqueueAniListRequest(task) {
 async function fetchAniListGraphQL(query, variables = {}, timeoutMs = 15000) {
     if (aniListApiUnavailable) return null;
 
-    const canUseProtectedRemote = await canUseAnimeProtectedRemoteSources(600);
-    if (!canUseProtectedRemote && !isLocalAnimeDev()) {
-        disableAniListApi('AniList requests are disabled on this host without the anime helper bridge.');
-        return null;
-    }
-
     const params = new URLSearchParams({
         query,
         variables: JSON.stringify(variables || {})
@@ -1954,17 +1948,20 @@ async function fetchJikanSearchEntries(query) {
 async function fetchJikanAdultEntries({ movie = false, count = 24 } = {}) {
     const collected = new Map();
     const page = String(randomPage(10));
-    const variants = [
-        { order_by: 'popularity', sort: 'desc', limit: '50', page },
-        { order_by: 'members', sort: 'desc', limit: '50', page: '1' }
-    ];
+    const urls = movie
+        ? [
+            `${JIKAN_BASE}/top/anime?type=movie&filter=bypopularity&limit=50&page=${page}`,
+            `${JIKAN_BASE}/top/anime?type=movie&limit=50&page=1`
+        ]
+        : [
+            `${JIKAN_BASE}/anime?order_by=popularity&sort=desc&limit=50&page=${page}`,
+            `${JIKAN_BASE}/anime?order_by=members&sort=desc&limit=50&page=1`
+        ];
 
-    for (const variant of variants) {
-        const params = new URLSearchParams(variant);
-        if (movie) params.set('type', 'movie');
+    for (const url of urls) {
 
         try {
-            const data = await fetchJson(`${JIKAN_BASE}/anime?${params.toString()}`, 2);
+            const data = await fetchJson(url, 2);
             const picks = Array.isArray(data?.data) ? data.data : [];
             picks.forEach((anime) => {
                 const key = String(anime?.mal_id || '').trim();
