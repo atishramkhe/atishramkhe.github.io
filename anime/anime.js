@@ -1761,13 +1761,26 @@ function enqueueAniListRequest(task) {
 async function fetchAniListGraphQL(query, variables = {}, timeoutMs = 15000) {
     if (aniListApiUnavailable) return null;
 
-    const params = new URLSearchParams({
-        query,
-        variables: JSON.stringify(variables || {})
-    });
-
     try {
-        return await enqueueAniListRequest(() => fetchAnimeRemoteJson(`${ANILIST_GRAPHQL}/?${params.toString()}`, timeoutMs));
+        return await enqueueAniListRequest(async () => {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(ANILIST_GRAPHQL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ query, variables: variables || {} }),
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        });
     } catch (error) {
         const message = String(error && error.message ? error.message : error || '');
         if (message.includes('429') || message.includes('Failed to fetch') || message.includes('timeout')) {
@@ -1950,8 +1963,8 @@ async function fetchJikanAdultEntries({ movie = false, count = 24 } = {}) {
     const page = String(randomPage(10));
     const urls = movie
         ? [
-            `${JIKAN_BASE}/top/anime?type=movie&filter=bypopularity&limit=50&page=${page}`,
-            `${JIKAN_BASE}/top/anime?type=movie&limit=50&page=1`
+            `${JIKAN_BASE}/top/anime?filter=bypopularity&limit=50&page=${page}`,
+            `${JIKAN_BASE}/top/anime?limit=50&page=1`
         ]
         : [
             `${JIKAN_BASE}/anime?order_by=popularity&sort=desc&limit=50&page=${page}`,
@@ -4534,7 +4547,7 @@ function loadHomeSections() {
     }, 1900);
 
     setTimeout(() => {
-        loadSection(`${JIKAN_BASE}/top/anime?type=movie&filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'moviesGrid', { media: 'movie' });
+        loadSection(`${JIKAN_BASE}/top/anime?filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'moviesGrid', { media: 'movie' });
     }, 2400);
 
     setTimeout(() => {
