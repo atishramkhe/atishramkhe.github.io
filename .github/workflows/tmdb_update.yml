@@ -24,6 +24,10 @@ jobs:
           pip install requests
           pip install beautifulsoup4
 
+      - name: Validate Einthusan scraper import
+        run: python -c "import einthusan_bollywood; print('einthusan_bollywood import OK')"
+        working-directory: ./movies
+
       - name: Run TMDB and Netflix scripts
         run: |
           python tmdb.py
