@@ -1,0 +1,45 @@
+name: Refresh Anime-Sama DB
+
+on:
+  schedule:
+    - cron: '25 3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: anime-sama-db-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh Anime-Sama database
+        env:
+          ANIME_SAMA_MAX_ANIME_PER_RUN: '90'
+          ANIME_SAMA_MAX_WORKERS: '10'
+          ANIME_SAMA_ROTATION_BUCKETS: '30'
+          ANIME_SAMA_ROTATION_REFRESH_DAYS: '14'
+          ANIME_SAMA_HOT_DAYS: '120'
+          ANIME_SAMA_HOT_REFRESH_HOURS: '18'
+          ANIME_SAMA_RETRY_HOURS: '24'
+        run: python anime/update_anime_sama_db.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add anime/anime_sama.db
+          git diff --cached --quiet || git commit -m "Automated update: refresh anime_sama.db"
+          git push

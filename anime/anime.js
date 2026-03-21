@@ -16,6 +16,7 @@ const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
 const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
 const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 const NINE_ANIME_BASE = 'https://9animetv.to';
+const ANIME_SAMA_BASE = 'https://anime-sama.to';
 const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 
@@ -1259,17 +1260,19 @@ function removeFromAnimeWatchLater(id) {
 
 async function openAnimeByMalId(malId) {
     if (!malId) return;
-    const directWatchId = parseNineAnimeSyntheticId(malId);
+    const progressRecord = getAnimeProgressRecord(malId) || {};
+    const watchLaterItem = getAnimeWatchLater().find((item) => String(item?.id || '').trim() === String(malId).trim()) || {};
+
+    const storedWatchId = Number(progressRecord.nineAnimeWatchId || watchLaterItem.nineAnimeWatchId || 0);
+    const directWatchId = parseNineAnimeSyntheticId(malId) || (Number.isFinite(storedWatchId) && storedWatchId > 0 ? storedWatchId : null);
     if (directWatchId) {
-        const progressRecord = getAnimeProgressRecord(malId) || {};
-        const watchLaterItem = getAnimeWatchLater().find((item) => String(item?.id || '').trim() === String(malId).trim()) || {};
         const title = String(progressRecord.title || watchLaterItem.title || '').trim() || `9anime ${directWatchId}`;
         const poster = String(progressRecord.poster || watchLaterItem.poster || '').trim();
         const year = String(progressRecord.year || watchLaterItem.year || '').trim();
         const episodesTotal = progressRecord.episodesTotal || watchLaterItem.episodes || '?';
         const inferredType = Number(episodesTotal) === 1 ? 'Movie' : 'TV';
         await openAnimeFromJikan({
-            mal_id: String(malId),
+            mal_id: parseNineAnimeSyntheticId(malId) ? String(malId) : buildNineAnimeSyntheticId(directWatchId),
             title,
             title_english: title,
             year,
@@ -1284,9 +1287,23 @@ async function openAnimeByMalId(malId) {
             },
             _nineAnimeDirect: true,
             _nineAnimeWatchId: directWatchId,
-            _nineAnimeWatchPath: ''
+            _nineAnimeWatchPath: String(progressRecord.nineAnimeWatchPath || watchLaterItem.nineAnimeWatchPath || '').trim()
         });
         return;
+    }
+
+    const candidateTitle = String(progressRecord.title || watchLaterItem.title || '').trim();
+    if (candidateTitle) {
+        try {
+            const directResults = await fetchNineAnimeSearchEntries(candidateTitle);
+            const bestDirectEntry = sortNineAnimeSearchEntries(directResults || [], candidateTitle)[0] || null;
+            if (bestDirectEntry && Number(bestDirectEntry._nineAnimeWatchId) > 0) {
+                await openAnimeFromJikan(bestDirectEntry);
+                return;
+            }
+        } catch (error) {
+            console.warn('Failed to resolve direct 9anime continue-watching entry', candidateTitle, error);
+        }
     }
 
     try {
@@ -2077,6 +2094,9 @@ async function malToAniListId(malId) {
 const MAL_TO_ANILIST_CACHE_PREFIX = 'anime_mal_to_anilist:';
 const malToAniListCache = new Map();
 const animeSamaSeasonsCache = new Map();
+const animeSamaSlugCache = new Map();
+const animeSamaPageCache = new Map();
+const animeSamaEpisodesScriptCache = new Map();
 let currentAnimePlayerOpenToken = null;
 
 function getCachedAniListId(malId) {
@@ -2106,8 +2126,209 @@ async function getAnimeSamaSeasonsEpisodesCached(aniListId) {
     if (!aniListId) return null;
     if (animeSamaSeasonsCache.has(aniListId)) return animeSamaSeasonsCache.get(aniListId);
     const data = await getAnimeSamaSeasonsEpisodes(aniListId);
-    animeSamaSeasonsCache.set(aniListId, data);
+    if (data) animeSamaSeasonsCache.set(aniListId, data);
     return data;
+}
+
+function getAbsoluteAnimeSamaUrl(path, baseUrl = `${ANIME_SAMA_BASE}/`) {
+    try {
+        return new URL(String(path || '').trim(), baseUrl).toString();
+    } catch {
+        return null;
+    }
+}
+
+function extractAnimeSamaRouteInfo(routePath, slug, baseUrl = `${ANIME_SAMA_BASE}/catalogue/${slug}/`) {
+    const absoluteUrl = getAbsoluteAnimeSamaUrl(routePath, baseUrl);
+    if (!absoluteUrl || !slug) return null;
+
+    try {
+        const parsed = new URL(absoluteUrl);
+        const parts = parsed.pathname.split('/').filter(Boolean);
+        const catalogueIndex = parts.indexOf('catalogue');
+        if (catalogueIndex === -1 || parts[catalogueIndex + 1] !== slug) return null;
+
+        const tail = parts.slice(catalogueIndex + 2);
+        if (tail.length < 2) return null;
+
+        const lang = String(tail[tail.length - 1] || '').trim().toLowerCase();
+        if (lang !== 'vostfr' && lang !== 'vf') return null;
+
+        const seasonKey = tail.slice(0, -1).join('/').trim();
+        if (!seasonKey) return null;
+
+        return {
+            key: `${seasonKey}:${lang}`,
+            slug,
+            seasonKey,
+            lang,
+            pageUrl: parsed.toString()
+        };
+    } catch {
+        return null;
+    }
+}
+
+function parseAnimeSamaPanelRoutes(html, slug) {
+    const routes = [];
+    const routePattern = /panneauAnime\("([^"]+)",\s*"([^"]+)"\)/g;
+    let match;
+    while ((match = routePattern.exec(String(html || '')))) {
+        const label = String(match[1] || '').trim();
+        const routePath = String(match[2] || '').trim();
+        if (!label || !routePath || (label === 'nom' && routePath === 'url')) continue;
+        const info = extractAnimeSamaRouteInfo(routePath, slug);
+        if (info) routes.push(info);
+    }
+    return routes;
+}
+
+function parseAnimeSamaSiblingLanguageRoutes(html, slug, pageUrl) {
+    const routes = [];
+    const doc = new DOMParser().parseFromString(String(html || ''), 'text/html');
+    Array.from(doc.querySelectorAll('a[href]')).forEach((anchor) => {
+        const href = String(anchor.getAttribute('href') || '').trim();
+        if (!href || href.startsWith('#') || /^javascript:/i.test(href)) return;
+        const info = extractAnimeSamaRouteInfo(href, slug, pageUrl);
+        if (info) routes.push(info);
+    });
+    return routes;
+}
+
+function parseAnimeSamaEpisodeSourceArrays(scriptText) {
+    const sources = [];
+    const sourcePattern = /var\s+(eps[a-z0-9_]+)\s*=\s*\[(.*?)\]\s*;/gims;
+    let match;
+    while ((match = sourcePattern.exec(String(scriptText || '')))) {
+        const urls = [];
+        const arrayBody = String(match[2] || '');
+        const urlPattern = /'([^']*)'|"([^"]*)"/g;
+        let urlMatch;
+        while ((urlMatch = urlPattern.exec(arrayBody))) {
+            const value = String(urlMatch[1] || urlMatch[2] || '').trim();
+            if (value) urls.push(value);
+        }
+        if (urls.length) {
+            sources.push({ name: String(match[1] || '').trim(), urls });
+        }
+    }
+    return sources;
+}
+
+async function fetchAnimeSamaPageText(url) {
+    if (!url) return '';
+    if (animeSamaPageCache.has(url)) return animeSamaPageCache.get(url);
+    const pending = fetchAnimeRemoteText(url).catch((error) => {
+        animeSamaPageCache.delete(url);
+        throw error;
+    });
+    animeSamaPageCache.set(url, pending);
+    return pending;
+}
+
+async function fetchAnimeSamaEpisodesScript(url) {
+    if (!url) return '';
+    if (animeSamaEpisodesScriptCache.has(url)) return animeSamaEpisodesScriptCache.get(url);
+    const pending = fetchAnimeRemoteText(url).catch((error) => {
+        animeSamaEpisodesScriptCache.delete(url);
+        throw error;
+    });
+    animeSamaEpisodesScriptCache.set(url, pending);
+    return pending;
+}
+
+async function getAnimeSamaSlugForAniListId(aniListId) {
+    if (!aniListId || !animeSamaDbReady) return null;
+    if (animeSamaSlugCache.has(aniListId)) return animeSamaSlugCache.get(aniListId);
+
+    try {
+        await animeSamaDbReady;
+        if (!animeSamaDb) return null;
+
+        const stmt = animeSamaDb.prepare(`
+            SELECT slug FROM anime WHERE anilist_id = ? LIMIT 1
+        `);
+        stmt.bind([aniListId]);
+
+        let slug = null;
+        if (stmt.step()) {
+            const row = stmt.getAsObject();
+            const candidate = String(row.slug || '').trim();
+            if (candidate) slug = candidate;
+        }
+        stmt.free();
+
+        animeSamaSlugCache.set(aniListId, slug);
+        return slug;
+    } catch (error) {
+        console.error('Failed to resolve Anime-Sama slug for AniList id', aniListId, error);
+        animeSamaSlugCache.set(aniListId, null);
+        return null;
+    }
+}
+
+async function getAnimeSamaSeasonsEpisodesFromDb(aniListId) {
+    if (!aniListId || !animeSamaDbReady) return null;
+    try {
+        await animeSamaDbReady;
+        if (!animeSamaDb) return null;
+
+        const animeStmt = animeSamaDb.prepare(`
+            SELECT id FROM anime WHERE anilist_id = ? LIMIT 1
+        `);
+        animeStmt.bind([aniListId]);
+        let animeId = null;
+        if (animeStmt.step()) {
+            const row = animeStmt.getAsObject();
+            animeId = row.id;
+        }
+        animeStmt.free();
+        if (!animeId) return null;
+
+        const stmt = animeSamaDb.prepare(`
+            SELECT season, episode, lang, url
+            FROM episode_sources
+            WHERE anime_id = ?
+            ORDER BY season, episode, lang, url
+        `);
+        stmt.bind([animeId]);
+
+        const data = {};
+        function hostPriority(url) {
+            if (!url) return 0;
+            const normalized = String(url).toLowerCase();
+            if (normalized.includes('sibnet.ru')) return 3;
+            if (normalized.includes('sendvid.com')) return 2;
+            return 1;
+        }
+
+        while (stmt.step()) {
+            const row = stmt.getAsObject();
+            const season = row.season || 'saison1';
+            const episode = row.episode;
+            const lang = String(row.lang || '').toLowerCase();
+            const url = String(row.url || '').trim();
+            if (!season || !lang || !url || !Number.isFinite(Number(episode))) continue;
+            if (!data[season]) data[season] = {};
+            if (!data[season][episode]) data[season][episode] = {};
+            if (!data[season][episode][lang]) data[season][episode][lang] = [];
+            if (!data[season][episode][lang].includes(url)) data[season][episode][lang].push(url);
+        }
+        stmt.free();
+
+        Object.keys(data).forEach((season) => {
+            Object.keys(data[season] || {}).forEach((episode) => {
+                Object.keys(data[season][episode] || {}).forEach((lang) => {
+                    data[season][episode][lang].sort((a, b) => hostPriority(b) - hostPriority(a));
+                });
+            });
+        });
+
+        return Object.keys(data).length ? data : null;
+    } catch (error) {
+        console.error('Failed to query anime_sama.db fallback sources for AniList id', aniListId, error);
+        return null;
+    }
 }
 
 // Cache TMDB ids per MAL id so we don't re-query
@@ -2591,6 +2812,43 @@ async function fetchNineAnimeSearchEntries(query) {
     return pending;
 }
 
+async function attachDirectNineAnimeMatch(anime) {
+    if (!anime || anime._nineAnimeWatchId || parseNineAnimeSyntheticId(anime?.mal_id)) return anime;
+    if (!await canUseAnimeProtectedRemoteSources()) return anime;
+
+    const titleCandidates = getAnimeTitleCandidates(anime).slice(0, 3);
+    if (!titleCandidates.length) return anime;
+
+    let bestEntry = null;
+    let bestScore = -1;
+    for (const title of titleCandidates) {
+        try {
+            const results = await fetchNineAnimeSearchEntries(title);
+            const ranked = sortNineAnimeSearchEntries(results || [], title);
+            const candidate = ranked[0] || null;
+            if (!candidate) continue;
+            const score = scoreNineAnimeCandidate(candidate, titleCandidates);
+            if (score > bestScore) {
+                bestScore = score;
+                bestEntry = candidate;
+            }
+        } catch (error) {
+            console.warn('Failed direct 9animetv hydration for title', title, error);
+        }
+    }
+
+    if (!bestEntry || bestScore < 360) return anime;
+
+    return {
+        ...anime,
+        _nineAnimeDirect: true,
+        _nineAnimeWatchId: Number(bestEntry._nineAnimeWatchId || 0) || null,
+        _nineAnimeWatchPath: String(bestEntry._nineAnimeWatchPath || '').trim(),
+        _nineAnimeSlug: String(bestEntry._nineAnimeSlug || '').trim(),
+        _nineAnimeMetaText: String(bestEntry._nineAnimeMetaText || '').trim() || String(anime?._nineAnimeMetaText || '').trim()
+    };
+}
+
 async function resolveDirectNineAnimeSourceData(anime) {
     if (!await canUseAnimeProtectedRemoteSources()) return null;
 
@@ -2797,10 +3055,10 @@ function animeSamaLangToGroup(lang) {
     const normalized = String(lang || '').trim().toLowerCase();
     if (!normalized) return null;
     if (normalized.includes('vf') || normalized.includes('dub') || normalized === 'fr') {
-        return { key: 'va', label: 'VF' };
+        return { key: 'vf', label: 'VF' };
     }
     if (normalized.includes('vost') || normalized.includes('sub') || normalized === 'vo') {
-        return { key: 'vosta', label: 'VOSTFR' };
+        return { key: 'vostfr', label: 'VOSTFR' };
     }
     return { key: normalized, label: normalized.toUpperCase() };
 }
@@ -2866,111 +3124,135 @@ async function getAnimePlaybackProfile(anime) {
     const pending = (async () => {
         const isMovie = (anime?.type || '').toLowerCase() === 'movie';
         const directNineAnimeSourceData = await resolveDirectNineAnimeSourceData(anime);
-        if (isMovie) {
-            const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
-            const tmdbId = await getTmdbIdForAnimeMovie(anime);
-            return {
-                isMovie: true,
-                playable: Boolean((nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || tmdbId),
-                tmdbId,
-                aniListId: null,
-                sourceAniListId: null,
-                seriesSourceData: null,
-                nineAnimeSourceData
-            };
-        }
-
         const malId = anime?.mal_id;
         const aniListId = getCachedAniListId(malId) || await resolveAniListId(malId);
         if (aniListId) setCachedAniListId(malId, aniListId);
         const resolved = await resolveSeriesSourceData(aniListId);
         const animeSamaPlayable = hasAnySeriesSources(resolved.sourceData);
-        const nineAnimeSourceData = animeSamaPlayable ? null : (directNineAnimeSourceData || await resolveNineAnimeSourceData(anime));
-        const vidsrcPlayable = Boolean(malId || resolved.aniListId);
+        if (isMovie) {
+            const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
+            return {
+                isMovie: true,
+                playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes),
+                tmdbId: null,
+                aniListId: resolved.aniListId,
+                sourceAniListId: resolved.sourceAniListId,
+                seriesSourceData: resolved.sourceData,
+                nineAnimeSourceData
+            };
+        }
+
+        const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
         return {
             isMovie: false,
-            playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || vidsrcPlayable,
+            playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes),
             tmdbId: null,
             aniListId: resolved.aniListId,
             sourceAniListId: resolved.sourceAniListId,
             seriesSourceData: resolved.sourceData,
             nineAnimeSourceData
         };
-    })();
+    })().then((profile) => {
+        if (!profile || !profile.playable) animePlaybackProfileCache.delete(cacheKey);
+        return profile;
+    }).catch((error) => {
+        animePlaybackProfileCache.delete(cacheKey);
+        throw error;
+    });
 
     animePlaybackProfileCache.set(cacheKey, pending);
     return pending;
 }
 
-// Query anime_sama.db for all available seasons/episodes and sources for a given AniList id
+// Resolve Anime-Sama live seasons/episodes using anime_sama.db only for AniList -> slug mapping.
 async function getAnimeSamaSeasonsEpisodes(aniListId) {
-    if (!aniListId || !animeSamaDbReady) return null;
+    if (!aniListId) return null;
     try {
-        await animeSamaDbReady;
-        if (!animeSamaDb) return null;
-        // 1) Find internal anime.id from anime.anilist_id
-        const animeStmt = animeSamaDb.prepare(`
-            SELECT id FROM anime WHERE anilist_id = ? LIMIT 1
-        `);
-        animeStmt.bind([aniListId]);
-        let animeId = null;
-        if (animeStmt.step()) {
-            const row = animeStmt.getAsObject();
-            animeId = row.id;
+        const canUseLiveAnimeSama = await canUseAnimeProtectedRemoteSources(1200);
+        if (!canUseLiveAnimeSama) {
+            return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
         }
-        animeStmt.free();
-        if (!animeId) return null;
 
-        // 2) Get all available (season, episode, lang, url)
-        const stmt = animeSamaDb.prepare(`
-            SELECT season, episode, lang, url
-            FROM episode_sources
-            WHERE anime_id = ?
-            ORDER BY season, episode, lang, url
-        `);
-        stmt.bind([animeId]);
+        const slug = await getAnimeSamaSlugForAniListId(aniListId);
+        if (!slug) return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
 
-        // Structure: { [season]: { [episode]: { [lang]: url[] } } }
+        const catalogueUrl = `${ANIME_SAMA_BASE}/catalogue/${encodeURIComponent(slug)}/`;
+        const catalogueHtml = await fetchAnimeSamaPageText(catalogueUrl);
+        if (!catalogueHtml) return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
+
+        const routeMap = new Map();
+        const addRoutes = (items) => {
+            (items || []).forEach((item) => {
+                if (item?.key && !routeMap.has(item.key)) routeMap.set(item.key, item);
+            });
+        };
+
+        addRoutes(parseAnimeSamaPanelRoutes(catalogueHtml, slug));
+    if (!routeMap.size) return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
+
         const data = {};
-        function hostPriority(u) {
-            if (!u) return 0;
-            const url = u.toLowerCase();
-            if (url.includes('sibnet.ru')) return 3;
-            if (url.includes('sendvid.com')) return 2;
-            return 1;
-        }
-        while (stmt.step()) {
-            const row = stmt.getAsObject();
-            const season = row.season || 'saison1';
-            const episode = row.episode;
-            const lang = (row.lang || '').toLowerCase();
-            const url = row.url || '';
-            if (!url) continue;
-            if (!data[season]) data[season] = {};
-            if (!data[season][episode]) data[season][episode] = {};
-            if (!data[season][episode][lang]) data[season][episode][lang] = [];
-            // Keep unique URLs; we'll sort by host priority afterwards
-            if (!data[season][episode][lang].includes(url)) {
-                data[season][episode][lang].push(url);
+        const processedRoutes = new Set();
+        const pendingRoutes = Array.from(routeMap.values());
+
+        while (pendingRoutes.length) {
+            const route = pendingRoutes.shift();
+            if (!route?.key || processedRoutes.has(route.key)) continue;
+            processedRoutes.add(route.key);
+
+            let seasonHtml = '';
+            try {
+                seasonHtml = await fetchAnimeSamaPageText(route.pageUrl);
+            } catch (error) {
+                console.warn('Failed to fetch Anime-Sama season page', route.pageUrl, error);
+                continue;
             }
-        }
-        stmt.free();
-        // Sort each language's URLs so best hosts come first
-        Object.keys(data).forEach(season => {
-            const eps = data[season] || {};
-            Object.keys(eps).forEach(ep => {
-                const langs = eps[ep] || {};
-                Object.keys(langs).forEach(lang => {
-                    const arr = Array.isArray(langs[lang]) ? langs[lang] : [langs[lang]].filter(Boolean);
-                    arr.sort((a, b) => hostPriority(b) - hostPriority(a));
-                    langs[lang] = arr;
+            if (!seasonHtml) continue;
+
+            parseAnimeSamaSiblingLanguageRoutes(seasonHtml, slug, route.pageUrl).forEach((item) => {
+                if (item?.key && !routeMap.has(item.key)) {
+                    routeMap.set(item.key, item);
+                    pendingRoutes.push(item);
+                }
+            });
+
+            const episodesScriptMatch = seasonHtml.match(/episodes\.js\?filever=[^"']+/i);
+            if (!episodesScriptMatch) continue;
+
+            const scriptUrl = getAbsoluteAnimeSamaUrl(episodesScriptMatch[0], route.pageUrl);
+            if (!scriptUrl) continue;
+
+            let scriptText = '';
+            try {
+                scriptText = await fetchAnimeSamaEpisodesScript(scriptUrl);
+            } catch (error) {
+                console.warn('Failed to fetch Anime-Sama episodes script', scriptUrl, error);
+                continue;
+            }
+
+            const sourceArrays = parseAnimeSamaEpisodeSourceArrays(scriptText);
+            if (!sourceArrays.length) continue;
+
+            if (!data[route.seasonKey]) data[route.seasonKey] = {};
+            sourceArrays.forEach((sourceEntry, sourceIndex) => {
+                sourceEntry.urls.forEach((url, episodeIndex) => {
+                    const cleanedUrl = String(url || '').trim();
+                    const episodeNumber = episodeIndex + 1;
+                    if (!cleanedUrl || !episodeNumber) return;
+                    if (!data[route.seasonKey][episodeNumber]) data[route.seasonKey][episodeNumber] = {};
+                    if (!data[route.seasonKey][episodeNumber][route.lang]) data[route.seasonKey][episodeNumber][route.lang] = [];
+                    const entryList = data[route.seasonKey][episodeNumber][route.lang];
+                    const sourceName = sourceEntry.name || `source-${sourceIndex + 1}`;
+                    const keyedUrl = cleanedUrl.includes('#source=') ? cleanedUrl : `${cleanedUrl}#source=${encodeURIComponent(sourceName)}`;
+                    if (!entryList.includes(keyedUrl)) entryList.push(keyedUrl);
                 });
             });
-        });
-        return data; // { saison1: { 1: { vostfr: url, vf: url }, ... }, ... }
+        }
+
+        if (Object.keys(data).length) return data;
+        return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
     } catch (e) {
-        console.error('Failed to query anime_sama.db for AniList id', aniListId, e);
-        return null;
+        console.error('Failed to fetch Anime-Sama live sources for AniList id', aniListId, e);
+        return await getAnimeSamaSeasonsEpisodesFromDb(aniListId);
     }
 }
 
@@ -3029,6 +3311,7 @@ function renderSkipCheckboxes(malId) {
 }
 
 async function openAnimeFromJikan(anime) {
+    anime = await attachDirectNineAnimeMatch(anime);
     const malId = anime.mal_id;
     const isMovie = (anime.type || '').toLowerCase() === 'movie';
     const openToken = Symbol('anime-player-open');
@@ -3119,6 +3402,8 @@ async function openAnimeFromJikan(anime) {
         episode: !isMovie ? (Number.isFinite(resumeEpisodeWanted) && resumeEpisodeWanted > 0 ? resumeEpisodeWanted : 1) : null,
         playerGroup: resumePlayerGroupWanted,
         playerHost: resumePlayerHostWanted,
+        nineAnimeWatchId: Number(anime?._nineAnimeWatchId || 0) || null,
+        nineAnimeWatchPath: String(anime?._nineAnimeWatchPath || '').trim() || null,
         progress: 0
     });
     try { loadAnimeContinueWatching(); } catch { }
@@ -3148,6 +3433,13 @@ async function openAnimeFromJikan(anime) {
     }
     seriesSourceData = playbackProfile.seriesSourceData || null;
     nineAnimeSourceData = playbackProfile.nineAnimeSourceData || null;
+    if (nineAnimeSourceData && Number(nineAnimeSourceData.watchId) > 0) {
+        upsertAnimeProgressRecord(malId, {
+            nineAnimeWatchId: Number(nineAnimeSourceData.watchId),
+            nineAnimeWatchPath: String(nineAnimeSourceData.watchPath || '').trim() || null,
+            updatedAt: Date.now()
+        });
+    }
 
     let nineAnimeLookupPromise = null;
     async function ensureNineAnimeSourceData() {
@@ -3388,38 +3680,49 @@ async function openAnimeFromJikan(anime) {
 
     async function buildSourceGroups(season, episode) {
         if (isMovie) {
+            const groups = [];
             const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
             if (resolvedNineAnimeSourceData) {
                 const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, 'saison1', 1);
-                if (nineAnimeGroups.length) return nineAnimeGroups;
+                if (nineAnimeGroups.length) groups.push(...nineAnimeGroups);
             }
-            if (tmdbId) {
-                return [
-                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] },
-                    { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true&lang=fr`] }
-                ];
+            const movieSeasonKeys = ['film', 'movie', 'saison1'];
+            for (const seasonKey of movieSeasonKeys) {
+                const animeSamaGroups = buildSeriesSourceGroupsFromData(seriesSourceData, seasonKey, 1);
+                animeSamaGroups.forEach((group) => {
+                    const existing = groups.find((item) => item.key === group.key);
+                    if (!existing) {
+                        groups.push(group);
+                        return;
+                    }
+                    group.urls.forEach((url) => {
+                        if (!existing.urls.includes(url)) existing.urls.push(url);
+                    });
+                });
             }
-            return [];
+            return groups.filter((group) => group.urls && group.urls.length);
         }
 
         // Series mode
-        const animeSamaGroups = buildSeriesSourceGroupsFromData(seriesSourceData, season, episode);
-        if (animeSamaGroups.length) {
-            return animeSamaGroups;
-        }
+        const groups = [];
         const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
         if (resolvedNineAnimeSourceData) {
             const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, season, episode);
-            if (nineAnimeGroups.length) return nineAnimeGroups;
+            if (nineAnimeGroups.length) groups.push(...nineAnimeGroups);
         }
-        const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
-        const vidsrcSub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`;
-        const vidsrcDub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`;
+        const animeSamaGroups = buildSeriesSourceGroupsFromData(seriesSourceData, season, episode);
+        animeSamaGroups.forEach((group) => {
+            const existing = groups.find((item) => item.key === group.key);
+            if (!existing) {
+                groups.push(group);
+                return;
+            }
+            group.urls.forEach((url) => {
+                if (!existing.urls.includes(url)) existing.urls.push(url);
+            });
+        });
 
-        return [
-            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub].filter(Boolean) },
-            { key: 'va', label: 'VA', urls: [vidsrcDub].filter(Boolean) }
-        ].filter(g => g.urls && g.urls.length);
+        return groups.filter((group) => group.urls && group.urls.length);
     }
 
     function seasonLabelFromKey(seasonKey) {
@@ -3505,7 +3808,7 @@ async function openAnimeFromJikan(anime) {
     function getSettingsGroups() {
         const labels = Array.from(new Set((currentGroups || []).map((group) => group.label).filter(Boolean)));
         if (labels.length) return labels;
-        return isMovie ? ['VO', 'VF'] : ['VOSTFR', 'VF'];
+        return ['VOSTA', 'VA', 'VOSTFR', 'VF'];
     }
 
     // Settings modal HTML
@@ -3668,6 +3971,8 @@ async function openAnimeFromJikan(anime) {
             episode: ep,
             playerGroup: groupKey || null,
             playerHost: host,
+            nineAnimeWatchId: Number(nineAnimeSourceData?.watchId || 0) || null,
+            nineAnimeWatchPath: String(nineAnimeSourceData?.watchPath || '').trim() || null,
             progress: frac,
             updatedAt: Date.now()
         });
@@ -3685,7 +3990,7 @@ async function openAnimeFromJikan(anime) {
     }
 
     function selectionLabelForSettings(sel) {
-        if (!sel || !sel.group) return isMovie ? 'VO' : 'VOSTA';
+        if (!sel || !sel.group) return 'VOSTA';
         const group = (currentGroups || []).find((item) => item.key === sel.group);
         if (group && group.label) return group.label;
         const g = sel.group;
@@ -3694,7 +3999,7 @@ async function openAnimeFromJikan(anime) {
         if (g === 'vosta') return 'VOSTA';
         if (g === 'va') return 'VA';
         if (g === 'vostfr') return 'VOSTFR';
-        return isMovie ? 'VO' : 'VOSTA';
+        return 'VOSTA';
     }
 
     function buildSelectionFromSettingsLabel(label) {
@@ -3720,8 +4025,8 @@ async function openAnimeFromJikan(anime) {
         }
         // Default order
         const preferredOrder = isMovie
-            ? ['vo', 'vf']
-            : ['vosta', 'va'];
+            ? ['vosta', 'va', 'vostfr', 'vf', 'vo']
+            : ['vosta', 'va', 'vostfr', 'vf'];
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
@@ -3903,7 +4208,17 @@ async function openAnimeFromJikan(anime) {
             }
         }
 
-        // 4) Fall back to the preferred default order.
+        // 4) Respect the saved preferred group when it is available.
+        const preferredGroupKey = getPrimaryGroupKey();
+        if (preferredGroupKey) {
+            const preferredSelection = pickBestAvailableSelection({ group: preferredGroupKey, idx: 0 }, currentGroups);
+            if (preferredSelection) {
+                switchToSelection(preferredSelection, { persistLastUsed: false });
+                return;
+            }
+        }
+
+        // 5) Fall back to the preferred default order.
         const fallback = pickBestAvailableSelection(null, currentGroups);
         if (fallback) switchToSelection(fallback, { persistLastUsed: false });
     }
@@ -3925,6 +4240,7 @@ async function openAnimeFromJikan(anime) {
         saveBtn.addEventListener('click', () => {
             const nextSel = buildSelectionFromSettingsLabel(select.value);
             if (nextSel) {
+                setPrimaryGroupKey(nextSel.group);
                 const grp = currentGroups.find(g => g.key === nextSel.group);
                 if (grp && grp.urls && grp.urls.length) {
                     const idx = 0;
