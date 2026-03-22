@@ -10,7 +10,7 @@
 
 ---
 
-Logos and loading screens were designed by [Fanilo Bini](https://taap.it/fanilo).
+Logos and loading screens were designed by [Fanilo Bini](https://fanilobini.com).
 
 
 
