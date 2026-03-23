@@ -28,6 +28,9 @@
             position: relative;
             overflow: hidden;
             background: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         #hero-wrapper.showcase-has-bg {
             background-size: cover;
@@ -298,19 +301,24 @@
             max-width: 2000px;
             margin: 0 auto;
             width: 100%;
+            min-height: calc(100vh - 96px);
+            display: flex;
+            align-items: center;
         }
         #showcase {
             position: relative;
             width: 100%;
             max-width: 2000px;
             margin: 0 auto 0 auto;
-            padding: 60px 60px 72px 60px;
+            min-height: calc(100vh - 128px);
+            max-height: calc(100vh - 96px);
+            padding: clamp(28px, 4vh, 44px) 60px clamp(32px, 4.5vh, 52px) 60px;
             box-sizing: border-box;
             border-radius: 0;
             overflow: hidden;
             background: transparent;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 60px;
             font-family: 'OumaTrialLight';
             isolation: isolate;
@@ -325,8 +333,8 @@
             pointer-events: none;
         }
         .showcase-left {
-            flex: 0 0 320px;
-            max-width: 350px;
+            flex: 0 0 clamp(260px, 22vw, 320px);
+            max-width: 320px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -341,11 +349,11 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            min-height: 85px;
+            min-height: 72px;
         }
         .showcase-logo-wrapper img {
-            height: 85px;
-            max-width: 380px;
+            width: min(100%, 340px);
+            max-height: 72px;
             align-items: center;
             object-fit: contain;
             filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
@@ -412,6 +420,8 @@
             overflow: visible;
             border-radius: 12px;
             padding: 10px;
+            max-height: calc(100vh - 320px);
+            overflow-y: auto;
         }
         .showcase-title {
             display: none;

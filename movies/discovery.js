@@ -19,7 +19,6 @@
         new: 'newSection',
         netflixfrance: 'netflixfranceSection',
         bollywood: 'bollywoodSection',
-        kdrama: 'kdramaSection',
         animation: 'animationSection',
         family: 'familySection',
         comedy: 'comedySection',
@@ -134,7 +133,6 @@
         'titles/new.json',
         'titles/netflixfrance.json',
         'titles/bollywood.json',
-        'titles/kdramas.json',
         'titles/horror.json',
         'titles/animation.json',
         'titles/action.json',
@@ -481,7 +479,7 @@
         },
         'binge-worthy': {
             label: '📺 Binge-Worthy',
-            sources: ['titles/drama.json', 'titles/kdramas.json', 'titles/thriller.json']
+            sources: ['titles/drama.json', 'titles/thriller.json']
         },
         'epic-adventure': {
             label: '⚔️ Epic Adventure',
@@ -652,17 +650,43 @@
         '878': '10765',  // Sci-Fi → Sci-Fi & Fantasy
         '10752': '10768' // War → War & Politics
     };
+    const COUNTRY_FILTER_CONFIG = {
+        US: { label: 'United States', languages: ['en'] },
+        GB: { label: 'United Kingdom', languages: ['en'] },
+        FR: { label: 'France', languages: ['fr'] },
+        IN: { label: 'India', languages: ['hi', 'ta', 'te', 'ml', 'bn', 'mr', 'pa', 'kn'] },
+        JP: { label: 'Japan', languages: ['ja'] },
+        KR: { label: 'South Korea', languages: ['ko'] },
+        CN: { label: 'China', languages: ['zh'] },
+        TH: { label: 'Thailand', languages: ['th'] },
+        PH: { label: 'Philippines', languages: ['tl'] }
+    };
 
     let activeTypeFilter = 'all';
     let activeYearFilter = '';
     let activeRatingFilter = '';
     let activeCategoryFilter = '';
+    let activeCountryFilter = '';
     let currentPage = 1;
     let totalPages = 1;
     let lastQuery = '';             // last text search query
     let lastRawResults = [];
     let searchMode = 'text';        // 'text' or 'discover'
     let _searchDebounce = null;
+
+    function itemMatchesCountryFilter(item, countryCode) {
+        if (!countryCode) return true;
+        const config = COUNTRY_FILTER_CONFIG[countryCode];
+        if (!config) return true;
+
+        const originCountries = Array.isArray(item?.origin_country)
+            ? item.origin_country.map(code => String(code || '').toUpperCase())
+            : [];
+        if (originCountries.includes(countryCode)) return true;
+
+        const originalLanguage = String(item?.original_language || '').toLowerCase();
+        return config.languages.includes(originalLanguage);
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.getElementById('search-input');
@@ -675,6 +699,7 @@
         const yearSelect = document.getElementById('search-year-filter');
         const ratingSelect = document.getElementById('search-rating-filter');
         const categorySelect = document.getElementById('search-category-filter');
+        const countrySelect = document.getElementById('search-country-filter');
 
         // --- Type filter chips ---
         typeChips.forEach(chip => {
@@ -704,6 +729,11 @@
             currentPage = 1;
             triggerSearch();
         });
+        if (countrySelect) countrySelect.addEventListener('change', () => {
+            activeCountryFilter = countrySelect.value;
+            currentPage = 1;
+            triggerSearch();
+        });
 
         // --- Show filters on focus/click ---
         const resultsWrapper = document.getElementById('search-results-wrapper');
@@ -730,6 +760,7 @@
             activeYearFilter = '';
             activeRatingFilter = '';
             activeCategoryFilter = '';
+            activeCountryFilter = '';
             currentPage = 1;
             if (resultsContainer) { resultsContainer.innerHTML = ''; resultsContainer.style.display = 'none'; }
             if (resultsWrapper) resultsWrapper.classList.remove('active');
@@ -743,6 +774,7 @@
             if (yearSelect) yearSelect.value = '';
             if (ratingSelect) ratingSelect.value = '';
             if (categorySelect) categorySelect.value = '';
+            if (countrySelect) countrySelect.value = '';
         }
 
         // Expose for search.js clear button
@@ -761,7 +793,7 @@
         // --- Core: decide text-search vs discover ---
         function triggerSearch() {
             const hasText = lastQuery.length >= 2;
-            const hasFilters = activeTypeFilter !== 'all' || activeYearFilter || activeRatingFilter || activeCategoryFilter;
+            const hasFilters = activeTypeFilter !== 'all' || activeYearFilter || activeRatingFilter || activeCategoryFilter || activeCountryFilter;
 
             if (!hasText && !hasFilters) {
                 // Nothing to show
@@ -839,6 +871,9 @@
                         params.set('vote_average.gte', activeRatingFilter);
                         params.set('vote_count.gte', '50');
                     }
+                    if (activeCountryFilter) {
+                        params.set('with_origin_country', activeCountryFilter);
+                    }
 
                     const url = `https://api.themoviedb.org/3/discover/${mtype}?${params}`;
                     const res = await fetch(url);
@@ -900,6 +935,9 @@
                 if (activeRatingFilter && searchMode === 'text') {
                     if (!item.vote_average || item.vote_average < parseFloat(activeRatingFilter)) return false;
                 }
+                if (activeCountryFilter && searchMode === 'text') {
+                    if (!itemMatchesCountryFilter(item, activeCountryFilter)) return false;
+                }
 
                 return true;
             });
@@ -925,7 +963,7 @@
             const existing = resultsContainer.querySelector('.filter-summary');
             if (existing) existing.remove();
 
-            const hasFilters = activeTypeFilter !== 'all' || activeYearFilter || activeRatingFilter || activeCategoryFilter;
+            const hasFilters = activeTypeFilter !== 'all' || activeYearFilter || activeRatingFilter || activeCategoryFilter || activeCountryFilter;
             if (!hasFilters && searchMode === 'text') return;
 
             const summary = document.createElement('div');
@@ -939,6 +977,10 @@
             }
             if (activeYearFilter) parts.push(activeYearFilter);
             if (activeRatingFilter) parts.push(`${activeRatingFilter}+ rating`);
+            if (activeCountryFilter) {
+                const opt = countrySelect?.querySelector(`option[value="${activeCountryFilter}"]`);
+                parts.push(opt ? opt.textContent : activeCountryFilter);
+            }
             summary.textContent = `Filtered: ${parts.join(' · ')} — ${filtered.length} result${filtered.length !== 1 ? 's' : ''} (page ${currentPage}/${totalPages})`;
             resultsContainer.insertBefore(summary, resultsContainer.firstChild);
         }

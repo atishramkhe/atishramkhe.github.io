@@ -1553,6 +1553,185 @@ function buildPosterCardBadges(anime, options = {}) {
     return badges;
 }
 
+const animeDetailCache = new Map();
+
+async function fetchAnimeDetailForModal(anime) {
+    const malId = Number(anime?.mal_id);
+    if (!Number.isFinite(malId) || malId <= 0) return anime;
+    if (animeDetailCache.has(malId)) return animeDetailCache.get(malId);
+
+    const pending = (async () => {
+        try {
+            const suffix = adultContentEnabled ? '' : '?sfw';
+            const payload = await fetchJson(`${JIKAN_BASE}/anime/${malId}${suffix}`, 2);
+            return payload?.data ? { ...anime, ...payload.data } : anime;
+        } catch (error) {
+            console.warn('Failed to hydrate anime details for modal', malId, error);
+            return anime;
+        }
+    })();
+
+    animeDetailCache.set(malId, pending);
+    return pending;
+}
+
+function buildAnimeCategoryGroups(anime) {
+    return [
+        { label: 'Genres', values: Array.isArray(anime?.genres) ? anime.genres.map((entry) => entry?.name).filter(Boolean) : [] },
+        { label: 'Themes', values: Array.isArray(anime?.themes) ? anime.themes.map((entry) => entry?.name).filter(Boolean) : [] },
+        { label: 'Demographics', values: Array.isArray(anime?.demographics) ? anime.demographics.map((entry) => entry?.name).filter(Boolean) : [] }
+    ].filter((group) => group.values.length);
+}
+
+function prewarmAnimeInteraction(anime, { detail = true, playback = false } = {}) {
+    if (detail) {
+        void fetchAnimeDetailForModal(anime).catch(() => undefined);
+    }
+    if (playback) {
+        void getAnimePlaybackProfile(anime).catch(() => undefined);
+    }
+}
+
+async function showAnimeMoreInfo(anime, { onPlay = null, playable = true } = {}) {
+    let dimmer = document.getElementById('anime-player-dimmer');
+    if (!dimmer) {
+        dimmer = document.createElement('div');
+        dimmer.id = 'anime-player-dimmer';
+        dimmer.style.position = 'fixed';
+        dimmer.style.inset = '0';
+        dimmer.style.background = 'rgba(0,0,0,0.94)';
+        dimmer.style.zIndex = '9998';
+        document.body.appendChild(dimmer);
+    } else {
+        dimmer.style.display = 'block';
+    }
+
+    const modal = document.createElement('div');
+    modal.id = 'more-poster-info-modal';
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%) scale(0.96)';
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity 0.24s ease, transform 0.24s ease';
+    modal.style.width = '920px';
+    modal.style.maxWidth = '92vw';
+    modal.style.maxHeight = '88vh';
+    modal.style.overflowY = 'auto';
+    modal.style.padding = '32px';
+    modal.style.borderRadius = '20px';
+    modal.style.background = 'linear-gradient(180deg, rgba(17,17,17,0.97), rgba(7,7,7,0.97))';
+    modal.style.boxShadow = '0 20px 60px rgba(0,0,0,0.55)';
+    modal.style.zIndex = '9999';
+
+    document.body.appendChild(modal);
+    requestAnimationFrame(() => {
+        modal.style.opacity = '1';
+        modal.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+
+    const closeModal = () => {
+        modal.remove();
+        if (dimmer) dimmer.style.display = 'none';
+    };
+    dimmer.onclick = closeModal;
+
+    const renderModal = (sourceAnime, { hydrating = false } = {}) => {
+        const posters = buildPosterVariants(sourceAnime);
+        const title = getPreferredAnimeTitle(sourceAnime);
+        const year = buildYear(sourceAnime);
+        const overview = sourceAnime?.synopsis || sourceAnime?.background || anime?.synopsis || 'No description available.';
+        const score = sourceAnime?.score || anime?.score || 'N/A';
+        const episodes = sourceAnime?.episodes || anime?.episodes || '?';
+        const status = sourceAnime?.status || anime?.status || 'Unknown';
+        const type = sourceAnime?.type || anime?.type || 'Anime';
+        const animeId = sourceAnime?.mal_id || anime?.mal_id || '';
+        const categoryGroups = buildAnimeCategoryGroups(sourceAnime);
+        const isSaved = animeId ? isInAnimeWatchLater(animeId) : false;
+        const watchLaterLabel = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+        const categoryHtml = categoryGroups.length
+            ? categoryGroups.map((group) => `
+                <div style="margin-top:18px;">
+                    <div style="font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; color:#f1892f; margin-bottom:10px;">${escapeHtml(group.label)}</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                        ${group.values.map((value) => `<span style="display:inline-flex; align-items:center; padding:6px 12px; border-radius:999px; background:rgba(241,137,47,0.14); border:1px solid rgba(241,137,47,0.28); color:#fff; font-size:0.88rem;">${escapeHtml(value)}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('')
+            : (hydrating
+                ? '<div style="margin-top:18px; color:#aaa;">Loading full details...</div>'
+                : '<div style="margin-top:18px; color:#aaa;">No categories available for this title.</div>');
+
+        modal.innerHTML = `
+            <button id="close-more-poster-info" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border:none;border-radius:50%;background:rgba(255,255,255,0.08);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap;">
+                <div style="flex:0 0 220px; max-width:220px; width:100%;">
+                    <img src="${escapeHtml(posters.large)}" alt="${escapeHtml(title)}" style="width:100%; border-radius:16px; object-fit:cover; box-shadow:0 14px 36px rgba(0,0,0,0.45);">
+                    <div style="display:flex; gap:12px; margin-top:16px; align-items:center;">
+                        <button id="anime-more-info-play-btn" ${playable && typeof onPlay === 'function' ? '' : 'disabled'} style="flex:1; min-height:46px; border:none; border-radius:999px; background:${playable && typeof onPlay === 'function' ? '#f1892f' : 'rgba(255,255,255,0.12)'}; color:${playable && typeof onPlay === 'function' ? '#111' : '#888'}; font-family:'OumaTrialBold'; cursor:${playable && typeof onPlay === 'function' ? 'pointer' : 'not-allowed'};">
+                            ${playable && typeof onPlay === 'function' ? 'Play' : 'Unavailable'}
+                        </button>
+                        <button id="anime-more-info-watchlater-btn" style="width:46px; height:46px; border-radius:50%; border:1px solid rgba(241,137,47,0.35); background:transparent; color:#f1892f; display:flex; align-items:center; justify-content:center; cursor:${animeId ? 'pointer' : 'not-allowed'}; opacity:${animeId ? '1' : '0.45'};">
+                            <span class="material-symbols-outlined">${isSaved ? 'playlist_add_check' : 'playlist_add'}</span>
+                        </button>
+                    </div>
+                    <div id="anime-more-info-watchlater-label" style="margin-top:10px; color:#f1892f; font-size:0.82rem; text-align:center;">${escapeHtml(watchLaterLabel)}</div>
+                </div>
+                <div style="flex:1; min-width:280px;">
+                    <div style="font-family:'OumaTrialBold'; font-size:clamp(1.8rem, 3vw, 2.8rem); line-height:1.04; color:#fff;">${escapeHtml(title)}</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; color:#ddd; font-size:0.95rem;">
+                        <span>${escapeHtml(type)}</span>
+                        <span>•</span>
+                        <span>${escapeHtml(String(year || 'Unknown Year'))}</span>
+                        <span>•</span>
+                        <span>${escapeHtml(String(episodes))} eps</span>
+                        <span>•</span>
+                        <span>${escapeHtml(String(status))}</span>
+                        <span>•</span>
+                        <span>Score ${escapeHtml(String(score))}</span>
+                    </div>
+                    ${hydrating ? '<div style="margin-top:14px; color:#f1892f; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; opacity:0.9;">Loading full details...</div>' : ''}
+                    <div style="margin-top:18px; color:#e5e5e5; line-height:1.62; font-size:0.98rem;">${escapeHtml(overview)}</div>
+                    ${categoryHtml}
+                </div>
+            </div>
+        `;
+
+        modal.querySelector('#close-more-poster-info')?.addEventListener('click', closeModal);
+        modal.querySelector('#anime-more-info-play-btn')?.addEventListener('click', () => {
+            if (!playable || typeof onPlay !== 'function') return;
+            closeModal();
+            onPlay();
+        });
+
+        const watchLaterBtn = modal.querySelector('#anime-more-info-watchlater-btn');
+        const watchLaterLabelEl = modal.querySelector('#anime-more-info-watchlater-label');
+        if (watchLaterBtn && animeId) {
+            watchLaterBtn.addEventListener('click', () => {
+                const saved = toggleAnimeWatchLater({
+                    id: animeId,
+                    title,
+                    poster: posters.medium,
+                    year,
+                    type,
+                    episodes,
+                    overview
+                });
+                watchLaterBtn.innerHTML = `<span class="material-symbols-outlined">${saved ? 'playlist_add_check' : 'playlist_add'}</span>`;
+                if (watchLaterLabelEl) watchLaterLabelEl.textContent = saved ? 'Remove from Watch Later' : 'Add to Watch Later';
+            });
+        }
+    };
+
+    renderModal(anime, { hydrating: true });
+
+    const detail = await fetchAnimeDetailForModal(anime);
+    if (!modal.isConnected) return;
+    renderModal(detail, { hydrating: false });
+}
+
 function createPosterCard(anime, onClick, options = {}) {
     const posters = buildPosterVariants(anime);
     const title = getPreferredAnimeTitle(anime);
@@ -1561,6 +1740,19 @@ function createPosterCard(anime, onClick, options = {}) {
     const malId = anime.mal_id;
 
     const clickable = options && options.clickable === false ? false : typeof onClick === 'function';
+    let detailPrewarmed = false;
+    let playbackPrewarmed = false;
+
+    const warmInteraction = ({ detail = true, playback = clickable } = {}) => {
+        if (detail && !detailPrewarmed) {
+            detailPrewarmed = true;
+            prewarmAnimeInteraction(anime, { detail: true, playback: false });
+        }
+        if (playback && !playbackPrewarmed) {
+            playbackPrewarmed = true;
+            prewarmAnimeInteraction(anime, { detail: false, playback: true });
+        }
+    };
 
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
@@ -1569,6 +1761,8 @@ function createPosterCard(anime, onClick, options = {}) {
     } else {
         posterDiv.style.cursor = 'default';
     }
+    posterDiv.addEventListener('mouseenter', () => warmInteraction(), { passive: true });
+    posterDiv.addEventListener('focusin', () => warmInteraction());
 
     const img = document.createElement('img');
     img.src = posters.medium;
@@ -1624,6 +1818,16 @@ function createPosterCard(anime, onClick, options = {}) {
         </div>
         ${overview ? `<div style="margin-top:8px;font-family:'OumaTrialLight'">${escapeHtml(truncate(overview, 120))}</div>` : ''}
         <div style="margin-top:8px; color:#f1892f;">${escapeHtml(anime.type || '')} • ${escapeHtml(anime.episodes || '?')} eps</div>
+        <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+            <button class="card-play-btn"
+                style="width:36px;height:36px;background-color:transparent;border-style:none;color:#f1892f;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:${clickable ? 'pointer' : 'not-allowed'};opacity:${clickable ? '1' : '0.45'};">
+                <span class="material-symbols-outlined" style="font-size:30px;line-height:1;">play_circle</span>
+            </button>
+            <button class="show-more-anime-info-btn"
+                style="width:36px;height:36px;background-color:transparent;border-style:none;color:#f1892f;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
+                <span class="material-symbols-outlined" style="font-size:28px;line-height:1;">info</span>
+            </button>
+        </div>
         <button class="watch-later-btn"
             aria-label="${escapeHtml(labelText)}"
             title="${escapeHtml(labelText)}"
@@ -1643,6 +1847,8 @@ function createPosterCard(anime, onClick, options = {}) {
 
     const wlBtn = info.querySelector('.watch-later-btn');
     const wlLabel = info.querySelector('.watch-later-label');
+    const playBtn = info.querySelector('.card-play-btn');
+    const moreInfoBtn = info.querySelector('.show-more-anime-info-btn');
 
     const updateWatchLaterUI = (saved) => {
         if (!wlBtn || !wlLabel) return;
@@ -1680,6 +1886,29 @@ function createPosterCard(anime, onClick, options = {}) {
             try {
                 wlBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 200 });
             } catch { }
+        });
+    }
+
+    if (playBtn) {
+        playBtn.addEventListener('mouseenter', () => warmInteraction({ detail: false, playback: true }), { passive: true });
+        playBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            warmInteraction({ detail: false, playback: true });
+            if (clickable) onClick(anime);
+        });
+    }
+
+    if (moreInfoBtn) {
+        moreInfoBtn.addEventListener('mouseenter', () => warmInteraction({ detail: true, playback: false }), { passive: true });
+        moreInfoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            warmInteraction({ detail: true, playback: false });
+            void showAnimeMoreInfo(anime, {
+                onPlay: clickable ? () => onClick(anime) : null,
+                playable: clickable
+            });
         });
     }
 
@@ -1921,17 +2150,28 @@ function renderNineAnimeBrowseCardsIntoGrid(grid, items) {
 }
 
 async function fetchJikanSearchEntries(query) {
-    const params = buildSearchParams(query);
-    let url = `${JIKAN_BASE}/anime?${params.toString()}`;
-    if (!adultContentEnabled) url += '&sfw';
+    const variants = await getAnimeSearchQueryVariants(query);
+    const collected = new Map();
 
-    const data = await fetchJson(url, 2);
-    return (Array.isArray(data?.data) ? data.data : []).filter((anime) => {
-        if (!animeMatchesSearchType(anime)) return false;
-        if (!animeMatchesSearchYear(anime)) return false;
-        if (!animeMatchesAdultSetting(anime)) return false;
-        return true;
-    });
+    for (const variant of variants) {
+        const params = buildSearchParams(variant);
+        let url = `${JIKAN_BASE}/anime?${params.toString()}`;
+        if (!adultContentEnabled) url += '&sfw';
+
+        const data = await fetchJson(url, 2);
+        (Array.isArray(data?.data) ? data.data : []).forEach((anime) => {
+            if (!animeMatchesSearchType(anime)) return;
+            if (!animeMatchesSearchYear(anime)) return;
+            if (!animeMatchesAdultSetting(anime)) return;
+            const key = String(anime?.mal_id || anime?.url || anime?.title || '').trim();
+            if (!key || collected.has(key)) return;
+            collected.set(key, anime);
+        });
+
+        if (collected.size >= 24) break;
+    }
+
+    return Array.from(collected.values());
 }
 
 async function fetchJikanAdultEntries({ movie = false, count = 24 } = {}) {
@@ -2005,6 +2245,73 @@ async function loadSection(url, gridId, options = {}) {
             grid.innerHTML = retrying ? '<div>Failed to load. Retrying once...</div>' : '<div>Failed to load.</div>';
         }
     }
+}
+
+const deferredHomeGridLoads = new Set();
+let deferredHomeGridObserver = null;
+
+function ensureDeferredHomeGridObserver() {
+    if (deferredHomeGridObserver || typeof IntersectionObserver !== 'function') return deferredHomeGridObserver;
+    deferredHomeGridObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const target = entry.target;
+            const config = target.__deferredGridLoad;
+            if (!config) return;
+            deferredHomeGridObserver.unobserve(target);
+            target.__deferredGridLoad = null;
+            deferredHomeGridLoads.add(config.gridId);
+            if (config.kind === 'adult') {
+                void loadAdultSection(config.gridId, config.options || {});
+                return;
+            }
+            void loadSection(config.url, config.gridId, config.options || {});
+        });
+    }, {
+        rootMargin: '900px 0px 900px 0px',
+        threshold: 0.01,
+    });
+    return deferredHomeGridObserver;
+}
+
+function queueDeferredHomeSection(url, gridId, options = {}) {
+    const grid = document.getElementById(gridId);
+    if (!grid || deferredHomeGridLoads.has(gridId)) return;
+    const host = grid.closest('section') || grid;
+    if (!host) return;
+
+    if (typeof IntersectionObserver !== 'function') {
+        deferredHomeGridLoads.add(gridId);
+        void loadSection(url, gridId, options);
+        return;
+    }
+
+    if (!grid.childElementCount && !String(grid.textContent || '').trim()) {
+        grid.innerHTML = '<div>Loads when visible...</div>';
+    }
+
+    host.__deferredGridLoad = { kind: 'section', url, gridId, options };
+    ensureDeferredHomeGridObserver()?.observe(host);
+}
+
+function queueDeferredAdultSection(gridId, options = {}) {
+    const grid = document.getElementById(gridId);
+    if (!grid || deferredHomeGridLoads.has(gridId)) return;
+    const host = grid.closest('section') || grid;
+    if (!host) return;
+
+    if (typeof IntersectionObserver !== 'function') {
+        deferredHomeGridLoads.add(gridId);
+        void loadAdultSection(gridId, options);
+        return;
+    }
+
+    if (!grid.childElementCount && !String(grid.textContent || '').trim()) {
+        grid.innerHTML = '<div>Loads when visible...</div>';
+    }
+
+    host.__deferredGridLoad = { kind: 'adult', gridId, options };
+    ensureDeferredHomeGridObserver()?.observe(host);
 }
 
 async function searchAnime(query) {
@@ -2199,6 +2506,7 @@ const nineAnimeSearchResultCache = new Map();
 const nineAnimeEpisodeListCache = new Map();
 const nineAnimeEpisodeSourceCache = new Map();
 const nineAnimeBrowseCache = new Map();
+const animeSearchAliasCache = new Map();
 
 function normalizeAnimeMatchText(value) {
     return String(value || '')
@@ -2230,6 +2538,50 @@ function getAnimeTitleCandidates(anime) {
     (anime?.titles || []).forEach((entry) => pushTitle(entry?.title));
 
     return titles;
+}
+
+async function getAnimeSearchQueryVariants(query) {
+    const baseQuery = String(query || '').trim();
+    if (!baseQuery) return [];
+
+    const cacheKey = normalizeAnimeMatchText(baseQuery) || baseQuery.toLowerCase();
+    if (animeSearchAliasCache.has(cacheKey)) return animeSearchAliasCache.get(cacheKey);
+
+    const pending = (async () => {
+        const variants = [];
+        const seen = new Set();
+        const pushVariant = (value) => {
+            const text = String(value || '').trim();
+            const normalized = normalizeAnimeMatchText(text);
+            if (!text || !normalized || seen.has(normalized)) return;
+            seen.add(normalized);
+            variants.push(text);
+        };
+
+        pushVariant(baseQuery);
+        pushVariant(baseQuery.replace(/[:\-]+/g, ' '));
+
+        const aniListPayload = await fetchAniListGraphQL(
+            'query ($search: String) { Page(page: 1, perPage: 5) { media(search: $search, type: ANIME) { title { romaji english native } synonyms } } }',
+            { search: baseQuery }
+        );
+
+        const mediaItems = Array.isArray(aniListPayload?.data?.Page?.media)
+            ? aniListPayload.data.Page.media
+            : [];
+
+        mediaItems.forEach((media) => {
+            pushVariant(media?.title?.english);
+            pushVariant(media?.title?.romaji);
+            pushVariant(media?.title?.native);
+            (media?.synonyms || []).forEach(pushVariant);
+        });
+
+        return variants.slice(0, 8);
+    })().catch(() => [baseQuery]);
+
+    animeSearchAliasCache.set(cacheKey, pending);
+    return pending;
 }
 
 function scoreNineAnimeCandidate(candidate, titleCandidates) {
@@ -2580,8 +2932,21 @@ async function fetchNineAnimeSearchEntries(query) {
     if (nineAnimeSearchResultCache.has(normalizedQuery)) return nineAnimeSearchResultCache.get(normalizedQuery);
 
     const pending = (async () => {
-        const html = await fetchAnimeRemoteText(`${NINE_ANIME_BASE}/search?keyword=${encodeURIComponent(query)}`);
-        return parseNineAnimeSearchResults(html);
+        const variants = await getAnimeSearchQueryVariants(query);
+        const results = new Map();
+
+        for (const variant of variants.slice(0, 5)) {
+            const html = await fetchAnimeRemoteText(`${NINE_ANIME_BASE}/search?keyword=${encodeURIComponent(variant)}`);
+            parseNineAnimeSearchResults(html).forEach((entry) => {
+                const key = String(entry?._nineAnimeWatchPath || entry?.url || entry?.mal_id || '').trim();
+                if (!key || results.has(key)) return;
+                results.set(key, entry);
+            });
+
+            if (results.size >= 24) break;
+        }
+
+        return Array.from(results.values());
     })().catch((error) => {
         console.warn('9animetv direct search failed', query, error);
         return [];
@@ -4194,43 +4559,30 @@ function bindBrowseControls() {
 function loadHomeSections() {
     setTimeout(() => {
         loadSection(`${JIKAN_BASE}/top/anime?filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'trendingGrid', { media: 'series' });
-    }, 400);
+    }, 150);
 
     setTimeout(() => {
         loadSuggestedAnime();
-    }, 650);
+    }, 300);
 
     setTimeout(() => {
         loadSection(`${JIKAN_BASE}/anime?themes=62&order_by=members&sort=desc&limit=24&page=${randomPage(6)}&sfw`, 'isekaiTrendingGrid', { media: 'series' });
-    }, 800);
-
-    setTimeout(() => {
-        loadSection(`${JIKAN_BASE}/anime?themes=62&order_by=start_date&sort=desc&limit=24&page=1&sfw`, 'isekaiNewGrid', { media: 'series' });
-    }, 1050);
+    }, 550);
 
     setTimeout(() => {
         loadSection(`${JIKAN_BASE}/top/anime?filter=airing&limit=24&page=${randomPage(10)}&sfw`, 'airingGrid', { media: 'series' });
-    }, 900);
+    }, 850);
 
-    setTimeout(() => {
-        loadSection(`${JIKAN_BASE}/top/anime?filter=upcoming&limit=24&page=${randomPage(10)}&sfw`, 'upcomingGrid', { media: 'series', releasedOnly: false, clickable: false });
-    }, 1400);
-
-    setTimeout(() => {
-        loadSection(`${JIKAN_BASE}/top/anime?limit=24&page=${randomPage(10)}&sfw`, 'topGrid', { media: 'series' });
-    }, 1900);
-
-    setTimeout(() => {
-        loadSection(`${JIKAN_BASE}/top/anime?type=movie&filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'moviesGrid', { media: 'movie' });
-    }, 2400);
-
-    setTimeout(() => {
-        loadAdultSection('adultGrid', { movie: false, count: 24 });
-    }, 3000);
-
-    setTimeout(() => {
-        loadAdultSection('adultMoviesGrid', { movie: true, count: 24 });
-    }, 3600);
+    queueDeferredHomeSection(`${JIKAN_BASE}/anime?themes=62&order_by=start_date&sort=desc&limit=24&page=1&sfw`, 'isekaiNewGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/anime?genres=27&order_by=members&sort=desc&limit=24&page=${randomPage(6)}&sfw`, 'shounenGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/anime?genres=25&order_by=members&sort=desc&limit=24&page=${randomPage(4)}&sfw`, 'shoujoGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/anime?genres=42&order_by=members&sort=desc&limit=24&page=${randomPage(5)}&sfw`, 'seinenGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/anime?genres=43&order_by=members&sort=desc&limit=24&page=${randomPage(3)}&sfw`, 'joseiGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/top/anime?filter=upcoming&limit=24&page=${randomPage(10)}&sfw`, 'upcomingGrid', { media: 'series', releasedOnly: false, clickable: false });
+    queueDeferredHomeSection(`${JIKAN_BASE}/top/anime?limit=24&page=${randomPage(10)}&sfw`, 'topGrid', { media: 'series' });
+    queueDeferredHomeSection(`${JIKAN_BASE}/top/anime?type=movie&filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'moviesGrid', { media: 'movie' });
+    queueDeferredAdultSection('adultGrid', { movie: false, count: 24 });
+    queueDeferredAdultSection('adultMoviesGrid', { movie: true, count: 24 });
 }
 
 window.addEventListener('DOMContentLoaded', () => {

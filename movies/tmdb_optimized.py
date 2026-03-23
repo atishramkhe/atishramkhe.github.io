@@ -409,38 +409,6 @@ def main():
         json.dump({"movies": bollywood_details}, f, ensure_ascii=False, indent=2)
     print(f"✓ Saved {len(bollywood_details)} Bollywood movies\n")
 
-    # === KOREAN DRAMAS ===
-    print("Fetching K-Dramas...")
-    kdramas = {"movies": [], "tv_shows": []}
-    seen_ids = set()
-    discovered_tvs = fetch_korean_drama_trending(count=50, max_pages=5)
-    
-    for tv in discovered_tvs:
-        tid = tv.get("id")
-        if not tid or tid in seen_ids:
-            continue
-        details = fetch_details("tv", tid)
-        details["media_type"] = "tv"
-        if details.get("original_language") != "ko":
-            continue
-        genres = details.get("genres") or []
-        if not any(
-            (g.get("id") == 18) or (g.get("name", "").strip().lower() == "drama")
-            for g in genres
-        ):
-            continue
-        seen_ids.add(tid)
-        kdramas["tv_shows"].append(details)
-        poster_path = details.get("poster_path")
-        if poster_path:
-            poster_filename = f"{POSTERS_DIR}/tv_{tid}.png"
-            download_poster(poster_path, poster_filename)
-            used_posters.add(os.path.abspath(poster_filename))
-
-    with open("titles/kdramas.json", "w", encoding="utf-8") as f:
-        json.dump(kdramas, f, ensure_ascii=False, indent=2)
-    print(f"✓ Saved {len(kdramas['tv_shows'])} K-Dramas\n")
-
     # === COUNTRY-BASED COLLECTIONS ===
     print("Fetching Country-based Collections...")
     country_configs = [

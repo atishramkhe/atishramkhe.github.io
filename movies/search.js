@@ -108,8 +108,9 @@ function createCamBadge() {
     camBadge.style.position = 'absolute';
     camBadge.style.top = '8px';
     camBadge.style.left = '8px';
-    camBadge.style.background = 'none';
-    camBadge.style.color = '#e02735';
+    camBadge.style.background = '#050505';
+    camBadge.style.color = '#ff5564';
+    camBadge.style.border = '2px solid #e02735';
     camBadge.style.fontWeight = 'bold';
     camBadge.style.fontSize = '0.95em';
     camBadge.style.padding = '3px 12px';
@@ -1371,6 +1372,7 @@ async function fetchMorePosterInfo(id, mediaType) {
     // NEW: networks (for TV) / production companies (for movies) with logos
     const networks = Array.isArray(details.networks) ? details.networks : [];
     const productionCompanies = Array.isArray(details.production_companies) ? details.production_companies : [];
+    const productionCountries = Array.isArray(details.production_countries) ? details.production_countries : [];
 
     return {
         genres,
@@ -1383,7 +1385,9 @@ async function fetchMorePosterInfo(id, mediaType) {
         crew,
         networks,
         productionCompanies,
-        homepage: details.homepage || ''
+        productionCountries,
+        homepage: details.homepage || '',
+        imdbId: details.imdb_id || ''
     };
 }
 
@@ -1584,7 +1588,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 <div style="margin-bottom:14px;color:#fff;font-size:1.08em;font-family:'OumaTrialLight';">${overview || 'No description available.'}</div>
                 <div style="font-size:1.08em;color:#FFF;margin-bottom:10px;">
                     ${(extra.genres ? extra.genres.split(',').map(g => `<span class="showcase-tag">${g.trim()}</span>`).join(' ') : '<span class="showcase-tag">N/A</span>')}<br><br>
-                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}<br><br>
+                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}${extra.imdbId ? ` <a href="https://www.imdb.com/title/${extra.imdbId}/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;margin-left:10px;color:#f5c518;text-decoration:none;font-weight:700;">IMDb</a>` : ''}<br><br>
                     ${isTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
                 </div>
                 <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;"><b>Cast:</b></div>
@@ -2543,7 +2547,6 @@ function initHome() {
     loadGridSmart('titles/new.json', 'newGrid', true);
     loadGridSmart('titles/netflixfrance.json', 'netflixfranceGrid', true);
     loadGridSmart('titles/bollywood.json', 'bollywoodGrid', true);
-    loadGridSmart('titles/kdramas.json', 'kdramaGrid', true);
 
     // New genre sections
     loadGridSmart('titles/horror.json', 'horrorGrid', true);
@@ -3130,7 +3133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'netflixfranceGrid', label: 'Netflix France' },
         { id: 'newGrid', label: 'New Releases' },
         { id: 'bollywoodGrid', label: 'Bollywood' },
-        { id: 'kdramaGrid', label: 'K-Dramas' },
         { id: 'animationGrid', label: 'Animation' },
         { id: 'familyGrid', label: 'Family' },
         { id: 'comedyGrid', label: 'Comedy' },
