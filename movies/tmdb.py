@@ -214,10 +214,42 @@ def main():
     seen_bollywood_ids = set()
     trending_movie_ids = {movie.get("id") for movie in trending["movies"]}
     new_movie_ids = {movie.get("id") for movie in new_titles["movies"]}
-            poster_filename = f"{POSTERS_DIR}/movie_{details['id']}.png"
-    # Save Bollywood movies to JSON
-            if not results:
-        return collected[:count]
+
+    for candidate in bollywood_candidates:
+        title = candidate.get("title")
+        year = candidate.get("year")
+        if not title:
+            continue
+
+        details = search_tmdb_by_title(title, media_type="movie", year=year, fallback_to_tv=False)
+        if not details:
+            print(f"[Bollywood] No TMDB match found for {title!r} ({year})")
+            continue
+
+        tmdb_id = details.get("id")
+        if (
+            not tmdb_id
+            or tmdb_id in trending_movie_ids
+            or tmdb_id in new_movie_ids
+            or tmdb_id in seen_bollywood_ids
+        ):
+            continue
+
+        details["media_type"] = "movie"
+        details["einthusan_url"] = candidate.get("einthusan_url")
+        details["einthusan_title"] = title
+        details["einthusan_year"] = year
+        details["source_sections"] = candidate.get("source_sections", [])
+        bollywood_details.append(details)
+        seen_bollywood_ids.add(tmdb_id)
+
+        poster_path = details.get("poster_path")
+        if poster_path:
+            poster_filename = f"{POSTERS_DIR}/movie_{tmdb_id}.png"
+            download_poster(poster_path, poster_filename)
+
+    with open("titles/bollywood.json", "w", encoding="utf-8") as f:
+        json.dump({"movies": bollywood_details}, f, ensure_ascii=False, indent=2)
 
     # Save JSON files
     with open(TRENDING_JSON_PATH, "w", encoding="utf-8") as f:
