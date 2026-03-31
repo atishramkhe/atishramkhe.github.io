@@ -320,6 +320,72 @@ function getProgressEntryWithAliases(id, type) {
     return null;
 }
 
+function escapeRegExp(value) {
+    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function sourceTemplateToRegex(template) {
+    if (!template) return null;
+    const escaped = escapeRegExp(template)
+        .replace(/\\\$\\\{id\\\}/g, '(?<id>[^/?#&]+)')
+        .replace(/\\\$\\\{season\\\}/g, '(?<season>\\d+)')
+        .replace(/\\\$\\\{episode\\\}/g, '(?<episode>\\d+)');
+    return new RegExp(`^${escaped}(?:[?#].*)?$`, 'i');
+}
+
+function extractMediaFromPlayerSrc(url) {
+    if (!url) return null;
+
+    const groups = [
+        { playerType: 'VO', sources: SOURCES?.VO || [] },
+        { playerType: 'VF', sources: SOURCES?.VF || [] }
+    ];
+
+    for (const group of groups) {
+        for (let index = 0; index < group.sources.length; index++) {
+            const source = group.sources[index];
+            const movieMatch = sourceTemplateToRegex(source?.movies)?.exec(url);
+            if (movieMatch?.groups?.id) {
+                return {
+                    type: 'movie',
+                    id: movieMatch.groups.id,
+                    season: null,
+                    episode: null,
+                    playerType: group.playerType,
+                    playerIndex: index,
+                    sourceName: source?.name || ''
+                };
+            }
+
+            const tvMatch = sourceTemplateToRegex(source?.shows)?.exec(url);
+            if (tvMatch?.groups?.id) {
+                return {
+                    type: 'tv',
+                    id: tvMatch.groups.id,
+                    season: tvMatch.groups.season || null,
+                    episode: tvMatch.groups.episode || null,
+                    playerType: group.playerType,
+                    playerIndex: index,
+                    sourceName: source?.name || ''
+                };
+            }
+        }
+    }
+
+    return null;
+}
+
+function getCurrentPlayerContext() {
+    const iframe = playerContent ? playerContent.querySelector('iframe') : null;
+    return extractMediaFromPlayerSrc(iframe?.src || '');
+}
+
+function emitUserDataChanged() {
+    try {
+        window.dispatchEvent(new CustomEvent('movie-user-data-changed'));
+    } catch { }
+}
+
 // Ensure a toggle button exists in the section header row (creates one if missing)
 function ensureSectionToggleButton(section, config) {
     if (!section) return null;
@@ -720,7 +786,13 @@ function openPlayer(type, id, season = 1, episode = 1, preferSavedSource = false
     if (searchContainer) searchContainer.style.display = 'none';
 
     if (progressEntry) {
+        if (canonType === 'tv') {
+            progressEntry.season = Number(season);
+            progressEntry.episode = Number(episode);
+        }
         progressEntry.updatedAt = Date.now();
+        progressEntry.playerType = activeType || null;
+        progressEntry.playerIndex = activeType === 'VF' ? activeVFIdx : activeVOIdx;
         localStorage.setItem(canonicalKey, JSON.stringify(progressEntry));
     } else {
         // If no entry, ensureProgressPlaceholder will create one with updatedAt
@@ -753,22 +825,14 @@ if (voVfToggle) {
     voVfToggle.addEventListener('change', function () {
         // If player is open, reload with new source
         if (playerContainer && playerContainer.style.display === 'block') {
-            // Try to extract current id/type/season/episode from the iframe src
-            const iframe = playerContent.querySelector('iframe');
-            if (!iframe) return;
-            const src = iframe.src;
-            let type, id, season = 1, episode = 1;
-            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src)) {
-                type = 'movie';
-                id = (src.match(/movie\/(\d+)/) || src.match(/film\.php\?id=(\d+)/))[1];
-            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
-                type = 'tv';
-                let m = src.match(/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
-                id = m[1];
-                season = m[2];
-                episode = m[3];
-            }
-            if (id && type) openPlayer(type, id, season, episode);
+            const playerContext = getCurrentPlayerContext();
+            if (!playerContext?.id || !playerContext?.type) return;
+            openPlayer(
+                playerContext.type,
+                playerContext.id,
+                playerContext.season || 1,
+                playerContext.episode || 1
+            );
         }
     });
 }
@@ -984,6 +1048,7 @@ function removeFromContinueWatching(id, type) {
     for (const a of aliases) {
         localStorage.removeItem(`progress_${id}_${a}`);
     }
+    emitUserDataChanged();
 }
 
 async function maybeAutoRemoveFromContinueWatching(data, frac) {
@@ -1036,28 +1101,15 @@ window.addEventListener("message", function (event) {
         if (progressNum === null && typeof event.data?.progress === 'number') progressNum = event.data.progress;
         if (timestamp === null && typeof event.data?.timestamp === 'number') timestamp = event.data.timestamp;
 
-        // If still missing, try to parse from iframe src (for known servers)
+        // If still missing, try to parse from the current iframe src.
         let iframeSeason = null;
         let iframeEpisode = null;
-        if (playerContent) {
-            const iframe = playerContent.querySelector('iframe');
-            const src = iframe?.src || '';
-            if (src) {
-                if (!type && (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src))) {
-                    type = 'movie';
-                }
-                if (!type && (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src))) {
-                    type = 'tv';
-                }
-                if (!id && (/videasy\.net\/(?:movie|tv)\/(\d+)/.test(src) || /frembed\.best\/api\/(?:film|serie)\.php\?id=(\d+)/.test(src))) {
-                    id = (src.match(/\/(?:movie|tv)\/(\d+)/) || src.match(/id=(\d+)/))[1];
-                }
-                const m = src.match(/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
-                if (m) {
-                    iframeSeason = m[2];
-                    iframeEpisode = m[3];
-                }
-            }
+        const playerContext = getCurrentPlayerContext();
+        if (playerContext) {
+            if (!type) type = playerContext.type;
+            if (!id) id = playerContext.id;
+            iframeSeason = playerContext.season;
+            iframeEpisode = playerContext.episode;
         }
 
         // Canonicalize type to avoid multiple keys for same content (tv vs serie/series/show)
@@ -1079,8 +1131,8 @@ window.addEventListener("message", function (event) {
             title: parsed.title ?? parsed.name ?? null,
             poster_path: parsed.poster_path ?? parsed.posterPath ?? parsed.poster ?? null,
             updatedAt: Date.now(),
-            playerType: activeType || null,
-            playerIndex: activeType === 'VF' ? activeVFIdx : activeVOIdx
+            playerType: playerContext?.playerType ?? activeType ?? null,
+            playerIndex: playerContext?.playerIndex ?? (activeType === 'VF' ? activeVFIdx : activeVOIdx)
         };
 
         const key = `progress_${id}_${type}`;
@@ -1336,17 +1388,25 @@ async function fetchMorePosterInfo(id, mediaType) {
     const apiType = mediaType === 'tv' ? 'tv' : 'movie';
     const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`;
     const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
+    const externalIdsUrl = mediaType === 'tv'
+        ? `https://api.themoviedb.org/3/${apiType}/${id}/external_ids?api_key=${apiKey}`
+        : null;
 
     let details = {};
     let credits = {};
+    let externalIds = {};
 
     try {
-        const [detailsRes, creditsRes] = await Promise.all([
+        const requests = [
             fetch(detailsUrl).then(r => r.json()),
             fetch(creditsUrl).then(r => r.json())
-        ]);
+        ];
+        if (externalIdsUrl) requests.push(fetch(externalIdsUrl).then(r => r.json()));
+
+        const [detailsRes, creditsRes, externalIdsRes] = await Promise.all(requests);
         details = detailsRes || {};
         credits = creditsRes || {};
+        externalIds = externalIdsRes || {};
     } catch (e) {
         // fallback: empty objects
     }
@@ -1387,7 +1447,7 @@ async function fetchMorePosterInfo(id, mediaType) {
         productionCompanies,
         productionCountries,
         homepage: details.homepage || '',
-        imdbId: details.imdb_id || ''
+        imdbId: details.imdb_id || externalIds.imdb_id || ''
     };
 }
 
@@ -1546,13 +1606,27 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     }
 
     const isSaved = isInWatchLater(id, mediaType);
+    const isWatched = isInWatchedList(id, mediaType);
+    const isLiked = isInLikedList(id, mediaType);
     const playBtnId = 'more-poster-play-btn';
     const wlBtnId = 'more-poster-watchlater-btn';
     const wlLabelId = 'more-poster-watchlater-label';
+    const watchedBtnId = 'more-poster-watched-btn';
+    const watchedLabelId = 'more-poster-watched-label';
+    const likeBtnId = 'more-poster-like-btn';
+    const likeLabelId = 'more-poster-like-label';
     const wlBtnSymbol = isSaved
         ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
         : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
     const wlLabelText = isSaved ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
+    const watchedBtnSymbol = isWatched
+        ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_all</span>'
+        : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_outline</span>';
+    const watchedLabelText = isWatched ? 'Remove from <br> Watched' : 'Mark as <br> Watched';
+    const likeBtnSymbol = isLiked
+        ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up</span>'
+        : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up_off_alt</span>';
+    const likeLabelText = isLiked ? 'Unlike <br> Title' : 'Like <br> Title';
 
     modal.innerHTML = `
         <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">
@@ -1561,11 +1635,14 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         <div style="display:flex;gap:36px;">
             <div style="flex-shrink:0;display:flex;flex-direction:column;">
                 <img id="modal-poster" src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
-                <div style="display:flex;flex-direction:row;align-items:top;width:100%;margin-top:18px;">
-                    <button id="${playBtnId}"
-                        style="width:40px;height:40px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;margin-left:33px">
-                        <span class="material-symbols-outlined" style="font-size:40px;line-height:1;">play_circle</span>
-                    </button>
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;width:100%;margin-top:18px;">
+                    <div style="display:flex;flex-direction:column;align-items:center;">
+                        <button id="${playBtnId}"
+                            style="width:40px;height:40px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
+                            <span class="material-symbols-outlined" style="font-size:40px;line-height:1;">play_circle</span>
+                        </button>
+                        <span style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;text-align:center;">Play</span>
+                    </div>
                     <div style="display:flex;flex-direction:column;align-items:center;">
                         <button id="${wlBtnId}"
                             aria-label="${wlLabelText}"
@@ -1574,13 +1651,35 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                             ${wlBtnSymbol}
                         </button>
                         <span id="${wlLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px; font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;margin-left:0;justify-content:right;align-items:right;">
+                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
                             ${wlLabelText}
                         </span>
-                        
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;">
+                        <button id="${watchedBtnId}"
+                            aria-label="${watchedLabelText}"
+                            title="${watchedLabelText}"
+                            style="width:40px;height:40px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;line-height:1;cursor:pointer;">
+                            ${watchedBtnSymbol}
+                        </button>
+                        <span id="${watchedLabelId}"
+                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
+                            ${watchedLabelText}
+                        </span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;">
+                        <button id="${likeBtnId}"
+                            aria-label="${likeLabelText}"
+                            title="${likeLabelText}"
+                            style="width:40px;height:40px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;line-height:1;cursor:pointer;">
+                            ${likeBtnSymbol}
+                        </button>
+                        <span id="${likeLabelId}"
+                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
+                            ${likeLabelText}
+                        </span>
                     </div>
                 </div>
-                
             </div>
             <div style="flex:1;min-width:0;">
                 <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${title}</div>
@@ -1660,6 +1759,52 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
                 : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
             if (wlLabelEl) wlLabelEl.innerHTML = added ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
+        });
+    }
+
+    const watchedBtnEl = modal.querySelector(`#${watchedBtnId}`);
+    const watchedLabelEl = modal.querySelector(`#${watchedLabelId}`);
+    if (watchedBtnEl) {
+        watchedBtnEl.addEventListener('click', () => {
+            const watched = toggleWatchedList({
+                id,
+                mediaType,
+                title,
+                poster: posterUrl,
+                poster_path: posterUrl,
+                year,
+                date,
+                homepage: extra.homepage || '',
+                production_companies: extra.productionCompanies || []
+            });
+            watchedBtnEl.innerHTML = watched
+                ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_all</span>'
+                : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_outline</span>';
+            if (watchedLabelEl) watchedLabelEl.innerHTML = watched ? 'Remove from <br> Watched' : 'Mark as <br> Watched';
+            if (watched && wlBtnEl) {
+                wlBtnEl.innerHTML = '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
+                if (wlLabelEl) wlLabelEl.innerHTML = 'Add to <br> Watch Later';
+            }
+        });
+    }
+
+    const likeBtnEl = modal.querySelector(`#${likeBtnId}`);
+    const likeLabelEl = modal.querySelector(`#${likeLabelId}`);
+    if (likeBtnEl) {
+        likeBtnEl.addEventListener('click', () => {
+            const liked = toggleLikedList({
+                id,
+                mediaType,
+                title,
+                poster: posterUrl,
+                poster_path: posterUrl,
+                year,
+                date
+            });
+            likeBtnEl.innerHTML = liked
+                ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up</span>'
+                : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up_off_alt</span>';
+            if (likeLabelEl) likeLabelEl.innerHTML = liked ? 'Unlike <br> Title' : 'Like <br> Title';
         });
     }
 
@@ -1902,6 +2047,7 @@ function removeFromWatchLater(id, mediaType) {
     const list = getWatchLater().filter(x => itemKey(x) !== targetKey);
     setWatchLater(list);
     try { loadWatchLater(); } catch { }
+    emitUserDataChanged();
 }
 function isInWatchLater(id, mediaType) {
     const key = wlKey(id, mediaType);
@@ -1939,6 +2085,7 @@ function toggleWatchLater(item) {
     // Ensure no dupes get saved even under race conditions
     setWatchLater(normalizeAndDedupeWatchLater(list));
     try { loadWatchLater(); } catch { }
+    emitUserDataChanged();
     return added;
 }
 
@@ -2013,12 +2160,113 @@ function addToWatchedList(item) {
     }
     setWatchedList(normalizeAndDedupeWatched(list));
     try { loadWatchedList(); } catch { }
+    emitUserDataChanged();
 }
 function removeFromWatchedList(id, mediaType) {
     const targetKey = watchedKey(id, mediaType);
     const list = getWatchedList().filter(x => watchedKey(x?.id, x?.mediaType ?? x?.type) !== targetKey);
     setWatchedList(list);
     try { loadWatchedList(); } catch { }
+    emitUserDataChanged();
+}
+
+function isInWatchedList(id, mediaType) {
+    const key = watchedKey(id, mediaType);
+    if (!key) return false;
+    return getWatchedList().some(x => watchedKey(x?.id, x?.mediaType ?? x?.type) === key);
+}
+
+function toggleWatchedList(item) {
+    const alreadyWatched = isInWatchedList(item?.id, item?.mediaType ?? item?.type);
+    if (alreadyWatched) {
+        removeFromWatchedList(item.id, item.mediaType ?? item.type);
+        return false;
+    }
+
+    addToWatchedList(item);
+    removeFromContinueWatching(item.id, item.mediaType ?? item.type);
+    removeFromWatchLater(item.id, item.mediaType ?? item.type);
+    try { loadContinueWatching(); } catch { }
+    return true;
+}
+
+const LIKED_LIST_KEY = 'likedList';
+
+function getLikedList() {
+    try { return JSON.parse(localStorage.getItem(LIKED_LIST_KEY) || '[]'); } catch { return []; }
+}
+
+function setLikedList(list) {
+    localStorage.setItem(LIKED_LIST_KEY, JSON.stringify(list));
+}
+
+function likedKey(id, mediaType) {
+    const mid = String(id ?? '').trim();
+    const mtype = canonicalType(mediaType);
+    return mid && mtype ? `${mid}:${mtype}` : '';
+}
+
+function normalizeAndDedupeLiked(list) {
+    const map = new Map();
+    for (const it of Array.isArray(list) ? list : []) {
+        const id = String(it?.id ?? '').trim();
+        const mediaType = canonicalType(it?.mediaType ?? it?.type ?? '');
+        if (!id || !mediaType) continue;
+
+        const key = likedKey(id, mediaType);
+        const updatedAt = it?.updatedAt ?? it?.likedAt ?? 0;
+        const normalized = {
+            id,
+            mediaType,
+            title: it?.title ?? it?.name ?? '',
+            poster: it?.poster ?? '',
+            poster_path: it?.poster_path ?? it?.posterPath ?? it?.poster ?? '',
+            date: it?.date ?? '',
+            year: it?.year ?? '',
+            updatedAt
+        };
+
+        const prev = map.get(key);
+        if (!prev || (updatedAt || 0) > (prev.updatedAt || 0)) {
+            map.set(key, normalized);
+        }
+    }
+    return Array.from(map.values());
+}
+
+function isInLikedList(id, mediaType) {
+    const key = likedKey(id, mediaType);
+    if (!key) return false;
+    return getLikedList().some(item => likedKey(item?.id, item?.mediaType ?? item?.type) === key);
+}
+
+function toggleLikedList(item) {
+    const list = getLikedList();
+    const key = likedKey(item?.id, item?.mediaType ?? item?.type);
+    if (!key) return false;
+
+    const idx = list.findIndex(entry => likedKey(entry?.id, entry?.mediaType ?? entry?.type) === key);
+    let liked = false;
+
+    if (idx >= 0) {
+        list.splice(idx, 1);
+    } else {
+        list.push({
+            id: String(item.id),
+            mediaType: canonicalType(item.mediaType ?? item.type),
+            title: item.title || item.name || '',
+            poster: item.poster || '',
+            poster_path: item.poster_path || item.posterPath || item.poster || '',
+            date: item.date || '',
+            year: item.year || '',
+            updatedAt: Date.now()
+        });
+        liked = true;
+    }
+
+    setLikedList(normalizeAndDedupeLiked(list));
+    emitUserDataChanged();
+    return liked;
 }
 
 async function maybeAddToWatchedList(data, frac) {
@@ -2057,6 +2305,71 @@ async function maybeAddToWatchedList(data, frac) {
 function truncateOverview(text, maxLength = 120) {
     if (!text || typeof text !== 'string') return '';
     return text.length > maxLength ? text.slice(0, maxLength).trim() + '...' : text;
+}
+
+function getItemDateValue(item) {
+    return item?.date || item?.release_date || item?.first_air_date || '';
+}
+
+function getItemYearValue(item) {
+    const date = getItemDateValue(item);
+    return date ? date.slice(0, 4) : '';
+}
+
+function formatEpisodeLabel(item) {
+    const mediaType = canonicalType(item?.mediaType ?? item?.type);
+    if (mediaType !== 'tv') return '';
+
+    const season = item?.season ?? item?.season_number ?? null;
+    const episode = item?.episode ?? item?.episode_number ?? null;
+    if (!season || !episode) return '';
+
+    return `S${Number(season)} E${Number(episode)}`;
+}
+
+function createLibraryActionButton(iconName, label) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.title = label;
+    button.setAttribute('aria-label', label);
+    Object.assign(button.style, {
+        position: 'absolute',
+        left: '8px',
+        bottom: '8px',
+        width: '34px',
+        height: '34px',
+        borderRadius: '50%',
+        border: 'none',
+        background: 'rgba(0,0,0,0.72)',
+        color: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        zIndex: '3',
+        boxShadow: '0 2px 6px rgba(0,0,0,.35)'
+    });
+    button.innerHTML = `<span class="material-symbols-outlined" style="font-size:20px;line-height:1;">${iconName}</span>`;
+    return button;
+}
+
+function appendMoreInfoButton(container, item, title, poster) {
+    if (!container) return;
+    const infoBtn = createLibraryActionButton('info', 'More info');
+    infoBtn.onclick = (event) => {
+        event.stopPropagation();
+        showMorePosterInfo({
+            id: item.id,
+            mediaType: item.mediaType || item.type,
+            poster,
+            title: title || item.title || item.name || 'Untitled',
+            year: item.year || getItemYearValue(item),
+            date: getItemDateValue(item),
+            overview: item.overview || '',
+            isTV: canonicalType(item.mediaType || item.type) === 'tv'
+        });
+    };
+    container.appendChild(infoBtn);
 }
 
 // Continue Watching loader (unchanged behavior, respects auto-remove threshold)
@@ -2273,6 +2586,7 @@ function loadContinueWatching() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
+            const episodeLabel = formatEpisodeLabel(data);
 
             let percent = 0;
             if (typeof data.progress === 'number') {
@@ -2287,6 +2601,7 @@ function loadContinueWatching() {
                 <div style="width:100%;height:6px;background:#222;margin-top:4px;overflow:hidden;">
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
+                ${episodeLabel ? `<div style="margin-top:6px;font-size:0.76em;color:#d9d9d9;text-align:center;letter-spacing:.04em;">${episodeLabel}</div>` : ''}
                 ${hasNewEpisode ? `<div style="position:absolute;right:8px;top:8px;background:#e02735;color:#fff;font-size:0.65em;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:.4px;">New episode</div>` : ''}
             `;
 
@@ -2321,8 +2636,10 @@ function loadContinueWatching() {
                 e.stopPropagation();
                 removeFromContinueWatching(data.id, data.mediaType);
                 loadContinueWatching();
+                emitUserDataChanged();
             };
             applyCamBadge(div, { ...data, title, date: data.date || data.release_date || '' });
+            appendMoreInfoButton(div, data, title, poster);
 
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
@@ -2398,7 +2715,7 @@ function loadWatchLater() {
             div.className = 'poster';
             div.style.position = 'relative';
             div.innerHTML = `<img src="${poster}" alt="${title}">`;
-            div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1));
+            div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '&times;';
@@ -2426,6 +2743,7 @@ function loadWatchLater() {
                 removeFromWatchLater(it.id, it.mediaType);
             };
             applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
+            appendMoreInfoButton(div, it, title, poster);
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -2520,6 +2838,7 @@ function loadWatchedList() {
                 removeFromWatchedList(it.id, it.mediaType);
             };
             applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
+            appendMoreInfoButton(div, it, title, poster);
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -2546,6 +2865,7 @@ function initHome() {
     loadGridSmart('titles/trending.json', 'trendingGrid', true);
     loadGridSmart('titles/new.json', 'newGrid', true);
     loadGridSmart('titles/netflixfrance.json', 'netflixfranceGrid', true);
+    loadGridSmart('titles/netflix_documentaries.json', 'netflixDocumentariesGrid', true);
     loadGridSmart('titles/bollywood.json', 'bollywoodGrid', true);
 
     // New genre sections
@@ -3131,6 +3451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = [
         { id: 'trendingGrid', label: 'Trending' },
         { id: 'netflixfranceGrid', label: 'Netflix France' },
+        { id: 'netflixDocumentariesGrid', label: 'Netflix Documentaries' },
         { id: 'newGrid', label: 'New Releases' },
         { id: 'bollywoodGrid', label: 'Bollywood' },
         { id: 'animationGrid', label: 'Animation' },

@@ -36,7 +36,8 @@ class RecommendationEngine:
             "drama.json", "thriller.json", "adventure.json", "romance.json",
             "scifi.json", "family.json", "comedy.json", "crime.json",
             "china.json", "taiwan.json", "philippines.json", "japan.json",
-            "hongkong.json", "thailand.json", "netflixfrance.json"
+            "hongkong.json", "thailand.json", "netflixfrance.json",
+            "netflix_documentaries.json"
         ]
         
         for filename in json_files:

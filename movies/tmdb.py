@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+from datetime import date, timedelta
 
 from einthusan_bollywood import scrape_bollywood_candidates
 
@@ -10,6 +11,9 @@ IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
 TRENDING_JSON_PATH = "titles/trending.json"
 NEW_JSON_PATH = "titles/new.json"
 POSTERS_DIR = "posters"
+NETFLIX_DOCUMENTARIES_JSON_PATH = "titles/netflix_documentaries.json"
+NETFLIX_PROVIDER_ID = 8
+DOCUMENTARY_GENRE_ID = 99
 
 def fetch_trending(media_type):
     url = f"{BASE_URL}/trending/{media_type}/day"
@@ -151,6 +155,85 @@ def fetch_tmdb_list(list_id):
     resp = requests.get(url, params=params)
     resp.raise_for_status()
     return resp.json().get("items", [])
+
+
+def is_documentary_title(details):
+    genres = details.get("genres") or []
+    return any(
+        (g.get("id") == DOCUMENTARY_GENRE_ID)
+        or (g.get("name", "").strip().lower() == "documentary")
+        for g in genres
+        if isinstance(g, dict)
+    )
+
+
+def build_new_netflix_documentaries(region="FR", count=24, max_pages=4, years_back=3):
+    """Build a recent Netflix documentaries feed from TMDB discover results."""
+    cutoff = date.today() - timedelta(days=365 * years_back)
+    results = {"movies": [], "tv_shows": []}
+
+    for media_type in ("movie", "tv"):
+        endpoint = "discover/movie" if media_type == "movie" else "discover/tv"
+        bucket = "movies" if media_type == "movie" else "tv_shows"
+        sort_by = "primary_release_date.desc" if media_type == "movie" else "first_air_date.desc"
+        date_key = "primary_release_date.gte" if media_type == "movie" else "first_air_date.gte"
+        release_field = "release_date" if media_type == "movie" else "first_air_date"
+        seen_ids = set()
+
+        for page in range(1, max_pages + 1):
+            if len(results[bucket]) >= count:
+                break
+
+            params = {
+                "api_key": apiKey,
+                "language": "en-US",
+                "page": page,
+                "sort_by": sort_by,
+                "with_watch_providers": str(NETFLIX_PROVIDER_ID),
+                "watch_region": region,
+                "with_genres": str(DOCUMENTARY_GENRE_ID),
+                "include_adult": "false",
+                date_key: cutoff.isoformat(),
+            }
+
+            response = requests.get(f"{BASE_URL}/{endpoint}", params=params)
+            response.raise_for_status()
+            items = response.json().get("results", [])
+            if not items:
+                break
+
+            for item in items:
+                tmdb_id = item.get("id")
+                if not tmdb_id or tmdb_id in seen_ids:
+                    continue
+
+                details = fetch_details(media_type, tmdb_id)
+                details["media_type"] = media_type
+
+                release_date = details.get(release_field) or ""
+                if not release_date:
+                    continue
+                try:
+                    if date.fromisoformat(release_date) > date.today():
+                        continue
+                except ValueError:
+                    continue
+
+                if not is_documentary_title(details):
+                    continue
+
+                seen_ids.add(tmdb_id)
+                results[bucket].append(details)
+
+                poster_path = details.get("poster_path")
+                if poster_path:
+                    poster_filename = f"{POSTERS_DIR}/{media_type}_{tmdb_id}.png"
+                    download_poster(poster_path, poster_filename)
+
+                if len(results[bucket]) >= count:
+                    break
+
+    return results
 
 def main():
     os.makedirs(os.path.dirname(TRENDING_JSON_PATH), exist_ok=True)
@@ -358,6 +441,7 @@ def main():
     family_movies = build_genre_list(10751, "family")
     crime_movies = build_genre_list(80, "crime")
     comedy_movies = build_genre_list(35, "comedy")
+    netflix_documentaries = build_new_netflix_documentaries(region="FR", count=24, max_pages=4, years_back=3)
 
     # Trending Animation Movies (kept as-is but can also use the generic helper)
     def fetch_trending_animation(count=50, max_pages=5):
@@ -424,6 +508,8 @@ def main():
         json.dump({"movies": crime_movies}, f, ensure_ascii=False, indent=2)
     with open("titles/comedy.json", "w", encoding="utf-8") as f:
         json.dump({"movies": comedy_movies}, f, ensure_ascii=False, indent=2)
+    with open(NETFLIX_DOCUMENTARIES_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(netflix_documentaries, f, ensure_ascii=False, indent=2)
 
     # Build set of poster paths that are still in use
     used_posters = set()
@@ -443,6 +529,7 @@ def main():
         + family_movies
         + crime_movies
         + comedy_movies
+        + locals().get("netflix_documentaries", {}).get("movies", [])
         #+ (netflix_xmas.get("movies", []) if 'netflix_xmas' in locals() else [])
         #+ (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
         #+ (best_xmas.get("movies", []) if 'best_xmas' in locals() else [])
@@ -455,6 +542,7 @@ def main():
     for tv in (
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
+        + locals().get("netflix_documentaries", {}).get("tv_shows", [])
         + locals().get("netflix_xmas", {}).get("tv_shows", [])
         + locals().get("best_xmas", {}).get("tv_shows", [])
     ):
@@ -615,6 +703,7 @@ def main():
         + family_movies
         + crime_movies
         + comedy_movies
+        + locals().get("netflix_documentaries", {}).get("movies", [])
         # + (netflix_xmas.get("movies", []) if 'netflix_xmas' in locals() else [])
         # + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
         # + (best_xmas.get("movies", []) if 'best_xmas' in locals() else [])
@@ -627,6 +716,7 @@ def main():
     for tv in (
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
+        + locals().get("netflix_documentaries", {}).get("tv_shows", [])
         + locals().get("netflix_xmas", {}).get("tv_shows", [])
         + locals().get("best_xmas", {}).get("tv_shows", [])
     ):
