@@ -1553,6 +1553,57 @@ function buildPosterCardBadges(anime, options = {}) {
     return badges;
 }
 
+function hasSeriesLanguageSources(sourceData, predicate) {
+    if (!sourceData || typeof sourceData !== 'object' || typeof predicate !== 'function') return false;
+    return Object.values(sourceData).some((season) => {
+        if (!season || typeof season !== 'object') return false;
+        return Object.values(season).some((episode) => {
+            if (!episode || typeof episode !== 'object') return false;
+            return Object.keys(episode).some((lang) => predicate(String(lang || '').trim().toLowerCase()));
+        });
+    });
+}
+
+function hasSeriesFrenchDubSource(sourceData) {
+    return hasSeriesLanguageSources(sourceData, (lang) => lang.includes('vf') || lang.includes('dub') || lang === 'fr');
+}
+
+const posterBadgeHydrationQueue = [];
+let posterBadgeHydrationActiveCount = 0;
+const MAX_POSTER_BADGE_HYDRATIONS = 4;
+
+function pumpPosterBadgeHydrationQueue() {
+    while (posterBadgeHydrationActiveCount < MAX_POSTER_BADGE_HYDRATIONS && posterBadgeHydrationQueue.length) {
+        const task = posterBadgeHydrationQueue.shift();
+        posterBadgeHydrationActiveCount += 1;
+        Promise.resolve()
+            .then(task)
+            .catch(() => { })
+            .finally(() => {
+                posterBadgeHydrationActiveCount = Math.max(0, posterBadgeHydrationActiveCount - 1);
+                pumpPosterBadgeHydrationQueue();
+            });
+    }
+}
+
+function schedulePosterCardBadgeHydration(anime, options, posterDiv, badgeHost) {
+    posterBadgeHydrationQueue.push(async () => {
+        try {
+            const profile = await getAnimePlaybackProfile(anime);
+            if (!profile || !profile.seriesSourceData || !hasSeriesFrenchDubSource(profile.seriesSourceData)) return;
+            const badges = buildPosterCardBadges(anime, options);
+            badges.push({ label: '🇫🇷 VF', tone: 'info' });
+            renderPosterBadgeHost(badgeHost, badges);
+            if (badgeHost.childElementCount && !badgeHost.isConnected) {
+                posterDiv.appendChild(badgeHost);
+            }
+        } catch (error) {
+            console.warn('Failed to hydrate anime poster badges', anime?.title || anime?.mal_id, error);
+        }
+    });
+    pumpPosterBadgeHydrationQueue();
+}
+
 const animeDetailCache = new Map();
 
 async function fetchAnimeDetailForModal(anime) {
@@ -1792,6 +1843,7 @@ function createPosterCard(anime, onClick, options = {}) {
     badgeHost.style.zIndex = '3';
     renderPosterBadgeHost(badgeHost, buildPosterCardBadges(anime, options));
     if (badgeHost.childElementCount) posterDiv.appendChild(badgeHost);
+    schedulePosterCardBadgeHydration(anime, options, posterDiv, badgeHost);
 
     const metaParts = [];
     if (anime.type) metaParts.push(String(anime.type));
