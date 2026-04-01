@@ -730,6 +730,10 @@
             background-size: 200% 100%; animation: shimmer 1.5s infinite;
             aspect-ratio: 16/9; border-radius: 0;
         }
+        .home-feed-sentinel {
+            width: 100%;
+            height: 1px;
+        }
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
         /* ===== FOOTER ===== */
@@ -994,6 +998,11 @@
     let _showcasePaused = false;
     let _showcaseHydrated = new Map();
     let _searchFiltersReady = false;
+    let _liveCatalogEntries = null;
+    let _liveCatalogPromise = null;
+    let _homeSectionObserver = null;
+    let _searchRequestSequence = 0;
+    const _homeSectionState = new Map();
     let _searchFilters = {
         tag: 'all',
         country: '',
@@ -1012,12 +1021,23 @@
         movies:    { type: 2, sub: 0, country: 0, status: 0, order: 1 },
     };
 
+    const HOME_SECTION_PAGE_SIZE = 20;
     const HOME_SECTIONS = [
-        { gridId: 'latestGrid',    params: { type: 0, sub: 0, country: 0, status: 0, order: 2, pageSize: 20, page: 0 } },
-        { gridId: 'kdramaGrid',    params: { type: 0, sub: 0, country: 2, status: 0, order: 1, pageSize: 20, page: 0 } },
-        { gridId: 'cdramaGrid',    params: { type: 0, sub: 0, country: 3, status: 0, order: 1, pageSize: 20, page: 0 } },
-        { gridId: 'hollywoodGrid', params: { type: 4, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
-        { gridId: 'animeGrid',     params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: 20, page: 0 } },
+        { sectionId: 'latestSection', gridId: 'latestGrid', params: { type: 0, sub: 0, country: 0, status: 0, order: 2, pageSize: HOME_SECTION_PAGE_SIZE, page: 0 } },
+        { sectionId: 'kdramaSection', gridId: 'kdramaGrid', params: { type: 0, sub: 0, country: 2, status: 0, order: 1, pageSize: HOME_SECTION_PAGE_SIZE, page: 0 } },
+        { sectionId: 'cdramaSection', gridId: 'cdramaGrid', params: { type: 0, sub: 0, country: 3, status: 0, order: 1, pageSize: HOME_SECTION_PAGE_SIZE, page: 0 } },
+        { sectionId: 'hollywoodSection', gridId: 'hollywoodGrid', params: { type: 4, sub: 0, country: 0, status: 0, order: 1, pageSize: HOME_SECTION_PAGE_SIZE, page: 0 } },
+        { sectionId: 'animeSection', gridId: 'animeGrid', params: { type: 3, sub: 0, country: 0, status: 0, order: 1, pageSize: HOME_SECTION_PAGE_SIZE, page: 0 } },
+    ];
+
+    const SEARCH_CATALOG_PAGE_SIZE = 80;
+    const SEARCH_SOURCE_CONFIGS = [
+        { key: 'drama-all', params: { type: 0, sub: 0, country: 0, status: 0, order: 1 } },
+        { key: 'kdrama', params: FILTER_CONFIG.kdrama },
+        { key: 'cdrama', params: FILTER_CONFIG.cdrama },
+        { key: 'hollywood', params: FILTER_CONFIG.hollywood },
+        { key: 'anime', params: FILTER_CONFIG.anime },
+        { key: 'movies', params: FILTER_CONFIG.movies },
     ];
 
     const SECTION_NAV_CONFIG = [
@@ -1032,6 +1052,21 @@
     ];
 
     const SHOWCASE_ROTATE_INTERVAL_MS = 10000;
+    const HOME_SECTION_OBSERVER_MARGIN = '500px';
+
+    function serializeQueryParams(params) {
+        return new URLSearchParams(
+            Object.entries(params).map(([key, value]) => [key, String(value)])
+        ).toString();
+    }
+
+    function buildListEndpoint(params) {
+        return `/List?${serializeQueryParams(params)}`;
+    }
+
+    async function fetchCatalogListPage(baseParams, page, pageSize) {
+        return kisskh(buildListEndpoint({ ...baseParams, pageSize, page }));
+    }
 
     function hasActiveAdvancedSearchFilters() {
         return _searchFilters.tag !== 'all'
@@ -1334,18 +1369,67 @@
         const snapshot = await ensureSnapshotLoaded();
         const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
         const entries = getSnapshotSearchEntries(snapshot);
-        return applySearchFilters(entries, queryTerms).slice(0, 200);
+        return applySearchFilters(entries, queryTerms);
     }
 
-    async function searchLiveCatalog(query) {
-        const response = await kisskh(`/Search?q=${encodeURIComponent(query)}&type=0`);
-        const items = Array.isArray(response)
-            ? response
-            : (response && (response.data || response.items)) || [];
+    async function buildLiveCatalogEntries(onProgress) {
+        const unique = new Map();
 
+        for (const source of SEARCH_SOURCE_CONFIGS) {
+            let page = 0;
+            let totalCount = Infinity;
+
+            while (page * SEARCH_CATALOG_PAGE_SIZE < totalCount) {
+                if (onProgress) {
+                    onProgress(`Indexing full live catalog: ${unique.size} titles cached`);
+                }
+
+                const data = await fetchCatalogListPage(source.params, page, SEARCH_CATALOG_PAGE_SIZE);
+                const items = Array.isArray(data.data) ? data.data : [];
+
+                items.forEach(item => {
+                    if (!item || !item.id || unique.has(item.id)) return;
+                    unique.set(item.id, enrichSearchEntry(item));
+                });
+
+                const reportedTotal = Number(data.totalCount || 0);
+                totalCount = reportedTotal > 0 ? reportedTotal : items.length;
+                page += 1;
+
+                if (!items.length || items.length < SEARCH_CATALOG_PAGE_SIZE) break;
+            }
+        }
+
+        if (onProgress) {
+            onProgress(`Indexed ${unique.size} live titles`);
+        }
+
+        return Array.from(unique.values());
+    }
+
+    async function ensureLiveCatalogEntries(onProgress) {
+        if (_liveCatalogEntries) return _liveCatalogEntries;
+
+        if (!_liveCatalogPromise) {
+            _liveCatalogPromise = buildLiveCatalogEntries(onProgress)
+                .then(entries => {
+                    _liveCatalogEntries = entries;
+                    return entries;
+                })
+                .finally(() => {
+                    _liveCatalogPromise = null;
+                });
+        } else if (onProgress) {
+            onProgress('Indexing full live catalog...');
+        }
+
+        return _liveCatalogPromise;
+    }
+
+    async function searchLiveCatalog(query, onProgress) {
         const queryTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
-        const entries = items.map(enrichSearchEntry);
-        return applySearchFilters(entries, queryTerms).slice(0, 200);
+        const entries = await ensureLiveCatalogEntries(onProgress);
+        return applySearchFilters(entries, queryTerms);
     }
 
     function setSearchUiState(query) {
@@ -1924,22 +2008,41 @@
     }
 
     // ── Load a grid section ──
-    async function loadSection(gridId, params) {
+    async function loadSection(gridId, params, options = {}) {
         const grid = document.getElementById(gridId);
         if (!grid) return;
-        grid.innerHTML = '';
-        loadSkeletons(grid);
+
+        const { append = false, placeholderCount = 10 } = options;
+
+        if (!append) {
+            grid.innerHTML = '';
+            if (placeholderCount > 0) loadSkeletons(grid, placeholderCount);
+        }
 
         try {
-            const qs = Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&');
-            const data = await kisskh(`/List?${qs}`);
-            grid.innerHTML = '';
-            (data.data || []).forEach(drama => {
-                grid.appendChild(createPosterCard(drama, gridId));
+            const data = await kisskh(buildListEndpoint(params));
+            const items = Array.isArray(data.data) ? data.data : [];
+            const fragment = document.createDocumentFragment();
+
+            if (!append) grid.innerHTML = '';
+
+            items.forEach(drama => {
+                fragment.appendChild(createPosterCard(drama, gridId));
             });
+
+            grid.appendChild(fragment);
+
+            return {
+                items,
+                totalCount: Number(data.totalCount || items.length),
+                pageSize: Number(data.pageSize || params.pageSize || items.length),
+            };
         } catch (err) {
             console.error(`Failed to load ${gridId}:`, err);
-            grid.innerHTML = '<p style="color:#555;padding:20px;">Failed to load. Check connection.</p>';
+            if (!append) {
+                grid.innerHTML = '<p style="color:#555;padding:20px;">Failed to load. Check connection.</p>';
+            }
+            throw err;
         }
     }
 
@@ -2190,33 +2293,126 @@
 
     // ── Load home view (lazy – only first section + continue watching load immediately) ──
     let _homeLoadAttempted = false;
+
+    function ensureHomeFeedSentinel(sectionId, gridId) {
+        const section = document.getElementById(sectionId);
+        if (!section) return null;
+
+        let sentinel = section.querySelector(`.home-feed-sentinel[data-grid-id="${gridId}"]`);
+        if (!sentinel) {
+            sentinel = document.createElement('div');
+            sentinel.className = 'home-feed-sentinel';
+            sentinel.dataset.gridId = gridId;
+            section.appendChild(sentinel);
+        }
+
+        return sentinel;
+    }
+
+    function resetHomeSectionObservers() {
+        if (_homeSectionObserver) {
+            _homeSectionObserver.disconnect();
+            _homeSectionObserver = null;
+        }
+        _homeSectionState.clear();
+    }
+
+    function getHomeSectionState(gridId) {
+        if (_homeSectionState.has(gridId)) return _homeSectionState.get(gridId);
+
+        const state = {
+            initialized: false,
+            loading: false,
+            page: 0,
+            loadedCount: 0,
+            totalCount: 0,
+            hasMore: true,
+        };
+        _homeSectionState.set(gridId, state);
+        return state;
+    }
+
+    async function loadHomeSectionPage(sectionConfig, reset = false) {
+        const state = getHomeSectionState(sectionConfig.gridId);
+        if (state.loading || (!reset && !state.hasMore)) return;
+
+        state.loading = true;
+        const targetPage = reset ? 0 : state.page;
+
+        try {
+            const result = await loadSection(
+                sectionConfig.gridId,
+                { ...sectionConfig.params, page: targetPage },
+                { append: targetPage > 0, placeholderCount: reset ? 6 : 0 }
+            );
+
+            const items = result && Array.isArray(result.items) ? result.items : [];
+            const pageSize = Number(sectionConfig.params.pageSize || HOME_SECTION_PAGE_SIZE);
+
+            state.initialized = true;
+            state.page = targetPage + 1;
+            state.loadedCount = targetPage === 0 ? items.length : state.loadedCount + items.length;
+            state.totalCount = Number(result && result.totalCount ? result.totalCount : state.loadedCount);
+            state.hasMore = items.length >= pageSize && state.loadedCount < state.totalCount;
+        } catch (err) {
+            state.hasMore = false;
+        } finally {
+            state.loading = false;
+        }
+    }
+
+    function setupHomeSectionObserver() {
+        _homeSectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                const gridId = entry.target.dataset.gridId;
+                const sectionConfig = HOME_SECTIONS.find(section => section.gridId === gridId);
+                if (!sectionConfig) return;
+
+                const state = getHomeSectionState(gridId);
+                loadHomeSectionPage(sectionConfig, !state.initialized);
+            });
+        }, { rootMargin: HOME_SECTION_OBSERVER_MARGIN });
+
+        HOME_SECTIONS.forEach(sectionConfig => {
+            const sentinel = ensureHomeFeedSentinel(sectionConfig.sectionId, sectionConfig.gridId);
+            if (sentinel) _homeSectionObserver.observe(sentinel);
+        });
+    }
+
     function loadHome() {
         _homeLoadAttempted = true;
         loadContinueWatching();
         loadWatchLater();
         loadFinished();
 
+        resetHomeSectionObservers();
+
+        HOME_SECTIONS.forEach((sectionConfig, index) => {
+            const grid = document.getElementById(sectionConfig.gridId);
+            if (!grid) return;
+
+            _homeSectionState.set(sectionConfig.gridId, {
+                initialized: false,
+                loading: false,
+                page: 0,
+                loadedCount: 0,
+                totalCount: 0,
+                hasMore: true,
+            });
+
+            grid.innerHTML = '';
+            if (index > 0) loadSkeletons(grid, 6);
+            ensureHomeFeedSentinel(sectionConfig.sectionId, sectionConfig.gridId);
+        });
+
+        setupHomeSectionObserver();
+
         // Load first section (Latest Update) right away
         if (HOME_SECTIONS.length > 0) {
-            loadSection(HOME_SECTIONS[0].gridId, HOME_SECTIONS[0].params);
+            loadHomeSectionPage(HOME_SECTIONS[0], true);
         }
-
-        // Lazy-load remaining sections when scrolled into view
-        HOME_SECTIONS.slice(1).forEach(s => {
-            const grid = document.getElementById(s.gridId);
-            if (!grid) return;
-            const section = grid.closest('section');
-            loadSkeletons(grid, 6); // placeholder skeletons
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadSection(s.gridId, s.params);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { rootMargin: '300px' });
-            observer.observe(section);
-        });
     }
 
     // ── Load filtered view ──
@@ -2263,6 +2459,14 @@
     async function performSearch(query) {
         const results = document.getElementById('search-results');
         const status = document.getElementById('search-results-status');
+        const searchRequestId = ++_searchRequestSequence;
+
+        const setStatusText = (message) => {
+            if (searchRequestId !== _searchRequestSequence) return false;
+            status.textContent = message;
+            return true;
+        };
+
         if (!hasSearchConstraints(query)) {
             results.innerHTML = '';
             status.textContent = '';
@@ -2270,21 +2474,30 @@
         }
 
         results.innerHTML = '<p style="color:#555;text-align:center;">Searching...</p>';
-        status.textContent = '';
+        setStatusText('');
 
         try {
             let items = [];
-            const canUseLiveSearch = Boolean(query.length >= 2 && (_apiBridgeReady || IS_LOCAL));
+            const canUseLiveSearch = Boolean((_apiBridgeReady || IS_LOCAL) && hasSearchConstraints(query));
 
             if (canUseLiveSearch) {
-                items = await searchLiveCatalog(query);
-                status.textContent = hasActiveAdvancedSearchFilters()
-                    ? 'Live kisskh search with local filters'
-                    : 'Live kisskh search';
+                try {
+                    items = await searchLiveCatalog(query, setStatusText);
+                    if (searchRequestId !== _searchRequestSequence) return;
+                    setStatusText(`Showing ${items.length} live result${items.length === 1 ? '' : 's'} from the full catalog`);
+                } catch (err) {
+                    console.warn('[drama] Full live search failed, using snapshot fallback:', err.message);
+                    items = await searchSnapshotCatalog(query);
+                    if (searchRequestId !== _searchRequestSequence) return;
+                    setStatusText(`Live catalog unavailable, showing ${items.length} cached snapshot result${items.length === 1 ? '' : 's'}`);
+                }
             } else {
                 items = await searchSnapshotCatalog(query);
-                status.textContent = `Snapshot search across cached titles${hasActiveAdvancedSearchFilters() ? ' with filters' : ''}`;
+                if (searchRequestId !== _searchRequestSequence) return;
+                setStatusText(`Showing ${items.length} cached snapshot result${items.length === 1 ? '' : 's'}`);
             }
+
+            if (searchRequestId !== _searchRequestSequence) return;
 
             results.innerHTML = '';
 
@@ -2293,12 +2506,16 @@
                 return;
             }
 
+            const fragment = document.createDocumentFragment();
             items.forEach(drama => {
-                results.appendChild(createPosterCard(drama, 'search-results'));
+                fragment.appendChild(createPosterCard(drama, 'search-results'));
             });
+            results.appendChild(fragment);
         } catch (err) {
             console.error('Search error:', err);
+            if (searchRequestId !== _searchRequestSequence) return;
             results.innerHTML = '<p style="color:#555;text-align:center;">Search failed. Try again.</p>';
+            setStatusText('');
         }
     }
 

@@ -32,6 +32,13 @@
       alt: 'Ateaish manga'
     },
     {
+      id: 'books',
+      label: 'Books',
+      href: 'books/',
+      icon: 'books/assets/ateaish_books.svg',
+      alt: 'Ateaish books'
+    },
+    {
       id: 'comics',
       label: 'Comics',
       href: 'comics/',
@@ -90,6 +97,9 @@
     if (path.startsWith('/manga')) {
       return 'manga';
     }
+    if (path.startsWith('/books')) {
+      return 'books';
+    }
     if (path.startsWith('/comics')) {
       return 'comics';
     }
@@ -121,7 +131,7 @@
         return 'home';
       }
 
-      if (['anime', 'drama', 'manga', 'comics', 'movies', 'radio', 'sport', 'tv'].includes(firstSegment)) {
+      if (['anime', 'drama', 'manga', 'books', 'comics', 'movies', 'radio', 'sport', 'tv'].includes(firstSegment)) {
         return firstSegment;
       }
     }

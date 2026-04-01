@@ -29,6 +29,7 @@ BASE_CANDIDATES = [
 ]
 
 MAX_ANIME_PER_RUN = max(1, int(os.environ.get("ANIME_SAMA_MAX_ANIME_PER_RUN", "90")))
+MAX_NEW_ANIME_PER_RUN = max(1, int(os.environ.get("ANIME_SAMA_MAX_NEW_ANIME_PER_RUN", "15")))
 MAX_WORKERS = max(1, int(os.environ.get("ANIME_SAMA_MAX_WORKERS", "12")))
 ROTATION_BUCKETS = max(1, int(os.environ.get("ANIME_SAMA_ROTATION_BUCKETS", "30")))
 HOT_DAYS = max(1, int(os.environ.get("ANIME_SAMA_HOT_DAYS", "120")))
@@ -55,6 +56,7 @@ STRIP_TAGS_RE = re.compile(r"<[^>]+>")
 
 @dataclass(frozen=True)
 class RouteInfo:
+    slug: str
     key: str
     season: str
     lang: str
@@ -73,6 +75,7 @@ class ScrapeResult:
     slug: str
     title: str | None
     payloads: list[RoutePayload]
+    content_kind: str | None = None
     error: str | None = None
 
 
@@ -146,13 +149,15 @@ def resolve_working_base() -> tuple[str, str]:
     raise RuntimeError("Could not reach a working Anime-Sama base URL")
 
 
-def extract_slugs_from_sitemap(xml_text: str) -> list[str]:
-    slugs = set()
+def extract_sitemap_routes(xml_text: str, base_url: str) -> dict[str, list[RouteInfo]]:
+    route_map: dict[str, dict[str, RouteInfo]] = {}
     for url in re.findall(r"<loc>([^<]+)</loc>", xml_text, re.I):
-        match = re.search(r"/catalogue/([^/]+)/", url)
-        if match and match.group(1):
-            slugs.add(match.group(1).strip())
-    return sorted(slugs)
+        info = extract_route_info(url, None, base_url)
+        if not info:
+            continue
+        per_slug = route_map.setdefault(info.slug, {})
+        per_slug[info.key] = info
+    return {slug: list(routes.values()) for slug, routes in route_map.items()}
 
 
 def ensure_schema(conn: sqlite3.Connection) -> None:
@@ -192,6 +197,7 @@ def ensure_schema(conn: sqlite3.Connection) -> None:
         "source_hash": "TEXT",
         "hot_until": "TEXT",
         "refresh_bucket": "INTEGER",
+        "content_kind": "TEXT",
     }
     for name, sql_type in desired_columns.items():
         if name not in existing_columns:
@@ -266,7 +272,7 @@ def upsert_sitemap_slugs(conn: sqlite3.Connection, slugs: list[str], now_iso: st
     return inserted
 
 
-def select_candidates(conn: sqlite3.Connection, now: dt.datetime) -> list[str]:
+def select_candidates(conn: sqlite3.Connection, now: dt.datetime, sitemap_seen_at: str) -> list[str]:
     selected: list[str] = []
     seen: set[str] = set()
 
@@ -291,41 +297,53 @@ def select_candidates(conn: sqlite3.Connection, now: dt.datetime) -> list[str]:
         """
         SELECT slug
         FROM anime
-        WHERE last_success_at IS NULL OR COALESCE(last_source_count, 0) = 0
+                WHERE last_seen_at = ?
+                    AND COALESCE(content_kind, '') NOT IN ('scan', 'missing')
+                    AND last_success_at IS NULL
+                    AND COALESCE(last_source_count, 0) = 0
+                    AND last_failure_at IS NULL
         ORDER BY id DESC
-        """
+                LIMIT ?
+                """,
+                (sitemap_seen_at, min(MAX_NEW_ANIME_PER_RUN, MAX_ANIME_PER_RUN)),
     )
     add(
         """
         SELECT slug
         FROM anime
-        WHERE last_failure_at IS NOT NULL
+                WHERE last_seen_at = ?
+                    AND COALESCE(content_kind, '') NOT IN ('scan', 'missing')
+                    AND last_failure_at IS NOT NULL
           AND (last_refresh_at IS NULL OR last_refresh_at < ?)
         ORDER BY last_failure_at DESC
         """,
-        (retry_cutoff,),
+                (sitemap_seen_at, retry_cutoff),
     )
     add(
         """
         SELECT slug
         FROM anime
-        WHERE hot_until IS NOT NULL
+                WHERE last_seen_at = ?
+                    AND COALESCE(content_kind, '') NOT IN ('scan', 'missing')
+                    AND hot_until IS NOT NULL
           AND hot_until > ?
           AND (last_refresh_at IS NULL OR last_refresh_at < ?)
         ORDER BY hot_until DESC, last_refresh_at ASC
         """,
-        (now_iso, hot_cutoff),
+                (sitemap_seen_at, now_iso, hot_cutoff),
     )
     add(
         """
         SELECT slug
         FROM anime
-        WHERE refresh_bucket = ?
+                WHERE last_seen_at = ?
+                    AND COALESCE(content_kind, '') NOT IN ('scan', 'missing')
+                    AND refresh_bucket = ?
           AND (hot_until IS NULL OR hot_until <= ?)
           AND (last_refresh_at IS NULL OR last_refresh_at < ?)
         ORDER BY last_refresh_at ASC, id ASC
         """,
-        (rotation_bucket, now_iso, rotation_cutoff),
+                (sitemap_seen_at, rotation_bucket, now_iso, rotation_cutoff),
     )
     return selected
 
@@ -346,7 +364,15 @@ def absolute_url(path: str, base_url: str) -> str:
     return urllib.parse.urljoin(base_url, path.strip())
 
 
-def extract_route_info(candidate: str, slug: str, base_url: str) -> RouteInfo | None:
+def path_parts(candidate: str, base_url: str) -> list[str]:
+    if not candidate:
+        return []
+    url = absolute_url(candidate, base_url)
+    parsed = urllib.parse.urlparse(url)
+    return [part for part in parsed.path.split("/") if part]
+
+
+def extract_route_info(candidate: str, slug: str | None, base_url: str) -> RouteInfo | None:
     if not candidate:
         return None
     url = absolute_url(candidate, base_url)
@@ -358,9 +384,12 @@ def extract_route_info(candidate: str, slug: str, base_url: str) -> RouteInfo | 
         return None
     if len(parts) <= index + 3:
         return None
-    if parts[index + 1] != slug:
+    parsed_slug = parts[index + 1]
+    if slug and parsed_slug != slug:
         return None
     tail = parts[index + 2 :]
+    if not tail or tail[0].lower() == "scan":
+        return None
     lang = tail[-1].lower()
     if lang not in {"vf", "vostfr"}:
         return None
@@ -371,6 +400,7 @@ def extract_route_info(candidate: str, slug: str, base_url: str) -> RouteInfo | 
     if not normalized.endswith("/"):
         normalized += "/"
     return RouteInfo(
+        slug=parsed_slug,
         key=f"{season}:{lang}",
         season=season,
         lang=lang.upper(),
@@ -392,6 +422,20 @@ def discover_routes_from_html(html: str, slug: str, base_url: str) -> list[Route
             seen.add(info.key)
             routes.append(info)
     return routes
+
+
+def has_scan_routes(html: str, slug: str, base_url: str) -> bool:
+    for candidate in HREF_RE.findall(html or ""):
+        parts = path_parts(candidate, base_url)
+        try:
+            index = parts.index("catalogue")
+        except ValueError:
+            continue
+        if len(parts) <= index + 2 or parts[index + 1] != slug:
+            continue
+        if parts[index + 2].lower() == "scan":
+            return True
+    return False
 
 
 def extract_episodes_script_urls(html: str, page_url: str) -> list[str]:
@@ -445,55 +489,92 @@ def parse_episodes_script(script_text: str) -> list[tuple[int, int, str]]:
     return [(index + 1, 1999, url) for index, url in enumerate(deduped)]
 
 
-def scrape_slug(slug: str, base_url: str) -> ScrapeResult:
+def scrape_slug(slug: str, base_url: str, seed_routes: list[RouteInfo] | None = None) -> ScrapeResult:
     anime_url = build_catalogue_url(base_url, slug)
+    title: str | None = None
+    route_map: dict[str, RouteInfo] = {route.key: route for route in seed_routes or []}
+    base_error: Exception | None = None
     try:
         anime_html = fetch_text(anime_url)
         title = extract_title(anime_html)
-        route_map: dict[str, RouteInfo] = {
-            route.key: route for route in discover_routes_from_html(anime_html, slug, anime_url)
-        }
+        discovered_routes = discover_routes_from_html(anime_html, slug, anime_url)
+        for route in discovered_routes:
+            route_map[route.key] = route
+        scan_only = False
         if not route_map:
-            for probe in ("saison1/vostfr/", "saison1/vf/", "film/vostfr/", "film/vf/"):
-                info = extract_route_info(probe, slug, anime_url)
-                if info:
-                    route_map[info.key] = info
+            scan_only = has_scan_routes(anime_html, slug, anime_url)
+            if not scan_only:
+                for probe in ("saison1/vostfr/", "saison1/vf/", "film/vostfr/", "film/vf/"):
+                    info = extract_route_info(probe, slug, anime_url)
+                    if info:
+                        route_map[info.key] = info
 
-        payloads: list[RoutePayload] = []
-        queue = list(route_map.values())
-        processed: set[str] = set()
+        if scan_only:
+            return ScrapeResult(
+                slug=slug,
+                title=title,
+                payloads=[],
+                content_kind="scan",
+                error="scan-only entry",
+            )
+    except Exception as error:  # noqa: BLE001
+        base_error = error
+        if not route_map:
+            return ScrapeResult(slug=slug, title=None, payloads=[], error=str(error))
 
-        while queue:
-            route = queue.pop(0)
-            if route.key in processed:
-                continue
-            processed.add(route.key)
+    payloads: list[RoutePayload] = []
+    queue = list(route_map.values())
+    processed: set[str] = set()
+    fetched_any_route = False
+    route_not_found_count = 0
+
+    while queue:
+        route = queue.pop(0)
+        if route.key in processed:
+            continue
+        processed.add(route.key)
+        try:
+            season_html = fetch_text(route.page_url)
+            fetched_any_route = True
+        except Exception as error:
+            if "HTTP Error 404" in str(error):
+                route_not_found_count += 1
+            continue
+
+        if not title:
+            title = extract_title(season_html) or title
+
+        for sibling in discover_routes_from_html(season_html, slug, route.page_url):
+            if sibling.key not in route_map:
+                route_map[sibling.key] = sibling
+                queue.append(sibling)
+
+        script_urls = extract_episodes_script_urls(season_html, route.page_url)
+        route_rows: list[tuple[int, int, str]] = []
+        for script_url in script_urls:
             try:
-                season_html = fetch_text(route.page_url)
+                script_text = fetch_text(script_url)
             except Exception:
                 continue
-
-            for sibling in discover_routes_from_html(season_html, slug, route.page_url):
-                if sibling.key not in route_map:
-                    route_map[sibling.key] = sibling
-                    queue.append(sibling)
-
-            script_urls = extract_episodes_script_urls(season_html, route.page_url)
-            route_rows: list[tuple[int, int, str]] = []
-            for script_url in script_urls:
-                try:
-                    script_text = fetch_text(script_url)
-                except Exception:
-                    continue
-                route_rows = parse_episodes_script(script_text)
-                if route_rows:
-                    break
+            route_rows = parse_episodes_script(script_text)
             if route_rows:
-                payloads.append(RoutePayload(season=route.season, lang=route.lang, rows=route_rows))
+                break
+        if route_rows:
+            payloads.append(RoutePayload(season=route.season, lang=route.lang, rows=route_rows))
 
-        return ScrapeResult(slug=slug, title=title, payloads=payloads)
-    except Exception as error:  # noqa: BLE001
-        return ScrapeResult(slug=slug, title=None, payloads=[], error=str(error))
+    if payloads:
+        return ScrapeResult(slug=slug, title=title, payloads=payloads, content_kind="anime")
+    if route_map and not fetched_any_route and route_not_found_count == len(route_map):
+        return ScrapeResult(
+            slug=slug,
+            title=title,
+            payloads=[],
+            content_kind="missing",
+            error="all sitemap routes returned 404",
+        )
+    if base_error:
+        return ScrapeResult(slug=slug, title=title, payloads=[], error=str(base_error))
+    return ScrapeResult(slug=slug, title=title, payloads=[], content_kind="anime")
 
 
 def compute_source_hash(conn: sqlite3.Connection, anime_id: int) -> tuple[int, str]:
@@ -514,13 +595,13 @@ def compute_source_hash(conn: sqlite3.Connection, anime_id: int) -> tuple[int, s
 def apply_result(conn: sqlite3.Connection, result: ScrapeResult, now: dt.datetime) -> tuple[bool, str]:
     now_iso = isoformat(now)
     row = conn.execute(
-        "SELECT id, title, source_hash, hot_until FROM anime WHERE slug = ?",
+        "SELECT id, title, source_hash, hot_until, content_kind FROM anime WHERE slug = ?",
         (result.slug,),
     ).fetchone()
     if not row:
         raise RuntimeError(f"Missing anime row for slug {result.slug}")
 
-    anime_id, existing_title, existing_hash, existing_hot_until = row
+    anime_id, existing_title, existing_hash, existing_hot_until, existing_content_kind = row
     current_count_before = conn.execute(
         "SELECT COUNT(*) FROM episode_sources WHERE anime_id = ?",
         (anime_id,),
@@ -566,22 +647,61 @@ def apply_result(conn: sqlite3.Connection, result: ScrapeResult, now: dt.datetim
                     last_failure_at = NULL,
                     last_source_count = ?,
                     source_hash = ?,
-                    hot_until = ?
+                    hot_until = ?,
+                    content_kind = 'anime'
                 WHERE id = ?
                 """,
                 (title, now_iso, now_iso, current_count, current_hash, next_hot_until, anime_id),
             )
         return True, "updated" if changed else "checked"
 
+    if result.content_kind == "scan":
+        with conn:
+            conn.execute("DELETE FROM episode_sources WHERE anime_id = ?", (anime_id,))
+            conn.execute(
+                """
+                UPDATE anime
+                SET title = COALESCE(?, title),
+                    last_refresh_at = ?,
+                    last_success_at = NULL,
+                    last_failure_at = NULL,
+                    last_source_count = 0,
+                    source_hash = NULL,
+                    hot_until = NULL,
+                    content_kind = 'scan'
+                WHERE id = ?
+                """,
+                (title, now_iso, anime_id),
+            )
+        return True, "skipped scan-only"
+
+    if result.content_kind == "missing":
+        with conn:
+            conn.execute(
+                """
+                UPDATE anime
+                SET title = COALESCE(?, title),
+                    last_refresh_at = ?,
+                    last_success_at = NULL,
+                    last_failure_at = NULL,
+                    hot_until = NULL,
+                    content_kind = 'missing'
+                WHERE id = ?
+                """,
+                (title, now_iso, anime_id),
+            )
+        return True, "skipped missing"
+
     conn.execute(
         """
         UPDATE anime
         SET title = COALESCE(?, title),
             last_refresh_at = ?,
-            last_failure_at = ?
+            last_failure_at = ?,
+            content_kind = COALESCE(?, content_kind)
         WHERE id = ?
         """,
-        (title, now_iso, now_iso, anime_id),
+        (title, now_iso, now_iso, result.content_kind or existing_content_kind, anime_id),
     )
     conn.commit()
     return False, result.error or "no routes found"
@@ -599,7 +719,8 @@ def main() -> int:
     now_iso = isoformat(now)
 
     base_url, sitemap_text = resolve_working_base()
-    sitemap_slugs = extract_slugs_from_sitemap(sitemap_text)
+    sitemap_routes = extract_sitemap_routes(sitemap_text, base_url)
+    sitemap_slugs = sorted(sitemap_routes)
 
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -609,7 +730,7 @@ def main() -> int:
     ensure_schema(conn)
     bootstrap_metadata(conn, now_iso)
     inserted = upsert_sitemap_slugs(conn, sitemap_slugs, now_iso)
-    candidates = select_candidates(conn, now)
+    candidates = select_candidates(conn, now, now_iso)
     print_summary(base_url, sitemap_slugs, candidates)
     if inserted:
         log(f"Inserted {inserted} new anime rows from sitemap")
@@ -622,7 +743,10 @@ def main() -> int:
     failed = 0
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        future_map = {executor.submit(scrape_slug, slug, base_url): slug for slug in candidates}
+        future_map = {
+            executor.submit(scrape_slug, slug, base_url, sitemap_routes.get(slug, [])): slug
+            for slug in candidates
+        }
         for index, future in enumerate(concurrent.futures.as_completed(future_map), start=1):
             slug = future_map[future]
             try:
