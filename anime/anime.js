@@ -1542,13 +1542,28 @@ function renderPosterBadgeHost(host, badges) {
     });
 }
 
+function appendPosterBadge(badges, badge) {
+    if (!Array.isArray(badges) || !badge || !badge.label) return;
+    if (badges.some((entry) => entry && entry.label === badge.label)) return;
+    badges.push(badge);
+}
+
+function isFrenchDubLanguage(lang) {
+    const normalized = String(lang || '').trim().toLowerCase();
+    return normalized.includes('vf') || normalized.includes('dub') || normalized === 'fr';
+}
+
 function buildPosterCardBadges(anime, options = {}) {
     const badges = [];
-    if (isNewAnimeRelease(anime)) badges.push({ label: 'New', tone: 'new' });
+    if (isNewAnimeRelease(anime)) appendPosterBadge(badges, { label: 'New', tone: 'new' });
     if (Array.isArray(options.badges)) {
         options.badges.forEach((badge) => {
-            if (badge && badge.label) badges.push(badge);
+            appendPosterBadge(badges, badge);
         });
+    }
+    const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
+    if (snapshotEntry && snapshotEntry.hasFrenchDub) {
+        appendPosterBadge(badges, { label: '🇫🇷 VF', tone: 'info' });
     }
     return badges;
 }
@@ -1565,7 +1580,7 @@ function hasSeriesLanguageSources(sourceData, predicate) {
 }
 
 function hasSeriesFrenchDubSource(sourceData) {
-    return hasSeriesLanguageSources(sourceData, (lang) => lang.includes('vf') || lang.includes('dub') || lang === 'fr');
+    return hasSeriesLanguageSources(sourceData, (lang) => isFrenchDubLanguage(lang));
 }
 
 const posterBadgeHydrationQueue = [];
@@ -1589,10 +1604,25 @@ function pumpPosterBadgeHydrationQueue() {
 function schedulePosterCardBadgeHydration(anime, options, posterDiv, badgeHost) {
     posterBadgeHydrationQueue.push(async () => {
         try {
+            const snapshotPromise = animePlaybackSnapshotPromise;
+            if (snapshotPromise) {
+                try {
+                    await snapshotPromise;
+                } catch { }
+                const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
+                if (snapshotEntry && snapshotEntry.hasFrenchDub) {
+                    const badges = buildPosterCardBadges(anime, options);
+                    renderPosterBadgeHost(badgeHost, badges);
+                    if (badgeHost.childElementCount && !badgeHost.isConnected) {
+                        posterDiv.appendChild(badgeHost);
+                    }
+                    return;
+                }
+            }
             const profile = await getAnimePlaybackProfile(anime);
             if (!profile || !profile.seriesSourceData || !hasSeriesFrenchDubSource(profile.seriesSourceData)) return;
             const badges = buildPosterCardBadges(anime, options);
-            badges.push({ label: '🇫🇷 VF', tone: 'info' });
+            appendPosterBadge(badges, { label: '🇫🇷 VF', tone: 'info' });
             renderPosterBadgeHost(badgeHost, badges);
             if (badgeHost.childElementCount && !badgeHost.isConnected) {
                 posterDiv.appendChild(badgeHost);
@@ -2433,10 +2463,107 @@ async function malToAniListId(malId) {
 }
 
 // Player performance caches
+const ANIME_PLAYBACK_SNAPSHOT_URL = './anime_playback_snapshot.json';
 const MAL_TO_ANILIST_CACHE_PREFIX = 'anime_mal_to_anilist:';
 const malToAniListCache = new Map();
 const animeSamaSeasonsCache = new Map();
+const animePlaybackSnapshotEntries = new Map();
+let animePlaybackSnapshotPromise = null;
 let currentAnimePlayerOpenToken = null;
+
+function parsePositiveInteger(value) {
+    const parsed = parseInt(String(value || ''), 10);
+    return Number.isNaN(parsed) || parsed <= 0 ? null : parsed;
+}
+
+function normalizeSnapshotLanguages(languages) {
+    if (!Array.isArray(languages)) return [];
+    return Array.from(new Set(languages
+        .map((lang) => String(lang || '').trim().toLowerCase())
+        .filter(Boolean)));
+}
+
+function normalizeAnimePlaybackSnapshotEntry(entry, fallbackAniListId = null) {
+    if (!entry || typeof entry !== 'object') return null;
+    const aniListId = parsePositiveInteger(entry.aniListId ?? fallbackAniListId);
+    if (!aniListId) return null;
+    const sourceAniListId = parsePositiveInteger(entry.sourceAniListId) || aniListId;
+    const languages = normalizeSnapshotLanguages(entry.languages);
+    const seasonCount = Math.max(0, parseInt(String(entry.seasonCount || '0'), 10) || 0);
+    const episodeCount = Math.max(0, parseInt(String(entry.episodeCount || '0'), 10) || 0);
+    const hasFrenchDub = entry.hasFrenchDub === true || languages.some((lang) => isFrenchDubLanguage(lang));
+    const hasAnySources = entry.hasAnySources === true || seasonCount > 0 || episodeCount > 0 || languages.length > 0;
+    return {
+        aniListId,
+        sourceAniListId,
+        hasAnySources,
+        hasFrenchDub,
+        languages,
+        seasonCount,
+        episodeCount
+    };
+}
+
+function applyAnimePlaybackSnapshot(snapshot) {
+    animePlaybackSnapshotEntries.clear();
+    const normalizedSnapshot = snapshot && typeof snapshot === 'object' ? snapshot : null;
+    const byAniListId = normalizedSnapshot && normalizedSnapshot.byAniListId && typeof normalizedSnapshot.byAniListId === 'object'
+        ? normalizedSnapshot.byAniListId
+        : {};
+    Object.entries(byAniListId).forEach(([aniListId, entry]) => {
+        const normalizedEntry = normalizeAnimePlaybackSnapshotEntry(entry, aniListId);
+        if (normalizedEntry) {
+            animePlaybackSnapshotEntries.set(normalizedEntry.aniListId, normalizedEntry);
+        }
+    });
+
+    const malToAniList = normalizedSnapshot && normalizedSnapshot.malToAniList && typeof normalizedSnapshot.malToAniList === 'object'
+        ? normalizedSnapshot.malToAniList
+        : {};
+    Object.entries(malToAniList).forEach(([malId, aniListId]) => {
+        const normalizedMalId = parsePositiveInteger(malId);
+        const normalizedAniListId = parsePositiveInteger(aniListId);
+        if (!normalizedMalId || !normalizedAniListId) return;
+        malToAniListCache.set(normalizedMalId, normalizedAniListId);
+    });
+}
+
+function loadAnimePlaybackSnapshot() {
+    if (animePlaybackSnapshotPromise) return animePlaybackSnapshotPromise;
+    animePlaybackSnapshotPromise = fetch(ANIME_PLAYBACK_SNAPSHOT_URL, { cache: 'no-cache' })
+        .then((response) => {
+            if (!response.ok) {
+                if (response.status !== 404) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return null;
+            }
+            return response.json();
+        })
+        .then((snapshot) => {
+            applyAnimePlaybackSnapshot(snapshot);
+            return snapshot;
+        })
+        .catch((error) => {
+            animePlaybackSnapshotEntries.clear();
+            console.warn('Failed to load anime playback snapshot', error);
+            return null;
+        });
+    return animePlaybackSnapshotPromise;
+}
+
+function getAnimePlaybackSnapshotEntryByAniListId(aniListId) {
+    const normalizedAniListId = parsePositiveInteger(aniListId);
+    return normalizedAniListId ? animePlaybackSnapshotEntries.get(normalizedAniListId) || null : null;
+}
+
+function getAnimePlaybackSnapshotEntryForAnime(anime) {
+    const malId = parsePositiveInteger(anime?.mal_id);
+    if (!malId) return null;
+    const aniListId = malToAniListCache.get(malId);
+    if (!aniListId) return null;
+    return getAnimePlaybackSnapshotEntryByAniListId(aniListId);
+}
 
 function getCachedAniListId(malId) {
     if (!malId) return null;
@@ -3258,8 +3385,13 @@ async function resolveSeriesSourceData(aniListId) {
         return { aniListId: null, sourceAniListId: null, sourceData: null };
     }
 
-    let sourceAniListId = aniListId;
+    const snapshotEntry = getAnimePlaybackSnapshotEntryByAniListId(aniListId);
+    let sourceAniListId = snapshotEntry && snapshotEntry.sourceAniListId ? snapshotEntry.sourceAniListId : aniListId;
     let sourceData = await getAnimeSamaSeasonsEpisodesCached(sourceAniListId);
+    if (!sourceData && sourceAniListId !== aniListId) {
+        sourceAniListId = aniListId;
+        sourceData = await getAnimeSamaSeasonsEpisodesCached(sourceAniListId);
+    }
     if (!sourceData) {
         const baseAniListId = await resolveBaseAniListId(aniListId);
         if (baseAniListId && baseAniListId !== aniListId) {
@@ -4431,6 +4563,17 @@ async function resolveAniListId(malId) {
     if (!malId) return null;
     if (parseNineAnimeSyntheticId(malId)) return null;
 
+    const cachedAniListId = getCachedAniListId(malId);
+    if (cachedAniListId) return cachedAniListId;
+
+    if (animePlaybackSnapshotPromise) {
+        try {
+            await animePlaybackSnapshotPromise;
+            const snapshotAniListId = getCachedAniListId(malId);
+            if (snapshotAniListId) return snapshotAniListId;
+        } catch { }
+    }
+
     // Prefer the direct AniList MAL mapping first (usually faster)
     try {
         const mapped = await malToAniListId(malId);
@@ -4639,6 +4782,7 @@ function loadHomeSections() {
 
 window.addEventListener('DOMContentLoaded', () => {
     void canUseAnimeProtectedRemoteSources(1500);
+    void loadAnimePlaybackSnapshot();
     bindSearchControls();
     bindBrowseControls();
     setActiveSearchType(DEFAULT_SEARCH_TYPE);

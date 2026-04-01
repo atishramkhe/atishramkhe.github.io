@@ -36,10 +36,17 @@ jobs:
           ANIME_SAMA_RETRY_HOURS: '24'
         run: python anime/update_anime_sama_db.py
 
+      - name: Build anime playback snapshot
+        env:
+          ANIME_SNAPSHOT_BATCH_SIZE: '30'
+          ANIME_SNAPSHOT_REQUEST_DELAY: '0.6'
+          ANIME_SNAPSHOT_HTTP_RETRIES: '5'
+        run: python anime/build_anime_playback_snapshot.py
+
       - name: Commit and push changes
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add anime/anime_sama.db
-          git diff --cached --quiet || git commit -m "Automated update: refresh anime_sama.db"
+          git add anime/anime_sama.db anime/anime_playback_snapshot.json
+          git diff --cached --quiet || git commit -m "Automated update: refresh anime data"
           git push
