@@ -661,18 +661,29 @@
         .poster {
             cursor: pointer;
             border-radius: 0;
-            overflow: visible;
+            overflow: hidden;
             box-shadow: 0 2px 12px #000a;
-            transition: box-shadow 0.2s ease, transform 0.2s ease;
             background: #090909;
             position: relative;
-            transform-origin: top center;
-            --hover-scale: 1.5;
+            z-index: 0;
+            --hover-scale: 1.04;
         }
 
-        .poster:hover {
-            transform: scale(var(--hover-scale));
+        .poster-shell {
+            position: relative;
+            transform-origin: top center;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+
+        .poster:hover,
+        .poster:focus-within {
             z-index: 30;
+        }
+
+        .poster:hover .poster-shell,
+        .poster:focus-within .poster-shell {
+            transform: scale(var(--hover-scale));
             box-shadow: 0 8px 32px #000c;
         }
 
@@ -714,20 +725,23 @@
         }
 
         .poster-info {
-            display: none;
             position: absolute;
-            top: calc(100% - 1px);
-            left: 0;
-            width: 100%;
-            background: #000;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            width: auto;
+            background: linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.96) 100%);
             color: #fff;
             padding: 12px 10px;
             line-height: 1.35;
             box-sizing: border-box;
-            border: 1px solid #000;
             margin: 0;
             z-index: 40;
             pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.18s ease;
         }
 
         .poster-info button,
@@ -736,8 +750,10 @@
             pointer-events: auto;
         }
 
-        .poster:hover .poster-info {
-            display: block;
+        .poster:hover .poster-info,
+        .poster:focus-within .poster-info {
+            visibility: visible;
+            opacity: 1;
             font-size: 0.75em;
         }
         

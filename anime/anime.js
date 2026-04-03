@@ -2065,6 +2065,7 @@ function createPosterCard(anime, onClick, options = {}) {
         posterDiv.addEventListener('click', (event) => {
             const target = event && event.target instanceof Element ? event.target : null;
             if (target && target.closest('.poster-info')) return;
+            if (target && target.closest('button, a, [role="button"]')) return;
             onClick(anime);
         });
     } else {
@@ -2072,6 +2073,10 @@ function createPosterCard(anime, onClick, options = {}) {
     }
     posterDiv.addEventListener('mouseenter', () => warmInteraction(), { passive: true });
     posterDiv.addEventListener('focusin', () => warmInteraction());
+
+    const posterShell = document.createElement('div');
+    posterShell.className = 'poster-shell';
+    posterDiv.appendChild(posterShell);
 
     const img = document.createElement('img');
     img.src = posters.medium;
@@ -2088,7 +2093,7 @@ function createPosterCard(anime, onClick, options = {}) {
     img.loading = 'lazy';
     img.decoding = 'async';
     img.alt = title;
-    posterDiv.appendChild(img);
+    posterShell.appendChild(img);
 
     const badgeHost = document.createElement('div');
     badgeHost.className = 'poster-badges';
@@ -2100,14 +2105,14 @@ function createPosterCard(anime, onClick, options = {}) {
     badgeHost.style.gap = '6px';
     badgeHost.style.zIndex = '3';
     renderPosterBadgeHost(badgeHost, buildPosterCardBadges(anime, options));
-    if (badgeHost.childElementCount) posterDiv.appendChild(badgeHost);
+    if (badgeHost.childElementCount) posterShell.appendChild(badgeHost);
 
     const metaParts = [];
     if (anime.type) metaParts.push(String(anime.type));
     if (year) metaParts.push(String(year));
     const titleStrip = document.createElement('div');
     titleStrip.innerHTML = buildPosterTitleMarkup(title, metaParts.join(' • '));
-    posterDiv.appendChild(titleStrip.firstElementChild);
+    posterShell.appendChild(titleStrip.firstElementChild);
 
 
     // Hover info box (matches /movies CSS)
@@ -2224,7 +2229,7 @@ function createPosterCard(anime, onClick, options = {}) {
         });
     }
 
-    posterDiv.appendChild(info);
+    posterShell.appendChild(info);
     return posterDiv;
 }
 
@@ -2722,6 +2727,17 @@ const animeSamaSeasonsCache = new Map();
 const animePlaybackSnapshotEntries = new Map();
 let animePlaybackSnapshotPromise = null;
 let currentAnimePlayerOpenToken = null;
+let lastAnimeOpenIntent = { malId: '', at: 0 };
+
+function isDuplicateAnimeOpenIntent(malId, windowMs = 450) {
+    const normalizedMalId = String(malId ?? '').trim();
+    if (!normalizedMalId) return false;
+    const now = Date.now();
+    const duplicate = lastAnimeOpenIntent.malId === normalizedMalId
+        && now - Number(lastAnimeOpenIntent.at || 0) < windowMs;
+    lastAnimeOpenIntent = { malId: normalizedMalId, at: now };
+    return duplicate;
+}
 
 function parsePositiveInteger(value) {
     const parsed = parseInt(String(value || ''), 10);
@@ -3859,6 +3875,7 @@ function renderSkipCheckboxes(malId) {
 async function openAnimeFromJikan(anime) {
     destroyActiveAnimeLivePlayer();
     const malId = anime.mal_id;
+    if (isDuplicateAnimeOpenIntent(malId)) return;
     const isMovie = (anime.type || '').toLowerCase() === 'movie';
     const openToken = Symbol('anime-player-open');
     currentAnimePlayerOpenToken = openToken;
@@ -4492,13 +4509,6 @@ async function openAnimeFromJikan(anime) {
         if (playerLoadingOverlay) playerLoadingOverlay.classList.add('hidden');
     }
 
-    iframe.addEventListener('load', () => {
-        hidePlayerLoading();
-        syncActiveAnimePlayerHook();
-        setTimeout(syncActiveAnimePlayerHook, 250);
-        setTimeout(syncActiveAnimePlayerHook, 1200);
-    });
-
     function persistContinueWatchingFromSelection(groupKey, url) {
         let host = null;
         try { host = new URL(url).hostname.toLowerCase(); } catch { host = null; }
@@ -4631,7 +4641,21 @@ async function openAnimeFromJikan(anime) {
 
         // Decorate the URL so the userscript can report timing, and pass seek for resume.
         iframeLoadVersion += 1;
-        iframe.dataset.loadVersion = String(iframeLoadVersion);
+        const loadVersion = String(iframeLoadVersion);
+        iframe.dataset.loadVersion = loadVersion;
+        iframe.onload = () => {
+            if (iframe.dataset.loadVersion !== loadVersion) return;
+            hidePlayerLoading();
+            syncActiveAnimePlayerHook();
+            setTimeout(() => {
+                if (iframe.dataset.loadVersion !== loadVersion) return;
+                syncActiveAnimePlayerHook();
+            }, 250);
+            setTimeout(() => {
+                if (iframe.dataset.loadVersion !== loadVersion) return;
+                syncActiveAnimePlayerHook();
+            }, 1200);
+        };
         showPlayerLoading();
         iframe.src = decoratePlayerUrl(url, { seekSeconds: getResumeSeekForCurrentEpisode() });
         activeSelection = { group: grp.key, idx };
@@ -5005,6 +5029,7 @@ async function resolveAniListId(malId) {
 
 closePlayer.addEventListener('click', async () => {
     currentAnimePlayerOpenToken = null;
+    lastAnimeOpenIntent = { malId: '', at: 0 };
     destroyActiveAnimeLivePlayer();
     await flushCurrentAnimeProgressBeforeClose();
     try {
