@@ -3894,9 +3894,6 @@ function renderSkipCheckboxes(malId) {
             seasonNumber: window.currentSeasonNumber,
             ...newSettings,
         });
-        if (activeSelection && activeSelection.group) {
-            switchToSelection(activeSelection, { persistLastUsed: false });
-        }
     });
 
     container.appendChild(skipToggleButton);
@@ -4987,7 +4984,7 @@ async function openAnimeLiveChannel(channel) {
         if (idx >= sources.length) { showError(); return; }
 
         const src = sources[idx];
-        const url = getAnimeLiveStreamUrl(src.url || '');
+        const url = src.url || '';
         if (!url) { trySource(idx + 1); return; }
 
         destroyHls();
