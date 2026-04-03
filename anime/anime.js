@@ -522,6 +522,59 @@ async function fetchAnimeRemoteJson(url, timeoutMs = 15000) {
 let currentAnimePlayerSession = null;
 let _animeProgressMessageListenerInstalled = false;
 
+// ── Debug terminal: receives log lines from the vidsrc.cc iframe userscript ──
+(function installAteaishDebugTerminal() {
+    const DBG_MSG = '__ateaish_dbg_line';
+    let box = null, lines = [];
+    const MAX = 120;
+    function ensureBox() {
+        if (box && document.body && document.body.contains(box)) return box;
+        box = document.createElement('div');
+        box.id = '__ateaish_dbg_parent';
+        Object.assign(box.style, {
+            position: 'fixed', bottom: '0', right: '0', width: '480px',
+            maxHeight: '40vh', overflowY: 'auto',
+            background: 'rgba(0,0,0,0.92)', color: '#0f0',
+            fontFamily: 'monospace', fontSize: '11px', lineHeight: '1.5',
+            padding: '4px 6px', zIndex: '2147483647',
+            pointerEvents: 'auto', userSelect: 'text',
+            borderTop: '2px solid #0f0', borderLeft: '2px solid #0f0',
+        });
+        const toolbar = document.createElement('div');
+        Object.assign(toolbar.style, { display: 'flex', gap: '6px', marginBottom: '3px', position: 'sticky', top: '0', background: 'rgba(0,0,0,0.95)', padding: '2px 0' });
+        ['⎘ copy all:#0f0', '✕ clear:#f80', '✕ close:#f44'].forEach((spec, i) => {
+            const [text, color] = spec.split(':');
+            const btn = document.createElement('button');
+            btn.textContent = text;
+            Object.assign(btn.style, { background: '#111', color, border: `1px solid ${color}`, fontSize: '10px', cursor: 'pointer', padding: '1px 6px', marginLeft: i === 2 ? 'auto' : '0' });
+            btn.addEventListener('click', () => {
+                if (i === 0) { try { navigator.clipboard.writeText(lines.map(l => `${l.ts} ${l.msg}`).join('\n')); } catch {} }
+                else if (i === 1) { lines = []; Array.from(box.querySelectorAll('.adbg')).forEach(el => el.remove()); }
+                else { box.remove(); box = null; }
+            });
+            toolbar.appendChild(btn);
+        });
+        box.appendChild(toolbar);
+        document.body.appendChild(box);
+        return box;
+    }
+    window.addEventListener('message', (event) => {
+        const msg = event && event.data;
+        if (!msg || msg.type !== DBG_MSG) return;
+        lines.push({ ts: msg.ts, msg: msg.msg });
+        if (lines.length > MAX) lines.shift();
+        const b = ensureBox();
+        const line = document.createElement('div');
+        line.className = 'adbg';
+        line.textContent = `${msg.ts} ${msg.msg}`;
+        line.style.color = msg.msg.includes('CLICKING') || msg.msg.includes('ended') ? '#ff0'
+            : msg.msg.includes('suppressed') ? '#f80' : '#0f0';
+        line.style.borderBottom = '1px solid #111';
+        b.appendChild(line);
+        b.scrollTop = b.scrollHeight;
+    }, false);
+})();
+
 function ensureAnimeProgressMessageListener() {
     if (_animeProgressMessageListenerInstalled) return;
     _animeProgressMessageListenerInstalled = true;
@@ -1419,6 +1472,7 @@ function sendAnimePlayerHook(data) {
     const payload = {
         type: 'ateaish_anime_player_info',
         malId: data.malId || null,
+        token: data.token || (currentAnimePlayerSession ? currentAnimePlayerSession.token : null) || null,
         aniListId: data.aniListId,
         episodeNumber: data.episodeNumber,
         absoluteEpisodeNumber: absEp,
