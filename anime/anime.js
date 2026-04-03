@@ -10,7 +10,6 @@ const searchStatus = document.getElementById('search-status');
 const seriesToggleBtn = document.getElementById('series-toggle');
 const movieToggleBtn = document.getElementById('movie-toggle');
 const adultToggleBtn = document.getElementById('adult-toggle');
-const vfToggleBtn = document.getElementById('vf-toggle');
 
 const JIKAN_BASE = 'https://api.jikan.moe/v4';
 const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
@@ -21,7 +20,97 @@ const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
 const ANIME_VIDSRC_ONLY_MODE = true;
-const ANIME_VF_ONLY_STORAGE_KEY = 'animeVfOnlyEnabled';
+
+const ANIME_LIVE_TV_CHANNELS = [
+    {
+        mal_id: 'live:fr-adn-tv-plus',
+        title: 'ADN TV+',
+        title_english: 'ADN TV+',
+        synopsis: 'French anime live channel from the Ateaish TV lineup.',
+        type: 'Live TV',
+        episodes: 'LIVE',
+        year: 'France',
+        images: {
+            jpg: {
+                image_url: '../tv/logos/France/ADN TV+.svg',
+                small_image_url: '../tv/logos/France/ADN TV+.svg',
+                large_image_url: '../tv/logos/France/ADN TV+.svg'
+            }
+        },
+        _liveTv: {
+            country: 'France',
+            posterFit: 'contain',
+            sourceType: 'm3u8',
+            url: 'https://d3b73b34o7cvkq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gz2sgqzp076kf/adn.m3u8'
+        }
+    },
+    {
+        mal_id: 'live:fr-japanim-tv',
+        title: 'Japanim TV',
+        title_english: 'Japanim TV',
+        synopsis: 'French anime live channel from the Ateaish TV lineup.',
+        type: 'Live TV',
+        episodes: 'LIVE',
+        year: 'France',
+        images: {
+            jpg: {
+                image_url: '../tv/logos/France/japanimtv.png',
+                small_image_url: '../tv/logos/France/japanimtv.png',
+                large_image_url: '../tv/logos/France/japanimtv.png'
+            }
+        },
+        _liveTv: {
+            country: 'France',
+            posterFit: 'cover',
+            sourceType: 'm3u8',
+            url: 'https://foxkidstv.be:3369/stream/play.m3u8'
+        }
+    },
+    {
+        mal_id: 'live:us-crunchyroll',
+        title: 'Crunchyroll',
+        title_english: 'Crunchyroll',
+        synopsis: 'US anime live channel from the Ateaish TV lineup.',
+        type: 'Live TV',
+        episodes: 'LIVE',
+        year: 'US',
+        images: {
+            jpg: {
+                image_url: '../tv/logos/US/crunchyroll.webp',
+                small_image_url: '../tv/logos/US/crunchyroll.webp',
+                large_image_url: '../tv/logos/US/crunchyroll.webp'
+            }
+        },
+        _liveTv: {
+            country: 'US',
+            posterFit: 'contain',
+            sourceType: 'm3u8',
+            url: 'https://a3c4ecbd.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8'
+        }
+    },
+    {
+        mal_id: 'live:us-anime-x-hidive',
+        title: 'ANIME x HIDIVE',
+        title_english: 'ANIME x HIDIVE',
+        synopsis: 'US anime live channel from the Ateaish TV lineup.',
+        type: 'Live TV',
+        episodes: 'LIVE',
+        year: 'US',
+        images: {
+            jpg: {
+                image_url: '../tv/logos/US/anime_hidive.png',
+                small_image_url: '../tv/logos/US/anime_hidive.png',
+                large_image_url: '../tv/logos/US/anime_hidive.png'
+            }
+        },
+        _liveTv: {
+            country: 'US',
+            posterFit: 'contain',
+            sourceType: 'm3u8',
+            url: 'https://ec48e468.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQU5JTUV4SElESVZFX0hMUw/playlist.m3u8'
+        }
+    }
+];
 
 // Continue Watching (anime) - stored separately from /movies
 const ANIME_PROGRESS_TYPE = 'anime';
@@ -36,9 +125,10 @@ let activeBrowseMedia = 'series';
 let adultContentEnabled = false;
 let activeSearchType = DEFAULT_SEARCH_TYPE;
 let searchUiExpanded = false;
-let vfOnlyEnabled = false;
 const animeHomeSnapshotSections = new Map();
 let animeHomeSnapshotPromise = null;
+let animeHlsScriptPromise = null;
+let activeAnimeLivePlayer = null;
 
 const SEARCH_FILTER_IDS = [
     'search-status-filter',
@@ -123,6 +213,43 @@ function getAnimeHomeSnapshotItems(gridId) {
     return animeHomeSnapshotSections.get(gridId) || null;
 }
 
+function destroyActiveAnimeLivePlayer() {
+    if (activeAnimeLivePlayer && activeAnimeLivePlayer.hls && typeof activeAnimeLivePlayer.hls.destroy === 'function') {
+        try {
+            activeAnimeLivePlayer.hls.destroy();
+        } catch { }
+    }
+    if (activeAnimeLivePlayer && activeAnimeLivePlayer.video) {
+        try {
+            activeAnimeLivePlayer.video.pause();
+            activeAnimeLivePlayer.video.removeAttribute('src');
+            activeAnimeLivePlayer.video.load();
+        } catch { }
+    }
+    activeAnimeLivePlayer = null;
+}
+
+function getAnimeLiveStreamUrl(url) {
+    if (!url) return '';
+    return isLocalAnimeDev() ? `/proxy?url=${encodeURIComponent(url)}` : url;
+}
+
+function ensureAnimeHlsLibrary() {
+    if (window.Hls) return Promise.resolve(window.Hls);
+    if (animeHlsScriptPromise) return animeHlsScriptPromise;
+
+    animeHlsScriptPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
+        script.async = true;
+        script.onload = () => resolve(window.Hls || null);
+        script.onerror = () => reject(new Error('Failed to load hls.js'));
+        document.head.appendChild(script);
+    });
+
+    return animeHlsScriptPromise;
+}
+
 function getAllBrowseSections() {
     return Array.from(document.querySelectorAll('section[data-media]'));
 }
@@ -154,17 +281,6 @@ function animeMatchesAdultSetting(anime) {
     return adultContentEnabled || !isAdultAnime(anime);
 }
 
-function hasFrenchDubForAnime(anime) {
-    if (!anime || typeof anime !== 'object') return false;
-    if (anime.hasFrenchDub === true) return true;
-    const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
-    return !!(snapshotEntry && snapshotEntry.hasFrenchDub);
-}
-
-function animeMatchesVfSetting(anime) {
-    return !vfOnlyEnabled || hasFrenchDubForAnime(anime);
-}
-
 function filterAnimeListing(items, options = {}) {
     return (Array.isArray(items) ? items : []).filter((anime) => {
         if (options.releasedOnly !== false && !isReleasedAnime(anime)) return false;
@@ -172,16 +288,8 @@ function filterAnimeListing(items, options = {}) {
         if (options.media === 'movie' && !isAnimeMovieType(anime)) return false;
         if (options.adultOnly && !isAdultAnime(anime)) return false;
         if (!options.adultOnly && !animeMatchesAdultSetting(anime)) return false;
-        if (!animeMatchesVfSetting(anime)) return false;
         return true;
     });
-}
-
-function updateVfToggleUi() {
-    if (!vfToggleBtn) return;
-    vfToggleBtn.classList.toggle('active', vfOnlyEnabled);
-    vfToggleBtn.dataset.state = vfOnlyEnabled ? 'on' : 'off';
-    vfToggleBtn.textContent = vfOnlyEnabled ? 'VF Only ON' : 'VF Only OFF';
 }
 
 function animeMatchesBrowseMedia(anime) {
@@ -204,7 +312,6 @@ function applyBrowseVisibility() {
         adultToggleBtn.dataset.state = adultContentEnabled ? 'on' : 'off';
         adultToggleBtn.textContent = adultContentEnabled ? 'Adult ON' : 'Adult OFF';
     }
-    updateVfToggleUi();
 }
 
 function setActiveSearchType(nextType) {
@@ -443,6 +550,7 @@ function ensureAnimeProgressMessageListener() {
             currentTime = Number(msg.currentTime);
             duration = Number(msg.duration);
             playerHost = msg.host ? String(msg.host).toLowerCase() : playerHost;
+            bypassThrottle = msg.force === true || eventName === 'complete';
         } else if (msg.type === 'PLAYER_EVENT') {
             const origin = String(event.origin || '').toLowerCase();
             if (!session.playerOrigin || origin !== String(session.playerOrigin).toLowerCase()) return;
@@ -478,19 +586,15 @@ function ensureAnimeProgressMessageListener() {
 
         if (eventName === 'complete') {
             const completedAt = Date.now();
-            upsertAnimeProgressRecord(session.malId, {
-                season: session.isMovie ? null : (session.currentSeason ?? null),
-                episode: session.isMovie ? null : (session.currentEpisode ?? null),
-                timestamp: Number.isFinite(duration) && duration > 0
-                    ? duration
-                    : (Number.isFinite(currentTime) && currentTime >= 0 ? currentTime : null),
-                duration: Number.isFinite(duration) && duration > 0 ? duration : null,
-                progress: 1,
-                playerHost: playerHost,
-                updatedAt: completedAt
+            commitAnimeSessionProgress(session, {
+                currentTime,
+                duration,
+                playerHost,
+                season: session.currentSeason ?? null,
+                episode: session.currentEpisode ?? null,
+                completed: true,
+                updatedAt: completedAt,
             });
-            try { loadAnimeContinueWatching(); } catch { }
-            try { addAnimeToWatched(session.malId); } catch { }
             // Auto-next is only meaningful for series (not movies)
             if (session.isMovie) return;
             if (typeof session.onAutoNext !== 'function') return;
@@ -530,21 +634,17 @@ function ensureAnimeProgressMessageListener() {
 
         // Throttle writes to avoid hammering localStorage
         const savedAt = Date.now();
-        if (!bypassThrottle && session._lastSaveAt && savedAt - session._lastSaveAt < 1500) return;
+        if (!bypassThrottle && session._lastSaveAt && savedAt - session._lastSaveAt < 800) return;
         session._lastSaveAt = savedAt;
 
-        const frac = Math.min(1, Math.max(0, ts / dur));
-        upsertAnimeProgressRecord(session.malId, {
-            season: session.isMovie ? null : (session.currentSeason ?? null),
-            episode: session.isMovie ? null : (session.currentEpisode ?? null),
-            timestamp: ts,
+        commitAnimeSessionProgress(session, {
+            currentTime: ts,
             duration: dur,
-            progress: frac,
             playerHost: host,
-            updatedAt: savedAt
+            season: session.currentSeason ?? null,
+            episode: session.currentEpisode ?? null,
+            updatedAt: savedAt,
         });
-        try { maybeAddAnimeToWatched(session.malId, frac); } catch { }
-        try { loadAnimeContinueWatching(); } catch { }
     }, false);
 }
 
@@ -609,6 +709,90 @@ function upsertAnimeProgressRecord(malId, patch) {
         updatedAt: nextUpdatedAt
     };
     try { localStorage.setItem(key, JSON.stringify(next)); } catch { }
+}
+
+function commitAnimeSessionProgress(session, {
+    currentTime = null,
+    duration = null,
+    playerHost = null,
+    season = null,
+    episode = null,
+    completed = false,
+    updatedAt = Date.now(),
+} = {}) {
+    if (!session || !session.malId) return false;
+
+    const ts = Number(currentTime);
+    const dur = Number(duration);
+    const safeTs = Number.isFinite(ts) && ts >= 0 ? ts : null;
+    const safeDur = Number.isFinite(dur) && dur > 0 ? dur : null;
+    const nextSeason = session.isMovie ? null : (season != null ? String(season) : (session.currentSeason ?? null));
+    const nextEpisode = session.isMovie
+        ? null
+        : (Number.isFinite(Number(episode)) && Number(episode) > 0
+            ? Math.floor(Number(episode))
+            : (Number.isFinite(Number(session.currentEpisode)) && Number(session.currentEpisode) > 0 ? Math.floor(Number(session.currentEpisode)) : null));
+    const nextHost = playerHost ? String(playerHost).toLowerCase() : (session.playerHost || null);
+
+    let frac = null;
+    if (completed) {
+        frac = 1;
+    } else if (safeTs != null && safeDur != null) {
+        frac = Math.min(1, Math.max(0, safeTs / safeDur));
+    } else if (session._lastKnownProgress && Number.isFinite(Number(session._lastKnownProgress.progress))) {
+        frac = Math.min(1, Math.max(0, Number(session._lastKnownProgress.progress)));
+    }
+
+    const nextTimestamp = completed
+        ? (safeDur != null ? safeDur : safeTs)
+        : safeTs;
+
+    if (nextTimestamp == null && frac == null) return false;
+
+    upsertAnimeProgressRecord(session.malId, {
+        season: nextSeason,
+        episode: nextEpisode,
+        timestamp: nextTimestamp,
+        duration: safeDur,
+        progress: frac,
+        playerHost: nextHost,
+        updatedAt,
+    });
+
+    session._lastKnownProgress = {
+        currentTime: nextTimestamp,
+        duration: safeDur,
+        progress: frac,
+        playerHost: nextHost,
+        season: nextSeason,
+        episode: nextEpisode,
+        updatedAt,
+        completed: !!completed,
+    };
+
+    try {
+        if (completed) addAnimeToWatched(session.malId);
+        else if (frac != null) maybeAddAnimeToWatched(session.malId, frac);
+    } catch { }
+    try { loadAnimeContinueWatching(); } catch { }
+    return true;
+}
+
+async function flushCurrentAnimeProgressBeforeClose() {
+    const session = currentAnimePlayerSession;
+    if (!session || !session.malId) return;
+
+    commitAnimeSessionProgress(session, session._lastKnownProgress || {});
+
+    const iframe = document.getElementById('anime-player-iframe');
+    if (!iframe || !iframe.contentWindow) return;
+
+    try {
+        iframe.contentWindow.postMessage({ type: 'ATEAISH_REQUEST_PROGRESS_FLUSH' }, '*');
+    } catch { }
+
+    await new Promise((resolve) => setTimeout(resolve, 220));
+    commitAnimeSessionProgress(session, session._lastKnownProgress || {});
 }
 
 function removeFromAnimeContinueWatching(malId) {
@@ -993,7 +1177,7 @@ async function loadSuggestedAnime() {
     })));
 
     const picks = available
-        .filter(({ anime, profile }) => profile && profile.playable && animeMatchesAdultSetting(anime) && animeMatchesBrowseMedia(anime) && animeMatchesVfSetting(anime))
+        .filter(({ anime, profile }) => profile && profile.playable && animeMatchesAdultSetting(anime) && animeMatchesBrowseMedia(anime))
         .map(({ anime }) => anime)
         .slice(0, 24);
 
@@ -1180,12 +1364,11 @@ function loadAnimeContinueWatching() {
 
 // Skip Settings (anime) - stored per anime
 const ANIME_SKIP_SETTINGS_PREFIX = 'animeSkipSettings_';
+const ANIME_SKIP_SETTINGS_DEFAULT_KEY = 'animeSkipSettingsDefault';
 
-function getAnimeSkipSettings(malId) {
-    if (!malId) return { skipIntro: true, skipOutro: true };
+function getDefaultAnimeSkipSettings() {
     try {
-        const key = `${ANIME_SKIP_SETTINGS_PREFIX}${malId}`;
-        const raw = JSON.parse(localStorage.getItem(key) || 'null');
+        const raw = JSON.parse(localStorage.getItem(ANIME_SKIP_SETTINGS_DEFAULT_KEY) || 'null');
         if (!raw || typeof raw !== 'object') return { skipIntro: true, skipOutro: true };
         return {
             skipIntro: raw.skipIntro !== false,
@@ -1196,14 +1379,34 @@ function getAnimeSkipSettings(malId) {
     }
 }
 
+function getAnimeSkipSettings(malId) {
+    const defaults = getDefaultAnimeSkipSettings();
+    if (!malId) return defaults;
+    try {
+        const key = `${ANIME_SKIP_SETTINGS_PREFIX}${malId}`;
+        const raw = JSON.parse(localStorage.getItem(key) || 'null');
+        if (!raw || typeof raw !== 'object') return defaults;
+        return {
+            skipIntro: raw.skipIntro !== false,
+            skipOutro: raw.skipOutro !== false,
+        };
+    } catch {
+        return defaults;
+    }
+}
+
 function setAnimeSkipSettings(malId, settings) {
+    const normalized = {
+        skipIntro: !!settings.skipIntro,
+        skipOutro: !!settings.skipOutro,
+    };
     if (!malId) return;
     try {
         const key = `${ANIME_SKIP_SETTINGS_PREFIX}${malId}`;
-        localStorage.setItem(key, JSON.stringify({
-            skipIntro: !!settings.skipIntro,
-            skipOutro: !!settings.skipOutro,
-        }));
+        localStorage.setItem(key, JSON.stringify(normalized));
+    } catch { }
+    try {
+        localStorage.setItem(ANIME_SKIP_SETTINGS_DEFAULT_KEY, JSON.stringify(normalized));
     } catch { }
 }
 
@@ -1650,77 +1853,7 @@ function buildPosterCardBadges(anime, options = {}) {
             appendPosterBadge(badges, badge);
         });
     }
-    const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
-    if (snapshotEntry && snapshotEntry.hasFrenchDub) {
-        appendPosterBadge(badges, { label: '🇫🇷 VF', tone: 'info' });
-    }
     return badges;
-}
-
-function hasSeriesLanguageSources(sourceData, predicate) {
-    if (!sourceData || typeof sourceData !== 'object' || typeof predicate !== 'function') return false;
-    return Object.values(sourceData).some((season) => {
-        if (!season || typeof season !== 'object') return false;
-        return Object.values(season).some((episode) => {
-            if (!episode || typeof episode !== 'object') return false;
-            return Object.keys(episode).some((lang) => predicate(String(lang || '').trim().toLowerCase()));
-        });
-    });
-}
-
-function hasSeriesFrenchDubSource(sourceData) {
-    return hasSeriesLanguageSources(sourceData, (lang) => isFrenchDubLanguage(lang));
-}
-
-const posterBadgeHydrationQueue = [];
-let posterBadgeHydrationActiveCount = 0;
-const MAX_POSTER_BADGE_HYDRATIONS = 4;
-
-function pumpPosterBadgeHydrationQueue() {
-    while (posterBadgeHydrationActiveCount < MAX_POSTER_BADGE_HYDRATIONS && posterBadgeHydrationQueue.length) {
-        const task = posterBadgeHydrationQueue.shift();
-        posterBadgeHydrationActiveCount += 1;
-        Promise.resolve()
-            .then(task)
-            .catch(() => { })
-            .finally(() => {
-                posterBadgeHydrationActiveCount = Math.max(0, posterBadgeHydrationActiveCount - 1);
-                pumpPosterBadgeHydrationQueue();
-            });
-    }
-}
-
-function schedulePosterCardBadgeHydration(anime, options, posterDiv, badgeHost) {
-    posterBadgeHydrationQueue.push(async () => {
-        try {
-            const snapshotPromise = animePlaybackSnapshotPromise;
-            if (snapshotPromise) {
-                try {
-                    await snapshotPromise;
-                } catch { }
-                const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
-                if (snapshotEntry && snapshotEntry.hasFrenchDub) {
-                    const badges = buildPosterCardBadges(anime, options);
-                    renderPosterBadgeHost(badgeHost, badges);
-                    if (badgeHost.childElementCount && !badgeHost.isConnected) {
-                        posterDiv.appendChild(badgeHost);
-                    }
-                    return;
-                }
-            }
-            const profile = await getAnimePlaybackProfile(anime);
-            if (!profile || !profile.seriesSourceData || !hasSeriesFrenchDubSource(profile.seriesSourceData)) return;
-            const badges = buildPosterCardBadges(anime, options);
-            appendPosterBadge(badges, { label: '🇫🇷 VF', tone: 'info' });
-            renderPosterBadgeHost(badgeHost, badges);
-            if (badgeHost.childElementCount && !badgeHost.isConnected) {
-                posterDiv.appendChild(badgeHost);
-            }
-        } catch (error) {
-            console.warn('Failed to hydrate anime poster badges', anime?.title || anime?.mal_id, error);
-        }
-    });
-    pumpPosterBadgeHydrationQueue();
 }
 
 const animeDetailCache = new Map();
@@ -1910,10 +2043,12 @@ function createPosterCard(anime, onClick, options = {}) {
     const malId = anime.mal_id;
 
     const clickable = options && options.clickable === false ? false : typeof onClick === 'function';
+    const showDetails = options.showDetails !== false;
+    const showWatchLater = options.showWatchLater !== false;
     let detailPrewarmed = false;
     let playbackPrewarmed = false;
 
-    const warmInteraction = ({ detail = true, playback = clickable } = {}) => {
+    const warmInteraction = ({ detail = showDetails, playback = clickable } = {}) => {
         if (detail && !detailPrewarmed) {
             detailPrewarmed = true;
             prewarmAnimeInteraction(anime, { detail: true, playback: false });
@@ -1927,7 +2062,11 @@ function createPosterCard(anime, onClick, options = {}) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (clickable) {
-        posterDiv.onclick = () => onClick(anime);
+        posterDiv.addEventListener('click', (event) => {
+            const target = event && event.target instanceof Element ? event.target : null;
+            if (target && target.closest('.poster-info')) return;
+            onClick(anime);
+        });
     } else {
         posterDiv.style.cursor = 'default';
     }
@@ -1962,7 +2101,6 @@ function createPosterCard(anime, onClick, options = {}) {
     badgeHost.style.zIndex = '3';
     renderPosterBadgeHost(badgeHost, buildPosterCardBadges(anime, options));
     if (badgeHost.childElementCount) posterDiv.appendChild(badgeHost);
-    schedulePosterCardBadgeHydration(anime, options, posterDiv, badgeHost);
 
     const metaParts = [];
     if (anime.type) metaParts.push(String(anime.type));
@@ -1994,11 +2132,13 @@ function createPosterCard(anime, onClick, options = {}) {
                 style="width:36px;height:36px;background-color:transparent;border-style:none;color:#f1892f;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:${clickable ? 'pointer' : 'not-allowed'};opacity:${clickable ? '1' : '0.45'};">
                 <span class="material-symbols-outlined" style="font-size:30px;line-height:1;">play_circle</span>
             </button>
+            ${showDetails ? `
             <button class="show-more-anime-info-btn"
                 style="width:36px;height:36px;background-color:transparent;border-style:none;color:#f1892f;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
                 <span class="material-symbols-outlined" style="font-size:28px;line-height:1;">info</span>
-            </button>
+            </button>` : ''}
         </div>
+        ${showWatchLater ? `
         <button class="watch-later-btn"
             aria-label="${escapeHtml(labelText)}"
             title="${escapeHtml(labelText)}"
@@ -2014,6 +2154,7 @@ function createPosterCard(anime, onClick, options = {}) {
                      pointer-events:none; white-space:nowrap;">
             ${escapeHtml(labelText)}
         </span>
+        ` : ''}
     `;
 
     const wlBtn = info.querySelector('.watch-later-btn');
@@ -2032,7 +2173,7 @@ function createPosterCard(anime, onClick, options = {}) {
         wlLabel.textContent = text;
     };
 
-    if (wlBtn && wlLabel && malId) {
+    if (showWatchLater && wlBtn && wlLabel && malId) {
         wlBtn.addEventListener('mouseenter', () => {
             wlLabel.style.opacity = '1';
             wlLabel.style.transform = 'translateX(0)';
@@ -2070,7 +2211,7 @@ function createPosterCard(anime, onClick, options = {}) {
         });
     }
 
-    if (moreInfoBtn) {
+    if (showDetails && moreInfoBtn) {
         moreInfoBtn.addEventListener('mouseenter', () => warmInteraction({ detail: true, playback: false }), { passive: true });
         moreInfoBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -2320,6 +2461,52 @@ function renderNineAnimeBrowseCardsIntoGrid(grid, items) {
     });
 }
 
+function renderAnimeLiveChannels() {
+    const grid = document.getElementById('animeLiveTvGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    ANIME_LIVE_TV_CHANNELS.forEach((channel) => {
+        const poster = buildPosterVariants(channel);
+        const posterFit = String(channel?._liveTv?.posterFit || 'contain').toLowerCase();
+        const card = document.createElement('div');
+        card.className = 'poster';
+        card.style.cursor = 'pointer';
+        card.style.background = '#050505';
+        card.addEventListener('click', () => openAnimeLiveChannel(channel));
+
+        const image = document.createElement('img');
+        image.src = poster.medium;
+        image.alt = getPreferredAnimeTitle(channel);
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.style.objectFit = posterFit === 'cover' ? 'cover' : 'contain';
+        image.style.background = '#050505';
+        image.style.padding = posterFit === 'cover' ? '0' : '16px';
+        card.appendChild(image);
+
+        const badgeHost = document.createElement('div');
+        badgeHost.className = 'poster-badges';
+        badgeHost.style.position = 'absolute';
+        badgeHost.style.top = '10px';
+        badgeHost.style.left = '10px';
+        badgeHost.style.display = 'flex';
+        badgeHost.style.flexDirection = 'column';
+        badgeHost.style.gap = '6px';
+        badgeHost.style.zIndex = '3';
+        renderPosterBadgeHost(badgeHost, [{ label: 'Live', tone: 'accent' }]);
+        card.appendChild(badgeHost);
+
+        const titleStrip = document.createElement('div');
+        titleStrip.innerHTML = buildPosterTitleMarkup(
+            getPreferredAnimeTitle(channel),
+            `${String(channel?._liveTv?.country || 'Live TV')} • Live`
+        );
+        card.appendChild(titleStrip.firstElementChild);
+
+        grid.appendChild(card);
+    });
+}
+
 async function fetchJikanSearchEntries(query) {
     const variants = await getAnimeSearchQueryVariants(query);
     const collected = new Map();
@@ -2334,7 +2521,6 @@ async function fetchJikanSearchEntries(query) {
             if (!animeMatchesSearchType(anime)) return;
             if (!animeMatchesSearchYear(anime)) return;
             if (!animeMatchesAdultSetting(anime)) return;
-            if (!animeMatchesVfSetting(anime)) return;
             const key = String(anime?.mal_id || anime?.url || anime?.title || '').trim();
             if (!key || collected.has(key)) return;
             collected.set(key, anime);
@@ -2496,22 +2682,17 @@ async function searchAnime(query) {
     resultsContainer.innerHTML = 'Searching...';
     setSearchStatus('Searching...');
     try {
-        if (vfOnlyEnabled) await loadAnimePlaybackSnapshot();
-
         const jikanResults = await fetchJikanSearchEntries(query);
         if (!jikanResults.length) {
             resultsContainer.textContent = 'No results found.';
-            setSearchStatus(vfOnlyEnabled
-                ? 'No matching anime with VF available for the current filters.'
-                : 'No matching anime found for the current filters.');
+            setSearchStatus('No matching anime found for the current filters.');
             return;
         }
 
         resultsContainer.innerHTML = '';
         renderAnimeCardsIntoGrid(resultsContainer, jikanResults, { clickable: true });
 
-        const reason = vfOnlyEnabled ? 'VF-only filter is active.' : 'Using Jikan search.';
-        setSearchStatus(`${jikanResults.length} Jikan results. ${reason}`);
+        setSearchStatus(`${jikanResults.length} Jikan results. Using Jikan search.`);
     } catch (e) {
         console.error('Search failed', e);
         resultsContainer.textContent = 'Error fetching data. Please try again later.';
@@ -3412,7 +3593,7 @@ function animeSamaLangToGroup(lang) {
     const normalized = String(lang || '').trim().toLowerCase();
     if (!normalized) return null;
     if (normalized.includes('vf') || normalized.includes('dub') || normalized === 'fr') {
-        return { key: 'va', label: 'VF' };
+        return { key: 'va', label: 'VA' };
     }
     if (normalized.includes('vost') || normalized.includes('sub') || normalized === 'vo') {
         return { key: 'vosta', label: 'VOSTFR' };
@@ -3614,7 +3795,7 @@ async function getAnimeSamaSeasonsEpisodes(aniListId) {
                 });
             });
         });
-        return data; // { saison1: { 1: { vostfr: url, vf: url }, ... }, ... }
+        return data; // { saison1: { 1: { vostfr: url, va: url }, ... }, ... }
     } catch (e) {
         console.error('Failed to query anime_sama.db for AniList id', aniListId, e);
         return null;
@@ -3676,6 +3857,7 @@ function renderSkipCheckboxes(malId) {
 }
 
 async function openAnimeFromJikan(anime) {
+    destroyActiveAnimeLivePlayer();
     const malId = anime.mal_id;
     const isMovie = (anime.type || '').toLowerCase() === 'movie';
     const openToken = Symbol('anime-player-open');
@@ -3839,8 +4021,8 @@ async function openAnimeFromJikan(anime) {
     function groupKeyFromLabel(label) {
         if (!label) return null;
         const v = String(label).trim().toUpperCase();
+        if (v === 'VIDSRC.CC') return 'vidsrc';
         if (v === 'VO') return 'vo';
-        if (v === 'VF') return 'vf';
         if (v === 'VOSTA') return 'vosta';
         if (v === 'VA') return 'va';
         if (v === 'VOSTFR') return 'vostfr';
@@ -3849,8 +4031,8 @@ async function openAnimeFromJikan(anime) {
 
     function labelFromGroupKey(key) {
         if (!key) return isMovie ? 'VO' : 'VOSTA';
+        if (key === 'vidsrc') return 'vidsrc.cc';
         if (key === 'vo') return 'VO';
-        if (key === 'vf') return 'VF';
         if (key === 'vosta') return 'VOSTA';
         if (key === 'va') return 'VA';
         if (key === 'vostfr') return 'VOSTFR';
@@ -4039,22 +4221,17 @@ async function openAnimeFromJikan(anime) {
         if (ANIME_VIDSRC_ONLY_MODE) {
             if (isMovie) {
                 if (!tmdbId) return [];
-
-                const movieGroups = [
-                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] },
-                    { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true&lang=fr`] }
+                return [
+                    { key: 'vidsrc', label: 'vidsrc.cc', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] }
                 ];
-                return vfOnlyEnabled ? movieGroups.filter((group) => group.key === 'vf') : movieGroups;
             }
 
             const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
             if (!vidsrcAnimeId) return [];
 
-            const seriesGroups = [
-                { key: 'vostfr', label: 'VOSTFR', urls: [`https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`] },
-                { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`] }
+            return [
+                { key: 'vidsrc', label: 'vidsrc.cc', urls: [`https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`] }
             ];
-            return vfOnlyEnabled ? seriesGroups.filter((group) => group.key === 'vf') : seriesGroups;
         }
 
         if (isMovie) {
@@ -4065,8 +4242,7 @@ async function openAnimeFromJikan(anime) {
             }
             if (tmdbId) {
                 return [
-                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] },
-                    { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true&lang=fr`] }
+                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] }
                 ];
             }
             return [];
@@ -4175,8 +4351,8 @@ async function openAnimeFromJikan(anime) {
     function getSettingsGroups() {
         const labels = Array.from(new Set((currentGroups || []).map((group) => group.label).filter(Boolean)));
         if (labels.length) return labels;
-        if (vfOnlyEnabled) return ['VF'];
-        return isMovie ? ['VO', 'VF'] : ['VOSTFR', 'VF'];
+        if (ANIME_VIDSRC_ONLY_MODE) return ['vidsrc.cc'];
+        return isMovie ? ['VO'] : ['VOSTFR'];
     }
 
     // Settings modal HTML
@@ -4356,23 +4532,23 @@ async function openAnimeFromJikan(anime) {
     }
 
     function selectionLabelForSettings(sel) {
-        if (!sel || !sel.group) return vfOnlyEnabled ? 'VF' : (isMovie ? 'VO' : 'VOSTFR');
+        if (!sel || !sel.group) return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : (isMovie ? 'VO' : 'VOSTFR');
         const group = (currentGroups || []).find((item) => item.key === sel.group);
         if (group && group.label) return group.label;
         const g = sel.group;
+        if (g === 'vidsrc') return 'vidsrc.cc';
         if (g === 'vo') return 'VO';
-        if (g === 'vf') return 'VF';
         if (g === 'vostfr') return 'VOSTFR';
         if (g === 'vosta') return 'VOSTA';
         if (g === 'va') return 'VA';
-        return vfOnlyEnabled ? 'VF' : (isMovie ? 'VO' : 'VOSTFR');
+        return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : (isMovie ? 'VO' : 'VOSTFR');
     }
 
     function buildSelectionFromSettingsLabel(label) {
         const directMatch = (currentGroups || []).find((group) => group.label === label);
         if (directMatch) return { group: directMatch.key, idx: 0 };
+        if (label === 'vidsrc.cc') return { group: 'vidsrc', idx: 0 };
         if (label === 'VO') return { group: 'vo', idx: 0 };
-        if (label === 'VF') return { group: 'vf', idx: 0 };
         if (label === 'VOSTA') return { group: 'vosta', idx: 0 };
         if (label === 'VA') return { group: 'va', idx: 0 };
         if (label === 'VOSTFR') return { group: 'vostfr', idx: 0 };
@@ -4390,9 +4566,9 @@ async function openAnimeFromJikan(anime) {
             }
         }
         // Default order
-        const preferredOrder = vfOnlyEnabled
-            ? (isMovie ? ['vf', 'vo'] : ['vf', 'va', 'vostfr', 'vosta'])
-            : (isMovie ? ['vo', 'vf'] : ['vostfr', 'vosta', 'vf', 'va']);
+        const preferredOrder = ANIME_VIDSRC_ONLY_MODE
+            ? ['vidsrc']
+            : (isMovie ? ['vo', 'va'] : ['vostfr', 'vosta', 'va']);
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
@@ -4681,6 +4857,102 @@ async function openAnimeFromJikan(anime) {
     } catch { }
 }
 
+async function openAnimeLiveChannel(channel) {
+    const sourceUrl = String(channel?._liveTv?.url || '').trim();
+    if (!sourceUrl) return;
+
+    const openToken = Symbol('anime-live-player-open');
+    currentAnimePlayerOpenToken = openToken;
+    currentAnimePlayerSession = null;
+    destroyActiveAnimeLivePlayer();
+    playerContainer.querySelectorAll('#season-episode-selector, #anime-player-controls, #anime-settings-btn, #anime-source-indicators, #anime-prev-episode, #anime-next-episode, #anime-skip-controls').forEach((element) => element.remove());
+
+    playerContainer.style.display = 'block';
+    searchContainer.style.display = 'none';
+    playerContent.innerHTML = `
+        <div class="anime-player-stage">
+            <button id="anime-live-close-btn" type="button" style="position:absolute;top:16px;right:16px;z-index:102;min-width:96px;height:40px;border:none;border-radius:999px;background:rgba(0,0,0,0.78);color:#fff;font-family:'OumaTrialBold','OumaTrialLight';cursor:pointer;backdrop-filter:blur(6px);">Close</button>
+            <video id="anime-live-video" controls autoplay playsinline></video>
+            <div id="anime-player-loading" class="anime-player-loading">
+                <div class="anime-player-loading-card">
+                    <div class="anime-player-loading-figure" aria-hidden="true">
+                        <img src="assets/ateaish_anime%20default.png" alt="">
+                        <div class="anime-player-loading-beam"></div>
+                    </div>
+                    <div class="anime-player-loading-copy">
+                        <div class="anime-player-loading-kicker">Anime Live TV</div>
+                        <div class="anime-player-loading-title">Opening ${escapeHtml(channel.title || 'live channel')}</div>
+                        <div class="anime-player-loading-subtitle">Preparing the stream in the anime player.</div>
+                        <div class="anime-player-loading-progress" aria-hidden="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="anime-player-footer">
+            <div style="padding:10px 16px;border-radius:12px;background:rgba(0,0,0,0.55);color:#fff;display:inline-flex;gap:8px;align-items:center;font-family:'OumaTrialBold','OumaTrialLight';">
+                <span>${escapeHtml(channel.title || 'Live TV')}</span>
+                <span style="opacity:0.6;">•</span>
+                <span style="color:#f1892f;">${escapeHtml(channel?._liveTv?.country || 'Live TV')}</span>
+            </div>
+        </div>
+    `;
+
+    const video = document.getElementById('anime-live-video');
+    const loading = document.getElementById('anime-player-loading');
+    const closeBtn = document.getElementById('anime-live-close-btn');
+    if (!video) return;
+    if (closeBtn) closeBtn.addEventListener('click', () => closePlayer.click());
+
+    const streamUrl = getAnimeLiveStreamUrl(sourceUrl);
+    const hideLoading = () => {
+        if (loading) loading.classList.add('hidden');
+    };
+    const failPlayback = () => {
+        hideLoading();
+        playerContent.innerHTML = `
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit;text-align:center;padding:24px;">
+                Unable to open ${escapeHtml(channel.title || 'this live channel')} right now.
+            </div>
+        `;
+    };
+
+    video.addEventListener('loadedmetadata', hideLoading, { once: true });
+    video.addEventListener('canplay', hideLoading, { once: true });
+    video.addEventListener('error', failPlayback, { once: true });
+
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamUrl;
+        activeAnimeLivePlayer = { hls: null, video };
+        void video.play().catch(() => undefined);
+        return;
+    }
+
+    try {
+        const HlsCtor = await ensureAnimeHlsLibrary();
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        if (!HlsCtor || !HlsCtor.isSupported()) {
+            failPlayback();
+            return;
+        }
+
+        const hls = new HlsCtor({ enableWorker: true, lowLatencyMode: true });
+        activeAnimeLivePlayer = { hls, video };
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(HlsCtor.Events.MANIFEST_PARSED, () => {
+            hideLoading();
+            void video.play().catch(() => undefined);
+        });
+        hls.on(HlsCtor.Events.ERROR, (_event, data) => {
+            if (!data || !data.fatal) return;
+            failPlayback();
+        });
+    } catch (error) {
+        console.warn('Failed to open anime live channel', channel?.title, error);
+        failPlayback();
+    }
+}
+
 async function resolveAniListId(malId) {
     if (!malId) return null;
     if (parseNineAnimeSyntheticId(malId)) return null;
@@ -4731,8 +5003,10 @@ async function resolveAniListId(malId) {
     return null;
 }
 
-closePlayer.addEventListener('click', () => {
+closePlayer.addEventListener('click', async () => {
     currentAnimePlayerOpenToken = null;
+    destroyActiveAnimeLivePlayer();
+    await flushCurrentAnimeProgressBeforeClose();
     try {
         if (currentAnimePlayerSession) {
             currentAnimePlayerSession.onAutoNext = null;
@@ -4871,27 +5145,11 @@ function bindBrowseControls() {
             if (term.length >= 2) scheduleSearch(term);
         });
     }
-
-    if (vfToggleBtn) {
-        vfToggleBtn.addEventListener('click', () => {
-            vfOnlyEnabled = !vfOnlyEnabled;
-            writeStoredBoolean(ANIME_VF_ONLY_STORAGE_KEY, vfOnlyEnabled);
-            applyBrowseVisibility();
-            loadHomeSections();
-            loadSuggestedAnime();
-            const term = String(searchInput?.value || '').trim();
-            if (term.length >= 2) {
-                scheduleSearch(term);
-            } else if (vfOnlyEnabled) {
-                setSearchStatus('VF-only filter is active.');
-            } else {
-                setSearchStatus('');
-            }
-        });
-    }
 }
 
 function loadHomeSections() {
+    renderAnimeLiveChannels();
+
     setTimeout(() => {
         loadSection(`${JIKAN_BASE}/top/anime?filter=bypopularity&limit=24&page=${randomPage(10)}&sfw`, 'trendingGrid', { media: 'series' });
     }, 150);
@@ -4924,7 +5182,6 @@ window.addEventListener('DOMContentLoaded', () => {
     void canUseAnimeProtectedRemoteSources(1500);
     void loadAnimePlaybackSnapshot();
     void loadAnimeHomeSnapshot();
-    vfOnlyEnabled = readStoredBoolean(ANIME_VF_ONLY_STORAGE_KEY, false);
     bindSearchControls();
     bindBrowseControls();
     setActiveSearchType(DEFAULT_SEARCH_TYPE);
