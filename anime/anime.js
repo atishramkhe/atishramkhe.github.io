@@ -10,6 +10,7 @@ const searchStatus = document.getElementById('search-status');
 const seriesToggleBtn = document.getElementById('series-toggle');
 const movieToggleBtn = document.getElementById('movie-toggle');
 const adultToggleBtn = document.getElementById('adult-toggle');
+const vfToggleBtn = document.getElementById('vf-toggle');
 
 const JIKAN_BASE = 'https://api.jikan.moe/v4';
 const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
@@ -18,6 +19,9 @@ const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 const NINE_ANIME_BASE = 'https://9animetv.to';
 const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
+const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
+const ANIME_VIDSRC_ONLY_MODE = true;
+const ANIME_VF_ONLY_STORAGE_KEY = 'animeVfOnlyEnabled';
 
 // Continue Watching (anime) - stored separately from /movies
 const ANIME_PROGRESS_TYPE = 'anime';
@@ -32,6 +36,9 @@ let activeBrowseMedia = 'series';
 let adultContentEnabled = false;
 let activeSearchType = DEFAULT_SEARCH_TYPE;
 let searchUiExpanded = false;
+let vfOnlyEnabled = false;
+const animeHomeSnapshotSections = new Map();
+let animeHomeSnapshotPromise = null;
 
 const SEARCH_FILTER_IDS = [
     'search-status-filter',
@@ -65,6 +72,57 @@ function setSearchStatus(text = '') {
     if (searchStatus) searchStatus.textContent = text;
 }
 
+function readStoredBoolean(key, fallback = false) {
+    try {
+        const raw = localStorage.getItem(key);
+        if (raw === '1' || raw === 'true') return true;
+        if (raw === '0' || raw === 'false') return false;
+    } catch { }
+    return fallback;
+}
+
+function writeStoredBoolean(key, value) {
+    try {
+        localStorage.setItem(key, value ? '1' : '0');
+    } catch { }
+}
+
+function applyAnimeHomeSnapshot(snapshot) {
+    animeHomeSnapshotSections.clear();
+    const sections = snapshot && typeof snapshot === 'object' && snapshot.sections && typeof snapshot.sections === 'object'
+        ? snapshot.sections
+        : {};
+    Object.entries(sections).forEach(([gridId, items]) => {
+        if (Array.isArray(items)) animeHomeSnapshotSections.set(gridId, items);
+    });
+}
+
+function loadAnimeHomeSnapshot() {
+    if (animeHomeSnapshotPromise) return animeHomeSnapshotPromise;
+    animeHomeSnapshotPromise = fetch(ANIME_HOME_SNAPSHOT_URL, { cache: 'no-cache' })
+        .then((response) => {
+            if (!response.ok) {
+                if (response.status !== 404) throw new Error(`HTTP ${response.status}`);
+                return null;
+            }
+            return response.json();
+        })
+        .then((snapshot) => {
+            applyAnimeHomeSnapshot(snapshot);
+            return snapshot;
+        })
+        .catch((error) => {
+            animeHomeSnapshotSections.clear();
+            console.warn('Failed to load anime home snapshot', error);
+            return null;
+        });
+    return animeHomeSnapshotPromise;
+}
+
+function getAnimeHomeSnapshotItems(gridId) {
+    return animeHomeSnapshotSections.get(gridId) || null;
+}
+
 function getAllBrowseSections() {
     return Array.from(document.querySelectorAll('section[data-media]'));
 }
@@ -96,6 +154,36 @@ function animeMatchesAdultSetting(anime) {
     return adultContentEnabled || !isAdultAnime(anime);
 }
 
+function hasFrenchDubForAnime(anime) {
+    if (!anime || typeof anime !== 'object') return false;
+    if (anime.hasFrenchDub === true) return true;
+    const snapshotEntry = getAnimePlaybackSnapshotEntryForAnime(anime);
+    return !!(snapshotEntry && snapshotEntry.hasFrenchDub);
+}
+
+function animeMatchesVfSetting(anime) {
+    return !vfOnlyEnabled || hasFrenchDubForAnime(anime);
+}
+
+function filterAnimeListing(items, options = {}) {
+    return (Array.isArray(items) ? items : []).filter((anime) => {
+        if (options.releasedOnly !== false && !isReleasedAnime(anime)) return false;
+        if (options.media === 'series' && isAnimeMovieType(anime)) return false;
+        if (options.media === 'movie' && !isAnimeMovieType(anime)) return false;
+        if (options.adultOnly && !isAdultAnime(anime)) return false;
+        if (!options.adultOnly && !animeMatchesAdultSetting(anime)) return false;
+        if (!animeMatchesVfSetting(anime)) return false;
+        return true;
+    });
+}
+
+function updateVfToggleUi() {
+    if (!vfToggleBtn) return;
+    vfToggleBtn.classList.toggle('active', vfOnlyEnabled);
+    vfToggleBtn.dataset.state = vfOnlyEnabled ? 'on' : 'off';
+    vfToggleBtn.textContent = vfOnlyEnabled ? 'VF Only ON' : 'VF Only OFF';
+}
+
 function animeMatchesBrowseMedia(anime) {
     return activeBrowseMedia === 'movie' ? isAnimeMovieType(anime) : !isAnimeMovieType(anime);
 }
@@ -116,6 +204,7 @@ function applyBrowseVisibility() {
         adultToggleBtn.dataset.state = adultContentEnabled ? 'on' : 'off';
         adultToggleBtn.textContent = adultContentEnabled ? 'Adult ON' : 'Adult OFF';
     }
+    updateVfToggleUi();
 }
 
 function setActiveSearchType(nextType) {
@@ -904,7 +993,7 @@ async function loadSuggestedAnime() {
     })));
 
     const picks = available
-        .filter(({ anime, profile }) => profile && profile.playable && animeMatchesAdultSetting(anime) && animeMatchesBrowseMedia(anime))
+        .filter(({ anime, profile }) => profile && profile.playable && animeMatchesAdultSetting(anime) && animeMatchesBrowseMedia(anime) && animeMatchesVfSetting(anime))
         .map(({ anime }) => anime)
         .slice(0, 24);
 
@@ -2245,6 +2334,7 @@ async function fetchJikanSearchEntries(query) {
             if (!animeMatchesSearchType(anime)) return;
             if (!animeMatchesSearchYear(anime)) return;
             if (!animeMatchesAdultSetting(anime)) return;
+            if (!animeMatchesVfSetting(anime)) return;
             const key = String(anime?.mal_id || anime?.url || anime?.title || '').trim();
             if (!key || collected.has(key)) return;
             collected.set(key, anime);
@@ -2304,18 +2394,18 @@ async function loadSection(url, gridId, options = {}) {
     if (!grid) return;
     grid.innerHTML = '';
     try {
+        const snapshot = await loadAnimeHomeSnapshot();
+        const snapshotItems = snapshot ? getAnimeHomeSnapshotItems(gridId) : null;
+        if (Array.isArray(snapshotItems)) {
+            sectionRetryCounts.delete(`${gridId}:${url}`);
+            renderAnimeCardsIntoGrid(grid, filterAnimeListing(snapshotItems, options), { clickable: options.clickable !== false });
+            return;
+        }
+
         const data = await fetchJson(url, 5);
         sectionRetryCounts.delete(`${gridId}:${url}`);
         const list = data.data || [];
-        const filtered = list.filter((anime) => {
-            if (options.releasedOnly !== false && !isReleasedAnime(anime)) return false;
-            if (options.media === 'series' && isAnimeMovieType(anime)) return false;
-            if (options.media === 'movie' && !isAnimeMovieType(anime)) return false;
-            if (options.adultOnly && !isAdultAnime(anime)) return false;
-            if (!options.adultOnly && !animeMatchesAdultSetting(anime)) return false;
-            return true;
-        });
-        renderAnimeCardsIntoGrid(grid, filtered, { clickable: options.clickable !== false });
+        renderAnimeCardsIntoGrid(grid, filterAnimeListing(list, options), { clickable: options.clickable !== false });
     } catch (e) {
         console.error('Failed to load section', gridId, e);
         const msg = e && e.message ? String(e.message) : '';
@@ -2406,40 +2496,21 @@ async function searchAnime(query) {
     resultsContainer.innerHTML = 'Searching...';
     setSearchStatus('Searching...');
     try {
-        const unsupportedDirectFilters = hasUnsupportedDirectSearchFilters();
-        const canUseDirectNineAnime = !unsupportedDirectFilters && await canUseAnimeProtectedRemoteSources();
-
-        if (canUseDirectNineAnime) {
-            const directResults = await fetchNineAnimeSearchEntries(query);
-            const directList = sortNineAnimeSearchEntries(
-                directResults.filter((anime) => animeMatchesSearchType(anime) && animeMatchesSearchYear(anime) && animeMatchesAdultSetting(anime)),
-                query
-            );
-
-            if (directList.length) {
-                resultsContainer.innerHTML = '';
-                directList.forEach((anime) => {
-                    const card = createPosterCard(anime, openAnimeFromBrowseEntry);
-                    resultsContainer.appendChild(card);
-                });
-                setSearchStatus(`${directList.length} direct 9anime results${adultContentEnabled ? ' including adult titles' : ''}.`);
-                return;
-            }
-        }
+        if (vfOnlyEnabled) await loadAnimePlaybackSnapshot();
 
         const jikanResults = await fetchJikanSearchEntries(query);
         if (!jikanResults.length) {
             resultsContainer.textContent = 'No results found.';
-            setSearchStatus('No matching anime found for the current filters.');
+            setSearchStatus(vfOnlyEnabled
+                ? 'No matching anime with VF available for the current filters.'
+                : 'No matching anime found for the current filters.');
             return;
         }
 
         resultsContainer.innerHTML = '';
         renderAnimeCardsIntoGrid(resultsContainer, jikanResults, { clickable: true });
 
-        const reason = unsupportedDirectFilters
-            ? 'Advanced filters are using Jikan search.'
-            : (!canUseDirectNineAnime && !isLocalAnimeDev() ? 'Using Jikan because direct 9anime search is unavailable here.' : 'Using Jikan search.');
+        const reason = vfOnlyEnabled ? 'VF-only filter is active.' : 'Using Jikan search.';
         setSearchStatus(`${jikanResults.length} Jikan results. ${reason}`);
     } catch (e) {
         console.error('Search failed', e);
@@ -3414,6 +3485,33 @@ async function getAnimePlaybackProfile(anime) {
 
     const pending = (async () => {
         const isMovie = (anime?.type || '').toLowerCase() === 'movie';
+        if (ANIME_VIDSRC_ONLY_MODE) {
+            if (isMovie) {
+                const tmdbId = anime?.tmdbId || anime?.tmdb_id || await getTmdbIdForAnimeMovie(anime);
+                return {
+                    isMovie: true,
+                    playable: Boolean(tmdbId),
+                    tmdbId,
+                    aniListId: null,
+                    sourceAniListId: null,
+                    seriesSourceData: null,
+                    nineAnimeSourceData: null
+                };
+            }
+
+            const malId = parsePositiveInteger(anime?.mal_id);
+            const aniListId = malId ? getCachedAniListId(malId) : null;
+            return {
+                isMovie: false,
+                playable: Boolean(malId || aniListId),
+                tmdbId: null,
+                aniListId,
+                sourceAniListId: aniListId,
+                seriesSourceData: null,
+                nineAnimeSourceData: null
+            };
+        }
+
         const directNineAnimeSourceData = await resolveDirectNineAnimeSourceData(anime);
         if (isMovie) {
             const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
@@ -3652,7 +3750,7 @@ async function openAnimeFromJikan(anime) {
     const playbackProfilePromise = getAnimePlaybackProfile(anime);
     const cachedAniListId = getCachedAniListId(malId);
     let aniListId = cachedAniListId || null;
-    const aniListIdPromise = cachedAniListId
+    const aniListIdPromise = (ANIME_VIDSRC_ONLY_MODE || cachedAniListId)
         ? Promise.resolve(cachedAniListId)
         : resolveAniListId(malId).then((resolvedAniListId) => {
             if (resolvedAniListId) setCachedAniListId(malId, resolvedAniListId);
@@ -3678,9 +3776,11 @@ async function openAnimeFromJikan(anime) {
     if (currentAnimePlayerOpenToken !== openToken) return;
     resolvedEpisodes = await resolvedEpisodesPromise;
     if (currentAnimePlayerOpenToken !== openToken) return;
-    const resolvedAniListId = await aniListIdPromise;
-    if (currentAnimePlayerOpenToken !== openToken) return;
-    if (resolvedAniListId) aniListId = resolvedAniListId;
+    if (!ANIME_VIDSRC_ONLY_MODE) {
+        const resolvedAniListId = await aniListIdPromise;
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        if (resolvedAniListId) aniListId = resolvedAniListId;
+    }
     if (playbackProfile && playbackProfile.aniListId) {
         aniListId = playbackProfile.aniListId;
     }
@@ -3936,6 +4036,27 @@ async function openAnimeFromJikan(anime) {
     }
 
     async function buildSourceGroups(season, episode) {
+        if (ANIME_VIDSRC_ONLY_MODE) {
+            if (isMovie) {
+                if (!tmdbId) return [];
+
+                const movieGroups = [
+                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] },
+                    { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true&lang=fr`] }
+                ];
+                return vfOnlyEnabled ? movieGroups.filter((group) => group.key === 'vf') : movieGroups;
+            }
+
+            const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
+            if (!vidsrcAnimeId) return [];
+
+            const seriesGroups = [
+                { key: 'vostfr', label: 'VOSTFR', urls: [`https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`] },
+                { key: 'vf', label: 'VF', urls: [`https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`] }
+            ];
+            return vfOnlyEnabled ? seriesGroups.filter((group) => group.key === 'vf') : seriesGroups;
+        }
+
         if (isMovie) {
             const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
             if (resolvedNineAnimeSourceData) {
@@ -4054,6 +4175,7 @@ async function openAnimeFromJikan(anime) {
     function getSettingsGroups() {
         const labels = Array.from(new Set((currentGroups || []).map((group) => group.label).filter(Boolean)));
         if (labels.length) return labels;
+        if (vfOnlyEnabled) return ['VF'];
         return isMovie ? ['VO', 'VF'] : ['VOSTFR', 'VF'];
     }
 
@@ -4234,16 +4356,16 @@ async function openAnimeFromJikan(anime) {
     }
 
     function selectionLabelForSettings(sel) {
-        if (!sel || !sel.group) return isMovie ? 'VO' : 'VOSTA';
+        if (!sel || !sel.group) return vfOnlyEnabled ? 'VF' : (isMovie ? 'VO' : 'VOSTFR');
         const group = (currentGroups || []).find((item) => item.key === sel.group);
         if (group && group.label) return group.label;
         const g = sel.group;
         if (g === 'vo') return 'VO';
         if (g === 'vf') return 'VF';
+        if (g === 'vostfr') return 'VOSTFR';
         if (g === 'vosta') return 'VOSTA';
         if (g === 'va') return 'VA';
-        if (g === 'vostfr') return 'VOSTFR';
-        return isMovie ? 'VO' : 'VOSTA';
+        return vfOnlyEnabled ? 'VF' : (isMovie ? 'VO' : 'VOSTFR');
     }
 
     function buildSelectionFromSettingsLabel(label) {
@@ -4268,9 +4390,9 @@ async function openAnimeFromJikan(anime) {
             }
         }
         // Default order
-        const preferredOrder = isMovie
-            ? ['vo', 'vf']
-            : ['vosta', 'va'];
+        const preferredOrder = vfOnlyEnabled
+            ? (isMovie ? ['vf', 'vo'] : ['vf', 'va', 'vostfr', 'vosta'])
+            : (isMovie ? ['vo', 'vf'] : ['vostfr', 'vosta', 'vf', 'va']);
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
@@ -4648,21 +4770,21 @@ async function loadAdultSection(gridId, { movie = false, count = 24 } = {}) {
     if (!grid) return;
     grid.innerHTML = 'Loading...';
     try {
-        if (await canUseAnimeProtectedRemoteSources(700)) {
-            const nineAnimePicks = await fetchNineAnimeBrowseEntries({ genres: NINE_ANIME_ADULT_BROWSE_GENRES, movie, count });
-            if (nineAnimePicks.length) {
-                renderNineAnimeBrowseCardsIntoGrid(grid, nineAnimePicks);
-                return;
-            }
+        const snapshot = await loadAnimeHomeSnapshot();
+        const snapshotItems = snapshot ? getAnimeHomeSnapshotItems(gridId) : null;
+        if (Array.isArray(snapshotItems)) {
+            renderAnimeCardsIntoGrid(grid, filterAnimeListing(snapshotItems, { media: movie ? 'movie' : 'series', adultOnly: true }));
+            return;
         }
 
         const picks = await fetchJikanAdultEntries({ movie, count });
+        const filtered = filterAnimeListing(picks, { media: movie ? 'movie' : 'series', adultOnly: true });
 
-        if (!picks.length) {
+        if (!filtered.length) {
             grid.innerHTML = '<div>No adult anime available.</div>';
             return;
         }
-        renderAnimeCardsIntoGrid(grid, picks);
+        renderAnimeCardsIntoGrid(grid, filtered);
     } catch (e) {
         console.error('Failed to load adult section', gridId, e);
         grid.innerHTML = '<div>Failed to load adult anime.</div>';
@@ -4749,6 +4871,24 @@ function bindBrowseControls() {
             if (term.length >= 2) scheduleSearch(term);
         });
     }
+
+    if (vfToggleBtn) {
+        vfToggleBtn.addEventListener('click', () => {
+            vfOnlyEnabled = !vfOnlyEnabled;
+            writeStoredBoolean(ANIME_VF_ONLY_STORAGE_KEY, vfOnlyEnabled);
+            applyBrowseVisibility();
+            loadHomeSections();
+            loadSuggestedAnime();
+            const term = String(searchInput?.value || '').trim();
+            if (term.length >= 2) {
+                scheduleSearch(term);
+            } else if (vfOnlyEnabled) {
+                setSearchStatus('VF-only filter is active.');
+            } else {
+                setSearchStatus('');
+            }
+        });
+    }
 }
 
 function loadHomeSections() {
@@ -4783,6 +4923,8 @@ function loadHomeSections() {
 window.addEventListener('DOMContentLoaded', () => {
     void canUseAnimeProtectedRemoteSources(1500);
     void loadAnimePlaybackSnapshot();
+    void loadAnimeHomeSnapshot();
+    vfOnlyEnabled = readStoredBoolean(ANIME_VF_ONLY_STORAGE_KEY, false);
     bindSearchControls();
     bindBrowseControls();
     setActiveSearchType(DEFAULT_SEARCH_TYPE);

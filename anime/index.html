@@ -61,6 +61,41 @@
             height: 72px;
             z-index: 91;
         }
+        .top-right-controls {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 92;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .corner-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 126px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(13, 13, 13, 0.92);
+            color: #cfcfcf;
+            border: 1px solid #242424;
+            font-family: 'OumaTrialBold', 'OumaTrialLight';
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+            backdrop-filter: blur(10px);
+        }
+        .corner-toggle:hover {
+            transform: translateY(-1px);
+            border-color: rgba(241, 137, 47, 0.45);
+            color: #fff;
+        }
+        .corner-toggle.active {
+            background: rgba(241, 137, 47, 0.14);
+            border-color: #f1892f;
+            color: #f1892f;
+        }
         /* Search bar: match /movies */
         #search-container{
             display: flex;
@@ -851,6 +886,15 @@
                 width: 64px;
                 height: 64px;
             }
+            .top-right-controls {
+                top: 18px;
+                right: 16px;
+            }
+            .corner-toggle {
+                min-width: 112px;
+                padding: 9px 12px;
+                font-size: 0.78rem;
+            }
         }
     </style>
 </head>
@@ -860,6 +904,9 @@
                 <img src="assets/ateaish_anime default.png" alt="ateaish anime" style="padding-right: 8px;">
             </div>
     </header>
+    <div class="top-right-controls">
+        <button id="vf-toggle" class="corner-toggle" data-state="off" type="button">VF Only OFF</button>
+    </div>
 
     <div class="floating-master-nav-slot" data-ateaish-master-nav-slot="inline"></div>
 
