@@ -21,96 +21,42 @@ const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
 const ANIME_VIDSRC_ONLY_MODE = true;
 
-const ANIME_LIVE_TV_CHANNELS = [
-    {
-        mal_id: 'live:fr-adn-tv-plus',
-        title: 'ADN TV+',
-        title_english: 'ADN TV+',
-        synopsis: 'French anime live channel from the Ateaish TV lineup.',
-        type: 'Live TV',
-        episodes: 'LIVE',
-        year: 'France',
-        images: {
-            jpg: {
-                image_url: '../tv/logos/France/ADN TV+.svg',
-                small_image_url: '../tv/logos/France/ADN TV+.svg',
-                large_image_url: '../tv/logos/France/ADN TV+.svg'
-            }
-        },
-        _liveTv: {
-            country: 'France',
-            posterFit: 'contain',
-            sourceType: 'm3u8',
-            url: 'https://d3b73b34o7cvkq.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-gz2sgqzp076kf/adn.m3u8'
-        }
-    },
-    {
-        mal_id: 'live:fr-japanim-tv',
-        title: 'Japanim TV',
-        title_english: 'Japanim TV',
-        synopsis: 'French anime live channel from the Ateaish TV lineup.',
-        type: 'Live TV',
-        episodes: 'LIVE',
-        year: 'France',
-        images: {
-            jpg: {
-                image_url: '../tv/logos/France/japanimtv.png',
-                small_image_url: '../tv/logos/France/japanimtv.png',
-                large_image_url: '../tv/logos/France/japanimtv.png'
-            }
-        },
-        _liveTv: {
-            country: 'France',
-            posterFit: 'cover',
-            sourceType: 'm3u8',
-            url: 'https://foxkidstv.be:3369/stream/play.m3u8'
-        }
-    },
-    {
-        mal_id: 'live:us-crunchyroll',
-        title: 'Crunchyroll',
-        title_english: 'Crunchyroll',
-        synopsis: 'US anime live channel from the Ateaish TV lineup.',
-        type: 'Live TV',
-        episodes: 'LIVE',
-        year: 'US',
-        images: {
-            jpg: {
-                image_url: '../tv/logos/US/crunchyroll.webp',
-                small_image_url: '../tv/logos/US/crunchyroll.webp',
-                large_image_url: '../tv/logos/US/crunchyroll.webp'
-            }
-        },
-        _liveTv: {
-            country: 'US',
-            posterFit: 'contain',
-            sourceType: 'm3u8',
-            url: 'https://a3c4ecbd.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQ3J1bmNoeXJvbGxfSExT/playlist.m3u8'
-        }
-    },
-    {
-        mal_id: 'live:us-anime-x-hidive',
-        title: 'ANIME x HIDIVE',
-        title_english: 'ANIME x HIDIVE',
-        synopsis: 'US anime live channel from the Ateaish TV lineup.',
-        type: 'Live TV',
-        episodes: 'LIVE',
-        year: 'US',
-        images: {
-            jpg: {
-                image_url: '../tv/logos/US/anime_hidive.png',
-                small_image_url: '../tv/logos/US/anime_hidive.png',
-                large_image_url: '../tv/logos/US/anime_hidive.png'
-            }
-        },
-        _liveTv: {
-            country: 'US',
-            posterFit: 'contain',
-            sourceType: 'm3u8',
-            url: 'https://ec48e468.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEdfQU5JTUV4SElESVZFX0hMUw/playlist.m3u8'
-        }
-    }
-];
+// Live TV channels are loaded from live_channels.json — edit that file to add/change channels.
+let ANIME_LIVE_TV_CHANNELS = [];
+let animeLiveChannelsPromise = null;
+
+function loadAnimeLiveChannels() {
+    if (animeLiveChannelsPromise) return animeLiveChannelsPromise;
+    animeLiveChannelsPromise = fetch('./live_channels.json')
+        .then((r) => r.json())
+        .then((data) => {
+            ANIME_LIVE_TV_CHANNELS = Array.isArray(data) ? data.map((ch) => {
+                const logo = ch.logo || '';
+                const firstSource = Array.isArray(ch.sources) && ch.sources[0];
+                return {
+                    mal_id: ch.id,
+                    title: ch.title || '',
+                    title_english: ch.title || '',
+                    synopsis: ch.synopsis || '',
+                    type: 'Live TV',
+                    episodes: 'LIVE',
+                    year: ch.country || '',
+                    images: { jpg: { image_url: logo, small_image_url: logo, large_image_url: logo } },
+                    _liveTv: {
+                        country: ch.country || '',
+                        posterFit: ch.posterFit || 'contain',
+                        sources: Array.isArray(ch.sources) ? ch.sources : [],
+                        // keep single-url compat
+                        sourceType: firstSource ? firstSource.type : 'm3u8',
+                        url: firstSource ? firstSource.url : '',
+                    },
+                };
+            }) : [];
+            return ANIME_LIVE_TV_CHANNELS;
+        })
+        .catch(() => { ANIME_LIVE_TV_CHANNELS = []; return []; });
+    return animeLiveChannelsPromise;
+}
 
 // Continue Watching (anime) - stored separately from /movies
 const ANIME_PROGRESS_TYPE = 'anime';
@@ -1382,7 +1328,26 @@ function loadAnimeContinueWatching() {
             </div>
         `;
 
-        div.onclick = () => openAnimeByMalId(data.id);
+        div.onclick = () => {
+            // Build a synthetic anime object directly from the cached progress record so
+            // openAnimeFromJikan shows the loading screen instantly — no Jikan API call needed.
+            const syntheticAnime = {
+                mal_id: data.id,
+                title: data.title || '',
+                title_english: data.title || '',
+                type: Number(data.episodesTotal) === 1 ? 'Movie' : 'TV',
+                episodes: data.episodesTotal || null,
+                year: data.year || '',
+                images: {
+                    jpg: {
+                        image_url: data.poster || '',
+                        small_image_url: data.poster || '',
+                        large_image_url: data.poster || '',
+                    },
+                },
+            };
+            openAnimeFromJikan(syntheticAnime);
+        };
 
         const removeBtn = document.createElement('button');
         removeBtn.innerHTML = '&times;';
@@ -1413,6 +1378,18 @@ function loadAnimeContinueWatching() {
     });
 
     annotateContinueWatchingCards(renderItems);
+
+    // Pre-warm the playback profile cache for all rendered cards so the profile
+    // is already resolved if the user clicks one shortly after the page loads.
+    renderItems.forEach((item) => {
+        const warmAnime = {
+            mal_id: item.id,
+            title: item.title || '',
+            type: Number(item.episodesTotal) === 1 ? 'Movie' : 'TV',
+            episodes: item.episodesTotal || null,
+        };
+        void getAnimePlaybackProfile(warmAnime).catch(() => undefined);
+    });
 }
 
 // Skip Settings (anime) - stored per anime
@@ -2520,9 +2497,10 @@ function renderNineAnimeBrowseCardsIntoGrid(grid, items) {
     });
 }
 
-function renderAnimeLiveChannels() {
+async function renderAnimeLiveChannels() {
     const grid = document.getElementById('animeLiveTvGrid');
     if (!grid) return;
+    await loadAnimeLiveChannels();
     grid.innerHTML = '';
     ANIME_LIVE_TV_CHANNELS.forEach((channel) => {
         const poster = buildPosterVariants(channel);
@@ -4936,8 +4914,12 @@ async function openAnimeFromJikan(anime) {
 }
 
 async function openAnimeLiveChannel(channel) {
-    const sourceUrl = String(channel?._liveTv?.url || '').trim();
-    if (!sourceUrl) return;
+    // Build a flattened sources list — mirrors how ateaish_tv does it
+    const sources = Array.isArray(channel?._liveTv?.sources) && channel._liveTv.sources.length
+        ? channel._liveTv.sources
+        : [{ type: channel?._liveTv?.sourceType || 'm3u8', url: channel?._liveTv?.url || '' }];
+
+    if (!sources[0]?.url) return;
 
     const openToken = Symbol('anime-live-player-open');
     currentAnimePlayerOpenToken = openToken;
@@ -4981,11 +4963,10 @@ async function openAnimeLiveChannel(channel) {
     if (!video) return;
     if (closeBtn) closeBtn.addEventListener('click', () => closePlayer.click());
 
-    const streamUrl = getAnimeLiveStreamUrl(sourceUrl);
     const hideLoading = () => {
         if (loading) loading.classList.add('hidden');
     };
-    const failPlayback = () => {
+    const showError = () => {
         hideLoading();
         playerContent.innerHTML = `
             <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit;text-align:center;padding:24px;">
@@ -4994,41 +4975,80 @@ async function openAnimeLiveChannel(channel) {
         `;
     };
 
-    video.addEventListener('loadedmetadata', hideLoading, { once: true });
-    video.addEventListener('canplay', hideLoading, { once: true });
-    video.addEventListener('error', failPlayback, { once: true });
+    let sourceIndex = 0;
+    let hlsInstance = null;
 
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = streamUrl;
-        activeAnimeLivePlayer = { hls: null, video };
-        void video.play().catch(() => undefined);
-        return;
+    function destroyHls() {
+        if (hlsInstance) { try { hlsInstance.destroy(); } catch { } hlsInstance = null; }
     }
 
-    try {
-        const HlsCtor = await ensureAnimeHlsLibrary();
+    async function trySource(idx) {
         if (currentAnimePlayerOpenToken !== openToken) return;
-        if (!HlsCtor || !HlsCtor.isSupported()) {
-            failPlayback();
+        if (idx >= sources.length) { showError(); return; }
+
+        const src = sources[idx];
+        const url = getAnimeLiveStreamUrl(src.url || '');
+        if (!url) { trySource(idx + 1); return; }
+
+        destroyHls();
+
+        // Native HLS (Safari)
+        if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            activeAnimeLivePlayer = { hls: null, video };
+            video.addEventListener('loadedmetadata', hideLoading, { once: true });
+            video.addEventListener('canplay', hideLoading, { once: true });
+            video.addEventListener('error', () => trySource(idx + 1), { once: true });
+            void video.play().catch(() => undefined);
             return;
         }
 
-        const hls = new HlsCtor({ enableWorker: true, lowLatencyMode: true });
+        let HlsCtor;
+        try {
+            HlsCtor = await ensureAnimeHlsLibrary();
+        } catch { showError(); return; }
+
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        if (!HlsCtor || !HlsCtor.isSupported()) { showError(); return; }
+
+        const hls = new HlsCtor({
+            enableWorker: true,
+            lowLatencyMode: false,
+            liveSyncDuration: 4,
+            liveMaxLatencyDuration: 18,
+            liveDurationInfinity: true,
+            fragLoadingTimeOut: 20000,
+            manifestLoadingTimeOut: 15000,
+        });
+        hlsInstance = hls;
         activeAnimeLivePlayer = { hls, video };
-        hls.loadSource(streamUrl);
+
+        hls.loadSource(url);
         hls.attachMedia(video);
+
         hls.on(HlsCtor.Events.MANIFEST_PARSED, () => {
             hideLoading();
             void video.play().catch(() => undefined);
         });
+
+        let networkRetries = 0;
+        let mediaRetries = 0;
         hls.on(HlsCtor.Events.ERROR, (_event, data) => {
             if (!data || !data.fatal) return;
-            failPlayback();
+            if (data.type === HlsCtor.ErrorTypes.NETWORK_ERROR && networkRetries < 3) {
+                networkRetries++;
+                hls.startLoad();
+            } else if (data.type === HlsCtor.ErrorTypes.MEDIA_ERROR && mediaRetries < 2) {
+                mediaRetries++;
+                hls.recoverMediaError();
+            } else {
+                destroyHls();
+                trySource(idx + 1);
+            }
         });
-    } catch (error) {
-        console.warn('Failed to open anime live channel', channel?.title, error);
-        failPlayback();
     }
+
+    trySource(0);
 }
 
 async function resolveAniListId(malId) {
