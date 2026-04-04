@@ -675,6 +675,7 @@
     let lastRawResults = [];
     let searchMode = 'text';        // 'text' or 'discover'
     let _searchDebounce = null;
+    let _searchAbortController = null;
 
     function itemMatchesCountryFilter(item, countryCode) {
         if (!countryCode) return true;
@@ -823,17 +824,23 @@
 
         // --- Text search (TMDB /search/multi) ---
         async function fetchTextSearch(query, page) {
+            if (_searchAbortController) _searchAbortController.abort();
+            _searchAbortController = new AbortController();
+            const signal = _searchAbortController.signal;
             try {
                 const res = await fetch(
-                    `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&page=${page}`
+                    `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&page=${page}`,
+                    { signal }
                 );
                 const data = await res.json();
+                if (signal.aborted) return;
                 totalPages = Math.min(data.total_pages || 1, 500);
                 lastRawResults = (data.results || []);
                 const filtered = applyLocalFilters(lastRawResults);
                 renderResults(filtered);
                 renderPagination(currentPage, totalPages);
             } catch (e) {
+                if (e.name === 'AbortError') return;
                 console.error('Search error:', e);
                 if (resultsContainer) resultsContainer.innerHTML = 'Error fetching results.';
             }
@@ -841,12 +848,16 @@
 
         // --- Discover (TMDB /discover/movie or /discover/tv) ---
         async function fetchDiscover(page) {
+            if (_searchAbortController) _searchAbortController.abort();
+            _searchAbortController = new AbortController();
+            const signal = _searchAbortController.signal;
             try {
                 const types = activeTypeFilter === 'all' ? ['movie', 'tv'] : [activeTypeFilter];
                 let all = [];
                 let maxPages = 1;
 
                 for (const mtype of types) {
+                    if (signal.aborted) return;
                     const params = new URLSearchParams({
                         api_key: TMDB_KEY,
                         page: String(page),
@@ -878,7 +889,8 @@
                     }
 
                     const url = `https://api.themoviedb.org/3/discover/${mtype}?${params}`;
-                    const res = await fetch(url);
+                    const res = await fetch(url, { signal });
+                    if (signal.aborted) return;
                     const data = await res.json();
                     maxPages = Math.max(maxPages, Math.min(data.total_pages || 1, 500));
                     (data.results || []).forEach(item => {
@@ -893,9 +905,11 @@
                     all.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
                 }
                 lastRawResults = all;
+                if (signal.aborted) return;
                 renderResults(all);
                 renderPagination(currentPage, totalPages);
             } catch (e) {
+                if (e.name === 'AbortError') return;
                 console.error('Discover error:', e);
                 if (resultsContainer) resultsContainer.innerHTML = 'Error fetching results.';
             }
