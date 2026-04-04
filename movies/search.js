@@ -592,6 +592,7 @@ function displayResults(results) {
             lastSeasonEpisodes: null,
             onClick: () => openPlayer(mediaType, id, 1),
             withPreview: true,
+            skipCam: true,
             itemMeta: item
         });
 
@@ -1236,22 +1237,23 @@ function shuffle(array) {
 
 // Build poster card. If withPreview=true, include preview box below the poster.
 
-// Add isCam to the argument list (default false for backward compatibility)
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false, itemMeta = null }) {
+// Add isCam/skipCam to the argument list (default false for backward compatibility)
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false, skipCam = false, itemMeta = null }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
 
-    // Pre-insert a hidden badge for movies so that the async CAM resolution only
-    // toggles `display` rather than structurally mutating the DOM while the user
-    // is hovering — structural mutations reset :hover and cause cursor flicker.
-    if (canonicalType(mediaType) === 'movie') {
-        const preBadge = createCamBadge();
-        preBadge.style.display = 'none';
-        posterDiv.appendChild(preBadge);
+    if (!skipCam) {
+        // Pre-insert a hidden badge for movies so that the async CAM resolution only
+        // toggles `display` rather than structurally mutating the DOM while the user
+        // is hovering — structural mutations reset :hover and cause cursor flicker.
+        if (canonicalType(mediaType) === 'movie') {
+            const preBadge = createCamBadge();
+            preBadge.style.display = 'none';
+            posterDiv.appendChild(preBadge);
+        }
+        applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
     }
-
-    applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
 
     const img = document.createElement('img');
     img.src = poster;
