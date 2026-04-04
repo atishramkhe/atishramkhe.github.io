@@ -125,11 +125,12 @@ function createCamBadge() {
 function setCamBadge(container, shouldShow) {
     if (!container) return;
     const existingBadge = container.querySelector(':scope > .cam-badge');
-    if (!shouldShow) {
-        if (existingBadge) existingBadge.remove();
+    if (existingBadge) {
+        // Toggle display only — avoids structural DOM mutation that resets :hover
+        existingBadge.style.display = shouldShow ? '' : 'none';
         return;
     }
-    if (!existingBadge) {
+    if (shouldShow) {
         container.appendChild(createCamBadge());
     }
 }
@@ -1240,6 +1241,15 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
+
+    // Pre-insert a hidden badge for movies so that the async CAM resolution only
+    // toggles `display` rather than structurally mutating the DOM while the user
+    // is hovering — structural mutations reset :hover and cause cursor flicker.
+    if (canonicalType(mediaType) === 'movie') {
+        const preBadge = createCamBadge();
+        preBadge.style.display = 'none';
+        posterDiv.appendChild(preBadge);
+    }
 
     applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
 
