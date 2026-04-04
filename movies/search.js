@@ -448,6 +448,15 @@ function ensureResultsPosterCSS() {
     if (_resultsPosterCssInjected) return;
     const style = document.createElement('style');
     style.textContent = `
+        #results.poster-grid-match .search-results-spacer {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            visibility: hidden;
+            pointer-events: none;
+            background: transparent;
+            box-shadow: none;
+            transform: none;
+        }
         #results.poster-grid-match .poster img {
             width: 100%;
             height: auto;
@@ -458,6 +467,13 @@ function ensureResultsPosterCSS() {
     `;
     document.head.appendChild(style);
     _resultsPosterCssInjected = true;
+}
+
+function createSearchResultsSpacer() {
+    const spacer = document.createElement('div');
+    spacer.className = 'poster search-results-spacer';
+    spacer.setAttribute('aria-hidden', 'true');
+    return spacer;
 }
 
 let _searchGridRO = null;
@@ -561,16 +577,22 @@ function displayResults(results) {
 
     setupResultsGridLayout();
 
-    if (!Array.isArray(results) || results.length === 0) {
+    const visibleResults = Array.isArray(results)
+        ? results.filter(item => item.media_type === 'movie' || item.media_type === 'tv')
+        : [];
+
+    if (visibleResults.length === 0) {
         resultsContainer.innerHTML = 'No results found.';
         return;
     }
 
     resultsContainer.innerHTML = ''; // Clear previous results
 
-    results.forEach(item => {
-        if (item.media_type !== 'movie' && item.media_type !== 'tv') return;
+    // Keep the first visible poster away from the left edge to avoid the hover
+    // expansion fighting with the viewport boundary on hosted builds.
+    resultsContainer.appendChild(createSearchResultsSpacer());
 
+    visibleResults.forEach(item => {
         const id = item.id;
         const mediaType = item.media_type;
         const title = item.title || item.name || 'Untitled';
