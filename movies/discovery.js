@@ -697,10 +697,22 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.getElementById('search-input');
+        const searchContainer = document.getElementById('search-container');
         const filtersBar = document.getElementById('search-filters');
         const resultsContainer = document.getElementById('results');
         const paginationContainer = document.getElementById('search-pagination');
         if (!searchInput || !filtersBar) return;
+
+        const searchDisabled = Boolean(searchInput.disabled || searchContainer?.dataset.searchDisabled === 'true');
+        if (searchDisabled) {
+            if (resultsContainer) {
+                resultsContainer.innerHTML = '';
+                resultsContainer.style.display = 'none';
+            }
+            if (paginationContainer) paginationContainer.innerHTML = '';
+            filtersBar.classList.remove('visible');
+            return;
+        }
 
         const typeChips = filtersBar.querySelectorAll('.search-filter-chip');
         const yearSelect = document.getElementById('search-year-filter');

@@ -8,6 +8,7 @@ const playerContent = document.getElementById('player-content');
 const closePlayer = document.getElementById('close-player');
 const hostFullscreenBtn = document.getElementById('host-fullscreen-btn');
 const clearSearchBtn = document.getElementById('clear-search-btn');
+const isSearchDisabled = Boolean(searchInput?.disabled || searchContainer?.dataset.searchDisabled === 'true');
 
 const apiKey = '792f6fa1e1c53d234af7859d10bdf833';
 const tmdbEndpoint = 'https://api.themoviedb.org/3/search/multi';
@@ -41,6 +42,11 @@ const STREAMING_COMPANY_NAMES = new Set([
     'prime video',
     'amazon prime video'
 ]);
+
+if (isSearchDisabled) {
+    if (searchWrapper) searchWrapper.style.display = 'none';
+    if (clearSearchBtn) clearSearchBtn.disabled = true;
+}
 
 function hasOwn(obj, key) {
     return !!obj && Object.prototype.hasOwnProperty.call(obj, key);
@@ -827,7 +833,7 @@ function buildSearchResultCard(item, options = {}) {
 }
 
 // Wire up search only if input/results exist
-if (searchInput && resultsContainer) {
+if (!isSearchDisabled && searchInput && resultsContainer) {
     searchInput.addEventListener('focus', noteSearchInputActivity);
     searchInput.addEventListener('click', noteSearchInputActivity);
     searchInput.addEventListener('input', (e) => {
@@ -852,7 +858,7 @@ if (searchInput && resultsContainer) {
     });
 }
 
-if (clearSearchBtn && searchInput && resultsContainer) {
+if (!isSearchDisabled && clearSearchBtn && searchInput && resultsContainer) {
     clearSearchBtn.addEventListener('click', () => {
         if (typeof window._closeSearchPanel === 'function') {
             window._closeSearchPanel();
