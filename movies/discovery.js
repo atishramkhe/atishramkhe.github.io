@@ -676,6 +676,10 @@
     let searchMode = 'text';        // 'text' or 'discover'
     let _searchDebounce = null;
     let _searchAbortController = null;
+    let _searchRequestId = 0;
+    const TEXT_SEARCH_CACHE_TTL_MS = 5 * 60 * 1000;
+    const TEXT_SEARCH_CACHE_LIMIT = 24;
+    const textSearchCache = new Map();
 
     function itemMatchesCountryFilter(item, countryCode) {
         if (!countryCode) return true;
@@ -703,6 +707,50 @@
         const ratingSelect = document.getElementById('search-rating-filter');
         const categorySelect = document.getElementById('search-category-filter');
         const countrySelect = document.getElementById('search-country-filter');
+
+        function normalizeQuery(value) {
+            return String(value || '').trim().replace(/\s+/g, ' ');
+        }
+
+        function cancelPendingSearchRender() {
+            if (typeof window.cancelSearchResultsRender === 'function') {
+                window.cancelSearchResultsRender();
+            }
+        }
+
+        function showSearchLoading(message) {
+            if (!resultsContainer) return;
+            resultsContainer.style.display = '';
+            resultsContainer.innerHTML = `<p style="color:#888;text-align:center;padding:40px 0;">${message}</p>`;
+        }
+
+        function getCachedTextSearch(query, page) {
+            const key = `${query}::${page}`;
+            const cached = textSearchCache.get(key);
+            if (!cached) return null;
+            if ((Date.now() - cached.cachedAt) > TEXT_SEARCH_CACHE_TTL_MS) {
+                textSearchCache.delete(key);
+                return null;
+            }
+
+            textSearchCache.delete(key);
+            textSearchCache.set(key, cached);
+            return cached;
+        }
+
+        function setCachedTextSearch(query, page, payload) {
+            const key = `${query}::${page}`;
+            textSearchCache.set(key, {
+                ...payload,
+                cachedAt: Date.now()
+            });
+
+            while (textSearchCache.size > TEXT_SEARCH_CACHE_LIMIT) {
+                const oldestKey = textSearchCache.keys().next().value;
+                if (!oldestKey) break;
+                textSearchCache.delete(oldestKey);
+            }
+        }
 
         // --- Type filter chips ---
         typeChips.forEach(chip => {
@@ -757,6 +805,8 @@
         }
 
         function closeSearchPanel() {
+            if (_searchAbortController) _searchAbortController.abort();
+            cancelPendingSearchRender();
             searchInput.value = '';
             lastQuery = '';
             activeTypeFilter = 'all';
@@ -785,21 +835,25 @@
 
         // --- Search input ---
         searchInput.addEventListener('input', () => {
+            cancelPendingSearchRender();
             clearTimeout(_searchDebounce);
             _searchDebounce = setTimeout(() => {
-                lastQuery = searchInput.value.trim();
+                lastQuery = normalizeQuery(searchInput.value);
                 currentPage = 1;
                 triggerSearch();
-            }, 350);
+            }, 500);
         });
 
         // --- Core: decide text-search vs discover ---
         function triggerSearch() {
-            const hasText = lastQuery.length >= 2;
+            const normalizedQuery = normalizeQuery(lastQuery);
+            const hasText = normalizedQuery.length >= 2;
             const hasFilters = activeTypeFilter !== 'all' || activeYearFilter || activeRatingFilter || activeCategoryFilter || activeCountryFilter;
 
             if (!hasText && !hasFilters) {
                 // Nothing to show
+                if (_searchAbortController) _searchAbortController.abort();
+                cancelPendingSearchRender();
                 if (resultsContainer) {
                     resultsContainer.innerHTML = '';
                     resultsContainer.style.display = 'none';
@@ -815,7 +869,8 @@
 
             if (hasText) {
                 searchMode = 'text';
-                fetchTextSearch(lastQuery, currentPage);
+                lastQuery = normalizedQuery;
+                fetchTextSearch(normalizedQuery, currentPage);
             } else {
                 searchMode = 'discover';
                 fetchDiscover(currentPage);
@@ -824,18 +879,36 @@
 
         // --- Text search (TMDB /search/multi) ---
         async function fetchTextSearch(query, page) {
+            const requestId = ++_searchRequestId;
             if (_searchAbortController) _searchAbortController.abort();
             _searchAbortController = new AbortController();
             const signal = _searchAbortController.signal;
+
+            const cached = getCachedTextSearch(query, page);
+            if (cached) {
+                if (requestId !== _searchRequestId || query !== normalizeQuery(lastQuery)) return;
+                totalPages = cached.totalPages;
+                lastRawResults = cached.results;
+                const filtered = applyLocalFilters(lastRawResults);
+                renderResults(filtered);
+                renderPagination(currentPage, totalPages);
+                return;
+            }
+
+            showSearchLoading('Searching...');
             try {
                 const res = await fetch(
                     `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}&page=${page}`,
                     { signal }
                 );
                 const data = await res.json();
-                if (signal.aborted) return;
+                if (signal.aborted || requestId !== _searchRequestId || query !== normalizeQuery(lastQuery)) return;
                 totalPages = Math.min(data.total_pages || 1, 500);
                 lastRawResults = (data.results || []);
+                setCachedTextSearch(query, page, {
+                    totalPages,
+                    results: lastRawResults
+                });
                 const filtered = applyLocalFilters(lastRawResults);
                 renderResults(filtered);
                 renderPagination(currentPage, totalPages);
@@ -848,16 +921,18 @@
 
         // --- Discover (TMDB /discover/movie or /discover/tv) ---
         async function fetchDiscover(page) {
+            const requestId = ++_searchRequestId;
             if (_searchAbortController) _searchAbortController.abort();
             _searchAbortController = new AbortController();
             const signal = _searchAbortController.signal;
+            showSearchLoading('Loading titles...');
             try {
                 const types = activeTypeFilter === 'all' ? ['movie', 'tv'] : [activeTypeFilter];
                 let all = [];
                 let maxPages = 1;
 
                 for (const mtype of types) {
-                    if (signal.aborted) return;
+                    if (signal.aborted || requestId !== _searchRequestId) return;
                     const params = new URLSearchParams({
                         api_key: TMDB_KEY,
                         page: String(page),
@@ -890,7 +965,7 @@
 
                     const url = `https://api.themoviedb.org/3/discover/${mtype}?${params}`;
                     const res = await fetch(url, { signal });
-                    if (signal.aborted) return;
+                    if (signal.aborted || requestId !== _searchRequestId) return;
                     const data = await res.json();
                     maxPages = Math.max(maxPages, Math.min(data.total_pages || 1, 500));
                     (data.results || []).forEach(item => {
@@ -905,7 +980,7 @@
                     all.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
                 }
                 lastRawResults = all;
-                if (signal.aborted) return;
+                if (signal.aborted || requestId !== _searchRequestId) return;
                 renderResults(all);
                 renderPagination(currentPage, totalPages);
             } catch (e) {

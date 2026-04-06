@@ -629,6 +629,50 @@ function setupResultsGridLayout() {
     resultsContainer.style.padding = viewportWidth < 420 ? '16px 16px 180px' : '20px 40px 180px';
 }
 
+const SEARCH_RESULTS_RENDER_CHUNK = 6;
+let _searchResultsRenderToken = 0;
+let _searchResultsRenderHandle = null;
+
+function scheduleSearchResultsRender(callback) {
+    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+        return window.requestAnimationFrame(callback);
+    }
+    return setTimeout(callback, 16);
+}
+
+function cancelScheduledSearchResultsRender(handle) {
+    if (handle == null) return;
+    if (typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
+        window.cancelAnimationFrame(handle);
+        return;
+    }
+    clearTimeout(handle);
+}
+
+function cancelPendingSearchResultsRender() {
+    _searchResultsRenderToken += 1;
+    if (_searchResultsRenderHandle !== null) {
+        cancelScheduledSearchResultsRender(_searchResultsRenderHandle);
+        _searchResultsRenderHandle = null;
+    }
+}
+
+if (typeof window !== 'undefined') {
+    window.cancelSearchResultsRender = cancelPendingSearchResultsRender;
+}
+
+function getSearchResultWatchLaterKeys() {
+    try {
+        return new Set(
+            normalizeAndDedupeWatchLater(getWatchLater())
+                .map(item => itemKey(item))
+                .filter(Boolean)
+        );
+    } catch {
+        return new Set();
+    }
+}
+
 function createSearchActionButton(iconName, label, onClick) {
     const button = document.createElement('button');
     button.type = 'button';
@@ -654,7 +698,7 @@ function updateSearchWatchLaterButton(button, isSaved) {
         : '<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">playlist_add</span>';
 }
 
-function buildSearchResultCard(item) {
+function buildSearchResultCard(item, options = {}) {
     const id = item?.id;
     const mediaType = canonicalType(item?.media_type || item?.mediaType || 'movie');
     const title = item?.title || item?.name || 'Untitled';
@@ -663,6 +707,7 @@ function buildSearchResultCard(item) {
     const overview = item?.overview || '';
     const poster = item?.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
     const isTV = mediaType === 'tv';
+    const initialWatchLaterSaved = options.watchLaterSaved ?? isInWatchLater(id, mediaType);
 
     const card = document.createElement('article');
     card.className = 'search-result-card';
@@ -738,7 +783,7 @@ function buildSearchResultCard(item) {
         });
         updateSearchWatchLaterButton(watchLaterButton, nowSaved);
     });
-    updateSearchWatchLaterButton(watchLaterButton, isInWatchLater(id, mediaType));
+    updateSearchWatchLaterButton(watchLaterButton, initialWatchLaterSaved);
     actions.appendChild(watchLaterButton);
     overlay.appendChild(actions);
     posterWrap.appendChild(overlay);
@@ -811,6 +856,8 @@ if (searchInput === null) {
 function displayResults(results) {
     if (!resultsContainer) return;
 
+    cancelPendingSearchResultsRender();
+
     // Ensure wrapper is visible when we render results
     if (searchWrapper) searchWrapper.style.display = '';
 
@@ -825,12 +872,38 @@ function displayResults(results) {
         return;
     }
 
-    const fragment = document.createDocumentFragment();
-    visibleResults.forEach((item) => {
-        fragment.appendChild(buildSearchResultCard(item));
-    });
+    resultsContainer.replaceChildren();
 
-    resultsContainer.replaceChildren(fragment);
+    const renderToken = _searchResultsRenderToken;
+    const watchLaterKeys = getSearchResultWatchLaterKeys();
+    let currentIndex = 0;
+
+    const appendChunk = () => {
+        if (renderToken !== _searchResultsRenderToken || !resultsContainer) return;
+
+        const fragment = document.createDocumentFragment();
+        const stopIndex = Math.min(currentIndex + SEARCH_RESULTS_RENDER_CHUNK, visibleResults.length);
+        for (let index = currentIndex; index < stopIndex; index += 1) {
+            const item = visibleResults[index];
+            const mediaType = canonicalType(item?.media_type || item?.mediaType || 'movie');
+            const savedKey = wlKey(item?.id, mediaType);
+            fragment.appendChild(buildSearchResultCard(item, {
+                watchLaterSaved: watchLaterKeys.has(savedKey)
+            }));
+        }
+
+        resultsContainer.appendChild(fragment);
+        currentIndex = stopIndex;
+
+        if (currentIndex < visibleResults.length) {
+            _searchResultsRenderHandle = scheduleSearchResultsRender(appendChunk);
+            return;
+        }
+
+        _searchResultsRenderHandle = null;
+    };
+
+    _searchResultsRenderHandle = scheduleSearchResultsRender(appendChunk);
 }
 
 let activeType = 'VO'; // 'VO' or 'VF'
