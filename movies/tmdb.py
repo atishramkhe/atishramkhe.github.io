@@ -2,8 +2,6 @@ import os
 import requests
 import json
 
-from einthusan_bollywood import scrape_bollywood_candidates
-
 apiKey = '792f6fa1e1c53d234af7859d10bdf833'
 BASE_URL = "https://api.themoviedb.org/3"
 IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
@@ -64,6 +62,25 @@ def cleanup_unused_posters(used_paths):
             except Exception as e:
                 print(f"Failed to remove {full}: {e}")
 
+def fetch_top_bollywood():
+    # Fetch popular Hindi-language movies from 2010 onwards, pages 1 and 2
+    url = f"{BASE_URL}/discover/movie"
+    all_results = []
+    for page in (1, 2):
+        params = {
+            "api_key": apiKey,
+            "sort_by": "popularity.desc",
+            "with_original_language": "hi",  # Hindi
+            "region": "IN",
+            "page": page,
+            "primary_release_date.gte": "2010-01-01",  # Only movies from 2010 onwards
+        }
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        page_results = response.json().get("results", [])
+        all_results.extend(page_results)
+    return all_results
+
 # New helper: fetch discover results by language for movie or tv
 def fetch_top_by_language(media_type, language_code, region=None, page=1, count=50):
     endpoint = "discover/movie" if media_type == "movie" else "discover/tv"
@@ -79,68 +96,19 @@ def fetch_top_by_language(media_type, language_code, region=None, page=1, count=
     response.raise_for_status()
     return response.json().get("results", [])[:count]
 
-
-def normalize_title(value):
-    cleaned = (value or "").casefold()
-    cleaned = cleaned.replace("&", " and ")
-    cleaned = " ".join(cleaned.split())
-    return "".join(ch for ch in cleaned if ch.isalnum() or ch.isspace()).strip()
-
-
-def extract_result_year(result, media_type):
-    date_key = "release_date" if media_type == "movie" else "first_air_date"
-    date_value = result.get(date_key) or ""
-    if len(date_value) >= 4 and date_value[:4].isdigit():
-        return int(date_value[:4])
-    return None
-
-
-def choose_best_tmdb_match(results, title, media_type, year=None):
-    normalized_query = normalize_title(title)
-
-    def match_score(result):
-        candidate_titles = [
-            result.get("title", ""),
-            result.get("original_title", ""),
-            result.get("name", ""),
-            result.get("original_name", ""),
-        ]
-        normalized_titles = {normalize_title(candidate) for candidate in candidate_titles if candidate}
-        result_year = extract_result_year(result, media_type)
-        exact_title = normalized_query in normalized_titles
-        exact_year = year is not None and result_year == year
-        return (
-            1 if exact_title and exact_year else 0,
-            1 if exact_title else 0,
-            1 if exact_year else 0,
-            result.get("popularity", 0),
-        )
-
-    return max(results, key=match_score)
-
-def search_tmdb_by_title(title, media_type="movie", year=None, fallback_to_tv=True):
+def search_tmdb_by_title(title, media_type="movie"):
     """Search TMDB for a title and return the best match's details."""
     url = f"{BASE_URL}/search/{media_type}"
     params = {"api_key": apiKey, "query": title, "language": "en-US"}
-    if year is not None:
-        if media_type == "movie":
-            params["primary_release_year"] = year
-        else:
-            params["first_air_date_year"] = year
     resp = requests.get(url, params=params)
     resp.raise_for_status()
     results = resp.json().get("results", [])
-    if not results and year is not None:
-        retry_params = {"api_key": apiKey, "query": title, "language": "en-US"}
-        retry_resp = requests.get(url, params=retry_params)
-        retry_resp.raise_for_status()
-        results = retry_resp.json().get("results", [])
-    if not results and media_type == "movie" and fallback_to_tv:
+    if not results and media_type == "movie":
         # Try TV if not found as movie
-        return search_tmdb_by_title(title, media_type="tv", year=year, fallback_to_tv=False)
+        return search_tmdb_by_title(title, media_type="tv")
     if results:
         # Return full details for the best match
-        best = choose_best_tmdb_match(results, title, media_type, year=year)
+        best = results[0]
         return fetch_details(media_type, best["id"])
     return None
 
@@ -209,31 +177,14 @@ def main():
             download_poster(poster_path, poster_filename)
 
     # Bollywood Movies
-    bollywood_candidates = scrape_bollywood_candidates()
+    bollywood_movies = fetch_top_bollywood()
     bollywood_details = []
-    seen_bollywood_ids = set()
-    trending_movie_ids = {movie.get("id") for movie in trending["movies"]}
-    new_movie_ids = {movie.get("id") for movie in new_titles["movies"]}
-    for movie in bollywood_candidates:
-        details = search_tmdb_by_title(
-            movie["title"],
-            media_type="movie",
-            year=movie.get("year"),
-            fallback_to_tv=False,
-        )
-        if not details:
-            print(
-                "[Bollywood] TMDB movie not found for "
-                f"{movie['title']} ({movie.get('year')}) from {movie['einthusan_url']}"
-            )
-            continue
+    for movie in bollywood_movies:
+        details = fetch_details("movie", movie["id"])
         details["media_type"] = "movie"
-        if details["id"] in seen_bollywood_ids:
-            continue
         # Skip if already in trending or new titles
-        if details["id"] in trending_movie_ids or details["id"] in new_movie_ids:
+        if details in trending["movies"] or details in new_titles["movies"]:
             continue
-        seen_bollywood_ids.add(details["id"])
         bollywood_details.append(details)
         poster_path = details.get("poster_path")
         if poster_path:
@@ -502,8 +453,8 @@ def main():
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
         + kdramas.get("tv_shows", [])
-        + locals().get("netflix_xmas", {}).get("tv_shows", [])
-        + locals().get("best_xmas", {}).get("tv_shows", [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
     ):
         tid = tv.get("id")
         if tid and tv.get("poster_path"):
@@ -675,8 +626,8 @@ def main():
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
         + kdramas.get("tv_shows", [])
-        + locals().get("netflix_xmas", {}).get("tv_shows", [])
-        + locals().get("best_xmas", {}).get("tv_shows", [])
+        + (netflix_xmas.get("tv_shows", []) if 'netflix_xmas' in locals() else [])
+        + (best_xmas.get("tv_shows", []) if 'best_xmas' in locals() else [])
     ):
         tid = tv.get("id")
         if tid and tv.get("poster_path"):
