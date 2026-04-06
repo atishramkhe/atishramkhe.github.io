@@ -442,50 +442,330 @@ if (searchContainer) {
     searchContainer.style.position = 'relative';
 }
 
-// Inject minimal CSS so search posters render like other grids (2:3, cover)
-let _resultsPosterCssInjected = false;
-function ensureResultsPosterCSS() {
-    if (_resultsPosterCssInjected) return;
+// Search results use a dedicated card component so hover never mutates layout.
+let _searchResultsCssInjected = false;
+function ensureSearchResultsCSS() {
+    if (_searchResultsCssInjected) return;
     const style = document.createElement('style');
     style.textContent = `
-        /* Force a permanent scrollbar on the search wrapper so the viewport
-           width never changes when a poster hover expands visually.
-           This breaks the scrollbar-thrash infinite-reflow loop. */
         #search-results-wrapper.active {
-            overflow-y: scroll !important;
+            overflow-y: auto !important;
             overflow-x: hidden !important;
+            scrollbar-gutter: stable both-edges;
+            overscroll-behavior: contain;
         }
         #results.poster-grid-match {
             box-sizing: border-box;
+            align-items: stretch;
         }
-        #results.poster-grid-match .poster img {
-            width: 100%;
-            height: auto;
+        #results.poster-grid-match .search-result-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #0e0e10 0%, #050505 100%);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            contain: layout paint style;
+            isolation: isolate;
+        }
+        #results.poster-grid-match .search-result-card:hover,
+        #results.poster-grid-match .search-result-card:focus-within {
+            transform: translateY(-4px);
+            border-color: rgba(224, 39, 53, 0.55);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+        }
+        #results.poster-grid-match .search-result-card:focus-visible {
+            outline: 2px solid #e02735;
+            outline-offset: 2px;
+        }
+        #results.poster-grid-match .search-result-poster {
+            position: relative;
             aspect-ratio: 2 / 3;
+            background: #000;
+            overflow: hidden;
+        }
+        #results.poster-grid-match .search-result-poster img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
+        #results.poster-grid-match .search-result-body {
+            display: flex;
+            flex: 1 1 auto;
+            flex-direction: column;
+            gap: 6px;
+            padding: 12px 12px 14px;
+        }
+        #results.poster-grid-match .search-result-title {
+            color: #fff;
+            font-size: 0.96rem;
+            font-weight: 650;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        #results.poster-grid-match .search-result-meta {
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        #results.poster-grid-match .search-result-snippet {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.82rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        #results.poster-grid-match .search-result-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 14px;
+            background: linear-gradient(180deg, rgba(3, 3, 4, 0.08) 12%, rgba(3, 3, 4, 0.72) 54%, rgba(3, 3, 4, 0.97) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.16s ease;
+        }
+        #results.poster-grid-match .search-result-card:hover .search-result-overlay,
+        #results.poster-grid-match .search-result-card:focus-within .search-result-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #results.poster-grid-match .search-result-overlay-title {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 650;
+            line-height: 1.25;
+        }
+        #results.poster-grid-match .search-result-overlay-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        #results.poster-grid-match .search-result-actions {
+            display: flex;
+            gap: 8px;
+        }
+        #results.poster-grid-match .search-result-action {
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
+        }
+        #results.poster-grid-match .search-result-action:hover,
+        #results.poster-grid-match .search-result-action:focus-visible {
+            background: #e02735;
+            color: #fff;
+            transform: translateY(-1px);
+            outline: none;
+        }
+        #results.poster-grid-match .search-result-action.watch-later-active {
+            background: rgba(224, 39, 53, 0.16);
+            color: #ff6674;
+        }
+        #results.poster-grid-match .search-result-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        #results.poster-grid-match .search-result-empty {
+            grid-column: 1 / -1;
+            padding: 48px 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1rem;
+        }
     `;
     document.head.appendChild(style);
-    _resultsPosterCssInjected = true;
+    _searchResultsCssInjected = true;
 }
 
 // Ensure search results use the exact same grid sizing as the homepage (Trending)
 function setupResultsGridLayout() {
     if (!resultsContainer) return;
-    ensureResultsPosterCSS();
+    ensureSearchResultsCSS();
     resultsContainer.classList.add('poster-grid-match');
     resultsContainer.style.display = 'grid';
 
     const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 1280;
     const cardWidth = viewportWidth < 420 ? 140 : viewportWidth < 900 ? 160 : 180;
 
-    // Keep the search grid stable instead of coupling it to the home grid width.
-    // This avoids layout thrash when hover overflow nudges the viewport.
     resultsContainer.style.gap = '14px';
     resultsContainer.style.alignItems = 'start';
-    resultsContainer.style.gridTemplateColumns = `repeat(auto-fit, minmax(${cardWidth}px, ${cardWidth}px))`;
+    resultsContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${cardWidth}px, 1fr))`;
     resultsContainer.style.padding = viewportWidth < 420 ? '16px 16px 180px' : '20px 40px 180px';
+}
+
+function createSearchActionButton(iconName, label, onClick) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'search-result-action';
+    button.title = label;
+    button.setAttribute('aria-label', label);
+    button.innerHTML = `<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">${iconName}</span>`;
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onClick(event, button);
+    });
+    return button;
+}
+
+function updateSearchWatchLaterButton(button, isSaved) {
+    if (!button) return;
+    button.classList.toggle('watch-later-active', Boolean(isSaved));
+    button.title = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
+    button.setAttribute('aria-label', button.title);
+    button.innerHTML = isSaved
+        ? '<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">playlist_add_check</span>'
+        : '<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">playlist_add</span>';
+}
+
+function buildSearchResultCard(item) {
+    const id = item?.id;
+    const mediaType = canonicalType(item?.media_type || item?.mediaType || 'movie');
+    const title = item?.title || item?.name || 'Untitled';
+    const date = item?.release_date || item?.first_air_date || '';
+    const year = date ? date.slice(0, 4) : '';
+    const overview = item?.overview || '';
+    const poster = item?.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
+    const isTV = mediaType === 'tv';
+
+    const card = document.createElement('article');
+    card.className = 'search-result-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `${title} ${isTV ? 'TV show' : 'movie'}`);
+
+    const openResult = () => openPlayer(mediaType, id, 1);
+    card.addEventListener('click', openResult);
+    card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openResult();
+    });
+
+    const posterWrap = document.createElement('div');
+    posterWrap.className = 'search-result-poster';
+
+    const badge = document.createElement('div');
+    badge.className = 'search-result-badge';
+    badge.textContent = isTV ? 'TV' : 'Movie';
+    posterWrap.appendChild(badge);
+
+    const image = document.createElement('img');
+    image.src = poster;
+    image.alt = title || 'Poster';
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.onerror = () => { image.src = placeholderImage; };
+    posterWrap.appendChild(image);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'search-result-overlay';
+
+    const overlayTitle = document.createElement('div');
+    overlayTitle.className = 'search-result-overlay-title';
+    overlayTitle.textContent = title;
+    overlay.appendChild(overlayTitle);
+
+    if (overview) {
+        const overlayText = document.createElement('div');
+        overlayText.className = 'search-result-overlay-text';
+        overlayText.textContent = truncateOverview(overview, 260);
+        overlay.appendChild(overlayText);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'search-result-actions';
+    actions.appendChild(createSearchActionButton('play_circle', 'Play', () => {
+        openPlayer(mediaType, id, 1);
+    }));
+    actions.appendChild(createSearchActionButton('info', 'More info', () => {
+        showMorePosterInfo({
+            id,
+            mediaType,
+            poster,
+            title,
+            year,
+            date,
+            overview,
+            isTV
+        });
+    }));
+    const watchLaterButton = createSearchActionButton('playlist_add', 'Add to Watch Later', () => {
+        const nowSaved = toggleWatchLater({
+            id,
+            mediaType,
+            title,
+            poster,
+            date: date || '',
+            year: year || '',
+            ...extractStoredMetadata(item)
+        });
+        updateSearchWatchLaterButton(watchLaterButton, nowSaved);
+    });
+    updateSearchWatchLaterButton(watchLaterButton, isInWatchLater(id, mediaType));
+    actions.appendChild(watchLaterButton);
+    overlay.appendChild(actions);
+    posterWrap.appendChild(overlay);
+    card.appendChild(posterWrap);
+
+    const body = document.createElement('div');
+    body.className = 'search-result-body';
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'search-result-title';
+    titleEl.textContent = title;
+    body.appendChild(titleEl);
+
+    const metaEl = document.createElement('div');
+    metaEl.className = 'search-result-meta';
+    metaEl.textContent = [isTV ? 'TV Show' : 'Movie', year].filter(Boolean).join(' • ');
+    body.appendChild(metaEl);
+
+    if (overview) {
+        const snippet = document.createElement('div');
+        snippet.className = 'search-result-snippet';
+        snippet.textContent = truncateOverview(overview, 140);
+        body.appendChild(snippet);
+    }
+
+    card.appendChild(body);
+    return card;
 }
 
 // Wire up search only if input/results exist
@@ -541,40 +821,16 @@ function displayResults(results) {
         : [];
 
     if (visibleResults.length === 0) {
-        resultsContainer.innerHTML = 'No results found.';
+        resultsContainer.innerHTML = '<div class="search-result-empty">No results found.</div>';
         return;
     }
 
-    resultsContainer.innerHTML = ''; // Clear previous results
-
-    visibleResults.forEach((item, index) => {
-        const id = item.id;
-        const mediaType = item.media_type;
-        const title = item.title || item.name || 'Untitled';
-        const date = item.release_date || item.first_air_date || '';
-        const year = date ? date.slice(0, 4) : '';
-        const overview = item.overview || '';
-        const poster = item.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
-
-        const card = buildPosterCard({
-            id,
-            mediaType,
-            poster,
-            title,
-            year,
-            date,
-            overview,
-            isTV: mediaType === 'tv',
-            lastSeasonNum: null,
-            lastSeasonEpisodes: null,
-            onClick: () => openPlayer(mediaType, id, 1),
-            withPreview: true,
-            skipCam: true,
-            itemMeta: item
-        });
-
-        resultsContainer.appendChild(card);
+    const fragment = document.createDocumentFragment();
+    visibleResults.forEach((item) => {
+        fragment.appendChild(buildSearchResultCard(item));
     });
+
+    resultsContainer.replaceChildren(fragment);
 }
 
 let activeType = 'VO'; // 'VO' or 'VF'
