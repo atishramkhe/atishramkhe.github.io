@@ -1041,22 +1041,6 @@
       outline: none;
       cursor: pointer;
     }
-    #search-container[data-search-disabled="true"] #search-input {
-      opacity: 0.55;
-      cursor: not-allowed;
-    }
-    #search-container[data-search-disabled="true"] #clear-search-btn {
-      display: none !important;
-    }
-    .search-disabled-note {
-      margin-top: 10px;
-      color: #f3c6ca;
-      font-family: 'OumaTrialLight';
-      font-size: 0.82em;
-      line-height: 1.45;
-      text-align: center;
-      letter-spacing: 0.02em;
-    }
     .search-filter-select:focus { border-color: #e02735; }
     /* Pagination */
     #search-pagination {
@@ -1340,16 +1324,15 @@
 
         <!-- Middle: search -->
         <div class="header-center">
-          <div id="search-container" data-search-disabled="true">
+          <div id="search-container">
             <div id="search-input-wrapper">
               <span class="material-symbols-outlined" id="search-icon"
                 style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#aaa;pointer-events:none;">
                 search
               </span>
-              <input type="text" id="search-input" placeholder="Search temporarily unavailable" disabled aria-disabled="true" aria-describedby="search-disabled-note">
+              <input type="text" id="search-input" placeholder="Search for movies and TV shows...">
               <button id="clear-search-btn">&times;</button>
             </div>
-            <div id="search-disabled-note" class="search-disabled-note">Search is temporarily unavailable while we stabilize performance. Browse the shelves below for now.</div>
             <!-- Enhanced Search Filters -->
             <div id="search-filters">
               <button class="search-filter-chip active" data-type="all">All</button>
