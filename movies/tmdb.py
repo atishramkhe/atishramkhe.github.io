@@ -214,42 +214,88 @@ def main():
     seen_bollywood_ids = set()
     trending_movie_ids = {movie.get("id") for movie in trending["movies"]}
     new_movie_ids = {movie.get("id") for movie in new_titles["movies"]}
-
-    for candidate in bollywood_candidates:
-        title = candidate.get("title")
-        year = candidate.get("year")
-        if not title:
-            continue
-
-        details = search_tmdb_by_title(title, media_type="movie", year=year, fallback_to_tv=False)
+    for movie in bollywood_candidates:
+        details = search_tmdb_by_title(
+            movie["title"],
+            media_type="movie",
+            year=movie.get("year"),
+            fallback_to_tv=False,
+        )
         if not details:
-            print(f"[Bollywood] No TMDB match found for {title!r} ({year})")
+            print(
+                "[Bollywood] TMDB movie not found for "
+                f"{movie['title']} ({movie.get('year')}) from {movie['einthusan_url']}"
+            )
             continue
-
-        tmdb_id = details.get("id")
-        if (
-            not tmdb_id
-            or tmdb_id in trending_movie_ids
-            or tmdb_id in new_movie_ids
-            or tmdb_id in seen_bollywood_ids
-        ):
-            continue
-
         details["media_type"] = "movie"
-        details["einthusan_url"] = candidate.get("einthusan_url")
-        details["einthusan_title"] = title
-        details["einthusan_year"] = year
-        details["source_sections"] = candidate.get("source_sections", [])
+        if details["id"] in seen_bollywood_ids:
+            continue
+        # Skip if already in trending or new titles
+        if details["id"] in trending_movie_ids or details["id"] in new_movie_ids:
+            continue
+        seen_bollywood_ids.add(details["id"])
         bollywood_details.append(details)
-        seen_bollywood_ids.add(tmdb_id)
-
         poster_path = details.get("poster_path")
         if poster_path:
-            poster_filename = f"{POSTERS_DIR}/movie_{tmdb_id}.png"
+            poster_filename = f"{POSTERS_DIR}/movie_{details['id']}.png"
             download_poster(poster_path, poster_filename)
 
+    # Save Bollywood movies to JSON
     with open("titles/bollywood.json", "w", encoding="utf-8") as f:
         json.dump({"movies": bollywood_details}, f, ensure_ascii=False, indent=2)
+
+    # Korean dramas (K-dramas) — trending Korean TV shows with genre "Drama"
+    # Rewritten K-dramas section:
+    # Query TMDB discover/tv for original_language=ko + genre=Drama (id 18), sorted by popularity.
+    # This returns many results (pages) so we loop pages until we collect the desired amount.
+    def fetch_korean_drama_trending(count=50, max_pages=10):
+        collected = []
+        page = 1
+        while len(collected) < count and page <= max_pages:
+            params = {
+                "api_key": apiKey,
+                "with_original_language": "ko",
+                "with_genres": "18",            # Drama (TV) genre id
+                "sort_by": "popularity.desc",
+                "page": page,
+            }
+            resp = requests.get(f"{BASE_URL}/discover/tv", params=params)
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if not results:
+                break
+            collected.extend(results)
+            page += 1
+        return collected[:count]
+
+    kdramas = {"movies": [], "tv_shows": []}
+    seen_ids = set()
+
+    # Get up to 50 trending Korean dramas via discover
+    discovered_tvs = fetch_korean_drama_trending(count=50, max_pages=5)
+    for tv in discovered_tvs:
+        tid = tv.get("id")
+        if not tid or tid in seen_ids:
+            continue
+        # fetch full details for reliable genre & language fields
+        details = fetch_details("tv", tid)
+        details["media_type"] = "tv"
+        # double-check language == Korean and Drama genre present
+        if details.get("original_language") != "ko":
+            continue
+        genres = details.get("genres") or []
+        if not any((g.get("id") == 18) or (g.get("name", "").strip().lower() == "drama") for g in genres):
+            continue
+        seen_ids.add(tid)
+        kdramas["tv_shows"].append(details)
+        poster_path = details.get("poster_path")
+        if poster_path:
+            poster_filename = f"{POSTERS_DIR}/tv_{tid}.png"
+            download_poster(poster_path, poster_filename)
+
+    # Save K-dramas (trending Korean dramas) to JSON
+    with open("titles/kdramas.json", "w", encoding="utf-8") as f:
+        json.dump(kdramas, f, ensure_ascii=False, indent=2)
 
     # Save JSON files
     with open(TRENDING_JSON_PATH, "w", encoding="utf-8") as f:
@@ -455,6 +501,7 @@ def main():
     for tv in (
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
+        + kdramas.get("tv_shows", [])
         + locals().get("netflix_xmas", {}).get("tv_shows", [])
         + locals().get("best_xmas", {}).get("tv_shows", [])
     ):
@@ -627,6 +674,7 @@ def main():
     for tv in (
         trending.get("tv_shows", [])
         + new_titles.get("tv_shows", [])
+        + kdramas.get("tv_shows", [])
         + locals().get("netflix_xmas", {}).get("tv_shows", [])
         + locals().get("best_xmas", {}).get("tv_shows", [])
     ):

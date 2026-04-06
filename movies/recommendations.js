@@ -371,6 +371,7 @@ const RECOMMENDATION_SOURCES = [
     'titles/new.json',
     'titles/netflixfrance.json',
     'titles/bollywood.json',
+    'titles/kdramas.json',
     'titles/horror.json',
     'titles/animation.json',
     'titles/action.json',

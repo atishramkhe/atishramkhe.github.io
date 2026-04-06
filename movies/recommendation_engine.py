@@ -31,7 +31,7 @@ class RecommendationEngine:
         
         # JSON files to load
         json_files = [
-            "trending.json", "new.json", "bollywood.json",
+            "trending.json", "new.json", "bollywood.json", "kdramas.json",
             "horror.json", "animation.json", "action.json", "fantasy.json",
             "drama.json", "thriller.json", "adventure.json", "romance.json",
             "scifi.json", "family.json", "comedy.json", "crime.json",
