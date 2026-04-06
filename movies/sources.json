@@ -2,21 +2,6 @@
 	{
 		"VO": [
 			{
-				"name": "vidsrc.online",
-				"movies": "https://vidsrc.online/embed/movie/${id}",
-				"shows": "https://vidsrc.online/embed/tv/${id}/${season}/${episode}"
-			},
-			{
-				"name": "vidsrc.to",
-				"movies": "https://vidsrc.to/embed/movie/${id}",
-				"shows": "https://vidsrc.to/embed/tv/${id}/${season}/${episode}"
-			},
-			{
-				"name": "vidbinge.to",
-				"movies": "https://www.vidbinge.to/movie/${id}",
-				"shows": "https://www.vidbinge.to/tv/${id}/${season}/${episode}"
-			},
-			{
 				"name": "videasy.net",
 				"movies": "https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true",
 				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true"

@@ -2,13 +2,12 @@
 const searchInput = document.getElementById('search-input');
 const resultsContainer = document.getElementById('results');
 const searchContainer = document.getElementById('search-container');
-const searchWrapper = document.getElementById('search-results-wrapper');
+const searchWrapper = document.getElementById('results');
 const playerContainer = document.getElementById('player-container');
 const playerContent = document.getElementById('player-content');
 const closePlayer = document.getElementById('close-player');
 const hostFullscreenBtn = document.getElementById('host-fullscreen-btn');
 const clearSearchBtn = document.getElementById('clear-search-btn');
-const isSearchDisabled = Boolean(searchInput?.disabled || searchContainer?.dataset.searchDisabled === 'true');
 
 const apiKey = '792f6fa1e1c53d234af7859d10bdf833';
 const tmdbEndpoint = 'https://api.themoviedb.org/3/search/multi';
@@ -42,11 +41,6 @@ const STREAMING_COMPANY_NAMES = new Set([
     'prime video',
     'amazon prime video'
 ]);
-
-if (isSearchDisabled) {
-    if (searchWrapper) searchWrapper.style.display = 'none';
-    if (clearSearchBtn) clearSearchBtn.disabled = true;
-}
 
 function hasOwn(obj, key) {
     return !!obj && Object.prototype.hasOwnProperty.call(obj, key);
@@ -131,12 +125,11 @@ function createCamBadge() {
 function setCamBadge(container, shouldShow) {
     if (!container) return;
     const existingBadge = container.querySelector(':scope > .cam-badge');
-    if (existingBadge) {
-        // Toggle display only — avoids structural DOM mutation that resets :hover
-        existingBadge.style.display = shouldShow ? '' : 'none';
+    if (!shouldShow) {
+        if (existingBadge) existingBadge.remove();
         return;
     }
-    if (shouldShow) {
+    if (!existingBadge) {
         container.appendChild(createCamBadge());
     }
 }
@@ -327,72 +320,6 @@ function getProgressEntryWithAliases(id, type) {
     return null;
 }
 
-function escapeRegExp(value) {
-    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function sourceTemplateToRegex(template) {
-    if (!template) return null;
-    const escaped = escapeRegExp(template)
-        .replace(/\\\$\\\{id\\\}/g, '(?<id>[^/?#&]+)')
-        .replace(/\\\$\\\{season\\\}/g, '(?<season>\\d+)')
-        .replace(/\\\$\\\{episode\\\}/g, '(?<episode>\\d+)');
-    return new RegExp(`^${escaped}(?:[?#].*)?$`, 'i');
-}
-
-function extractMediaFromPlayerSrc(url) {
-    if (!url) return null;
-
-    const groups = [
-        { playerType: 'VO', sources: SOURCES?.VO || [] },
-        { playerType: 'VF', sources: SOURCES?.VF || [] }
-    ];
-
-    for (const group of groups) {
-        for (let index = 0; index < group.sources.length; index++) {
-            const source = group.sources[index];
-            const movieMatch = sourceTemplateToRegex(source?.movies)?.exec(url);
-            if (movieMatch?.groups?.id) {
-                return {
-                    type: 'movie',
-                    id: movieMatch.groups.id,
-                    season: null,
-                    episode: null,
-                    playerType: group.playerType,
-                    playerIndex: index,
-                    sourceName: source?.name || ''
-                };
-            }
-
-            const tvMatch = sourceTemplateToRegex(source?.shows)?.exec(url);
-            if (tvMatch?.groups?.id) {
-                return {
-                    type: 'tv',
-                    id: tvMatch.groups.id,
-                    season: tvMatch.groups.season || null,
-                    episode: tvMatch.groups.episode || null,
-                    playerType: group.playerType,
-                    playerIndex: index,
-                    sourceName: source?.name || ''
-                };
-            }
-        }
-    }
-
-    return null;
-}
-
-function getCurrentPlayerContext() {
-    const iframe = playerContent ? playerContent.querySelector('iframe') : null;
-    return extractMediaFromPlayerSrc(iframe?.src || '');
-}
-
-function emitUserDataChanged() {
-    try {
-        window.dispatchEvent(new CustomEvent('movie-user-data-changed'));
-    } catch { }
-}
-
 // Ensure a toggle button exists in the section header row (creates one if missing)
 function ensureSectionToggleButton(section, config) {
     if (!section) return null;
@@ -448,396 +375,80 @@ if (searchContainer) {
     searchContainer.style.position = 'relative';
 }
 
-// Search results use a dedicated card component so hover never mutates layout.
-let _searchResultsCssInjected = false;
-function ensureSearchResultsCSS() {
-    if (_searchResultsCssInjected) return;
+// Inject minimal CSS so search posters render like other grids (2:3, cover)
+let _resultsPosterCssInjected = false;
+function ensureResultsPosterCSS() {
+    if (_resultsPosterCssInjected) return;
     const style = document.createElement('style');
     style.textContent = `
-        #search-results-wrapper.active {
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
-            scrollbar-gutter: stable both-edges;
-            overscroll-behavior: contain;
-        }
-        #results.poster-grid-match {
-            box-sizing: border-box;
-            align-items: stretch;
-        }
-        #results.poster-grid-match .search-result-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            overflow: hidden;
-            background: linear-gradient(180deg, #0e0e10 0%, #050505 100%);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
-            cursor: pointer;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-            contain: layout paint style;
-            isolation: isolate;
-        }
-        #results.poster-grid-match .search-result-card:hover,
-        #results.poster-grid-match .search-result-card:focus-within {
-            transform: translateY(-4px);
-            border-color: rgba(224, 39, 53, 0.55);
-            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
-        }
-        #results.poster-grid-match .search-result-card:focus-visible {
-            outline: 2px solid #e02735;
-            outline-offset: 2px;
-        }
-        #results.poster-grid-match .search-result-poster {
-            position: relative;
-            aspect-ratio: 2 / 3;
-            background: #000;
-            overflow: hidden;
-        }
-        #results.poster-grid-match .search-result-poster img {
+        #results.poster-grid-match .poster img {
             width: 100%;
-            height: 100%;
+            height: auto;
+            aspect-ratio: 2 / 3;
             object-fit: cover;
             display: block;
         }
-        #results.poster-grid-match .search-result-body {
-            display: flex;
-            flex: 1 1 auto;
-            flex-direction: column;
-            gap: 6px;
-            padding: 12px 12px 14px;
-        }
-        #results.poster-grid-match .search-result-title {
-            color: #fff;
-            font-size: 0.96rem;
-            font-weight: 650;
-            line-height: 1.25;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        #results.poster-grid-match .search-result-meta {
-            color: rgba(255, 255, 255, 0.68);
-            font-size: 0.78rem;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-        }
-        #results.poster-grid-match .search-result-snippet {
-            color: rgba(255, 255, 255, 0.72);
-            font-size: 0.82rem;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        #results.poster-grid-match .search-result-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            gap: 10px;
-            padding: 14px;
-            background: linear-gradient(180deg, rgba(3, 3, 4, 0.08) 12%, rgba(3, 3, 4, 0.72) 54%, rgba(3, 3, 4, 0.97) 100%);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.16s ease;
-        }
-        #results.poster-grid-match .search-result-card:hover .search-result-overlay,
-        #results.poster-grid-match .search-result-card:focus-within .search-result-overlay {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        #results.poster-grid-match .search-result-overlay-title {
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 650;
-            line-height: 1.25;
-        }
-        #results.poster-grid-match .search-result-overlay-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.8rem;
-            line-height: 1.45;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        #results.poster-grid-match .search-result-actions {
-            display: flex;
-            gap: 8px;
-        }
-        #results.poster-grid-match .search-result-action {
-            width: 38px;
-            height: 38px;
-            border: 0;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.16s ease, color 0.16s ease, transform 0.16s ease;
-        }
-        #results.poster-grid-match .search-result-action:hover,
-        #results.poster-grid-match .search-result-action:focus-visible {
-            background: #e02735;
-            color: #fff;
-            transform: translateY(-1px);
-            outline: none;
-        }
-        #results.poster-grid-match .search-result-action.watch-later-active {
-            background: rgba(224, 39, 53, 0.16);
-            color: #ff6674;
-        }
-        #results.poster-grid-match .search-result-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 2;
-            padding: 4px 8px;
-            border-radius: 999px;
-            background: rgba(0, 0, 0, 0.7);
-            color: rgba(255, 255, 255, 0.82);
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        #results.poster-grid-match .search-result-empty {
-            grid-column: 1 / -1;
-            padding: 48px 24px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.72);
-            font-size: 1rem;
-        }
     `;
     document.head.appendChild(style);
-    _searchResultsCssInjected = true;
+    _resultsPosterCssInjected = true;
 }
 
+let _searchGridRO = null;
 // Ensure search results use the exact same grid sizing as the homepage (Trending)
 function setupResultsGridLayout() {
     if (!resultsContainer) return;
-    ensureSearchResultsCSS();
+    ensureResultsPosterCSS();
     resultsContainer.classList.add('poster-grid-match');
     resultsContainer.style.display = 'grid';
 
-    const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 1280;
-    const cardWidth = viewportWidth < 420 ? 140 : viewportWidth < 900 ? 160 : 180;
+    const trending = document.getElementById('trendingGrid');
 
-    resultsContainer.style.gap = '14px';
-    resultsContainer.style.alignItems = 'start';
-    resultsContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${cardWidth}px, 1fr))`;
-    resultsContainer.style.padding = viewportWidth < 420 ? '16px 16px 180px' : '20px 40px 180px';
-}
+    const applyFromTrending = () => {
+        if (!trending) return 0;
 
-const SEARCH_RESULTS_RENDER_CHUNK = 6;
-let _searchResultsRenderToken = 0;
-let _searchResultsRenderHandle = null;
+        // Measure only the first poster (or its img) for precise column width
+        const firstCard = trending.querySelector('.poster') || trending.firstElementChild;
+        const el = firstCard ? (firstCard.querySelector('img') || firstCard) : null;
+        const rect = el ? el.getBoundingClientRect() : null;
+        const w = rect ? Math.round(rect.width) : 0;
 
-function scheduleSearchResultsRender(callback) {
-    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
-        return window.requestAnimationFrame(callback);
-    }
-    return setTimeout(callback, 16);
-}
+        // Copy spacing from Trending
+        const cs = window.getComputedStyle(trending);
+        const gap = cs.gap || cs.columnGap || '14px';
+        const align = cs.alignItems || 'start';
+        resultsContainer.style.gap = gap;
+        resultsContainer.style.alignItems = align;
 
-function cancelScheduledSearchResultsRender(handle) {
-    if (handle == null) return;
-    if (typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
-        window.cancelAnimationFrame(handle);
-        return;
-    }
-    clearTimeout(handle);
-}
-
-function cancelPendingSearchResultsRender() {
-    _searchResultsRenderToken += 1;
-    if (_searchResultsRenderHandle !== null) {
-        cancelScheduledSearchResultsRender(_searchResultsRenderHandle);
-        _searchResultsRenderHandle = null;
-    }
-}
-
-if (typeof window !== 'undefined') {
-    window.cancelSearchResultsRender = cancelPendingSearchResultsRender;
-}
-
-function getSearchResultWatchLaterKeys() {
-    try {
-        return new Set(
-            normalizeAndDedupeWatchLater(getWatchLater())
-                .map(item => itemKey(item))
-                .filter(Boolean)
-        );
-    } catch {
-        return new Set();
-    }
-}
-
-let lastSearchInputActivityAt = 0;
-
-function noteSearchInputActivity() {
-    lastSearchInputActivityAt = Date.now();
-}
-
-function isRecentSearchInputActivity(windowMs = 300) {
-    return (Date.now() - lastSearchInputActivityAt) < windowMs;
-}
-
-if (typeof window !== 'undefined') {
-    window.noteSearchInputActivity = noteSearchInputActivity;
-}
-
-function createSearchActionButton(iconName, label, onClick) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'search-result-action';
-    button.title = label;
-    button.setAttribute('aria-label', label);
-    button.innerHTML = `<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">${iconName}</span>`;
-    button.addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        onClick(event, button);
-    });
-    return button;
-}
-
-function updateSearchWatchLaterButton(button, isSaved) {
-    if (!button) return;
-    button.classList.toggle('watch-later-active', Boolean(isSaved));
-    button.title = isSaved ? 'Remove from Watch Later' : 'Add to Watch Later';
-    button.setAttribute('aria-label', button.title);
-    button.innerHTML = isSaved
-        ? '<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">playlist_add_check</span>'
-        : '<span class="material-symbols-outlined" style="font-size:22px;line-height:1;">playlist_add</span>';
-}
-
-function buildSearchResultCard(item, options = {}) {
-    const id = item?.id;
-    const mediaType = canonicalType(item?.media_type || item?.mediaType || 'movie');
-    const title = item?.title || item?.name || 'Untitled';
-    const date = item?.release_date || item?.first_air_date || '';
-    const year = date ? date.slice(0, 4) : '';
-    const overview = item?.overview || '';
-    const poster = item?.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
-    const isTV = mediaType === 'tv';
-    const initialWatchLaterSaved = options.watchLaterSaved ?? isInWatchLater(id, mediaType);
-
-    const card = document.createElement('article');
-    card.className = 'search-result-card';
-    card.setAttribute('aria-label', `${title} ${isTV ? 'TV show' : 'movie'}`);
-
-    const openResult = (event) => {
-        if (event?.defaultPrevented) return;
-        if (typeof event?.detail === 'number' && event.detail === 0) return;
-        if (typeof event?.button === 'number' && event.button !== 0) return;
-        if (isRecentSearchInputActivity()) return;
-        openPlayer(mediaType, id, 1);
+        if (w > 0 && Number.isFinite(w)) {
+            resultsContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${w}px, 1fr))`;
+            return w;
+        }
+        return 0;
     };
-    card.addEventListener('click', openResult);
 
-    const posterWrap = document.createElement('div');
-    posterWrap.className = 'search-result-poster';
+    // First attempt to apply sizing immediately
+    let appliedWidth = applyFromTrending();
 
-    const badge = document.createElement('div');
-    badge.className = 'search-result-badge';
-    badge.textContent = isTV ? 'TV' : 'Movie';
-    posterWrap.appendChild(badge);
-
-    const image = document.createElement('img');
-    image.src = poster;
-    image.alt = title || 'Poster';
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    image.onerror = () => { image.src = placeholderImage; };
-    posterWrap.appendChild(image);
-
-    const overlay = document.createElement('div');
-    overlay.className = 'search-result-overlay';
-
-    const overlayTitle = document.createElement('div');
-    overlayTitle.className = 'search-result-overlay-title';
-    overlayTitle.textContent = title;
-    overlay.appendChild(overlayTitle);
-
-    if (overview) {
-        const overlayText = document.createElement('div');
-        overlayText.className = 'search-result-overlay-text';
-        overlayText.textContent = truncateOverview(overview, 260);
-        overlay.appendChild(overlayText);
+    // If Trending not ready (images not laid out yet), observe and retry once it is
+    if (appliedWidth === 0) {
+        // Fallback so results don't explode in size before Trending resolves
+        resultsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+        if (trending && !_searchGridRO) {
+            _searchGridRO = new ResizeObserver(() => {
+                const w = applyFromTrending();
+                if (w > 0) {
+                    _searchGridRO.disconnect();
+                    _searchGridRO = null;
+                }
+            });
+            _searchGridRO.observe(trending);
+        }
     }
-
-    const actions = document.createElement('div');
-    actions.className = 'search-result-actions';
-    actions.appendChild(createSearchActionButton('play_circle', 'Play', () => {
-        openPlayer(mediaType, id, 1);
-    }));
-    actions.appendChild(createSearchActionButton('info', 'More info', () => {
-        showMorePosterInfo({
-            id,
-            mediaType,
-            poster,
-            title,
-            year,
-            date,
-            overview,
-            isTV
-        });
-    }));
-    const watchLaterButton = createSearchActionButton('playlist_add', 'Add to Watch Later', () => {
-        const nowSaved = toggleWatchLater({
-            id,
-            mediaType,
-            title,
-            poster,
-            date: date || '',
-            year: year || '',
-            ...extractStoredMetadata(item)
-        });
-        updateSearchWatchLaterButton(watchLaterButton, nowSaved);
-    });
-    updateSearchWatchLaterButton(watchLaterButton, initialWatchLaterSaved);
-    actions.appendChild(watchLaterButton);
-    overlay.appendChild(actions);
-    posterWrap.appendChild(overlay);
-    card.appendChild(posterWrap);
-
-    const body = document.createElement('div');
-    body.className = 'search-result-body';
-
-    const titleEl = document.createElement('div');
-    titleEl.className = 'search-result-title';
-    titleEl.textContent = title;
-    body.appendChild(titleEl);
-
-    const metaEl = document.createElement('div');
-    metaEl.className = 'search-result-meta';
-    metaEl.textContent = [isTV ? 'TV Show' : 'Movie', year].filter(Boolean).join(' • ');
-    body.appendChild(metaEl);
-
-    if (overview) {
-        const snippet = document.createElement('div');
-        snippet.className = 'search-result-snippet';
-        snippet.textContent = truncateOverview(overview, 140);
-        body.appendChild(snippet);
-    }
-
-    card.appendChild(body);
-    return card;
 }
 
 // Wire up search only if input/results exist
-if (!isSearchDisabled && searchInput && resultsContainer) {
-    searchInput.addEventListener('focus', noteSearchInputActivity);
-    searchInput.addEventListener('click', noteSearchInputActivity);
+if (searchInput && resultsContainer) {
     searchInput.addEventListener('input', (e) => {
-        noteSearchInputActivity();
         const searchTerm = e.target.value.toLowerCase().trim();
 
         // When input is cleared without filters, hide results
@@ -858,7 +469,7 @@ if (!isSearchDisabled && searchInput && resultsContainer) {
     });
 }
 
-if (!isSearchDisabled && clearSearchBtn && searchInput && resultsContainer) {
+if (clearSearchBtn && searchInput && resultsContainer) {
     clearSearchBtn.addEventListener('click', () => {
         if (typeof window._closeSearchPanel === 'function') {
             window._closeSearchPanel();
@@ -878,54 +489,47 @@ if (searchInput === null) {
 function displayResults(results) {
     if (!resultsContainer) return;
 
-    cancelPendingSearchResultsRender();
-
     // Ensure wrapper is visible when we render results
     if (searchWrapper) searchWrapper.style.display = '';
 
     setupResultsGridLayout();
 
-    const visibleResults = Array.isArray(results)
-        ? results.filter(item => item.media_type === 'movie' || item.media_type === 'tv')
-        : [];
-
-    if (visibleResults.length === 0) {
-        resultsContainer.innerHTML = '<div class="search-result-empty">No results found.</div>';
+    if (!Array.isArray(results) || results.length === 0) {
+        resultsContainer.innerHTML = 'No results found.';
         return;
     }
 
-    resultsContainer.replaceChildren();
+    resultsContainer.innerHTML = ''; // Clear previous results
 
-    const renderToken = _searchResultsRenderToken;
-    const watchLaterKeys = getSearchResultWatchLaterKeys();
-    let currentIndex = 0;
+    results.forEach(item => {
+        if (item.media_type !== 'movie' && item.media_type !== 'tv') return;
 
-    const appendChunk = () => {
-        if (renderToken !== _searchResultsRenderToken || !resultsContainer) return;
+        const id = item.id;
+        const mediaType = item.media_type;
+        const title = item.title || item.name || 'Untitled';
+        const date = item.release_date || item.first_air_date || '';
+        const year = date ? date.slice(0, 4) : '';
+        const overview = item.overview || '';
+        const poster = item.poster_path ? `${imageBaseUrl}${item.poster_path}` : placeholderImage;
 
-        const fragment = document.createDocumentFragment();
-        const stopIndex = Math.min(currentIndex + SEARCH_RESULTS_RENDER_CHUNK, visibleResults.length);
-        for (let index = currentIndex; index < stopIndex; index += 1) {
-            const item = visibleResults[index];
-            const mediaType = canonicalType(item?.media_type || item?.mediaType || 'movie');
-            const savedKey = wlKey(item?.id, mediaType);
-            fragment.appendChild(buildSearchResultCard(item, {
-                watchLaterSaved: watchLaterKeys.has(savedKey)
-            }));
-        }
+        const card = buildPosterCard({
+            id,
+            mediaType,
+            poster,
+            title,
+            year,
+            date,
+            overview,
+            isTV: mediaType === 'tv',
+            lastSeasonNum: null,
+            lastSeasonEpisodes: null,
+            onClick: () => openPlayer(mediaType, id, 1),
+            withPreview: true,
+            itemMeta: item
+        });
 
-        resultsContainer.appendChild(fragment);
-        currentIndex = stopIndex;
-
-        if (currentIndex < visibleResults.length) {
-            _searchResultsRenderHandle = scheduleSearchResultsRender(appendChunk);
-            return;
-        }
-
-        _searchResultsRenderHandle = null;
-    };
-
-    _searchResultsRenderHandle = scheduleSearchResultsRender(appendChunk);
+        resultsContainer.appendChild(card);
+    });
 }
 
 let activeType = 'VO'; // 'VO' or 'VF'
@@ -1116,13 +720,7 @@ function openPlayer(type, id, season = 1, episode = 1, preferSavedSource = false
     if (searchContainer) searchContainer.style.display = 'none';
 
     if (progressEntry) {
-        if (canonType === 'tv') {
-            progressEntry.season = Number(season);
-            progressEntry.episode = Number(episode);
-        }
         progressEntry.updatedAt = Date.now();
-        progressEntry.playerType = activeType || null;
-        progressEntry.playerIndex = activeType === 'VF' ? activeVFIdx : activeVOIdx;
         localStorage.setItem(canonicalKey, JSON.stringify(progressEntry));
     } else {
         // If no entry, ensureProgressPlaceholder will create one with updatedAt
@@ -1155,14 +753,22 @@ if (voVfToggle) {
     voVfToggle.addEventListener('change', function () {
         // If player is open, reload with new source
         if (playerContainer && playerContainer.style.display === 'block') {
-            const playerContext = getCurrentPlayerContext();
-            if (!playerContext?.id || !playerContext?.type) return;
-            openPlayer(
-                playerContext.type,
-                playerContext.id,
-                playerContext.season || 1,
-                playerContext.episode || 1
-            );
+            // Try to extract current id/type/season/episode from the iframe src
+            const iframe = playerContent.querySelector('iframe');
+            if (!iframe) return;
+            const src = iframe.src;
+            let type, id, season = 1, episode = 1;
+            if (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src)) {
+                type = 'movie';
+                id = (src.match(/movie\/(\d+)/) || src.match(/film\.php\?id=(\d+)/))[1];
+            } else if (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src)) {
+                type = 'tv';
+                let m = src.match(/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
+                id = m[1];
+                season = m[2];
+                episode = m[3];
+            }
+            if (id && type) openPlayer(type, id, season, episode);
         }
     });
 }
@@ -1378,7 +984,6 @@ function removeFromContinueWatching(id, type) {
     for (const a of aliases) {
         localStorage.removeItem(`progress_${id}_${a}`);
     }
-    emitUserDataChanged();
 }
 
 async function maybeAutoRemoveFromContinueWatching(data, frac) {
@@ -1431,15 +1036,28 @@ window.addEventListener("message", function (event) {
         if (progressNum === null && typeof event.data?.progress === 'number') progressNum = event.data.progress;
         if (timestamp === null && typeof event.data?.timestamp === 'number') timestamp = event.data.timestamp;
 
-        // If still missing, try to parse from the current iframe src.
+        // If still missing, try to parse from iframe src (for known servers)
         let iframeSeason = null;
         let iframeEpisode = null;
-        const playerContext = getCurrentPlayerContext();
-        if (playerContext) {
-            if (!type) type = playerContext.type;
-            if (!id) id = playerContext.id;
-            iframeSeason = playerContext.season;
-            iframeEpisode = playerContext.episode;
+        if (playerContent) {
+            const iframe = playerContent.querySelector('iframe');
+            const src = iframe?.src || '';
+            if (src) {
+                if (!type && (/videasy\.net\/movie\/(\d+)/.test(src) || /frembed\.best\/api\/film\.php\?id=(\d+)/.test(src))) {
+                    type = 'movie';
+                }
+                if (!type && (/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/.test(src) || /frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/.test(src))) {
+                    type = 'tv';
+                }
+                if (!id && (/videasy\.net\/(?:movie|tv)\/(\d+)/.test(src) || /frembed\.best\/api\/(?:film|serie)\.php\?id=(\d+)/.test(src))) {
+                    id = (src.match(/\/(?:movie|tv)\/(\d+)/) || src.match(/id=(\d+)/))[1];
+                }
+                const m = src.match(/videasy\.net\/tv\/(\d+)\/(\d+)\/(\d+)/) || src.match(/frembed\.best\/api\/serie\.php\?id=(\d+)&sa=(\d+)&epi=(\d+)/);
+                if (m) {
+                    iframeSeason = m[2];
+                    iframeEpisode = m[3];
+                }
+            }
         }
 
         // Canonicalize type to avoid multiple keys for same content (tv vs serie/series/show)
@@ -1461,8 +1079,8 @@ window.addEventListener("message", function (event) {
             title: parsed.title ?? parsed.name ?? null,
             poster_path: parsed.poster_path ?? parsed.posterPath ?? parsed.poster ?? null,
             updatedAt: Date.now(),
-            playerType: playerContext?.playerType ?? activeType ?? null,
-            playerIndex: playerContext?.playerIndex ?? (activeType === 'VF' ? activeVFIdx : activeVOIdx)
+            playerType: activeType || null,
+            playerIndex: activeType === 'VF' ? activeVFIdx : activeVOIdx
         };
 
         const key = `progress_${id}_${type}`;
@@ -1565,29 +1183,17 @@ function shuffle(array) {
 
 // Build poster card. If withPreview=true, include preview box below the poster.
 
-// Add isCam/skipCam to the argument list (default false for backward compatibility)
-function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false, skipCam = false, itemMeta = null }) {
+// Add isCam to the argument list (default false for backward compatibility)
+function buildPosterCard({ id, mediaType, poster, title, year, date, overview, isTV, lastSeasonNum, lastSeasonEpisodes, onClick, withPreview, isCam = false, itemMeta = null }) {
     const posterDiv = document.createElement('div');
     posterDiv.className = 'poster';
     if (onClick) posterDiv.onclick = onClick;
 
-    if (!skipCam) {
-        // Pre-insert a hidden badge for movies so that the async CAM resolution only
-        // toggles `display` rather than structurally mutating the DOM while the user
-        // is hovering — structural mutations reset :hover and cause cursor flicker.
-        if (canonicalType(mediaType) === 'movie') {
-            const preBadge = createCamBadge();
-            preBadge.style.display = 'none';
-            posterDiv.appendChild(preBadge);
-        }
-        applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
-    }
+    applyCamBadge(posterDiv, itemMeta || { id, mediaType, title, date }, Boolean(isCam));
 
     const img = document.createElement('img');
     img.src = poster;
     img.alt = title || 'Poster';
-    img.loading = 'lazy';
-    img.decoding = 'async';
     // NEW: safe fallback if remote/local poster fails to load
     img.onerror = () => { img.src = placeholderImage; };
     posterDiv.appendChild(img);
@@ -1730,25 +1336,17 @@ async function fetchMorePosterInfo(id, mediaType) {
     const apiType = mediaType === 'tv' ? 'tv' : 'movie';
     const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`;
     const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
-    const externalIdsUrl = mediaType === 'tv'
-        ? `https://api.themoviedb.org/3/${apiType}/${id}/external_ids?api_key=${apiKey}`
-        : null;
 
     let details = {};
     let credits = {};
-    let externalIds = {};
 
     try {
-        const requests = [
+        const [detailsRes, creditsRes] = await Promise.all([
             fetch(detailsUrl).then(r => r.json()),
             fetch(creditsUrl).then(r => r.json())
-        ];
-        if (externalIdsUrl) requests.push(fetch(externalIdsUrl).then(r => r.json()));
-
-        const [detailsRes, creditsRes, externalIdsRes] = await Promise.all(requests);
+        ]);
         details = detailsRes || {};
         credits = creditsRes || {};
-        externalIds = externalIdsRes || {};
     } catch (e) {
         // fallback: empty objects
     }
@@ -1789,7 +1387,7 @@ async function fetchMorePosterInfo(id, mediaType) {
         productionCompanies,
         productionCountries,
         homepage: details.homepage || '',
-        imdbId: details.imdb_id || externalIds.imdb_id || ''
+        imdbId: details.imdb_id || ''
     };
 }
 
@@ -1948,27 +1546,13 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     }
 
     const isSaved = isInWatchLater(id, mediaType);
-    const isWatched = isInWatchedList(id, mediaType);
-    const isLiked = isInLikedList(id, mediaType);
     const playBtnId = 'more-poster-play-btn';
     const wlBtnId = 'more-poster-watchlater-btn';
     const wlLabelId = 'more-poster-watchlater-label';
-    const watchedBtnId = 'more-poster-watched-btn';
-    const watchedLabelId = 'more-poster-watched-label';
-    const likeBtnId = 'more-poster-like-btn';
-    const likeLabelId = 'more-poster-like-label';
     const wlBtnSymbol = isSaved
         ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
         : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
     const wlLabelText = isSaved ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
-    const watchedBtnSymbol = isWatched
-        ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_all</span>'
-        : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_outline</span>';
-    const watchedLabelText = isWatched ? 'Remove from <br> Watched' : 'Mark as <br> Watched';
-    const likeBtnSymbol = isLiked
-        ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up</span>'
-        : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up_off_alt</span>';
-    const likeLabelText = isLiked ? 'Unlike <br> Title' : 'Like <br> Title';
 
     modal.innerHTML = `
         <button id="close-more-poster-info" style="position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;color:#FFF;z-index:2;">
@@ -1977,14 +1561,11 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         <div style="display:flex;gap:36px;">
             <div style="flex-shrink:0;display:flex;flex-direction:column;">
                 <img id="modal-poster" src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
-                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;width:100%;margin-top:18px;">
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <button id="${playBtnId}"
-                            style="width:40px;height:40px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;">
-                            <span class="material-symbols-outlined" style="font-size:40px;line-height:1;">play_circle</span>
-                        </button>
-                        <span style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;text-align:center;">Play</span>
-                    </div>
+                <div style="display:flex;flex-direction:row;align-items:top;width:100%;margin-top:18px;">
+                    <button id="${playBtnId}"
+                        style="width:40px;height:40px;background-color:transparent;border-style:none;color:#e02735;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;line-height:1;cursor:pointer;margin-left:33px">
+                        <span class="material-symbols-outlined" style="font-size:40px;line-height:1;">play_circle</span>
+                    </button>
                     <div style="display:flex;flex-direction:column;align-items:center;">
                         <button id="${wlBtnId}"
                             aria-label="${wlLabelText}"
@@ -1993,35 +1574,13 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                             ${wlBtnSymbol}
                         </button>
                         <span id="${wlLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
+                            style="margin-top:6px;color:#e02735;font-size:12px; font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;margin-left:0;justify-content:right;align-items:right;">
                             ${wlLabelText}
                         </span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <button id="${watchedBtnId}"
-                            aria-label="${watchedLabelText}"
-                            title="${watchedLabelText}"
-                            style="width:40px;height:40px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;line-height:1;cursor:pointer;">
-                            ${watchedBtnSymbol}
-                        </button>
-                        <span id="${watchedLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
-                            ${watchedLabelText}
-                        </span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;align-items:center;">
-                        <button id="${likeBtnId}"
-                            aria-label="${likeLabelText}"
-                            title="${likeLabelText}"
-                            style="width:40px;height:40px;border-radius:50%;background:none;color:#e02735;border-style:none;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:700;line-height:1;cursor:pointer;">
-                            ${likeBtnSymbol}
-                        </button>
-                        <span id="${likeLabelId}"
-                            style="margin-top:6px;color:#e02735;font-size:12px;font-weight:600;opacity:1;pointer-events:none;white-space:nowrap;text-align:center;">
-                            ${likeLabelText}
-                        </span>
+                        
                     </div>
                 </div>
+                
             </div>
             <div style="flex:1;min-width:0;">
                 <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${title}</div>
@@ -2101,52 +1660,6 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add_check</span>'
                 : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
             if (wlLabelEl) wlLabelEl.innerHTML = added ? 'Remove from <br> Watch Later' : 'Add to <br> Watch Later';
-        });
-    }
-
-    const watchedBtnEl = modal.querySelector(`#${watchedBtnId}`);
-    const watchedLabelEl = modal.querySelector(`#${watchedLabelId}`);
-    if (watchedBtnEl) {
-        watchedBtnEl.addEventListener('click', () => {
-            const watched = toggleWatchedList({
-                id,
-                mediaType,
-                title,
-                poster: posterUrl,
-                poster_path: posterUrl,
-                year,
-                date,
-                homepage: extra.homepage || '',
-                production_companies: extra.productionCompanies || []
-            });
-            watchedBtnEl.innerHTML = watched
-                ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_all</span>'
-                : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">done_outline</span>';
-            if (watchedLabelEl) watchedLabelEl.innerHTML = watched ? 'Remove from <br> Watched' : 'Mark as <br> Watched';
-            if (watched && wlBtnEl) {
-                wlBtnEl.innerHTML = '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">playlist_add</span>';
-                if (wlLabelEl) wlLabelEl.innerHTML = 'Add to <br> Watch Later';
-            }
-        });
-    }
-
-    const likeBtnEl = modal.querySelector(`#${likeBtnId}`);
-    const likeLabelEl = modal.querySelector(`#${likeLabelId}`);
-    if (likeBtnEl) {
-        likeBtnEl.addEventListener('click', () => {
-            const liked = toggleLikedList({
-                id,
-                mediaType,
-                title,
-                poster: posterUrl,
-                poster_path: posterUrl,
-                year,
-                date
-            });
-            likeBtnEl.innerHTML = liked
-                ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up</span>'
-                : '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up_off_alt</span>';
-            if (likeLabelEl) likeLabelEl.innerHTML = liked ? 'Unlike <br> Title' : 'Like <br> Title';
         });
     }
 
@@ -2389,7 +1902,6 @@ function removeFromWatchLater(id, mediaType) {
     const list = getWatchLater().filter(x => itemKey(x) !== targetKey);
     setWatchLater(list);
     try { loadWatchLater(); } catch { }
-    emitUserDataChanged();
 }
 function isInWatchLater(id, mediaType) {
     const key = wlKey(id, mediaType);
@@ -2427,7 +1939,6 @@ function toggleWatchLater(item) {
     // Ensure no dupes get saved even under race conditions
     setWatchLater(normalizeAndDedupeWatchLater(list));
     try { loadWatchLater(); } catch { }
-    emitUserDataChanged();
     return added;
 }
 
@@ -2502,113 +2013,12 @@ function addToWatchedList(item) {
     }
     setWatchedList(normalizeAndDedupeWatched(list));
     try { loadWatchedList(); } catch { }
-    emitUserDataChanged();
 }
 function removeFromWatchedList(id, mediaType) {
     const targetKey = watchedKey(id, mediaType);
     const list = getWatchedList().filter(x => watchedKey(x?.id, x?.mediaType ?? x?.type) !== targetKey);
     setWatchedList(list);
     try { loadWatchedList(); } catch { }
-    emitUserDataChanged();
-}
-
-function isInWatchedList(id, mediaType) {
-    const key = watchedKey(id, mediaType);
-    if (!key) return false;
-    return getWatchedList().some(x => watchedKey(x?.id, x?.mediaType ?? x?.type) === key);
-}
-
-function toggleWatchedList(item) {
-    const alreadyWatched = isInWatchedList(item?.id, item?.mediaType ?? item?.type);
-    if (alreadyWatched) {
-        removeFromWatchedList(item.id, item.mediaType ?? item.type);
-        return false;
-    }
-
-    addToWatchedList(item);
-    removeFromContinueWatching(item.id, item.mediaType ?? item.type);
-    removeFromWatchLater(item.id, item.mediaType ?? item.type);
-    try { loadContinueWatching(); } catch { }
-    return true;
-}
-
-const LIKED_LIST_KEY = 'likedList';
-
-function getLikedList() {
-    try { return JSON.parse(localStorage.getItem(LIKED_LIST_KEY) || '[]'); } catch { return []; }
-}
-
-function setLikedList(list) {
-    localStorage.setItem(LIKED_LIST_KEY, JSON.stringify(list));
-}
-
-function likedKey(id, mediaType) {
-    const mid = String(id ?? '').trim();
-    const mtype = canonicalType(mediaType);
-    return mid && mtype ? `${mid}:${mtype}` : '';
-}
-
-function normalizeAndDedupeLiked(list) {
-    const map = new Map();
-    for (const it of Array.isArray(list) ? list : []) {
-        const id = String(it?.id ?? '').trim();
-        const mediaType = canonicalType(it?.mediaType ?? it?.type ?? '');
-        if (!id || !mediaType) continue;
-
-        const key = likedKey(id, mediaType);
-        const updatedAt = it?.updatedAt ?? it?.likedAt ?? 0;
-        const normalized = {
-            id,
-            mediaType,
-            title: it?.title ?? it?.name ?? '',
-            poster: it?.poster ?? '',
-            poster_path: it?.poster_path ?? it?.posterPath ?? it?.poster ?? '',
-            date: it?.date ?? '',
-            year: it?.year ?? '',
-            updatedAt
-        };
-
-        const prev = map.get(key);
-        if (!prev || (updatedAt || 0) > (prev.updatedAt || 0)) {
-            map.set(key, normalized);
-        }
-    }
-    return Array.from(map.values());
-}
-
-function isInLikedList(id, mediaType) {
-    const key = likedKey(id, mediaType);
-    if (!key) return false;
-    return getLikedList().some(item => likedKey(item?.id, item?.mediaType ?? item?.type) === key);
-}
-
-function toggleLikedList(item) {
-    const list = getLikedList();
-    const key = likedKey(item?.id, item?.mediaType ?? item?.type);
-    if (!key) return false;
-
-    const idx = list.findIndex(entry => likedKey(entry?.id, entry?.mediaType ?? entry?.type) === key);
-    let liked = false;
-
-    if (idx >= 0) {
-        list.splice(idx, 1);
-    } else {
-        list.push({
-            id: String(item.id),
-            mediaType: canonicalType(item.mediaType ?? item.type),
-            title: item.title || item.name || '',
-            poster: item.poster || '',
-            poster_path: item.poster_path || item.posterPath || item.poster || '',
-            date: item.date || '',
-            year: item.year || '',
-            updatedAt: Date.now()
-        });
-        liked = true;
-    }
-
-    setLikedList(normalizeAndDedupeLiked(list));
-    emitUserDataChanged();
-    return liked;
 }
 
 async function maybeAddToWatchedList(data, frac) {
@@ -2647,95 +2057,6 @@ async function maybeAddToWatchedList(data, frac) {
 function truncateOverview(text, maxLength = 120) {
     if (!text || typeof text !== 'string') return '';
     return text.length > maxLength ? text.slice(0, maxLength).trim() + '...' : text;
-}
-
-function getLocalPosterPath(id, mediaType) {
-    if (!id) return '';
-    return `posters/${canonicalType(mediaType) === 'tv' ? 'tv' : 'movie'}_${id}.png`;
-}
-
-function normalizePosterSource(value) {
-    const normalized = String(value || '').trim();
-    if (!normalized) return '';
-    if (isRemoteUrl(normalized)) return normalized;
-    if (normalized.startsWith('posters/') || normalized.startsWith('assets/')) return normalized;
-    if (normalized.startsWith('/')) return `${imageBaseUrl}${normalized}`;
-    return normalized;
-}
-
-function getLibraryPosterSource(item, mediaType) {
-    const posterPath = normalizePosterSource(item?.poster_path ?? item?.posterPath);
-    if (posterPath) return posterPath;
-
-    const poster = normalizePosterSource(item?.poster);
-    if (poster) return poster;
-
-    return getLocalPosterPath(item?.id, mediaType) || placeholderImage;
-}
-
-function getItemDateValue(item) {
-    return item?.date || item?.release_date || item?.first_air_date || '';
-}
-
-function getItemYearValue(item) {
-    const date = getItemDateValue(item);
-    return date ? date.slice(0, 4) : '';
-}
-
-function formatEpisodeLabel(item) {
-    const mediaType = canonicalType(item?.mediaType ?? item?.type);
-    if (mediaType !== 'tv') return '';
-
-    const season = item?.season ?? item?.season_number ?? null;
-    const episode = item?.episode ?? item?.episode_number ?? null;
-    if (!season || !episode) return '';
-
-    return `S${Number(season)} E${Number(episode)}`;
-}
-
-function createLibraryActionButton(iconName, label) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.title = label;
-    button.setAttribute('aria-label', label);
-    Object.assign(button.style, {
-        position: 'absolute',
-        left: '8px',
-        bottom: '8px',
-        width: '34px',
-        height: '34px',
-        borderRadius: '50%',
-        border: 'none',
-        background: 'rgba(0,0,0,0.72)',
-        color: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        zIndex: '3',
-        boxShadow: '0 2px 6px rgba(0,0,0,.35)'
-    });
-    button.innerHTML = `<span class="material-symbols-outlined" style="font-size:20px;line-height:1;">${iconName}</span>`;
-    return button;
-}
-
-function appendMoreInfoButton(container, item, title, poster) {
-    if (!container) return;
-    const infoBtn = createLibraryActionButton('info', 'More info');
-    infoBtn.onclick = (event) => {
-        event.stopPropagation();
-        showMorePosterInfo({
-            id: item.id,
-            mediaType: item.mediaType || item.type,
-            poster,
-            title: title || item.title || item.name || 'Untitled',
-            year: item.year || getItemYearValue(item),
-            date: getItemDateValue(item),
-            overview: item.overview || '',
-            isTV: canonicalType(item.mediaType || item.type) === 'tv'
-        });
-    };
-    container.appendChild(infoBtn);
 }
 
 // Continue Watching loader (unchanged behavior, respects auto-remove threshold)
@@ -2905,9 +2226,28 @@ function loadContinueWatching() {
     const renderItems = expanded ? all : all.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async data => {
-        let poster = getLibraryPosterSource(data, data.mediaType);
+        let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
         let title = data.title || data.name || 'Unknown Title';
         let hasNewEpisode = false;
+
+        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+        if (!localOk) {
+            if (data.poster_path) {
+                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+            } else {
+                const tmdbUrl = data.mediaType === 'movie'
+                    ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
+                    : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
+                try {
+                    const r = await fetch(tmdbUrl);
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
+                        if (j.title || j.name) title = j.title || j.name;
+                    }
+                } catch { }
+            }
+        }
         if (!poster) poster = placeholderImage;
 
         if (data.mediaType === 'tv') {
@@ -2933,7 +2273,6 @@ function loadContinueWatching() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            const episodeLabel = formatEpisodeLabel(data);
 
             let percent = 0;
             if (typeof data.progress === 'number') {
@@ -2944,11 +2283,10 @@ function loadContinueWatching() {
             percent = Math.min(100, Math.max(0, percent));
 
             div.innerHTML = `
-                <img src="${poster}" alt="${title}" loading="lazy" decoding="async">
+                <img src="${poster}" alt="${title}">
                 <div style="width:100%;height:6px;background:#222;margin-top:4px;overflow:hidden;">
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
-                ${episodeLabel ? `<div style="margin-top:6px;font-size:0.76em;color:#d9d9d9;text-align:center;letter-spacing:.04em;">${episodeLabel}</div>` : ''}
                 ${hasNewEpisode ? `<div style="position:absolute;right:8px;top:8px;background:#e02735;color:#fff;font-size:0.65em;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:.4px;">New episode</div>` : ''}
             `;
 
@@ -2983,10 +2321,8 @@ function loadContinueWatching() {
                 e.stopPropagation();
                 removeFromContinueWatching(data.id, data.mediaType);
                 loadContinueWatching();
-                emitUserDataChanged();
             };
             applyCamBadge(div, { ...data, title, date: data.date || data.release_date || '' });
-            appendMoreInfoButton(div, data, title, poster);
 
             div.appendChild(removeBtn);
             continueGrid.appendChild(div);
@@ -3032,9 +2368,25 @@ function loadWatchLater() {
     const renderItems = expanded ? list : list.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async (it) => {
-        let poster = getLibraryPosterSource(it, it.mediaType);
+        const id = it.id;
+        const mediaType = it.mediaType;
+        let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
         let title = it.title || 'Unknown Title';
-        if (!poster) poster = placeholderImage;
+
+        // Only HEAD-check local poster file (relative path => safe)
+        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+
+        if (!localOk) {
+            const tmdbPath = it.poster_path || it.poster;
+
+            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
+                poster = `${imageBaseUrl}${tmdbPath}`;
+            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
+                poster = tmdbPath;
+            } else {
+                poster = placeholderImage;
+            }
+        }
 
         return { it, poster, title };
     });
@@ -3045,8 +2397,8 @@ function loadWatchLater() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
-            div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1), true);
+            div.innerHTML = `<img src="${poster}" alt="${title}">`;
+            div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1));
 
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '&times;';
@@ -3074,7 +2426,6 @@ function loadWatchLater() {
                 removeFromWatchLater(it.id, it.mediaType);
             };
             applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
-            appendMoreInfoButton(div, it, title, poster);
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -3114,9 +2465,22 @@ function loadWatchedList() {
     const renderItems = expanded ? list : list.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async (it) => {
-        let poster = getLibraryPosterSource(it, it.mediaType);
+        const id = it.id;
+        const mediaType = it.mediaType;
+        let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
         let title = it.title || 'Unknown Title';
-        if (!poster) poster = placeholderImage;
+
+        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
+        if (!localOk) {
+            const tmdbPath = it.poster_path || it.poster;
+            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
+                poster = `${imageBaseUrl}${tmdbPath}`;
+            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
+                poster = tmdbPath;
+            } else {
+                poster = placeholderImage;
+            }
+        }
 
         return { it, poster, title };
     });
@@ -3127,7 +2491,7 @@ function loadWatchedList() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
+            div.innerHTML = `<img src="${poster}" alt="${title}">`;
             div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
@@ -3156,7 +2520,6 @@ function loadWatchedList() {
                 removeFromWatchedList(it.id, it.mediaType);
             };
             applyCamBadge(div, { ...it, title, date: it.date || it.release_date || '' });
-            appendMoreInfoButton(div, it, title, poster);
 
             div.appendChild(removeBtn);
             grid.appendChild(div);
@@ -3183,7 +2546,6 @@ function initHome() {
     loadGridSmart('titles/trending.json', 'trendingGrid', true);
     loadGridSmart('titles/new.json', 'newGrid', true);
     loadGridSmart('titles/netflixfrance.json', 'netflixfranceGrid', true);
-    loadGridSmart('titles/netflix_documentaries.json', 'netflixDocumentariesGrid', true);
     loadGridSmart('titles/bollywood.json', 'bollywoodGrid', true);
 
     // New genre sections
@@ -3215,45 +2577,11 @@ function initHome() {
     }
 }
 
-let homeInitPromise = null;
-let homeHasInitialized = false;
-
-function waitForRecommendationsBoot(timeoutMs = 1400) {
-    if (typeof window === 'undefined') return Promise.resolve(false);
-
-    const bootPromise = window.recommendationsBootPromise;
-    if (!bootPromise || typeof bootPromise.then !== 'function') {
-        return Promise.resolve(false);
-    }
-
-    return Promise.race([
-        bootPromise.then(() => true).catch(() => false),
-        new Promise(resolve => setTimeout(() => resolve(false), timeoutMs))
-    ]);
-}
-
-function ensureHomeInitialized() {
-    if (homeHasInitialized) return Promise.resolve();
-    if (homeInitPromise) return homeInitPromise;
-
-    homeInitPromise = waitForRecommendationsBoot()
-        .catch(() => false)
-        .then(() => {
-            if (homeHasInitialized) return;
-            initHome();
-            homeHasInitialized = true;
-        })
-        .finally(() => {
-            homeInitPromise = null;
-        });
-
-    return homeInitPromise;
-}
-
 // Allow recommendations.js to trigger a refresh after it finishes initializing.
 if (typeof window !== 'undefined') {
     window.recommendationsReady = () => {
-        ensureHomeInitialized();
+        // Reload grids with recommendations if the initial load ran before recSystem was ready.
+        initHome();
     };
 }
 
@@ -3276,7 +2604,7 @@ if (typeof window !== 'undefined') {
         // Run once
         if (start._ran) /* prevent double-run */ return;
         start._ran = true;
-        ensureHomeInitialized();
+        initHome();
     };
 
     if (document.readyState === 'loading') {
@@ -3803,7 +3131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = [
         { id: 'trendingGrid', label: 'Trending' },
         { id: 'netflixfranceGrid', label: 'Netflix France' },
-        { id: 'netflixDocumentariesGrid', label: 'Netflix Documentaries' },
         { id: 'newGrid', label: 'New Releases' },
         { id: 'bollywoodGrid', label: 'Bollywood' },
         { id: 'animationGrid', label: 'Animation' },

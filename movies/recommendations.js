@@ -13,7 +13,6 @@ class RecommendationSystem {
         this.genreCombinations = null;
         this.recommendationMetadata = null;
         this.userWatched = [];
-        this.userLiked = [];
         this.userWatchLater = [];
         this.userContinueWatching = [];
         this.currentExplorationSeed = Math.floor(Math.random() * 5); // Pick random seed 0-4
@@ -65,16 +64,6 @@ class RecommendationSystem {
                 .filter(v => Number.isFinite(v));
         } catch {
             this.userWatched = [];
-        }
-
-        try {
-            const likedRaw = localStorage.getItem('likedList') || '[]';
-            this.userLiked = JSON.parse(likedRaw)
-                .map(item => (item && item.id != null) ? item.id : item)
-                .map(v => Number(v))
-                .filter(v => Number.isFinite(v));
-        } catch {
-            this.userLiked = [];
         }
 
         try {
@@ -140,7 +129,6 @@ class RecommendationSystem {
      */
     getPersonalizedRecommendations(limit = 100) {
         const userEngagement = [
-            ...this.userLiked,
             ...this.userWatched,
             ...this.userWatchLater,
             ...this.userContinueWatching
@@ -242,13 +230,6 @@ class RecommendationSystem {
     }
 }
 
-let resolveRecommendationsBoot = () => {};
-if (typeof window !== 'undefined' && typeof window.recommendationsBootPromise === 'undefined') {
-    window.recommendationsBootPromise = new Promise(resolve => {
-        resolveRecommendationsBoot = resolve;
-    });
-}
-
 // Global instance
 const recSystem = new RecommendationSystem();
 
@@ -265,10 +246,7 @@ async function loadGridWithRecommendations(jsonPath, gridId, enableRecommendatio
 
     try {
         // Determine if we should show recommendations vs standard content
-        const userHasWatchHistory = recSystem.userWatched.length > 0
-            || recSystem.userLiked.length > 0
-            || recSystem.userWatchLater.length > 0
-            || recSystem.userContinueWatching.length > 0;
+        const userHasWatchHistory = recSystem.userWatched.length > 0;
         const minItems = 12;
         
         let titles;
@@ -392,7 +370,6 @@ const RECOMMENDATION_SOURCES = [
     'titles/trending.json',
     'titles/new.json',
     'titles/netflixfrance.json',
-    'titles/netflix_documentaries.json',
     'titles/bollywood.json',
     'titles/horror.json',
     'titles/animation.json',
@@ -422,7 +399,6 @@ async function loadBecauseYouWatchedRow(gridId = 'becauseWatchedGrid', sectionId
     if (!section || !grid) return;
 
     const userEngagement = [
-        ...(recSystem.userLiked || []),
         ...(recSystem.userWatched || []),
         ...(recSystem.userWatchLater || []),
         ...(recSystem.userContinueWatching || [])
@@ -501,21 +477,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.warn("[RecommendationSystem] recommendationsReady hook failed:", e);
         }
     }
-
-    resolveRecommendationsBoot(initialized);
 });
 
 if (typeof window !== 'undefined') {
     window.loadBecauseYouWatchedRow = loadBecauseYouWatchedRow;
-
-    window.addEventListener('movie-user-data-changed', () => {
-        try {
-            recSystem.loadUserData();
-            loadBecauseYouWatchedRow();
-        } catch (error) {
-            console.warn('[RecommendationSystem] Failed to refresh from user data change:', error);
-        }
-    });
 }
 
 // Export for use in search.js
