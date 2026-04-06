@@ -791,9 +791,11 @@
         const closeSearchBtn = document.getElementById('close-search-results');
 
         searchInput.addEventListener('focus', () => {
+            if (typeof window.noteSearchInputActivity === 'function') window.noteSearchInputActivity();
             filtersBar.classList.add('visible');
         });
         searchInput.addEventListener('click', () => {
+            if (typeof window.noteSearchInputActivity === 'function') window.noteSearchInputActivity();
             filtersBar.classList.add('visible');
         });
 
@@ -835,6 +837,7 @@
 
         // --- Search input ---
         searchInput.addEventListener('input', () => {
+            if (typeof window.noteSearchInputActivity === 'function') window.noteSearchInputActivity();
             cancelPendingSearchRender();
             clearTimeout(_searchDebounce);
             _searchDebounce = setTimeout(() => {

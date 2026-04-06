@@ -673,6 +673,20 @@ function getSearchResultWatchLaterKeys() {
     }
 }
 
+let lastSearchInputActivityAt = 0;
+
+function noteSearchInputActivity() {
+    lastSearchInputActivityAt = Date.now();
+}
+
+function isRecentSearchInputActivity(windowMs = 300) {
+    return (Date.now() - lastSearchInputActivityAt) < windowMs;
+}
+
+if (typeof window !== 'undefined') {
+    window.noteSearchInputActivity = noteSearchInputActivity;
+}
+
 function createSearchActionButton(iconName, label, onClick) {
     const button = document.createElement('button');
     button.type = 'button';
@@ -711,17 +725,16 @@ function buildSearchResultCard(item, options = {}) {
 
     const card = document.createElement('article');
     card.className = 'search-result-card';
-    card.tabIndex = 0;
-    card.setAttribute('role', 'button');
     card.setAttribute('aria-label', `${title} ${isTV ? 'TV show' : 'movie'}`);
 
-    const openResult = () => openPlayer(mediaType, id, 1);
+    const openResult = (event) => {
+        if (event?.defaultPrevented) return;
+        if (typeof event?.detail === 'number' && event.detail === 0) return;
+        if (typeof event?.button === 'number' && event.button !== 0) return;
+        if (isRecentSearchInputActivity()) return;
+        openPlayer(mediaType, id, 1);
+    };
     card.addEventListener('click', openResult);
-    card.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        openResult();
-    });
 
     const posterWrap = document.createElement('div');
     posterWrap.className = 'search-result-poster';
@@ -815,7 +828,10 @@ function buildSearchResultCard(item, options = {}) {
 
 // Wire up search only if input/results exist
 if (searchInput && resultsContainer) {
+    searchInput.addEventListener('focus', noteSearchInputActivity);
+    searchInput.addEventListener('click', noteSearchInputActivity);
     searchInput.addEventListener('input', (e) => {
+        noteSearchInputActivity();
         const searchTerm = e.target.value.toLowerCase().trim();
 
         // When input is cleared without filters, hide results
@@ -1564,6 +1580,8 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     const img = document.createElement('img');
     img.src = poster;
     img.alt = title || 'Poster';
+    img.loading = 'lazy';
+    img.decoding = 'async';
     // NEW: safe fallback if remote/local poster fails to load
     img.onerror = () => { img.src = placeholderImage; };
     posterDiv.appendChild(img);
@@ -2625,6 +2643,30 @@ function truncateOverview(text, maxLength = 120) {
     return text.length > maxLength ? text.slice(0, maxLength).trim() + '...' : text;
 }
 
+function getLocalPosterPath(id, mediaType) {
+    if (!id) return '';
+    return `posters/${canonicalType(mediaType) === 'tv' ? 'tv' : 'movie'}_${id}.png`;
+}
+
+function normalizePosterSource(value) {
+    const normalized = String(value || '').trim();
+    if (!normalized) return '';
+    if (isRemoteUrl(normalized)) return normalized;
+    if (normalized.startsWith('posters/') || normalized.startsWith('assets/')) return normalized;
+    if (normalized.startsWith('/')) return `${imageBaseUrl}${normalized}`;
+    return normalized;
+}
+
+function getLibraryPosterSource(item, mediaType) {
+    const posterPath = normalizePosterSource(item?.poster_path ?? item?.posterPath);
+    if (posterPath) return posterPath;
+
+    const poster = normalizePosterSource(item?.poster);
+    if (poster) return poster;
+
+    return getLocalPosterPath(item?.id, mediaType) || placeholderImage;
+}
+
 function getItemDateValue(item) {
     return item?.date || item?.release_date || item?.first_air_date || '';
 }
@@ -2857,28 +2899,9 @@ function loadContinueWatching() {
     const renderItems = expanded ? all : all.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async data => {
-        let poster = `posters/${data.mediaType === 'tv' ? 'tv' : 'movie'}_${data.id}.png`;
+        let poster = getLibraryPosterSource(data, data.mediaType);
         let title = data.title || data.name || 'Unknown Title';
         let hasNewEpisode = false;
-
-        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-        if (!localOk) {
-            if (data.poster_path) {
-                poster = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-            } else {
-                const tmdbUrl = data.mediaType === 'movie'
-                    ? `https://api.themoviedb.org/3/movie/${data.id}?api_key=${apiKey}`
-                    : `https://api.themoviedb.org/3/tv/${data.id}?api_key=${apiKey}`;
-                try {
-                    const r = await fetch(tmdbUrl);
-                    if (r.ok) {
-                        const j = await r.json();
-                        if (j.poster_path) poster = `https://image.tmdb.org/t/p/w500${j.poster_path}`;
-                        if (j.title || j.name) title = j.title || j.name;
-                    }
-                } catch { }
-            }
-        }
         if (!poster) poster = placeholderImage;
 
         if (data.mediaType === 'tv') {
@@ -2915,7 +2938,7 @@ function loadContinueWatching() {
             percent = Math.min(100, Math.max(0, percent));
 
             div.innerHTML = `
-                <img src="${poster}" alt="${title}">
+                <img src="${poster}" alt="${title}" loading="lazy" decoding="async">
                 <div style="width:100%;height:6px;background:#222;margin-top:4px;overflow:hidden;">
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
@@ -3003,25 +3026,9 @@ function loadWatchLater() {
     const renderItems = expanded ? list : list.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async (it) => {
-        const id = it.id;
-        const mediaType = it.mediaType;
-        let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
+        let poster = getLibraryPosterSource(it, it.mediaType);
         let title = it.title || 'Unknown Title';
-
-        // Only HEAD-check local poster file (relative path => safe)
-        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-
-        if (!localOk) {
-            const tmdbPath = it.poster_path || it.poster;
-
-            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
-                poster = `${imageBaseUrl}${tmdbPath}`;
-            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
-                poster = tmdbPath;
-            } else {
-                poster = placeholderImage;
-            }
-        }
+        if (!poster) poster = placeholderImage;
 
         return { it, poster, title };
     });
@@ -3032,7 +3039,7 @@ function loadWatchLater() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}">`;
+            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
             div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
@@ -3101,22 +3108,9 @@ function loadWatchedList() {
     const renderItems = expanded ? list : list.slice(0, SECTION_SHOW_LIMIT);
 
     const posterPromises = renderItems.map(async (it) => {
-        const id = it.id;
-        const mediaType = it.mediaType;
-        let poster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
+        let poster = getLibraryPosterSource(it, it.mediaType);
         let title = it.title || 'Unknown Title';
-
-        const localOk = await fetch(poster, { method: 'HEAD' }).then(r => r.ok).catch(() => false);
-        if (!localOk) {
-            const tmdbPath = it.poster_path || it.poster;
-            if (tmdbPath && !isRemoteUrl(tmdbPath)) {
-                poster = `${imageBaseUrl}${tmdbPath}`;
-            } else if (tmdbPath && isRemoteUrl(tmdbPath)) {
-                poster = tmdbPath;
-            } else {
-                poster = placeholderImage;
-            }
-        }
+        if (!poster) poster = placeholderImage;
 
         return { it, poster, title };
     });
@@ -3127,7 +3121,7 @@ function loadWatchedList() {
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}">`;
+            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
             div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
@@ -3215,11 +3209,45 @@ function initHome() {
     }
 }
 
+let homeInitPromise = null;
+let homeHasInitialized = false;
+
+function waitForRecommendationsBoot(timeoutMs = 1400) {
+    if (typeof window === 'undefined') return Promise.resolve(false);
+
+    const bootPromise = window.recommendationsBootPromise;
+    if (!bootPromise || typeof bootPromise.then !== 'function') {
+        return Promise.resolve(false);
+    }
+
+    return Promise.race([
+        bootPromise.then(() => true).catch(() => false),
+        new Promise(resolve => setTimeout(() => resolve(false), timeoutMs))
+    ]);
+}
+
+function ensureHomeInitialized() {
+    if (homeHasInitialized) return Promise.resolve();
+    if (homeInitPromise) return homeInitPromise;
+
+    homeInitPromise = waitForRecommendationsBoot()
+        .catch(() => false)
+        .then(() => {
+            if (homeHasInitialized) return;
+            initHome();
+            homeHasInitialized = true;
+        })
+        .finally(() => {
+            homeInitPromise = null;
+        });
+
+    return homeInitPromise;
+}
+
 // Allow recommendations.js to trigger a refresh after it finishes initializing.
 if (typeof window !== 'undefined') {
     window.recommendationsReady = () => {
-        // Reload grids with recommendations if the initial load ran before recSystem was ready.
-        initHome();
+        ensureHomeInitialized();
     };
 }
 
@@ -3242,7 +3270,7 @@ if (typeof window !== 'undefined') {
         // Run once
         if (start._ran) /* prevent double-run */ return;
         start._ran = true;
-        initHome();
+        ensureHomeInitialized();
     };
 
     if (document.readyState === 'loading') {

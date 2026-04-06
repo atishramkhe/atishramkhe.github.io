@@ -242,6 +242,13 @@ class RecommendationSystem {
     }
 }
 
+let resolveRecommendationsBoot = () => {};
+if (typeof window !== 'undefined' && typeof window.recommendationsBootPromise === 'undefined') {
+    window.recommendationsBootPromise = new Promise(resolve => {
+        resolveRecommendationsBoot = resolve;
+    });
+}
+
 // Global instance
 const recSystem = new RecommendationSystem();
 
@@ -494,6 +501,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.warn("[RecommendationSystem] recommendationsReady hook failed:", e);
         }
     }
+
+    resolveRecommendationsBoot(initialized);
 });
 
 if (typeof window !== 'undefined') {
