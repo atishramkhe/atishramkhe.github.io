@@ -2,7 +2,7 @@
 const searchInput = document.getElementById('search-input');
 const resultsContainer = document.getElementById('results');
 const searchContainer = document.getElementById('search-container');
-const searchWrapper = document.getElementById('results');
+const searchWrapper = document.getElementById('search-results-wrapper');
 const playerContainer = document.getElementById('player-container');
 const playerContent = document.getElementById('player-content');
 const closePlayer = document.getElementById('close-player');
@@ -448,14 +448,19 @@ function ensureResultsPosterCSS() {
     if (_resultsPosterCssInjected) return;
     const style = document.createElement('style');
     style.textContent = `
-        #results.poster-grid-match .search-results-spacer {
-            width: 100%;
-            aspect-ratio: 2 / 3;
-            visibility: hidden;
-            pointer-events: none;
-            background: transparent;
-            box-shadow: none;
-            transform: none;
+        #results.poster-grid-match {
+            box-sizing: border-box;
+            justify-content: center;
+        }
+        #results.poster-grid-match .search-result-card {
+            --hover-scale: 1.18;
+            will-change: transform;
+        }
+        #results.poster-grid-match .search-result-card-first {
+            transform-origin: top left;
+        }
+        #results.poster-grid-match .search-result-card-last {
+            transform-origin: top right;
         }
         #results.poster-grid-match .poster img {
             width: 100%;
@@ -469,14 +474,6 @@ function ensureResultsPosterCSS() {
     _resultsPosterCssInjected = true;
 }
 
-function createSearchResultsSpacer() {
-    const spacer = document.createElement('div');
-    spacer.className = 'poster search-results-spacer';
-    spacer.setAttribute('aria-hidden', 'true');
-    return spacer;
-}
-
-let _searchGridRO = null;
 // Ensure search results use the exact same grid sizing as the homepage (Trending)
 function setupResultsGridLayout() {
     if (!resultsContainer) return;
@@ -484,49 +481,15 @@ function setupResultsGridLayout() {
     resultsContainer.classList.add('poster-grid-match');
     resultsContainer.style.display = 'grid';
 
-    const trending = document.getElementById('trendingGrid');
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 1280;
+    const cardWidth = viewportWidth < 420 ? 140 : viewportWidth < 900 ? 160 : 180;
 
-    const applyFromTrending = () => {
-        if (!trending) return 0;
-
-        // Measure only the first poster (or its img) for precise column width
-        const firstCard = trending.querySelector('.poster') || trending.firstElementChild;
-        const el = firstCard ? (firstCard.querySelector('img') || firstCard) : null;
-        const rect = el ? el.getBoundingClientRect() : null;
-        const w = rect ? Math.round(rect.width) : 0;
-
-        // Copy spacing from Trending
-        const cs = window.getComputedStyle(trending);
-        const gap = cs.gap || cs.columnGap || '14px';
-        const align = cs.alignItems || 'start';
-        resultsContainer.style.gap = gap;
-        resultsContainer.style.alignItems = align;
-
-        if (w > 0 && Number.isFinite(w)) {
-            resultsContainer.style.gridTemplateColumns = `repeat(auto-fill, minmax(${w}px, 1fr))`;
-            return w;
-        }
-        return 0;
-    };
-
-    // First attempt to apply sizing immediately
-    let appliedWidth = applyFromTrending();
-
-    // If Trending not ready (images not laid out yet), observe and retry once it is
-    if (appliedWidth === 0) {
-        // Fallback so results don't explode in size before Trending resolves
-        resultsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
-        if (trending && !_searchGridRO) {
-            _searchGridRO = new ResizeObserver(() => {
-                const w = applyFromTrending();
-                if (w > 0) {
-                    _searchGridRO.disconnect();
-                    _searchGridRO = null;
-                }
-            });
-            _searchGridRO.observe(trending);
-        }
-    }
+    // Keep the search grid stable instead of coupling it to the home grid width.
+    // This avoids layout thrash when hover overflow nudges the viewport.
+    resultsContainer.style.gap = '14px';
+    resultsContainer.style.alignItems = 'start';
+    resultsContainer.style.gridTemplateColumns = `repeat(auto-fit, minmax(${cardWidth}px, ${cardWidth}px))`;
+    resultsContainer.style.padding = viewportWidth < 420 ? '16px 16px 180px' : '20px 40px 180px';
 }
 
 // Wire up search only if input/results exist
@@ -588,11 +551,7 @@ function displayResults(results) {
 
     resultsContainer.innerHTML = ''; // Clear previous results
 
-    // Keep the first visible poster away from the left edge to avoid the hover
-    // expansion fighting with the viewport boundary on hosted builds.
-    resultsContainer.appendChild(createSearchResultsSpacer());
-
-    visibleResults.forEach(item => {
+    visibleResults.forEach((item, index) => {
         const id = item.id;
         const mediaType = item.media_type;
         const title = item.title || item.name || 'Untitled';
@@ -617,6 +576,10 @@ function displayResults(results) {
             skipCam: true,
             itemMeta: item
         });
+
+        card.classList.add('search-result-card');
+        if (index === 0) card.classList.add('search-result-card-first');
+        if (index === visibleResults.length - 1) card.classList.add('search-result-card-last');
 
         resultsContainer.appendChild(card);
     });
