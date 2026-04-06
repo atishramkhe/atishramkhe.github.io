@@ -2648,23 +2648,64 @@ function getLocalPosterPath(id, mediaType) {
     return `posters/${canonicalType(mediaType) === 'tv' ? 'tv' : 'movie'}_${id}.png`;
 }
 
+function isMissingPosterValue(value) {
+    const normalized = String(value ?? '').trim().toLowerCase();
+    return !normalized || normalized === 'null' || normalized === 'undefined' || normalized === 'nan';
+}
+
 function normalizePosterSource(value) {
-    const normalized = String(value || '').trim();
-    if (!normalized) return '';
+    if (isMissingPosterValue(value)) return '';
+    const normalized = String(value).trim();
     if (isRemoteUrl(normalized)) return normalized;
+    if (normalized.startsWith('//')) return `https:${normalized}`;
+    if (normalized.startsWith('data:image/')) return normalized;
     if (normalized.startsWith('posters/') || normalized.startsWith('assets/')) return normalized;
     if (normalized.startsWith('/')) return `${imageBaseUrl}${normalized}`;
     return normalized;
 }
 
+function getLibraryPosterCandidates(item, mediaType) {
+    return Array.from(new Set([
+        normalizePosterSource(item?.poster_path ?? item?.posterPath),
+        normalizePosterSource(item?.poster),
+        getLocalPosterPath(item?.id, mediaType),
+        placeholderImage
+    ].filter(Boolean)));
+}
+
 function getLibraryPosterSource(item, mediaType) {
-    const posterPath = normalizePosterSource(item?.poster_path ?? item?.posterPath);
-    if (posterPath) return posterPath;
+    return getLibraryPosterCandidates(item, mediaType)[0] || placeholderImage;
+}
 
-    const poster = normalizePosterSource(item?.poster);
-    if (poster) return poster;
+function createLibraryPosterImage(item, mediaType, title, preferredSource = '') {
+    const img = document.createElement('img');
+    img.alt = title || 'Poster';
+    img.loading = 'lazy';
+    img.decoding = 'async';
 
-    return getLocalPosterPath(item?.id, mediaType) || placeholderImage;
+    const candidates = Array.from(new Set([
+        normalizePosterSource(preferredSource),
+        ...getLibraryPosterCandidates(item, mediaType)
+    ].filter(Boolean)));
+
+    let candidateIndex = 0;
+    const applyNextSource = () => {
+        if (candidateIndex >= candidates.length) return;
+        img.src = candidates[candidateIndex];
+        candidateIndex += 1;
+    };
+
+    const handleError = () => {
+        if (candidateIndex >= candidates.length) {
+            img.removeEventListener('error', handleError);
+            return;
+        }
+        applyNextSource();
+    };
+
+    img.addEventListener('error', handleError);
+    applyNextSource();
+    return img;
 }
 
 function getItemDateValue(item) {
@@ -2928,6 +2969,7 @@ function loadContinueWatching() {
             div.className = 'poster';
             div.style.position = 'relative';
             const episodeLabel = formatEpisodeLabel(data);
+            const posterImg = createLibraryPosterImage(data, data.mediaType, title, poster);
 
             let percent = 0;
             if (typeof data.progress === 'number') {
@@ -2938,13 +2980,13 @@ function loadContinueWatching() {
             percent = Math.min(100, Math.max(0, percent));
 
             div.innerHTML = `
-                <img src="${poster}" alt="${title}" loading="lazy" decoding="async">
                 <div style="width:100%;height:6px;background:#222;margin-top:4px;overflow:hidden;">
                     <div style="width:${percent}%;height:100%;background:#e02735;"></div>
                 </div>
                 ${episodeLabel ? `<div style="margin-top:6px;font-size:0.76em;color:#d9d9d9;text-align:center;letter-spacing:.04em;">${episodeLabel}</div>` : ''}
                 ${hasNewEpisode ? `<div style="position:absolute;right:8px;top:8px;background:#e02735;color:#fff;font-size:0.65em;font-weight:700;padding:4px 8px;border-radius:12px;letter-spacing:.4px;">New episode</div>` : ''}
             `;
+            div.prepend(posterImg);
 
             div.onclick = () => openPlayer(
                 data.mediaType,
@@ -3035,11 +3077,10 @@ function loadWatchLater() {
 
     Promise.all(posterPromises).then(cards => {
         cards.forEach(({ it, poster, title }) => {
-            if (!poster || poster === placeholderImage) return;
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
+            div.appendChild(createLibraryPosterImage(it, it.mediaType, title, poster));
             div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? it.lastSeason ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
@@ -3117,11 +3158,10 @@ function loadWatchedList() {
 
     Promise.all(posterPromises).then(cards => {
         cards.forEach(({ it, poster, title }) => {
-            if (!poster || poster === placeholderImage) return;
             const div = document.createElement('div');
             div.className = 'poster';
             div.style.position = 'relative';
-            div.innerHTML = `<img src="${poster}" alt="${title}" loading="lazy" decoding="async">`;
+            div.appendChild(createLibraryPosterImage(it, it.mediaType, title, poster));
             div.onclick = () => openPlayer(it.mediaType, it.id, (it.season ?? 1), (it.episode ?? 1), true);
 
             const removeBtn = document.createElement('button');
