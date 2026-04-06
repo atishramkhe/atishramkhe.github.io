@@ -448,19 +448,15 @@ function ensureResultsPosterCSS() {
     if (_resultsPosterCssInjected) return;
     const style = document.createElement('style');
     style.textContent = `
+        /* Force a permanent scrollbar on the search wrapper so the viewport
+           width never changes when a poster hover expands visually.
+           This breaks the scrollbar-thrash infinite-reflow loop. */
+        #search-results-wrapper.active {
+            overflow-y: scroll !important;
+            overflow-x: hidden !important;
+        }
         #results.poster-grid-match {
             box-sizing: border-box;
-            justify-content: center;
-        }
-        #results.poster-grid-match .search-result-card {
-            --hover-scale: 1.18;
-            will-change: transform;
-        }
-        #results.poster-grid-match .search-result-card-first {
-            transform-origin: top left;
-        }
-        #results.poster-grid-match .search-result-card-last {
-            transform-origin: top right;
         }
         #results.poster-grid-match .poster img {
             width: 100%;
@@ -576,10 +572,6 @@ function displayResults(results) {
             skipCam: true,
             itemMeta: item
         });
-
-        card.classList.add('search-result-card');
-        if (index === 0) card.classList.add('search-result-card-first');
-        if (index === visibleResults.length - 1) card.classList.add('search-result-card-last');
 
         resultsContainer.appendChild(card);
     });
