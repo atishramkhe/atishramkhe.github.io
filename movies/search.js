@@ -15,6 +15,8 @@ const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 const placeholderImage = 'assets/no_poster.png';
 const CAM_WINDOW_DAYS = 30;
 const camMetadataCache = new Map();
+const tmdbTitleDetailsCache = new Map();
+const tmdbExtraInfoCache = new Map();
 const STREAMING_HOME_PAGE_PATTERNS = [
     /(?:^|\.)netflix\.com/i,
     /(?:^|\.)primevideo\.com/i,
@@ -1719,72 +1721,123 @@ function buildPosterCard({ id, mediaType, poster, title, year, date, overview, i
     return posterDiv;
 }
 
-// Helper to fetch full TMDB details and credits for more poster info
-async function fetchMorePosterInfo(id, mediaType) {
-    const apiType = mediaType === 'tv' ? 'tv' : 'movie';
-    const detailsUrl = `https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`;
-    const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
-    const externalIdsUrl = mediaType === 'tv'
-        ? `https://api.themoviedb.org/3/${apiType}/${id}/external_ids?api_key=${apiKey}`
-        : null;
+async function fetchTMDBTitleDetails(id, mediaType) {
+    if (!id) return {};
 
-    let details = {};
-    let credits = {};
-    let externalIds = {};
-
-    try {
-        const requests = [
-            fetch(detailsUrl).then(r => r.json()),
-            fetch(creditsUrl).then(r => r.json())
-        ];
-        if (externalIdsUrl) requests.push(fetch(externalIdsUrl).then(r => r.json()));
-
-        const [detailsRes, creditsRes, externalIdsRes] = await Promise.all(requests);
-        details = detailsRes || {};
-        credits = creditsRes || {};
-        externalIds = externalIdsRes || {};
-    } catch (e) {
-        // fallback: empty objects
+    const apiType = canonicalType(mediaType) === 'tv' ? 'tv' : 'movie';
+    const cacheKey = `${apiType}:${id}`;
+    const cached = tmdbTitleDetailsCache.get(cacheKey);
+    if (cached) {
+        return cached instanceof Promise ? cached : Promise.resolve(cached);
     }
 
-    // Parse genres
-    const genres = (details.genres || []).map(g => g.name).join(', ');
-    // Vote average
-    const voteAverage = details.vote_average || '';
-    // Runtime
-    const runtime = mediaType === 'tv'
-        ? (details.episode_run_time && details.episode_run_time.length ? details.episode_run_time[0] : '')
-        : details.runtime || '';
-    // Seasons/Episodes
-    const numSeasons = details.number_of_seasons || '';
-    const numEpisodes = details.number_of_episodes || '';
-    // Backdrop
-    const backdrop = details.backdrop_path ? `https://image.tmdb.org/t/p/original${details.backdrop_path}` : '';
-    // Cast (first 6)
-    const castArr = (credits.cast || []).slice(0, 6);
-    // Crew (directors/writers)
-    const crew = (credits.crew || []).filter(c => ['Director', 'Writer', 'Screenplay'].includes(c.job)).map(c => `${c.name} (${c.job})`).join(', ');
+    const request = fetch(`https://api.themoviedb.org/3/${apiType}/${id}?api_key=${apiKey}`)
+        .then(response => response.ok ? response.json() : {})
+        .catch(() => ({}))
+        .then(details => {
+            tmdbTitleDetailsCache.set(cacheKey, details || {});
+            return details || {};
+        });
 
-    // NEW: networks (for TV) / production companies (for movies) with logos
-    const networks = Array.isArray(details.networks) ? details.networks : [];
-    const productionCompanies = Array.isArray(details.production_companies) ? details.production_companies : [];
-    const productionCountries = Array.isArray(details.production_countries) ? details.production_countries : [];
+    tmdbTitleDetailsCache.set(cacheKey, request);
+    return request;
+}
 
+async function fetchTMDBFallbackMetadata(id, mediaType) {
+    const details = await fetchTMDBTitleDetails(id, mediaType);
+    const resolvedDate = details.release_date || details.first_air_date || '';
     return {
-        genres,
-        voteAverage,
-        runtime,
-        numSeasons,
-        numEpisodes,
-        backdrop,
-        castArr,
-        crew,
-        networks,
-        productionCompanies,
-        productionCountries,
+        title: details.title || details.name || '',
+        overview: details.overview || '',
+        date: resolvedDate,
+        year: resolvedDate ? resolvedDate.slice(0, 4) : '',
+        poster: details.poster_path ? `${imageBaseUrl}${details.poster_path}` : '',
+        posterOriginal: details.poster_path ? `https://image.tmdb.org/t/p/original${details.poster_path}` : '',
+        backdrop: details.backdrop_path ? `https://image.tmdb.org/t/p/original${details.backdrop_path}` : '',
         homepage: details.homepage || '',
-        imdbId: details.imdb_id || externalIds.imdb_id || ''
+        productionCompanies: Array.isArray(details.production_companies) ? details.production_companies : []
     };
+}
+
+// Helper to fetch full TMDB details and credits for more poster info
+async function fetchMorePosterInfo(id, mediaType) {
+    if (!id) return {};
+
+    const apiType = canonicalType(mediaType) === 'tv' ? 'tv' : 'movie';
+    const cacheKey = `${apiType}:${id}`;
+    const cached = tmdbExtraInfoCache.get(cacheKey);
+    if (cached) {
+        return cached instanceof Promise ? cached : Promise.resolve(cached);
+    }
+
+    const request = (async () => {
+        const details = await fetchTMDBTitleDetails(id, apiType);
+        const creditsUrl = `https://api.themoviedb.org/3/${apiType}/${id}/credits?api_key=${apiKey}`;
+        const externalIdsUrl = apiType === 'tv'
+            ? `https://api.themoviedb.org/3/${apiType}/${id}/external_ids?api_key=${apiKey}`
+            : null;
+
+        let credits = {};
+        let externalIds = {};
+
+        try {
+            const requests = [fetch(creditsUrl).then(r => r.ok ? r.json() : {})];
+            if (externalIdsUrl) requests.push(fetch(externalIdsUrl).then(r => r.ok ? r.json() : {}));
+            const [creditsRes, externalIdsRes] = await Promise.all(requests);
+            credits = creditsRes || {};
+            externalIds = externalIdsRes || {};
+        } catch (e) {
+            // fallback: empty objects
+        }
+
+        const genres = (details.genres || []).map(g => g.name).join(', ');
+        const voteAverage = details.vote_average || '';
+        const runtime = apiType === 'tv'
+            ? (details.episode_run_time && details.episode_run_time.length ? details.episode_run_time[0] : '')
+            : details.runtime || '';
+        const numSeasons = details.number_of_seasons || '';
+        const numEpisodes = details.number_of_episodes || '';
+        const backdrop = details.backdrop_path ? `https://image.tmdb.org/t/p/original${details.backdrop_path}` : '';
+        const poster = details.poster_path ? `${imageBaseUrl}${details.poster_path}` : '';
+        const posterOriginal = details.poster_path ? `https://image.tmdb.org/t/p/original${details.poster_path}` : '';
+        const resolvedDate = details.release_date || details.first_air_date || '';
+        const castArr = (credits.cast || []).slice(0, 6);
+        const crew = (credits.crew || []).filter(c => ['Director', 'Writer', 'Screenplay'].includes(c.job)).map(c => `${c.name} (${c.job})`).join(', ');
+        const networks = Array.isArray(details.networks) ? details.networks : [];
+        const productionCompanies = Array.isArray(details.production_companies) ? details.production_companies : [];
+        const productionCountries = Array.isArray(details.production_countries) ? details.production_countries : [];
+
+        return {
+            title: details.title || details.name || '',
+            overview: details.overview || '',
+            date: resolvedDate,
+            year: resolvedDate ? resolvedDate.slice(0, 4) : '',
+            poster,
+            posterOriginal,
+            genres,
+            voteAverage,
+            runtime,
+            numSeasons,
+            numEpisodes,
+            backdrop,
+            castArr,
+            crew,
+            networks,
+            productionCompanies,
+            productionCountries,
+            homepage: details.homepage || '',
+            imdbId: details.imdb_id || externalIds.imdb_id || ''
+        };
+    })();
+
+    tmdbExtraInfoCache.set(cacheKey, request);
+    return request.then(result => {
+        tmdbExtraInfoCache.set(cacheKey, result);
+        return result;
+    }).catch(error => {
+        tmdbExtraInfoCache.delete(cacheKey);
+        throw error;
+    });
 }
 
 // Fetch similar + recommended titles from TMDB for the detail modal
@@ -1861,14 +1914,21 @@ function buildRelatedRow(titles, mediaType, modal, dimmer) {
 
 // Update showMorePosterInfo to style Play button as a red circle and move Watch Later below Play
 async function showMorePosterInfo({ id, mediaType, poster, title, year, date, overview, isTV }) {
-    // 1. Start with the exact poster used in search/grid
-    let posterUrl = poster || '';
-
-    // 2. Local generated path, used only as a fallback in onerror
-    const localGeneratedPoster = `posters/${mediaType === 'tv' ? 'tv' : 'movie'}_${id}.png`;
-
-    // 3. Fetch extra info (unchanged)
+    const resolvedMediaType = canonicalType(mediaType) === 'tv' ? 'tv' : 'movie';
     const extra = await fetchMorePosterInfo(id, mediaType);
+    const resolvedTitle = title || extra.title || 'Untitled';
+    const resolvedOverview = overview || extra.overview || '';
+    const resolvedDate = date || extra.date || '';
+    const resolvedYear = year || extra.year || (resolvedDate ? resolvedDate.slice(0, 4) : '');
+    const resolvedIsTV = typeof isTV === 'boolean' ? isTV : resolvedMediaType === 'tv';
+    const posterCandidates = Array.from(new Set([
+        normalizePosterSource(poster),
+        normalizePosterSource(extra.poster),
+        normalizePosterSource(extra.posterOriginal),
+        getLocalPosterPath(id, resolvedMediaType),
+        placeholderImage
+    ].filter(Boolean)));
+    let posterUrl = posterCandidates[0] || placeholderImage;
 
     // Build / show dimmer (unchanged) ...
     let dimmer = document.getElementById('player-dimmer');
@@ -1970,7 +2030,7 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
         </button>
         <div style="display:flex;gap:36px;">
             <div style="flex-shrink:0;display:flex;flex-direction:column;">
-                <img id="modal-poster" src="${posterUrl}" alt="${title}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
+                <img id="modal-poster" src="${posterUrl}" alt="${resolvedTitle}" style="width:180px;border-radius:0px;object-fit:cover;box-shadow:0 2px 12px #000;">
                 <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;width:100%;margin-top:18px;">
                     <div style="display:flex;flex-direction:column;align-items:center;">
                         <button id="${playBtnId}"
@@ -2018,13 +2078,13 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
                 </div>
             </div>
             <div style="flex:1;min-width:0;">
-                <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${title}</div>
-                <div style="color:#e02735;font-weight:600;margin-bottom:6px;font-size:1.1em;">${year || ''} ${isTV ? 'TV Show' : 'Movie'}</div>
-                <div style="margin-bottom:14px;color:#fff;font-size:1.08em;font-family:'OumaTrialLight';">${overview || 'No description available.'}</div>
+                <div style="font-size:2em;font-weight:700;color:#fff;text-shadow:0 2px 8px #000;">${resolvedTitle}</div>
+                <div style="color:#e02735;font-weight:600;margin-bottom:6px;font-size:1.1em;">${resolvedYear || ''} ${resolvedIsTV ? 'TV Show' : 'Movie'}</div>
+                <div style="margin-bottom:14px;color:#fff;font-size:1.08em;font-family:'OumaTrialLight';">${resolvedOverview || 'No description available.'}</div>
                 <div style="font-size:1.08em;color:#FFF;margin-bottom:10px;">
                     ${(extra.genres ? extra.genres.split(',').map(g => `<span class="showcase-tag">${g.trim()}</span>`).join(' ') : '<span class="showcase-tag">N/A</span>')}<br><br>
-                    <b>Release Date:</b> ${date || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}${extra.imdbId ? ` <a href="https://www.imdb.com/title/${extra.imdbId}/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;margin-left:10px;color:#f5c518;text-decoration:none;font-weight:700;">IMDb</a>` : ''}<br><br>
-                    ${isTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
+                    <b>Release Date:</b> ${resolvedDate || 'N/A'}  ${extra.runtime ? `<b>&nbsp;Runtime:</b> ${extra.runtime + ' min'} ` : ''}<b>&nbsp;Rating:</b> ${extra.voteAverage || 'N/A'}${extra.imdbId ? ` <a href="https://www.imdb.com/title/${extra.imdbId}/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;margin-left:10px;color:#f5c518;text-decoration:none;font-weight:700;">IMDb</a>` : ''}<br><br>
+                    ${resolvedIsTV ? `<b>Seasons:</b> ${extra.numSeasons || 'N/A'} <b>&nbsp;Episodes:</b> ${extra.numEpisodes || 'N/A'}<br>` : ''}<br>
                 </div>
                 <div style="font-size:1.08em;color:#e02735;margin-bottom:8px;"><b>Cast:</b></div>
                 ${castHtml}
@@ -2040,14 +2100,12 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
     // 4. Robust onerror chain: TMDB → local file → placeholder
     const modalPoster = modal.querySelector('#modal-poster');
     if (modalPoster) {
-        let triedLocal = false;
+        let posterIndex = 1;
         modalPoster.onerror = () => {
-            if (!triedLocal) {
-                // First failure: try local generated poster
-                triedLocal = true;
-                modalPoster.src = localGeneratedPoster;
+            if (posterIndex < posterCandidates.length) {
+                modalPoster.src = posterCandidates[posterIndex];
+                posterIndex += 1;
             } else {
-                // Second failure: give up and use placeholder
                 modalPoster.src = placeholderImage;
             }
         };
@@ -2083,11 +2141,12 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
             const added = toggleWatchLater({
                 id,
                 mediaType,
-                title,
+                title: resolvedTitle,
                 poster: posterUrl,
                 poster_path: posterUrl,
-                year,
-                date,
+                year: resolvedYear,
+                date: resolvedDate,
+                overview: resolvedOverview,
                 homepage: extra.homepage || '',
                 production_companies: extra.productionCompanies || []
             });
@@ -2105,11 +2164,12 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
             const watched = toggleWatchedList({
                 id,
                 mediaType,
-                title,
+                title: resolvedTitle,
                 poster: posterUrl,
                 poster_path: posterUrl,
-                year,
-                date,
+                year: resolvedYear,
+                date: resolvedDate,
+                overview: resolvedOverview,
                 homepage: extra.homepage || '',
                 production_companies: extra.productionCompanies || []
             });
@@ -2131,11 +2191,12 @@ async function showMorePosterInfo({ id, mediaType, poster, title, year, date, ov
             const liked = toggleLikedList({
                 id,
                 mediaType,
-                title,
+                title: resolvedTitle,
                 poster: posterUrl,
                 poster_path: posterUrl,
-                year,
-                date
+                year: resolvedYear,
+                date: resolvedDate,
+                overview: resolvedOverview
             });
             likeBtnEl.innerHTML = liked
                 ? '<span class="material-symbols-outlined" style="font-size:40px;" aria-hidden="true">thumb_up</span>'
@@ -2668,13 +2729,21 @@ function getLibraryPosterCandidates(item, mediaType) {
     return Array.from(new Set([
         normalizePosterSource(item?.poster_path ?? item?.posterPath),
         normalizePosterSource(item?.poster),
-        getLocalPosterPath(item?.id, mediaType),
-        placeholderImage
+        getLocalPosterPath(item?.id, mediaType)
     ].filter(Boolean)));
 }
 
 function getLibraryPosterSource(item, mediaType) {
-    return getLibraryPosterCandidates(item, mediaType)[0] || placeholderImage;
+    return getLibraryPosterCandidates(item, mediaType)[0] || '';
+}
+
+async function fetchTMDBPosterSource(id, mediaType) {
+    try {
+        const fallback = await fetchTMDBFallbackMetadata(id, mediaType);
+        return normalizePosterSource(fallback.poster || fallback.posterOriginal);
+    } catch {
+        return '';
+    }
 }
 
 function createLibraryPosterImage(item, mediaType, title, preferredSource = '') {
@@ -2689,22 +2758,39 @@ function createLibraryPosterImage(item, mediaType, title, preferredSource = '') 
     ].filter(Boolean)));
 
     let candidateIndex = 0;
+    let triedTmdb = false;
     const applyNextSource = () => {
         if (candidateIndex >= candidates.length) return;
         img.src = candidates[candidateIndex];
         candidateIndex += 1;
     };
 
-    const handleError = () => {
-        if (candidateIndex >= candidates.length) {
-            img.removeEventListener('error', handleError);
+    const handleError = async () => {
+        if (candidateIndex < candidates.length) {
+            applyNextSource();
             return;
         }
-        applyNextSource();
+
+        if (!triedTmdb) {
+            triedTmdb = true;
+            const tmdbPoster = await fetchTMDBPosterSource(item?.id, mediaType);
+            if (tmdbPoster && !candidates.includes(tmdbPoster)) {
+                candidates.push(tmdbPoster);
+                applyNextSource();
+                return;
+            }
+        }
+
+        img.removeEventListener('error', handleError);
+        img.src = placeholderImage;
     };
 
     img.addEventListener('error', handleError);
-    applyNextSource();
+    if (candidates.length > 0) {
+        applyNextSource();
+    } else {
+        void handleError();
+    }
     return img;
 }
 
@@ -2943,7 +3029,6 @@ function loadContinueWatching() {
         let poster = getLibraryPosterSource(data, data.mediaType);
         let title = data.title || data.name || 'Unknown Title';
         let hasNewEpisode = false;
-        if (!poster) poster = placeholderImage;
 
         if (data.mediaType === 'tv') {
             try {
@@ -3070,7 +3155,6 @@ function loadWatchLater() {
     const posterPromises = renderItems.map(async (it) => {
         let poster = getLibraryPosterSource(it, it.mediaType);
         let title = it.title || 'Unknown Title';
-        if (!poster) poster = placeholderImage;
 
         return { it, poster, title };
     });
@@ -3151,7 +3235,6 @@ function loadWatchedList() {
     const posterPromises = renderItems.map(async (it) => {
         let poster = getLibraryPosterSource(it, it.mediaType);
         let title = it.title || 'Unknown Title';
-        if (!poster) poster = placeholderImage;
 
         return { it, poster, title };
     });
