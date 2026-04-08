@@ -19,7 +19,7 @@ const NINE_ANIME_BASE = 'https://9animetv.to';
 const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
-const ANIME_VIDSRC_ONLY_MODE = true;
+const ANIME_VIDSRC_ONLY_MODE = false;
 
 // Live TV channels are loaded from live_channels.json — edit that file to add/change channels.
 let ANIME_LIVE_TV_CHANNELS = [];
