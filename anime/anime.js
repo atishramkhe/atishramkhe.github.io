@@ -1748,54 +1748,6 @@ function parseAnimeDate(value) {
     }
 }
 
-function normalizeEpisodeCount(value) {
-    const count = Number(value);
-    return Number.isFinite(count) && count > 0 ? Math.floor(count) : null;
-}
-
-function isCurrentlyAiringAnime(anime) {
-    if (!anime) return false;
-    if (anime.airing === true) return true;
-    const status = String(anime.status || '').toLowerCase();
-    return status.includes('currently airing') || status === 'airing';
-}
-
-function inferAiringEpisodeCount(anime, knownCount = null) {
-    if (!isCurrentlyAiringAnime(anime)) return null;
-
-    const airedFrom = parseAnimeDate(anime?.aired?.from);
-    if (!airedFrom) return normalizeEpisodeCount(knownCount);
-
-    const now = Date.now();
-    const startedAt = airedFrom.getTime();
-    if (!Number.isFinite(startedAt) || startedAt > now) return normalizeEpisodeCount(knownCount);
-
-    const elapsedWeeks = Math.floor((now - startedAt) / (7 * MS_PER_DAY));
-    const inferredCount = normalizeEpisodeCount(elapsedWeeks + 1);
-    const normalizedKnownCount = normalizeEpisodeCount(knownCount);
-
-    if (!inferredCount) return normalizedKnownCount;
-    if (!normalizedKnownCount) return inferredCount;
-
-    return Math.max(normalizedKnownCount, Math.min(inferredCount, normalizedKnownCount + 8));
-}
-
-function getAdjustedEpisodeCount(anime, ...candidates) {
-    let bestCount = null;
-    candidates.forEach((candidate) => {
-        const normalized = normalizeEpisodeCount(candidate);
-        if (!normalized) return;
-        bestCount = bestCount ? Math.max(bestCount, normalized) : normalized;
-    });
-
-    const inferredCount = inferAiringEpisodeCount(anime, bestCount);
-    if (inferredCount) {
-        bestCount = bestCount ? Math.max(bestCount, inferredCount) : inferredCount;
-    }
-
-    return bestCount;
-}
-
 function isNewAnimeRelease(anime, days = NEW_ANIME_WINDOW_DAYS) {
     const airedFrom = parseAnimeDate(anime?.aired?.from);
     if (!airedFrom) return false;
@@ -2429,30 +2381,31 @@ async function resolveAnimeEpisodeCount(anime) {
     const malId = Number(anime?.mal_id);
     if (!Number.isFinite(malId) || malId <= 0) return null;
 
-    const directCount = normalizeEpisodeCount(anime?.episodes);
-    if (directCount && !isCurrentlyAiringAnime(anime)) return directCount;
+    const directCount = Number(anime?.episodes);
+    if (Number.isFinite(directCount) && directCount > 0) return directCount;
 
     if (animeEpisodeCountCache.has(malId)) {
-        return getAdjustedEpisodeCount(anime, directCount, animeEpisodeCountCache.get(malId));
+        return animeEpisodeCountCache.get(malId);
     }
 
-    let resolvedCount = directCount;
-    let detailAnime = anime;
+    let resolvedCount = null;
 
     try {
         const details = await fetchJson(`${JIKAN_BASE}/anime/${malId}?sfw`, 2);
-        detailAnime = details?.data || anime;
-        resolvedCount = getAdjustedEpisodeCount(detailAnime, resolvedCount, details?.data?.episodes);
+        const detailCount = Number(details?.data?.episodes);
+        if (Number.isFinite(detailCount) && detailCount > 0) {
+            resolvedCount = detailCount;
+        }
     } catch (e) {
         console.warn('Failed to resolve anime episode count from details endpoint', malId, e);
     }
 
-    if (!resolvedCount || isCurrentlyAiringAnime(detailAnime)) {
+    if (!resolvedCount) {
         try {
             const page1 = await fetchJson(`${JIKAN_BASE}/anime/${malId}/episodes?page=1`, 2);
             const itemsTotal = Number(page1?.pagination?.items?.total);
             if (Number.isFinite(itemsTotal) && itemsTotal > 0) {
-                resolvedCount = getAdjustedEpisodeCount(detailAnime, resolvedCount, itemsTotal);
+                resolvedCount = itemsTotal;
             } else {
                 const lastPage = Number(page1?.pagination?.last_visible_page);
                 const firstPageLen = Array.isArray(page1?.data) ? page1.data.length : 0;
@@ -2471,15 +2424,15 @@ async function resolveAnimeEpisodeCount(anime) {
                 } else if (firstPageLen > 0) {
                     resolvedCount = firstPageLen;
                 }
-
-                resolvedCount = getAdjustedEpisodeCount(detailAnime, resolvedCount);
             }
         } catch (e) {
             console.warn('Failed to resolve anime episode count from episodes endpoint', malId, e);
         }
     }
 
-    const normalizedCount = getAdjustedEpisodeCount(detailAnime, resolvedCount);
+    const normalizedCount = Number.isFinite(Number(resolvedCount)) && Number(resolvedCount) > 0
+        ? Number(resolvedCount)
+        : null;
     animeEpisodeCountCache.set(malId, normalizedCount);
     return normalizedCount;
 }
@@ -3956,9 +3909,11 @@ async function openAnimeFromJikan(anime) {
     const openToken = Symbol('anime-player-open');
     currentAnimePlayerOpenToken = openToken;
 
-    let resolvedEpisodes = normalizeEpisodeCount(anime.episodes);
+    let resolvedEpisodes = Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null;
     const resolvedEpisodesPromise = !isMovie
-        ? resolveAnimeEpisodeCount(anime)
+        ? (Number.isFinite(Number(resolvedEpisodes)) && Number(resolvedEpisodes) > 0
+            ? Promise.resolve(Number(resolvedEpisodes))
+            : resolveAnimeEpisodeCount(anime))
         : Promise.resolve(resolvedEpisodes);
 
     // Install message listener once (for timing capture via userscript)
@@ -3968,7 +3923,7 @@ async function openAnimeFromJikan(anime) {
     const postersForProgress = buildPosterVariants(anime);
     const titleForProgress = getPreferredAnimeTitle(anime);
     const yearForProgress = buildYear(anime);
-    let episodesTotalForProgress = resolvedEpisodes;
+    const episodesTotalForProgress = resolvedEpisodes;
 
     // If a progress entry exists, we'll resume season/episode + preferred player later.
     const resumeProgress = getAnimeProgressRecord(malId);
@@ -4048,7 +4003,6 @@ async function openAnimeFromJikan(anime) {
     const playbackProfile = await playbackProfilePromise;
     if (currentAnimePlayerOpenToken !== openToken) return;
     resolvedEpisodes = await resolvedEpisodesPromise;
-    episodesTotalForProgress = resolvedEpisodes;
     if (currentAnimePlayerOpenToken !== openToken) return;
     if (!ANIME_VIDSRC_ONLY_MODE) {
         const resolvedAniListId = await aniListIdPromise;
@@ -4272,7 +4226,7 @@ async function openAnimeFromJikan(anime) {
         if (sourceEpisodes.length || nineAnimeMax > 0) {
             return Math.max(sourceEpisodes.length ? sourceEpisodes[sourceEpisodes.length - 1] : 0, nineAnimeMax);
         }
-        const jikanEpisodes = getAdjustedEpisodeCount(anime, resolvedEpisodes);
+        const jikanEpisodes = resolvedEpisodes;
         const floor = Math.max(1, Number.isFinite(Number(currentEpisode)) ? Number(currentEpisode) : 1);
         return Math.max(jikanEpisodes || 1, floor);
     }
