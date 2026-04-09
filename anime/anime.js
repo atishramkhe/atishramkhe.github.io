@@ -16,10 +16,11 @@ const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
 const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
 const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 const NINE_ANIME_BASE = 'https://9animetv.to';
+const VIDEASY_PLAYER_BASE = 'https://player.videasy.net';
 const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
-const ANIME_VIDSRC_ONLY_MODE = true;
+const ANIME_VIDSRC_ONLY_MODE = false;
 
 // Live TV channels are loaded from live_channels.json — edit that file to add/change channels.
 let ANIME_LIVE_TV_CHANNELS = [];
@@ -66,6 +67,7 @@ const ANIME_CONTINUE_SHOW_LIMIT = 24;
 let animeContinueShowAllExpanded = false;
 const ANIME_WATCHED_LIST_KEY = 'animeWatchedList';
 const DEFAULT_SEARCH_TYPE = 'series';
+const ANIME_BETA_NOTICE_ID = 'anime-beta-notice';
 
 let activeBrowseMedia = 'series';
 let adultContentEnabled = false;
@@ -121,6 +123,28 @@ function writeStoredBoolean(key, value) {
     try {
         localStorage.setItem(key, value ? '1' : '0');
     } catch { }
+}
+
+function clearAnimeContinueWatchingData({ confirm = true } = {}) {
+    if (confirm && !window.confirm('Clear all Continue Watching data? This cannot be undone.')) return false;
+
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (isAnimeProgressStorageKey(key)) keysToRemove.push(key);
+    }
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+    animeContinueShowAllExpanded = false;
+    try { loadAnimeContinueWatching(); } catch { }
+    return true;
+}
+
+function clearAnimeWatchLaterData({ confirm = true } = {}) {
+    if (confirm && !window.confirm('Clear the full Watch Later list? This cannot be undone.')) return false;
+    setAnimeWatchLater([]);
+    try { loadAnimeWatchLater(); } catch { }
+    scheduleSuggestedAnimeReload();
+    return true;
 }
 
 function applyAnimeHomeSnapshot(snapshot) {
@@ -529,7 +553,14 @@ function ensureAnimeProgressMessageListener() {
         const session = currentAnimePlayerSession;
         if (!session || !session.malId) return;
 
-        const msg = event && event.data;
+        let msg = event && event.data;
+        if (typeof msg === 'string') {
+            try {
+                msg = JSON.parse(msg);
+            } catch {
+                return;
+            }
+        }
         if (!msg || typeof msg !== 'object') return;
 
         let eventName = null;
@@ -574,6 +605,27 @@ function ensureAnimeProgressMessageListener() {
                 episodeValue = Math.floor(Number(data.episode));
             }
             bypassThrottle = eventName === 'pause' || eventName === 'complete';
+        } else if (String(event.origin || '').toLowerCase().includes('player.videasy.net')) {
+            const mediaType = String(msg.type || '').toLowerCase();
+            if (mediaType === 'movie' && !session.isMovie) return;
+            if (mediaType === 'anime' && session.isMovie) return;
+
+            eventName = 'time';
+            currentTime = Number(msg.timestamp);
+            duration = Number(msg.duration);
+            playerHost = 'player.videasy.net';
+
+            if (Number.isFinite(Number(msg.season)) && Number(msg.season) > 0) {
+                seasonValue = `saison${Math.floor(Number(msg.season))}`;
+            }
+            if (Number.isFinite(Number(msg.episode)) && Number(msg.episode) > 0) {
+                episodeValue = Math.floor(Number(msg.episode));
+            }
+
+            if (Number.isFinite(Number(msg.progress)) && Number(msg.progress) >= 99.5) {
+                eventName = 'complete';
+                bypassThrottle = true;
+            }
         } else {
             return;
         }
@@ -1283,14 +1335,7 @@ function loadAnimeContinueWatching() {
             clearBtn.onmouseover = () => { clearBtn.style.color = '#f1892f'; };
             clearBtn.onmouseout = () => { clearBtn.style.color = '#444444ff'; };
             clearBtn.onclick = () => {
-                if (!window.confirm('Are you sure you want to clear all Continue Watching data? This cannot be undone.')) return;
-                const keysToRemove = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const k = localStorage.key(i);
-                    if (isAnimeProgressStorageKey(k)) keysToRemove.push(k);
-                }
-                keysToRemove.forEach(k => localStorage.removeItem(k));
-                loadAnimeContinueWatching();
+                clearAnimeContinueWatchingData();
             };
             buttonGroup.appendChild(clearBtn);
         }
@@ -1337,6 +1382,7 @@ function loadAnimeContinueWatching() {
                 title_english: data.title || '',
                 type: Number(data.episodesTotal) === 1 ? 'Movie' : 'TV',
                 episodes: data.episodesTotal || null,
+                _fromProgressRecord: true,
                 year: data.year || '',
                 images: {
                     jpg: {
@@ -1717,6 +1763,55 @@ if (typeof initSqlJs === 'function') {
 }
 
 searchContainer.style.position = 'relative';
+
+function renderAnimeBetaNotice() {
+    if (!document.body || document.getElementById(ANIME_BETA_NOTICE_ID)) return;
+
+    const notice = document.createElement('div');
+    notice.id = ANIME_BETA_NOTICE_ID;
+    notice.innerHTML = `
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+            <div style="min-width:260px;flex:1;display:flex;flex-direction:column;gap:6px;">
+                <div style="font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:#f1892f;font-family:inherit;">Beta Notice</div>
+                <div style="font-size:0.98rem;line-height:1.55;color:#f6f1e8;font-family:inherit;">
+                    This website is still in beta, so expect possible bugs with playback, episode data, and saved lists. If something looks wrong, you may need to clear your Continue Watching or Watch Later list and reload.
+                </div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;">
+                <button type="button" id="anime-beta-clear-continue" style="background:rgba(241,137,47,0.16);color:#f7c085;border:1px solid rgba(241,137,47,0.38);padding:10px 14px;border-radius:999px;cursor:pointer;font:inherit;">Clear Continue Watching</button>
+                <button type="button" id="anime-beta-clear-watchlater" style="background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.16);padding:10px 14px;border-radius:999px;cursor:pointer;font:inherit;">Clear Watch Later</button>
+                <button type="button" id="anime-beta-dismiss" aria-label="Dismiss beta notice" style="background:transparent;color:#a8a8a8;border:1px solid rgba(255,255,255,0.1);padding:10px 14px;border-radius:999px;cursor:pointer;font:inherit;">Dismiss</button>
+            </div>
+        </div>
+    `;
+
+    Object.assign(notice.style, {
+        position: 'fixed',
+        top: '16px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'min(920px, calc(100vw - 24px))',
+        padding: '16px 18px',
+        borderRadius: '18px',
+        background: 'linear-gradient(180deg, rgba(26, 19, 13, 0.96), rgba(12, 12, 12, 0.96))',
+        border: '1px solid rgba(241, 137, 47, 0.25)',
+        boxShadow: '0 18px 40px rgba(0, 0, 0, 0.4)',
+        backdropFilter: 'blur(14px)',
+        zIndex: '10001'
+    });
+
+    document.body.appendChild(notice);
+
+    notice.querySelector('#anime-beta-clear-continue')?.addEventListener('click', () => {
+        clearAnimeContinueWatchingData();
+    });
+    notice.querySelector('#anime-beta-clear-watchlater')?.addEventListener('click', () => {
+        clearAnimeWatchLaterData();
+    });
+    notice.querySelector('#anime-beta-dismiss')?.addEventListener('click', () => {
+        notice.remove();
+    });
+}
 
 function truncate(text, maxLen = 260) {
     if (!text) return '';
@@ -2484,7 +2579,8 @@ function setupResultsGridLayout() {
 function renderAnimeCardsIntoGrid(grid, items, { clickable = true } = {}) {
     grid.innerHTML = '';
     items.forEach((anime) => {
-        const card = createPosterCard(anime, openAnimeFromJikan, { clickable });
+        const openHandler = anime && anime._nineAnimeDirect ? openAnimeFromBrowseEntry : openAnimeFromJikan;
+        const card = createPosterCard(anime, openHandler, { clickable });
         grid.appendChild(card);
     });
 }
@@ -3278,11 +3374,6 @@ async function resolveBrowseEntryToJikan(entry) {
 
 async function openAnimeFromBrowseEntry(entry) {
     if (!entry) return;
-    if (entry._nineAnimeSearchResult) {
-        await openAnimeFromJikan(entry);
-        return;
-    }
-
     const resolved = await resolveBrowseEntryToJikan(entry);
     if (resolved) {
         await openAnimeFromJikan(resolved);
@@ -3565,6 +3656,28 @@ function appendNineAnimeAutoplay(url) {
     }
 }
 
+function buildVideasyAnimeUrls({ malId = null, aniListId = null, episodeNumber = null } = {}) {
+    const mal = parsePositiveInteger(malId);
+    const aniList = parsePositiveInteger(aniListId);
+    const preferredId = aniList || mal;
+    if (!preferredId) return [];
+
+    const basePath = episodeNumber == null
+        ? `${VIDEASY_PLAYER_BASE}/anime/${preferredId}`
+        : `${VIDEASY_PLAYER_BASE}/anime/${preferredId}/${Math.max(1, Math.floor(Number(episodeNumber) || 1))}`;
+    try {
+        const url = new URL(basePath);
+        url.searchParams.set('nextEpisode', 'true');
+        url.searchParams.set('episodeSelector', 'true');
+        url.searchParams.set('autoplayNextEpisode', 'true');
+        url.searchParams.set('overlay', 'true');
+        url.searchParams.set('color', 'F1892F');
+        return [url.toString()];
+    } catch {
+        return [`${basePath}?nextEpisode=true&episodeSelector=true&autoplayNextEpisode=true&overlay=true&color=F1892F`];
+    }
+}
+
 async function resolveNineAnimeEpisodeGroups(nineAnimeSourceData, seasonKey, episodeNumber) {
     if (!nineAnimeSourceData || String(seasonKey) !== 'saison1') return [];
     const episode = nineAnimeSourceData.episodesByNumber.get(Number(episodeNumber));
@@ -3714,6 +3827,8 @@ async function getAnimePlaybackProfile(anime) {
 
     const pending = (async () => {
         const isMovie = (anime?.type || '').toLowerCase() === 'movie';
+        const malId = parsePositiveInteger(anime?.mal_id);
+        const cachedAniListId = malId ? getCachedAniListId(malId) : null;
         if (ANIME_VIDSRC_ONLY_MODE) {
             if (isMovie) {
                 const tmdbId = anime?.tmdbId || anime?.tmdb_id || await getTmdbIdForAnimeMovie(anime);
@@ -3728,14 +3843,25 @@ async function getAnimePlaybackProfile(anime) {
                 };
             }
 
-            const malId = parsePositiveInteger(anime?.mal_id);
-            const aniListId = malId ? getCachedAniListId(malId) : null;
+            const aniListId = cachedAniListId;
             return {
                 isMovie: false,
                 playable: Boolean(malId || aniListId),
                 tmdbId: null,
                 aniListId,
                 sourceAniListId: aniListId,
+                seriesSourceData: null,
+                nineAnimeSourceData: null
+            };
+        }
+
+        if (malId) {
+            return {
+                isMovie,
+                playable: true,
+                tmdbId: null,
+                aniListId: cachedAniListId,
+                sourceAniListId: cachedAniListId,
                 seriesSourceData: null,
                 nineAnimeSourceData: null
             };
@@ -3756,13 +3882,13 @@ async function getAnimePlaybackProfile(anime) {
             };
         }
 
-        const malId = anime?.mal_id;
-        const aniListId = getCachedAniListId(malId) || await resolveAniListId(malId);
-        if (aniListId) setCachedAniListId(malId, aniListId);
+        const fallbackMalId = anime?.mal_id;
+        const aniListId = getCachedAniListId(fallbackMalId) || await resolveAniListId(fallbackMalId);
+        if (aniListId) setCachedAniListId(fallbackMalId, aniListId);
         const resolved = await resolveSeriesSourceData(aniListId);
         const animeSamaPlayable = hasAnySeriesSources(resolved.sourceData);
         const nineAnimeSourceData = animeSamaPlayable ? null : (directNineAnimeSourceData || await resolveNineAnimeSourceData(anime));
-        const vidsrcPlayable = Boolean(malId || resolved.aniListId);
+        const vidsrcPlayable = Boolean(fallbackMalId || resolved.aniListId);
         return {
             isMovie: false,
             playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || vidsrcPlayable,
@@ -3909,7 +4035,9 @@ async function openAnimeFromJikan(anime) {
     const openToken = Symbol('anime-player-open');
     currentAnimePlayerOpenToken = openToken;
 
-    let resolvedEpisodes = Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null;
+    let resolvedEpisodes = anime && anime._fromProgressRecord
+        ? null
+        : (Number.isFinite(Number(anime.episodes)) ? Number(anime.episodes) : null);
     const resolvedEpisodesPromise = !isMovie
         ? (Number.isFinite(Number(resolvedEpisodes)) && Number(resolvedEpisodes) > 0
             ? Promise.resolve(Number(resolvedEpisodes))
@@ -3923,7 +4051,7 @@ async function openAnimeFromJikan(anime) {
     const postersForProgress = buildPosterVariants(anime);
     const titleForProgress = getPreferredAnimeTitle(anime);
     const yearForProgress = buildYear(anime);
-    const episodesTotalForProgress = resolvedEpisodes;
+    let episodesTotalForProgress = resolvedEpisodes;
 
     // If a progress entry exists, we'll resume season/episode + preferred player later.
     const resumeProgress = getAnimeProgressRecord(malId);
@@ -3998,17 +4126,35 @@ async function openAnimeFromJikan(anime) {
     });
     try { loadAnimeContinueWatching(); } catch { }
 
+    let playerStateReady = false;
+    let pendingEpisodeUiRefresh = false;
+    let pendingSourceRefresh = false;
+
+    void resolvedEpisodesPromise.then((nextResolvedEpisodes) => {
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        const normalized = normalizeEpisodeCount(nextResolvedEpisodes);
+        if (!normalized) return;
+        resolvedEpisodes = normalized;
+        episodesTotalForProgress = normalized;
+        upsertAnimeProgressRecord(malId, {
+            episodesTotal: normalized,
+            updatedAt: Date.now()
+        });
+        if (!isMovie) scheduleEpisodeUiRefresh();
+        try { loadAnimeContinueWatching(); } catch { }
+    }).catch(() => undefined);
+
+    void aniListIdPromise.then((resolvedAniListId) => {
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        if (!resolvedAniListId || resolvedAniListId === aniListId) return;
+        aniListId = resolvedAniListId;
+        scheduleSourceRefresh();
+    }).catch(() => undefined);
+
     let seriesSourceData = null;
     let nineAnimeSourceData = null;
     const playbackProfile = await playbackProfilePromise;
     if (currentAnimePlayerOpenToken !== openToken) return;
-    resolvedEpisodes = await resolvedEpisodesPromise;
-    if (currentAnimePlayerOpenToken !== openToken) return;
-    if (!ANIME_VIDSRC_ONLY_MODE) {
-        const resolvedAniListId = await aniListIdPromise;
-        if (currentAnimePlayerOpenToken !== openToken) return;
-        if (resolvedAniListId) aniListId = resolvedAniListId;
-    }
     if (playbackProfile && playbackProfile.aniListId) {
         aniListId = playbackProfile.aniListId;
     }
@@ -4025,6 +4171,24 @@ async function openAnimeFromJikan(anime) {
     }
     seriesSourceData = playbackProfile.seriesSourceData || null;
     nineAnimeSourceData = playbackProfile.nineAnimeSourceData || null;
+
+    const shouldResolveEpisodesBeforeRender = !isMovie && (
+        anime?._fromProgressRecord === true
+        || !normalizeEpisodeCount(resolvedEpisodes)
+        || normalizeEpisodeCount(resolvedEpisodes) <= 1
+    );
+    if (shouldResolveEpisodesBeforeRender) {
+        const refreshedEpisodeCount = normalizeEpisodeCount(await resolvedEpisodesPromise);
+        if (currentAnimePlayerOpenToken !== openToken) return;
+        if (refreshedEpisodeCount) {
+            resolvedEpisodes = refreshedEpisodeCount;
+            episodesTotalForProgress = refreshedEpisodeCount;
+            upsertAnimeProgressRecord(malId, {
+                episodesTotal: refreshedEpisodeCount,
+                updatedAt: Date.now()
+            });
+        }
+    }
 
     let nineAnimeLookupPromise = null;
     async function ensureNineAnimeSourceData() {
@@ -4045,9 +4209,12 @@ async function openAnimeFromJikan(anime) {
 
     // State
     let tmdbId = playbackProfile.tmdbId || null;
+    const preferVideasySource = Boolean(parsePositiveInteger(malId) || parsePositiveInteger(aniListId));
 
     // Build season/episode lists directly from Jikan episode metadata.
-    let seasons = sortSeasonKeys(Object.keys(seriesSourceData || {}));
+    let seasons = preferVideasySource && !isMovie
+        ? ['saison1']
+        : sortSeasonKeys(Object.keys(seriesSourceData || {}));
     if (!seasons.length && nineAnimeSourceData && nineAnimeSourceData.totalEpisodes > 0) {
         seasons = ['saison1'];
     }
@@ -4067,6 +4234,7 @@ async function openAnimeFromJikan(anime) {
     function groupKeyFromLabel(label) {
         if (!label) return null;
         const v = String(label).trim().toUpperCase();
+        if (v === 'VIDEASY') return 'videasy';
         if (v === 'VIDSRC.CC') return 'vidsrc';
         if (v === 'VO') return 'vo';
         if (v === 'VOSTA') return 'vosta';
@@ -4077,6 +4245,7 @@ async function openAnimeFromJikan(anime) {
 
     function labelFromGroupKey(key) {
         if (!key) return isMovie ? 'VO' : 'VOSTA';
+        if (key === 'videasy') return 'VIDEASY';
         if (key === 'vidsrc') return 'vidsrc.cc';
         if (key === 'vo') return 'VO';
         if (key === 'vosta') return 'VOSTA';
@@ -4170,6 +4339,9 @@ async function openAnimeFromJikan(anime) {
             }
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 u.searchParams.set('ateaish_seek', String(Math.floor(Number(seekSeconds))));
+                if (u.hostname.toLowerCase().includes('videasy.net')) {
+                    u.searchParams.set('progress', String(Math.floor(Number(seekSeconds))));
+                }
             }
             return u.toString();
         } catch {
@@ -4184,6 +4356,9 @@ async function openAnimeFromJikan(anime) {
             }
             if (seekSeconds != null && Number.isFinite(Number(seekSeconds)) && Number(seekSeconds) > 0) {
                 out += `&ateaish_seek=${encodeURIComponent(String(Math.floor(Number(seekSeconds))))}`;
+                if (String(rawUrl).toLowerCase().includes('videasy.net')) {
+                    out += `&progress=${encodeURIComponent(String(Math.floor(Number(seekSeconds))))}`;
+                }
             }
             return out;
         }
@@ -4219,6 +4394,10 @@ async function openAnimeFromJikan(anime) {
     // Helper to get max episode for a season
     function getMaxEpisode(season) {
         if (isMovie) return 1;
+        if (preferVideasySource) {
+            const floor = Math.max(1, Number.isFinite(Number(currentEpisode)) ? Number(currentEpisode) : 1);
+            return Math.max(resolvedEpisodes || 1, floor);
+        }
         const sourceEpisodes = getSortedEpisodeNumbersForSeason(seriesSourceData, season);
         const nineAnimeMax = (nineAnimeSourceData && String(season) === 'saison1')
             ? Number(nineAnimeSourceData.totalEpisodes) || 0
@@ -4264,6 +4443,15 @@ async function openAnimeFromJikan(anime) {
     }
 
     async function buildSourceGroups(season, episode) {
+        let effectiveAniListId = parsePositiveInteger(aniListId);
+        if (!ANIME_VIDSRC_ONLY_MODE && !effectiveAniListId) {
+            const resolvedAniListId = parsePositiveInteger(await aniListIdPromise);
+            if (resolvedAniListId) {
+                aniListId = resolvedAniListId;
+                effectiveAniListId = resolvedAniListId;
+            }
+        }
+
         if (ANIME_VIDSRC_ONLY_MODE) {
             if (isMovie) {
                 if (!tmdbId) return [];
@@ -4281,37 +4469,41 @@ async function openAnimeFromJikan(anime) {
         }
 
         if (isMovie) {
+            const videasyMovieUrls = buildVideasyAnimeUrls({ malId, aniListId: effectiveAniListId, episodeNumber: null });
+            if (videasyMovieUrls.length) {
+                return [
+                    { key: 'videasy', label: 'VIDEASY', urls: videasyMovieUrls }
+                ];
+            }
             const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
             if (resolvedNineAnimeSourceData) {
                 const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, 'saison1', 1);
                 if (nineAnimeGroups.length) return nineAnimeGroups;
             }
-            if (tmdbId) {
-                return [
-                    { key: 'vo', label: 'VO', urls: [`https://vidsrc.cc/v2/embed/movie/${tmdbId}?autoPlay=true`] }
-                ];
-            }
             return [];
         }
 
         // Series mode
+        const groups = [];
+        const videasyUrls = buildVideasyAnimeUrls({ malId, aniListId: effectiveAniListId, episodeNumber: episode });
+        if (videasyUrls.length) {
+            groups.push({ key: 'videasy', label: 'VIDEASY', urls: videasyUrls });
+        }
+
         const animeSamaGroups = buildSeriesSourceGroupsFromData(seriesSourceData, season, episode);
         if (animeSamaGroups.length) {
-            return animeSamaGroups;
+            groups.push(...animeSamaGroups);
         }
         const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
         if (resolvedNineAnimeSourceData) {
             const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, season, episode);
-            if (nineAnimeGroups.length) return nineAnimeGroups;
+            if (nineAnimeGroups.length) groups.push(...nineAnimeGroups);
         }
-        const vidsrcAnimeId = malId ? String(malId) : `ani${aniListId}`;
-        const vidsrcSub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/sub?autoPlay=true`;
-        const vidsrcDub = `https://vidsrc.cc/v2/embed/anime/${vidsrcAnimeId}/${episode}/dub?autoPlay=true`;
 
-        return [
-            { key: 'vosta', label: 'VOSTA', urls: [vidsrcSub].filter(Boolean) },
-            { key: 'va', label: 'VA', urls: [vidsrcDub].filter(Boolean) }
-        ].filter(g => g.urls && g.urls.length);
+        return groups.filter((group, index, list) => {
+            if (!group || !group.urls || !group.urls.length) return false;
+            return list.findIndex((candidate) => candidate.key === group.key) === index;
+        });
     }
 
     function seasonLabelFromKey(seasonKey) {
@@ -4321,6 +4513,25 @@ async function openAnimeFromJikan(anime) {
 
     currentEpisode = Math.min(currentEpisode, getMaxEpisode(currentSeason));
     let sourceIndicatorRenderToken = 0;
+
+    function scheduleEpisodeUiRefresh() {
+        if (!playerStateReady) {
+            pendingEpisodeUiRefresh = true;
+            return;
+        }
+        pendingEpisodeUiRefresh = false;
+        renderSeasonEpisodeSelector();
+        updateEpisodeArrows();
+    }
+
+    function scheduleSourceRefresh() {
+        if (!playerStateReady) {
+            pendingSourceRefresh = true;
+            return;
+        }
+        pendingSourceRefresh = false;
+        void renderAnimeSourceIndicators().catch(() => undefined);
+    }
 
     function renderSeasonEpisodeSelector() {
         let selectorBar = playerContainer.querySelector('#season-episode-selector');
@@ -4571,21 +4782,23 @@ async function openAnimeFromJikan(anime) {
     }
 
     function selectionLabelForSettings(sel) {
-        if (!sel || !sel.group) return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : (isMovie ? 'VO' : 'VOSTFR');
+        if (!sel || !sel.group) return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'VIDEASY';
         const group = (currentGroups || []).find((item) => item.key === sel.group);
         if (group && group.label) return group.label;
         const g = sel.group;
+        if (g === 'videasy') return 'VIDEASY';
         if (g === 'vidsrc') return 'vidsrc.cc';
         if (g === 'vo') return 'VO';
         if (g === 'vostfr') return 'VOSTFR';
         if (g === 'vosta') return 'VOSTA';
         if (g === 'va') return 'VA';
-        return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : (isMovie ? 'VO' : 'VOSTFR');
+        return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'VIDEASY';
     }
 
     function buildSelectionFromSettingsLabel(label) {
         const directMatch = (currentGroups || []).find((group) => group.label === label);
         if (directMatch) return { group: directMatch.key, idx: 0 };
+        if (label === 'VIDEASY') return { group: 'videasy', idx: 0 };
         if (label === 'vidsrc.cc') return { group: 'vidsrc', idx: 0 };
         if (label === 'VO') return { group: 'vo', idx: 0 };
         if (label === 'VOSTA') return { group: 'vosta', idx: 0 };
@@ -4607,7 +4820,7 @@ async function openAnimeFromJikan(anime) {
         // Default order
         const preferredOrder = ANIME_VIDSRC_ONLY_MODE
             ? ['vidsrc']
-            : (isMovie ? ['vo', 'va'] : ['vostfr', 'vosta', 'va']);
+            : (isMovie ? ['videasy', 'vo', 'va'] : ['videasy', 'vostfr', 'vosta', 'va']);
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
@@ -4810,6 +5023,9 @@ async function openAnimeFromJikan(anime) {
 
     // Initial indicators render
     await renderAnimeSourceIndicators();
+    playerStateReady = true;
+    if (pendingEpisodeUiRefresh && !isMovie) scheduleEpisodeUiRefresh();
+    if (pendingSourceRefresh) scheduleSourceRefresh();
     // Settings button logic
     settingsBtn.addEventListener('click', () => {
         // Show modal
@@ -4928,7 +5144,6 @@ async function openAnimeLiveChannel(channel) {
     searchContainer.style.display = 'none';
     playerContent.innerHTML = `
         <div class="anime-player-stage">
-            <button id="anime-live-close-btn" type="button" style="position:absolute;top:16px;right:16px;z-index:102;min-width:96px;height:40px;border:none;border-radius:999px;background:rgba(0,0,0,0.78);color:#fff;font-family:'OumaTrialBold','OumaTrialLight';cursor:pointer;backdrop-filter:blur(6px);">Close</button>
             <video id="anime-live-video" controls autoplay playsinline></video>
             <div id="anime-player-loading" class="anime-player-loading">
                 <div class="anime-player-loading-card">
@@ -4956,9 +5171,7 @@ async function openAnimeLiveChannel(channel) {
 
     const video = document.getElementById('anime-live-video');
     const loading = document.getElementById('anime-player-loading');
-    const closeBtn = document.getElementById('anime-live-close-btn');
     if (!video) return;
-    if (closeBtn) closeBtn.addEventListener('click', () => closePlayer.click());
 
     const hideLoading = () => {
         if (loading) loading.classList.add('hidden');
@@ -5278,6 +5491,7 @@ window.addEventListener('DOMContentLoaded', () => {
     void canUseAnimeProtectedRemoteSources(1500);
     void loadAnimePlaybackSnapshot();
     void loadAnimeHomeSnapshot();
+    renderAnimeBetaNotice();
     bindSearchControls();
     bindBrowseControls();
     setActiveSearchType(DEFAULT_SEARCH_TYPE);
