@@ -2517,7 +2517,36 @@ async function resolveAnimeEpisodeCount(anime) {
                         ? ((lastPage - 1) * inferredPerPage) + lastPageLen
                         : lastPage * inferredPerPage;
                 } else if (firstPageLen > 0) {
-                    resolvedCount = firstPageLen;
+                    // If the first page is full and Jikan gave us no reliable last_visible_page
+                    // (a known issue for long-running series like One Piece), probe page 2
+                    // so we can recover the real total rather than capping at 100.
+                    const isFullPage = firstPageLen >= (inferredPerPage || firstPageLen);
+                    const mightHaveMore = isFullPage && page1?.pagination?.has_next_page !== false;
+                    if (mightHaveMore) {
+                        try {
+                            const page2 = await fetchJson(`${JIKAN_BASE}/anime/${malId}/episodes?page=2`, 2);
+                            const p2Total = Number(page2?.pagination?.items?.total);
+                            const p2Last = Number(page2?.pagination?.last_visible_page);
+                            if (Number.isFinite(p2Total) && p2Total > 0) {
+                                resolvedCount = p2Total;
+                            } else if (Number.isFinite(p2Last) && p2Last >= 1) {
+                                const realLast = Math.max(p2Last, 2);
+                                const lp = await fetchJson(`${JIKAN_BASE}/anime/${malId}/episodes?page=${realLast}`, 2);
+                                const lpLen = Array.isArray(lp?.data) ? lp.data.length : 0;
+                                const pSize = inferredPerPage || firstPageLen || 100;
+                                resolvedCount = lpLen > 0
+                                    ? ((realLast - 1) * pSize) + lpLen
+                                    : realLast * pSize;
+                            } else {
+                                const p2Len = Array.isArray(page2?.data) ? page2.data.length : 0;
+                                resolvedCount = firstPageLen + p2Len;
+                            }
+                        } catch {
+                            resolvedCount = firstPageLen;
+                        }
+                    } else {
+                        resolvedCount = firstPageLen;
+                    }
                 }
             }
         } catch (e) {
@@ -4027,6 +4056,11 @@ function renderSkipCheckboxes(malId) {
     footer.appendChild(container);
 }
 
+function normalizeEpisodeCount(value) {
+    const n = Number(value);
+    return Number.isFinite(n) && n > 0 ? n : null;
+}
+
 async function openAnimeFromJikan(anime) {
     destroyActiveAnimeLivePlayer();
     const malId = anime.mal_id;
@@ -4443,14 +4477,7 @@ async function openAnimeFromJikan(anime) {
     }
 
     async function buildSourceGroups(season, episode) {
-        let effectiveAniListId = parsePositiveInteger(aniListId);
-        if (!ANIME_VIDSRC_ONLY_MODE && !effectiveAniListId) {
-            const resolvedAniListId = parsePositiveInteger(await aniListIdPromise);
-            if (resolvedAniListId) {
-                aniListId = resolvedAniListId;
-                effectiveAniListId = resolvedAniListId;
-            }
-        }
+        const effectiveAniListId = parsePositiveInteger(aniListId);
 
         if (ANIME_VIDSRC_ONLY_MODE) {
             if (isMovie) {
@@ -5019,6 +5046,19 @@ async function openAnimeFromJikan(anime) {
         // 4) Fall back to the preferred default order.
         const fallback = pickBestAvailableSelection(null, currentGroups);
         if (fallback) switchToSelection(fallback, { persistLastUsed: false });
+    }
+
+    // If Videasy is the intended source and we don't have an AniList ID yet,
+    // wait for it (up to 6 s) before first render — Videasy won't load without it.
+    if (!aniListId && !ANIME_VIDSRC_ONLY_MODE) {
+        const _aniListSentinel = {};
+        const _raced = await Promise.race([
+            aniListIdPromise,
+            new Promise(resolve => setTimeout(() => resolve(_aniListSentinel), 6000))
+        ]);
+        if (_raced !== _aniListSentinel && _raced) {
+            aniListId = _raced;
+        }
     }
 
     // Initial indicators render
