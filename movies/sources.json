@@ -7,11 +7,6 @@
 				"shows": "https://vidsrc.online/embed/tv/${id}/${season}/${episode}"
 			},
 			{
-				"name": "vidsrc.to",
-				"movies": "https://vidsrc.to/embed/movie/${id}",
-				"shows": "https://vidsrc.to/embed/tv/${id}/${season}/${episode}"
-			},
-			{
 				"name": "vidbinge.to",
 				"movies": "https://www.vidbinge.to/movie/${id}",
 				"shows": "https://www.vidbinge.to/tv/${id}/${season}/${episode}"
@@ -64,18 +59,18 @@
 				"shows": "https://vidsrc.wtf/api/1/tv/?id=${id}&season=${season}&overlay=true&color=e02735"
 			},
 			{
-				"name": "xprime.today",
-				"movies": "https://xprime.today/watch/${id}",
-				"shows": "https://xprime.today/watch/${id}/${season}/${episode}"
+				"name": "xprime.su",
+				"movies": "https://xprime.su/watch/${id}",
+				"shows": "https://xprime.su/watch/${id}/${season}/${episode}"
 			}
 		]
 	},
 	{
 		"VF": [
 			{
-				"name": "frembed.life",
-				"movies": "https://frembed.life/api/film.php?id=${id}",
-				"shows": "https://frembed.life/api/serie.php?id=${id}&sa=${season}&epi=${episode}"
+				"name": "frembed.cyou",
+				"movies": "https://frembed.cyou/embed/movie/${id}",
+				"shows": "https://frembed.cyou/embed/serie/${id}?sa=${season}&epi=${episode}"
 			}
 		]
 	}
