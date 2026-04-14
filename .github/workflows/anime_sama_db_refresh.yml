@@ -49,4 +49,5 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add anime/anime_sama.db anime/anime_playback_snapshot.json
           git diff --cached --quiet || git commit -m "Automated update: refresh anime data"
+          git pull --rebase origin main
           git push

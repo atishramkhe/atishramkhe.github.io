@@ -87,7 +87,7 @@ def save(games_by_slug: dict) -> None:
     games = list(games_by_slug.values())
 
     # Sort by last_update descending for a stable, predictable order
-    games.sort(key=lambda g: g.get("last_update", ""), reverse=True)
+    games.sort(key=lambda g: g.get("last_update") or "", reverse=True)
 
     genres = sorted({g for game in games for g in (game.get("genres") or [])})
     payload = {
