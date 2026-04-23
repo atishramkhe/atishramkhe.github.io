@@ -14,13 +14,13 @@
 			{
 				"name": "videasy.net",
 				"movies": "https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true",
-				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true"
+				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?episodeSelector=true&overlay=true&color=e02735&autoplay=true"
 			},
 			{
 				"name": "vidking.net",
 				
 				"movies": "https://www.vidking.net/embed/movie/${id}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true",
-				"shows": "https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true"
+				"shows": "https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e02735&autoPlay=true&episodeSelector=true"
 			},
 			{
 				"name": "vidsrcme.ru",
