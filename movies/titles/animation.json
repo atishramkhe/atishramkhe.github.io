@@ -2,113 +2,25 @@
   "movies": [
     {
       "adult": false,
-      "backdrop_path": "/9Z2uDYXqJrlmePznQQJhL6d92Rq.jpg",
-      "belongs_to_collection": {
-        "id": 1434561,
-        "name": "The Super Mario Collection",
-        "poster_path": "/2LNRY9vZsHZcTH2eIBMkqSUGVFX.jpg",
-        "backdrop_path": "/a3BEU6vPZZ7MGI7cIWY8thW4w9M.jpg"
-      },
-      "budget": 110000000,
-      "genres": [
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        }
-      ],
-      "homepage": "https://www.thesupermariogalaxymovie.com",
-      "id": 1226863,
-      "imdb_id": "tt28650488",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Super Mario Galaxy Movie",
-      "overview": "Having thwarted Bowser's previous plot to marry Princess Peach, Mario and Luigi now face a fresh threat in Bowser Jr., who is determined to liberate his father from captivity and restore the family legacy. Alongside companions new and old, the brothers travel across the stars to stop the young heir's crusade.",
-      "popularity": 455.6196,
-      "poster_path": "/eJGWx219ZcEMVQJhAgMiqo8tYY.jpg",
-      "production_companies": [
-        {
-          "id": 6704,
-          "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
-          "name": "Illumination",
-          "origin_country": "US"
-        },
-        {
-          "id": 33,
-          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 12288,
-          "logo_path": "/e4dQAqZD374H5EuM0W1ljEBWTKy.png",
-          "name": "Nintendo",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-04-01",
-      "revenue": 941200000,
-      "runtime": 98,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The galaxy awaits.",
-      "title": "The Super Mario Galaxy Movie",
-      "video": false,
-      "vote_average": 6.7,
-      "vote_count": 798,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/zMwhWailP1WY7sb6AoE6b8ugoy.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
         {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
           "id": 16,
           "name": "Animation"
         },
         {
           "id": 10751,
           "name": "Family"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
         },
         {
           "id": 14,
@@ -124,7 +36,7 @@
       "original_language": "en",
       "original_title": "Swapped",
       "overview": "A small woodland creature and a majestic bird, two natural sworn enemies of the Valley, magically trade places and set off on an adventure of a lifetime to switch back. Their journey soon uncovers a greater threat—one that could endanger not only their species, but the entire valley they call home.",
-      "popularity": 475.4302,
+      "popularity": 439.3294,
       "poster_path": "/tHhxWxge06goXU6ZQH1hj7vK8Hd.jpg",
       "production_companies": [
         {
@@ -165,8 +77,100 @@
       "tagline": "Transform your destiny.",
       "title": "Swapped",
       "video": false,
-      "vote_average": 8.884,
-      "vote_count": 453,
+      "vote_average": 8.978,
+      "vote_count": 713,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/9Z2uDYXqJrlmePznQQJhL6d92Rq.jpg",
+      "belongs_to_collection": {
+        "id": 1434561,
+        "name": "The Super Mario Collection",
+        "poster_path": "/2LNRY9vZsHZcTH2eIBMkqSUGVFX.jpg",
+        "backdrop_path": "/a3BEU6vPZZ7MGI7cIWY8thW4w9M.jpg"
+      },
+      "budget": 110000000,
+      "genres": [
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        }
+      ],
+      "homepage": "https://www.thesupermariogalaxymovie.com",
+      "id": 1226863,
+      "imdb_id": "tt28650488",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Super Mario Galaxy Movie",
+      "overview": "Having thwarted Bowser's previous plot to marry Princess Peach, Mario and Luigi now face a fresh threat in Bowser Jr., who is determined to liberate his father from captivity and restore the family legacy. Alongside companions new and old, the brothers travel across the stars to stop the young heir's crusade.",
+      "popularity": 385.0295,
+      "poster_path": "/eJGWx219ZcEMVQJhAgMiqo8tYY.jpg",
+      "production_companies": [
+        {
+          "id": 6704,
+          "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
+          "name": "Illumination",
+          "origin_country": "US"
+        },
+        {
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 12288,
+          "logo_path": "/e4dQAqZD374H5EuM0W1ljEBWTKy.png",
+          "name": "Nintendo",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-04-01",
+      "revenue": 940914435,
+      "runtime": 98,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The galaxy awaits.",
+      "title": "The Super Mario Galaxy Movie",
+      "video": false,
+      "vote_average": 6.696,
+      "vote_count": 820,
       "media_type": "movie"
     },
     {
@@ -205,7 +209,7 @@
       "original_language": "en",
       "original_title": "Hoppers",
       "overview": "Scientists have discovered how to 'hop' human consciousness into lifelike robotic animals, allowing people to communicate with animals as animals. Animal lover Mabel seizes an opportunity to use the technology, uncovering mysteries within the animal world beyond anything she could have imagined.",
-      "popularity": 176.3884,
+      "popularity": 154.6615,
       "poster_path": "/xjtWQ2CL1mpmMNwuU5HeS4Iuwuu.jpg",
       "production_companies": [
         {
@@ -223,7 +227,7 @@
       ],
       "release_date": "2026-03-04",
       "revenue": 380239139,
-      "runtime": 105,
+      "runtime": 104,
       "softcore": false,
       "spoken_languages": [
         {
@@ -241,8 +245,8 @@
       "tagline": "Act natural.",
       "title": "Hoppers",
       "video": false,
-      "vote_average": 7.873,
-      "vote_count": 891,
+      "vote_average": 7.944,
+      "vote_count": 963,
       "media_type": "movie"
     },
     {
@@ -273,7 +277,7 @@
       "original_language": "en",
       "original_title": "GOAT",
       "overview": "A small goat with big dreams gets a once-in-a-lifetime shot to join the pros and play roarball, a high-intensity, co-ed, full-contact sport dominated by the fastest, fiercest animals in the world.",
-      "popularity": 132.3699,
+      "popularity": 116.8097,
       "poster_path": "/wfuqMlaExcoYiUEvKfVpUTt1v4u.jpg",
       "production_companies": [
         {
@@ -334,8 +338,88 @@
       "tagline": "You're never too small to dream big.",
       "title": "GOAT",
       "video": false,
-      "vote_average": 8.0,
-      "vote_count": 529,
+      "vote_average": 8.02,
+      "vote_count": 550,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1RgPyOhN4DRs225BGTlHJqCudII.jpg",
+      "belongs_to_collection": {
+        "id": 925155,
+        "name": "Demon Slayer: Kimetsu no Yaiba Collection",
+        "poster_path": "/3exjjYTseefny9nYjSbkIblZZdK.jpg",
+        "backdrop_path": "/oHx043lHsysn8klll1nPvKMBHLf.jpg"
+      },
+      "budget": 20000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.demonslayer-movie.com",
+      "id": 1311031,
+      "imdb_id": "tt32820897",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
+      "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
+      "popularity": 94.0577,
+      "poster_path": "/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg",
+      "production_companies": [
+        {
+          "id": 5887,
+          "logo_path": "/m6FEqz8rQECnmfjEwjNhNAlmhCJ.png",
+          "name": "ufotable",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2883,
+          "logo_path": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png",
+          "name": "Aniplex",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2918,
+          "logo_path": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png",
+          "name": "Shueisha",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "release_date": "2025-07-18",
+      "revenue": 733030221,
+      "runtime": 156,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "It's time to have some fun.",
+      "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
+      "video": false,
+      "vote_average": 7.701,
+      "vote_count": 824,
       "media_type": "movie"
     },
     {
@@ -375,7 +459,7 @@
       "original_language": "en",
       "original_title": "Avatar Aang: The Last Airbender",
       "overview": "Avatar Aang, the world's last Airbender, learns of an ancient power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands and threatens to upend the peace they sacrificed everything to achieve.",
-      "popularity": 119.0764,
+      "popularity": 96.4347,
       "poster_path": "/29Jdsak3SrwGds5k1t43kH6Khed.jpg",
       "production_companies": [
         {
@@ -444,86 +528,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/1RgPyOhN4DRs225BGTlHJqCudII.jpg",
-      "belongs_to_collection": {
-        "id": 925155,
-        "name": "Demon Slayer: Kimetsu no Yaiba Collection",
-        "poster_path": "/3exjjYTseefny9nYjSbkIblZZdK.jpg",
-        "backdrop_path": "/oHx043lHsysn8klll1nPvKMBHLf.jpg"
-      },
-      "budget": 20000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.demonslayer-movie.com",
-      "id": 1311031,
-      "imdb_id": "tt32820897",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
-      "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
-      "popularity": 104.1718,
-      "poster_path": "/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg",
-      "production_companies": [
-        {
-          "id": 5887,
-          "logo_path": "/m6FEqz8rQECnmfjEwjNhNAlmhCJ.png",
-          "name": "ufotable",
-          "origin_country": "JP"
-        },
-        {
-          "id": 2883,
-          "logo_path": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png",
-          "name": "Aniplex",
-          "origin_country": "JP"
-        },
-        {
-          "id": 2918,
-          "logo_path": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png",
-          "name": "Shueisha",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "release_date": "2025-07-18",
-      "revenue": 733030221,
-      "runtime": 156,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Released",
-      "tagline": "It's time to have some fun.",
-      "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
-      "video": false,
-      "vote_average": 7.705,
-      "vote_count": 823,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/lgotja3xMoJZbynwHfcQcJAEMWH.jpg",
       "belongs_to_collection": {
         "id": 1084247,
@@ -563,7 +567,7 @@
       "original_language": "en",
       "original_title": "Zootopia 2",
       "overview": "After cracking the biggest case in Zootopia's history, rookie cops Judy Hopps and Nick Wilde find themselves on the twisting trail of a great mystery when Gary De'Snake arrives and turns the animal metropolis upside down. To crack the case, Judy and Nick must go undercover to unexpected new parts of town, where their growing partnership is tested like never before.",
-      "popularity": 99.1995,
+      "popularity": 93.8295,
       "poster_path": "/oJ7g2CifqpStmoYQyaLQgEU32qO.jpg",
       "production_companies": [
         {
@@ -604,80 +608,8 @@
       "tagline": "They're back with a twissst.",
       "title": "Zootopia 2",
       "video": false,
-      "vote_average": 7.62,
-      "vote_count": 2701,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/vwcfvPzYO3Gz975yRXp6DYSSbzo.jpg",
-      "belongs_to_collection": {
-        "id": 55422,
-        "name": "Peter Pan Collection",
-        "poster_path": "/2rgdZjMVJUWXpZ6pBRLFL7crN5j.jpg",
-        "backdrop_path": "/AnhKboZjfeGuHI6qg7pp9RCesTF.jpg"
-      },
-      "budget": 4000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://movies.disney.com/peter-pan",
-      "id": 10693,
-      "imdb_id": "tt0046183",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Peter Pan",
-      "overview": "Leaving the safety of their nursery behind, Wendy, Michael and John follow Peter Pan to a magical world where childhood lasts forever. But while in Neverland, the kids must face Captain Hook and foil his attempts to get rid of Peter for good.",
-      "popularity": 37.5379,
-      "poster_path": "/fJJOs1iyrhKfZceANxoPxPwNGF1.jpg",
-      "production_companies": [
-        {
-          "id": 3166,
-          "logo_path": "/jmPS1qPfKnISciDF7RnUbh48jvK.png",
-          "name": "Walt Disney Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1953-02-05",
-      "revenue": 87400000,
-      "runtime": 77,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "It will live in your heart forever!",
-      "title": "Peter Pan",
-      "video": false,
-      "vote_average": 7.189,
-      "vote_count": 5729,
+      "vote_average": 7.624,
+      "vote_count": 2717,
       "media_type": "movie"
     },
     {
@@ -721,7 +653,7 @@
       "original_language": "en",
       "original_title": "The Super Mario Bros. Movie",
       "overview": "While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.",
-      "popularity": 50.6966,
+      "popularity": 48.7951,
       "poster_path": "/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
       "production_companies": [
         {
@@ -768,63 +700,8 @@
       "tagline": "Not all heroes wear capes. Some wear overalls.",
       "title": "The Super Mario Bros. Movie",
       "video": false,
-      "vote_average": 7.591,
-      "vote_count": 10609,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/tZGicms8sEUTrIxQMGFrkYy9ZW4.jpg",
-      "belongs_to_collection": null,
-      "budget": 10461,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        }
-      ],
-      "homepage": "",
-      "id": 106098,
-      "imdb_id": "tt0021831",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Egyptian Melodies",
-      "overview": "A spider gets lost inside the sphinx.",
-      "popularity": 29.0688,
-      "poster_path": "/s4AfyzcHYwdKFrcC9XOb92IMMwF.jpg",
-      "production_companies": [
-        {
-          "id": 3166,
-          "logo_path": "/jmPS1qPfKnISciDF7RnUbh48jvK.png",
-          "name": "Walt Disney Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1931-08-21",
-      "revenue": 0,
-      "runtime": 6,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "No Language",
-          "iso_639_1": "xx",
-          "name": "No Language"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Egyptian Melodies",
-      "video": false,
-      "vote_average": 6.059,
-      "vote_count": 34,
+      "vote_average": 7.594,
+      "vote_count": 10632,
       "media_type": "movie"
     },
     {
@@ -859,7 +736,7 @@
       "original_language": "en",
       "original_title": "KPop Demon Hunters",
       "overview": "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums, they're using their secret powers to protect their fans from supernatural threats.",
-      "popularity": 39.0283,
+      "popularity": 36.9036,
       "poster_path": "/zT7Lhw3BhJbMkRqm9Zlx2YGMsY0.jpg",
       "production_companies": [
         {
@@ -895,59 +772,80 @@
       "tagline": "They sing. They dance. They battle demons.",
       "title": "KPop Demon Hunters",
       "video": false,
-      "vote_average": 8.016,
-      "vote_count": 2721,
+      "vote_average": 8.019,
+      "vote_count": 2727,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": null,
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/vwcfvPzYO3Gz975yRXp6DYSSbzo.jpg",
+      "belongs_to_collection": {
+        "id": 55422,
+        "name": "Peter Pan Collection",
+        "poster_path": "/2rgdZjMVJUWXpZ6pBRLFL7crN5j.jpg",
+        "backdrop_path": "/AnhKboZjfeGuHI6qg7pp9RCesTF.jpg"
+      },
+      "budget": 4000000,
       "genres": [
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 27,
-          "name": "Horror"
-        },
         {
           "id": 16,
           "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
         }
       ],
-      "homepage": "http://tetsudon.com/",
-      "id": 341054,
-      "imdb_id": "tt3763830",
+      "homepage": "https://movies.disney.com/peter-pan",
+      "id": 10693,
+      "imdb_id": "tt0046183",
       "origin_country": [
-        "JP"
+        "US"
       ],
-      "original_language": "ja",
-      "original_title": "「フールジャパン　ABC・オブ・鉄ドン」ついに劇場公開",
-      "overview": "'Testudon', one of the most famous foolish film festivals, made a foolish anthology film about 'Japan' with 26 directors. Naturally, the directors are also foolish enough, so that you might wonder if it is really about Japan or get headache at the screening.At least, some of the 26 various works will please you. It is inevitable that the theater room will be full of laughter, hand claps, roars or booings like 'Pay back the money!'. But we won't reimburse you!",
-      "popularity": 24.4543,
-      "poster_path": null,
-      "production_companies": [],
-      "production_countries": [],
-      "release_date": "2014-03-01",
-      "revenue": 0,
-      "runtime": 95,
+      "original_language": "en",
+      "original_title": "Peter Pan",
+      "overview": "Leaving the safety of their nursery behind, Wendy, Michael and John follow Peter Pan to a magical world where childhood lasts forever. But while in Neverland, the kids must face Captain Hook and foil his attempts to get rid of Peter for good.",
+      "popularity": 32.4183,
+      "poster_path": "/fJJOs1iyrhKfZceANxoPxPwNGF1.jpg",
+      "production_companies": [
+        {
+          "id": 3166,
+          "logo_path": "/jmPS1qPfKnISciDF7RnUbh48jvK.png",
+          "name": "Walt Disney Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1953-02-05",
+      "revenue": 87400000,
+      "runtime": 77,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "Fool Japan: The ABCs of Tetsudon",
+      "tagline": "It will live in your heart forever!",
+      "title": "Peter Pan",
       "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
+      "vote_average": 7.188,
+      "vote_count": 5731,
       "media_type": "movie"
     },
     {
@@ -987,7 +885,7 @@
       "original_language": "en",
       "original_title": "Inside Out 2",
       "overview": "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
-      "popularity": 29.7318,
+      "popularity": 31.7273,
       "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
       "production_companies": [
         {
@@ -1019,99 +917,7 @@
       "title": "Inside Out 2",
       "video": false,
       "vote_average": 7.545,
-      "vote_count": 6637,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/gtKglOSEq3d4MgQE4VsrT1sRkd0.jpg",
-      "belongs_to_collection": {
-        "id": 1529614,
-        "name": "Jujutsu Kaisen Collection",
-        "poster_path": "/8IddvFXm6Txk3YAEIcgPm0ukY6K.jpg",
-        "backdrop_path": "/2HRyeMLdUvn3l9DqjPU3hWn3SiX.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://gkids.com/films/jujutsu-kaisen-execution",
-      "id": 1539104,
-      "imdb_id": "tt38121182",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "劇場版 呪術廻戦「渋谷事変 特別編集版」×「死滅回游 先行上映」",
-      "overview": "A veil abruptly descends over the busy Shibuya area amid the bustling Halloween crowds, trapping countless civilians inside. Satoru Gojo, the strongest jujutsu sorcerer, steps into the chaos. But lying in wait are curse users and spirits scheming to seal him away. Yuji Itadori, accompanied by his classmates and other top-tier jujutsu sorcerers, enters the fray in an unprecedented clash of curses — the Shibuya Incident. In the aftermath, ten colonies across Japan are transformed into dens of curses in a plan orchestrated by Noritoshi Kamo. As the deadly Culling Game starts, Special Grade sorcerer Yuta Okkotsu is assigned to carry out Yuji's execution for his perceived crimes. A compilation movie of Shibuya Incident including the first two episodes of the Culling Games arc.",
-      "popularity": 30.4064,
-      "poster_path": "/v0s3dx6am0RzfsuK3KdEy8ZoCDs.jpg",
-      "production_companies": [
-        {
-          "id": 21444,
-          "logo_path": "/wSejGn3lAZdQ5muByxvzigwyDY6.png",
-          "name": "MAPPA",
-          "origin_country": "JP"
-        },
-        {
-          "id": 882,
-          "logo_path": "/fRSWWjquvzcHjACbtF53utZFIll.png",
-          "name": "TOHO",
-          "origin_country": "JP"
-        },
-        {
-          "id": 3363,
-          "logo_path": "/sj3vD7n63bTCih7bcf6GnWvRf1Q.png",
-          "name": "MBS",
-          "origin_country": "JP"
-        },
-        {
-          "id": 2918,
-          "logo_path": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png",
-          "name": "Shueisha",
-          "origin_country": "JP"
-        },
-        {
-          "id": 158200,
-          "logo_path": "/rf4ZArxPuqx5hdeU7rPIU8IQlYx.png",
-          "name": "Sumzap",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "release_date": "2025-11-07",
-      "revenue": 44457030,
-      "runtime": 88,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The chaos of curses, Shibuya, and beyond—",
-      "title": "JUJUTSU KAISEN: Execution",
-      "video": false,
-      "vote_average": 5.975,
-      "vote_count": 99,
+      "vote_count": 6644,
       "media_type": "movie"
     },
     {
@@ -1142,7 +948,7 @@
       "original_language": "ja",
       "original_title": "千と千尋の神隠し",
       "overview": "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.",
-      "popularity": 29.2492,
+      "popularity": 30.551,
       "poster_path": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
       "production_companies": [
         {
@@ -1204,7 +1010,256 @@
       "title": "Spirited Away",
       "video": false,
       "vote_average": 8.534,
-      "vote_count": 18250,
+      "vote_count": 18261,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/40Wtp7kMG6mZ4d5T1jfrd8qrvD4.jpg",
+      "belongs_to_collection": {
+        "id": 2150,
+        "name": "Shrek Collection",
+        "poster_path": "/qNHZMe92A7Pyl46qUH29hVOtbSK.jpg",
+        "backdrop_path": "/lhsd1zCsq5UquvcNalmhuddV3tI.jpg"
+      },
+      "budget": 60000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "http://www.dreamworksanimation.com/shrek/",
+      "id": 808,
+      "imdb_id": "tt0126029",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Shrek",
+      "overview": "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
+      "popularity": 28.8979,
+      "poster_path": "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+      "production_companies": [
+        {
+          "id": 520,
+          "logo_path": "/pU7YTI9FfrICurXpl5V9TfCO0oJ.png",
+          "name": "Pacific Data Images",
+          "origin_country": "US"
+        },
+        {
+          "id": 521,
+          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
+          "name": "DreamWorks Animation",
+          "origin_country": "US"
+        },
+        {
+          "id": 7,
+          "logo_path": "/zcKhWbxFJ4CohZ9dLBMxmOArTVn.png",
+          "name": "DreamWorks Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2001-05-18",
+      "revenue": 488977919,
+      "runtime": 90,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The greatest fairy tale never told.",
+      "title": "Shrek",
+      "video": false,
+      "vote_average": 7.761,
+      "vote_count": 18687,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gtKglOSEq3d4MgQE4VsrT1sRkd0.jpg",
+      "belongs_to_collection": {
+        "id": 1529614,
+        "name": "Jujutsu Kaisen Collection",
+        "poster_path": "/8IddvFXm6Txk3YAEIcgPm0ukY6K.jpg",
+        "backdrop_path": "/2HRyeMLdUvn3l9DqjPU3hWn3SiX.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://gkids.com/films/jujutsu-kaisen-execution",
+      "id": 1539104,
+      "imdb_id": "tt38121182",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "劇場版 呪術廻戦「渋谷事変 特別編集版」×「死滅回游 先行上映」",
+      "overview": "A veil abruptly descends over the busy Shibuya area amid the bustling Halloween crowds, trapping countless civilians inside. Satoru Gojo, the strongest jujutsu sorcerer, steps into the chaos. But lying in wait are curse users and spirits scheming to seal him away. Yuji Itadori, accompanied by his classmates and other top-tier jujutsu sorcerers, enters the fray in an unprecedented clash of curses — the Shibuya Incident. In the aftermath, ten colonies across Japan are transformed into dens of curses in a plan orchestrated by Noritoshi Kamo. As the deadly Culling Game starts, Special Grade sorcerer Yuta Okkotsu is assigned to carry out Yuji's execution for his perceived crimes. A compilation movie of Shibuya Incident including the first two episodes of the Culling Games arc.",
+      "popularity": 28.697,
+      "poster_path": "/v0s3dx6am0RzfsuK3KdEy8ZoCDs.jpg",
+      "production_companies": [
+        {
+          "id": 21444,
+          "logo_path": "/wSejGn3lAZdQ5muByxvzigwyDY6.png",
+          "name": "MAPPA",
+          "origin_country": "JP"
+        },
+        {
+          "id": 882,
+          "logo_path": "/fRSWWjquvzcHjACbtF53utZFIll.png",
+          "name": "TOHO",
+          "origin_country": "JP"
+        },
+        {
+          "id": 3363,
+          "logo_path": "/sj3vD7n63bTCih7bcf6GnWvRf1Q.png",
+          "name": "MBS",
+          "origin_country": "JP"
+        },
+        {
+          "id": 2918,
+          "logo_path": "/gyEWUBWwqrm3H5T2hkERD9LxpOq.png",
+          "name": "Shueisha",
+          "origin_country": "JP"
+        },
+        {
+          "id": 158200,
+          "logo_path": "/rf4ZArxPuqx5hdeU7rPIU8IQlYx.png",
+          "name": "Sumzap",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "release_date": "2025-11-07",
+      "revenue": 44457030,
+      "runtime": 88,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The chaos of curses, Shibuya, and beyond—",
+      "title": "JUJUTSU KAISEN: Execution",
+      "video": false,
+      "vote_average": 5.975,
+      "vote_count": 99,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hofnlIyF6bePkgQOpcuRWLvzf15.jpg",
+      "belongs_to_collection": null,
+      "budget": 60000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.laika.com/our-films/coraline",
+      "id": 14836,
+      "imdb_id": "tt0327597",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Coraline",
+      "overview": "Wandering her rambling old house in her boring new town, 11-year-old Coraline discovers a hidden door to a strangely idealized version of her life. In order to stay in the fantasy, she must make a frighteningly real sacrifice.",
+      "popularity": 27.8331,
+      "poster_path": "/4jeFXQYytChdZYE9JYO7Un87IlW.jpg",
+      "production_companies": [
+        {
+          "id": 11537,
+          "logo_path": "/AgCkAk8EpUG9fTmK6mWcaJA2Zwh.png",
+          "name": "LAIKA",
+          "origin_country": "US"
+        },
+        {
+          "id": 8915,
+          "logo_path": null,
+          "name": "Pandemonium",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2009-02-05",
+      "revenue": 185860104,
+      "runtime": 100,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Be careful what you wish for.",
+      "title": "Coraline",
+      "video": false,
+      "vote_average": 7.902,
+      "vote_count": 8913,
       "media_type": "movie"
     },
     {
@@ -1252,7 +1307,7 @@
       "original_language": "en",
       "original_title": "Kung Fu Panda 4",
       "overview": "Po is gearing up to become the spiritual leader of his Valley of Peace, but also needs someone to take his place as Dragon Warrior. As such, he will train a new kung fu practitioner for the spot and will encounter a villain called the Chameleon who conjures villains from the past.",
-      "popularity": 28.5897,
+      "popularity": 26.6859,
       "poster_path": "/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg",
       "production_companies": [
         {
@@ -1283,633 +1338,8 @@
       "tagline": "The “Dragon” returns.",
       "title": "Kung Fu Panda 4",
       "video": false,
-      "vote_average": 7.001,
-      "vote_count": 3470,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/dLpJe8ZAbwZoVXEOGovymqP1lFg.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        }
-      ],
-      "homepage": "https://www.esma-3d.fr/en/films/lion/",
-      "id": 933720,
-      "imdb_id": "tt12150686",
-      "origin_country": [
-        "FR"
-      ],
-      "original_language": "fr",
-      "original_title": "Lion",
-      "overview": "A young lonely lion crosses an arid and desert Savannah. He discovers that the only source of water is kept by a tyrannical buffalo.",
-      "popularity": 19.0556,
-      "poster_path": "/u4cMqc9lNy4aaLBEien5CaN93Ri.jpg",
-      "production_companies": [
-        {
-          "id": 45486,
-          "logo_path": "/ud90QKvxQF0PWjty14Qs1coqa9A.png",
-          "name": "ESMA",
-          "origin_country": "FR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "release_date": "2019-09-05",
-      "revenue": 0,
-      "runtime": 7,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "No Language",
-          "iso_639_1": "xx",
-          "name": "No Language"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Lion",
-      "video": false,
-      "vote_average": 6.5,
-      "vote_count": 23,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/rI4waA7VlRAynrYUUpiPScsdPm8.jpg",
-      "belongs_to_collection": {
-        "id": 1544712,
-        "name": "Chainsaw Man Collection",
-        "poster_path": "/7no7pAorfhiZ7bYXoSGFb2oCH2B.jpg",
-        "backdrop_path": "/yGlfZ3RmfmosFsaofrt1TraMPw0.jpg"
-      },
-      "budget": 4100000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 10749,
-          "name": "Romance"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://chainsawman.movie",
-      "id": 1218925,
-      "imdb_id": "tt30472557",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "劇場版 チェンソーマン レゼ篇",
-      "overview": "In a brutal war between devils, hunters, and secret enemies, a mysterious girl named Reze has stepped into Denji's world, and he faces his deadliest battle yet, fueled by love in a world where survival knows no rules.",
-      "popularity": 23.7575,
-      "poster_path": "/pHyxb2RV5wLlboAwm9ZJ9qTVEDw.jpg",
-      "production_companies": [
-        {
-          "id": 21444,
-          "logo_path": "/wSejGn3lAZdQ5muByxvzigwyDY6.png",
-          "name": "MAPPA",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "release_date": "2025-09-19",
-      "revenue": 174502910,
-      "runtime": 99,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Lost Love, Flower, Chainsaw.",
-      "title": "Chainsaw Man - The Movie: Reze Arc",
-      "video": false,
-      "vote_average": 8.325,
-      "vote_count": 836,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/40Wtp7kMG6mZ4d5T1jfrd8qrvD4.jpg",
-      "belongs_to_collection": {
-        "id": 2150,
-        "name": "Shrek Collection",
-        "poster_path": "/qNHZMe92A7Pyl46qUH29hVOtbSK.jpg",
-        "backdrop_path": "/lhsd1zCsq5UquvcNalmhuddV3tI.jpg"
-      },
-      "budget": 60000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "http://www.dreamworksanimation.com/shrek/",
-      "id": 808,
-      "imdb_id": "tt0126029",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Shrek",
-      "overview": "It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.",
-      "popularity": 29.5318,
-      "poster_path": "/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-      "production_companies": [
-        {
-          "id": 520,
-          "logo_path": "/pU7YTI9FfrICurXpl5V9TfCO0oJ.png",
-          "name": "Pacific Data Images",
-          "origin_country": "US"
-        },
-        {
-          "id": 521,
-          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
-          "name": "DreamWorks Animation",
-          "origin_country": "US"
-        },
-        {
-          "id": 7,
-          "logo_path": "/zcKhWbxFJ4CohZ9dLBMxmOArTVn.png",
-          "name": "DreamWorks Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2001-05-18",
-      "revenue": 488977919,
-      "runtime": 90,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The greatest fairy tale never told.",
-      "title": "Shrek",
-      "video": false,
-      "vote_average": 7.8,
-      "vote_count": 18672,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/8btfz81bOJ2lC7cujYBTw03wzg3.jpg",
-      "belongs_to_collection": {
-        "id": 1449595,
-        "name": "Ne Zha Collection",
-        "poster_path": "/uY4ICaCkGIbDgiu7quRz5kfZXda.jpg",
-        "backdrop_path": "/kazABXcuhF5AdpdjlWQQCH8iUyR.jpg"
-      },
-      "budget": 80000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://a24films.com/films/ne-zha-2",
-      "id": 980477,
-      "imdb_id": "tt34956443",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "哪吒之魔童闹海",
-      "overview": "After a catastrophic event leaves their bodies destroyed, Ne Zha and Ao Bing are granted a fragile second chance at life. As tensions rise between the dragon clans and celestial forces, the two must undergo a series of perilous trials that will test their bond, challenge their identities, and decide the fate of both mortals and immortals.",
-      "popularity": 25.6971,
-      "poster_path": "/cb5NyNrqiCNNoDkA8FfxHAtypdG.jpg",
-      "production_companies": [
-        {
-          "id": 167789,
-          "logo_path": null,
-          "name": "Chengdu Coco Cartoon",
-          "origin_country": "CN"
-        },
-        {
-          "id": 17818,
-          "logo_path": "/tqImejhMUsOuuKCX2cySzaO7QTj.png",
-          "name": "Beijing Enlight Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 161769,
-          "logo_path": null,
-          "name": "Beijing Enlight Media",
-          "origin_country": "CN"
-        },
-        {
-          "id": 273292,
-          "logo_path": null,
-          "name": "Chengdu Zizai Jingjie Culture Media",
-          "origin_country": "CN"
-        },
-        {
-          "id": 273293,
-          "logo_path": null,
-          "name": "Beijing Coloroom Technology",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "release_date": "2025-01-29",
-      "revenue": 2259822417,
-      "runtime": 144,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Witness a hero reborn.",
-      "title": "Ne Zha 2",
-      "video": false,
-      "vote_average": 8.128,
-      "vote_count": 667,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/mZ6J2g6HCV2gj3iuCdSxcyBXq9c.jpg",
-      "belongs_to_collection": null,
-      "budget": 60900000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 36,
-          "name": "History"
-        }
-      ],
-      "homepage": "https://www.thedavidmovie.com/",
-      "id": 1167307,
-      "imdb_id": "tt15678738",
-      "origin_country": [
-        "US",
-        "ZA",
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "David",
-      "overview": "From the songs of his mother’s heart to the whispers of a faithful God, David’s story begins in quiet devotion. When the giant Goliath rises to terrorize a nation, a young shepherd armed with only a sling, a few stones, and unshakable faith steps forward. Pursued by power and driven by purpose, his journey tests the limits of loyalty, love, and courage—culminating in a battle not just for a crown, but for the soul of a kingdom.",
-      "popularity": 24.4879,
-      "poster_path": "/bESlrLOrsQ9gKzaGQGHXKOyIUtX.jpg",
-      "production_companies": [
-        {
-          "id": 30216,
-          "logo_path": "/AwgLu0qw2UifWdDYExBNlZXWwx.png",
-          "name": "Sunrise Productions",
-          "origin_country": "ZA"
-        },
-        {
-          "id": 206626,
-          "logo_path": null,
-          "name": "Slingshot USA",
-          "origin_country": ""
-        },
-        {
-          "id": 165435,
-          "logo_path": "/pDh2WDdOajWST9jlkFo6TOvETnB.png",
-          "name": "Angel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 223271,
-          "logo_path": "/2Rc6Dvg3tpIfDzgQE6ycWxNj0kT.png",
-          "name": "2521 Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "ZA",
-          "name": "South Africa"
-        }
-      ],
-      "release_date": "2025-12-14",
-      "revenue": 85865995,
-      "runtime": 109,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "A giant musical event.",
-      "title": "David",
-      "video": false,
-      "vote_average": 8.052,
-      "vote_count": 134,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/twsxsfao6ZOVvT8LfudH603MMi6.jpg",
-      "belongs_to_collection": {
-        "id": 86066,
-        "name": "Despicable Me Collection",
-        "poster_path": "/xIXhIlZDRmSSfNbpN7kBCm5hg39.jpg",
-        "backdrop_path": "/37xamYKRUGCRux532lKcZdVGYuR.jpg"
-      },
-      "budget": 100000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.despicable.me",
-      "id": 519182,
-      "imdb_id": "tt7510222",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Despicable Me 4",
-      "overview": "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
-      "popularity": 24.6125,
-      "poster_path": "/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 6704,
-          "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
-          "name": "Illumination",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2024-06-20",
-      "revenue": 972021410,
-      "runtime": 94,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Things just got a little more despicable.",
-      "title": "Despicable Me 4",
-      "video": false,
-      "vote_average": 6.987,
-      "vote_count": 3177,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/hofnlIyF6bePkgQOpcuRWLvzf15.jpg",
-      "belongs_to_collection": null,
-      "budget": 60000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.laika.com/our-films/coraline",
-      "id": 14836,
-      "imdb_id": "tt0327597",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Coraline",
-      "overview": "Wandering her rambling old house in her boring new town, 11-year-old Coraline discovers a hidden door to a strangely idealized version of her life. In order to stay in the fantasy, she must make a frighteningly real sacrifice.",
-      "popularity": 25.325,
-      "poster_path": "/4jeFXQYytChdZYE9JYO7Un87IlW.jpg",
-      "production_companies": [
-        {
-          "id": 11537,
-          "logo_path": "/AgCkAk8EpUG9fTmK6mWcaJA2Zwh.png",
-          "name": "LAIKA",
-          "origin_country": "US"
-        },
-        {
-          "id": 8915,
-          "logo_path": null,
-          "name": "Pandemonium",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2009-02-05",
-      "revenue": 185860104,
-      "runtime": 100,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Be careful what you wish for.",
-      "title": "Coraline",
-      "video": false,
-      "vote_average": 7.902,
-      "vote_count": 8910,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/vw3zNfzvnVNF7nIjpiEgcdznfeC.jpg",
-      "belongs_to_collection": {
-        "id": 848690,
-        "name": "Mortal Kombat Legends Collection",
-        "poster_path": "/bQ5WdShxVEqotoeVpQIcJ2cOpWC.jpg",
-        "backdrop_path": "/aEDHKEXh7rERxeKZJVcd1OVrEFL.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.warnerbros.com/movies/mortal-kombat-legends-scorpions-revenge",
-      "id": 664767,
-      "imdb_id": "tt9580138",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Mortal Kombat Legends: Scorpion's Revenge",
-      "overview": "After the vicious slaughter of his family by stone-cold mercenary Sub-Zero, Hanzo Hasashi is exiled to the torturous Netherrealm. There, in exchange for his servitude to the sinister Quan Chi, he’s given a chance to avenge his family – and is resurrected as Scorpion, a lost soul bent on revenge. Back on Earthrealm, Lord Raiden gathers a team of elite warriors – Shaolin monk Liu Kang, Special Forces officer Sonya Blade, and action star Johnny Cage – an unlikely band of heroes with one chance to save humanity. To do this, they must defeat Shang Tsung's horde of Outworld gladiators and reign over the Mortal Kombat tournament.",
-      "popularity": 23.9869,
-      "poster_path": "/iBvo3qOPcmhlqAaJcXcQHtx2qLk.jpg",
-      "production_companies": [
-        {
-          "id": 2785,
-          "logo_path": "/l5zW8jjmQOCx2dFmvnmbYmqoBmL.png",
-          "name": "Warner Bros. Animation",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2020-04-12",
-      "revenue": 0,
-      "runtime": 80,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Extreme violence. Bad language. And a bloody good time.",
-      "title": "Mortal Kombat Legends: Scorpion's Revenge",
-      "video": false,
-      "vote_average": 8.1,
-      "vote_count": 1459,
+      "vote_average": 6.999,
+      "vote_count": 3479,
       "media_type": "movie"
     },
     {
@@ -1945,7 +1375,7 @@
       "original_language": "ja",
       "original_title": "君の名は。",
       "overview": "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.",
-      "popularity": 26.5933,
+      "popularity": 26.5802,
       "poster_path": "/q719jXXEzOoYaps6babgKnONONX.jpg",
       "production_companies": [
         {
@@ -2012,8 +1442,425 @@
       "tagline": "Separated by distance, connected by fate.",
       "title": "Your Name.",
       "video": false,
-      "vote_average": 8.476,
-      "vote_count": 12490,
+      "vote_average": 8.477,
+      "vote_count": 12498,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8btfz81bOJ2lC7cujYBTw03wzg3.jpg",
+      "belongs_to_collection": {
+        "id": 1449595,
+        "name": "Ne Zha Collection",
+        "poster_path": "/uY4ICaCkGIbDgiu7quRz5kfZXda.jpg",
+        "backdrop_path": "/kazABXcuhF5AdpdjlWQQCH8iUyR.jpg"
+      },
+      "budget": 80000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://a24films.com/films/ne-zha-2",
+      "id": 980477,
+      "imdb_id": "tt34956443",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "哪吒之魔童闹海",
+      "overview": "After a catastrophic event leaves their bodies destroyed, Ne Zha and Ao Bing are granted a fragile second chance at life. As tensions rise between the dragon clans and celestial forces, the two must undergo a series of perilous trials that will test their bond, challenge their identities, and decide the fate of both mortals and immortals.",
+      "popularity": 26.3389,
+      "poster_path": "/cb5NyNrqiCNNoDkA8FfxHAtypdG.jpg",
+      "production_companies": [
+        {
+          "id": 167789,
+          "logo_path": null,
+          "name": "Chengdu Coco Cartoon",
+          "origin_country": "CN"
+        },
+        {
+          "id": 17818,
+          "logo_path": "/tqImejhMUsOuuKCX2cySzaO7QTj.png",
+          "name": "Beijing Enlight Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 161769,
+          "logo_path": null,
+          "name": "Beijing Enlight Media",
+          "origin_country": "CN"
+        },
+        {
+          "id": 273292,
+          "logo_path": null,
+          "name": "Chengdu Zizai Jingjie Culture Media",
+          "origin_country": "CN"
+        },
+        {
+          "id": 273293,
+          "logo_path": null,
+          "name": "Beijing Coloroom Technology",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2025-01-29",
+      "revenue": 2259822417,
+      "runtime": 144,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Witness a hero reborn.",
+      "title": "Ne Zha 2",
+      "video": false,
+      "vote_average": 8.134,
+      "vote_count": 670,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vw3zNfzvnVNF7nIjpiEgcdznfeC.jpg",
+      "belongs_to_collection": {
+        "id": 848690,
+        "name": "Mortal Kombat Legends Collection",
+        "poster_path": "/bQ5WdShxVEqotoeVpQIcJ2cOpWC.jpg",
+        "backdrop_path": "/aEDHKEXh7rERxeKZJVcd1OVrEFL.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/mortal-kombat-legends-scorpions-revenge",
+      "id": 664767,
+      "imdb_id": "tt9580138",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Mortal Kombat Legends: Scorpion's Revenge",
+      "overview": "After the vicious slaughter of his family by stone-cold mercenary Sub-Zero, Hanzo Hasashi is exiled to the torturous Netherrealm. There, in exchange for his servitude to the sinister Quan Chi, he’s given a chance to avenge his family – and is resurrected as Scorpion, a lost soul bent on revenge. Back on Earthrealm, Lord Raiden gathers a team of elite warriors – Shaolin monk Liu Kang, Special Forces officer Sonya Blade, and action star Johnny Cage – an unlikely band of heroes with one chance to save humanity. To do this, they must defeat Shang Tsung's horde of Outworld gladiators and reign over the Mortal Kombat tournament.",
+      "popularity": 25.1115,
+      "poster_path": "/iBvo3qOPcmhlqAaJcXcQHtx2qLk.jpg",
+      "production_companies": [
+        {
+          "id": 2785,
+          "logo_path": "/l5zW8jjmQOCx2dFmvnmbYmqoBmL.png",
+          "name": "Warner Bros. Animation",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2020-04-12",
+      "revenue": 0,
+      "runtime": 80,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Extreme violence. Bad language. And a bloody good time.",
+      "title": "Mortal Kombat Legends: Scorpion's Revenge",
+      "video": false,
+      "vote_average": 8.088,
+      "vote_count": 1463,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mQZJoIhTEkNhCYAqcHrQqhENLdu.jpg",
+      "belongs_to_collection": {
+        "id": 1370345,
+        "name": "The Wild Robot Collection",
+        "poster_path": "/vm94OwAJdVE62BnNdrkM0aAgnEi.jpg",
+        "backdrop_path": "/f6G8QPeod5ngQMs5Fe1O4LdphB7.jpg"
+      },
+      "budget": 78000000,
+      "genres": [
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.thewildrobotmovie.com",
+      "id": 1184918,
+      "imdb_id": "tt29623480",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Wild Robot",
+      "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
+      "popularity": 25.0769,
+      "poster_path": "/eG9lz41mJqsI4J6ubMtVqD26q2J.jpg",
+      "production_companies": [
+        {
+          "id": 521,
+          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
+          "name": "DreamWorks Animation",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2024-09-12",
+      "revenue": 331982078,
+      "runtime": 102,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Discover your true nature.",
+      "title": "The Wild Robot",
+      "video": false,
+      "vote_average": 8.3,
+      "vote_count": 6012,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/twsxsfao6ZOVvT8LfudH603MMi6.jpg",
+      "belongs_to_collection": {
+        "id": 86066,
+        "name": "Despicable Me Collection",
+        "poster_path": "/xIXhIlZDRmSSfNbpN7kBCm5hg39.jpg",
+        "backdrop_path": "/37xamYKRUGCRux532lKcZdVGYuR.jpg"
+      },
+      "budget": 100000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.despicable.me",
+      "id": 519182,
+      "imdb_id": "tt7510222",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Despicable Me 4",
+      "overview": "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
+      "popularity": 24.9111,
+      "poster_path": "/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 6704,
+          "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
+          "name": "Illumination",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2024-06-20",
+      "revenue": 972021410,
+      "runtime": 94,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Things just got a little more despicable.",
+      "title": "Despicable Me 4",
+      "video": false,
+      "vote_average": 6.985,
+      "vote_count": 3181,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nv5wwZou159v5OC61i4ElR7OqyY.jpg",
+      "belongs_to_collection": null,
+      "budget": 24000000,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://gkids.com/films/howls-moving-castle/",
+      "id": 4935,
+      "imdb_id": "tt0347149",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "ハウルの動く城",
+      "overview": "Sophie, a young milliner, is turned into an elderly woman by a witch who enters her shop and curses her. She encounters a wizard named Howl and gets caught up in his resistance to fighting for the king.",
+      "popularity": 24.7872,
+      "poster_path": "/13kOl2v0nD2OLbVSHnHk8GUFEhO.jpg",
+      "production_companies": [
+        {
+          "id": 10342,
+          "logo_path": "/uFuxPEZRUcBTEiYIxjHJq62Vr77.png",
+          "name": "Studio Ghibli",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1779,
+          "logo_path": "/41nGzTdCnORYZIZzaGZtfsBwQCl.png",
+          "name": "Tokuma Shoten",
+          "origin_country": "JP"
+        },
+        {
+          "id": 6755,
+          "logo_path": "/bWiM2iY82B32NGmPCOFatgfekIR.png",
+          "name": "Nippon Television Network Corporation",
+          "origin_country": "JP"
+        },
+        {
+          "id": 1778,
+          "logo_path": "/b5rT6VbYza3LyfltCmz1OcqzWJM.png",
+          "name": "dentsu",
+          "origin_country": "JP"
+        },
+        {
+          "id": 272654,
+          "logo_path": null,
+          "name": "Walt Disney Japan",
+          "origin_country": "JP"
+        },
+        {
+          "id": 12518,
+          "logo_path": "/qJZAVb8vx6qFLQJ6cunRkVUJVdB.png",
+          "name": "d-rights",
+          "origin_country": "JP"
+        },
+        {
+          "id": 882,
+          "logo_path": "/fRSWWjquvzcHjACbtF53utZFIll.png",
+          "name": "TOHO",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "release_date": "2004-09-09",
+      "revenue": 236049757,
+      "runtime": 119,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The two lived there.",
+      "title": "Howl's Moving Castle",
+      "video": false,
+      "vote_average": 8.386,
+      "vote_count": 11028,
       "media_type": "movie"
     },
     {
@@ -2053,7 +1900,7 @@
       "original_language": "en",
       "original_title": "Spider-Man: Across the Spider-Verse",
       "overview": "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse's very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
-      "popularity": 22.1853,
+      "popularity": 25.6212,
       "poster_path": "/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
       "production_companies": [
         {
@@ -2129,8 +1976,8 @@
       "tagline": "It's how you wear the mask that matters.",
       "title": "Spider-Man: Across the Spider-Verse",
       "video": false,
-      "vote_average": 8.333,
-      "vote_count": 8532,
+      "vote_average": 8.334,
+      "vote_count": 8547,
       "media_type": "movie"
     },
     {
@@ -2170,7 +2017,7 @@
       "original_language": "en",
       "original_title": "Zootopia",
       "overview": "Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist fox Nick Wilde to solve the mystery.",
-      "popularity": 22.9663,
+      "popularity": 23.2779,
       "poster_path": "/hlK0e0wAQ3VLuJcsfIYPvb4JVud.jpg",
       "production_companies": [
         {
@@ -2202,151 +2049,135 @@
       "title": "Zootopia",
       "video": false,
       "vote_average": 7.76,
-      "vote_count": 18012,
+      "vote_count": 18017,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/mQZJoIhTEkNhCYAqcHrQqhENLdu.jpg",
-      "belongs_to_collection": {
-        "id": 1370345,
-        "name": "The Wild Robot Collection",
-        "poster_path": "/vm94OwAJdVE62BnNdrkM0aAgnEi.jpg",
-        "backdrop_path": "/f6G8QPeod5ngQMs5Fe1O4LdphB7.jpg"
-      },
-      "budget": 78000000,
+      "backdrop_path": null,
+      "belongs_to_collection": null,
+      "budget": 0,
       "genres": [
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://www.thewildrobotmovie.com",
-      "id": 1184918,
-      "imdb_id": "tt29623480",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Wild Robot",
-      "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
-      "popularity": 23.3365,
-      "poster_path": "/eG9lz41mJqsI4J6ubMtVqD26q2J.jpg",
-      "production_companies": [
-        {
-          "id": 521,
-          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
-          "name": "DreamWorks Animation",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2024-09-12",
-      "revenue": 331982078,
-      "runtime": 102,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Discover your true nature.",
-      "title": "The Wild Robot",
-      "video": false,
-      "vote_average": 8.3,
-      "vote_count": 6006,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/zo8CIjJ2nfNOevqNajwMRO6Hwka.jpg",
-      "belongs_to_collection": {
-        "id": 1241984,
-        "name": "Moana Collection",
-        "poster_path": "/z6thz0IXBYpcJa8PGjTfsOrnP7j.jpg",
-        "backdrop_path": "/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg"
-      },
-      "budget": 150000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
         {
           "id": 35,
           "name": "Comedy"
         },
         {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        }
+      ],
+      "homepage": "http://tetsudon.com/",
+      "id": 341054,
+      "imdb_id": "tt3763830",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "「フールジャパン　ABC・オブ・鉄ドン」ついに劇場公開",
+      "overview": "'Testudon', one of the most famous foolish film festivals, made a foolish anthology film about 'Japan' with 26 directors. Naturally, the directors are also foolish enough, so that you might wonder if it is really about Japan or get headache at the screening.At least, some of the 26 various works will please you. It is inevitable that the theater room will be full of laughter, hand claps, roars or booings like 'Pay back the money!'. But we won't reimburse you!",
+      "popularity": 19.7284,
+      "poster_path": null,
+      "production_companies": [],
+      "production_countries": [],
+      "release_date": "2014-03-01",
+      "revenue": 0,
+      "runtime": 95,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Fool Japan: The ABCs of Tetsudon",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/mZ6J2g6HCV2gj3iuCdSxcyBXq9c.jpg",
+      "belongs_to_collection": null,
+      "budget": 60900000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
           "id": 10751,
           "name": "Family"
         },
         {
-          "id": 14,
-          "name": "Fantasy"
+          "id": 36,
+          "name": "History"
         }
       ],
-      "homepage": "https://movies.disney.com/moana-2",
-      "id": 1241982,
-      "imdb_id": "tt13622970",
+      "homepage": "https://www.thedavidmovie.com/",
+      "id": 1167307,
+      "imdb_id": "tt15678738",
       "origin_country": [
-        "US"
+        "ZA",
+        "US",
+        "GB"
       ],
       "original_language": "en",
-      "original_title": "Moana 2",
-      "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
-      "popularity": 22.8628,
-      "poster_path": "/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg",
+      "original_title": "David",
+      "overview": "From the songs of his mother’s heart to the whispers of a faithful God, David’s story begins in quiet devotion. When the giant Goliath rises to terrorize a nation, a young shepherd armed with only a sling, a few stones, and unshakable faith steps forward. Pursued by power and driven by purpose, his journey tests the limits of loyalty, love, and courage—culminating in a battle not just for a crown, but for the soul of a kingdom.",
+      "popularity": 20.9794,
+      "poster_path": "/bESlrLOrsQ9gKzaGQGHXKOyIUtX.jpg",
       "production_companies": [
         {
-          "id": 6125,
-          "logo_path": "/8bH86UPmMP8hlITzXV3XgV9eaAc.png",
-          "name": "Walt Disney Animation Studios",
+          "id": 30216,
+          "logo_path": "/AwgLu0qw2UifWdDYExBNlZXWwx.png",
+          "name": "Sunrise Productions",
+          "origin_country": "ZA"
+        },
+        {
+          "id": 206626,
+          "logo_path": null,
+          "name": "Slingshot USA",
+          "origin_country": ""
+        },
+        {
+          "id": 165435,
+          "logo_path": "/pDh2WDdOajWST9jlkFo6TOvETnB.png",
+          "name": "Angel Studios",
           "origin_country": "US"
         },
         {
-          "id": 158526,
-          "logo_path": "/tzsMJBJZINu7GHzrpYzpReWhh66.png",
-          "name": "Walt Disney Animation Studios",
-          "origin_country": "CA"
+          "id": 223271,
+          "logo_path": "/2Rc6Dvg3tpIfDzgQE6ycWxNj0kT.png",
+          "name": "2521 Entertainment",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "CA",
-          "name": "Canada"
-        },
-        {
           "iso_3166_1": "US",
           "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "ZA",
+          "name": "South Africa"
         }
       ],
-      "release_date": "2024-11-21",
-      "revenue": 1059242164,
-      "runtime": 100,
+      "release_date": "2025-12-14",
+      "revenue": 85865995,
+      "runtime": 109,
       "softcore": false,
       "spoken_languages": [
         {
@@ -2356,11 +2187,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "The ocean is calling them back.",
-      "title": "Moana 2",
+      "tagline": "A giant musical event.",
+      "title": "David",
       "video": false,
-      "vote_average": 6.998,
-      "vote_count": 3046,
+      "vote_average": 8.1,
+      "vote_count": 134,
       "media_type": "movie"
     },
     {
@@ -2404,7 +2235,7 @@
       "original_language": "en",
       "original_title": "The SpongeBob Movie: Search for SquarePants",
       "overview": "Desperate to be a big guy, SpongeBob sets out to prove his bravery to Mr. Krabs by following The Flying Dutchman – a mysterious swashbuckling ghost pirate – on a seafaring adventure that takes him to the deepest depths of the deep sea, where no Sponge has gone before.",
-      "popularity": 23.0209,
+      "popularity": 23.0773,
       "poster_path": "/xJnOMMsFASxNiFnG7v3TNIQ3ife.jpg",
       "production_companies": [
         {
@@ -2452,8 +2283,94 @@
       "tagline": "Ship's about to go down.",
       "title": "The SpongeBob Movie: Search for SquarePants",
       "video": false,
-      "vote_average": 6.806,
-      "vote_count": 279,
+      "vote_average": 6.833,
+      "vote_count": 282,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zo8CIjJ2nfNOevqNajwMRO6Hwka.jpg",
+      "belongs_to_collection": {
+        "id": 1241984,
+        "name": "Moana Collection",
+        "poster_path": "/z6thz0IXBYpcJa8PGjTfsOrnP7j.jpg",
+        "backdrop_path": "/4OgaftFNqtE1UvfDDb2Eov7A5Rz.jpg"
+      },
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://movies.disney.com/moana-2",
+      "id": 1241982,
+      "imdb_id": "tt13622970",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Moana 2",
+      "overview": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
+      "popularity": 23.6756,
+      "poster_path": "/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg",
+      "production_companies": [
+        {
+          "id": 6125,
+          "logo_path": "/8bH86UPmMP8hlITzXV3XgV9eaAc.png",
+          "name": "Walt Disney Animation Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 158526,
+          "logo_path": "/tzsMJBJZINu7GHzrpYzpReWhh66.png",
+          "name": "Walt Disney Animation Studios",
+          "origin_country": "CA"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CA",
+          "name": "Canada"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2024-11-21",
+      "revenue": 1059242164,
+      "runtime": 100,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The ocean is calling them back.",
+      "title": "Moana 2",
+      "video": false,
+      "vote_average": 6.998,
+      "vote_count": 3051,
       "media_type": "movie"
     },
     {
@@ -2497,7 +2414,7 @@
       "original_language": "en",
       "original_title": "Inside Out",
       "overview": "When 11-year-old Riley moves to a new city, her Emotions team up to help her through the transition. Joy, Fear, Anger, Disgust and Sadness work together, but when Joy and Sadness get lost, they must journey through unfamiliar places to get back home.",
-      "popularity": 21.5065,
+      "popularity": 24.1882,
       "poster_path": "/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg",
       "production_companies": [
         {
@@ -2528,8 +2445,71 @@
       "tagline": "Meet the little voices inside your head.",
       "title": "Inside Out",
       "video": false,
-      "vote_average": 7.909,
-      "vote_count": 23393,
+      "vote_average": 7.91,
+      "vote_count": 23399,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nYs4ZwnJBK4AgljhvzwNz7fpr3E.jpg",
+      "belongs_to_collection": null,
+      "budget": 180000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.pixar.com/feature-films/walle/",
+      "id": 10681,
+      "imdb_id": "tt0910970",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "WALL·E",
+      "overview": "After hundreds of years doing what he was built for, WALL•E— a robot designed to clean up the earth—discovers a new purpose in life when he meets a sleek search robot named EVE. EVE comes to realize that WALL•E has inadvertently stumbled upon the key to the planet's future, and races back to space to report to the humans. Meanwhile, WALL•E chases EVE across the galaxy and sets into motion one of the most imaginative adventures ever brought to the big screen.",
+      "popularity": 21.6139,
+      "poster_path": "/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg",
+      "production_companies": [
+        {
+          "id": 3,
+          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
+          "name": "Pixar",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2008-06-26",
+      "revenue": 521311860,
+      "runtime": 98,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "After 700 years of doing what he was built for, he'll discover what he was meant for.",
+      "title": "WALL·E",
+      "video": false,
+      "vote_average": 8.111,
+      "vote_count": 20201,
       "media_type": "movie"
     },
     {
@@ -2564,7 +2544,7 @@
       "original_language": "en",
       "original_title": "Brave",
       "overview": "In the mystical Scottish Highlands, Merida is the princess of a kingdom ruled by King Fergus and Queen Elinor. An unruly daughter and an accomplished archer, Merida one day defies a sacred custom of the land and inadvertently brings turmoil to the kingdom. In an attempt to set things right, Merida seeks out an eccentric old Wise Woman and is granted an ill-fated wish. Also figuring into Merida's quest — and serving as comic relief — are the kingdom's three lords: the enormous Lord MacGuffin, the surly Lord Macintosh, and the disagreeable Lord Dingwall.",
-      "popularity": 20.9663,
+      "popularity": 23.1345,
       "poster_path": "/1XAuDtMWpL0sYSFK0R6EZate2Ux.jpg",
       "production_companies": [
         {
@@ -2595,389 +2575,8 @@
       "tagline": "Change your fate.",
       "title": "Brave",
       "video": false,
-      "vote_average": 7.022,
-      "vote_count": 14119,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/sDTnMOJ3H5wI38OxObmCtK7wfd5.jpg",
-      "belongs_to_collection": {
-        "id": 137696,
-        "name": "Monsters, Inc. Collection",
-        "poster_path": "/4Cp0L58Rg1bSJSsT6uw7OuU4nYc.jpg",
-        "backdrop_path": "/x4Mq7gDRhbqDjw4SkemLvd1yzF3.jpg"
-      },
-      "budget": 115000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "http://movies.disney.com/monsters-inc",
-      "id": 585,
-      "imdb_id": "tt0198781",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Monsters, Inc.",
-      "overview": "Lovable Sulley and his wisecracking sidekick Mike Wazowski are the top scare team at Monsters, Inc., the scream-processing factory in Monstropolis. When a little girl named Boo wanders into their world, it's the monsters who are scared silly, and it's up to Sulley and Mike to keep her out of sight and get her back home.",
-      "popularity": 19.9929,
-      "poster_path": "/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg",
-      "production_companies": [
-        {
-          "id": 3,
-          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
-          "name": "Pixar",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2001-11-01",
-      "revenue": 579700000,
-      "runtime": 92,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "It's nothing personal. It's just their job.",
-      "title": "Monsters, Inc.",
-      "video": false,
-      "vote_average": 7.848,
-      "vote_count": 19699,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/6GF9uJs7AnbcJvyfoZyjZv063Oo.jpg",
-      "belongs_to_collection": {
-        "id": 94032,
-        "name": "The Lion King Collection",
-        "poster_path": "/oG1heUs503GV6xBnFhgyYTGWm05.jpg",
-        "backdrop_path": "/A9IEaj9cPAwEgFnTmteB70oxgJY.jpg"
-      },
-      "budget": 45000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "http://movies.disney.com/the-lion-king",
-      "id": 8587,
-      "imdb_id": "tt0110357",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Lion King",
-      "overview": "Young lion prince Simba, eager to one day become king of the Pride Lands, grows up under the watchful eye of his father Mufasa; all the while his villainous uncle Scar conspires to take the throne for himself. Amid betrayal and tragedy, Simba must confront his past and find his rightful place in the Circle of Life.",
-      "popularity": 21.741,
-      "poster_path": "/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
-      "production_companies": [
-        {
-          "id": 2,
-          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
-          "name": "Walt Disney Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 171656,
-          "logo_path": "/4UBohOtIr9DtxylH48Qsg6aDow6.png",
-          "name": "Walt Disney Feature Animation",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1994-06-15",
-      "revenue": 763455561,
-      "runtime": 89,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The greatest adventure of all is finding our place in the Circle of Life.",
-      "title": "The Lion King",
-      "video": false,
-      "vote_average": 8.253,
-      "vote_count": 19628,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nv5wwZou159v5OC61i4ElR7OqyY.jpg",
-      "belongs_to_collection": null,
-      "budget": 24000000,
-      "genres": [
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://gkids.com/films/howls-moving-castle/",
-      "id": 4935,
-      "imdb_id": "tt0347149",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "ハウルの動く城",
-      "overview": "Sophie, a young milliner, is turned into an elderly woman by a witch who enters her shop and curses her. She encounters a wizard named Howl and gets caught up in his resistance to fighting for the king.",
-      "popularity": 20.5968,
-      "poster_path": "/13kOl2v0nD2OLbVSHnHk8GUFEhO.jpg",
-      "production_companies": [
-        {
-          "id": 10342,
-          "logo_path": "/uFuxPEZRUcBTEiYIxjHJq62Vr77.png",
-          "name": "Studio Ghibli",
-          "origin_country": "JP"
-        },
-        {
-          "id": 1779,
-          "logo_path": "/41nGzTdCnORYZIZzaGZtfsBwQCl.png",
-          "name": "Tokuma Shoten",
-          "origin_country": "JP"
-        },
-        {
-          "id": 6755,
-          "logo_path": "/bWiM2iY82B32NGmPCOFatgfekIR.png",
-          "name": "Nippon Television Network Corporation",
-          "origin_country": "JP"
-        },
-        {
-          "id": 1778,
-          "logo_path": "/b5rT6VbYza3LyfltCmz1OcqzWJM.png",
-          "name": "dentsu",
-          "origin_country": "JP"
-        },
-        {
-          "id": 272654,
-          "logo_path": null,
-          "name": "Walt Disney Japan",
-          "origin_country": "JP"
-        },
-        {
-          "id": 12518,
-          "logo_path": "/qJZAVb8vx6qFLQJ6cunRkVUJVdB.png",
-          "name": "d-rights",
-          "origin_country": "JP"
-        },
-        {
-          "id": 882,
-          "logo_path": "/fRSWWjquvzcHjACbtF53utZFIll.png",
-          "name": "TOHO",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "release_date": "2004-09-09",
-      "revenue": 236049757,
-      "runtime": 119,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The two lived there.",
-      "title": "Howl's Moving Castle",
-      "video": false,
-      "vote_average": 8.386,
-      "vote_count": 11018,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nYs4ZwnJBK4AgljhvzwNz7fpr3E.jpg",
-      "belongs_to_collection": null,
-      "budget": 180000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.pixar.com/feature-films/walle/",
-      "id": 10681,
-      "imdb_id": "tt0910970",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "WALL·E",
-      "overview": "After hundreds of years doing what he was built for, WALL•E— a robot designed to clean up the earth—discovers a new purpose in life when he meets a sleek search robot named EVE. EVE comes to realize that WALL•E has inadvertently stumbled upon the key to the planet's future, and races back to space to report to the humans. Meanwhile, WALL•E chases EVE across the galaxy and sets into motion one of the most imaginative adventures ever brought to the big screen.",
-      "popularity": 19.7296,
-      "poster_path": "/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg",
-      "production_companies": [
-        {
-          "id": 3,
-          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
-          "name": "Pixar",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2008-06-22",
-      "revenue": 521311860,
-      "runtime": 98,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "After 700 years of doing what he was built for, he'll discover what he was meant for.",
-      "title": "WALL·E",
-      "video": false,
-      "vote_average": 8.11,
-      "vote_count": 20191,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/g7CHF8gTLGooTbP4GznIGwaqAGL.jpg",
-      "belongs_to_collection": {
-        "id": 1451578,
-        "name": "Coco Collection",
-        "poster_path": "/mzXleaxlzzxd8ViBNIxgsuJQC8T.jpg",
-        "backdrop_path": "/yTj4TieaECXAmbnQ0OL2lnh1qEM.jpg"
-      },
-      "budget": 175000000,
-      "genres": [
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10402,
-          "name": "Music"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://www.pixar.com/feature-films/coco",
-      "id": 354912,
-      "imdb_id": "tt2380307",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Coco",
-      "overview": "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
-      "popularity": 21.4669,
-      "poster_path": "/6Ryitt95xrO8KXuqRGm1fUuNwqF.jpg",
-      "production_companies": [
-        {
-          "id": 3,
-          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
-          "name": "Pixar",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2017-10-27",
-      "revenue": 814641172,
-      "runtime": 105,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The celebration of a lifetime.",
-      "title": "Coco",
-      "video": false,
-      "vote_average": 8.197,
-      "vote_count": 20899,
+      "vote_average": 7.023,
+      "vote_count": 14128,
       "media_type": "movie"
     },
     {
@@ -3017,7 +2616,7 @@
       "original_language": "en",
       "original_title": "Spider-Man: Into the Spider-Verse",
       "overview": "Struggling to find his place in the world while juggling school and family, Brooklyn teenager Miles Morales is unexpectedly bitten by a radioactive spider and develops unfathomable powers just like the one and only Spider-Man. While wrestling with the implications of his new abilities, Miles discovers a super collider created by the madman Wilson \"Kingpin\" Fisk, causing others from across the Spider-Verse to be inadvertently transported to his dimension.",
-      "popularity": 19.2411,
+      "popularity": 21.4798,
       "poster_path": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
       "production_companies": [
         {
@@ -3089,57 +2688,55 @@
       "title": "Spider-Man: Into the Spider-Verse",
       "video": false,
       "vote_average": 8.393,
-      "vote_count": 17156,
+      "vote_count": 17165,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/8FWLJHuWB72UXBmiMtxwTvQVumN.jpg",
+      "backdrop_path": "/6GF9uJs7AnbcJvyfoZyjZv063Oo.jpg",
       "belongs_to_collection": {
-        "id": 1231053,
-        "name": "The Bad Guys Collection",
-        "poster_path": "/MvnERW28KnZ5fmxS73a27m3qhN.jpg",
-        "backdrop_path": "/m4WprwbsvC1HsORjSiZmiARy9yl.jpg"
+        "id": 94032,
+        "name": "The Lion King Collection",
+        "poster_path": "/oG1heUs503GV6xBnFhgyYTGWm05.jpg",
+        "backdrop_path": "/A9IEaj9cPAwEgFnTmteB70oxgJY.jpg"
       },
-      "budget": 80000000,
+      "budget": 45000000,
       "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
         {
           "id": 10751,
           "name": "Family"
         },
         {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
+          "id": 18,
+          "name": "Drama"
         }
       ],
-      "homepage": "https://www.thebadguysmovie.com",
-      "id": 1175942,
-      "imdb_id": "tt30017619",
+      "homepage": "http://movies.disney.com/the-lion-king",
+      "id": 8587,
+      "imdb_id": "tt0110357",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "The Bad Guys 2",
-      "overview": "The now-reformed Bad Guys are trying (very, very hard) to be good, but instead find themselves hijacked into a high-stakes, globe-trotting heist, masterminded by a new team of criminals they never saw coming: The Bad Girls.",
-      "popularity": 18.7167,
-      "poster_path": "/26oSPnq0ct59l07QOXZKyzsiRtN.jpg",
+      "original_title": "The Lion King",
+      "overview": "Young lion prince Simba, eager to one day become king of the Pride Lands, grows up under the watchful eye of his father Mufasa; all the while his villainous uncle Scar conspires to take the throne for himself. Amid betrayal and tragedy, Simba must confront his past and find his rightful place in the Circle of Life.",
+      "popularity": 21.6166,
+      "poster_path": "/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
       "production_companies": [
         {
-          "id": 521,
-          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
-          "name": "DreamWorks Animation",
+          "id": 2,
+          "logo_path": "/wdrCwmRnLFJhEoH8GSfymY85KHT.png",
+          "name": "Walt Disney Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 171656,
+          "logo_path": "/4UBohOtIr9DtxylH48Qsg6aDow6.png",
+          "name": "Walt Disney Feature Animation",
           "origin_country": "US"
         }
       ],
@@ -3149,9 +2746,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2025-07-24",
-      "revenue": 239676236,
-      "runtime": 104,
+      "release_date": "1994-06-15",
+      "revenue": 763455561,
+      "runtime": 89,
       "softcore": false,
       "spoken_languages": [
         {
@@ -3161,11 +2758,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "Back in badness.",
-      "title": "The Bad Guys 2",
+      "tagline": "The greatest adventure of all is finding our place in the Circle of Life.",
+      "title": "The Lion King",
       "video": false,
-      "vote_average": 7.7,
-      "vote_count": 763,
+      "vote_average": 8.253,
+      "vote_count": 19633,
       "media_type": "movie"
     },
     {
@@ -3200,7 +2797,7 @@
       "original_language": "en",
       "original_title": "Up",
       "overview": "Carl Fredricksen spent his entire life dreaming of exploring the globe and experiencing life to its fullest. But at age 78, life seems to have passed him by, until a twist of fate (and a persistent 8-year old Wilderness Explorer named Russell) gives him a new lease on life.",
-      "popularity": 18.5632,
+      "popularity": 20.895,
       "poster_path": "/mFvoEwSfLqbcWwFsDjQebn9bzFe.jpg",
       "production_companies": [
         {
@@ -3231,20 +2828,88 @@
       "tagline": "Change is in the air.",
       "title": "Up",
       "video": false,
-      "vote_average": 7.959,
-      "vote_count": 21600,
+      "vote_average": 8.0,
+      "vote_count": 21607,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg",
+      "backdrop_path": "/sDTnMOJ3H5wI38OxObmCtK7wfd5.jpg",
       "belongs_to_collection": {
-        "id": 386382,
-        "name": "Frozen Collection",
-        "poster_path": "/2DdKGQYzE6D7pSvvHvM9FRzTh5r.jpg",
-        "backdrop_path": "/s3vdRkK7KZFUDC8HEJo2GRKyVhW.jpg"
+        "id": 137696,
+        "name": "Monsters, Inc. Collection",
+        "poster_path": "/4Cp0L58Rg1bSJSsT6uw7OuU4nYc.jpg",
+        "backdrop_path": "/x4Mq7gDRhbqDjw4SkemLvd1yzF3.jpg"
       },
-      "budget": 150000000,
+      "budget": 115000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "http://movies.disney.com/monsters-inc",
+      "id": 585,
+      "imdb_id": "tt0198781",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Monsters, Inc.",
+      "overview": "Lovable Sulley and his wisecracking sidekick Mike Wazowski are the top scare team at Monsters, Inc., the scream-processing factory in Monstropolis. When a little girl named Boo wanders into their world, it's the monsters who are scared silly, and it's up to Sulley and Mike to keep her out of sight and get her back home.",
+      "popularity": 22.2124,
+      "poster_path": "/wFSpyMsp7H0ttERbxY7Trlv8xry.jpg",
+      "production_companies": [
+        {
+          "id": 3,
+          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
+          "name": "Pixar",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2001-11-01",
+      "revenue": 579700000,
+      "runtime": 92,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "It's nothing personal. It's just their job.",
+      "title": "Monsters, Inc.",
+      "video": false,
+      "vote_average": 7.848,
+      "vote_count": 19704,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/eCynaAOgYYiw5yN5lBwz3IxqvaW.jpg",
+      "belongs_to_collection": {
+        "id": 137697,
+        "name": "Finding Nemo Collection",
+        "poster_path": "/cCovtlN16ykvyFYnzKyv3dFtceG.jpg",
+        "backdrop_path": "/bcWmv9xsKv6xXmdz5OP2wefHcdx.jpg"
+      },
+      "budget": 94000000,
       "genres": [
         {
           "id": 16,
@@ -3257,28 +2922,24 @@
         {
           "id": 12,
           "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
         }
       ],
-      "homepage": "http://movies.disney.com/frozen",
-      "id": 109445,
-      "imdb_id": "tt2294629",
+      "homepage": "http://movies.disney.com/finding-nemo",
+      "id": 12,
+      "imdb_id": "tt0266543",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Frozen",
-      "overview": "Young princess Anna of Arendelle dreams about finding true love at her sister Elsa’s coronation. Fate takes her on a dangerous journey in an attempt to end the eternal winter that has fallen over the kingdom. She's accompanied by ice delivery man Kristoff, his reindeer Sven, and snowman Olaf. On an adventure where she will find out what friendship, courage, family, and true love really means.",
-      "popularity": 18.7007,
-      "poster_path": "/kgwjIb2JDHRhNk13lmSxiClFjVk.jpg",
+      "original_title": "Finding Nemo",
+      "overview": "Nemo, an adventurous young clownfish, is unexpectedly taken from his Great Barrier Reef home to a dentist's office aquarium. It's up to his worrisome father Marlin and a friendly but forgetful fish Dory to bring Nemo home -- meeting vegetarian sharks, surfer dude turtles, hypnotic jellyfish, hungry seagulls, and more along the way.",
+      "popularity": 20.1052,
+      "poster_path": "/5lc6nQc0VhWFYFbNv016xze8Jvy.jpg",
       "production_companies": [
         {
-          "id": 6125,
-          "logo_path": "/8bH86UPmMP8hlITzXV3XgV9eaAc.png",
-          "name": "Walt Disney Animation Studios",
+          "id": 3,
+          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
+          "name": "Pixar",
           "origin_country": "US"
         }
       ],
@@ -3288,9 +2949,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2013-11-20",
-      "revenue": 1274219009,
-      "runtime": 102,
+      "release_date": "2003-05-30",
+      "revenue": 940335536,
+      "runtime": 100,
       "softcore": false,
       "spoken_languages": [
         {
@@ -3300,84 +2961,88 @@
         }
       ],
       "status": "Released",
-      "tagline": "Who will save the day? The ice guy? The nice guy? The snow man? Or no man?",
-      "title": "Frozen",
+      "tagline": "There are 3.7 trillion fish in the ocean. They're looking for one.",
+      "title": "Finding Nemo",
       "video": false,
-      "vote_average": 7.248,
-      "vote_count": 17527,
+      "vote_average": 7.8,
+      "vote_count": 20498,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/hlfu6g0h0D65SjkVhQBU20zePTl.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/g7CHF8gTLGooTbP4GznIGwaqAGL.jpg",
+      "belongs_to_collection": {
+        "id": 1451578,
+        "name": "Coco Collection",
+        "poster_path": "/mzXleaxlzzxd8ViBNIxgsuJQC8T.jpg",
+        "backdrop_path": "/yTj4TieaECXAmbnQ0OL2lnh1qEM.jpg"
+      },
+      "budget": 175000000,
       "genres": [
         {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
+          "id": 10751,
+          "name": "Family"
         },
         {
           "id": 16,
           "name": "Animation"
-        }
-      ],
-      "homepage": "https://www.sololevelingreawakening.com",
-      "id": 1357633,
-      "imdb_id": "tt33428606",
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_title": "俺だけレベルアップな件 -ReAwakening-",
-      "overview": "Over a decade after 'gates' connecting worlds appeared, awakening 'hunters' with superpowers, weakest hunter Sung Jinwoo encounters a double dungeon and accepts a mysterious quest, becoming the only one able to level up, changing his fate. A catch-up recap of the first season coupled with an exclusive sneak peek of the first two episodes of the highly anticipated second season in one momentous theatrical fan experience.",
-      "popularity": 18.2106,
-      "poster_path": "/dblIFen0bNZAq8icJXHwrjfymDW.jpg",
-      "production_companies": [
-        {
-          "id": 2883,
-          "logo_path": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png",
-          "name": "Aniplex",
-          "origin_country": "JP"
         },
         {
-          "id": 13113,
-          "logo_path": "/xV5tPYKZhP2Ko9dOh5A3FahuKsx.png",
-          "name": "A-1 Pictures",
-          "origin_country": "JP"
+          "id": 10402,
+          "name": "Music"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.pixar.com/feature-films/coco",
+      "id": 354912,
+      "imdb_id": "tt2380307",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Coco",
+      "overview": "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
+      "popularity": 22.7512,
+      "poster_path": "/6Ryitt95xrO8KXuqRGm1fUuNwqF.jpg",
+      "production_companies": [
+        {
+          "id": 3,
+          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
+          "name": "Pixar",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "JP",
-          "name": "Japan"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
-      "release_date": "2024-11-26",
-      "revenue": 6331827,
-      "runtime": 116,
+      "release_date": "2017-10-27",
+      "revenue": 814641172,
+      "runtime": 105,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "Solo Leveling -ReAwakening-",
+      "tagline": "The celebration of a lifetime.",
+      "title": "Coco",
       "video": false,
-      "vote_average": 7.144,
-      "vote_count": 268,
+      "vote_average": 8.197,
+      "vote_count": 20907,
       "media_type": "movie"
     },
     {
@@ -3417,7 +3082,7 @@
       "original_language": "en",
       "original_title": "Toy Story",
       "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.",
-      "popularity": 18.1337,
+      "popularity": 21.6264,
       "poster_path": "/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
       "production_companies": [
         {
@@ -3449,47 +3114,48 @@
       "title": "Toy Story",
       "video": false,
       "vote_average": 7.973,
-      "vote_count": 19808,
+      "vote_count": 19813,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/4s2d3xdyqotiVNHTlTlJjrr3q0H.jpg",
-      "belongs_to_collection": null,
-      "budget": 165000000,
+      "backdrop_path": "/rj58WQ9ImI0mYDptXdM7euX1Wjt.jpg",
+      "belongs_to_collection": {
+        "id": 386382,
+        "name": "Frozen Collection",
+        "poster_path": "/2DdKGQYzE6D7pSvvHvM9FRzTh5r.jpg",
+        "backdrop_path": "/s3vdRkK7KZFUDC8HEJo2GRKyVhW.jpg"
+      },
+      "budget": 150000000,
       "genres": [
         {
-          "id": 12,
-          "name": "Adventure"
+          "id": 16,
+          "name": "Animation"
         },
         {
           "id": 10751,
           "name": "Family"
         },
         {
-          "id": 16,
-          "name": "Animation"
+          "id": 12,
+          "name": "Adventure"
         },
         {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
+          "id": 14,
+          "name": "Fantasy"
         }
       ],
-      "homepage": "http://movies.disney.com/big-hero-6",
-      "id": 177572,
-      "imdb_id": "tt2245084",
+      "homepage": "http://movies.disney.com/frozen",
+      "id": 109445,
+      "imdb_id": "tt2294629",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Big Hero 6",
-      "overview": "A special bond develops between plus-sized inflatable robot Baymax, and prodigy Hiro Hamada, who team up with a group of friends to form a band of high-tech heroes.",
-      "popularity": 19.162,
-      "poster_path": "/2mxS4wUimwlLmI1xp6QW6NSU361.jpg",
+      "original_title": "Frozen",
+      "overview": "Young princess Anna of Arendelle dreams about finding true love at her sister Elsa’s coronation. Fate takes her on a dangerous journey in an attempt to end the eternal winter that has fallen over the kingdom. She's accompanied by ice delivery man Kristoff, his reindeer Sven, and snowman Olaf. On an adventure where she will find out what friendship, courage, family, and true love really means.",
+      "popularity": 19.6852,
+      "poster_path": "/kgwjIb2JDHRhNk13lmSxiClFjVk.jpg",
       "production_companies": [
         {
           "id": 6125,
@@ -3504,8 +3170,8 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2014-10-24",
-      "revenue": 657870525,
+      "release_date": "2013-11-20",
+      "revenue": 1274219009,
       "runtime": 102,
       "softcore": false,
       "spoken_languages": [
@@ -3516,11 +3182,165 @@
         }
       ],
       "status": "Released",
-      "tagline": "Drop everything. Save the world.",
-      "title": "Big Hero 6",
+      "tagline": "Who will save the day? The ice guy? The nice guy? The snow man? Or no man?",
+      "title": "Frozen",
       "video": false,
-      "vote_average": 7.724,
-      "vote_count": 16520,
+      "vote_average": 7.248,
+      "vote_count": 17530,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xgDj56UWyeWQcxQ44f5A3RTWuSs.jpg",
+      "belongs_to_collection": null,
+      "budget": 150000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://movies.disney.com/ratatouille",
+      "id": 2062,
+      "imdb_id": "tt0382932",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Ratatouille",
+      "overview": "Remy, a rat, possesses a palate far more refined than that of his fellow comrades. He dreams of becoming a chef, one who creates rather than scavenges. When fate deposits him in the sewers beneath one of Paris’s most famous restaurants, he finds himself ideally placed to fulfill his dream. Forming an unusual alliance with a hapless young kitchen worker, Remy begins a daring culinary double life.  As Remy pursues his vision, he must navigate the suspicions of the calculating Head Chef Skinner, the disapproval of Remy’s own colony, and the foreboding presence of renowned food critic Anton Ego, who strikes fear in the hearts of chefs all throughout France.",
+      "popularity": 18.9718,
+      "poster_path": "/t3vaWRPSf6WjDSamIkKDs1iQWna.jpg",
+      "production_companies": [
+        {
+          "id": 3,
+          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
+          "name": "Pixar",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2007-06-28",
+      "revenue": 623726000,
+      "runtime": 111,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "He's dying to become a chef.",
+      "title": "Ratatouille",
+      "video": false,
+      "vote_average": 7.839,
+      "vote_count": 18411,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2XSeKDmIa2KxaiJy4J9e8FrIZhk.jpg",
+      "belongs_to_collection": {
+        "id": 86066,
+        "name": "Despicable Me Collection",
+        "poster_path": "/xIXhIlZDRmSSfNbpN7kBCm5hg39.jpg",
+        "backdrop_path": "/37xamYKRUGCRux532lKcZdVGYuR.jpg"
+      },
+      "budget": 69000000,
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "http://www.despicable.me/",
+      "id": 20352,
+      "imdb_id": "tt1323594",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Despicable Me",
+      "overview": "Gru is a supervillain determined to prove he’s the greatest by stealing the Moon. To pull off his plan, he adopts three orphaned girls—Margo, Edith, and Agnes—intending to use them as part of his scheme. However, as Gru bonds with the girls, his cold, villainous exterior begins to melt.",
+      "popularity": 18.7969,
+      "poster_path": "/b1BT309QWjtFUlJPLmXmrcHOWEL.jpg",
+      "production_companies": [
+        {
+          "id": 6704,
+          "logo_path": "/fOG2oY4m1YuYTQh4bMqqZkmgOAI.png",
+          "name": "Illumination",
+          "origin_country": "US"
+        },
+        {
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2010-07-08",
+      "revenue": 543284256,
+      "runtime": 95,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Superbad. Superdad.",
+      "title": "Despicable Me",
+      "video": false,
+      "vote_average": 7.257,
+      "vote_count": 16018,
       "media_type": "movie"
     },
     {
@@ -3564,7 +3384,7 @@
       "original_language": "en",
       "original_title": "Puss in Boots: The Last Wish",
       "overview": "Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.",
-      "popularity": 17.8334,
+      "popularity": 18.6987,
       "poster_path": "/rJMl8E4DmSEyIiiBEefqMXpzWS2.jpg",
       "production_companies": [
         {
@@ -3600,15 +3420,20 @@
       "tagline": "Say hola to his little friends.",
       "title": "Puss in Boots: The Last Wish",
       "video": false,
-      "vote_average": 8.201,
-      "vote_count": 8773,
+      "vote_average": 8.202,
+      "vote_count": 8782,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/xgDj56UWyeWQcxQ44f5A3RTWuSs.jpg",
-      "belongs_to_collection": null,
-      "budget": 150000000,
+      "backdrop_path": "/7iUDfakacY1HpajP1DtHrCuDB95.jpg",
+      "belongs_to_collection": {
+        "id": 10194,
+        "name": "Toy Story Collection",
+        "poster_path": "/rki5qLuwb0xnnE9seehxO9TlLhW.jpg",
+        "backdrop_path": "/hApclyB9NEZEQujAVajzi5iWE4a.jpg"
+      },
+      "budget": 90000000,
       "genres": [
         {
           "id": 16,
@@ -3621,23 +3446,19 @@
         {
           "id": 10751,
           "name": "Family"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
         }
       ],
-      "homepage": "https://movies.disney.com/ratatouille",
-      "id": 2062,
-      "imdb_id": "tt0382932",
+      "homepage": "http://toystory.disney.com/toy-story-2",
+      "id": 863,
+      "imdb_id": "tt0120363",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Ratatouille",
-      "overview": "Remy, a rat, possesses a palate far more refined than that of his fellow comrades. He dreams of becoming a chef, one who creates rather than scavenges. When fate deposits him in the sewers beneath one of Paris’s most famous restaurants, he finds himself ideally placed to fulfill his dream. Forming an unusual alliance with a hapless young kitchen worker, Remy begins a daring culinary double life.  As Remy pursues his vision, he must navigate the suspicions of the calculating Head Chef Skinner, the disapproval of Remy’s own colony, and the foreboding presence of renowned food critic Anton Ego, who strikes fear in the hearts of chefs all throughout France.",
-      "popularity": 17.7555,
-      "poster_path": "/t3vaWRPSf6WjDSamIkKDs1iQWna.jpg",
+      "original_title": "Toy Story 2",
+      "overview": "Andy heads off to Cowboy Camp, leaving his toys to their own devices. Things shift into high gear when an obsessive toy collector named Al McWhiggen, owner of Al's Toy Barn kidnaps Woody. Andy's toys mount a daring rescue mission, Buzz Lightyear meets his match and Woody has to decide where he and his heart truly belong.",
+      "popularity": 18.4434,
+      "poster_path": "/4rbcp3ng8n1MKHjpeqW0L7Fnpzz.jpg",
       "production_companies": [
         {
           "id": 3,
@@ -3652,28 +3473,23 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2007-06-28",
-      "revenue": 623726000,
-      "runtime": 111,
+      "release_date": "1999-10-30",
+      "revenue": 497375404,
+      "runtime": 92,
       "softcore": false,
       "spoken_languages": [
         {
           "english_name": "English",
           "iso_639_1": "en",
           "name": "English"
-        },
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
         }
       ],
       "status": "Released",
-      "tagline": "He's dying to become a chef.",
-      "title": "Ratatouille",
+      "tagline": "The toys are back in town!",
+      "title": "Toy Story 2",
       "video": false,
-      "vote_average": 7.839,
-      "vote_count": 18405,
+      "vote_average": 7.605,
+      "vote_count": 14831,
       "media_type": "movie"
     },
     {
@@ -3713,7 +3529,7 @@
       "original_language": "en",
       "original_title": "Kung Fu Panda",
       "overview": "Chosen by prophecy but doubted by all, Po is an unlikely choice for the mystical title of the Dragon Warrior—a clumsy panda thrust into the world of kung fu as a deadly enemy threatens the Valley of Peace. Under reluctant guidance by Master Shifu and the Furious Five, Po must embrace who he is to unlock the power that no scroll can teach.",
-      "popularity": 17.1653,
+      "popularity": 17.8636,
       "poster_path": "/wWt4JYXTg5Wr3xBW2phBrMKgp3x.jpg",
       "production_companies": [
         {
@@ -3745,94 +3561,80 @@
       "title": "Kung Fu Panda",
       "video": false,
       "vote_average": 7.319,
-      "vote_count": 12575,
+      "vote_count": 12581,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/sd4xN5xi8tKRPrJOWwNiZEile7f.jpg",
-      "belongs_to_collection": {
-        "id": 87118,
-        "name": "Cars Collection",
-        "poster_path": "/uq3N2SFj1Y06zA6LzCQPkmBdaaE.jpg",
-        "backdrop_path": "/A8DqaTGwZ8iCEjWMNRsZumzfKLw.jpg"
-      },
-      "budget": 120000000,
+      "backdrop_path": "/hlfu6g0h0D65SjkVhQBU20zePTl.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
       "genres": [
         {
-          "id": 16,
-          "name": "Animation"
+          "id": 28,
+          "name": "Action"
         },
         {
           "id": 12,
           "name": "Adventure"
         },
         {
-          "id": 35,
-          "name": "Comedy"
+          "id": 14,
+          "name": "Fantasy"
         },
         {
-          "id": 10751,
-          "name": "Family"
+          "id": 16,
+          "name": "Animation"
         }
       ],
-      "homepage": "http://disney.go.com/disneyvideos/animatedfilms/cars/",
-      "id": 920,
-      "imdb_id": "tt0317219",
+      "homepage": "https://www.sololevelingreawakening.com",
+      "id": 1357633,
+      "imdb_id": "tt33428606",
       "origin_country": [
-        "US"
+        "JP"
       ],
-      "original_language": "en",
-      "original_title": "Cars",
-      "overview": "Lightning McQueen, a hotshot rookie race car driven to succeed, discovers that life is about the journey, not the finish line, when he finds himself unexpectedly detoured in the sleepy Route 66 town of Radiator Springs. On route across the country to the big Piston Cup Championship in California to compete against two seasoned pros, McQueen gets to know the town's offbeat characters.",
-      "popularity": 16.1844,
-      "poster_path": "/2Touk3m5gzsqr1VsvxypdyHY5ci.jpg",
+      "original_language": "ja",
+      "original_title": "俺だけレベルアップな件 -ReAwakening-",
+      "overview": "Over a decade after 'gates' connecting worlds appeared, awakening 'hunters' with superpowers, weakest hunter Sung Jinwoo encounters a double dungeon and accepts a mysterious quest, becoming the only one able to level up, changing his fate. A catch-up recap of the first season coupled with an exclusive sneak peek of the first two episodes of the highly anticipated second season in one momentous theatrical fan experience.",
+      "popularity": 17.8296,
+      "poster_path": "/dblIFen0bNZAq8icJXHwrjfymDW.jpg",
       "production_companies": [
         {
-          "id": 3,
-          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
-          "name": "Pixar",
-          "origin_country": "US"
+          "id": 2883,
+          "logo_path": "/rDYExnBV61jGQnkhVVrPN4Yl7O1.png",
+          "name": "Aniplex",
+          "origin_country": "JP"
+        },
+        {
+          "id": 13113,
+          "logo_path": "/xV5tPYKZhP2Ko9dOh5A3FahuKsx.png",
+          "name": "A-1 Pictures",
+          "origin_country": "JP"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "JP",
+          "name": "Japan"
         }
       ],
-      "release_date": "2006-06-08",
-      "revenue": 461983149,
-      "runtime": 117,
+      "release_date": "2024-11-26",
+      "revenue": 6331827,
+      "runtime": 116,
       "softcore": false,
       "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Italian",
-          "iso_639_1": "it",
-          "name": "Italiano"
-        },
         {
           "english_name": "Japanese",
           "iso_639_1": "ja",
           "name": "日本語"
-        },
-        {
-          "english_name": "Yiddish",
-          "iso_639_1": "yi",
-          "name": ""
         }
       ],
       "status": "Released",
-      "tagline": "Ahhh... it's got that new movie smell.",
-      "title": "Cars",
+      "tagline": "",
+      "title": "Solo Leveling -ReAwakening-",
       "video": false,
-      "vote_average": 7.026,
-      "vote_count": 15057,
+      "vote_average": 7.15,
+      "vote_count": 270,
       "media_type": "movie"
     },
     {
@@ -3872,7 +3674,7 @@
       "original_language": "en",
       "original_title": "Toy Story 5",
       "overview": "When Bonnie receives a Lilypad tablet as a gift and becomes obsessed, Buzz, Woody, Jessie and the rest of the gang's jobs become exponentially harder when they have to go head to head with the all-new threat to playtime.",
-      "popularity": 13.489,
+      "popularity": 17.2785,
       "poster_path": "/dWIAOC9EKFehGs3CYvDQih3hxaG.jpg",
       "production_companies": [
         {
