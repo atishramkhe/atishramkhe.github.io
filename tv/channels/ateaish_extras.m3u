@@ -522,18 +522,18 @@ https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/ea
 #EXTINF:-1 tvg-id="",Xtrem Sports
 https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/e0b81a5c-6ab5-48cd-aaa9-f82de4ab5bf9/manifest.m3u8
 
-#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc1.png" tvg-country="MU" group-title="Mauritius", MBC 1
-https://hls.mbconline.xyz/live/MBC1/index.m3u8
-#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc2.png" tvg-country="MU" group-title="Mauritius", MBC 2
-https://hls.mbconline.xyz/live/MBC2/index.m3u8
-#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tangymc/mbcchannels/main/logos/tvchannels/mbc3.png" tvg-country="MU" group-title="Mauritius", MBC 3
-https://hls.mbconline.xyz/live/MBC3/index.m3u8
-#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc4.png" tvg-country="MU" group-title="Mauritius", MBC 4
-https://hls.mbconline.xyz/live/MBC4/index.m3u8
-#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc5.png" tvg-country="MU" group-title="Mauritius", MBC 5
-https://hls.mbconline.xyz/live/MBC5/index.m3u8
-#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbcsat.png" tvg-country="MU" group-title="Mauritius", MBC SAT
-https://hls.mbconline.xyz/live/MBCSAT/index.m3u8
+#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc1.png", MBC 1
+https://vod.mbcplay.tv/hls/MBC1/master.m3u8
+#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc2.png", MBC 2
+https://vod.mbcplay.tv/hls/MBC2/master.m3u8
+#EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/tangymc/mbcchannels/main/logos/tvchannels/mbc3.png", MBC 3
+https://vod.mbcplay.tv/hls/MBC3/master.m3u8
+#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc4.png", MBC 4
+https://vod.mbcplay.tv/hls/MBC4/master.m3u8
+#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbc5.png", MBC 5
+https://vod.mbcplay.tv/hls/MBC5/master.m3u8
+#EXTINF:-1 tvg-logo="https://github.com/tangymc/mbcchannels/raw/main/logos/tvchannels/mbcsat.png", MBC SAT
+https://vod.mbcplay.tv/hls/MBCSAT/master.m3u8
 
 #EXTINF:-1 tvg-logo="" tvg-country="IN" group-title="India",MBC BOllywood UAE
 https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8
@@ -5156,6 +5156,8 @@ https://jmp2.uk/plu-5eb301b7395671000780d100.m3u8
 https://jmp2.uk/plu-60493283ffc52f000710edae.m3u8
 #EXTINF:-1 channel-id="654933ac986ad20008a1f406" tvg-id="654933ac986ad20008a1f406" tvg-chno="640" tvg-name="Little House on the Prairie" tvg-logo="https://images.pluto.tv/channels/654933ac986ad20008a1f406/colorLogoPNG.png" group-title="Classic TV",Little House on the Prairie
 https://jmp2.uk/plu-654933ac986ad20008a1f406.m3u8
+#EXTINF:-1 channel-id="654933ac986ad20008a1f406" tvg-id="654933ac986ad20008a1f406" tvg-chno="640" tvg-name="Little House on the Prairie" tvg-logo="https://images.pluto.tv/channels/654933ac986ad20008a1f406/colorLogoPNG.png" group-title="Classic TV",Little House on the Prairie
+https://d4whmvwm0rdvi.cloudfront.net/10007/99993022/hls/master.m3u8?ads.xumo_channelId=99993022&ads.asnw=169843&ads.afid=380744511&ads.sfid=17537893&ads.csid=lgchannels_us_nbculittlehouseprairie_ssai_cro&ads._fw_is_lat=[LMT]&ads._fw_us_privacy=[US_PRIVACY]&ads._fw_coppa=0&ads._fw_did=[IFA]&ads._fw_vcid2=512116:[IFA]&ads._fw_app_bundle=[APP_BUNDLE]&ads._fw_app_store_url=[APP_STOREURL]&ads._fw_content_category=IAB1-7&ads._fw_content_genre=television&ads._fw_content_language=en&ads._fw_content_rating=tv-14&ads._fw_deviceMake=[DEVICE_MAKE]&ads._fw_device_model=[DEVICE_MODEL]&ads._fw_deviceType=3-Connected_TV&ads.appVersion=[APP_VERSION]&ads.appName=lgchannels&ads.xumo_contentId=3938&ads.xumo_contentName=NBCULittleHousePrairie&ads.xumo_providerId=3938&ads.xumo_providerName=NBCULittleHousePrairie&ads.channelId=99993022&ads._fw_ifa_type=dpid&ads.givn=[NONCE]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]
 #EXTINF:-1 channel-id="51c75f7bb6f26ba1cd00002f" tvg-id="51c75f7bb6f26ba1cd00002f" tvg-chno="3730" tvg-name="Little Stars Universe" tvg-logo="https://images.pluto.tv/channels/51c75f7bb6f26ba1cd00002f/colorLogoPNG.png" group-title="Kids",Little Stars Universe
 https://jmp2.uk/plu-51c75f7bb6f26ba1cd00002f.m3u8
 #EXTINF:-1 channel-id="5873fc21cad696fb37aa9054" tvg-id="5873fc21cad696fb37aa9054" tvg-chno="2190" tvg-name="Live Music" tvg-logo="https://images.pluto.tv/channels/5873fc21cad696fb37aa9054/colorLogoPNG.png" group-title="Entertainment",Live Music
