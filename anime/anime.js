@@ -16,7 +16,8 @@ const ANILIST_GRAPHQL = 'https://graphql.anilist.co';
 const TMDB_API_KEY = '792f6fa1e1c53d234af7859d10bdf833';
 const TMDB_SEARCH_MOVIE = 'https://api.themoviedb.org/3/search/movie';
 const NINE_ANIME_BASE = 'https://9animetv.to';
-const VIDEASY_PLAYER_BASE = 'https://player.videasy.net';
+const FILMU_EMBED_BASE = 'https://embed.filmu.in';
+const STREAMRIP_BASE = 'https://streamrip.fun';
 const NINE_ANIME_DIRECT_ID_PREFIX = '9anime:';
 const ANIME_API_BRIDGE_SOURCE = 'ateaish-anime-api';
 const ANIME_HOME_SNAPSHOT_URL = './anime_home_snapshot.json';
@@ -605,6 +606,45 @@ function ensureAnimeProgressMessageListener() {
                 episodeValue = Math.floor(Number(data.episode));
             }
             bypassThrottle = eventName === 'pause' || eventName === 'complete';
+        } else if (String(event.origin || '').toLowerCase().includes('embed.filmu.in')) {
+            const payload = msg?.data && typeof msg.data === 'object' ? msg.data : null;
+            if (msg.type === 'FILMU_PLAYER_EVENT' && payload) {
+                const mediaType = String(payload.mediaType || '').toLowerCase();
+                if (mediaType === 'movie' && !session.isMovie) return;
+                if (mediaType === 'tv' && session.isMovie) return;
+
+                const rawEvent = String(payload.event || '').toLowerCase();
+                eventName = rawEvent === 'ended' ? 'complete' : (rawEvent === 'timeupdate' ? 'time' : rawEvent);
+                if (eventName !== 'time' && eventName !== 'pause' && eventName !== 'complete') return;
+
+                currentTime = Number(payload.currentTime);
+                duration = Number(payload.duration);
+                playerHost = 'embed.filmu.in';
+                if (Number.isFinite(Number(payload.season)) && Number(payload.season) > 0) {
+                    seasonValue = `saison${Math.floor(Number(payload.season))}`;
+                }
+                if (Number.isFinite(Number(payload.episode)) && Number(payload.episode) > 0) {
+                    episodeValue = Math.floor(Number(payload.episode));
+                }
+                bypassThrottle = eventName === 'pause' || eventName === 'complete';
+            } else if (msg.type === 'SYNC_HISTORY' && payload) {
+                const mediaType = String(payload.media_type || '').toLowerCase();
+                if (mediaType === 'movie' && !session.isMovie) return;
+                if (mediaType === 'tv' && session.isMovie) return;
+
+                eventName = 'time';
+                currentTime = Number(payload.watched);
+                duration = Number(payload.duration);
+                playerHost = 'embed.filmu.in';
+                if (Number.isFinite(Number(payload.season)) && Number(payload.season) > 0) {
+                    seasonValue = `saison${Math.floor(Number(payload.season))}`;
+                }
+                if (Number.isFinite(Number(payload.episode)) && Number(payload.episode) > 0) {
+                    episodeValue = Math.floor(Number(payload.episode));
+                }
+            } else {
+                return;
+            }
         } else if (String(event.origin || '').toLowerCase().includes('player.videasy.net')) {
             const mediaType = String(msg.type || '').toLowerCase();
             if (mediaType === 'movie' && !session.isMovie) return;
@@ -3686,25 +3726,24 @@ function appendNineAnimeAutoplay(url) {
 }
 
 function buildVideasyAnimeUrls({ malId = null, aniListId = null, episodeNumber = null } = {}) {
-    const mal = parsePositiveInteger(malId);
+    const tmdb = parsePositiveInteger(malId);
     const aniList = parsePositiveInteger(aniListId);
-    const preferredId = aniList || mal;
-    if (!preferredId) return [];
+    const episode = Math.max(1, Math.floor(Number(episodeNumber) || 1));
+    const urls = [];
 
-    const basePath = episodeNumber == null
-        ? `${VIDEASY_PLAYER_BASE}/anime/${preferredId}`
-        : `${VIDEASY_PLAYER_BASE}/anime/${preferredId}/${Math.max(1, Math.floor(Number(episodeNumber) || 1))}`;
-    try {
-        const url = new URL(basePath);
-        url.searchParams.set('nextEpisode', 'true');
-        url.searchParams.set('episodeSelector', 'true');
-        url.searchParams.set('autoplayNextEpisode', 'true');
-        url.searchParams.set('overlay', 'true');
-        url.searchParams.set('color', 'F1892F');
-        return [url.toString()];
-    } catch {
-        return [`${basePath}?nextEpisode=true&episodeSelector=true&autoplayNextEpisode=true&overlay=true&color=F1892F`];
+    if (episodeNumber == null) {
+        if (tmdb) urls.push(`${FILMU_EMBED_BASE}/movie/${tmdb}`);
+    } else if (aniList) {
+        urls.push(`${FILMU_EMBED_BASE}/anime/${aniList}/${episode}`);
     }
+
+    if (episodeNumber == null) {
+        if (tmdb) urls.push(`${STREAMRIP_BASE}/movie/${tmdb}`);
+    } else if (aniList) {
+        urls.push(`${STREAMRIP_BASE}/anime/${aniList}/${episode}`);
+    }
+
+    return Array.from(new Set(urls));
 }
 
 async function resolveNineAnimeEpisodeGroups(nineAnimeSourceData, seasonKey, episodeNumber) {
@@ -3858,74 +3897,29 @@ async function getAnimePlaybackProfile(anime) {
         const isMovie = (anime?.type || '').toLowerCase() === 'movie';
         const malId = parsePositiveInteger(anime?.mal_id);
         const cachedAniListId = malId ? getCachedAniListId(malId) : null;
-        if (ANIME_VIDSRC_ONLY_MODE) {
-            if (isMovie) {
-                const tmdbId = anime?.tmdbId || anime?.tmdb_id || await getTmdbIdForAnimeMovie(anime);
-                return {
-                    isMovie: true,
-                    playable: Boolean(tmdbId),
-                    tmdbId,
-                    aniListId: null,
-                    sourceAniListId: null,
-                    seriesSourceData: null,
-                    nineAnimeSourceData: null
-                };
-            }
-
-            const aniListId = cachedAniListId;
-            return {
-                isMovie: false,
-                playable: Boolean(malId || aniListId),
-                tmdbId: null,
-                aniListId,
-                sourceAniListId: aniListId,
-                seriesSourceData: null,
-                nineAnimeSourceData: null
-            };
-        }
-
-        if (malId) {
-            return {
-                isMovie,
-                playable: true,
-                tmdbId: null,
-                aniListId: cachedAniListId,
-                sourceAniListId: cachedAniListId,
-                seriesSourceData: null,
-                nineAnimeSourceData: null
-            };
-        }
-
-        const directNineAnimeSourceData = await resolveDirectNineAnimeSourceData(anime);
         if (isMovie) {
-            const nineAnimeSourceData = directNineAnimeSourceData || await resolveNineAnimeSourceData(anime);
             const tmdbId = await getTmdbIdForAnimeMovie(anime);
             return {
                 isMovie: true,
-                playable: Boolean((nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || tmdbId),
+                playable: Boolean(tmdbId),
                 tmdbId,
                 aniListId: null,
                 sourceAniListId: null,
                 seriesSourceData: null,
-                nineAnimeSourceData
+                nineAnimeSourceData: null
             };
         }
 
-        const fallbackMalId = anime?.mal_id;
-        const aniListId = getCachedAniListId(fallbackMalId) || await resolveAniListId(fallbackMalId);
-        if (aniListId) setCachedAniListId(fallbackMalId, aniListId);
-        const resolved = await resolveSeriesSourceData(aniListId);
-        const animeSamaPlayable = hasAnySeriesSources(resolved.sourceData);
-        const nineAnimeSourceData = animeSamaPlayable ? null : (directNineAnimeSourceData || await resolveNineAnimeSourceData(anime));
-        const vidsrcPlayable = Boolean(fallbackMalId || resolved.aniListId);
+        const aniListId = cachedAniListId || await resolveAniListId(anime?.mal_id);
+        if (malId && aniListId) setCachedAniListId(malId, aniListId);
         return {
             isMovie: false,
-            playable: animeSamaPlayable || Boolean(nineAnimeSourceData && nineAnimeSourceData.totalEpisodes) || vidsrcPlayable,
+            playable: Boolean(aniListId),
             tmdbId: null,
-            aniListId: resolved.aniListId,
-            sourceAniListId: resolved.sourceAniListId,
-            seriesSourceData: resolved.sourceData,
-            nineAnimeSourceData
+            aniListId,
+            sourceAniListId: aniListId,
+            seriesSourceData: null,
+            nineAnimeSourceData: null
         };
     })();
 
@@ -4268,8 +4262,8 @@ async function openAnimeFromJikan(anime) {
     function groupKeyFromLabel(label) {
         if (!label) return null;
         const v = String(label).trim().toUpperCase();
-        if (v === 'VIDEASY') return 'videasy';
-        if (v === 'VIDSRC.CC') return 'vidsrc';
+        if (v === 'FILMU') return 'filmu';
+        if (v === 'STREAMRIP') return 'streamrip';
         if (v === 'VO') return 'vo';
         if (v === 'VOSTA') return 'vosta';
         if (v === 'VA') return 'va';
@@ -4278,14 +4272,14 @@ async function openAnimeFromJikan(anime) {
     }
 
     function labelFromGroupKey(key) {
-        if (!key) return isMovie ? 'VO' : 'VOSTA';
-        if (key === 'videasy') return 'VIDEASY';
-        if (key === 'vidsrc') return 'vidsrc.cc';
+        if (!key) return 'FILMU';
+        if (key === 'filmu') return 'FILMU';
+        if (key === 'streamrip') return 'STREAMRIP';
         if (key === 'vo') return 'VO';
         if (key === 'vosta') return 'VOSTA';
         if (key === 'va') return 'VA';
         if (key === 'vostfr') return 'VOSTFR';
-        return isMovie ? 'VO' : 'VOSTA';
+        return 'FILMU';
     }
 
     function getPrimaryGroupKey() {
@@ -4478,6 +4472,7 @@ async function openAnimeFromJikan(anime) {
 
     async function buildSourceGroups(season, episode) {
         const effectiveAniListId = parsePositiveInteger(aniListId);
+        const absoluteEpisode = Math.max(1, Number(computeAbsoluteEpisode(season, episode)) || 1);
 
         if (ANIME_VIDSRC_ONLY_MODE) {
             if (isMovie) {
@@ -4496,36 +4491,20 @@ async function openAnimeFromJikan(anime) {
         }
 
         if (isMovie) {
-            const videasyMovieUrls = buildVideasyAnimeUrls({ malId, aniListId: effectiveAniListId, episodeNumber: null });
-            if (videasyMovieUrls.length) {
-                return [
-                    { key: 'videasy', label: 'VIDEASY', urls: videasyMovieUrls }
-                ];
-            }
-            const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
-            if (resolvedNineAnimeSourceData) {
-                const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, 'saison1', 1);
-                if (nineAnimeGroups.length) return nineAnimeGroups;
-            }
-            return [];
+            const filmuUrls = tmdbId ? [`${FILMU_EMBED_BASE}/movie/${tmdbId}`] : [];
+            const streamripUrls = tmdbId ? [`${STREAMRIP_BASE}/movie/${tmdbId}`] : [];
+            const movieGroups = [];
+            if (filmuUrls.length) movieGroups.push({ key: 'filmu', label: 'FILMU', urls: filmuUrls });
+            if (streamripUrls.length) movieGroups.push({ key: 'streamrip', label: 'STREAMRIP', urls: streamripUrls });
+            return movieGroups;
         }
 
-        // Series mode
-        const groups = [];
-        const videasyUrls = buildVideasyAnimeUrls({ malId, aniListId: effectiveAniListId, episodeNumber: episode });
-        if (videasyUrls.length) {
-            groups.push({ key: 'videasy', label: 'VIDEASY', urls: videasyUrls });
-        }
+        if (!effectiveAniListId) return [];
 
-        const animeSamaGroups = buildSeriesSourceGroupsFromData(seriesSourceData, season, episode);
-        if (animeSamaGroups.length) {
-            groups.push(...animeSamaGroups);
-        }
-        const resolvedNineAnimeSourceData = await ensureNineAnimeSourceData();
-        if (resolvedNineAnimeSourceData) {
-            const nineAnimeGroups = await resolveNineAnimeEpisodeGroups(resolvedNineAnimeSourceData, season, episode);
-            if (nineAnimeGroups.length) groups.push(...nineAnimeGroups);
-        }
+        const groups = [
+            { key: 'filmu', label: 'FILMU', urls: [`${FILMU_EMBED_BASE}/anime/${effectiveAniListId}/${absoluteEpisode}`] },
+            { key: 'streamrip', label: 'STREAMRIP', urls: [`${STREAMRIP_BASE}/anime/${effectiveAniListId}/${absoluteEpisode}`] }
+        ];
 
         return groups.filter((group, index, list) => {
             if (!group || !group.urls || !group.urls.length) return false;
@@ -4636,7 +4615,7 @@ async function openAnimeFromJikan(anime) {
         const labels = Array.from(new Set((currentGroups || []).map((group) => group.label).filter(Boolean)));
         if (labels.length) return labels;
         if (ANIME_VIDSRC_ONLY_MODE) return ['vidsrc.cc'];
-        return isMovie ? ['VO'] : ['VOSTFR'];
+        return ['FILMU', 'STREAMRIP'];
     }
 
     // Settings modal HTML
@@ -4809,23 +4788,25 @@ async function openAnimeFromJikan(anime) {
     }
 
     function selectionLabelForSettings(sel) {
-        if (!sel || !sel.group) return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'VIDEASY';
+        if (!sel || !sel.group) return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'FILMU';
         const group = (currentGroups || []).find((item) => item.key === sel.group);
         if (group && group.label) return group.label;
         const g = sel.group;
-        if (g === 'videasy') return 'VIDEASY';
+        if (g === 'filmu') return 'FILMU';
+        if (g === 'streamrip') return 'STREAMRIP';
         if (g === 'vidsrc') return 'vidsrc.cc';
         if (g === 'vo') return 'VO';
         if (g === 'vostfr') return 'VOSTFR';
         if (g === 'vosta') return 'VOSTA';
         if (g === 'va') return 'VA';
-        return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'VIDEASY';
+        return ANIME_VIDSRC_ONLY_MODE ? 'vidsrc.cc' : 'FILMU';
     }
 
     function buildSelectionFromSettingsLabel(label) {
         const directMatch = (currentGroups || []).find((group) => group.label === label);
         if (directMatch) return { group: directMatch.key, idx: 0 };
-        if (label === 'VIDEASY') return { group: 'videasy', idx: 0 };
+        if (label === 'FILMU') return { group: 'filmu', idx: 0 };
+        if (label === 'STREAMRIP') return { group: 'streamrip', idx: 0 };
         if (label === 'vidsrc.cc') return { group: 'vidsrc', idx: 0 };
         if (label === 'VO') return { group: 'vo', idx: 0 };
         if (label === 'VOSTA') return { group: 'vosta', idx: 0 };
@@ -4847,7 +4828,7 @@ async function openAnimeFromJikan(anime) {
         // Default order
         const preferredOrder = ANIME_VIDSRC_ONLY_MODE
             ? ['vidsrc']
-            : (isMovie ? ['videasy', 'vo', 'va'] : ['videasy', 'vostfr', 'vosta', 'va']);
+            : ['filmu', 'streamrip'];
         for (const key of preferredOrder) {
             const grp = gList.find(g => g.key === key);
             if (grp && grp.urls && grp.urls.length) return { group: key, idx: 0 };
