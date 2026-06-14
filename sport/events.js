@@ -16,6 +16,7 @@ class EventsManager {
     this.lastEndpoint = 'live';
     this.refreshIntervalMs = 5 * 60 * 1000;
     this.refreshTimer = null;
+    this.refreshInProgress = false;
     this.pastEventCutoffMs = 2 * 60 * 60 * 1000;
     this.serverIndicatorsEl = document.getElementById('server-indicators');
     this.sourceStreamsCache = new Map();
@@ -26,6 +27,12 @@ class EventsManager {
    * @param {string} endpoint - API endpoint (e.g., 'live', 'all', 'all-today')
    */
   async fetchMatches(endpoint = 'live') {
+    if (this.refreshInProgress) {
+      console.log('Skipping refresh while a previous refresh is still running');
+      return this.currentMatches;
+    }
+
+    this.refreshInProgress = true;
     try {
       this.lastEndpoint = endpoint;
       const streamedUrl = `${this.apiBase}/matches/${endpoint}`;
@@ -48,12 +55,14 @@ class EventsManager {
       const working = await this.filterMatchesByWorkingStreams(filtered);
       this.currentMatches = working;
       this.displayMatches(working);
-      await this.ensureActiveEventSelection(working);
+      await this.ensureActiveEventSelection(working, { preserveCurrentPlayback: true });
       return working;
     } catch (error) {
       console.error('Error fetching matches:', error);
       this.showError(`Failed to load events: ${error.message}`);
       return [];
+    } finally {
+      this.refreshInProgress = false;
     }
   }
 
@@ -203,7 +212,7 @@ class EventsManager {
     });
   }
 
-  async ensureActiveEventSelection(matches) {
+  async ensureActiveEventSelection(matches, { preserveCurrentPlayback = false } = {}) {
     const list = Array.isArray(matches) ? matches : [];
     if (!list.length) {
       this.selectedMatch = null;
@@ -216,7 +225,9 @@ class EventsManager {
     const currentId = String(this.selectedMatch?.id || '');
     const currentIndex = currentId ? list.findIndex((match) => String(match?.id || '') === currentId) : -1;
     if (currentIndex >= 0) {
-      const restored = await this.selectEvent(list[currentIndex], currentIndex, { silentOnFailure: true });
+      const restored = preserveCurrentPlayback
+        ? await this.restoreCurrentSelection(list[currentIndex], currentIndex)
+        : await this.selectEvent(list[currentIndex], currentIndex, { silentOnFailure: true });
       if (restored) return true;
     }
 
@@ -240,6 +251,51 @@ class EventsManager {
     this.selectedSourceKey = null;
     this.renderStreamIndicators([], null);
     return false;
+  }
+
+  async restoreCurrentSelection(match, index) {
+    if (!match || !Array.isArray(match.sources) || match.sources.length === 0) {
+      return false;
+    }
+
+    const results = await Promise.allSettled(match.sources.map(source => this.fetchStreamsForSource(source)));
+    const combined = [];
+    results.forEach((res, idx) => {
+      if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+        const sourceMeta = match.sources[idx];
+        res.value.forEach((stream, sIdx) => {
+          combined.push({
+            ...stream,
+            _sourceKey: this.getSourceKey(sourceMeta),
+            _sourceName: sourceMeta?.source || stream.source || 'source',
+            _streamIndex: sIdx
+          });
+        });
+      }
+    });
+
+    if (combined.length === 0) {
+      this.renderStreamIndicators([], null);
+      return false;
+    }
+
+    const currentStreamKey = this.getStreamKey(this.selectedStream);
+    const preservedStream = currentStreamKey
+      ? combined.find((stream, idx) => this.getStreamKey(stream, idx) === currentStreamKey)
+      : null;
+    const nextStream = preservedStream || this.chooseDefaultStream(combined);
+
+    this.selectedMatch = match;
+    this.selectedStream = nextStream;
+    this.selectedSourceKey = nextStream?._sourceKey || this.getSourceKey(this.chooseDefaultSource(match.sources));
+    this.renderStreamIndicators(combined, this.getStreamKey(nextStream));
+    this.updateSelectedEventUI(index, match);
+
+    if (!preservedStream) {
+      this.playStream(nextStream);
+    }
+
+    return true;
   }
 
   updateSelectedEventUI(index, match) {
@@ -425,7 +481,7 @@ class EventsManager {
     }
   }
 
-  async loadStreamsForAllSources(sources) {
+  async loadStreamsForAllSources(sources, { play = true } = {}) {
     if (!Array.isArray(sources) || sources.length === 0) {
       this.renderStreamIndicators([], null);
       this.showError('No streams available for this event');
@@ -459,7 +515,9 @@ class EventsManager {
     const selectedStream = this.chooseDefaultStream(combined);
     this.selectedStream = selectedStream;
     this.renderStreamIndicators(combined, this.getStreamKey(selectedStream));
-    this.playStream(selectedStream);
+    if (play) {
+      this.playStream(selectedStream);
+    }
     return selectedStream;
   }
 
