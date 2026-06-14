@@ -460,11 +460,16 @@ def collect_sections(catalog_map: dict[str, ComicItem]) -> tuple[list[dict[str, 
     sections: list[dict[str, object]] = []
     section_items: dict[str, list[ComicItem]] = {}
     for source in SECTION_SOURCES:
-        html = fetch_html(source['source_url'])
-        if source['kind'] == 'series':
-            items = parse_series_blocks(html, source_section=source['title'])
+        try:
+            html = fetch_html(source['source_url'])
+        except (HTTPError, URLError, TimeoutError, ValueError) as error:
+            print(f"Warning: failed to fetch section '{source['id']}' ({source['source_url']}): {error}")
+            items = []
         else:
-            items = parse_update_blocks(html, source_section=source['title'])
+            if source['kind'] == 'series':
+                items = parse_series_blocks(html, source_section=source['title'])
+            else:
+                items = parse_update_blocks(html, source_section=source['title'])
         items = enrich_with_catalog(items, catalog_map)
         section_items[source['id']] = items
         sections.append(
