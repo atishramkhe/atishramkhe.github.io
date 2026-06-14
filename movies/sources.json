@@ -2,9 +2,19 @@
 	{
 		"VO": [
 			{
-				"name": "vidsrc.online",
-				"movies": "https://vidsrc.online/embed/movie/${id}",
-				"shows": "https://vidsrc.online/embed/tv/${id}/${season}/${episode}"
+				"name": "vidcore.net",
+				"movies": "https://vidcore.net/movie/${id}?autoPlay=true",
+				"shows": "https://vidcore.net/tv/${id}/${season}/${episode}?autoPlay=true&nextEpisode=true"
+			},
+			{
+				"name": "embed.filmu.in",
+				"movies": "https://embed.filmu.in/movie/${id}",
+				"shows": "https://embed.filmu.in/tv/${id}/${season}/${episode}"
+			},
+			{
+				"name": "streamrip.fun",
+				"movies": "https://streamrip.fun/movie/${id}",
+				"shows": "https://streamrip.fun/tv/${id}/${season}/${episode}"
 			},
 			{
 				"name": "vidbinge.to",
@@ -14,13 +24,13 @@
 			{
 				"name": "videasy.net",
 				"movies": "https://player.videasy.net/movie/${id}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true",
-				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?episodeSelector=true&overlay=true&color=e02735&autoplay=true"
+				"shows": "https://player.videasy.net/tv/${id}/${season}/${episode}?nextEpisode=true&autoplayNextEpisode=true&episodeSelector=true&overlay=true&color=e02735&autoplay=true"
 			},
 			{
 				"name": "vidking.net",
 				
 				"movies": "https://www.vidking.net/embed/movie/${id}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true",
-				"shows": "https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e02735&autoPlay=true&episodeSelector=true"
+				"shows": "https://www.vidking.net/embed/tv/${id}/${season}/${episode}?color=e02735&autoPlay=true&nextEpisode=true&episodeSelector=true"
 			},
 			{
 				"name": "vidsrcme.ru",
@@ -30,7 +40,7 @@
 			{
 				"name": "cinesrc.st", 
 				"movies": "https://cinesrc.st/embed/movie/${id}", 
-				"shows": "https://cinesrc.st/embed/tv/${id}?s=${season}&e=${episode}"
+				"shows": "https://cinesrc.st/embed/tv/${id}?s=${season}&e=${episode}&autonext=1"
 			}, 
 			{
 				"name": "moviesapi.club",
@@ -41,7 +51,7 @@
 			{
 				"name": "superembed.stream",
 				"movies": "https://multiembed.mov/?video_id=${id}&tmdb=1",
-				"shows": "https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}"
+				"shows": "https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}&autonext=1"
 			},
 			{
 				"name": "2embed.cc",
@@ -56,7 +66,7 @@
 			{
 				"name": "vidsrc.wtf",
 				"movies": "https://vidsrc.wtf/api/1/movie/?id=${id}&overlay=true&color=e02735",
-				"shows": "https://vidsrc.wtf/api/1/tv/?id=${id}&season=${season}&overlay=true&color=e02735"
+				"shows": "https://vidsrc.wtf/api/1/tv/?id=${id}&season=${season}&episode=${episode}&overlay=true&autonext=1&color=e02735"
 			},
 			{
 				"name": "xprime.su",
@@ -70,7 +80,7 @@
 			{
 				"name": "frembed.cyou",
 				"movies": "https://frembed.cyou/embed/movie/${id}",
-				"shows": "https://frembed.cyou/embed/serie/${id}?sa=${season}&epi=${episode}"
+				"shows": "https://frembed.cyou/embed/serie/${id}?sa=${season}&epi=${episode}&autonext=1"
 			}
 		]
 	}
