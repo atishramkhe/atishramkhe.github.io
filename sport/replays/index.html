@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ateaish sport replays</title>
+  <link rel="icon" type="image/png" href="../assets/favicon_ateaish__sport_150ppi.png">
+  <script defer src="../../master-navigation.js"></script>
+  <style>
+    @font-face {
+      font-family: "OumaBold";
+      src: url("../fonts/OumaTrial-Bold.ttf") format("truetype");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "OumaLight";
+      src: url("../fonts/OumaTrial-Light.ttf") format("truetype");
+      font-weight: 400;
+    }
+
+    :root {
+      --bg: #000;
+      --card: #0e141b;
+      --line: #1e2935;
+      --muted: #8aa0b5;
+      --text: #e7f2fb;
+      --accent: #66c8f3;
+      --accent-2: #5ad4a6;
+      --warn: #f6cb5f;
+      --ateaish-master-nav-accent: #66c8f3;
+      --ateaish-master-nav-accent-rgb: 102, 200, 243;
+      --ateaish-master-nav-text: #f1fbff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+      color: var(--text);
+      font-family: "OumaLight", sans-serif;
+    }
+
+    /* ── hero ── */
+    .hero {
+      width: 100%;
+      margin: 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      padding: 10px 14px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-family: "OumaBold", sans-serif;
+      font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+      letter-spacing: 0.3px;
+      flex: 1 0 auto;
+    }
+    .hero-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 6px 12px;
+      border: 1px solid #274156;
+      border-radius: 0;
+      background: #000;
+      color: #c2dff2;
+      font-size: 0.8rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    #status {
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    #status.ok  { color: var(--accent-2); }
+    #status.warn { color: var(--warn); }
+    .btn {
+      border: 1px solid #284052;
+      background: #000;
+      color: #dcf0ff;
+      border-radius: 0;
+      padding: 7px 13px;
+      font-family: "OumaLight", sans-serif;
+      font-size: 0.86rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn:hover { border-color: var(--accent); color: #fff; }
+
+    /* ── two-column layout ── */
+    .layout {
+      width: 100%;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0;
+      align-items: start;
+    }
+
+    /* ── player column ── */
+    .player-col {
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    .player-header {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 46px;
+      background: #000;
+    }
+    .player-header h2 {
+      margin: 0;
+      font-family: "OumaBold", sans-serif;
+      font-size: 0.97rem;
+      letter-spacing: 0.2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .player-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #000;
+    }
+    .player-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 0.93rem;
+      text-align: center;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    /* part buttons */
+    .parts-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      min-height: 52px;
+      align-items: center;
+      background: #000;
+    }
+    .part-btn {
+      border: 1px solid var(--line);
+      background: #000;
+      color: #c6dff0;
+      border-radius: 0;
+      padding: 6px 14px;
+      font-family: "OumaLight", sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .part-btn:hover { border-color: #5b8faa; color: #fff; }
+    .part-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-family: "OumaBold", sans-serif;
+    }
+
+    /* ── match list column ── */
+    .list-col {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      overflow: hidden;
+      background: #000;
+      max-height: calc(100vh - 160px);
+    }
+    .list-header {
+      flex-shrink: 0;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      font-family: "OumaBold", sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .list-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .match-item {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      display: grid;
+      gap: 4px;
+      transition: background 0.14s;
+    }
+    .match-item:last-child { border-bottom: 0; }
+    .match-item:hover { background: #0b0f14; }
+    .match-item.active {
+      background: #000;
+      border-left: 2px solid var(--accent);
+    }
+    .match-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #6fa3bc;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .match-name {
+      font-family: "OumaBold", sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.25;
+    }
+    .match-parts {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .empty {
+      padding: 24px;
+      text-align: center;
+      color: #9ec2d7;
+      font-size: 0.9rem;
+    }
+
+    /* ── mobile ── */
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .list-col {
+        max-height: 50vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <img src="../assets/ateaish_sport_blanc_150ppi.png" alt="ateaish sport" style="height:26px;width:auto;flex-shrink:0;">
+    <h1>World Cup Replays</h1>
+    <div class="hero-right">
+      <span class="badge">⚽ World Cup Only</span>
+      <span class="badge" id="count-badge">0 Matches</span>
+      <button class="btn" id="refresh-btn" type="button">Refresh Now</button>
+      <span id="status">Waiting for first sync...</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- Player -->
+    <section class="player-col">
+      <div class="player-header">
+        <h2 id="player-title">Select a match →</h2>
+        <button class="btn" id="open-btn" type="button" style="display:none">Open in tab</button>
+      </div>
+      <div class="player-wrap" id="player-wrap">
+        <div class="placeholder">Select a World Cup replay from the list</div>
+      </div>
+      <div class="parts-bar" id="parts-bar"></div>
+    </section>
+
+    <!-- Match list -->
+    <aside class="list-col">
+      <div class="list-header">
+        <span>Matches</span>
+      </div>
+      <div class="list-scroll" id="list-scroll">
+        <div class="empty" id="empty-msg">Loading...</div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+  (function () {
+    const SOURCE_URL = "https://replay.adityapangshe.workers.dev/replays.txt";
+    const POLL_MS = 120000;
+
+    /* ── fallback data (includes all parts) ── */
+    const FALLBACK = [
+      { title:"Iran vs New Zealand",         date:"Jun 16", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14311"},{label:"2nd Half",url:"https://soccerfull.net/play/14312"},{label:"Highlight",url:"https://soccerfull.net/play/14313"},{label:"Full Match",url:"https://soccerfull.net/play/14315"}] },
+      { title:"Saudi Arabia vs Uruguay",     date:"Jun 15", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14308"},{label:"2nd Half",url:"https://soccerfull.net/play/14309"},{label:"Highlight",url:"https://soccerfull.net/play/14310"},{label:"Full Match",url:"https://soccerfull.net/play/14314"}] },
+      { title:"Belgium vs Egypt",            date:"Jun 15", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14304"},{label:"2nd Half",url:"https://soccerfull.net/play/14305"},{label:"Full Match",url:"https://soccerfull.net/play/14306"},{label:"Highlight",url:"https://soccerfull.net/play/14307"}] },
+      { title:"Spain vs Cape Verde",         date:"Jun 15", thumb:"", embeds:[{label:"Full Match",url:"https://soccerfull.net/play/14300"}] },
+      { title:"Sweden vs Tunisia",           date:"Jun 15", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14296"},{label:"2nd Half",url:"https://soccerfull.net/play/14297"},{label:"Highlight",url:"https://soccerfull.net/play/14298"},{label:"Full Match",url:"https://soccerfull.net/play/14299"}] },
+      { title:"Ivory Coast vs Ecuador",      date:"Jun 14", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14292"},{label:"2nd Half",url:"https://soccerfull.net/play/14293"},{label:"Highlight",url:"https://soccerfull.net/play/14294"},{label:"Full Match",url:"https://soccerfull.net/play/14295"}] },
+      { title:"Netherlands vs Japan",        date:"Jun 14", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14288"},{label:"2nd Half",url:"https://soccerfull.net/play/14289"},{label:"Highlight",url:"https://soccerfull.net/play/14290"},{label:"Full Match",url:"https://soccerfull.net/play/14291"}] },
+      { title:"Australia vs Turkey",         date:"Jun 14", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14277"},{label:"2nd Half",url:"https://soccerfull.net/play/14278"},{label:"Highlight",url:"https://soccerfull.net/play/14279"},{label:"Full Match",url:"https://soccerfull.net/play/14280"}] },
+      { title:"Haiti vs Scotland",           date:"Jun 13", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14275"},{label:"Full Match",url:"https://soccerfull.net/play/14276"}] },
+      { title:"Brazil vs Morocco",           date:"Jun 13", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14269"},{label:"2nd Half",url:"https://soccerfull.net/play/14270"},{label:"Highlight",url:"https://soccerfull.net/play/14271"},{label:"Full Match",url:"https://soccerfull.net/play/14272"}] },
+      { title:"Qatar vs Switzerland",        date:"Jun 13", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14265"},{label:"2nd Half",url:"https://soccerfull.net/play/14266"},{label:"Highlight",url:"https://soccerfull.net/play/14267"},{label:"Full Match",url:"https://soccerfull.net/play/14268"}] },
+      { title:"USA vs Paraguay",             date:"Jun 12", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14261"},{label:"2nd Half",url:"https://soccerfull.net/play/14262"},{label:"Highlight",url:"https://soccerfull.net/play/14263"},{label:"Full Match",url:"https://soccerfull.net/play/14264"}] },
+      { title:"Canada vs Bosnia & Herzegovina", date:"Jun 12", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14257"},{label:"2nd Half",url:"https://soccerfull.net/play/14258"},{label:"Highlight",url:"https://soccerfull.net/play/14259"},{label:"Full Match",url:"https://soccerfull.net/play/14260"}] },
+      { title:"South Korea vs Czech Republic", date:"Jun 12", thumb:"", embeds:[{label:"Full Match",url:"https://soccerfull.net/play/14256"}] },
+      { title:"Mexico vs South Africa",      date:"Jun 11", thumb:"", embeds:[{label:"1st Half",url:"https://soccerfull.net/play/14252"},{label:"2nd Half",url:"https://soccerfull.net/play/14253"},{label:"Highlight",url:"https://soccerfull.net/play/14254"},{label:"Full Match",url:"https://soccerfull.net/play/14255"}] }
+    ];
+
+    /* ── DOM refs ── */
+    const countBadgeEl = document.getElementById("count-badge");
+    const statusEl     = document.getElementById("status");
+    const refreshBtn   = document.getElementById("refresh-btn");
+    const playerTitle  = document.getElementById("player-title");
+    const playerWrap   = document.getElementById("player-wrap");
+    const partsBar     = document.getElementById("parts-bar");
+    const listScroll   = document.getElementById("list-scroll");
+    const emptyMsg     = document.getElementById("empty-msg");
+    const openBtn      = document.getElementById("open-btn");
+
+    /* ── state ── */
+    let matches      = [];
+    let selectedIdx  = -1;
+    let selectedPart = 0;
+    let stateHash    = "";
+    let timer        = null;
+
+    /* ── helpers ── */
+    function esc(v) {
+      return String(v || "")
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+    }
+    function decode(v) {
+      const t = document.createElement("textarea");
+      t.innerHTML = v || "";
+      return t.value;
+    }
+    function friendlyDate(raw) {
+      if (!raw) return "";
+      const d = new Date(raw);
+      return isNaN(d.getTime()) ? raw : d.toLocaleDateString([], { month:"short", day:"numeric" });
+    }
+    function hash(arr) {
+      return arr.map(function(m){ return m.title + "|" + m.date; }).join("||");
+    }
+    function setStatus(text, mode) {
+      statusEl.textContent = text;
+      statusEl.className = mode || "";
+    }
+    function defaultPartIdx(embeds) {
+      /* prefer "Full Match", then last embed */
+      const idx = embeds.findIndex(function(e){ return /full\s*match/i.test(e.label); });
+      return idx >= 0 ? idx : embeds.length - 1;
+    }
+
+    /* ── player ── */
+    function loadPart(partIdx) {
+      if (selectedIdx < 0) return;
+      const m = matches[selectedIdx];
+      const embed = m.embeds[partIdx];
+      if (!embed) return;
+
+      selectedPart = partIdx;
+
+      /* swap iframe */
+      const iframe = document.createElement("iframe");
+      iframe.src = embed.url;
+      iframe.allowFullscreen = true;
+      iframe.setAttribute("allow", "autoplay; fullscreen; encrypted-media");
+      iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation allow-popups");
+      playerWrap.innerHTML = "";
+      playerWrap.appendChild(iframe);
+
+      /* update part buttons */
+      partsBar.querySelectorAll(".part-btn").forEach(function(btn, i) {
+        btn.classList.toggle("active", i === partIdx);
+      });
+
+      /* update open-in-tab button */
+      openBtn.dataset.url = embed.url;
+      openBtn.style.display = "";
+    }
+
+    function selectMatch(idx) {
+      selectedIdx = idx;
+      const m = matches[idx];
+
+      playerTitle.textContent = m.title;
+
+      /* rebuild part buttons */
+      partsBar.innerHTML = "";
+      m.embeds.forEach(function(embed, i) {
+        const btn = document.createElement("button");
+        btn.className = "part-btn";
+        btn.type = "button";
+        btn.textContent = embed.label || ("Part " + (i + 1));
+        btn.addEventListener("click", function(){ loadPart(i); });
+        partsBar.appendChild(btn);
+      });
+
+      /* load default part */
+      loadPart(defaultPartIdx(m.embeds));
+
+      /* highlight active list item */
+      listScroll.querySelectorAll(".match-item").forEach(function(el, i) {
+        el.classList.toggle("active", i === idx);
+      });
+
+      /* scroll active item into view */
+      const activeEl = listScroll.querySelector(".match-item.active");
+      if (activeEl) activeEl.scrollIntoView({ block: "nearest" });
+    }
+
+    /* ── render list ── */
+    function renderList() {
+      countBadgeEl.textContent = matches.length + (matches.length === 1 ? " Match" : " Matches");
+
+      if (!matches.length) {
+        listScroll.innerHTML = '<div class="empty">No World Cup replays available right now.</div>';
+        emptyMsg.hidden = false;
+        return;
+      }
+
+      emptyMsg.hidden = true;
+      listScroll.innerHTML = matches.map(function(m, i) {
+        const active = i === selectedIdx ? " active" : "";
+        const partLabels = m.embeds.map(function(e){ return esc(e.label); }).join(" · ");
+        return '<div class="match-item' + active + '" data-idx="' + i + '">'
+          + '<div class="match-top"><span>⚽ World Cup</span><span>' + esc(m.date) + '</span></div>'
+          + '<div class="match-name">' + esc(m.title) + '</div>'
+          + '<div class="match-parts">' + partLabels + '</div>'
+          + '</div>';
+      }).join("");
+
+      listScroll.querySelectorAll(".match-item").forEach(function(el) {
+        el.addEventListener("click", function() {
+          selectMatch(Number(el.dataset.idx));
+        });
+      });
+
+      /* auto-select first match on initial render */
+      if (selectedIdx < 0 && matches.length) {
+        selectMatch(0);
+      }
+    }
+
+    /* ── feed parser ── */
+    function parseReplayText(rawText) {
+      const items = [];
+      const lines = rawText.split(/\n/);
+      let current = null;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].replace(/\r$/, "");
+
+        if (line.startsWith("# ")) {
+          current = { title: line.slice(2).trim(), category:"", sub:"", thumb:"", date:"", embeds:[] };
+          items.push(current);
+          continue;
+        }
+        if (!current) continue;
+
+        if (line.startsWith("~ ")) {
+          const c = line.slice(2).split("\t");
+          current.category = (c[0]||"").trim();
+          current.sub      = (c[1]||"").trim();
+          current.thumb    = (c[2]||"").trim();
+          current.date     = (c[3]||"").trim();
+          continue;
+        }
+        if (!line.trim()) continue;
+
+        const p = line.split("\t");
+        if (p.length >= 3 && p[2]) {
+          current.embeds.push({
+            label: (p[0]||"Play").trim(),
+            type:  (p[1]||"iframe").trim(),
+            url:   p[2].trim()
+          });
+        }
+      }
+
+      return items
+        .filter(function(item) {
+          const hay = [item.category, item.sub, item.title].join(" ").toLowerCase();
+          return hay.indexOf("football") !== -1 && hay.indexOf("world cup") !== -1;
+        })
+        .map(function(item) {
+          return {
+            title:  decode(item.title),
+            date:   friendlyDate(decode(item.date)),
+            thumb:  item.thumb,
+            embeds: item.embeds.filter(function(e){ return e.url && e.url.indexOf("http") === 0; })
+          };
+        })
+        .filter(function(item){ return item.embeds.length > 0; });
+    }
+
+    /* ── sync ── */
+    async function fetchLive() {
+      const res = await fetch(SOURCE_URL + "?_=" + Date.now(), { cache:"no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return parseReplayText(await res.text());
+    }
+
+    async function sync(force) {
+      try {
+        const live = await fetchLive();
+        if (!live.length) {
+          setStatus("Live sync: 0 World Cup items · retrying...", "warn");
+          return;
+        }
+        const nextHash = hash(live);
+        if (force || nextHash !== stateHash) {
+          const prevTitle = selectedIdx >= 0 && matches[selectedIdx] ? matches[selectedIdx].title : null;
+          stateHash = nextHash;
+          matches = live;
+          /* try to keep current selection by title */
+          selectedIdx = prevTitle ? matches.findIndex(function(m){ return m.title === prevTitle; }) : -1;
+          renderList();
+          if (selectedIdx >= 0) {
+            /* re-attach events; keep same part if still valid */
+            const m = matches[selectedIdx];
+            if (selectedPart >= m.embeds.length) selectedPart = defaultPartIdx(m.embeds);
+            selectMatch(selectedIdx);
+          }
+        }
+        setStatus("Synced " + new Date().toLocaleTimeString(), "ok");
+      } catch(e) {
+        if (!matches.length) {
+          matches = FALLBACK;
+          renderList();
+        }
+        setStatus("Source unavailable · retrying...", "warn");
+      }
+    }
+
+    /* ── init ── */
+    openBtn.addEventListener("click", function() {
+      if (openBtn.dataset.url) window.open(openBtn.dataset.url, "_blank", "noopener");
+    });
+    refreshBtn.addEventListener("click", function() {
+      setStatus("Refreshing...");
+      sync(true);
+    });
+    document.addEventListener("visibilitychange", function() {
+      if (document.visibilityState === "visible") sync(false);
+    });
+    window.addEventListener("online", function() { sync(false); });
+
+    matches = FALLBACK;
+    renderList();
+    setStatus("Booting live sync...");
+    sync(true);
+    timer = setInterval(function(){ sync(false); }, POLL_MS);
+
+  })();
+  </script>
+</body>
+</html>

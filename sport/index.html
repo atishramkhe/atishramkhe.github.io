@@ -231,6 +231,30 @@
     .mode-toggle-btn:hover {
       color: #e6edf3;
     }
+
+    .replays-nav-btn {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 5px 12px;
+      font-size: 0.78em;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-family: 'OumaLight', sans-serif;
+      color: var(--accent, #66c8f3);
+      border: 1px solid var(--accent, #66c8f3);
+      background: transparent;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      vertical-align: middle;
+    }
+
+    .replays-nav-btn:hover {
+      background: var(--accent, #66c8f3);
+      color: #000;
+    }
+
     #main-layout {
       display: flex;
       flex: 1;
@@ -914,6 +938,7 @@
             <button id="events-mode-btn" class="mode-toggle-btn mode-active" aria-pressed="true">Events</button>
             <button id="livetv-mode-btn" class="mode-toggle-btn" aria-pressed="false">Live TV</button>
           </div>
+          <a href="replays/" class="replays-nav-btn">&#9654; World Cup Replays</a>
         </div>
         <div style="flex:2; text-align:center;">
           <div id="current-channel-name" style="font-weight:bold; font-size:1.2em; display:none ;"></div> <!-- display: inline-block -->
