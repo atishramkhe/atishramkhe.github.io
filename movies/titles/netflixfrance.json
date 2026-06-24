@@ -2,6 +2,545 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/lZ8avbWZHCRrXatqqXiZTY3kp1X.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 99,
+          "name": "Documentary"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81766093",
+      "id": 1699155,
+      "imdb_id": "tt42863533",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Maternal Instinct",
+      "overview": "Police pull over a woman who claims she just gave birth. But the baby — and the blood — aren't hers. Twisted lies unravel in this true-crime documentary.",
+      "popularity": 24.5188,
+      "poster_path": "/4KdmT71AGzDMp5hJbAu9vysKQKT.jpg",
+      "production_companies": [
+        {
+          "id": 136480,
+          "logo_path": "/5fLrloYGsWbdxS0HMmetiyZJ0Tw.png",
+          "name": "Story Syndicate",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-06-11",
+      "revenue": 0,
+      "runtime": 97,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Maternal Instinct",
+      "video": false,
+      "vote_average": 7.246,
+      "vote_count": 65,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2WU6Y6aonzD6uAaCmNnEFlesxxJ.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 10749,
+          "name": "Romance"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81716219",
+      "id": 614945,
+      "imdb_id": "tt10375624",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Voicemails for Isabelle",
+      "overview": "A young woman's hilariously confessional voicemails to her late sister are unknowingly redirected to a stranger, who begins to fall in love from afar.",
+      "popularity": 161.405,
+      "poster_path": "/nmGIRyuMH72WHJengMo8LQjnZQn.jpg",
+      "production_companies": [
+        {
+          "id": 1423,
+          "logo_path": "/gzvsPHV9WqcQMrvI8pq5hbuvEZ5.png",
+          "name": "Escape Artists",
+          "origin_country": "US"
+        },
+        {
+          "id": 34,
+          "logo_path": "/xAb1o9HrSvKBo9mnXC8fJKDNu00.png",
+          "name": "Sony Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-06-20",
+      "revenue": 0,
+      "runtime": 119,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Sometimes the universe leaves you a message.",
+      "title": "Voicemails for Isabelle",
+      "video": false,
+      "vote_average": 8.042,
+      "vote_count": 165,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/tNUM567Hrv925Z3vWXdJUjQE6Ho.jpg",
+      "belongs_to_collection": {
+        "id": 124881,
+        "name": "Street Kings Collection",
+        "poster_path": "/r0c2hR2KQsZO3vdhFQdUsnSuUef.jpg",
+        "backdrop_path": "/eldKjRRasDWkcjlkUFZQ08VcorU.jpg"
+      },
+      "budget": 20000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1266,
+      "imdb_id": "tt0421073",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Street Kings",
+      "overview": "Tom Ludlow is a disillusioned L.A. Police Officer, rarely playing by the rules and haunted by the death of his wife. When evidence implicates him in the execution of a fellow officer, he is forced to go up against the cop culture he's been a part of his entire career, ultimately leading him to question the loyalties of everyone around him.",
+      "popularity": 6.124,
+      "poster_path": "/iTO7sBfVTr7LUqiFtGeFW7g2Ncf.jpg",
+      "production_companies": [
+        {
+          "id": 43,
+          "logo_path": "/4RgIPr55kBakgupWkzdDxqXJEqr.png",
+          "name": "Fox Searchlight Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 508,
+          "logo_path": "/4sGWXoboEkWPphI6es6rTmqkCBh.png",
+          "name": "Regency Enterprises",
+          "origin_country": "US"
+        },
+        {
+          "id": 6332,
+          "logo_path": null,
+          "name": "Dune Entertainment III",
+          "origin_country": "US"
+        },
+        {
+          "id": 214742,
+          "logo_path": "/7rlv0Vg2bIdI0EPlUO1z5VpxsKP.png",
+          "name": "Emmett/Furla Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 2448,
+          "logo_path": "/5sHdaGheYOw2qA20fewRVGDM4Xk.png",
+          "name": "Yari Film Group",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2008-04-10",
+      "revenue": 66476363,
+      "runtime": 109,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Turkish",
+          "iso_639_1": "tr",
+          "name": "Türkçe"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Their city. Their rules. No prisoners.",
+      "title": "Street Kings",
+      "video": false,
+      "vote_average": 6.642,
+      "vote_count": 1709,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2D3W3Jp0VYsLhXTEfnvhbMvQEzk.jpg",
+      "belongs_to_collection": {
+        "id": 1560684,
+        "name": "Colors of Evil – Collection",
+        "poster_path": "/8gacOj2TBjKc0q5Skaxa4bRuEvb.jpg",
+        "backdrop_path": "/1fNADFgBOYQahvn1nwlfxrceG9P.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81921253",
+      "id": 1560681,
+      "imdb_id": "tt38681832",
+      "origin_country": [
+        "PL"
+      ],
+      "original_language": "pl",
+      "original_title": "Kolory zła: Czerń",
+      "overview": "Investigating the disappearance of children in a remote Polish town, prosecutor Leopold Bilski must unravel a sinister local legend before it's too late.",
+      "popularity": 30.7202,
+      "poster_path": "/reeKdj7BSznr7wSGzAtIMrPFgKo.jpg",
+      "production_companies": [
+        {
+          "id": 54732,
+          "logo_path": "/9Wq8UhFmqgwTaps9RIFSaxZJZie.png",
+          "name": "Aurum Film",
+          "origin_country": "PL"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "PL",
+          "name": "Poland"
+        }
+      ],
+      "release_date": "2026-06-10",
+      "revenue": 0,
+      "runtime": 110,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Polish",
+          "iso_639_1": "pl",
+          "name": "Polski"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Colors of Evil: Black",
+      "video": false,
+      "vote_average": 7.017,
+      "vote_count": 88,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vK0VEfWbc9qOPYHpxALiRu7Qc0e.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "",
+      "id": 845099,
+      "imdb_id": "tt13429654",
+      "origin_country": [
+        "FR"
+      ],
+      "original_language": "fr",
+      "original_title": "Canailles",
+      "overview": "Following a failed hold-up, leg-hurted Antoine is looking to hide at Elias's home. Nothing reserved the anarchist robber to meet this life-disciplined history teacher. Then, a strange balance of power set in, between ascendency and friendship, before the arrival of Lucie, investigator in charge of the case.",
+      "popularity": 0.5282,
+      "poster_path": "/tqTZcQyDPK99PanEo0xE9f2xaz0.jpg",
+      "production_companies": [
+        {
+          "id": 12689,
+          "logo_path": null,
+          "name": "Radar Films",
+          "origin_country": "FR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        }
+      ],
+      "release_date": "2022-09-14",
+      "revenue": 0,
+      "runtime": 86,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Canailles",
+      "video": false,
+      "vote_average": 4.883,
+      "vote_count": 30,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/yF1eOkaYvwiORauRCPWznV9xVvi.jpg",
+      "belongs_to_collection": null,
+      "budget": 220000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.dc.com/theflash",
+      "id": 298618,
+      "imdb_id": "tt0439572",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Flash",
+      "overview": "When his attempt to save his family inadvertently alters the future, Barry Allen becomes trapped in a reality in which General Zod has returned and there are no Super Heroes to turn to. In order to save the world that he is in and return to the future that he knows, Barry's only hope is to race for his life. But will making the ultimate sacrifice be enough to reset the universe?",
+      "popularity": 11.7797,
+      "poster_path": "/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 152809,
+          "logo_path": "/bdtAEMJpIaVW78c78POabARpotx.png",
+          "name": "Double Dream",
+          "origin_country": "US"
+        },
+        {
+          "id": 170335,
+          "logo_path": null,
+          "name": "The Disco Factory",
+          "origin_country": "US"
+        },
+        {
+          "id": 128064,
+          "logo_path": "/13F3Jf7EFAcREU0xzZqJnVnyGXu.png",
+          "name": "DC Films",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2023-06-13",
+      "revenue": 271333313,
+      "runtime": 144,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "Russian",
+          "iso_639_1": "ru",
+          "name": "Pусский"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Worlds collide.",
+      "title": "The Flash",
+      "video": false,
+      "vote_average": 6.617,
+      "vote_count": 5025,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oNoprEND25zXR6Fns8cIZUkuoMc.jpg",
+      "belongs_to_collection": null,
+      "budget": 50000000,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "http://www.wardogsthemovie.com/",
+      "id": 308266,
+      "imdb_id": "tt2005151",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "War Dogs",
+      "overview": "Based on the true story of two young men, David Packouz and Efraim Diveroli, who won a $300 million contract from the Pentagon to arm America's allies in Afghanistan.",
+      "popularity": 8.3247,
+      "poster_path": "/mDcPRjZC1bb6LavFU3gwsWdVfCM.jpg",
+      "production_companies": [
+        {
+          "id": 1557,
+          "logo_path": "/ccz9bqCu3jSFKbPFnfWmjAKZLBL.png",
+          "name": "The Mark Gordon Company",
+          "origin_country": "US"
+        },
+        {
+          "id": 83036,
+          "logo_path": null,
+          "name": "Joint Effort",
+          "origin_country": "US"
+        },
+        {
+          "id": 41624,
+          "logo_path": "/wzKxIeQKlMP0y5CaAw25MD6EQmf.png",
+          "name": "RatPac Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2016-08-18",
+      "revenue": 86234523,
+      "runtime": 114,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Albanian",
+          "iso_639_1": "sq",
+          "name": "shqip"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Arabic",
+          "iso_639_1": "ar",
+          "name": "العربية"
+        },
+        {
+          "english_name": "Romanian",
+          "iso_639_1": "ro",
+          "name": "Română"
+        }
+      ],
+      "status": "Released",
+      "tagline": "An American dream",
+      "title": "War Dogs",
+      "video": false,
+      "vote_average": 6.943,
+      "vote_count": 5504,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/1N5yz1IDw6Ci8le1YgeM6xtBijA.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -24,7 +563,7 @@
       "original_language": "en",
       "original_title": "Office Romance",
       "overview": "Jackie, President and CEO of Air Cruz, runs a tight ship in her business, including a rigid anti-fraternization policy for all her employees. When a new sexy lawyer begins working for her, that policy becomes very tested.",
-      "popularity": 75.5652,
+      "popularity": 69.3507,
       "poster_path": "/1HRUTqEVDmJC4L6tp6zd85MI6uH.jpg",
       "production_companies": [
         {
@@ -79,261 +618,65 @@
       "tagline": "It's going down.",
       "title": "Office Romance",
       "video": false,
-      "vote_average": 6.504,
-      "vote_count": 243,
+      "vote_average": 6.498,
+      "vote_count": 244,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/2D3W3Jp0VYsLhXTEfnvhbMvQEzk.jpg",
-      "belongs_to_collection": {
-        "id": 1560684,
-        "name": "Colors of Evil – Collection",
-        "poster_path": "/8gacOj2TBjKc0q5Skaxa4bRuEvb.jpg",
-        "backdrop_path": "/1fNADFgBOYQahvn1nwlfxrceG9P.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81921253",
-      "id": 1560681,
-      "imdb_id": "tt38681832",
-      "origin_country": [
-        "PL"
-      ],
-      "original_language": "pl",
-      "original_title": "Kolory zła: Czerń",
-      "overview": "Investigating the disappearance of children in a remote Polish town, prosecutor Leopold Bilski must unravel a sinister local legend before it's too late.",
-      "popularity": 34.7466,
-      "poster_path": "/reeKdj7BSznr7wSGzAtIMrPFgKo.jpg",
-      "production_companies": [
-        {
-          "id": 54732,
-          "logo_path": "/9Wq8UhFmqgwTaps9RIFSaxZJZie.png",
-          "name": "Aurum Film",
-          "origin_country": "PL"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "PL",
-          "name": "Poland"
-        }
-      ],
-      "release_date": "2026-06-10",
-      "revenue": 0,
-      "runtime": 110,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Polish",
-          "iso_639_1": "pl",
-          "name": "Polski"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Colors of Evil: Black",
-      "video": false,
-      "vote_average": 7.011,
-      "vote_count": 87,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2fgcRuaseQ9RIiTAUDbLtymnj2z.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81698654",
-      "id": 1274706,
-      "imdb_id": "tt32129938",
-      "origin_country": [
-        "ES"
-      ],
-      "original_language": "es",
-      "original_title": "La desconocida",
-      "overview": "When a woman is found in a shipping container with no memory of who she is, two detectives race to figure out her identity — and who wants her dead.",
-      "popularity": 24.0806,
-      "poster_path": "/dyUZ6IKbzmgtdshHevJahpH51Eq.jpg",
-      "production_companies": [
-        {
-          "id": 21914,
-          "logo_path": "/iF5QYCtPLuwkU90jWdjrul25d71.png",
-          "name": "K & S Films",
-          "origin_country": "AR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "AR",
-          "name": "Argentina"
-        },
-        {
-          "iso_3166_1": "ES",
-          "name": "Spain"
-        }
-      ],
-      "release_date": "2026-06-05",
-      "revenue": 0,
-      "runtime": 109,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "The Marked Woman",
-      "video": false,
-      "vote_average": 5.541,
-      "vote_count": 74,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/lZ8avbWZHCRrXatqqXiZTY3kp1X.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 99,
-          "name": "Documentary"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81766093",
-      "id": 1699155,
-      "imdb_id": "tt42863533",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Maternal Instinct",
-      "overview": "Police pull over a woman who claims she just gave birth. But the baby — and the blood — aren't hers. Twisted lies unravel in this true-crime documentary.",
-      "popularity": 25.7311,
-      "poster_path": "/4KdmT71AGzDMp5hJbAu9vysKQKT.jpg",
-      "production_companies": [
-        {
-          "id": 136480,
-          "logo_path": "/5fLrloYGsWbdxS0HMmetiyZJ0Tw.png",
-          "name": "Story Syndicate",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-11",
-      "revenue": 0,
-      "runtime": 97,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Maternal Instinct",
-      "video": false,
-      "vote_average": 7.234,
-      "vote_count": 64,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7StcR1Wrxtr95HJ5Iyb6mYrDK5i.jpg",
+      "backdrop_path": "/4KxkzF4OgyPzuYziq4sIzuMhDyG.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
         {
           "id": 35,
           "name": "Comedy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
         }
       ],
       "homepage": "",
-      "id": 1181161,
-      "imdb_id": "tt30831836",
+      "id": 892508,
+      "imdb_id": "tt14793714",
       "origin_country": [
         "FR"
       ],
       "original_language": "fr",
-      "original_title": "Avec ou sans enfants ?",
-      "overview": "Pio and Anaïs, a couple about to get married, announce to their friends that their wedding will be child-free. However, their friends, who are now parents, decide to bring their children along, thinking they can hide them from the bride and groom.",
-      "popularity": 0.3446,
-      "poster_path": "/5HP7uJWU9zdovVGUMtZsWfiz2AT.jpg",
+      "original_title": "Les Folies fermières",
+      "overview": "David, a young farmer from Cantal, has just had an idea: to save his farm from bankruptcy, he is going to set up a cabaret on the farm. The show will be on stage and on the plate, with good local products. He is sure, it can only work. His relatives, his mother and especially his grandfather, are more skeptical.",
+      "popularity": 0.6894,
+      "poster_path": "/n59B3omT4VnKGeOkBLAGe7wfGXH.jpg",
       "production_companies": [
         {
-          "id": 171757,
-          "logo_path": null,
-          "name": "Take Shelter",
+          "id": 14026,
+          "logo_path": "/8yZvjKBIoOpcR6TiELlwVMoIJHN.png",
+          "name": "Escazal Films",
           "origin_country": "FR"
         },
         {
-          "id": 1115,
-          "logo_path": "/ntH7T5gsN6wtyrfHGHJDTuneQ7o.png",
-          "name": "M6 Films",
+          "id": 90562,
+          "logo_path": "/qII3jJQ4S32FgJRlfSU267woloF.png",
+          "name": "TF1 Studio",
           "origin_country": "FR"
         },
         {
-          "id": 6841,
-          "logo_path": "/ngONVL5GxzGoKMpqfIioTs2w2sV.png",
-          "name": "KMBO",
+          "id": 591,
+          "logo_path": "/q5I5RDwMEiqoNmfaJgd2LraEOJY.png",
+          "name": "France 3 Cinéma",
           "origin_country": "FR"
-        },
-        {
-          "id": 12407,
-          "logo_path": "/g11ZDtSicimXi5MmwUznAsEomXZ.png",
-          "name": "Panache Productions",
-          "origin_country": "BE"
         }
       ],
       "production_countries": [
-        {
-          "iso_3166_1": "BE",
-          "name": "Belgium"
-        },
         {
           "iso_3166_1": "FR",
           "name": "France"
         }
       ],
-      "release_date": "2025-02-19",
+      "release_date": "2022-05-11",
       "revenue": 0,
-      "runtime": 90,
+      "runtime": 109,
       "softcore": false,
       "spoken_languages": [
         {
@@ -344,287 +687,10 @@
       ],
       "status": "Released",
       "tagline": "",
-      "title": "With or Without Kids",
+      "title": "Country Cabaret",
       "video": false,
-      "vote_average": 4.914,
-      "vote_count": 35,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/wDln5edQPFYMeKvakkYCLUXOPRP.jpg",
-      "belongs_to_collection": null,
-      "budget": 35000000,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "",
-      "id": 13920,
-      "imdb_id": "tt0316465",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Radio",
-      "overview": "In the racially divided town of Anderson, South Carolina in 1976, football coach Harold Jones spots a mentally disabled African-American young man nicknamed Radio near his practice field and is inspired to befriend him. Soon, Radio is Jones' loyal assistant, and he becomes a student at T.L. Hanna High School. But things start to sour when Coach Jones begins taking guff from parents and fans who feel that his devotion to Radio is getting in the way of the team's quest for a championship.",
-      "popularity": 3.021,
-      "poster_path": "/uQ6ci4iFHhB6TWB2f4wftR7AEly.jpg",
-      "production_companies": [
-        {
-          "id": 2184,
-          "logo_path": null,
-          "name": "Tollin/Robbins Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 497,
-          "logo_path": "/wmxHM7w6JxbPwaopC6Sl4QSG2uH.png",
-          "name": "Revolution Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2003-10-24",
-      "revenue": 53293628,
-      "runtime": 109,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "His courage made them champions.",
-      "title": "Radio",
-      "video": false,
-      "vote_average": 7.327,
-      "vote_count": 848,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/13Nz8EchKRdCgJcKdEoJAnpiVn2.jpg",
-      "belongs_to_collection": null,
-      "budget": 70000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.hbomax.com/zacksnydersjusticeleague",
-      "id": 791373,
-      "imdb_id": "tt12361974",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Zack Snyder's Justice League",
-      "overview": "Determined to ensure Superman's ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.",
-      "popularity": 13.2039,
-      "poster_path": "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
-      "production_companies": [
-        {
-          "id": 174,
-          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 114152,
-          "logo_path": "/xYfrnGFXxrEy5x5OVThunxHYScK.png",
-          "name": "The Stone Quarry",
-          "origin_country": "US"
-        },
-        {
-          "id": 507,
-          "logo_path": "/aRmHe6GWxYMRCQljF75rn2B9Gv8.png",
-          "name": "Atlas Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 103376,
-          "logo_path": "/zAyfGEx1LJOkwNTrHugnWHzLRE.png",
-          "name": "Access Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 444,
-          "logo_path": null,
-          "name": "Dune Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 128064,
-          "logo_path": "/13F3Jf7EFAcREU0xzZqJnVnyGXu.png",
-          "name": "DC Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2021-03-18",
-      "revenue": 0,
-      "runtime": 242,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Us united.",
-      "title": "Zack Snyder's Justice League",
-      "video": false,
-      "vote_average": 8.088,
-      "vote_count": 10871,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/gIm5sjPSm973yKf6sbvd5lOkg3X.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 37,
-          "name": "Western"
-        }
-      ],
-      "homepage": "",
-      "id": 1414048,
-      "imdb_id": "tt35317668",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Day of Reckoning",
-      "overview": "Put-upon lawman John Dorsey is on the verge of losing his wife and his job as sheriff, so he posses up with bullish U.S. Marshall Butch Hayden to hold outlaw Emily Rusk hostage. A battle of wills ensues as Emily turns the posse on themselves, but as her marauding husband and his gang approach, Emily and John realize they will need each other to survive.",
-      "popularity": 1.9674,
-      "poster_path": "/cVSjSQryFUERYSdOmdgJ2m0eBte.jpg",
-      "production_companies": [
-        {
-          "id": 79279,
-          "logo_path": "/gcCJ3eCR1bzw7IPQX3UoxqClpUP.png",
-          "name": "ESX Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 186218,
-          "logo_path": "/4G1yai3i2nUmoBbz78BSP0TDh8l.png",
-          "name": "Lila Lane Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 135299,
-          "logo_path": "/j7wNO03pluRj5WQQKVK0URm5upr.png",
-          "name": "TackleBox Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2025-03-28",
-      "revenue": 0,
-      "runtime": 106,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Day of Reckoning",
-      "video": false,
-      "vote_average": 6.3,
-      "vote_count": 46,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/yKeYZOmBMQUMKpMlJJF8q4riYpl.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 99,
-          "name": "Documentary"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "",
-      "id": 1693002,
-      "imdb_id": "tt42192165",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Murder of Rachel Nickell",
-      "overview": "A young mother is killed in broad daylight on London's Wimbledon Common — in front of her toddler. This documentary examines the yearslong murder case.",
-      "popularity": 3.0298,
-      "poster_path": "/ibTNWrpUGsSuv7PbVRIgr97jDVs.jpg",
-      "production_companies": [],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-04",
-      "revenue": 0,
-      "runtime": 96,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "The Murder of Rachel Nickell",
-      "video": false,
-      "vote_average": 6.25,
-      "vote_count": 18,
+      "vote_average": 5.75,
+      "vote_count": 66,
       "media_type": "movie"
     },
     {
@@ -655,7 +721,7 @@
       "original_language": "en",
       "original_title": "Black Bag",
       "overview": "When intelligence agent Kathryn Woodhouse is suspected of betraying the nation, her husband – also a legendary agent – faces the ultimate test of whether to be loyal to his marriage, or his country.",
-      "popularity": 5.9008,
+      "popularity": 5.2032,
       "poster_path": "/hHPovtU4b96LHcoeEwRkGHI5btw.jpg",
       "production_companies": [
         {
@@ -694,52 +760,56 @@
   "tv_shows": [
     {
       "adult": false,
-      "backdrop_path": "/fvcTpx2JFHzPTv5gf6ytlXhZXFQ.jpg",
+      "backdrop_path": "/2yDDwP48GqL9Fpb6UEgGHyqM63y.jpg",
       "created_by": [
         {
-          "id": 1676311,
-          "credit_id": "676c3f236b01e0e140a9e7dc",
-          "name": "Rob Williams",
-          "original_name": "Rob Williams",
+          "id": 1232167,
+          "credit_id": "6746095bc24765fa2f2e18f8",
+          "name": "Robert Hull",
+          "original_name": "Robert Hull",
           "gender": 2,
-          "profile_path": null
+          "profile_path": "/cW2TkGiYbcz4JdTc9o3z4VAgfp3.jpg"
         }
       ],
       "episode_run_time": [],
-      "first_air_date": "2026-06-04",
+      "first_air_date": "2026-06-18",
       "genres": [
         {
           "id": 18,
           "name": "Drama"
         },
         {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
           "id": 80,
           "name": "Crime"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81737955",
-      "id": 280511,
+      "homepage": "https://www.netflix.com/title/81509368",
+      "id": 278178,
       "in_production": false,
       "languages": [
         "en"
       ],
-      "last_air_date": "2026-06-04",
+      "last_air_date": "2026-06-18",
       "last_episode_to_air": {
-        "id": 5862192,
-        "name": "Episode 3",
-        "overview": "Over a decade later, old evidence is re-examined by new eyes on the case. Will André and Alex finally get justice — or is there more to the story?",
-        "vote_average": 4.667,
-        "vote_count": 3,
-        "air_date": "2026-06-04",
-        "episode_number": 3,
+        "id": 6829102,
+        "name": "Episode 8",
+        "overview": "With an unlikely ally at their side, David and Rachel have one chance to rescue Matthew from his captors — before he slips away for good.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-06-18",
+        "episode_number": 8,
         "episode_type": "finale",
         "production_code": "",
-        "runtime": 47,
+        "runtime": 36,
         "season_number": 1,
-        "show_id": 280511,
-        "still_path": "/pgLjjgrj4PJcaspMZeF8kizHYtI.jpg"
+        "show_id": 278178,
+        "still_path": "/TOs0PsDUEz8mlo3XKAIBKQ0SOW.jpg"
       },
-      "name": "The Witness",
+      "name": "I Will Find You",
       "next_episode_to_air": null,
       "networks": [
         {
@@ -749,40 +819,46 @@
           "origin_country": ""
         }
       ],
-      "number_of_episodes": 3,
+      "number_of_episodes": 8,
       "number_of_seasons": 1,
       "origin_country": [
-        "GB"
+        "US"
       ],
       "original_language": "en",
-      "original_name": "The Witness",
-      "overview": "With their 2-year-old as the sole witness to her murder, Rachel Nickell's partner fights to protect him amid a flawed investigation.",
-      "popularity": 17.1281,
-      "poster_path": "/6vW1V7qejXv4QI2TvWvYuowfTrU.jpg",
+      "original_name": "I Will Find You",
+      "overview": "Wrongfully imprisoned for murdering his own son, a father sets out on a desperate rescue mission after learning the boy may still be alive.",
+      "popularity": 199.3092,
+      "poster_path": "/pb9oYHHNzauiCQZT03MpDAg46GI.jpg",
       "production_companies": [
         {
-          "id": 75600,
-          "logo_path": "/qvDku9orSiMgA1vIragz227hul8.png",
-          "name": "STV Studios",
-          "origin_country": "GB"
+          "id": 208514,
+          "logo_path": "/4CiIJO7QTquUWkw2gyLvRyk0ds2.png",
+          "name": "Final Twist Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 301948,
+          "logo_path": null,
+          "name": "Story Math",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
       "seasons": [
         {
-          "air_date": "2026-06-04",
-          "episode_count": 3,
-          "id": 435073,
+          "air_date": "2026-06-18",
+          "episode_count": 8,
+          "id": 430534,
           "name": "Limited Series",
-          "overview": "When Rachel Nickell was murdered on Wimbledon Common in 1992, André became a single parent overnight. Putting his own grief to one side, he made his son Alex – the only eyewitness to the attack – the centre of his world. Navigating the unscrupulous media furore and the urgency of an increasingly desperate police investigation, his sole concern became the welfare of his traumatised son. This is the story of how a father and son moved through the aftermath of unimaginable tragedy, from darkness into light.",
-          "poster_path": "/eNIfjYji9m29Xyj4KVDiUy2UmMa.jpg",
+          "overview": "",
+          "poster_path": "/pb9oYHHNzauiCQZT03MpDAg46GI.jpg",
           "season_number": 1,
-          "vote_average": 4.2
+          "vote_average": 8.8
         }
       ],
       "softcore": false,
@@ -794,10 +870,121 @@
         }
       ],
       "status": "Ended",
-      "tagline": "",
+      "tagline": "Find the boy. Find the truth.",
       "type": "Miniseries",
-      "vote_average": 6.3,
-      "vote_count": 25,
+      "vote_average": 8.5,
+      "vote_count": 96,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/hGCQ0tsJMpKjfrnCyYY0kMY2kY1.jpg",
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2026-06-12",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10766,
+          "name": "Soap"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81687036",
+      "id": 322430,
+      "in_production": true,
+      "languages": [
+        "en",
+        "tn",
+        "zu"
+      ],
+      "last_air_date": "2026-06-12",
+      "last_episode_to_air": {
+        "id": 7379620,
+        "name": "Episode 22",
+        "overview": "Competition between the wives continues beyond the grave as Essie and Joyce clash over how to memorialize Jonasi.",
+        "vote_average": 7.0,
+        "vote_count": 3,
+        "air_date": "2026-06-12",
+        "episode_number": 22,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 24,
+        "season_number": 1,
+        "show_id": 322430,
+        "still_path": "/kzu1iZRVFk82Q6G7Y0zji0MhVCw.jpg"
+      },
+      "name": "The Polygamist",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 22,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "ZA"
+      ],
+      "original_language": "zu",
+      "original_name": "The Polygamist",
+      "overview": "Social media darling, Joyce, is the picture of marital perfection — until her cheating husband's conquests ignite a scandalous emotional meltdown.",
+      "popularity": 102.3155,
+      "poster_path": "/AwssABsVYn87F2VBbDSMucQOEu9.jpg",
+      "production_companies": [
+        {
+          "id": 60187,
+          "logo_path": "/qo7J1lt6cKAYTs4uVJjtaEcvghF.png",
+          "name": "Stained Glass TV",
+          "origin_country": "ZA"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "ZA",
+          "name": "South Africa"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-06-12",
+          "episode_count": 22,
+          "id": 516269,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/lNr7cCi4olQ13hq21t3Q0mIQMKh.jpg",
+          "season_number": 1,
+          "vote_average": 7.6
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Tswana",
+          "iso_639_1": "tn",
+          "name": ""
+        },
+        {
+          "english_name": "Zulu",
+          "iso_639_1": "zu",
+          "name": "isiZulu"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "He chose betrayal, she chose revenge.",
+      "type": "Scripted",
+      "vote_average": 7.875,
+      "vote_count": 32,
       "media_type": "tv"
     },
     {
@@ -877,7 +1064,7 @@
       "original_language": "ko",
       "original_name": "참교육",
       "overview": "An inspector from the Educational Rights Protection Bureau (ERPB) who is authorized by the government to use physical intervention and unconventional methods to discipline delinquent students and reform the educational system.",
-      "popularity": 176.1856,
+      "popularity": 164.2224,
       "poster_path": "/fMECSPrTmRClSViMsXFYmiYIcWP.jpg",
       "production_companies": [
         {
@@ -922,570 +1109,94 @@
       "status": "Ended",
       "tagline": "Let us protect you!",
       "type": "Miniseries",
-      "vote_average": 9.49,
-      "vote_count": 438,
+      "vote_average": 9.469,
+      "vote_count": 456,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": null,
-      "created_by": [],
-      "episode_run_time": [],
-      "first_air_date": "2026-06-03",
-      "genres": [
+      "backdrop_path": "/nbtIdcehsl91z1iGlsloH8Zs3QP.jpg",
+      "created_by": [
         {
-          "id": 35,
-          "name": "Comedy"
+          "id": 1334524,
+          "credit_id": "66e813b2d7bcca524db108e5",
+          "name": "Susana López Rubio",
+          "original_name": "Susana López Rubio",
+          "gender": 0,
+          "profile_path": "/oHETtrbM3utJajJDwpxqVU18Isy.jpg"
+        },
+        {
+          "id": 1480156,
+          "credit_id": "66e813b9dd224d1a3991d281",
+          "name": "Javier Holgado",
+          "original_name": "Javier Holgado",
+          "gender": 0,
+          "profile_path": null
+        },
+        {
+          "id": 1074740,
+          "credit_id": "66e813bed7bcca524db108f3",
+          "name": "Jaime Olías",
+          "original_name": "Jaime Olías",
+          "gender": 2,
+          "profile_path": "/j1d0qH6nijfjjPxeHh1MEfYx4oV.jpg"
         }
       ],
-      "homepage": "https://www.netflix.com/title/82083327",
-      "id": 321807,
+      "episode_run_time": [],
+      "first_air_date": "2025-03-23",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://www.antena3.com/series/perdiendo-juicio/",
+      "id": 259200,
       "in_production": true,
-      "languages": [
-        "fr"
-      ],
-      "last_air_date": "2026-06-03",
-      "last_episode_to_air": {
-        "id": 7244081,
-        "name": "1998 VS 2018",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-06-03",
-        "episode_number": 1,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 90,
-        "season_number": 1,
-        "show_id": 321807,
-        "still_path": null
-      },
-      "name": "The Hot Seat",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 1,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "FR"
-      ],
-      "original_language": "fr",
-      "original_name": "Dans la sauce",
-      "overview": "French roast comedy filmed in front of an audience.",
-      "popularity": 0.701,
-      "poster_path": "/35EWgigVoQiji7X6zBlXQFNFKvy.jpg",
-      "production_companies": [],
-      "production_countries": [
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-06-03",
-          "episode_count": 1,
-          "id": 515165,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/35EWgigVoQiji7X6zBlXQFNFKvy.jpg",
-          "season_number": 1,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Reality",
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/jaT8cc5VhOXO1JCbuNt8cgeu3ah.jpg",
-      "created_by": [
-        {
-          "id": 161966,
-          "credit_id": "6a0e2e5f373bcaf068a2bbc9",
-          "name": "David Herman",
-          "original_name": "David Herman",
-          "gender": 2,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2026-06-03",
-      "genres": [
-        {
-          "id": 99,
-          "name": "Documentary"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81929201",
-      "id": 323111,
-      "in_production": false,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-06-03",
-      "last_episode_to_air": {
-        "id": 7294420,
-        "name": "Episode 3",
-        "overview": "Despite damning accounts from former Neverland workers, key witnesses turn the tide in Jackson's favor — but the trial nevertheless leaves deep wounds.",
-        "vote_average": 10.0,
-        "vote_count": 1,
-        "air_date": "2026-06-03",
-        "episode_number": 3,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 55,
-        "season_number": 1,
-        "show_id": 323111,
-        "still_path": "/9Xk0tPIQwaes7jbv2uT9gPuhUk1.jpg"
-      },
-      "name": "Michael Jackson: The Verdict",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 3,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Michael Jackson: The Verdict",
-      "overview": "Told by key players who were inside the courtroom, this comprehensive documentary dissects the trial of Michael Jackson and his complex legacy.",
-      "popularity": 7.4176,
-      "poster_path": "/8R40yI5AJ931Hd3P4Yf8pdFgwJ1.jpg",
-      "production_companies": [
-        {
-          "id": 205628,
-          "logo_path": "/whxjFDZ4DUta8eruK8fV6F2Ekk4.png",
-          "name": "Candle True Stories",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-06-03",
-          "episode_count": 3,
-          "id": 517514,
-          "name": "Season 1",
-          "overview": "Told by key players who were inside the courtroom, this comprehensive documentary dissects the trial of Michael Jackson and his complex legacy.",
-          "poster_path": "/pJaq1DFjtz0F8a1KHFndJ9be20p.jpg",
-          "season_number": 1,
-          "vote_average": 10.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Ended",
-      "tagline": "",
-      "type": "Miniseries",
-      "vote_average": 4.578,
-      "vote_count": 51,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/8KDxgfQ4JHgnEozwToRQaUgNAmP.jpg",
-      "created_by": [
-        {
-          "id": 1371935,
-          "credit_id": "67ec18a86b570401632fbc7c",
-          "name": "Catherine Touzet",
-          "original_name": "Catherine Touzet",
-          "gender": 1,
-          "profile_path": null
-        },
-        {
-          "id": 1460728,
-          "credit_id": "67ec18b16b9788d3f7c73ffb",
-          "name": "Marie Deshaires",
-          "original_name": "Marie Deshaires",
-          "gender": 1,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2026-05-18",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://www.tf1.fr/tf1/lete-36",
-      "id": 287976,
-      "in_production": true,
-      "languages": [
-        "fr"
-      ],
-      "last_air_date": "2026-06-01",
-      "last_episode_to_air": {
-        "id": 7196844,
-        "name": "Episode 6",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-06-01",
-        "episode_number": 6,
-        "episode_type": "finale",
-        "production_code": "1-6",
-        "runtime": 52,
-        "season_number": 1,
-        "show_id": 287976,
-        "still_path": "/dXcrO2IGluIjhdugFs5gqxFGU7L.jpg"
-      },
-      "name": "Summer of 36",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 290,
-          "logo_path": "/fqsd09CrijoGu6qfoNIdgUQmVGO.png",
-          "name": "TF1",
-          "origin_country": "FR"
-        }
-      ],
-      "number_of_episodes": 6,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "FR"
-      ],
-      "original_language": "fr",
-      "original_name": "L'Été 36",
-      "overview": "Summer 1936, Nice. The vacationing bourgeoisie, accustomed to the French Riviera and its refined privileges, is bewildered by the influx of new holidaymakers taking advantage of the first paid vacations. In this hustle and bustle, where two worlds coexist without attempting to understand one another, four women from different backgrounds become embroiled in a murder at the very chic Hotel Riviera. A crime that will completely turn their family life, romantic relationships, and professional lives upside down.",
-      "popularity": 3.3306,
-      "poster_path": "/6rSzSsSxSOk3nzYAHzm8yFpXnYQ.jpg",
-      "production_companies": [
-        {
-          "id": 183632,
-          "logo_path": null,
-          "name": "Quad Drama",
-          "origin_country": "FR"
-        },
-        {
-          "id": 22123,
-          "logo_path": "/zPTy6QDAlCKGeAALZoFEL3QAlut.png",
-          "name": "TF1",
-          "origin_country": "FR"
-        },
-        {
-          "id": 12406,
-          "logo_path": "/e89tcj2PpfFffwA0etxuGftj0YU.png",
-          "name": "La Compagnie Cinématographique",
-          "origin_country": "BE"
-        },
-        {
-          "id": 12407,
-          "logo_path": "/g11ZDtSicimXi5MmwUznAsEomXZ.png",
-          "name": "Panache Productions",
-          "origin_country": "BE"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        },
-        {
-          "iso_3166_1": "BE",
-          "name": "Belgium"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-05-18",
-          "episode_count": 6,
-          "id": 449285,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/dIVobFB25MT5av3NGFDJbAHTd12.jpg",
-          "season_number": 1,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 7.3,
-      "vote_count": 8,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/pXpK8GnLL0wZkfelg5lCVSOnytN.jpg",
-      "created_by": [
-        {
-          "id": 88967,
-          "credit_id": "52571c74760ee3776a1b33f6",
-          "name": "Greg Berlanti",
-          "original_name": "Greg Berlanti",
-          "gender": 2,
-          "profile_path": "/1T24SiIIDMa9gAmq7QaYwZywq4y.jpg"
-        }
-      ],
-      "episode_run_time": [
-        43
-      ],
-      "first_air_date": "2002-09-16",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "",
-      "id": 1950,
-      "in_production": false,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2006-06-05",
-      "last_episode_to_air": {
-        "id": 131819,
-        "name": "Foreverwood (2)",
-        "overview": "After their house has been sold, Nina and Sam temporarily move in with the Browns. Wanting to take care of an unresolved issue in his life before he can propose to Nina, Andy takes a mysterious trip. Bright learns that Hannah has received a scholarship to Notre Dame and is devastated at the thought that she may accept it. Edna upsets Harold and Rose when she reveals her plans to leave Everwood. Delia is thrilled with Andy’s belated Bat Mitzvah gift.",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2006-06-05",
-        "episode_number": 22,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 42,
-        "season_number": 4,
-        "show_id": 1950,
-        "still_path": "/g1aPSzLPoHOpC9tjqncJzW94mp8.jpg"
-      },
-      "name": "Everwood",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 21,
-          "logo_path": "/9GlDHjQj9c2dkfARCR3zlH87R66.png",
-          "name": "The WB",
-          "origin_country": "US"
-        }
-      ],
-      "number_of_episodes": 89,
-      "number_of_seasons": 4,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Everwood",
-      "overview": "After the death of his wife, world-class neurosurgeon Dr. Andrew Brown leaves Manhattan and moves his family to the small town of Everwood, Colorado. There he becomes a small-town doctor and learns parenting on the fly as he raises his talented but resentful 15-year-old son Ephram and his 9-year-old daughter Delia.",
-      "popularity": 57.6244,
-      "poster_path": "/uuWIIIjT6hyCLGQTVG0cwLfubb9.jpg",
-      "production_companies": [
-        {
-          "id": 1957,
-          "logo_path": "/pJJw98MtNFC9cHn3o15G7vaUnnX.png",
-          "name": "Warner Bros. Television",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2004-09-07",
-          "episode_count": 1,
-          "id": 5717,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": "/8qmFVCEWnL7RuZROUzYIudJGP44.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2002-09-16",
-          "episode_count": 23,
-          "id": 5713,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/tPG8gG9Gi10MQk41xQiSBN3djO6.jpg",
-          "season_number": 1,
-          "vote_average": 7.4
-        },
-        {
-          "air_date": "2003-09-15",
-          "episode_count": 22,
-          "id": 5715,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": "/f8q8RsKVpea6snWGygz174mTuto.jpg",
-          "season_number": 2,
-          "vote_average": 7.8
-        },
-        {
-          "air_date": "2004-09-13",
-          "episode_count": 22,
-          "id": 5714,
-          "name": "Season 3",
-          "overview": "",
-          "poster_path": "/xLod0FjGWyTQ1sLDmBqImFeozy6.jpg",
-          "season_number": 3,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2005-09-29",
-          "episode_count": 22,
-          "id": 5716,
-          "name": "Season 4",
-          "overview": "",
-          "poster_path": "/1sCe1fiaJStecZdvCNvViCKA1aa.jpg",
-          "season_number": 4,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Canceled",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 7.6,
-      "vote_count": 221,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nIFynZaeQnD3wVqBldVN6umgR5g.jpg",
-      "created_by": [
-        {
-          "id": 82725,
-          "credit_id": "693a5580f9a19e410daea0c7",
-          "name": "Álex Pina",
-          "original_name": "Álex Pina",
-          "gender": 2,
-          "profile_path": "/hMKcFPRKo0I4WLBvkvppyBFDGr8.jpg"
-        },
-        {
-          "id": 1637084,
-          "credit_id": "693a558c1b3fccc5baf61f1e",
-          "name": "Esther Martínez Lobato",
-          "original_name": "Esther Martínez Lobato",
-          "gender": 1,
-          "profile_path": "/eKfsOq2lUAT1UpPAx6iRyhT6OE8.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2026-05-15",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/82152349",
-      "id": 308014,
-      "in_production": false,
       "languages": [
         "es"
       ],
-      "last_air_date": "2026-05-15",
+      "last_air_date": "2025-05-25",
       "last_episode_to_air": {
-        "id": 6756902,
-        "name": "Happiness Belongs to He Who Loves",
-        "overview": "A night out in Peñíscola inspires Berlin to radically change his plans. Will he and the gang manage to pull off the greatest heist in history?",
-        "vote_average": 6.5,
-        "vote_count": 6,
-        "air_date": "2026-05-15",
-        "episode_number": 8,
+        "id": 5477781,
+        "name": "Episode 10",
+        "overview": "",
+        "vote_average": 7.0,
+        "vote_count": 1,
+        "air_date": "2025-05-25",
+        "episode_number": 10,
         "episode_type": "finale",
         "production_code": "",
-        "runtime": 81,
+        "runtime": null,
         "season_number": 1,
-        "show_id": 308014,
-        "still_path": "/tJ2zB1JvroPpSZQWhjykGjcWu2s.jpg"
+        "show_id": 259200,
+        "still_path": "/1i3pPJau8rtG7kBgYPQ3KRCyNDO.jpg"
       },
-      "name": "Berlin and the Lady with an Ermine",
+      "name": "Losing Judgment",
       "next_episode_to_air": null,
       "networks": [
         {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
+          "id": 3744,
+          "logo_path": "/t6FPoKU3jDeCtIFpbxiIkhkQ5gm.png",
+          "name": "Atresplayer",
+          "origin_country": "ES"
         }
       ],
-      "number_of_episodes": 8,
+      "number_of_episodes": 10,
       "number_of_seasons": 1,
       "origin_country": [
         "ES"
       ],
       "original_language": "es",
-      "original_name": "Berlín y la dama del armiño",
-      "overview": "Hungry for a new heist, Berlin summons the gang to Seville and turns an ambitious duke into the victim of his own plan: to steal a da Vinci masterpiece.",
-      "popularity": 43.9362,
-      "poster_path": "/sTumew0Q01ZHmFneA9cJRi3QUYC.jpg",
+      "original_name": "Perdiendo el juicio",
+      "overview": "",
+      "popularity": 4.9063,
+      "poster_path": "/ioyuupNi55EPjqutl0Kl6KaXZuV.jpg",
       "production_companies": [
         {
-          "id": 100783,
-          "logo_path": "/zCbBliLd81vorYMSBT3vkv5sHYL.png",
-          "name": "Vancouver Media",
+          "id": 49394,
+          "logo_path": "/ksCltAjQsrjENzm9bbaA7Y9Rgr1.png",
+          "name": "Boomerang TV",
           "origin_country": "ES"
         }
       ],
@@ -1497,14 +1208,14 @@
       ],
       "seasons": [
         {
-          "air_date": "2026-05-15",
-          "episode_count": 8,
-          "id": 488977,
-          "name": "Limited Series",
-          "overview": "Hungry for a new heist, Berlin summons the gang to Seville and turns an ambitious duke into the victim of his own plan: to steal a da Vinci masterpiece.",
-          "poster_path": "/sTumew0Q01ZHmFneA9cJRi3QUYC.jpg",
+          "air_date": "2025-03-23",
+          "episode_count": 10,
+          "id": 402286,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/8svuI1MTkEsTyWrIxiLcuf0dnav.jpg",
           "season_number": 1,
-          "vote_average": 6.1
+          "vote_average": 6.8
         }
       ],
       "softcore": false,
@@ -1515,131 +1226,11 @@
           "name": "Español"
         }
       ],
-      "status": "Ended",
-      "tagline": "",
-      "type": "Miniseries",
-      "vote_average": 8.214,
-      "vote_count": 168,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/pxnJeLSBdUikUOrWdNgrK1HQy2u.jpg",
-      "created_by": [
-        {
-          "id": 1224562,
-          "credit_id": "67c8a810d7419cdfd86e4c00",
-          "name": "Courtney Kemp Agboh",
-          "original_name": "Courtney Kemp Agboh",
-          "gender": 1,
-          "profile_path": "/A5bJdkkV1CVCZp5Zvs2lu59fwrk.jpg"
-        },
-        {
-          "id": 5285248,
-          "credit_id": "6a05d00b225e22f6c9291d6f",
-          "name": "Tani Marole",
-          "original_name": "Tani Marole",
-          "gender": 2,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2026-05-14",
-      "genres": [
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81737397",
-      "id": 285807,
-      "in_production": true,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-05-14",
-      "last_episode_to_air": {
-        "id": 7145445,
-        "name": "Zugzwang",
-        "overview": "With his options running out, Coltrane stages a bold extraction plan. Stiles makes a last-ditch effort to corner his adversary once and for all.",
-        "vote_average": 2.286,
-        "vote_count": 7,
-        "air_date": "2026-05-14",
-        "episode_number": 8,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 58,
-        "season_number": 1,
-        "show_id": 285807,
-        "still_path": "/eP69itFCrADZahKOuO2ruWGs9xV.jpg"
-      },
-      "name": "Nemesis",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 8,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Nemesis",
-      "overview": "A relentless LAPD cop becomes obsessed with taking down the master thief behind a string of daring heists — and only one can come out on top.",
-      "popularity": 16.9924,
-      "poster_path": "/NY7ZwSMw5PjoJdK2CObqiTj7Bm.jpg",
-      "production_companies": [
-        {
-          "id": 153513,
-          "logo_path": null,
-          "name": "End of Episode",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-05-14",
-          "episode_count": 8,
-          "id": 445238,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/7AS4WGGA8COAPgES3arizDOtfWf.jpg",
-          "season_number": 1,
-          "vote_average": 3.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
       "status": "Returning Series",
       "tagline": "",
       "type": "Scripted",
-      "vote_average": 7.375,
-      "vote_count": 84,
+      "vote_average": 7.333,
+      "vote_count": 18,
       "media_type": "tv"
     },
     {
@@ -1703,7 +1294,7 @@
       "original_language": "en",
       "original_name": "Sweet Magnolias",
       "overview": "Lifelong friends Maddie, Helen and Dana Sue lift each other up as they juggle relationships, family and careers in the small Southern town of Serenity.",
-      "popularity": 19.6035,
+      "popularity": 18.9183,
       "poster_path": "/n1WDSFOnCCg3cdHHGBywZtYIzf9.jpg",
       "production_companies": [
         {
@@ -1788,137 +1379,239 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/wjWyxg8bJATeYOUkNE2aUdYE0eh.jpg",
+      "backdrop_path": "/n4B2dVVScH4L4Scvy7mTboYcfGQ.jpg",
       "created_by": [
         {
-          "id": 17815,
-          "credit_id": "5258528d760ee3466106cf61",
-          "name": "Ann Biderman",
-          "original_name": "Ann Biderman",
-          "gender": 1,
+          "id": 1261462,
+          "credit_id": "68f2c494d60c1e9ba84d2213",
+          "name": "Ramón Campos",
+          "original_name": "Ramón Campos",
+          "gender": 2,
+          "profile_path": null
+        },
+        {
+          "id": 2747679,
+          "credit_id": "68f2c49e9bf354848774fa09",
+          "name": "David Orea",
+          "original_name": "David Orea",
+          "gender": 2,
+          "profile_path": null
+        },
+        {
+          "id": 2885188,
+          "credit_id": "68f2c4a5968ce735e20e4ac4",
+          "name": "Javier Chacártegui",
+          "original_name": "Javier Chacártegui",
+          "gender": 0,
+          "profile_path": null
+        },
+        {
+          "id": 2682482,
+          "credit_id": "68f2c4acdb0252e0c15a568c",
+          "name": "Jon de la Cuesta",
+          "original_name": "Jon de la Cuesta",
+          "gender": 2,
+          "profile_path": null
+        },
+        {
+          "id": 5333181,
+          "credit_id": "690f19f21c6955a1a5ce7f65",
+          "name": "Ricardo Jornet",
+          "original_name": "Ricardo Jornet",
+          "gender": 0,
           "profile_path": null
         }
       ],
-      "episode_run_time": [
-        42
-      ],
-      "first_air_date": "2009-04-09",
+      "episode_run_time": [],
+      "first_air_date": "2026-06-19",
       "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
         {
           "id": 18,
           "name": "Drama"
         }
       ],
-      "homepage": "http://www.nbc.com/southland/",
-      "id": 17611,
+      "homepage": "https://www.netflix.com/title/81734907",
+      "id": 296285,
+      "in_production": true,
+      "languages": [
+        "es"
+      ],
+      "last_air_date": "2026-06-19",
+      "last_episode_to_air": {
+        "id": 7403964,
+        "name": "Episode 8",
+        "overview": "With the truth just out of reach and their suspicions pointing to a larger scandal, Helena and Dani risk everything to find Celia — no matter the cost.",
+        "vote_average": 8.0,
+        "vote_count": 1,
+        "air_date": "2026-06-19",
+        "episode_number": 8,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 39,
+        "season_number": 1,
+        "show_id": 296285,
+        "still_path": "/gbSpCQHrTctk67qN8yqDLopmfum.jpg"
+      },
+      "name": "Oasis",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 8,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "ES"
+      ],
+      "original_language": "es",
+      "original_name": "Oasis",
+      "overview": "Oasis is the most luxurious holiday resort in the country — a paradise reserved for the wealthiest families, featuring private beaches, VIP facilities, and impenetrable security. The perfect place to spend the best summer of your life. But everything falls apart when the police storm the resort to investigate a mysterious disappearance. In such an exclusive place, everyone is a suspect — and no one can leave until the culprit is found.",
+      "popularity": 82.9292,
+      "poster_path": "/vWBtcjETIUd45OoIULEqc6qZxM7.jpg",
+      "production_companies": [
+        {
+          "id": 27628,
+          "logo_path": "/bh3pBLmTPkgrD41WqFzJ2hQgvaF.png",
+          "name": "Bambú Producciones",
+          "origin_country": "ES"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "ES",
+          "name": "Spain"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-06-19",
+          "episode_count": 8,
+          "id": 465986,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/kQy2TH7Xjj9wdVSU5WVN6MXPGhW.jpg",
+          "season_number": 1,
+          "vote_average": 8.3
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "There are summers that change everything. And places designed to escape—even from the truth.",
+      "type": "Scripted",
+      "vote_average": 6.2,
+      "vote_count": 10,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fvcTpx2JFHzPTv5gf6ytlXhZXFQ.jpg",
+      "created_by": [
+        {
+          "id": 1676311,
+          "credit_id": "676c3f236b01e0e140a9e7dc",
+          "name": "Rob Williams",
+          "original_name": "Rob Williams",
+          "gender": 2,
+          "profile_path": null
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2026-06-04",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81737955",
+      "id": 280511,
       "in_production": false,
       "languages": [
         "en"
       ],
-      "last_air_date": "2013-04-17",
+      "last_air_date": "2026-06-04",
       "last_episode_to_air": {
-        "id": 557416,
-        "name": "Reckoning",
-        "overview": "John copes with the aftermath of his kidnapping. Sammy closes in on the real robbers. Lydia continues to pursue John’s kidnappers and becomes more intimate with Russell.",
-        "vote_average": 7.2,
-        "vote_count": 4,
-        "air_date": "2013-04-17",
-        "episode_number": 10,
+        "id": 5862192,
+        "name": "Episode 3",
+        "overview": "Over a decade later, old evidence is re-examined by new eyes on the case. Will André and Alex finally get justice — or is there more to the story?",
+        "vote_average": 4.667,
+        "vote_count": 3,
+        "air_date": "2026-06-04",
+        "episode_number": 3,
         "episode_type": "finale",
         "production_code": "",
-        "runtime": 41,
-        "season_number": 5,
-        "show_id": 17611,
-        "still_path": "/2jtZUdAQrqFi1OCsUjS3kEYVZcg.jpg"
+        "runtime": 47,
+        "season_number": 1,
+        "show_id": 280511,
+        "still_path": "/pgLjjgrj4PJcaspMZeF8kizHYtI.jpg"
       },
-      "name": "Southland",
+      "name": "The Witness",
       "next_episode_to_air": null,
       "networks": [
         {
-          "id": 6,
-          "logo_path": "/cm111bsDVlYaC1foL0itvEI4yLG.png",
-          "name": "NBC",
-          "origin_country": "US"
-        },
-        {
-          "id": 41,
-          "logo_path": "/6ISsKwa2XUhSC6oBtHZjYf6xFqv.png",
-          "name": "TNT",
-          "origin_country": "US"
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
         }
       ],
-      "number_of_episodes": 43,
-      "number_of_seasons": 5,
+      "number_of_episodes": 3,
+      "number_of_seasons": 1,
       "origin_country": [
-        "US"
+        "GB"
       ],
       "original_language": "en",
-      "original_name": "Southland",
-      "overview": "A raw and authentic look into the Los Angeles crime scene, going far inside the lives of cops, criminals, victims and their families. The show centers on four main characters: Officer John Cooper, a seasoned cop who will have to prove himself again after recovering from surgery; Officer Ben Sherman, who still has much to learn after recently completing his training rotation; Detective Lydia Adams, whose unending caseload hits closer to home; and Sammy Bryant, a former detective who decided to go back to being a uniform cop after the traumatic death of his partner.",
-      "popularity": 22.5494,
-      "poster_path": "/flj41WynQKea6DVHgRbbPSWOB1t.jpg",
-      "production_companies": [],
-      "production_countries": [],
+      "original_name": "The Witness",
+      "overview": "With their 2-year-old as the sole witness to her murder, Rachel Nickell's partner fights to protect him amid a flawed investigation.",
+      "popularity": 16.5697,
+      "poster_path": "/6vW1V7qejXv4QI2TvWvYuowfTrU.jpg",
+      "production_companies": [
+        {
+          "id": 75600,
+          "logo_path": "/qvDku9orSiMgA1vIragz227hul8.png",
+          "name": "STV Studios",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
       "seasons": [
         {
-          "air_date": null,
-          "episode_count": 2,
-          "id": 28496,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": null,
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2009-04-09",
-          "episode_count": 7,
-          "id": 28494,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/gEPMkE9SV5HKpVih3godmKWnXzg.jpg",
+          "air_date": "2026-06-04",
+          "episode_count": 3,
+          "id": 435073,
+          "name": "Limited Series",
+          "overview": "When Rachel Nickell was murdered on Wimbledon Common in 1992, André became a single parent overnight. Putting his own grief to one side, he made his son Alex – the only eyewitness to the attack – the centre of his world. Navigating the unscrupulous media furore and the urgency of an increasingly desperate police investigation, his sole concern became the welfare of his traumatised son. This is the story of how a father and son moved through the aftermath of unimaginable tragedy, from darkness into light.",
+          "poster_path": "/eNIfjYji9m29Xyj4KVDiUy2UmMa.jpg",
           "season_number": 1,
-          "vote_average": 6.2
-        },
-        {
-          "air_date": "2010-03-02",
-          "episode_count": 6,
-          "id": 28493,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": "/nmJ6TELl7ngQ80CB7mz2XwgLQoQ.jpg",
-          "season_number": 2,
-          "vote_average": 8.4
-        },
-        {
-          "air_date": "2011-01-04",
-          "episode_count": 10,
-          "id": 28495,
-          "name": "Season 3",
-          "overview": "",
-          "poster_path": "/zQHwDLweaxe5zTBGcfJOpnklVBj.jpg",
-          "season_number": 3,
-          "vote_average": 8.2
-        },
-        {
-          "air_date": "2012-01-17",
-          "episode_count": 10,
-          "id": 28497,
-          "name": "Season 4",
-          "overview": "",
-          "poster_path": "/ssAQ4lm8b4PRlLJvB7noQ5QOpPe.jpg",
-          "season_number": 4,
-          "vote_average": 8.2
-        },
-        {
-          "air_date": "2013-02-13",
-          "episode_count": 10,
-          "id": 28498,
-          "name": "Season 5",
-          "overview": "",
-          "poster_path": "/48sBziXctXKxoHmrd5Br8RtG0Pp.jpg",
-          "season_number": 5,
-          "vote_average": 8.1
+          "vote_average": 4.3
         }
       ],
       "softcore": false,
@@ -1930,10 +1623,361 @@
         }
       ],
       "status": "Ended",
-      "tagline": "Protect. Serve. Survive.",
+      "tagline": "",
+      "type": "Miniseries",
+      "vote_average": 6.3,
+      "vote_count": 25,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vPVdWiLUNQyaGMazyZGVAyRcYBG.jpg",
+      "created_by": [
+        {
+          "id": 4731551,
+          "credit_id": "66b4e554078b5a26e357a775",
+          "name": "Gooseworx",
+          "original_name": "Gooseworx",
+          "gender": 1,
+          "profile_path": "/7BRboFFmUfh1jVaQ4QecqhwFvC1.jpg"
+        }
+      ],
+      "episode_run_time": [
+        26
+      ],
+      "first_air_date": "2023-10-13",
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "homepage": "https://www.glitchprod.com/digital-circus",
+      "id": 261145,
+      "in_production": false,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-06-19",
+      "last_episode_to_air": {
+        "id": 7064840,
+        "name": "Remember",
+        "overview": "As their reality unravels, the cast uncovers the truth behind the Digital Circus and its history.",
+        "vote_average": 8.3,
+        "vote_count": 11,
+        "air_date": "2026-06-19",
+        "episode_number": 9,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 59,
+        "season_number": 1,
+        "show_id": 261145,
+        "still_path": "/hb3mkbH7mlPgXfr430EkLvAof4E.jpg"
+      },
+      "name": "The Amazing Digital Circus",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        },
+        {
+          "id": 247,
+          "logo_path": "/i9YpTodhXMOAYo0TZrP0UrHeunc.png",
+          "name": "YouTube",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 9,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "AU"
+      ],
+      "original_language": "en",
+      "original_name": "The Amazing Digital Circus",
+      "overview": "A woman finds herself trapped in a virtual circus where she and five other humans are subject to the whims of a wacky AI ringmaster. In this digital purgatory they must face frightening NPCs and cope with their own personal traumas.",
+      "popularity": 80.9871,
+      "poster_path": "/lpfrgfomX8uNFxv4VaEzvJGs9TK.jpg",
+      "production_companies": [
+        {
+          "id": 239704,
+          "logo_path": "/tqqq3IpYg26z7d7BG6pdwHoG6JI.png",
+          "name": "Glitch Productions",
+          "origin_country": "AU"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "AU",
+          "name": "Australia"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2023-10-20",
+          "episode_count": 12,
+          "id": 424748,
+          "name": "Specials",
+          "overview": "The cast of the Amazing Digital Circus helps to promote the show in marketable plushie forms!!",
+          "poster_path": "/5MlQTBglZOLo3FKxsUEblFtA5SH.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2023-10-13",
+          "episode_count": 9,
+          "id": 405724,
+          "name": "Season 1",
+          "overview": "Under the direction of the circus's ringmaster, an artificial intelligence named Caine, six humans—Pomni, Jax, Ragatha, Gangle, Kinger, and Zooble—who have become trapped in the titular circus engage in nonsensical adventures to distract themselves from their situation, all while at risk of losing their sanity and \"abstracting\" into digital monstrosities.",
+          "poster_path": "/7ZCuKopf3ctE7yKea3V9Xbrh9uk.jpg",
+          "season_number": 1,
+          "vote_average": 8.4
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Ended",
+      "tagline": "Let's get this show on the road!",
       "type": "Scripted",
-      "vote_average": 7.9,
-      "vote_count": 213,
+      "vote_average": 8.639,
+      "vote_count": 312,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/cUNHl2RBFO7qNoAhmRyML0BdWsY.jpg",
+      "created_by": [],
+      "episode_run_time": [
+        50
+      ],
+      "first_air_date": "2026-06-11",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81926758",
+      "id": 312493,
+      "in_production": false,
+      "languages": [
+        "ja"
+      ],
+      "last_air_date": "2026-06-11",
+      "last_episode_to_air": {
+        "id": 7375616,
+        "name": "This is My Youth",
+        "overview": "As the final battle nears, Shimura's group face mounting challenges. TOU-KEI's secret emerges and their last fight begins — for friends, family and love.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-06-11",
+        "episode_number": 6,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 53,
+        "season_number": 1,
+        "show_id": 312493,
+        "still_path": "/lFLj89Yjn0HHRdjsulwmHxxxkQH.jpg"
+      },
+      "name": "Viral Hit",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 6,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_name": "喧嘩独学",
+      "overview": "A bullied high schooler becomes an overnight sensation after a viral video. But when his newfound fame turns sour, he must learn to fight for himself.",
+      "popularity": 39.6927,
+      "poster_path": "/kllmJ1DdzuRszNNwFFu0M7V55Fg.jpg",
+      "production_companies": [
+        {
+          "id": 9108,
+          "logo_path": null,
+          "name": "Raku Film",
+          "origin_country": "JP"
+        },
+        {
+          "id": 260699,
+          "logo_path": "/ZXaicTGvMwOP4OyHtrXLPXNeKl.png",
+          "name": "Myriagon Studio",
+          "origin_country": "JP"
+        },
+        {
+          "id": 185004,
+          "logo_path": "/tyHnxjQJLH6h4iDQKhN5iqebWmX.png",
+          "name": "Netflix",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-06-11",
+          "episode_count": 6,
+          "id": 497373,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/8VCLKvxUpnsRH4ZjECM5e22KcIB.jpg",
+          "season_number": 1,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Ended",
+      "tagline": "Bullied. Broken. Viral.",
+      "type": "Miniseries",
+      "vote_average": 7.574,
+      "vote_count": 27,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jaT8cc5VhOXO1JCbuNt8cgeu3ah.jpg",
+      "created_by": [
+        {
+          "id": 161966,
+          "credit_id": "6a0e2e5f373bcaf068a2bbc9",
+          "name": "David Herman",
+          "original_name": "David Herman",
+          "gender": 2,
+          "profile_path": null
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2026-06-03",
+      "genres": [
+        {
+          "id": 99,
+          "name": "Documentary"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81929201",
+      "id": 323111,
+      "in_production": false,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-06-03",
+      "last_episode_to_air": {
+        "id": 7294420,
+        "name": "Episode 3",
+        "overview": "Despite damning accounts from former Neverland workers, key witnesses turn the tide in Jackson's favor — but the trial nevertheless leaves deep wounds.",
+        "vote_average": 10.0,
+        "vote_count": 1,
+        "air_date": "2026-06-03",
+        "episode_number": 3,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 55,
+        "season_number": 1,
+        "show_id": 323111,
+        "still_path": "/9Xk0tPIQwaes7jbv2uT9gPuhUk1.jpg"
+      },
+      "name": "Michael Jackson: The Verdict",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 3,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Michael Jackson: The Verdict",
+      "overview": "Told by key players who were inside the courtroom, this comprehensive documentary dissects the trial of Michael Jackson and his complex legacy.",
+      "popularity": 9.0027,
+      "poster_path": "/8R40yI5AJ931Hd3P4Yf8pdFgwJ1.jpg",
+      "production_companies": [
+        {
+          "id": 205628,
+          "logo_path": "/whxjFDZ4DUta8eruK8fV6F2Ekk4.png",
+          "name": "Candle True Stories",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-06-03",
+          "episode_count": 3,
+          "id": 517514,
+          "name": "Season 1",
+          "overview": "Told by key players who were inside the courtroom, this comprehensive documentary dissects the trial of Michael Jackson and his complex legacy.",
+          "poster_path": "/pJaq1DFjtz0F8a1KHFndJ9be20p.jpg",
+          "season_number": 1,
+          "vote_average": 10.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Ended",
+      "tagline": "",
+      "type": "Miniseries",
+      "vote_average": 4.713,
+      "vote_count": 54,
       "media_type": "tv"
     }
   ]
