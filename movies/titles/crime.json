@@ -2,17 +2,26 @@
   "movies": [
     {
       "adult": false,
-      "backdrop_path": "/7TJjD2X9GTEqyLVIJKLS85J2V47.jpg",
-      "belongs_to_collection": null,
+      "backdrop_path": "/96chPcURxg5thGyLqxO6otyxHFR.jpg",
+      "belongs_to_collection": {
+        "id": 401655,
+        "name": "Welcome Collection",
+        "poster_path": "/trSYzh8taWG5EyAIMA6OoRDFmsw.jpg",
+        "backdrop_path": "/o6TovCR70JfWJ1jJINHYU8S5AJ3.jpg"
+      },
       "budget": 0,
       "genres": [
         {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
           "id": 28,
           "name": "Action"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
         },
         {
           "id": 80,
@@ -20,47 +29,65 @@
         }
       ],
       "homepage": "",
-      "id": 28322,
-      "imdb_id": "tt0080075",
+      "id": 1169516,
+      "imdb_id": "tt28540171",
       "origin_country": [
-        "IT"
+        "IN"
       ],
-      "original_language": "it",
-      "original_title": "Vacanze per un massacro",
-      "overview": "An escaped convicted murderer invades the cottage of a man, his wife and the wife's sister, whereupon he proceeds to torment this already dysfunctional trio with rape and violence.",
-      "popularity": 257.3699,
-      "poster_path": "/gV0J0Fqw2mYMtQbzb0ruxv9MAeZ.jpg",
+      "original_language": "hi",
+      "original_title": "Welcome to the Jungle",
+      "overview": "A group of quirky characters gets stuck in a dangerous jungle during a chaotic mission. Filled with confusion, criminals, and hilarious situations, they must work together to survive and find their way out.",
+      "popularity": 1112.1374,
+      "poster_path": "/1JlfUuvvX5xLP2LIDah4JhWUtTx.jpg",
       "production_companies": [
         {
-          "id": 4786,
+          "id": 64331,
           "logo_path": null,
-          "name": "Midia Cinematografica",
-          "origin_country": "IT"
+          "name": "Base Industries Group",
+          "origin_country": "IN"
+        },
+        {
+          "id": 35063,
+          "logo_path": "/r7pvX3K2k3iNVBVt4xufCIEIcnP.png",
+          "name": "Cape of Good Films",
+          "origin_country": "IN"
+        },
+        {
+          "id": 60536,
+          "logo_path": "/chMIfiURhqvr6eWCrzxIwuaWVeN.png",
+          "name": "Nadiadwala Grandson Entertainment",
+          "origin_country": "IN"
+        },
+        {
+          "id": 255348,
+          "logo_path": null,
+          "name": "Seeta Films",
+          "origin_country": "IN"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "IT",
-          "name": "Italy"
+          "iso_3166_1": "IN",
+          "name": "India"
         }
       ],
-      "release_date": "1980-03-20",
+      "release_date": "2026-06-25",
       "revenue": 0,
-      "runtime": 89,
+      "runtime": 170,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Italian",
-          "iso_639_1": "it",
-          "name": "Italiano"
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "Madness",
+      "tagline": "Fake film. Real jungle. Real danger. Real idiots!",
+      "title": "Welcome to the Jungle",
       "video": false,
-      "vote_average": 5.1,
-      "vote_count": 33,
+      "vote_average": 4.0,
+      "vote_count": 4,
       "media_type": "movie"
     },
     {
@@ -96,7 +123,7 @@
       "original_language": "en",
       "original_title": "The Sheep Detectives",
       "overview": "George Hardy is a shepherd who reads detective novels to his beloved sheep every night, assuming they can't possibly understand. But when a mysterious incident disrupts life on the farm, the sheep realize they must become the detectives. As they follow the clues and investigate human suspects, they prove that even sheep can be brilliant crime-solvers.",
-      "popularity": 212.1504,
+      "popularity": 273.4522,
       "poster_path": "/iKy5460GdsoknM8ppmGlJbKxAKa.jpg",
       "production_companies": [
         {
@@ -143,8 +170,71 @@
       "tagline": "A new breed of mystery.",
       "title": "The Sheep Detectives",
       "video": false,
-      "vote_average": 7.688,
-      "vote_count": 329,
+      "vote_average": 7.767,
+      "vote_count": 406,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/7TJjD2X9GTEqyLVIJKLS85J2V47.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://cataz.my/",
+      "id": 28322,
+      "imdb_id": "tt0080075",
+      "origin_country": [
+        "IT"
+      ],
+      "original_language": "it",
+      "original_title": "Vacanze per un massacro",
+      "overview": "An escaped convicted murderer invades the cottage of a man, his wife and the wife's sister, whereupon he proceeds to torment this already dysfunctional trio with rape and violence.",
+      "popularity": 197.8261,
+      "poster_path": "/gV0J0Fqw2mYMtQbzb0ruxv9MAeZ.jpg",
+      "production_companies": [
+        {
+          "id": 4786,
+          "logo_path": null,
+          "name": "Midia Cinematografica",
+          "origin_country": "IT"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IT",
+          "name": "Italy"
+        }
+      ],
+      "release_date": "1980-03-20",
+      "revenue": 0,
+      "runtime": 89,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Italian",
+          "iso_639_1": "it",
+          "name": "Italiano"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Madness",
+      "video": false,
+      "vote_average": 5.1,
+      "vote_count": 33,
       "media_type": "movie"
     },
     {
@@ -172,7 +262,7 @@
       "original_language": "zh",
       "original_title": "火遮眼",
       "overview": "After Wang Wei's daughter is kidnapped by a criminal network and he receives no help from the corrupt police, Wei sets out to find her himself. His only ally is Navin, a relentless journalist whose wife has mysteriously disappeared. Fueled by a furious vengeance, the unlikely duo ruthlessly battle the kidnappers in this explosive martial arts showdown.",
-      "popularity": 153.12,
+      "popularity": 150.6088,
       "poster_path": "/zP19YO60jwEsfKd5Qf1UvA5uJu8.jpg",
       "production_companies": [
         {
@@ -249,8 +339,8 @@
       "tagline": "To save their loved ones, they will fight everyone.",
       "title": "The Furious",
       "video": false,
-      "vote_average": 7.68,
-      "vote_count": 64,
+      "vote_average": 7.685,
+      "vote_count": 65,
       "media_type": "movie"
     },
     {
@@ -285,7 +375,7 @@
       "original_language": "kn",
       "original_title": "ಕೆಡಿ - ದಿ ಡೆವಿಲ್",
       "overview": "In the early 1970s, a petty criminal Kaali unwittingly involves himself with underworld thugs, catalyzing events beyond his control.",
-      "popularity": 138.2598,
+      "popularity": 140.4151,
       "poster_path": "/nEuEMJrnLBneE9tJlmzbhCFLu95.jpg",
       "production_companies": [
         {
@@ -344,7 +434,7 @@
       "original_language": "en",
       "original_title": "Graphic Desires",
       "overview": "When reclusive Franklin cheats on his partner with a mysterious girl he meets on a dating app, it becomes the start of a deadly obsession.",
-      "popularity": 136.359,
+      "popularity": 137.3781,
       "poster_path": "/3BjLdTWRiHc1ISIZMFvToOmghOM.jpg",
       "production_companies": [
         {
@@ -393,8 +483,8 @@
       "tagline": "An erotic thriller for the Tinder generation.",
       "title": "Graphic Desires",
       "video": false,
-      "vote_average": 7.077,
-      "vote_count": 104,
+      "vote_average": 7.093,
+      "vote_count": 108,
       "media_type": "movie"
     },
     {
@@ -425,7 +515,7 @@
       "original_language": "en",
       "original_title": "The Punisher: One Last Kill",
       "overview": "As Frank Castle searches for meaning beyond revenge, an unexpected force pulls him back into the fight.",
-      "popularity": 126.4529,
+      "popularity": 125.4863,
       "poster_path": "/qQclTgLMDvGBuUBFGHRipxkEwWR.jpg",
       "production_companies": [
         {
@@ -462,8 +552,8 @@
       "tagline": "Hey Frank.",
       "title": "The Punisher: One Last Kill",
       "video": false,
-      "vote_average": 8.343,
-      "vote_count": 1719,
+      "vote_average": 8.342,
+      "vote_count": 1728,
       "media_type": "movie"
     },
     {
@@ -499,7 +589,7 @@
       "original_language": "hi",
       "original_title": "धुरंधर: द रिवेंज",
       "overview": "As rival gangs, corrupt officials and a ruthless Major Iqbal close in, Hamza's mission for his country spirals into a bloody personal war where the line between patriot and monster disappears in the streets of Lyari.",
-      "popularity": 116.6782,
+      "popularity": 118.4381,
       "poster_path": "/ptTwQES14pr5c3aZvJg56YlYgb1.jpg",
       "production_companies": [
         {
@@ -547,6 +637,155 @@
     },
     {
       "adult": false,
+      "backdrop_path": "/3Ckkdh0VTcFPwpBJ6jMAS3qIkgJ.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://bollfilms.com/citizenvigilante",
+      "id": 1413976,
+      "imdb_id": "tt35309713",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Citizen Vigilante",
+      "overview": "A man takes justice into his own hands, hunting down criminals. His vigilante crusade makes him a social media star but puts him at odds with the local police chief.",
+      "popularity": 103.9019,
+      "poster_path": "/6LmJD3Wohe0g4U62wgi7RyJqfE4.jpg",
+      "production_companies": [
+        {
+          "id": 22793,
+          "logo_path": null,
+          "name": "Event Film Distribution",
+          "origin_country": "US"
+        },
+        {
+          "id": 15127,
+          "logo_path": null,
+          "name": "Boll KG",
+          "origin_country": "DE"
+        },
+        {
+          "id": 273199,
+          "logo_path": null,
+          "name": "Borvel Film",
+          "origin_country": "HR"
+        },
+        {
+          "id": 302573,
+          "logo_path": null,
+          "name": "Bolu",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "HR",
+          "name": "Croatia"
+        },
+        {
+          "iso_3166_1": "DE",
+          "name": "Germany"
+        }
+      ],
+      "release_date": "2026-06-19",
+      "revenue": 0,
+      "runtime": 90,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        }
+      ],
+      "status": "Released",
+      "tagline": "An action film based on real cases and a commentary about injustice.",
+      "title": "Citizen Vigilante",
+      "video": false,
+      "vote_average": 7.133,
+      "vote_count": 90,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg",
+      "belongs_to_collection": null,
+      "budget": 25000000,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "",
+      "id": 278,
+      "imdb_id": "tt0111161",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Shawshank Redemption",
+      "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.",
+      "popularity": 107.2232,
+      "poster_path": "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+      "production_companies": [
+        {
+          "id": 97,
+          "logo_path": "/smyTD67uNsdaySnnjVDmh0kyotp.png",
+          "name": "Castle Rock Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1994-09-23",
+      "revenue": 28341469,
+      "runtime": 142,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Fear can hold you prisoner. Hope can set you free.",
+      "title": "The Shawshank Redemption",
+      "video": false,
+      "vote_average": 8.7,
+      "vote_count": 30637,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
       "belongs_to_collection": null,
       "budget": 0,
@@ -578,7 +817,7 @@
       "original_language": "zh",
       "original_title": "捕风追影",
       "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
-      "popularity": 89.0269,
+      "popularity": 91.107,
       "poster_path": "/cHKo3m8N1fwvEy2ZEr0xGmmMODV.jpg",
       "production_companies": [
         {
@@ -631,152 +870,8 @@
       "tagline": "He's training a new generation of law enforcers for a dangerous mission to save the world from ruthless criminals.",
       "title": "The Shadow's Edge",
       "video": false,
-      "vote_average": 7.813,
-      "vote_count": 900,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg",
-      "belongs_to_collection": null,
-      "budget": 25000000,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "",
-      "id": 278,
-      "imdb_id": "tt0111161",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Shawshank Redemption",
-      "overview": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.",
-      "popularity": 94.2467,
-      "poster_path": "/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
-      "production_companies": [
-        {
-          "id": 97,
-          "logo_path": "/smyTD67uNsdaySnnjVDmh0kyotp.png",
-          "name": "Castle Rock Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1994-09-23",
-      "revenue": 28341469,
-      "runtime": 142,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Fear can hold you prisoner. Hope can set you free.",
-      "title": "The Shawshank Redemption",
-      "video": false,
-      "vote_average": 8.723,
-      "vote_count": 30630,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/3Ckkdh0VTcFPwpBJ6jMAS3qIkgJ.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://bollfilms.com/citizenvigilante",
-      "id": 1413976,
-      "imdb_id": "tt35309713",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Citizen Vigilante",
-      "overview": "A man takes justice into his own hands, hunting down criminals. His vigilante crusade makes him a social media star but puts him at odds with the local police chief.",
-      "popularity": 83.3073,
-      "poster_path": "/6LmJD3Wohe0g4U62wgi7RyJqfE4.jpg",
-      "production_companies": [
-        {
-          "id": 22793,
-          "logo_path": null,
-          "name": "Event Film Distribution",
-          "origin_country": "US"
-        },
-        {
-          "id": 15127,
-          "logo_path": null,
-          "name": "Boll KG",
-          "origin_country": "DE"
-        },
-        {
-          "id": 273199,
-          "logo_path": null,
-          "name": "Borvel Film",
-          "origin_country": "HR"
-        },
-        {
-          "id": 302573,
-          "logo_path": null,
-          "name": "Bolu",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "HR",
-          "name": "Croatia"
-        },
-        {
-          "iso_3166_1": "DE",
-          "name": "Germany"
-        }
-      ],
-      "release_date": "2026-06-19",
-      "revenue": 0,
-      "runtime": 90,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "An action film based on real cases and a commentary about injustice.",
-      "title": "Citizen Vigilante",
-      "video": false,
-      "vote_average": 6.941,
-      "vote_count": 68,
+      "vote_average": 7.812,
+      "vote_count": 903,
       "media_type": "movie"
     },
     {
@@ -812,7 +907,7 @@
       "original_language": "en",
       "original_title": "Tuner",
       "overview": "A gifted piano tuner's meticulous skills for tuning pianos lead him to discover an unexpected aptitude for cracking safes, turning his life upside down.",
-      "popularity": 63.3833,
+      "popularity": 67.05,
       "poster_path": "/5OvA3i9wZs5jHu0DCrfmXlzAM67.jpg",
       "production_companies": [
         {
@@ -864,8 +959,8 @@
       "tagline": "Everybody has one hidden talent.",
       "title": "Tuner",
       "video": false,
-      "vote_average": 7.158,
-      "vote_count": 98,
+      "vote_average": 7.2,
+      "vote_count": 105,
       "media_type": "movie"
     },
     {
@@ -901,7 +996,7 @@
       "original_language": "hi",
       "original_title": "धुरंधर",
       "overview": "A mysterious traveler slips into the heart of Karachi's underbelly and rises through its ranks with lethal precision, only to tear the notorious ISI-Underworld nexus apart from within.",
-      "popularity": 59.8702,
+      "popularity": 59.6577,
       "poster_path": "/snBOuXDdhmTvlzMUvP9Em3Pp1u1.jpg",
       "production_companies": [
         {
@@ -954,212 +1049,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/sRVg5yfJJQ2emGhl6XPYJssilu.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 912378,
-      "imdb_id": "tt35518410",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "ml",
-      "original_title": "ദൃഢം",
-      "overview": "A police officer arrives at a seemingly peaceful station but faces pressure when human remains are discovered. Given only a week to solve the murder, he must navigate demands from his department and an anxious public seeking swift justice.",
-      "popularity": 47.7675,
-      "poster_path": "/fXSdAujfiRRW6LqekN4FvFQidh3.jpg",
-      "production_companies": [
-        {
-          "id": 105950,
-          "logo_path": "/fttKfs2TgjOiKOGgWAg63cCo9Um.png",
-          "name": "E4 Experiments",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-05-08",
-      "revenue": 77048,
-      "runtime": 127,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Malayalam",
-          "iso_639_1": "ml",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Dridam",
-      "video": false,
-      "vote_average": 5.0,
-      "vote_count": 5,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/sDUGZpt9qmzBIqtFKvgnGnfyBpw.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1679791,
-      "imdb_id": "tt30224274",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "te",
-      "original_title": "M4M: Motive for Murder",
-      "overview": "Hyderabad is on edge as a serial killer stages murders as famous paintings. ACP Krishna and journalist Radha investigate, uncovering links to a student and a principal, racing to stop the next planned killing.",
-      "popularity": 42.1853,
-      "poster_path": "/FcoRfDLRwiAcNCd5SmeDIIeea7.jpg",
-      "production_companies": [],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-05-07",
-      "revenue": 0,
-      "runtime": 101,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Telugu",
-          "iso_639_1": "te",
-          "name": "తెలుగు"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "M4M: Motive for Murder",
-      "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
-      "belongs_to_collection": null,
-      "budget": 50000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://blackbearpictures.com/film-and-tv/shelter",
-      "id": 1290821,
-      "imdb_id": "tt32357218",
-      "origin_country": [
-        "GB",
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Shelter",
-      "overview": "A man living in self-imposed exile on a remote island rescues a young girl from a violent storm, setting off a chain of events that forces him out of seclusion to protect her from enemies tied to his past.",
-      "popularity": 43.8481,
-      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg",
-      "production_companies": [
-        {
-          "id": 22146,
-          "logo_path": "/v37N1mFeXNQfvPankg3feBhVvM7.png",
-          "name": "Black Bear Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 218150,
-          "logo_path": null,
-          "name": "Punch Palace Productions",
-          "origin_country": "GB"
-        },
-        {
-          "id": 253186,
-          "logo_path": null,
-          "name": "CineMachine",
-          "origin_country": "US"
-        },
-        {
-          "id": 118472,
-          "logo_path": "/vafYjvjZwK4JaV5Hcm9vSzw6f9G.png",
-          "name": "Stampede Ventures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        }
-      ],
-      "release_date": "2026-01-28",
-      "revenue": 53933639,
-      "runtime": 107,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Occitan",
-          "iso_639_1": "oc",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "Her safety. His mission.",
-      "title": "Shelter",
-      "video": false,
-      "vote_average": 7.681,
-      "vote_count": 1304,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/cfT29Im5VDvjE0RpyKOSdCKZal7.jpg",
       "belongs_to_collection": {
         "id": 263,
@@ -1191,7 +1080,7 @@
       "original_language": "en",
       "original_title": "The Dark Knight",
       "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-      "popularity": 52.7406,
+      "popularity": 48.9774,
       "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
       "production_companies": [
         {
@@ -1250,7 +1139,66 @@
       "title": "The Dark Knight",
       "video": false,
       "vote_average": 8.531,
-      "vote_count": 35962,
+      "vote_count": 35966,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sRVg5yfJJQ2emGhl6XPYJssilu.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 912378,
+      "imdb_id": "tt35518410",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "ml",
+      "original_title": "ദൃഢം",
+      "overview": "A police officer arrives at a seemingly peaceful station but faces pressure when human remains are discovered. Given only a week to solve the murder, he must navigate demands from his department and an anxious public seeking swift justice.",
+      "popularity": 39.914,
+      "poster_path": "/fXSdAujfiRRW6LqekN4FvFQidh3.jpg",
+      "production_companies": [
+        {
+          "id": 105950,
+          "logo_path": "/fttKfs2TgjOiKOGgWAg63cCo9Um.png",
+          "name": "E4 Experiments",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-05-08",
+      "revenue": 77048,
+      "runtime": 127,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Malayalam",
+          "iso_639_1": "ml",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Dridam",
+      "video": false,
+      "vote_average": 5.0,
+      "vote_count": 5,
       "media_type": "movie"
     },
     {
@@ -1286,7 +1234,7 @@
       "original_language": "en",
       "original_title": "Scream 7",
       "overview": "When a new Ghostface killer emerges in the quiet town where Sidney Prescott has built a new life, her darkest fears are realized as her daughter becomes the next target. Determined to protect her family, Sidney must face the horrors of her past to put an end to the bloodshed once and for all.",
-      "popularity": 47.3752,
+      "popularity": 47.3863,
       "poster_path": "/jjyuk0edLiW8vOSnlfwWCCLpbh5.jpg",
       "production_companies": [
         {
@@ -1330,97 +1278,493 @@
       "title": "Scream 7",
       "video": false,
       "vote_average": 6.187,
-      "vote_count": 1081,
+      "vote_count": 1086,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/96chPcURxg5thGyLqxO6otyxHFR.jpg",
-      "belongs_to_collection": {
-        "id": 401655,
-        "name": "Welcome Collection",
-        "poster_path": "/trSYzh8taWG5EyAIMA6OoRDFmsw.jpg",
-        "backdrop_path": "/o6TovCR70JfWJ1jJINHYU8S5AJ3.jpg"
-      },
-      "budget": 0,
+      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
+      "belongs_to_collection": null,
+      "budget": 50000000,
       "genres": [
         {
           "id": 28,
           "name": "Action"
         },
         {
-          "id": 35,
-          "name": "Comedy"
+          "id": 80,
+          "name": "Crime"
         },
         {
-          "id": 12,
-          "name": "Adventure"
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://blackbearpictures.com/film-and-tv/shelter",
+      "id": 1290821,
+      "imdb_id": "tt32357218",
+      "origin_country": [
+        "GB",
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Shelter",
+      "overview": "A man living in self-imposed exile on a remote island rescues a young girl from a violent storm, setting off a chain of events that forces him out of seclusion to protect her from enemies tied to his past.",
+      "popularity": 52.9583,
+      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg",
+      "production_companies": [
+        {
+          "id": 22146,
+          "logo_path": "/v37N1mFeXNQfvPankg3feBhVvM7.png",
+          "name": "Black Bear Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 218150,
+          "logo_path": null,
+          "name": "Punch Palace Productions",
+          "origin_country": "GB"
+        },
+        {
+          "id": 253186,
+          "logo_path": null,
+          "name": "CineMachine",
+          "origin_country": "US"
+        },
+        {
+          "id": 118472,
+          "logo_path": "/vafYjvjZwK4JaV5Hcm9vSzw6f9G.png",
+          "name": "Stampede Ventures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2026-01-28",
+      "revenue": 53933639,
+      "runtime": 107,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Occitan",
+          "iso_639_1": "oc",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "Her safety. His mission.",
+      "title": "Shelter",
+      "video": false,
+      "vote_average": 7.7,
+      "vote_count": 1317,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+      "belongs_to_collection": null,
+      "budget": 8000000,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://www.miramax.com/movie/pulp-fiction/",
+      "id": 680,
+      "imdb_id": "tt0110912",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Pulp Fiction",
+      "overview": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
+      "popularity": 41.1348,
+      "poster_path": "/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg",
+      "production_companies": [
+        {
+          "id": 14,
+          "logo_path": "/m6AHu84oZQxvq7n1rsvMNJIAsMu.png",
+          "name": "Miramax",
+          "origin_country": "US"
+        },
+        {
+          "id": 59,
+          "logo_path": "/b1tj5EWcFQLYaQrw1D9V4s8kUgN.png",
+          "name": "A Band Apart",
+          "origin_country": "US"
+        },
+        {
+          "id": 216,
+          "logo_path": "/iKPzC6YxqNAk6fMoTtFhIF5p6yw.png",
+          "name": "Jersey Films",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1994-09-10",
+      "revenue": 213928762,
+      "runtime": 154,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "You won’t know the facts until you’ve seen the fiction.",
+      "title": "Pulp Fiction",
+      "video": false,
+      "vote_average": 8.482,
+      "vote_count": 30339,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/ejdD20cdHNFAYAN2DlqPToXKyzx.jpg",
+      "belongs_to_collection": {
+        "id": 230,
+        "name": "The Godfather Collection",
+        "poster_path": "/kKjIYmvpBUIxcYJ0LL9YZwv4nrZ.jpg",
+        "backdrop_path": "/28eqCQ51SuLfkbzhQE7jCmTfYfy.jpg"
+      },
+      "budget": 6000000,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
         },
         {
           "id": 80,
           "name": "Crime"
         }
       ],
+      "homepage": "http://www.thegodfather.com/",
+      "id": 238,
+      "imdb_id": "tt0068646",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Godfather",
+      "overview": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
+      "popularity": 42.3442,
+      "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "production_companies": [
+        {
+          "id": 4,
+          "logo_path": "/jay6WcMgagAklUt7i9Euwj1pzTF.png",
+          "name": "Paramount Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 10211,
+          "logo_path": null,
+          "name": "Alfran Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 16311,
+          "logo_path": null,
+          "name": "Albert S. Ruddy Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1972-03-14",
+      "revenue": 245066411,
+      "runtime": 175,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Italian",
+          "iso_639_1": "it",
+          "name": "Italiano"
+        },
+        {
+          "english_name": "Latin",
+          "iso_639_1": "la",
+          "name": "Latin"
+        }
+      ],
+      "status": "Released",
+      "tagline": "An offer you can't refuse.",
+      "title": "The Godfather",
+      "video": false,
+      "vote_average": 8.687,
+      "vote_count": 23083,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sDUGZpt9qmzBIqtFKvgnGnfyBpw.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
       "homepage": "",
-      "id": 1169516,
-      "imdb_id": "tt28540171",
+      "id": 1679791,
+      "imdb_id": "tt30224274",
       "origin_country": [
         "IN"
       ],
-      "original_language": "hi",
-      "original_title": "Welcome to the Jungle",
-      "overview": "A group of quirky characters gets stuck in a dangerous jungle during a chaotic mission. Filled with confusion, criminals, and hilarious situations, they must work together to survive and find their way out.",
-      "popularity": 762.7315,
-      "poster_path": "/1JlfUuvvX5xLP2LIDah4JhWUtTx.jpg",
-      "production_companies": [
-        {
-          "id": 64331,
-          "logo_path": null,
-          "name": "Base Industries Group",
-          "origin_country": "IN"
-        },
-        {
-          "id": 35063,
-          "logo_path": "/r7pvX3K2k3iNVBVt4xufCIEIcnP.png",
-          "name": "Cape of Good Films",
-          "origin_country": "IN"
-        },
-        {
-          "id": 60536,
-          "logo_path": "/chMIfiURhqvr6eWCrzxIwuaWVeN.png",
-          "name": "Nadiadwala Grandson Entertainment",
-          "origin_country": "IN"
-        },
-        {
-          "id": 255348,
-          "logo_path": null,
-          "name": "Seeta Films",
-          "origin_country": "IN"
-        }
-      ],
+      "original_language": "te",
+      "original_title": "M4M: Motive for Murder",
+      "overview": "Hyderabad is on edge as a serial killer stages murders as famous paintings. ACP Krishna and journalist Radha investigate, uncovering links to a student and a principal, racing to stop the next planned killing.",
+      "popularity": 37.5353,
+      "poster_path": "/FcoRfDLRwiAcNCd5SmeDIIeea7.jpg",
+      "production_companies": [],
       "production_countries": [
         {
           "iso_3166_1": "IN",
           "name": "India"
         }
       ],
-      "release_date": "2026-06-25",
+      "release_date": "2026-05-07",
       "revenue": 0,
-      "runtime": 170,
+      "runtime": 101,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Hindi",
-          "iso_639_1": "hi",
-          "name": "हिन्दी"
+          "english_name": "Telugu",
+          "iso_639_1": "te",
+          "name": "తెలుగు"
         }
       ],
       "status": "Released",
-      "tagline": "Fake film. Real jungle. Real danger. Real idiots!",
-      "title": "Welcome to the Jungle",
+      "tagline": "",
+      "title": "M4M: Motive for Murder",
       "video": false,
       "vote_average": 0.0,
       "vote_count": 0,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/kKF4gEiBDArhONlCcunHVgBp3bA.jpg",
+      "belongs_to_collection": null,
+      "budget": 90000000,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.amazon.com/salp/crime101?hhf",
+      "id": 1171145,
+      "imdb_id": "tt32430579",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Crime 101",
+      "overview": "When an elusive thief whose high-stakes heists unfold along the iconic 101 freeway in Los Angeles eyes the score of a lifetime, with hopes of this being his final job, his path collides with a disillusioned insurance broker who is facing her own crossroads. Determined to crack the case, a relentless detective closes in on the operation, raising the stakes even higher.",
+      "popularity": 40.0213,
+      "poster_path": "/tVvpFIoteRHNnoZMhdnwIVwJpCA.jpg",
+      "production_companies": [
+        {
+          "id": 10163,
+          "logo_path": "/16KWBMmfPX0aJzDExDrPxSLj0Pg.png",
+          "name": "Working Title Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 122772,
+          "logo_path": null,
+          "name": "The Story Factory",
+          "origin_country": "US"
+        },
+        {
+          "id": 23949,
+          "logo_path": "/3QFwomSxcZZgMQGBkdUPuJEnSFB.png",
+          "name": "RAW",
+          "origin_country": "GB"
+        },
+        {
+          "id": 210099,
+          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
+          "name": "Amazon MGM Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 183787,
+          "logo_path": "/8G6CbTenzORJdoep1AaghtSEQrY.png",
+          "name": "Wild State",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-02-11",
+      "revenue": 72900246,
+      "runtime": 141,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Always have an exit.",
+      "title": "Crime 101",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 1111,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fZ5AD2CpUPSk0wRkxz1j6kp5bdG.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "",
+      "id": 1543151,
+      "imdb_id": "tt43434480",
+      "origin_country": [
+        "TH"
+      ],
+      "original_language": "th",
+      "original_title": "กิ่งแก้ว",
+      "overview": "After a child in her care dies, a young woman is executed for a crime she didn't commit. Now, her spirit seeks justice for her wrongful death.",
+      "popularity": 52.2629,
+      "poster_path": "/pPdHuTs4RAdxs0yaXnlxl1AM3f1.jpg",
+      "production_companies": [
+        {
+          "id": 7924,
+          "logo_path": "/1KG5lcXO8GZ2F6SshuMYw1Yf4vX.png",
+          "name": "M Studio",
+          "origin_country": "TH"
+        },
+        {
+          "id": 285915,
+          "logo_path": null,
+          "name": "MI Group",
+          "origin_country": ""
+        },
+        {
+          "id": 167406,
+          "logo_path": null,
+          "name": "Mae Riang Film",
+          "origin_country": "TH"
+        },
+        {
+          "id": 285914,
+          "logo_path": null,
+          "name": "Movie Studio VIP",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "TH",
+          "name": "Thailand"
+        }
+      ],
+      "release_date": "2026-01-29",
+      "revenue": 0,
+      "runtime": 101,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Thai",
+          "iso_639_1": "th",
+          "name": "ภาษาไทย"
+        }
+      ],
+      "status": "Released",
+      "tagline": "I'm innocent.",
+      "title": "King Kaew",
+      "video": false,
+      "vote_average": 2.5,
+      "vote_count": 2,
       "media_type": "movie"
     },
     {
@@ -1447,7 +1791,7 @@
       "original_language": "en",
       "original_title": "In the Hand of Dante",
       "overview": "A Vatican priest discovers Dante's original Divine Comedy manuscript. When asked to authenticate it, writer Nick Tosches steals it, while a parallel story follows Dante's quest to create his masterpiece.",
-      "popularity": 37.2248,
+      "popularity": 38.3281,
       "poster_path": "/nPPIufTBnzEg0d7NoR5RLL1oPra.jpg",
       "production_companies": [
         {
@@ -1578,256 +1922,8 @@
       "tagline": "",
       "title": "In the Hand of Dante",
       "video": false,
-      "vote_average": 4.9,
-      "vote_count": 16,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/gfRm3ITRJuFm8n6gRJ0L2VLrL5w.jpg",
-      "belongs_to_collection": {
-        "id": 787649,
-        "name": "Drishyam Collection",
-        "poster_path": "/g88G6m89se6CElZwRACzMpFHyQv.jpg",
-        "backdrop_path": null
-      },
-      "budget": 21000000,
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 847742,
-      "imdb_id": "tt14113634",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "ml",
-      "original_title": "ദൃശ്യം 3",
-      "overview": "To protect his family and their dark secret, Georgekutty faces an organized new threat. As walls close in and cracks widen, how much more is he willing to sacrifice ?",
-      "popularity": 35.6039,
-      "poster_path": "/456FlpiU1iOBnaOxSd783QhZKWw.jpg",
-      "production_companies": [
-        {
-          "id": 16401,
-          "logo_path": "/khS7G0KzBoCYcLs4xuNjpuZjntR.png",
-          "name": "Aashirvad Cinemas",
-          "origin_country": "IN"
-        },
-        {
-          "id": 103329,
-          "logo_path": "/bjJ6phaG9F8cGm3RYBjly8wYuH5.png",
-          "name": "Pen Studios",
-          "origin_country": "IN"
-        },
-        {
-          "id": 44223,
-          "logo_path": "/dXTCqVltThpRPYeSeDUIFssM5Wu.png",
-          "name": "Panorama Studios",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-05-21",
-      "revenue": 0,
-      "runtime": 157,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Malayalam",
-          "iso_639_1": "ml",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "The past never stays silent",
-      "title": "Drishyam 3",
-      "video": false,
-      "vote_average": 7.278,
-      "vote_count": 9,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/fZ5AD2CpUPSk0wRkxz1j6kp5bdG.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "",
-      "id": 1543151,
-      "imdb_id": "tt43434480",
-      "origin_country": [
-        "TH"
-      ],
-      "original_language": "th",
-      "original_title": "กิ่งแก้ว",
-      "overview": "After a child in her care dies, a young woman is executed for a crime she didn't commit. Now, her spirit seeks justice for her wrongful death.",
-      "popularity": 39.2811,
-      "poster_path": "/pPdHuTs4RAdxs0yaXnlxl1AM3f1.jpg",
-      "production_companies": [
-        {
-          "id": 7924,
-          "logo_path": "/1KG5lcXO8GZ2F6SshuMYw1Yf4vX.png",
-          "name": "M Studio",
-          "origin_country": "TH"
-        },
-        {
-          "id": 285915,
-          "logo_path": null,
-          "name": "MI Group",
-          "origin_country": ""
-        },
-        {
-          "id": 167406,
-          "logo_path": null,
-          "name": "Mae Riang Film",
-          "origin_country": "TH"
-        },
-        {
-          "id": 285914,
-          "logo_path": null,
-          "name": "Movie Studio VIP",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "TH",
-          "name": "Thailand"
-        }
-      ],
-      "release_date": "2026-01-29",
-      "revenue": 0,
-      "runtime": 101,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Thai",
-          "iso_639_1": "th",
-          "name": "ภาษาไทย"
-        }
-      ],
-      "status": "Released",
-      "tagline": "I'm innocent.",
-      "title": "King Kaew",
-      "video": false,
-      "vote_average": 2.5,
-      "vote_count": 2,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/kKF4gEiBDArhONlCcunHVgBp3bA.jpg",
-      "belongs_to_collection": null,
-      "budget": 90000000,
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.amazon.com/salp/crime101?hhf",
-      "id": 1171145,
-      "imdb_id": "tt32430579",
-      "origin_country": [
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "Crime 101",
-      "overview": "When an elusive thief whose high-stakes heists unfold along the iconic 101 freeway in Los Angeles eyes the score of a lifetime, with hopes of this being his final job, his path collides with a disillusioned insurance broker who is facing her own crossroads. Determined to crack the case, a relentless detective closes in on the operation, raising the stakes even higher.",
-      "popularity": 37.8193,
-      "poster_path": "/tVvpFIoteRHNnoZMhdnwIVwJpCA.jpg",
-      "production_companies": [
-        {
-          "id": 10163,
-          "logo_path": "/16KWBMmfPX0aJzDExDrPxSLj0Pg.png",
-          "name": "Working Title Films",
-          "origin_country": "GB"
-        },
-        {
-          "id": 122772,
-          "logo_path": null,
-          "name": "The Story Factory",
-          "origin_country": "US"
-        },
-        {
-          "id": 23949,
-          "logo_path": "/3QFwomSxcZZgMQGBkdUPuJEnSFB.png",
-          "name": "RAW",
-          "origin_country": "GB"
-        },
-        {
-          "id": 210099,
-          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
-          "name": "Amazon MGM Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 183787,
-          "logo_path": "/8G6CbTenzORJdoep1AaghtSEQrY.png",
-          "name": "Wild State",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-02-11",
-      "revenue": 72900246,
-      "runtime": 141,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Always have an exit.",
-      "title": "Crime 101",
-      "video": false,
-      "vote_average": 6.997,
-      "vote_count": 1105,
+      "vote_average": 5.283,
+      "vote_count": 23,
       "media_type": "movie"
     },
     {
@@ -1867,7 +1963,7 @@
       "original_language": "ja",
       "original_title": "XX ダブルエックス 美しき凶器",
       "overview": "A blind female assassin lives alone in a remote house; her superiors occasionally send her \"clients\" / targets that she shoots right after having sex with them in her completely darkened bedroom.",
-      "popularity": 37.521,
+      "popularity": 38.9638,
       "poster_path": "/ckO9ynpyee6KyuefHYXYAtebjpx.jpg",
       "production_companies": [
         {
@@ -1930,7 +2026,7 @@
       "original_language": "fr",
       "original_title": "Irréversible",
       "overview": "A woman’s lover and her ex-boyfriend take justice into their own hands after she becomes the victim of a rapist. Because some acts can’t be undone. Because man is an animal. Because the desire for vengeance is a natural impulse. Because most crimes remain unpunished.",
-      "popularity": 36.9138,
+      "popularity": 34.2817,
       "poster_path": "/rxeDxo8FvZpLu6iplNpxdtAVnfu.jpg",
       "production_companies": [
         {
@@ -2012,8 +2108,88 @@
       "tagline": "Time destroys everything.",
       "title": "Irreversible",
       "video": false,
-      "vote_average": 7.18,
+      "vote_average": 7.2,
       "vote_count": 3324,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gfRm3ITRJuFm8n6gRJ0L2VLrL5w.jpg",
+      "belongs_to_collection": {
+        "id": 787649,
+        "name": "Drishyam Collection",
+        "poster_path": "/g88G6m89se6CElZwRACzMpFHyQv.jpg",
+        "backdrop_path": null
+      },
+      "budget": 21000000,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 847742,
+      "imdb_id": "tt14113634",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "ml",
+      "original_title": "ദൃശ്യം 3",
+      "overview": "To protect his family and their dark secret, Georgekutty faces an organized new threat. As walls close in and cracks widen, how much more is he willing to sacrifice ?",
+      "popularity": 36.5073,
+      "poster_path": "/456FlpiU1iOBnaOxSd783QhZKWw.jpg",
+      "production_companies": [
+        {
+          "id": 16401,
+          "logo_path": "/khS7G0KzBoCYcLs4xuNjpuZjntR.png",
+          "name": "Aashirvad Cinemas",
+          "origin_country": "IN"
+        },
+        {
+          "id": 103329,
+          "logo_path": "/bjJ6phaG9F8cGm3RYBjly8wYuH5.png",
+          "name": "Pen Studios",
+          "origin_country": "IN"
+        },
+        {
+          "id": 44223,
+          "logo_path": "/dXTCqVltThpRPYeSeDUIFssM5Wu.png",
+          "name": "Panorama Studios",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-05-21",
+      "revenue": 0,
+      "runtime": 157,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Malayalam",
+          "iso_639_1": "ml",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "The past never stays silent",
+      "title": "Drishyam 3",
+      "video": false,
+      "vote_average": 7.25,
+      "vote_count": 10,
       "media_type": "movie"
     },
     {
@@ -2044,7 +2220,7 @@
       "original_language": "en",
       "original_title": "I Love Boosters",
       "overview": "A group of shoplifters take aim at a cutthroat fashion maven by stealing from her stores and reselling them at a lower price — what they call 'fashion-forward philanthropy'.",
-      "popularity": 32.8315,
+      "popularity": 33.3002,
       "poster_path": "/4pNKIUFy7tkZiBx0rnSmG9ysRy.jpg",
       "production_companies": [
         {
@@ -2111,8 +2287,8 @@
       "tagline": "Booster: Somebody who steals clothes from a store and sells them at a discount price, aka community service.",
       "title": "I Love Boosters",
       "video": false,
-      "vote_average": 5.9,
-      "vote_count": 50,
+      "vote_average": 5.865,
+      "vote_count": 52,
       "media_type": "movie"
     },
     {
@@ -2148,7 +2324,7 @@
       "original_language": "en",
       "original_title": "Fast Forever",
       "overview": "The eleventh and final installment in The Fast Saga. Plot TBA.",
-      "popularity": 29.8899,
+      "popularity": 30.7845,
       "poster_path": "/xaRzhQZ3zK5lN6vEetG8PD17KPF.jpg",
       "production_companies": [
         {
@@ -2229,7 +2405,7 @@
       "original_language": "en",
       "original_title": "The Green Mile",
       "overview": "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments. When the cell block's head guard, Paul Edgecomb, recognizes Coffey's miraculous gift, he tries desperately to help stave off the condemned man's execution.",
-      "popularity": 29.8572,
+      "popularity": 30.7302,
       "poster_path": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
       "production_companies": [
         {
@@ -2271,8 +2447,8 @@
       "tagline": "Paul Edgecomb didn't believe in miracles. Until the day he met one.",
       "title": "The Green Mile",
       "video": false,
-      "vote_average": 8.507,
-      "vote_count": 19362,
+      "vote_average": 8.5,
+      "vote_count": 19366,
       "media_type": "movie"
     },
     {
@@ -2307,7 +2483,7 @@
       "original_language": "en",
       "original_title": "The Wrecking Crew",
       "overview": "Estranged half-brothers Jonny and James reunite after their father's mysterious death. As they search for the truth, buried secrets reveal a conspiracy threatening to tear their family apart.",
-      "popularity": 29.7056,
+      "popularity": 31.2997,
       "poster_path": "/gbVwHl4YPSq6BcC92TQpe7qUTh6.jpg",
       "production_companies": [
         {
@@ -2397,8 +2573,8 @@
       "tagline": "They fight like brothers. They wreck like legends.",
       "title": "The Wrecking Crew",
       "video": false,
-      "vote_average": 7.032,
-      "vote_count": 1090,
+      "vote_average": 7.039,
+      "vote_count": 1094,
       "media_type": "movie"
     },
     {
@@ -2430,7 +2606,7 @@
       "original_language": "en",
       "original_title": "The Godfather Part II",
       "overview": "In the continuing saga of the Corleone crime family, a young Vito Corleone grows up in Sicily and in 1910s New York. In the 1950s, Michael Corleone attempts to expand the family business into Las Vegas, Hollywood and Cuba.",
-      "popularity": 29.1707,
+      "popularity": 30.2293,
       "poster_path": "/hek3koDUyRQk7FIhPXsa6mT2Zc3.jpg",
       "production_companies": [
         {
@@ -2488,8 +2664,8 @@
       "tagline": "The rise and fall of the Corleone empire.",
       "title": "The Godfather Part II",
       "video": false,
-      "vote_average": 8.571,
-      "vote_count": 13996,
+      "vote_average": 8.57,
+      "vote_count": 13999,
       "media_type": "movie"
     },
     {
@@ -2524,7 +2700,7 @@
       "original_language": "ta",
       "original_title": "கர",
       "overview": "A thief tries to go straight, but when predatory banks trap his father in debt, he returns to crime — with a determined cop closing in on his trail.",
-      "popularity": 27.5297,
+      "popularity": 26.0741,
       "poster_path": "/uIrFdMWlJFdc1jPBP9bxeaISCDj.jpg",
       "production_companies": [
         {
@@ -2589,7 +2765,7 @@
       "original_language": "en",
       "original_title": "Maternal Instinct",
       "overview": "Police pull over a woman who claims she just gave birth. But the baby — and the blood — aren't hers. Twisted lies unravel in this true-crime documentary.",
-      "popularity": 27.052,
+      "popularity": 28.1248,
       "poster_path": "/4KdmT71AGzDMp5hJbAu9vysKQKT.jpg",
       "production_companies": [
         {
@@ -2620,8 +2796,8 @@
       "tagline": "",
       "title": "Maternal Instinct",
       "video": false,
-      "vote_average": 7.141,
-      "vote_count": 78,
+      "vote_average": 7.1,
+      "vote_count": 83,
       "media_type": "movie"
     },
     {
@@ -2657,7 +2833,7 @@
       "original_language": "en",
       "original_title": "The Batman",
       "overview": "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
-      "popularity": 26.4444,
+      "popularity": 26.1513,
       "poster_path": "/74xTEgt7R36Fpooo50r9T25onhq.jpg",
       "production_companies": [
         {
@@ -2706,83 +2882,13 @@
       "tagline": "Unmask the truth.",
       "title": "The Batman",
       "video": false,
-      "vote_average": 7.662,
-      "vote_count": 12045,
+      "vote_average": 7.663,
+      "vote_count": 12050,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/gILte6Zd7m1YneIr6MVhh30S9pr.jpg",
-      "belongs_to_collection": null,
-      "budget": 25000000,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "http://www.warnerbros.com/goodfellas",
-      "id": 769,
-      "imdb_id": "tt0099685",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "GoodFellas",
-      "overview": "The true story of Henry Hill, a half-Irish, half-Sicilian Brooklyn kid who is adopted by neighbourhood gangsters at an early age and climbs the ranks of a Mafia family under the guidance of Jimmy Conway.",
-      "popularity": 26.2788,
-      "poster_path": "/9OkCLM73MIU2CrKZbqiT8Ln1wY2.jpg",
-      "production_companies": [
-        {
-          "id": 8880,
-          "logo_path": "/fE7LBw7Jz8R29EABFGCvWNriZxN.png",
-          "name": "Winkler Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 174,
-          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1990-09-12",
-      "revenue": 47072327,
-      "runtime": 145,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Italian",
-          "iso_639_1": "it",
-          "name": "Italiano"
-        },
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Three decades of life in the mafia.",
-      "title": "GoodFellas",
-      "video": false,
-      "vote_average": 8.454,
-      "vote_count": 14442,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/112sW296vEx3d71C8fzOqoFIomN.jpg",
+      "backdrop_path": "/5dE3rixgMUTXOQLuO3zya4zSFav.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
@@ -2808,8 +2914,8 @@
       "original_language": "en",
       "original_title": "Carolina Caroline",
       "overview": "A young woman, desperate to leave her small town, runs away with a charming con man, embarking on a crime and passion-filled journey through the Southeast to find her estranged mother.",
-      "popularity": 25.9723,
-      "poster_path": "/9waKPyT5JWv9EWTf79j25yT6Bu4.jpg",
+      "popularity": 26.4292,
+      "poster_path": "/AiMRbGr1b8Iht2YqERcMAvgK0jB.jpg",
       "production_companies": [
         {
           "id": 85815,
@@ -2869,8 +2975,78 @@
       "tagline": "",
       "title": "Carolina Caroline",
       "video": false,
-      "vote_average": 7.3,
-      "vote_count": 9,
+      "vote_average": 7.208,
+      "vote_count": 12,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/gILte6Zd7m1YneIr6MVhh30S9pr.jpg",
+      "belongs_to_collection": null,
+      "budget": 25000000,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "http://www.warnerbros.com/goodfellas",
+      "id": 769,
+      "imdb_id": "tt0099685",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "GoodFellas",
+      "overview": "The true story of Henry Hill, a half-Irish, half-Sicilian Brooklyn kid who is adopted by neighbourhood gangsters at an early age and climbs the ranks of a Mafia family under the guidance of Jimmy Conway.",
+      "popularity": 27.4914,
+      "poster_path": "/9OkCLM73MIU2CrKZbqiT8Ln1wY2.jpg",
+      "production_companies": [
+        {
+          "id": 8880,
+          "logo_path": "/fE7LBw7Jz8R29EABFGCvWNriZxN.png",
+          "name": "Winkler Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "1990-09-12",
+      "revenue": 47072327,
+      "runtime": 145,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Italian",
+          "iso_639_1": "it",
+          "name": "Italiano"
+        },
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Three decades of life in the mafia.",
+      "title": "GoodFellas",
+      "video": false,
+      "vote_average": 8.454,
+      "vote_count": 14447,
       "media_type": "movie"
     },
     {
@@ -2902,7 +3078,7 @@
       "original_language": "en",
       "original_title": "Now You See Me: Now You Don't",
       "overview": "The original Four Horsemen reunite with a new generation of illusionists to take on powerful diamond heiress Veronika Vanderberg, who leads a criminal empire built on money laundering and trafficking. The new and old magicians must overcome their differences to work together on their most ambitious heist yet.",
-      "popularity": 25.5161,
+      "popularity": 25.8658,
       "poster_path": "/oD3Eey4e4Z259XLm3eD3WGcoJAh.jpg",
       "production_companies": [
         {
@@ -2951,8 +3127,8 @@
       "tagline": "Unlock the illusion.",
       "title": "Now You See Me: Now You Don't",
       "video": false,
-      "vote_average": 6.496,
-      "vote_count": 1590,
+      "vote_average": 6.495,
+      "vote_count": 1592,
       "media_type": "movie"
     },
     {
@@ -2983,7 +3159,7 @@
       "original_language": "en",
       "original_title": "The Wolf of Wall Street",
       "overview": "A New York stockbroker refuses to cooperate in a large securities fraud case involving corruption on Wall Street, corporate banking world and mob infiltration. Based on Jordan Belfort's autobiography.",
-      "popularity": 25.0464,
+      "popularity": 25.4762,
       "poster_path": "/kW9LmvYHAaS9iA0tHmZVq8hQYoq.jpg",
       "production_companies": [
         {
@@ -3037,8 +3213,8 @@
       "tagline": "Earn. Spend. Party.",
       "title": "The Wolf of Wall Street",
       "video": false,
-      "vote_average": 8.028,
-      "vote_count": 26018,
+      "vote_average": 8.0,
+      "vote_count": 26025,
       "media_type": "movie"
     },
     {
@@ -3070,7 +3246,7 @@
       "original_language": "en",
       "original_title": "A Working Man",
       "overview": "Levon Cade left behind a decorated military career in the black ops to live a simple life working construction. But when his boss's daughter, who is like family to him, is taken by human traffickers, his search to bring her home uncovers a world of corruption far greater than he ever could have imagined.",
-      "popularity": 24.4842,
+      "popularity": 22.4605,
       "poster_path": "/6FRFIogh3zFnVWn7Z6zcYnIbRcX.jpg",
       "production_companies": [
         {
@@ -3151,8 +3327,8 @@
       "tagline": "Human traffickers beware.",
       "title": "A Working Man",
       "video": false,
-      "vote_average": 6.695,
-      "vote_count": 1958,
+      "vote_average": 6.694,
+      "vote_count": 1959,
       "media_type": "movie"
     },
     {
@@ -3196,7 +3372,7 @@
       "original_language": "en",
       "original_title": "xXx",
       "overview": "Xander Cage is your standard adrenaline junkie with no fear and a lousy attitude. When the US Government \"recruits\" him to go on a mission, he's not exactly thrilled. His mission: to gather information on an organization that may just be planning the destruction of the world, led by the nihilistic Yorgi.",
-      "popularity": 24.4741,
+      "popularity": 24.0736,
       "poster_path": "/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg",
       "production_companies": [
         {
@@ -3248,7 +3424,7 @@
       "title": "xXx",
       "video": false,
       "vote_average": 5.988,
-      "vote_count": 4935,
+      "vote_count": 4936,
       "media_type": "movie"
     },
     {
@@ -3279,7 +3455,7 @@
       "original_language": "en",
       "original_title": "Se7en",
       "overview": "Two homicide detectives are on a desperate hunt for a serial killer whose crimes are based on the \"seven deadly sins\" in this dark and haunting film that takes viewers from the tortured remains of one victim to the next. The seasoned Det. Somerset researches each sin in an effort to get inside the killer's mind, while his novice partner, Mills, scoffs at his efforts to unravel the case.",
-      "popularity": 23.7216,
+      "popularity": 28.1807,
       "poster_path": "/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg",
       "production_companies": [
         {
@@ -3322,8 +3498,8 @@
       "tagline": "Gluttony. Greed. Sloth. Envy. Wrath. Pride. Lust.",
       "title": "Se7en",
       "video": false,
-      "vote_average": 8.382,
-      "vote_count": 23217,
+      "vote_average": 8.4,
+      "vote_count": 23221,
       "media_type": "movie"
     },
     {
@@ -3350,7 +3526,7 @@
       "original_language": "en",
       "original_title": "Peaky Blinders: The Immortal Man",
       "overview": "After his estranged son gets embroiled in a Nazi plot, self-exiled gangster Tommy Shelby must return to Birmingham to save his family — and his nation.",
-      "popularity": 22.8884,
+      "popularity": 22.9945,
       "poster_path": "/gRMalasZEzsZi4w2VFuYusfSfqf.jpg",
       "production_companies": [
         {
@@ -3393,76 +3569,8 @@
       "tagline": "It will all come to this.",
       "title": "Peaky Blinders: The Immortal Man",
       "video": false,
-      "vote_average": 7.248,
-      "vote_count": 1038,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/kwNIQW7egAmI66sb0zIugMbpCfU.jpg",
-      "belongs_to_collection": null,
-      "budget": 100000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81915745",
-      "id": 1306368,
-      "imdb_id": "tt32642706",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Rip",
-      "overview": "Trust frays when a team of Miami cops discovers millions in cash inside a run-down stash house, calling everyone — and everything — into question.",
-      "popularity": 20.9822,
-      "poster_path": "/4wsYWH73Hb1B6noGIFaRQSAkuXj.jpg",
-      "production_companies": [
-        {
-          "id": 187968,
-          "logo_path": "/xdVAEg1biNrQw5nnMXKswPCRpkq.png",
-          "name": "Artists Equity",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-01-13",
-      "revenue": 0,
-      "runtime": 113,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Count the money. Count it again. Count on no one.",
-      "title": "The Rip",
-      "video": false,
-      "vote_average": 7.088,
-      "vote_count": 1693,
+      "vote_average": 7.242,
+      "vote_count": 1043,
       "media_type": "movie"
     },
     {
@@ -3489,7 +3597,7 @@
       "original_language": "en",
       "original_title": "White Chicks",
       "overview": "Two FBI agent brothers, Marcus and Kevin Copeland, accidentally foil a drug bust. To avoid being fired they accept a mission escorting a pair of socialites to the Hamptons--but when the girls are disfigured in a car accident, they refuse to go. Left without options, Marcus and Kevin decide to pose as the sisters, transforming themselves from black men into rich European-American women.",
-      "popularity": 22.68,
+      "popularity": 22.8952,
       "poster_path": "/aHTUpo45qy9QYIOnVITGGqLoVcA.jpg",
       "production_companies": [
         {
@@ -3533,7 +3641,75 @@
       "title": "White Chicks",
       "video": false,
       "vote_average": 6.949,
-      "vote_count": 4573,
+      "vote_count": 4576,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2D3W3Jp0VYsLhXTEfnvhbMvQEzk.jpg",
+      "belongs_to_collection": {
+        "id": 1560684,
+        "name": "Colors of Evil – Collection",
+        "poster_path": "/8gacOj2TBjKc0q5Skaxa4bRuEvb.jpg",
+        "backdrop_path": "/1fNADFgBOYQahvn1nwlfxrceG9P.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81921253",
+      "id": 1560681,
+      "imdb_id": "tt38681832",
+      "origin_country": [
+        "PL"
+      ],
+      "original_language": "pl",
+      "original_title": "Kolory zła: Czerń",
+      "overview": "Investigating the disappearance of children in a remote Polish town, prosecutor Leopold Bilski must unravel a sinister local legend before it's too late.",
+      "popularity": 23.0015,
+      "poster_path": "/reeKdj7BSznr7wSGzAtIMrPFgKo.jpg",
+      "production_companies": [
+        {
+          "id": 54732,
+          "logo_path": "/9Wq8UhFmqgwTaps9RIFSaxZJZie.png",
+          "name": "Aurum Film",
+          "origin_country": "PL"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "PL",
+          "name": "Poland"
+        }
+      ],
+      "release_date": "2026-06-10",
+      "revenue": 0,
+      "runtime": 110,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Polish",
+          "iso_639_1": "pl",
+          "name": "Polski"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Colors of Evil: Black",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 95,
       "media_type": "movie"
     },
     {
@@ -3569,7 +3745,7 @@
       "original_language": "en",
       "original_title": "xXx: Return of Xander Cage",
       "overview": "Xander Cage is left for dead after an incident, though he secretly returns to action for a new, tough assignment with his handler Augustus Gibbons.",
-      "popularity": 22.3589,
+      "popularity": 21.2684,
       "poster_path": "/hba8zREJpP1AYhaXgb2oJLQeO0K.jpg",
       "production_companies": [
         {
@@ -3651,7 +3827,202 @@
       "title": "xXx: Return of Xander Cage",
       "video": false,
       "vote_average": 6.132,
-      "vote_count": 9253,
+      "vote_count": 9256,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/3kb5b8IQCX4vd3baNBoZqAboP41.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 36,
+          "name": "History"
+        }
+      ],
+      "homepage": "",
+      "id": 499546,
+      "imdb_id": "tt6671244",
+      "origin_country": [
+        "BE",
+        "NL"
+      ],
+      "original_language": "nl",
+      "original_title": "Wij",
+      "overview": "During a scorching summer in a Belgian-Dutch border village, eight teenagers play games of discovery to break the listless monotony. They challenge each other and themselves and pretty soon, their sexual curiosity starts to blur the lines between right and wrong. As innocence is crushed in depraved games and sexual exploitation, the teenagers soon turn into ruthless predators.",
+      "popularity": 24.8607,
+      "poster_path": "/gwTKiJF57VknDuNCWgoHaJamm82.jpg",
+      "production_companies": [
+        {
+          "id": 81632,
+          "logo_path": null,
+          "name": "New AMS Film Company",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "BE",
+          "name": "Belgium"
+        },
+        {
+          "iso_3166_1": "NL",
+          "name": "Netherlands"
+        }
+      ],
+      "release_date": "2018-07-12",
+      "revenue": 0,
+      "runtime": 100,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Dutch",
+          "iso_639_1": "nl",
+          "name": "Nederlands"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "We",
+      "video": false,
+      "vote_average": 5.4,
+      "vote_count": 118,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2iqLoDsatVBwAvHTEzI71p3qBe9.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 99,
+          "name": "Documentary"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81941710",
+      "id": 1662317,
+      "imdb_id": "tt40792117",
+      "origin_country": [
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "The Crash",
+      "overview": "A teen slams her car into a building, killing her boyfriend and his friend. What seems like a tragic accident becomes a murder case.",
+      "popularity": 25.1969,
+      "poster_path": "/veskdPx4YUTmkrFrTs6zRJ8VV4E.jpg",
+      "production_companies": [
+        {
+          "id": 23949,
+          "logo_path": "/3QFwomSxcZZgMQGBkdUPuJEnSFB.png",
+          "name": "RAW",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2026-05-14",
+      "revenue": 0,
+      "runtime": 95,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Was it an accident?",
+      "title": "The Crash",
+      "video": false,
+      "vote_average": 6.929,
+      "vote_count": 126,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/kwNIQW7egAmI66sb0zIugMbpCfU.jpg",
+      "belongs_to_collection": null,
+      "budget": 100000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81915745",
+      "id": 1306368,
+      "imdb_id": "tt32642706",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Rip",
+      "overview": "Trust frays when a team of Miami cops discovers millions in cash inside a run-down stash house, calling everyone — and everything — into question.",
+      "popularity": 22.1796,
+      "poster_path": "/4wsYWH73Hb1B6noGIFaRQSAkuXj.jpg",
+      "production_companies": [
+        {
+          "id": 187968,
+          "logo_path": "/xdVAEg1biNrQw5nnMXKswPCRpkq.png",
+          "name": "Artists Equity",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-01-13",
+      "revenue": 0,
+      "runtime": 113,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Count the money. Count it again. Count on no one.",
+      "title": "The Rip",
+      "video": false,
+      "vote_average": 7.086,
+      "vote_count": 1694,
       "media_type": "movie"
     },
     {
@@ -3687,7 +4058,7 @@
       "original_language": "en",
       "original_title": "Fast X",
       "overview": "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever.",
-      "popularity": 19.9814,
+      "popularity": 20.3699,
       "poster_path": "/fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
       "production_companies": [
         {
@@ -3741,16 +4112,20 @@
       "tagline": "The end of the road begins.",
       "title": "Fast X",
       "video": false,
-      "vote_average": 6.992,
-      "vote_count": 6357,
+      "vote_average": 7.0,
+      "vote_count": 6358,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/2fgcRuaseQ9RIiTAUDbLtymnj2z.jpg",
+      "backdrop_path": "/sItIskd5xpiE64bBWYwZintkGf3.jpg",
       "belongs_to_collection": null,
-      "budget": 0,
+      "budget": 90000000,
       "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
         {
           "id": 53,
           "name": "Thriller"
@@ -3760,40 +4135,63 @@
           "name": "Crime"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81698654",
-      "id": 1274706,
-      "imdb_id": "tt32129938",
+      "homepage": "https://johnwick.movie/film/ballerina",
+      "id": 541671,
+      "imdb_id": "tt7181546",
       "origin_country": [
-        "ES"
+        "US"
       ],
-      "original_language": "es",
-      "original_title": "La desconocida",
-      "overview": "When a woman is found in a shipping container with no memory of who she is, two detectives race to figure out her identity — and who wants her dead.",
-      "popularity": 18.6188,
-      "poster_path": "/dyUZ6IKbzmgtdshHevJahpH51Eq.jpg",
+      "original_language": "en",
+      "original_title": "Ballerina",
+      "overview": "Taking place during the events of John Wick: Chapter 3 – Parabellum, Eve Macarro begins her training in the assassin traditions of the Ruska Roma.",
+      "popularity": 20.6275,
+      "poster_path": "/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
       "production_companies": [
         {
-          "id": 21914,
-          "logo_path": "/iF5QYCtPLuwkU90jWdjrul25d71.png",
-          "name": "K & S Films",
-          "origin_country": "AR"
+          "id": 3528,
+          "logo_path": "/cCzCClIzIh81Fa79hpW5nXoUsHK.png",
+          "name": "Thunder Road",
+          "origin_country": "US"
+        },
+        {
+          "id": 23008,
+          "logo_path": "/5SarYupipdiejsEqUkwu1SpYfru.png",
+          "name": "87Eleven",
+          "origin_country": "US"
+        },
+        {
+          "id": 1632,
+          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
+          "name": "Lionsgate",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "AR",
-          "name": "Argentina"
-        },
-        {
-          "iso_3166_1": "ES",
-          "name": "Spain"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
-      "release_date": "2026-06-05",
-      "revenue": 0,
-      "runtime": 109,
+      "release_date": "2025-06-04",
+      "revenue": 137408107,
+      "runtime": 125,
       "softcore": false,
       "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        },
+        {
+          "english_name": "Russian",
+          "iso_639_1": "ru",
+          "name": "Pусский"
+        },
         {
           "english_name": "Spanish",
           "iso_639_1": "es",
@@ -3801,80 +4199,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "The Marked Woman",
+      "tagline": "Vengeance has a new face.",
+      "title": "Ballerina",
       "video": false,
-      "vote_average": 5.525,
-      "vote_count": 80,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/ljaRxXl7XzffsQU4LxFnaiIhglv.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81747556",
-      "id": 1210938,
-      "imdb_id": "tt32648798",
-      "origin_country": [
-        "KR"
-      ],
-      "original_language": "ko",
-      "original_title": "계시록",
-      "overview": "A pastor who believes in divine revelation and a detective haunted by visions pursue a missing person case — exposing their own demons in the process.",
-      "popularity": 16.379,
-      "poster_path": "/ak0HlRVsVzh8mvwIUZpZr0z6uqW.jpg",
-      "production_companies": [
-        {
-          "id": 218768,
-          "logo_path": "/elTqEtADDWEXpvwvpK6n0d3GiXo.png",
-          "name": "Wow Point",
-          "origin_country": "KR"
-        },
-        {
-          "id": 112612,
-          "logo_path": "/7hBsI9Ix8mvMPhdhb5ts26B83qM.png",
-          "name": "Esperanto Filmoj",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        }
-      ],
-      "release_date": "2025-03-20",
-      "revenue": 0,
-      "runtime": 122,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Released",
-      "tagline": "With twisted faith, madness begins.",
-      "title": "Revelations",
-      "video": false,
-      "vote_average": 6.379,
-      "vote_count": 203,
+      "vote_average": 7.256,
+      "vote_count": 2691,
       "media_type": "movie"
     }
   ]

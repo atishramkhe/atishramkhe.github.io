@@ -2,6 +2,177 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/96chPcURxg5thGyLqxO6otyxHFR.jpg",
+      "belongs_to_collection": {
+        "id": 401655,
+        "name": "Welcome Collection",
+        "poster_path": "/trSYzh8taWG5EyAIMA6OoRDFmsw.jpg",
+        "backdrop_path": "/o6TovCR70JfWJ1jJINHYU8S5AJ3.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "",
+      "id": 1169516,
+      "imdb_id": "tt28540171",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "hi",
+      "original_title": "Welcome to the Jungle",
+      "overview": "A group of quirky characters gets stuck in a dangerous jungle during a chaotic mission. Filled with confusion, criminals, and hilarious situations, they must work together to survive and find their way out.",
+      "popularity": 1112.1374,
+      "poster_path": "/1JlfUuvvX5xLP2LIDah4JhWUtTx.jpg",
+      "production_companies": [
+        {
+          "id": 64331,
+          "logo_path": null,
+          "name": "Base Industries Group",
+          "origin_country": "IN"
+        },
+        {
+          "id": 35063,
+          "logo_path": "/r7pvX3K2k3iNVBVt4xufCIEIcnP.png",
+          "name": "Cape of Good Films",
+          "origin_country": "IN"
+        },
+        {
+          "id": 60536,
+          "logo_path": "/chMIfiURhqvr6eWCrzxIwuaWVeN.png",
+          "name": "Nadiadwala Grandson Entertainment",
+          "origin_country": "IN"
+        },
+        {
+          "id": 255348,
+          "logo_path": null,
+          "name": "Seeta Films",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-06-25",
+      "revenue": 0,
+      "runtime": 170,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Fake film. Real jungle. Real danger. Real idiots!",
+      "title": "Welcome to the Jungle",
+      "video": false,
+      "vote_average": 4.0,
+      "vote_count": 4,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/vk5IwZNS35wh6rNmqB1ns6XuiyI.jpg",
+      "belongs_to_collection": null,
+      "budget": 175000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.supergirlmovie.com",
+      "id": 1081003,
+      "imdb_id": "tt8814476",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Supergirl",
+      "overview": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
+      "popularity": 321.6545,
+      "poster_path": "/niSvU02l2BONH9ivubV6K1a5QiK.jpg",
+      "production_companies": [
+        {
+          "id": 184898,
+          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
+          "name": "DC Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 94218,
+          "logo_path": "/kxuhS8wyKtVprOn5nckdHyNuSg1.png",
+          "name": "Troll Court Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 11565,
+          "logo_path": "/odU3l6csuBmXUrzFm6araUgEUHQ.png",
+          "name": "The Safran Company",
+          "origin_country": "US"
+        },
+        {
+          "id": 216687,
+          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
+          "name": "Domain Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-06-24",
+      "revenue": 29100000,
+      "runtime": 108,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Truth. Justice. Whatever.",
+      "title": "Supergirl",
+      "video": false,
+      "vote_average": 6.135,
+      "vote_count": 181,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/laR2dpcNpbv83jdlRUNAYPPjH90.jpg",
       "belongs_to_collection": {
         "id": 931431,
@@ -33,7 +204,7 @@
       "original_language": "en",
       "original_title": "Mortal Kombat II",
       "overview": "The fan favorite champions—now joined by Johnny Cage himself—are pitted against one another in the ultimate, no-holds barred, gory battle to defeat the dark rule of Shao Kahn that threatens the very existence of the Earthrealm and its defenders.",
-      "popularity": 274.8922,
+      "popularity": 267.5039,
       "poster_path": "/hwRdDFIhaEmpRgoki805YvyyjZf.jpg",
       "production_companies": [
         {
@@ -88,89 +259,8 @@
       "tagline": "Their fight. Our future.",
       "title": "Mortal Kombat II",
       "video": false,
-      "vote_average": 7.995,
-      "vote_count": 1668,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/vk5IwZNS35wh6rNmqB1ns6XuiyI.jpg",
-      "belongs_to_collection": null,
-      "budget": 175000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.supergirlmovie.com",
-      "id": 1081003,
-      "imdb_id": "tt8814476",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Supergirl",
-      "overview": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
-      "popularity": 280.7207,
-      "poster_path": "/niSvU02l2BONH9ivubV6K1a5QiK.jpg",
-      "production_companies": [
-        {
-          "id": 184898,
-          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
-          "name": "DC Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 94218,
-          "logo_path": "/kxuhS8wyKtVprOn5nckdHyNuSg1.png",
-          "name": "Troll Court Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 11565,
-          "logo_path": "/odU3l6csuBmXUrzFm6araUgEUHQ.png",
-          "name": "The Safran Company",
-          "origin_country": "US"
-        },
-        {
-          "id": 216687,
-          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
-          "name": "Domain Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-23",
-      "revenue": 13000000,
-      "runtime": 108,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Truth. Justice. Whatever.",
-      "title": "Supergirl",
-      "video": false,
-      "vote_average": 6.22,
-      "vote_count": 134,
+      "vote_average": 7.983,
+      "vote_count": 1701,
       "media_type": "movie"
     },
     {
@@ -192,7 +282,7 @@
           "name": "Crime"
         }
       ],
-      "homepage": "",
+      "homepage": "https://cataz.my/",
       "id": 28322,
       "imdb_id": "tt0080075",
       "origin_country": [
@@ -201,7 +291,7 @@
       "original_language": "it",
       "original_title": "Vacanze per un massacro",
       "overview": "An escaped convicted murderer invades the cottage of a man, his wife and the wife's sister, whereupon he proceeds to torment this already dysfunctional trio with rape and violence.",
-      "popularity": 257.3699,
+      "popularity": 197.8261,
       "poster_path": "/gV0J0Fqw2mYMtQbzb0ruxv9MAeZ.jpg",
       "production_companies": [
         {
@@ -238,6 +328,73 @@
     },
     {
       "adult": false,
+      "backdrop_path": "/z18AIGSU0vk4Y7LQP37CPSeKZvF.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1515729,
+      "imdb_id": "tt37971394",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "ta",
+      "original_title": "Blast",
+      "overview": "Follows a family trained to protect the powerless who become the most dangerous obstacle of all.",
+      "popularity": 256.2052,
+      "poster_path": "/ho824aZtnBzE6FuJRn2znQCq4qQ.jpg",
+      "production_companies": [
+        {
+          "id": 5907,
+          "logo_path": "/u2MPw19ZZ4mIzacy6SXOLgU1la0.png",
+          "name": "AGS Entertainment",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-05-28",
+      "revenue": 0,
+      "runtime": 143,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Tamil",
+          "iso_639_1": "ta",
+          "name": "தமிழ்"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Blood bound. Battle ready.",
+      "title": "Blast",
+      "video": false,
+      "vote_average": 7.235,
+      "vote_count": 17,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/4lj7MZtcIDI2FmZXGkFWh0sNCsq.jpg",
       "belongs_to_collection": null,
       "budget": 165000000,
@@ -264,7 +421,7 @@
       "original_language": "en",
       "original_title": "The Mandalorian and Grogu",
       "overview": "The evil Empire has fallen, and Imperial warlords remain scattered throughout the galaxy. As the fledgling New Republic works to protect everything the Rebellion fought for, they have enlisted the help of legendary Mandalorian bounty hunter Din Djarin and his young apprentice Grogu.",
-      "popularity": 180.214,
+      "popularity": 176.917,
       "poster_path": "/5Vi8dSauVwH1HOsiZceDMbRr1Ca.jpg",
       "production_companies": [
         {
@@ -301,134 +458,8 @@
       "tagline": "If you're searching for new adventure, \"this is the way.\"",
       "title": "The Mandalorian and Grogu",
       "video": false,
-      "vote_average": 6.7,
-      "vote_count": 522,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/z18AIGSU0vk4Y7LQP37CPSeKZvF.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1515729,
-      "imdb_id": "tt37971394",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "ta",
-      "original_title": "Blast",
-      "overview": "Follows a family trained to protect the powerless who become the most dangerous obstacle of all.",
-      "popularity": 177.8721,
-      "poster_path": "/ho824aZtnBzE6FuJRn2znQCq4qQ.jpg",
-      "production_companies": [
-        {
-          "id": 5907,
-          "logo_path": "/u2MPw19ZZ4mIzacy6SXOLgU1la0.png",
-          "name": "AGS Entertainment",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-05-28",
-      "revenue": 0,
-      "runtime": 143,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Tamil",
-          "iso_639_1": "ta",
-          "name": "தமிழ்"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Blood bound. Battle ready.",
-      "title": "Blast",
-      "video": false,
-      "vote_average": 7.2,
-      "vote_count": 11,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/1eAuwNBy34kkM3xkl202z4f1NiI.jpg",
-      "belongs_to_collection": null,
-      "budget": 16000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "",
-      "id": 1367220,
-      "imdb_id": "tt33988385",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "ta",
-      "original_title": "கருப்பு",
-      "overview": "In a world where justice falters, guardian deity Vettai Karuppu takes the guise of a lawyer to battle a corrupt legal system preying on the powerless.",
-      "popularity": 152.2876,
-      "poster_path": "/4KZXlZ5tTT6ghbW77gS4hSLkCd7.jpg",
-      "production_companies": [
-        {
-          "id": 16429,
-          "logo_path": "/8VoXlyno166HSIwMilMLtmb9EBk.png",
-          "name": "Dream Warrior Pictures",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-05-14",
-      "revenue": 3345079,
-      "runtime": 152,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Tamil",
-          "iso_639_1": "ta",
-          "name": "தமிழ்"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Karuppu",
-      "video": false,
-      "vote_average": 6.737,
-      "vote_count": 19,
+      "vote_average": 6.684,
+      "vote_count": 527,
       "media_type": "movie"
     },
     {
@@ -456,7 +487,7 @@
       "original_language": "zh",
       "original_title": "火遮眼",
       "overview": "After Wang Wei's daughter is kidnapped by a criminal network and he receives no help from the corrupt police, Wei sets out to find her himself. His only ally is Navin, a relentless journalist whose wife has mysteriously disappeared. Fueled by a furious vengeance, the unlikely duo ruthlessly battle the kidnappers in this explosive martial arts showdown.",
-      "popularity": 153.12,
+      "popularity": 150.6088,
       "poster_path": "/zP19YO60jwEsfKd5Qf1UvA5uJu8.jpg",
       "production_companies": [
         {
@@ -533,8 +564,67 @@
       "tagline": "To save their loved ones, they will fight everyone.",
       "title": "The Furious",
       "video": false,
-      "vote_average": 7.68,
-      "vote_count": 64,
+      "vote_average": 7.685,
+      "vote_count": 65,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1eAuwNBy34kkM3xkl202z4f1NiI.jpg",
+      "belongs_to_collection": null,
+      "budget": 16000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "",
+      "id": 1367220,
+      "imdb_id": "tt33988385",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "ta",
+      "original_title": "கருப்பு",
+      "overview": "In a world where justice falters, guardian deity Vettai Karuppu takes the guise of a lawyer to battle a corrupt legal system preying on the powerless.",
+      "popularity": 141.6351,
+      "poster_path": "/4KZXlZ5tTT6ghbW77gS4hSLkCd7.jpg",
+      "production_companies": [
+        {
+          "id": 16429,
+          "logo_path": "/8VoXlyno166HSIwMilMLtmb9EBk.png",
+          "name": "Dream Warrior Pictures",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-05-14",
+      "revenue": 3345079,
+      "runtime": 152,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Tamil",
+          "iso_639_1": "ta",
+          "name": "தமிழ்"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Karuppu",
+      "video": false,
+      "vote_average": 6.737,
+      "vote_count": 19,
       "media_type": "movie"
     },
     {
@@ -569,7 +659,7 @@
       "original_language": "kn",
       "original_title": "ಕೆಡಿ - ದಿ ಡೆವಿಲ್",
       "overview": "In the early 1970s, a petty criminal Kaali unwittingly involves himself with underworld thugs, catalyzing events beyond his control.",
-      "popularity": 138.2598,
+      "popularity": 140.4151,
       "poster_path": "/nEuEMJrnLBneE9tJlmzbhCFLu95.jpg",
       "production_companies": [
         {
@@ -628,7 +718,7 @@
       "original_language": "te",
       "original_title": "పెద్ది",
       "overview": "In 1980s rural Andhra Pradesh, a spirited villager unites his community through sports to defend their pride against a powerful rivals.",
-      "popularity": 135.2493,
+      "popularity": 125.023,
       "poster_path": "/kJAJNNBYlbqAcpTDxBNnaILSMTy.jpg",
       "production_companies": [
         {
@@ -665,8 +755,83 @@
       "tagline": "Hurt. Bruised. But not beaten.",
       "title": "Peddi",
       "video": false,
-      "vote_average": 6.029,
+      "vote_average": 6.0,
       "vote_count": 52,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/piV2OnzTZCyGBP9JCjlHIgKGlfo.jpg",
+      "belongs_to_collection": null,
+      "budget": 200000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.amazon.com/salp/motu?hhf=",
+      "id": 454639,
+      "imdb_id": "tt0427340",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Masters of the Universe",
+      "overview": "After being separated for 15 years, the Sword of Power leads Prince Adam back to Eternia, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world, Adam must join forces with his closest allies, Teela and Duncan/Man-At-Arms, and embrace his true destiny as He-Man — the most powerful man in the universe.",
+      "popularity": 126.2101,
+      "poster_path": "/3YMd9Ogae4rDKLWuAZFuse9xhc5.jpg",
+      "production_companies": [
+        {
+          "id": 1423,
+          "logo_path": "/gzvsPHV9WqcQMrvI8pq5hbuvEZ5.png",
+          "name": "Escape Artists",
+          "origin_country": "US"
+        },
+        {
+          "id": 168848,
+          "logo_path": "/omEguKifcJixMvKWq85sUp4lFdT.png",
+          "name": "Mattel Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 210099,
+          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
+          "name": "Amazon MGM Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-06-03",
+      "revenue": 101914098,
+      "runtime": 141,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Witness how he became He-Man.",
+      "title": "Masters of the Universe",
+      "video": false,
+      "vote_average": 7.2,
+      "vote_count": 318,
       "media_type": "movie"
     },
     {
@@ -697,7 +862,7 @@
       "original_language": "en",
       "original_title": "The Punisher: One Last Kill",
       "overview": "As Frank Castle searches for meaning beyond revenge, an unexpected force pulls him back into the fight.",
-      "popularity": 126.4529,
+      "popularity": 125.4863,
       "poster_path": "/qQclTgLMDvGBuUBFGHRipxkEwWR.jpg",
       "production_companies": [
         {
@@ -734,67 +899,8 @@
       "tagline": "Hey Frank.",
       "title": "The Punisher: One Last Kill",
       "video": false,
-      "vote_average": 8.343,
-      "vote_count": 1719,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/kEiQORCwEXSeoG4SK0e4sezHboJ.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/82025112",
-      "id": 1451344,
-      "imdb_id": "tt36876775",
-      "origin_country": [
-        "KR"
-      ],
-      "original_language": "ko",
-      "original_title": "남편들",
-      "overview": "A detective teams up with his ex-wife's new husband to chase down her kidnappers. Can this unlikely duo put aside their differences for one wild rescue?",
-      "popularity": 93.0509,
-      "poster_path": "/rdmXkKPjGw43u4wp3aod4aIPiH.jpg",
-      "production_companies": [
-        {
-          "id": 70681,
-          "logo_path": null,
-          "name": "TPS Company",
-          "origin_country": "KR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        }
-      ],
-      "release_date": "2026-06-15",
-      "revenue": 0,
-      "runtime": 110,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Released",
-      "tagline": "A chaotic match, a reckless mission.",
-      "title": "Husbands in Action",
-      "video": false,
-      "vote_average": 7.51,
-      "vote_count": 49,
+      "vote_average": 8.342,
+      "vote_count": 1728,
       "media_type": "movie"
     },
     {
@@ -830,7 +936,7 @@
       "original_language": "hi",
       "original_title": "धुरंधर: द रिवेंज",
       "overview": "As rival gangs, corrupt officials and a ruthless Major Iqbal close in, Hamza's mission for his country spirals into a bloody personal war where the line between patriot and monster disappears in the streets of Lyari.",
-      "popularity": 116.6782,
+      "popularity": 118.4381,
       "poster_path": "/ptTwQES14pr5c3aZvJg56YlYgb1.jpg",
       "production_companies": [
         {
@@ -901,7 +1007,7 @@
       "original_language": "en",
       "original_title": "In the Grey",
       "overview": "A covert team of elite operatives are living in the shadows. When a ruthless despot steals a billion-dollar fortune, they're sent to take it back—an impossible heist that erupts into a deadly game of strategy, deception and survival.",
-      "popularity": 111.0813,
+      "popularity": 111.9278,
       "poster_path": "/dQgIcW6Th08kMRf2HBoYWoFE6OD.jpg",
       "production_companies": [
         {
@@ -953,83 +1059,8 @@
       "tagline": "When billions get stolen, meet the pros who steal it back.",
       "title": "In the Grey",
       "video": false,
-      "vote_average": 6.6,
-      "vote_count": 272,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/pSptA1YdHreII6OLAvXbnYytwcz.jpg",
-      "belongs_to_collection": null,
-      "budget": 200000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.amazon.com/salp/motu?hhf=",
-      "id": 454639,
-      "imdb_id": "tt0427340",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Masters of the Universe",
-      "overview": "After being separated for 15 years, the Sword of Power leads Prince Adam back to Eternia, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world, Adam must join forces with his closest allies, Teela and Duncan/Man-At-Arms, and embrace his true destiny as He-Man — the most powerful man in the universe.",
-      "popularity": 111.4584,
-      "poster_path": "/3YMd9Ogae4rDKLWuAZFuse9xhc5.jpg",
-      "production_companies": [
-        {
-          "id": 1423,
-          "logo_path": "/gzvsPHV9WqcQMrvI8pq5hbuvEZ5.png",
-          "name": "Escape Artists",
-          "origin_country": "US"
-        },
-        {
-          "id": 168848,
-          "logo_path": "/omEguKifcJixMvKWq85sUp4lFdT.png",
-          "name": "Mattel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 210099,
-          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
-          "name": "Amazon MGM Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-03",
-      "revenue": 101914098,
-      "runtime": 141,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Witness how he became He-Man.",
-      "title": "Masters of the Universe",
-      "video": false,
-      "vote_average": 7.2,
-      "vote_count": 307,
+      "vote_average": 6.624,
+      "vote_count": 275,
       "media_type": "movie"
     },
     {
@@ -1065,7 +1096,7 @@
       "original_language": "ja",
       "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
       "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
-      "popularity": 104.1897,
+      "popularity": 101.7643,
       "poster_path": "/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg",
       "production_companies": [
         {
@@ -1114,144 +1145,14 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/2pA5fvLPZGYR5OukwiRCeliHvNM.jpg",
+      "backdrop_path": "/3Ckkdh0VTcFPwpBJ6jMAS3qIkgJ.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
         {
           "id": 53,
           "name": "Thriller"
         },
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "",
-      "id": 1227241,
-      "imdb_id": "tt32237111",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "te",
-      "original_title": "మా ఇంటి బంగారం",
-      "overview": "Through both her moments of fear and bravery, a woman discovers that embracing her vulnerabilities is as vital to her inner strength as facing challenges head-on.",
-      "popularity": 94.5165,
-      "poster_path": "/n7X5JZLzqzUxwdn9Mwx9cegEnBv.jpg",
-      "production_companies": [
-        {
-          "id": 262244,
-          "logo_path": "/vlXkdM3aTAGQTmBSZx7ulk6mM5V.png",
-          "name": "Tralala Moving Pictures",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-06-18",
-      "revenue": 0,
-      "runtime": 158,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Telugu",
-          "iso_639_1": "te",
-          "name": "తెలుగు"
-        }
-      ],
-      "status": "Released",
-      "tagline": "This GOLD is BLOODY bold",
-      "title": "Maa Inti Bangaram",
-      "video": false,
-      "vote_average": 6.3,
-      "vote_count": 3,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/dd31qJxOarrHyGZwYsCzOjobQzP.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.amazon.com/dp/B0GVB3LYDT",
-      "id": 1380291,
-      "imdb_id": "tt34378301",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Tom Clancy's Jack Ryan: Ghost War",
-      "overview": "Jack Ryan is reluctantly pulled back into espionage when an international covert mission unravels a deadly conspiracy. Racing against time, he joins CIA allies Mike November & James Greer and sharp MI6 officer Emma Marlowe to battle a rogue black-ops unit in a high-stakes, deeply personal fight.",
-      "popularity": 92.0072,
-      "poster_path": "/8ehYxUh5MWE41AeE9gkHE8DKzvB.jpg",
-      "production_companies": [
-        {
-          "id": 29312,
-          "logo_path": "/6yOnS9H3msf0cz0E5REbfX4Ehdz.png",
-          "name": "Sunday Night Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 4,
-          "logo_path": "/jay6WcMgagAklUt7i9Euwj1pzTF.png",
-          "name": "Paramount Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 6831,
-          "logo_path": "/fWSI4EjIDEEzCNJC8OTPX9Pdbxv.png",
-          "name": "Big Indie Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-05-20",
-      "revenue": 0,
-      "runtime": 107,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "No operation stays dark forever.",
-      "title": "Tom Clancy's Jack Ryan: Ghost War",
-      "video": false,
-      "vote_average": 7.041,
-      "vote_count": 614,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
         {
           "id": 28,
           "name": "Action"
@@ -1259,81 +1160,77 @@
         {
           "id": 80,
           "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
         }
       ],
-      "homepage": "",
-      "id": 1419406,
-      "imdb_id": "tt34610311",
+      "homepage": "https://bollfilms.com/citizenvigilante",
+      "id": 1413976,
+      "imdb_id": "tt35309713",
       "origin_country": [
-        "CN",
-        "HK"
+        "US"
       ],
-      "original_language": "zh",
-      "original_title": "捕风追影",
-      "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
-      "popularity": 89.0269,
-      "poster_path": "/cHKo3m8N1fwvEy2ZEr0xGmmMODV.jpg",
+      "original_language": "en",
+      "original_title": "Citizen Vigilante",
+      "overview": "A man takes justice into his own hands, hunting down criminals. His vigilante crusade makes him a social media star but puts him at odds with the local police chief.",
+      "popularity": 103.9019,
+      "poster_path": "/6LmJD3Wohe0g4U62wgi7RyJqfE4.jpg",
       "production_companies": [
         {
-          "id": 122699,
-          "logo_path": "/rNuZaO3S54yNb2inykTHBg8meCe.png",
-          "name": "iQIYI Pictures （重复 同 iQiyi Motion Pictures）",
-          "origin_country": "CN"
+          "id": 22793,
+          "logo_path": null,
+          "name": "Event Film Distribution",
+          "origin_country": "US"
         },
         {
-          "id": 197030,
-          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
-          "name": "Tao Piao Piao 淘票票",
-          "origin_country": "CN"
+          "id": 15127,
+          "logo_path": null,
+          "name": "Boll KG",
+          "origin_country": "DE"
         },
         {
-          "id": 25657,
-          "logo_path": "/nR1OM1kwQ1ZrtbUb6sSfV0Ldynk.png",
-          "name": "Hairun Pictures Company",
-          "origin_country": "CN"
+          "id": 273199,
+          "logo_path": null,
+          "name": "Borvel Film",
+          "origin_country": "HR"
         },
         {
-          "id": 250765,
-          "logo_path": "/pl14N2WxiYBDNUrPaFBhzyKoO8Z.png",
-          "name": "Dong Fang Chen Xiang",
-          "origin_country": "CN"
+          "id": 302573,
+          "logo_path": null,
+          "name": "Bolu",
+          "origin_country": ""
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "CN",
-          "name": "China"
+          "iso_3166_1": "HR",
+          "name": "Croatia"
         },
         {
-          "iso_3166_1": "HK",
-          "name": "Hong Kong"
+          "iso_3166_1": "DE",
+          "name": "Germany"
         }
       ],
-      "release_date": "2025-08-16",
-      "revenue": 174400000,
-      "runtime": 142,
+      "release_date": "2026-06-19",
+      "revenue": 0,
+      "runtime": 90,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
         }
       ],
       "status": "Released",
-      "tagline": "He's training a new generation of law enforcers for a dangerous mission to save the world from ruthless criminals.",
-      "title": "The Shadow's Edge",
+      "tagline": "An action film based on real cases and a commentary about injustice.",
+      "title": "Citizen Vigilante",
       "video": false,
-      "vote_average": 7.813,
-      "vote_count": 900,
+      "vote_average": 7.133,
+      "vote_count": 90,
       "media_type": "movie"
     },
     {
@@ -1373,7 +1270,7 @@
       "original_language": "en",
       "original_title": "Avatar Aang: The Last Airbender",
       "overview": "Avatar Aang, the world's last Airbender, learns of an ancient power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands and threatens to upend the peace they sacrificed everything to achieve.",
-      "popularity": 95.1199,
+      "popularity": 105.7293,
       "poster_path": "/29Jdsak3SrwGds5k1t43kH6Khed.jpg",
       "production_companies": [
         {
@@ -1442,6 +1339,394 @@
     },
     {
       "adult": false,
+      "backdrop_path": "/2pA5fvLPZGYR5OukwiRCeliHvNM.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "",
+      "id": 1227241,
+      "imdb_id": "tt32237111",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "te",
+      "original_title": "మా ఇంటి బంగారం",
+      "overview": "Through both her moments of fear and bravery, a woman discovers that embracing her vulnerabilities is as vital to her inner strength as facing challenges head-on.",
+      "popularity": 87.6661,
+      "poster_path": "/n7X5JZLzqzUxwdn9Mwx9cegEnBv.jpg",
+      "production_companies": [
+        {
+          "id": 262244,
+          "logo_path": "/vlXkdM3aTAGQTmBSZx7ulk6mM5V.png",
+          "name": "Tralala Moving Pictures",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-06-18",
+      "revenue": 0,
+      "runtime": 158,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Telugu",
+          "iso_639_1": "te",
+          "name": "తెలుగు"
+        }
+      ],
+      "status": "Released",
+      "tagline": "This GOLD is BLOODY bold",
+      "title": "Maa Inti Bangaram",
+      "video": false,
+      "vote_average": 6.3,
+      "vote_count": 3,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/kEiQORCwEXSeoG4SK0e4sezHboJ.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/82025112",
+      "id": 1451344,
+      "imdb_id": "tt36876775",
+      "origin_country": [
+        "KR"
+      ],
+      "original_language": "ko",
+      "original_title": "남편들",
+      "overview": "A detective teams up with his ex-wife's new husband to chase down her kidnappers. Can this unlikely duo put aside their differences for one wild rescue?",
+      "popularity": 75.861,
+      "poster_path": "/rdmXkKPjGw43u4wp3aod4aIPiH.jpg",
+      "production_companies": [
+        {
+          "id": 70681,
+          "logo_path": null,
+          "name": "TPS Company",
+          "origin_country": "KR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "KR",
+          "name": "South Korea"
+        }
+      ],
+      "release_date": "2026-06-15",
+      "revenue": 0,
+      "runtime": 110,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Korean",
+          "iso_639_1": "ko",
+          "name": "한국어/조선말"
+        }
+      ],
+      "status": "Released",
+      "tagline": "A chaotic match, a reckless mission.",
+      "title": "Husbands in Action",
+      "video": false,
+      "vote_average": 7.398,
+      "vote_count": 54,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/dd31qJxOarrHyGZwYsCzOjobQzP.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.amazon.com/dp/B0GVB3LYDT",
+      "id": 1380291,
+      "imdb_id": "tt34378301",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Tom Clancy's Jack Ryan: Ghost War",
+      "overview": "Jack Ryan is reluctantly pulled back into espionage when an international covert mission unravels a deadly conspiracy. Racing against time, he joins CIA allies Mike November & James Greer and sharp MI6 officer Emma Marlowe to battle a rogue black-ops unit in a high-stakes, deeply personal fight.",
+      "popularity": 92.441,
+      "poster_path": "/8ehYxUh5MWE41AeE9gkHE8DKzvB.jpg",
+      "production_companies": [
+        {
+          "id": 29312,
+          "logo_path": "/6yOnS9H3msf0cz0E5REbfX4Ehdz.png",
+          "name": "Sunday Night Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 4,
+          "logo_path": "/jay6WcMgagAklUt7i9Euwj1pzTF.png",
+          "name": "Paramount Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 6831,
+          "logo_path": "/fWSI4EjIDEEzCNJC8OTPX9Pdbxv.png",
+          "name": "Big Indie Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-05-20",
+      "revenue": 0,
+      "runtime": 107,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "No operation stays dark forever.",
+      "title": "Tom Clancy's Jack Ryan: Ghost War",
+      "video": false,
+      "vote_average": 7.041,
+      "vote_count": 616,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1419406,
+      "imdb_id": "tt34610311",
+      "origin_country": [
+        "CN",
+        "HK"
+      ],
+      "original_language": "zh",
+      "original_title": "捕风追影",
+      "overview": "Macau Police brings the tracking expert police officer out of retirement to help catch a dangerous group of professional thieves.",
+      "popularity": 91.107,
+      "poster_path": "/cHKo3m8N1fwvEy2ZEr0xGmmMODV.jpg",
+      "production_companies": [
+        {
+          "id": 122699,
+          "logo_path": "/rNuZaO3S54yNb2inykTHBg8meCe.png",
+          "name": "iQIYI Pictures （重复 同 iQiyi Motion Pictures）",
+          "origin_country": "CN"
+        },
+        {
+          "id": 197030,
+          "logo_path": "/z9xtT1e3HunOnZUm3uGYb59eL7v.png",
+          "name": "Tao Piao Piao 淘票票",
+          "origin_country": "CN"
+        },
+        {
+          "id": 25657,
+          "logo_path": "/nR1OM1kwQ1ZrtbUb6sSfV0Ldynk.png",
+          "name": "Hairun Pictures Company",
+          "origin_country": "CN"
+        },
+        {
+          "id": 250765,
+          "logo_path": "/pl14N2WxiYBDNUrPaFBhzyKoO8Z.png",
+          "name": "Dong Fang Chen Xiang",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        },
+        {
+          "iso_3166_1": "HK",
+          "name": "Hong Kong"
+        }
+      ],
+      "release_date": "2025-08-16",
+      "revenue": 174400000,
+      "runtime": 142,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "He's training a new generation of law enforcers for a dangerous mission to save the world from ruthless criminals.",
+      "title": "The Shadow's Edge",
+      "video": false,
+      "vote_average": 7.812,
+      "vote_count": 903,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/g2aOpyCO1vEyUZURh3V5uaHu187.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1288341,
+      "imdb_id": "tt36926359",
+      "origin_country": [
+        "AU"
+      ],
+      "original_language": "en",
+      "original_title": "Seven Snipers",
+      "overview": "When a former elite sniper is hunted down by the ruthless warlord who once held her captive, she must fight to the death to protect the daughter she has raised in hiding, on a remote Australian farm.",
+      "popularity": 97.1635,
+      "poster_path": "/pK6tGCG6UAgUT5FTq3ylGErHxQQ.jpg",
+      "production_companies": [
+        {
+          "id": 290364,
+          "logo_path": "/6OnXPrkJJfsZUEgWEaQGxE9YA4K.png",
+          "name": "Filmbarr",
+          "origin_country": "AU"
+        },
+        {
+          "id": 242869,
+          "logo_path": "/k09JY4DWHq8on7oeb6FYy533HZC.png",
+          "name": "Monster Pictures Studios",
+          "origin_country": "AU"
+        },
+        {
+          "id": 5056,
+          "logo_path": "/ok7CQyn0RPEuI0upznPoo93YE6H.png",
+          "name": "Head Gear Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 10950,
+          "logo_path": "/6TdE9m9KgV2az7vNI8n95rQiYr3.png",
+          "name": "Screen Queensland",
+          "origin_country": "AU"
+        },
+        {
+          "id": 25954,
+          "logo_path": "/oga9DS7GZGbZ0iZ4JFuVTBMBv1C.png",
+          "name": "Metrol Technology",
+          "origin_country": "GB"
+        },
+        {
+          "id": 50079,
+          "logo_path": "/hqfJCkivo3juHdqKjMq4pZI4hih.png",
+          "name": "Kreo Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 122034,
+          "logo_path": "/kmZNR0LSuhSkEAje0v20Tn6WOt9.png",
+          "name": "Signature Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 220750,
+          "logo_path": null,
+          "name": "Sandy Pictures",
+          "origin_country": "AU"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "AU",
+          "name": "Australia"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2026-04-30",
+      "revenue": 0,
+      "runtime": 87,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "She escaped her past. It hunted her down.",
+      "title": "Seven Snipers",
+      "video": false,
+      "vote_average": 5.7,
+      "vote_count": 38,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/zyqAhNJqwiop5yUOJ8SHV27labY.jpg",
       "belongs_to_collection": null,
       "budget": 20000000,
@@ -1468,7 +1753,7 @@
       "original_language": "en",
       "original_title": "Kill Code",
       "overview": "North America has been divided into four main quadrants. A power-hungry corporation has taken over the conventional prison system and made criminals the new law enforcers.  The owner of that corporation, nanoscientist Eion Prescott, created a nano-virus called Onyx. Which is distributed through deadly watches to criminals. First, infecting them. Then, forcing them into eliminating each other for freedom. Who can topple the corporation's entire system from within?",
-      "popularity": 86.5836,
+      "popularity": 92.6417,
       "poster_path": "/bXvSKLCillha6wxY0yxoRCM2WQl.jpg",
       "production_companies": [
         {
@@ -1505,91 +1790,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/3Ckkdh0VTcFPwpBJ6jMAS3qIkgJ.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://bollfilms.com/citizenvigilante",
-      "id": 1413976,
-      "imdb_id": "tt35309713",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Citizen Vigilante",
-      "overview": "A man takes justice into his own hands, hunting down criminals. His vigilante crusade makes him a social media star but puts him at odds with the local police chief.",
-      "popularity": 83.3073,
-      "poster_path": "/6LmJD3Wohe0g4U62wgi7RyJqfE4.jpg",
-      "production_companies": [
-        {
-          "id": 22793,
-          "logo_path": null,
-          "name": "Event Film Distribution",
-          "origin_country": "US"
-        },
-        {
-          "id": 15127,
-          "logo_path": null,
-          "name": "Boll KG",
-          "origin_country": "DE"
-        },
-        {
-          "id": 273199,
-          "logo_path": null,
-          "name": "Borvel Film",
-          "origin_country": "HR"
-        },
-        {
-          "id": 302573,
-          "logo_path": null,
-          "name": "Bolu",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "HR",
-          "name": "Croatia"
-        },
-        {
-          "iso_3166_1": "DE",
-          "name": "Germany"
-        }
-      ],
-      "release_date": "2026-06-19",
-      "revenue": 0,
-      "runtime": 90,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "An action film based on real cases and a commentary about injustice.",
-      "title": "Citizen Vigilante",
-      "video": false,
-      "vote_average": 6.941,
-      "vote_count": 68,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/vjMvFSmGUxEtqVdaZgvFee9XkZl.jpg",
       "belongs_to_collection": {
         "id": 531241,
@@ -1621,7 +1821,7 @@
       "original_language": "en",
       "original_title": "Spider-Man: Brand New Day",
       "overview": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
-      "popularity": 72.5282,
+      "popularity": 74.2206,
       "poster_path": "/yyB2VJEW3an2xCdcYCPQhn9QERR.jpg",
       "production_companies": [
         {
@@ -1667,7 +1867,7 @@
         }
       ],
       "status": "Post Production",
-      "tagline": "The world has forgotten Peter Parker, but he hasn’t forgotten them.",
+      "tagline": "A brand new day starts now.",
       "title": "Spider-Man: Brand New Day",
       "video": false,
       "vote_average": 0.0,
@@ -1698,7 +1898,7 @@
       "original_language": "en",
       "original_title": "Apex",
       "overview": "A grieving woman pushing her limits on a solo adventure in the Australian wild is ensnared in a twisted game with a cunning killer who thinks she's prey.",
-      "popularity": 65.9215,
+      "popularity": 65.9018,
       "poster_path": "/eTp7gSPkSF3Aw79mNx1NkBP1PZT.jpg",
       "production_companies": [
         {
@@ -1755,8 +1955,8 @@
       "tagline": "Hunt. Survive.",
       "title": "Apex",
       "video": false,
-      "vote_average": 6.82,
-      "vote_count": 1528,
+      "vote_average": 6.8,
+      "vote_count": 1534,
       "media_type": "movie"
     },
     {
@@ -1792,7 +1992,7 @@
       "original_language": "hi",
       "original_title": "धुरंधर",
       "overview": "A mysterious traveler slips into the heart of Karachi's underbelly and rises through its ranks with lethal precision, only to tear the notorious ISI-Underworld nexus apart from within.",
-      "popularity": 59.8702,
+      "popularity": 59.6577,
       "poster_path": "/snBOuXDdhmTvlzMUvP9Em3Pp1u1.jpg",
       "production_companies": [
         {
@@ -1845,426 +2045,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/wHwoA0K8GO5vTcOSro8viyfxf6m.jpg",
-      "belongs_to_collection": null,
-      "budget": 123000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://wellgousa.com/films/blades-of-the-guardians",
-      "id": 1305781,
-      "imdb_id": "tt32649961",
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_title": "镖人：风起大漠",
-      "overview": "Dao Ma, the \"second most wanted fugitive,\" is entrusted by his benefactor, the chief of Mo family clan, to take on a mysterious escort mission-escorting the \"most wanted fugitive\" to Chang'an.",
-      "popularity": 39.3211,
-      "poster_path": "/4QZwryGm8l7N5XdEjPchNPl0BV7.jpg",
-      "production_companies": [
-        {
-          "id": 69484,
-          "logo_path": "/2xtmvbEse87LM7OJXVksv7DToZx.png",
-          "name": "Alibaba Pictures Group",
-          "origin_country": "CN"
-        },
-        {
-          "id": 65442,
-          "logo_path": "/mAAUTVBF4KGW4QxESHWg4N8pLdF.png",
-          "name": "DF Pictures",
-          "origin_country": "CN"
-        },
-        {
-          "id": 285214,
-          "logo_path": "/giResdkrwFVCrjIta9pJTiPZJbX.png",
-          "name": "Damai Entertainment",
-          "origin_country": "CN"
-        },
-        {
-          "id": 31814,
-          "logo_path": null,
-          "name": "Peace Film Production Co.",
-          "origin_country": ""
-        },
-        {
-          "id": 25660,
-          "logo_path": "/q0418HVUNk0kq15tdU9idy00s11.png",
-          "name": "Huaxia Film Distribution",
-          "origin_country": "CN"
-        },
-        {
-          "id": 2270,
-          "logo_path": "/7osqu50JpFIh0klZU0s1CrnNqcc.png",
-          "name": "China Film Group Corporation",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "release_date": "2026-02-17",
-      "revenue": 203356793,
-      "runtime": 126,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Released",
-      "tagline": "A grand martial arts feast is back!",
-      "title": "Blades of the Guardians",
-      "video": false,
-      "vote_average": 6.979,
-      "vote_count": 73,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
-      "belongs_to_collection": null,
-      "budget": 50000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://blackbearpictures.com/film-and-tv/shelter",
-      "id": 1290821,
-      "imdb_id": "tt32357218",
-      "origin_country": [
-        "GB",
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Shelter",
-      "overview": "A man living in self-imposed exile on a remote island rescues a young girl from a violent storm, setting off a chain of events that forces him out of seclusion to protect her from enemies tied to his past.",
-      "popularity": 43.8481,
-      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg",
-      "production_companies": [
-        {
-          "id": 22146,
-          "logo_path": "/v37N1mFeXNQfvPankg3feBhVvM7.png",
-          "name": "Black Bear Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 218150,
-          "logo_path": null,
-          "name": "Punch Palace Productions",
-          "origin_country": "GB"
-        },
-        {
-          "id": 253186,
-          "logo_path": null,
-          "name": "CineMachine",
-          "origin_country": "US"
-        },
-        {
-          "id": 118472,
-          "logo_path": "/vafYjvjZwK4JaV5Hcm9vSzw6f9G.png",
-          "name": "Stampede Ventures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        }
-      ],
-      "release_date": "2026-01-28",
-      "revenue": 53933639,
-      "runtime": 107,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Occitan",
-          "iso_639_1": "oc",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "Her safety. His mission.",
-      "title": "Shelter",
-      "video": false,
-      "vote_average": 7.681,
-      "vote_count": 1304,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/AeK2MPOpYrOOgZNfFnfwp0L8tNn.jpg",
-      "belongs_to_collection": {
-        "id": 531241,
-        "name": "Spider-Man (MCU) Collection",
-        "poster_path": "/yeba3Y820OjApZO9aJevDsNeMEd.jpg",
-        "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
-      },
-      "budget": 200000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.sonypictures.com/movies/spidermannowayhome",
-      "id": 634649,
-      "imdb_id": "tt10872600",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Spider-Man: No Way Home",
-      "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-      "popularity": 52.1121,
-      "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-      "production_companies": [
-        {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 84041,
-          "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
-          "name": "Pascal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 5,
-          "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
-          "name": "Columbia Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2021-12-15",
-      "revenue": 2019206586,
-      "runtime": 148,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Tagalog",
-          "iso_639_1": "tl",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "The Multiverse unleashed.",
-      "title": "Spider-Man: No Way Home",
-      "video": false,
-      "vote_average": 7.9,
-      "vote_count": 22116,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg",
-      "belongs_to_collection": {
-        "id": 86311,
-        "name": "The Avengers Collection",
-        "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
-        "backdrop_path": "/2UNUv4NJdC36E5myDHACBJ99EwL.jpg"
-      },
-      "budget": 300000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.marvel.com/movies/avengers-infinity-war",
-      "id": 299536,
-      "imdb_id": "tt4154756",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Avengers: Infinity War",
-      "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
-      "popularity": 52.2633,
-      "poster_path": "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-      "production_companies": [
-        {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2018-04-25",
-      "revenue": 2052415039,
-      "runtime": 149,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Xhosa",
-          "iso_639_1": "xh",
-          "name": ""
-        }
-      ],
-      "status": "Released",
-      "tagline": "Destiny arrives all the same.",
-      "title": "Avengers: Infinity War",
-      "video": false,
-      "vote_average": 8.237,
-      "vote_count": 32160,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
-      "belongs_to_collection": {
-        "id": 2344,
-        "name": "The Matrix Collection",
-        "poster_path": "/bV9qTVHTVf0gkW0j7p7M0ILD4pG.jpg",
-        "backdrop_path": "/bRm2DEgUiYciDw3myHuYFInD7la.jpg"
-      },
-      "budget": 63000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "http://www.warnerbros.com/matrix",
-      "id": 603,
-      "imdb_id": "tt0133093",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Matrix",
-      "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
-      "popularity": 49.0441,
-      "poster_path": "/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
-      "production_companies": [
-        {
-          "id": 79,
-          "logo_path": "/at4uYdwAAgNRKhZuuFX8ShKSybw.png",
-          "name": "Village Roadshow Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 372,
-          "logo_path": null,
-          "name": "Groucho II Film Partnership",
-          "origin_country": ""
-        },
-        {
-          "id": 1885,
-          "logo_path": "/xlvoOZr4s1PygosrwZyolIFe5xs.png",
-          "name": "Silver Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 174,
-          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "1999-03-31",
-      "revenue": 463517383,
-      "runtime": 136,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Believe the unbelievable.",
-      "title": "The Matrix",
-      "video": false,
-      "vote_average": 8.249,
-      "vote_count": 28073,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
       "backdrop_path": "/cfT29Im5VDvjE0RpyKOSdCKZal7.jpg",
       "belongs_to_collection": {
         "id": 263,
@@ -2296,7 +2076,7 @@
       "original_language": "en",
       "original_title": "The Dark Knight",
       "overview": "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
-      "popularity": 52.7406,
+      "popularity": 48.9774,
       "poster_path": "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
       "production_companies": [
         {
@@ -2355,52 +2135,61 @@
       "title": "The Dark Knight",
       "video": false,
       "vote_average": 8.531,
-      "vote_count": 35962,
+      "vote_count": 35966,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/cfDHxkco8RrslL0Vk2XPTwTVFCe.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg",
+      "belongs_to_collection": {
+        "id": 86311,
+        "name": "The Avengers Collection",
+        "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
+        "backdrop_path": "/2UNUv4NJdC36E5myDHACBJ99EwL.jpg"
+      },
+      "budget": 300000000,
       "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
         {
           "id": 28,
           "name": "Action"
         },
         {
-          "id": 53,
-          "name": "Thriller"
+          "id": 878,
+          "name": "Science Fiction"
         }
       ],
-      "homepage": "",
-      "id": 1472951,
-      "imdb_id": "tt29218808",
+      "homepage": "https://www.marvel.com/movies/avengers-infinity-war",
+      "id": 299536,
+      "imdb_id": "tt4154756",
       "origin_country": [
-        "CA"
+        "US"
       ],
       "original_language": "en",
-      "original_title": "Infiltrate",
-      "overview": "In a city overrun by crime, government Agent Lily Chen is forced to choose between her duty and her family when her husband is kidnapped, and she’s blackmailed into assassinating high-level criminals to save him. As she delves deeper into the criminal underworld, Lily’s relentless pursuit of justice unravels a web of corruption, leading to a final, life-altering decision that will change her world forever.",
-      "popularity": 47.1852,
-      "poster_path": "/8Cw8GF9wG63kF8pRRXwOx2kXGt.jpg",
+      "original_title": "Avengers: Infinity War",
+      "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+      "popularity": 56.9694,
+      "poster_path": "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
       "production_companies": [
         {
-          "id": 197962,
-          "logo_path": "/2Uv1Pj28zVg2LWKw6ScQ0tPwLoI.png",
-          "name": "Kemodo Entertainment",
-          "origin_country": "CA"
+          "id": 420,
+          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+          "name": "Marvel Studios",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "CA",
-          "name": "Canada"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
-      "release_date": "2026-04-10",
-      "revenue": 0,
-      "runtime": 93,
+      "release_date": "2018-04-25",
+      "revenue": 2052415039,
+      "runtime": 149,
       "softcore": false,
       "spoken_languages": [
         {
@@ -2409,17 +2198,102 @@
           "name": "English"
         },
         {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
+          "english_name": "Xhosa",
+          "iso_639_1": "xh",
+          "name": ""
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "Infiltrate",
+      "tagline": "Destiny arrives all the same.",
+      "title": "Avengers: Infinity War",
       "video": false,
-      "vote_average": 5.7,
-      "vote_count": 20,
+      "vote_average": 8.237,
+      "vote_count": 32167,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/AeK2MPOpYrOOgZNfFnfwp0L8tNn.jpg",
+      "belongs_to_collection": {
+        "id": 531241,
+        "name": "Spider-Man (MCU) Collection",
+        "poster_path": "/yeba3Y820OjApZO9aJevDsNeMEd.jpg",
+        "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+      },
+      "budget": 200000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.sonypictures.com/movies/spidermannowayhome",
+      "id": 634649,
+      "imdb_id": "tt10872600",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Spider-Man: No Way Home",
+      "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+      "popularity": 50.752,
+      "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+      "production_companies": [
+        {
+          "id": 420,
+          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+          "name": "Marvel Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 84041,
+          "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+          "name": "Pascal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 5,
+          "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+          "name": "Columbia Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2021-12-15",
+      "revenue": 2019206586,
+      "runtime": 148,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Tagalog",
+          "iso_639_1": "tl",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "The Multiverse unleashed.",
+      "title": "Spider-Man: No Way Home",
+      "video": false,
+      "vote_average": 7.9,
+      "vote_count": 22118,
       "media_type": "movie"
     },
     {
@@ -2450,7 +2324,7 @@
       "original_language": "en",
       "original_title": "Real Steel",
       "overview": "Charlie Kenton is a washed-up fighter who retired from the ring when robots took over the sport. After his robot is trashed, he reluctantly teams up with his estranged son to rebuild and train an unlikely contender.",
-      "popularity": 50.4903,
+      "popularity": 48.3237,
       "poster_path": "/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg",
       "production_companies": [
         {
@@ -2503,69 +2377,64 @@
       "tagline": "Courage is stronger than steel.",
       "title": "Real Steel",
       "video": false,
-      "vote_average": 7.112,
-      "vote_count": 9258,
+      "vote_average": 7.113,
+      "vote_count": 9261,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/sb76azrAXr9U13uEQxNP5e3fujY.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
+      "backdrop_path": "/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
+      "belongs_to_collection": {
+        "id": 2344,
+        "name": "The Matrix Collection",
+        "poster_path": "/bV9qTVHTVf0gkW0j7p7M0ILD4pG.jpg",
+        "backdrop_path": "/bRm2DEgUiYciDw3myHuYFInD7la.jpg"
+      },
+      "budget": 63000000,
       "genres": [
         {
           "id": 28,
           "name": "Action"
         },
         {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
+          "id": 878,
+          "name": "Science Fiction"
         }
       ],
-      "homepage": "",
-      "id": 1390300,
-      "imdb_id": "tt34685692",
+      "homepage": "http://www.warnerbros.com/matrix",
+      "id": 603,
+      "imdb_id": "tt0133093",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Over Your Dead Body",
-      "overview": "A dysfunctional couple head to a remote cabin to \"reconnect\", but each has secret intentions to kill the other.",
-      "popularity": 44.6143,
-      "poster_path": "/kZCauMzAt9eMAhLMopCqnFw1Q5k.jpg",
+      "original_title": "The Matrix",
+      "overview": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+      "popularity": 52.3798,
+      "poster_path": "/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
       "production_companies": [
         {
-          "id": 121470,
-          "logo_path": "/zvJFu1C6gB80A98n6IGXBvMtgVl.png",
-          "name": "87North Productions",
+          "id": 79,
+          "logo_path": "/at4uYdwAAgNRKhZuuFX8ShKSybw.png",
+          "name": "Village Roadshow Pictures",
           "origin_country": "US"
         },
         {
-          "id": 12142,
-          "logo_path": "/rPnEeMwxjI6rYMGqkWqIWwIJXxi.png",
-          "name": "XYZ Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 98438,
-          "logo_path": "/cjkuW0QeX3hcUUBkZFFCiYmZvcr.png",
-          "name": "74 Entertainment",
-          "origin_country": "NO"
-        },
-        {
-          "id": 142269,
-          "logo_path": "/ggrWFqk5mPMks0vE3aCy3l9e0dv.png",
-          "name": "IPR.VC",
-          "origin_country": "FI"
-        },
-        {
-          "id": 289751,
+          "id": 372,
           "logo_path": null,
-          "name": "The Trip Productions",
+          "name": "Groucho II Film Partnership",
+          "origin_country": ""
+        },
+        {
+          "id": 1885,
+          "logo_path": "/xlvoOZr4s1PygosrwZyolIFe5xs.png",
+          "name": "Silver Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
           "origin_country": "US"
         }
       ],
@@ -2573,19 +2442,11 @@
         {
           "iso_3166_1": "US",
           "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "NO",
-          "name": "Norway"
-        },
-        {
-          "iso_3166_1": "FI",
-          "name": "Finland"
         }
       ],
-      "release_date": "2026-03-14",
-      "revenue": 2055131,
-      "runtime": 105,
+      "release_date": "1999-03-31",
+      "revenue": 463517383,
+      "runtime": 136,
       "softcore": false,
       "spoken_languages": [
         {
@@ -2595,89 +2456,56 @@
         }
       ],
       "status": "Released",
-      "tagline": "Breakups are all in the execution.",
-      "title": "Over Your Dead Body",
+      "tagline": "Believe the unbelievable.",
+      "title": "The Matrix",
       "video": false,
-      "vote_average": 6.561,
-      "vote_count": 337,
+      "vote_average": 8.249,
+      "vote_count": 28079,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/82lM4GJ9uuNvNDOEpxFy77uv4Ak.jpg",
-      "belongs_to_collection": {
-        "id": 399,
-        "name": "Predator Collection",
-        "poster_path": "/mm2t5dd1QFxtX6X56Z9U5ucsIb1.jpg",
-        "backdrop_path": "/u1CTqTYRUVyLwlEd1z1VJrVBp0J.jpg"
-      },
-      "budget": 105000000,
+      "backdrop_path": "/cfDHxkco8RrslL0Vk2XPTwTVFCe.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
       "genres": [
         {
           "id": 28,
           "name": "Action"
         },
         {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
+          "id": 53,
+          "name": "Thriller"
         }
       ],
-      "homepage": "https://www.20thcenturystudios.com/movies/predator-badlands",
-      "id": 1242898,
-      "imdb_id": "tt31227572",
+      "homepage": "",
+      "id": 1472951,
+      "imdb_id": "tt29218808",
       "origin_country": [
-        "US"
+        "CA"
       ],
       "original_language": "en",
-      "original_title": "Predator: Badlands",
-      "overview": "Cast out from his clan, a young Predator finds an unlikely ally in a damaged android and embarks on a treacherous journey in search of the ultimate adversary.",
-      "popularity": 44.3933,
-      "poster_path": "/pHpq9yNUIo6aDoCXEBzjSolywgz.jpg",
+      "original_title": "Infiltrate",
+      "overview": "In a city overrun by crime, government Agent Lily Chen is forced to choose between her duty and her family when her husband is kidnapped, and she’s blackmailed into assassinating high-level criminals to save him. As she delves deeper into the criminal underworld, Lily’s relentless pursuit of justice unravels a web of corruption, leading to a final, life-altering decision that will change her world forever.",
+      "popularity": 46.0768,
+      "poster_path": "/8Cw8GF9wG63kF8pRRXwOx2kXGt.jpg",
       "production_companies": [
         {
-          "id": 127928,
-          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
-          "name": "20th Century Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 840,
-          "logo_path": null,
-          "name": "Lawrence Gordon Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 1302,
-          "logo_path": "/zC3b70ixHh89qJIikLQPEvLqbPM.png",
-          "name": "Davis Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 185309,
-          "logo_path": null,
-          "name": "Toberoff Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 22213,
-          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
-          "name": "TSG Entertainment",
-          "origin_country": "US"
+          "id": 197962,
+          "logo_path": "/2Uv1Pj28zVg2LWKw6ScQ0tPwLoI.png",
+          "name": "Kemodo Entertainment",
+          "origin_country": "CA"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "CA",
+          "name": "Canada"
         }
       ],
-      "release_date": "2025-11-05",
-      "revenue": 184500000,
-      "runtime": 107,
+      "release_date": "2026-04-10",
+      "revenue": 0,
+      "runtime": 93,
       "softcore": false,
       "spoken_languages": [
         {
@@ -2692,179 +2520,11 @@
         }
       ],
       "status": "Released",
-      "tagline": "First hunt. Last chance.",
-      "title": "Predator: Badlands",
+      "tagline": "",
+      "title": "Infiltrate",
       "video": false,
-      "vote_average": 7.801,
-      "vote_count": 3162,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/9BBTo63ANSmhC4e6r62OJFuK2GL.jpg",
-      "belongs_to_collection": {
-        "id": 86311,
-        "name": "The Avengers Collection",
-        "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
-        "backdrop_path": "/2UNUv4NJdC36E5myDHACBJ99EwL.jpg"
-      },
-      "budget": 220000000,
-      "genres": [
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://www.marvel.com/movies/the-avengers",
-      "id": 24428,
-      "imdb_id": "tt0848228",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Avengers",
-      "overview": "When an unexpected enemy emerges and threatens global safety and security, Nick Fury, director of the international peacekeeping agency known as S.H.I.E.L.D., finds himself in need of a team to pull the world back from the brink of disaster. Spanning the globe, a daring recruitment effort begins!",
-      "popularity": 42.4891,
-      "poster_path": "/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
-      "production_companies": [
-        {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2012-04-25",
-      "revenue": 1518815515,
-      "runtime": 143,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Hindi",
-          "iso_639_1": "hi",
-          "name": "हिन्दी"
-        },
-        {
-          "english_name": "Russian",
-          "iso_639_1": "ru",
-          "name": "Pусский"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Some assembly required.",
-      "title": "The Avengers",
-      "video": false,
-      "vote_average": 8.048,
-      "vote_count": 38512,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/96chPcURxg5thGyLqxO6otyxHFR.jpg",
-      "belongs_to_collection": {
-        "id": 401655,
-        "name": "Welcome Collection",
-        "poster_path": "/trSYzh8taWG5EyAIMA6OoRDFmsw.jpg",
-        "backdrop_path": "/o6TovCR70JfWJ1jJINHYU8S5AJ3.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "",
-      "id": 1169516,
-      "imdb_id": "tt28540171",
-      "origin_country": [
-        "IN"
-      ],
-      "original_language": "hi",
-      "original_title": "Welcome to the Jungle",
-      "overview": "A group of quirky characters gets stuck in a dangerous jungle during a chaotic mission. Filled with confusion, criminals, and hilarious situations, they must work together to survive and find their way out.",
-      "popularity": 762.7315,
-      "poster_path": "/1JlfUuvvX5xLP2LIDah4JhWUtTx.jpg",
-      "production_companies": [
-        {
-          "id": 64331,
-          "logo_path": null,
-          "name": "Base Industries Group",
-          "origin_country": "IN"
-        },
-        {
-          "id": 35063,
-          "logo_path": "/r7pvX3K2k3iNVBVt4xufCIEIcnP.png",
-          "name": "Cape of Good Films",
-          "origin_country": "IN"
-        },
-        {
-          "id": 60536,
-          "logo_path": "/chMIfiURhqvr6eWCrzxIwuaWVeN.png",
-          "name": "Nadiadwala Grandson Entertainment",
-          "origin_country": "IN"
-        },
-        {
-          "id": 255348,
-          "logo_path": null,
-          "name": "Seeta Films",
-          "origin_country": "IN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "IN",
-          "name": "India"
-        }
-      ],
-      "release_date": "2026-06-25",
-      "revenue": 0,
-      "runtime": 170,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Hindi",
-          "iso_639_1": "hi",
-          "name": "हिन्दी"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Fake film. Real jungle. Real danger. Real idiots!",
-      "title": "Welcome to the Jungle",
-      "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
+      "vote_average": 5.7,
+      "vote_count": 20,
       "media_type": "movie"
     },
     {
@@ -2892,7 +2552,7 @@
       "original_language": "en",
       "original_title": "Beast",
       "overview": "MMA legend Patton James, now a commercial fisherman, is pulled back into the cage when his brother is in danger. Reuniting with his old coach Sammy, he commits to one final fight in one championship against the brutal champion Xavier Grau.",
-      "popularity": 44.9474,
+      "popularity": 45.393,
       "poster_path": "/7NrvUI3vnW8H3rD7ExKcTL7KRcQ.jpg",
       "production_companies": [
         {
@@ -2957,8 +2617,438 @@
       "tagline": "Legends are made in the cage.",
       "title": "Beast",
       "video": false,
-      "vote_average": 6.25,
-      "vote_count": 60,
+      "vote_average": 6.254,
+      "vote_count": 61,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sb76azrAXr9U13uEQxNP5e3fujY.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1390300,
+      "imdb_id": "tt34685692",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Over Your Dead Body",
+      "overview": "A dysfunctional couple head to a remote cabin to \"reconnect\", but each has secret intentions to kill the other.",
+      "popularity": 43.5085,
+      "poster_path": "/kZCauMzAt9eMAhLMopCqnFw1Q5k.jpg",
+      "production_companies": [
+        {
+          "id": 121470,
+          "logo_path": "/zvJFu1C6gB80A98n6IGXBvMtgVl.png",
+          "name": "87North Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 12142,
+          "logo_path": "/rPnEeMwxjI6rYMGqkWqIWwIJXxi.png",
+          "name": "XYZ Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 98438,
+          "logo_path": "/cjkuW0QeX3hcUUBkZFFCiYmZvcr.png",
+          "name": "74 Entertainment",
+          "origin_country": "NO"
+        },
+        {
+          "id": 142269,
+          "logo_path": "/ggrWFqk5mPMks0vE3aCy3l9e0dv.png",
+          "name": "IPR.VC",
+          "origin_country": "FI"
+        },
+        {
+          "id": 289751,
+          "logo_path": null,
+          "name": "The Trip Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "NO",
+          "name": "Norway"
+        },
+        {
+          "iso_3166_1": "FI",
+          "name": "Finland"
+        }
+      ],
+      "release_date": "2026-03-14",
+      "revenue": 2055131,
+      "runtime": 105,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Breakups are all in the execution.",
+      "title": "Over Your Dead Body",
+      "video": false,
+      "vote_average": 6.53,
+      "vote_count": 347,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/82lM4GJ9uuNvNDOEpxFy77uv4Ak.jpg",
+      "belongs_to_collection": {
+        "id": 399,
+        "name": "Predator Collection",
+        "poster_path": "/mm2t5dd1QFxtX6X56Z9U5ucsIb1.jpg",
+        "backdrop_path": "/u1CTqTYRUVyLwlEd1z1VJrVBp0J.jpg"
+      },
+      "budget": 105000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.20thcenturystudios.com/movies/predator-badlands",
+      "id": 1242898,
+      "imdb_id": "tt31227572",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Predator: Badlands",
+      "overview": "Cast out from his clan, a young Predator finds an unlikely ally in a damaged android and embarks on a treacherous journey in search of the ultimate adversary.",
+      "popularity": 45.3547,
+      "poster_path": "/pHpq9yNUIo6aDoCXEBzjSolywgz.jpg",
+      "production_companies": [
+        {
+          "id": 127928,
+          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
+          "name": "20th Century Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 840,
+          "logo_path": null,
+          "name": "Lawrence Gordon Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 1302,
+          "logo_path": "/zC3b70ixHh89qJIikLQPEvLqbPM.png",
+          "name": "Davis Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 185309,
+          "logo_path": null,
+          "name": "Toberoff Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 22213,
+          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
+          "name": "TSG Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2025-11-05",
+      "revenue": 184500000,
+      "runtime": 107,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "First hunt. Last chance.",
+      "title": "Predator: Badlands",
+      "video": false,
+      "vote_average": 7.802,
+      "vote_count": 3169,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nHxWyy18SvAZ8jJeemtS8k1UNjM.jpg",
+      "belongs_to_collection": null,
+      "budget": 50000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://blackbearpictures.com/film-and-tv/shelter",
+      "id": 1290821,
+      "imdb_id": "tt32357218",
+      "origin_country": [
+        "GB",
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Shelter",
+      "overview": "A man living in self-imposed exile on a remote island rescues a young girl from a violent storm, setting off a chain of events that forces him out of seclusion to protect her from enemies tied to his past.",
+      "popularity": 52.9583,
+      "poster_path": "/buPFnHZ3xQy6vZEHxbHgL1Pc6CR.jpg",
+      "production_companies": [
+        {
+          "id": 22146,
+          "logo_path": "/v37N1mFeXNQfvPankg3feBhVvM7.png",
+          "name": "Black Bear Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 218150,
+          "logo_path": null,
+          "name": "Punch Palace Productions",
+          "origin_country": "GB"
+        },
+        {
+          "id": 253186,
+          "logo_path": null,
+          "name": "CineMachine",
+          "origin_country": "US"
+        },
+        {
+          "id": 118472,
+          "logo_path": "/vafYjvjZwK4JaV5Hcm9vSzw6f9G.png",
+          "name": "Stampede Ventures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2026-01-28",
+      "revenue": 53933639,
+      "runtime": 107,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Occitan",
+          "iso_639_1": "oc",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "Her safety. His mission.",
+      "title": "Shelter",
+      "video": false,
+      "vote_average": 7.7,
+      "vote_count": 1317,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xyW8rJO3rwG2EGcTO6eaUEa8b9d.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.amazon.com/gp/video/detail/B0GS6Y7QCD",
+      "id": 1613798,
+      "imdb_id": "tt37989803",
+      "origin_country": [
+        "ES"
+      ],
+      "original_language": "es",
+      "original_title": "Venganza",
+      "overview": "The brutal murder of the wife of “Toro,” a military hero in the special forces, turns him into a man with a single purpose: revenge. After a stroke of fate makes him a millionaire, Carlos transforms his fortune into an arsenal and, together with his closest soldiers, sets out to hunt down those responsible.",
+      "popularity": 45.8073,
+      "poster_path": "/ygWXPL0RS91JyJPNOfK34eV3bRE.jpg",
+      "production_companies": [
+        {
+          "id": 94730,
+          "logo_path": "/1fwoMRV4eUpdosHjiveHV91LaXJ.png",
+          "name": "El Estudio",
+          "origin_country": "ES"
+        },
+        {
+          "id": 210099,
+          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
+          "name": "Amazon MGM Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "ES",
+          "name": "Spain"
+        }
+      ],
+      "release_date": "2026-02-26",
+      "revenue": 0,
+      "runtime": 103,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Vengeance",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 264,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/9BBTo63ANSmhC4e6r62OJFuK2GL.jpg",
+      "belongs_to_collection": {
+        "id": 86311,
+        "name": "The Avengers Collection",
+        "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
+        "backdrop_path": "/2UNUv4NJdC36E5myDHACBJ99EwL.jpg"
+      },
+      "budget": 220000000,
+      "genres": [
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.marvel.com/movies/the-avengers",
+      "id": 24428,
+      "imdb_id": "tt0848228",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Avengers",
+      "overview": "When an unexpected enemy emerges and threatens global safety and security, Nick Fury, director of the international peacekeeping agency known as S.H.I.E.L.D., finds himself in need of a team to pull the world back from the brink of disaster. Spanning the globe, a daring recruitment effort begins!",
+      "popularity": 44.1002,
+      "poster_path": "/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
+      "production_companies": [
+        {
+          "id": 420,
+          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+          "name": "Marvel Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2012-04-25",
+      "revenue": 1518815515,
+      "runtime": 143,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
+        },
+        {
+          "english_name": "Russian",
+          "iso_639_1": "ru",
+          "name": "Pусский"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Some assembly required.",
+      "title": "The Avengers",
+      "video": false,
+      "vote_average": 8.048,
+      "vote_count": 38524,
       "media_type": "movie"
     },
     {
@@ -2989,7 +3079,7 @@
       "original_language": "ko",
       "original_title": "군체",
       "overview": "Professor Se-jeong is thrust into a bloody nightmare when a rapidly mutating virus is released during a biotech conference causing authorities to seal the facility. Trapped inside with no escape, Se-jeong along with a small group of survivors must fight to stay alive while the infected undergo horrific transformations.",
-      "popularity": 41.7275,
+      "popularity": 42.1842,
       "poster_path": "/tN799oUR0f1gUKDYdMNrDaY7I51.jpg",
       "production_companies": [
         {
@@ -3032,167 +3122,8 @@
       "tagline": "",
       "title": "Colony",
       "video": false,
-      "vote_average": 7.0,
-      "vote_count": 71,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
-      "belongs_to_collection": {
-        "id": 1707178,
-        "name": "War Machine Collection",
-        "poster_path": null,
-        "backdrop_path": null
-      },
-      "budget": 73000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81768525",
-      "id": 1265609,
-      "imdb_id": "tt15940132",
-      "origin_country": [
-        "AU"
-      ],
-      "original_language": "en",
-      "original_title": "War Machine",
-      "overview": "On one last grueling mission during Army Ranger training, a combat engineer must lead his unit in a fight against a giant otherworldly killing machine.",
-      "popularity": 39.2447,
-      "poster_path": "/rFhKkXhk7ClU03jQ5rHIApJDwev.jpg",
-      "production_companies": [
-        {
-          "id": 1632,
-          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
-          "name": "Lionsgate",
-          "origin_country": "US"
-        },
-        {
-          "id": 198785,
-          "logo_path": "/oBnMrmwnlAKcACe5h7Vwmk8m1CC.png",
-          "name": "Hidden Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 224643,
-          "logo_path": null,
-          "name": "Huge Film",
-          "origin_country": "AU"
-        },
-        {
-          "id": 167684,
-          "logo_path": "/kzQwU2H6woBFti9cqjr9BrVXrst.png",
-          "name": "Range Media Partners",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "AU",
-          "name": "Australia"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-02-12",
-      "revenue": 0,
-      "runtime": 110,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "All grit. No quit.",
-      "title": "War Machine",
-      "video": false,
-      "vote_average": 7.4,
-      "vote_count": 1965,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/xyW8rJO3rwG2EGcTO6eaUEa8b9d.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.amazon.com/gp/video/detail/B0GS6Y7QCD",
-      "id": 1613798,
-      "imdb_id": "tt37989803",
-      "origin_country": [
-        "ES"
-      ],
-      "original_language": "es",
-      "original_title": "Venganza",
-      "overview": "The brutal murder of the wife of “Toro,” a military hero in the special forces, turns him into a man with a single purpose: revenge. After a stroke of fate makes him a millionaire, Carlos transforms his fortune into an arsenal and, together with his closest soldiers, sets out to hunt down those responsible.",
-      "popularity": 43.712,
-      "poster_path": "/ygWXPL0RS91JyJPNOfK34eV3bRE.jpg",
-      "production_companies": [
-        {
-          "id": 94730,
-          "logo_path": "/1fwoMRV4eUpdosHjiveHV91LaXJ.png",
-          "name": "El Estudio",
-          "origin_country": "ES"
-        },
-        {
-          "id": 210099,
-          "logo_path": "/g5oRCNCi8kNVb8gEoSoIcqkhjmR.png",
-          "name": "Amazon MGM Studios",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "ES",
-          "name": "Spain"
-        }
-      ],
-      "release_date": "2026-02-26",
-      "revenue": 0,
-      "runtime": 103,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Vengeance",
-      "video": false,
-      "vote_average": 7.49,
-      "vote_count": 262,
+      "vote_average": 6.979,
+      "vote_count": 72,
       "media_type": "movie"
     },
     {
@@ -3228,7 +3159,7 @@
       "original_language": "en",
       "original_title": "Superman",
       "overview": "Superman, a journalist in Metropolis, embarks on a journey to reconcile his Kryptonian heritage with his human upbringing as Clark Kent.",
-      "popularity": 40.4454,
+      "popularity": 41.875,
       "poster_path": "/ldyfo0BKmz5rWtJJKCvwaNS4cJT.jpg",
       "production_companies": [
         {
@@ -3287,8 +3218,596 @@
       "tagline": "Look up.",
       "title": "Superman",
       "video": false,
-      "vote_average": 7.339,
-      "vote_count": 4931,
+      "vote_average": 7.338,
+      "vote_count": 4938,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg",
+      "belongs_to_collection": {
+        "id": 119,
+        "name": "The Lord of the Rings Collection",
+        "poster_path": "/oENY593nKRVL2PnxXsMtlh8izb4.jpg",
+        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
+      },
+      "budget": 94000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        }
+      ],
+      "homepage": "http://www.lordoftherings.net",
+      "id": 122,
+      "imdb_id": "tt0167260",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Lord of the Rings: The Return of the King",
+      "overview": "As armies mass for a final battle that will decide the fate of the world--and powerful, ancient forces of Light and Dark compete to determine the outcome--one member of the Fellowship of the Ring is revealed as the noble heir to the throne of the Kings of Men. Yet, the sole hope for triumph over evil lies with a brave hobbit, Frodo, who, accompanied by his loyal friend Sam and the hideous, wretched Gollum, ventures deep into the very dark heart of Mordor on his seemingly impossible quest to destroy the Ring of Power.​",
+      "popularity": 41.8788,
+      "poster_path": "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
+      "production_companies": [
+        {
+          "id": 12,
+          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
+          "name": "New Line Cinema",
+          "origin_country": "US"
+        },
+        {
+          "id": 11,
+          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
+          "name": "WingNut Films",
+          "origin_country": "NZ"
+        },
+        {
+          "id": 5237,
+          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
+          "name": "The Saul Zaentz Company",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "NZ",
+          "name": "New Zealand"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2003-12-17",
+      "revenue": 1118888979,
+      "runtime": 201,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The eye of the enemy is moving.",
+      "title": "The Lord of the Rings: The Return of the King",
+      "video": false,
+      "vote_average": 8.5,
+      "vote_count": 26711,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oiwc338EoBgS4sEI2ixAny4KQKg.jpg",
+      "belongs_to_collection": {
+        "id": 119,
+        "name": "The Lord of the Rings Collection",
+        "poster_path": "/oENY593nKRVL2PnxXsMtlh8izb4.jpg",
+        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
+      },
+      "budget": 93000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        }
+      ],
+      "homepage": "http://www.lordoftherings.net/",
+      "id": 120,
+      "imdb_id": "tt0120737",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Lord of the Rings: The Fellowship of the Ring",
+      "overview": "Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed.",
+      "popularity": 41.7005,
+      "poster_path": "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+      "production_companies": [
+        {
+          "id": 12,
+          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
+          "name": "New Line Cinema",
+          "origin_country": "US"
+        },
+        {
+          "id": 11,
+          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
+          "name": "WingNut Films",
+          "origin_country": "NZ"
+        },
+        {
+          "id": 5237,
+          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
+          "name": "The Saul Zaentz Company",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "NZ",
+          "name": "New Zealand"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2001-12-18",
+      "revenue": 871368364,
+      "runtime": 179,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "One ring to rule them all.",
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "video": false,
+      "vote_average": 8.436,
+      "vote_count": 27728,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+      "belongs_to_collection": {
+        "id": 1707178,
+        "name": "War Machine Collection",
+        "poster_path": null,
+        "backdrop_path": null
+      },
+      "budget": 73000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81768525",
+      "id": 1265609,
+      "imdb_id": "tt15940132",
+      "origin_country": [
+        "AU"
+      ],
+      "original_language": "en",
+      "original_title": "War Machine",
+      "overview": "On one last grueling mission during Army Ranger training, a combat engineer must lead his unit in a fight against a giant otherworldly killing machine.",
+      "popularity": 40.7824,
+      "poster_path": "/rFhKkXhk7ClU03jQ5rHIApJDwev.jpg",
+      "production_companies": [
+        {
+          "id": 1632,
+          "logo_path": "/cisLn1YAUuptXVBa0xjq7ST9cH0.png",
+          "name": "Lionsgate",
+          "origin_country": "US"
+        },
+        {
+          "id": 198785,
+          "logo_path": "/oBnMrmwnlAKcACe5h7Vwmk8m1CC.png",
+          "name": "Hidden Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 224643,
+          "logo_path": null,
+          "name": "Huge Film",
+          "origin_country": "AU"
+        },
+        {
+          "id": 167684,
+          "logo_path": "/kzQwU2H6woBFti9cqjr9BrVXrst.png",
+          "name": "Range Media Partners",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "AU",
+          "name": "Australia"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-02-12",
+      "revenue": 0,
+      "runtime": 110,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "All grit. No quit.",
+      "title": "War Machine",
+      "video": false,
+      "vote_average": 7.407,
+      "vote_count": 1980,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/8ZTVqvKDQ8emSGUEMjsS4yHAwrp.jpg",
+      "belongs_to_collection": null,
+      "budget": 160000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://www.warnerbros.com/movies/inception",
+      "id": 27205,
+      "imdb_id": "tt1375666",
+      "origin_country": [
+        "US",
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Inception",
+      "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
+      "popularity": 40.2219,
+      "poster_path": "/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg",
+      "production_companies": [
+        {
+          "id": 923,
+          "logo_path": "/5UQsZrfbfG2dYJbx8DxfoTr2Bvu.png",
+          "name": "Legendary Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 9996,
+          "logo_path": "/3tvBqYsBhxWeHlu62SIJ1el93O7.png",
+          "name": "Syncopy",
+          "origin_country": "GB"
+        },
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2010-07-15",
+      "revenue": 839030630,
+      "runtime": 148,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        },
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        },
+        {
+          "english_name": "Swahili",
+          "iso_639_1": "sw",
+          "name": "Kiswahili"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Your mind is the scene of the crime.",
+      "title": "Inception",
+      "video": false,
+      "vote_average": 8.372,
+      "vote_count": 39430,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/m3Pom6pbD51bBv3syz8NMHda3fz.jpg",
+      "belongs_to_collection": null,
+      "budget": 250000000,
+      "genres": [
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://www.universalpictures.com/movies/the-odyssey",
+      "id": 1368337,
+      "imdb_id": "tt33764258",
+      "origin_country": [
+        "GB",
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Odyssey",
+      "overview": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+      "popularity": 39.6336,
+      "poster_path": "/krVa7rKCQb4OBfsr2LTJv4rTz5q.jpg",
+      "production_companies": [
+        {
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 9996,
+          "logo_path": "/3tvBqYsBhxWeHlu62SIJ1el93O7.png",
+          "name": "Syncopy",
+          "origin_country": "GB"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-07-15",
+      "revenue": 0,
+      "runtime": 172,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Post Production",
+      "tagline": "Defy the gods.",
+      "title": "The Odyssey",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/wHwoA0K8GO5vTcOSro8viyfxf6m.jpg",
+      "belongs_to_collection": null,
+      "budget": 123000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://wellgousa.com/films/blades-of-the-guardians",
+      "id": 1305781,
+      "imdb_id": "tt32649961",
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_title": "镖人：风起大漠",
+      "overview": "Dao Ma, the \"second most wanted fugitive,\" is entrusted by his benefactor, the chief of Mo family clan, to take on a mysterious escort mission-escorting the \"most wanted fugitive\" to Chang'an.",
+      "popularity": 37.7135,
+      "poster_path": "/4QZwryGm8l7N5XdEjPchNPl0BV7.jpg",
+      "production_companies": [
+        {
+          "id": 69484,
+          "logo_path": "/2xtmvbEse87LM7OJXVksv7DToZx.png",
+          "name": "Alibaba Pictures Group",
+          "origin_country": "CN"
+        },
+        {
+          "id": 65442,
+          "logo_path": "/mAAUTVBF4KGW4QxESHWg4N8pLdF.png",
+          "name": "DF Pictures",
+          "origin_country": "CN"
+        },
+        {
+          "id": 285214,
+          "logo_path": "/giResdkrwFVCrjIta9pJTiPZJbX.png",
+          "name": "Damai Entertainment",
+          "origin_country": "CN"
+        },
+        {
+          "id": 31814,
+          "logo_path": null,
+          "name": "Peace Film Production Co.",
+          "origin_country": ""
+        },
+        {
+          "id": 25660,
+          "logo_path": "/q0418HVUNk0kq15tdU9idy00s11.png",
+          "name": "Huaxia Film Distribution",
+          "origin_country": "CN"
+        },
+        {
+          "id": 2270,
+          "logo_path": "/7osqu50JpFIh0klZU0s1CrnNqcc.png",
+          "name": "China Film Group Corporation",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "release_date": "2026-02-17",
+      "revenue": 203356793,
+      "runtime": 126,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Released",
+      "tagline": "A grand martial arts feast is back!",
+      "title": "Blades of the Guardians",
+      "video": false,
+      "vote_average": 7.0,
+      "vote_count": 73,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sDu1nL4P9hLV79ZkZkj2ZC1wy2N.jpg",
+      "belongs_to_collection": {
+        "id": 928878,
+        "name": "XX",
+        "poster_path": "/zmpSh3lIRdfUkSLGVzUYLk7LkFj.jpg",
+        "backdrop_path": null
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 208469,
+      "imdb_id": "tt0229056",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_title": "XX ダブルエックス 美しき凶器",
+      "overview": "A blind female assassin lives alone in a remote house; her superiors occasionally send her \"clients\" / targets that she shoots right after having sex with them in her completely darkened bedroom.",
+      "popularity": 38.9638,
+      "poster_path": "/ckO9ynpyee6KyuefHYXYAtebjpx.jpg",
+      "production_companies": [
+        {
+          "id": 9221,
+          "logo_path": "/7hEAueutGnsQUyUGnp5zQ1YmCrO.png",
+          "name": "Toei Video Company",
+          "origin_country": "JP"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        }
+      ],
+      "release_date": "1993-12-22",
+      "revenue": 0,
+      "runtime": 93,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "XX: Beautiful Weapon",
+      "video": false,
+      "vote_average": 8.938,
+      "vote_count": 8,
       "media_type": "movie"
     },
     {
@@ -3320,7 +3839,7 @@
       "original_language": "ja",
       "original_title": "Zero WOMAN ＩＩ　警視庁０課の女",
       "overview": "When a valuable suitcase is stolen, the mob, petty criminals, and a beautiful agent from the Elite Zero division are pulled into a battle to settle the score.",
-      "popularity": 37.546,
+      "popularity": 36.0233,
       "poster_path": "/sQHeDjwmBQba8E51Mkp5dvgkzeZ.jpg",
       "production_companies": [
         {
@@ -3398,7 +3917,7 @@
       "original_language": "zh",
       "original_title": "哪吒之魔童闹海",
       "overview": "After a catastrophic event leaves their bodies destroyed, Ne Zha and Ao Bing are granted a fragile second chance at life. As tensions rise between the dragon clans and celestial forces, the two must undergo a series of perilous trials that will test their bond, challenge their identities, and decide the fate of both mortals and immortals.",
-      "popularity": 35.8266,
+      "popularity": 34.9675,
       "poster_path": "/cb5NyNrqiCNNoDkA8FfxHAtypdG.jpg",
       "production_companies": [
         {
@@ -3453,496 +3972,8 @@
       "tagline": "Witness a hero reborn.",
       "title": "Ne Zha 2",
       "video": false,
-      "vote_average": 8.164,
-      "vote_count": 728,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg",
-      "belongs_to_collection": {
-        "id": 119,
-        "name": "The Lord of the Rings Collection",
-        "poster_path": "/oENY593nKRVL2PnxXsMtlh8izb4.jpg",
-        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
-      },
-      "budget": 94000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "http://www.lordoftherings.net",
-      "id": 122,
-      "imdb_id": "tt0167260",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Lord of the Rings: The Return of the King",
-      "overview": "As armies mass for a final battle that will decide the fate of the world--and powerful, ancient forces of Light and Dark compete to determine the outcome--one member of the Fellowship of the Ring is revealed as the noble heir to the throne of the Kings of Men. Yet, the sole hope for triumph over evil lies with a brave hobbit, Frodo, who, accompanied by his loyal friend Sam and the hideous, wretched Gollum, ventures deep into the very dark heart of Mordor on his seemingly impossible quest to destroy the Ring of Power.​",
-      "popularity": 39.6021,
-      "poster_path": "/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg",
-      "production_companies": [
-        {
-          "id": 12,
-          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
-          "name": "New Line Cinema",
-          "origin_country": "US"
-        },
-        {
-          "id": 11,
-          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
-          "name": "WingNut Films",
-          "origin_country": "NZ"
-        },
-        {
-          "id": 5237,
-          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
-          "name": "The Saul Zaentz Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "NZ",
-          "name": "New Zealand"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2003-12-17",
-      "revenue": 1118888979,
-      "runtime": 201,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "The eye of the enemy is moving.",
-      "title": "The Lord of the Rings: The Return of the King",
-      "video": false,
-      "vote_average": 8.5,
-      "vote_count": 26703,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7IwBgIwoHtkQ0lYGbBbqKintSWx.jpg",
-      "belongs_to_collection": null,
-      "budget": 20000000,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "https://www.warnerbros.com/movies/they-will-kill-you",
-      "id": 1292695,
-      "imdb_id": "tt31728330",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "They Will Kill You",
-      "overview": "A woman answers a help wanted ad to be a housekeeper in a mysterious New York City high-rise, unaware that she is entering a community that has seen a number of disappearances over the years and may be under the grip of a Satanic cult.",
-      "popularity": 32.7297,
-      "poster_path": "/nSXCFSvI2p5WLgMrOHACbVnEJSR.jpg",
-      "production_companies": [
-        {
-          "id": 229398,
-          "logo_path": null,
-          "name": "Nocturna",
-          "origin_country": "US"
-        },
-        {
-          "id": 12,
-          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
-          "name": "New Line Cinema",
-          "origin_country": "US"
-        },
-        {
-          "id": 216687,
-          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
-          "name": "Domain Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 773,
-          "logo_path": "/qkcN6yZEyBw3cgO5DJu55LGEsf7.png",
-          "name": "Film Afrika",
-          "origin_country": "ZA"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "ZA",
-          "name": "South Africa"
-        }
-      ],
-      "release_date": "2026-03-25",
-      "revenue": 19382152,
-      "runtime": 94,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Let them try.",
-      "title": "They Will Kill You",
-      "video": false,
-      "vote_average": 7.013,
-      "vote_count": 824,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/xA6AM5MvEkieZKlv1Tn3sN23I7i.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10749,
-          "name": "Romance"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81775348",
-      "id": 1630423,
-      "imdb_id": "tt39749979",
-      "origin_country": [
-        "TH"
-      ],
-      "original_language": "th",
-      "original_title": "เลือดรักนักฆ่า",
-      "overview": "Hunted for her rare blood type, a caged woman vows to fight alongside the assassin she loves to protect their future when an old enemy resurfaces.",
-      "popularity": 35.3054,
-      "poster_path": "/ul4dQcA68mtSx8J56N5gEcaCCtP.jpg",
-      "production_companies": [
-        {
-          "id": 289025,
-          "logo_path": null,
-          "name": "Sunwrite Moonact",
-          "origin_country": "TH"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "TH",
-          "name": "Thailand"
-        }
-      ],
-      "release_date": "2026-05-06",
-      "revenue": 0,
-      "runtime": 128,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Thai",
-          "iso_639_1": "th",
-          "name": "ภาษาไทย"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Love, Sacrifice and Vengeance.",
-      "title": "My Dearest Assassin",
-      "video": false,
-      "vote_average": 8.639,
-      "vote_count": 255,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/oiwc338EoBgS4sEI2ixAny4KQKg.jpg",
-      "belongs_to_collection": {
-        "id": 119,
-        "name": "The Lord of the Rings Collection",
-        "poster_path": "/oENY593nKRVL2PnxXsMtlh8izb4.jpg",
-        "backdrop_path": "/bccR2CGTWVVSZAG0yqmy3DIvhTX.jpg"
-      },
-      "budget": 93000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "http://www.lordoftherings.net/",
-      "id": 120,
-      "imdb_id": "tt0120737",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Lord of the Rings: The Fellowship of the Ring",
-      "overview": "Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed.",
-      "popularity": 36.4289,
-      "poster_path": "/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
-      "production_companies": [
-        {
-          "id": 12,
-          "logo_path": "/2ycs64eqV5rqKYHyQK0GVoKGvfX.png",
-          "name": "New Line Cinema",
-          "origin_country": "US"
-        },
-        {
-          "id": 11,
-          "logo_path": "/6FAuASQHybRkZUk08p9PzSs9ezM.png",
-          "name": "WingNut Films",
-          "origin_country": "NZ"
-        },
-        {
-          "id": 5237,
-          "logo_path": "/mlnr7vsBHvLye8oEb5A76C0t8x9.png",
-          "name": "The Saul Zaentz Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "NZ",
-          "name": "New Zealand"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2001-12-18",
-      "revenue": 871368364,
-      "runtime": 179,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "One ring to rule them all.",
-      "title": "The Lord of the Rings: The Fellowship of the Ring",
-      "video": false,
-      "vote_average": 8.436,
-      "vote_count": 27720,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/m3Pom6pbD51bBv3syz8NMHda3fz.jpg",
-      "belongs_to_collection": null,
-      "budget": 250000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.universalpictures.com/movies/the-odyssey",
-      "id": 1368337,
-      "imdb_id": "tt33764258",
-      "origin_country": [
-        "GB",
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Odyssey",
-      "overview": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
-      "popularity": 39.8789,
-      "poster_path": "/krVa7rKCQb4OBfsr2LTJv4rTz5q.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 9996,
-          "logo_path": "/3tvBqYsBhxWeHlu62SIJ1el93O7.png",
-          "name": "Syncopy",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-07-15",
-      "revenue": 0,
-      "runtime": 172,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Post Production",
-      "tagline": "Defy the gods.",
-      "title": "The Odyssey",
-      "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/cOoVcVQ3i1m5b2xtqKBtoTSbxC1.jpg",
-      "belongs_to_collection": {
-        "id": 448150,
-        "name": "Deadpool Collection",
-        "poster_path": "/30c5jO7YEXuF8KiWXLg9m28GWDA.jpg",
-        "backdrop_path": "/dTq7mGyAR5eAydR532feWfjJjzm.jpg"
-      },
-      "budget": 200000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.marvel.com/movies/deadpool-and-wolverine",
-      "id": 533535,
-      "imdb_id": "tt6263850",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Deadpool & Wolverine",
-      "overview": "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
-      "popularity": 35.392,
-      "poster_path": "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
-      "production_companies": [
-        {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 104228,
-          "logo_path": "/hx0C1XcSxGgat8N62GpxoJGTkCk.png",
-          "name": "Maximum Effort",
-          "origin_country": "US"
-        },
-        {
-          "id": 2575,
-          "logo_path": "/9YJrHYlcfHtwtulkFMAies3aFEl.png",
-          "name": "21 Laps Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 127928,
-          "logo_path": "/h0rjX5vjW5r8yEnUBStFarjcLT4.png",
-          "name": "20th Century Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 176762,
-          "logo_path": null,
-          "name": "Kevin Feige Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 22213,
-          "logo_path": "/qx9K6bFWJupwde0xQDwOvXkOaL8.png",
-          "name": "TSG Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2024-07-24",
-      "revenue": 1338073645,
-      "runtime": 128,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Come together.",
-      "title": "Deadpool & Wolverine",
-      "video": false,
-      "vote_average": 7.576,
-      "vote_count": 8822,
+      "vote_average": 8.158,
+      "vote_count": 731,
       "media_type": "movie"
     }
   ]
