@@ -2,41 +2,50 @@
   "movies": [
     {
       "adult": false,
-      "backdrop_path": "/2WU6Y6aonzD6uAaCmNnEFlesxxJ.jpg",
-      "belongs_to_collection": null,
+      "backdrop_path": "/jLuGZc84MvPYCQomQg9DI72mstt.jpg",
+      "belongs_to_collection": {
+        "id": 829314,
+        "name": "Enola Holmes Collection",
+        "poster_path": "/9QfsXZTS7gDJwkSmmBPlml3P8ca.jpg",
+        "backdrop_path": "/HScQCcEd3yucY3XYRCnkRzl7Gp.jpg"
+      },
       "budget": 0,
       "genres": [
         {
-          "id": 10749,
-          "name": "Romance"
+          "id": 12,
+          "name": "Adventure"
         },
         {
-          "id": 35,
-          "name": "Comedy"
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81716219",
-      "id": 614945,
-      "imdb_id": "tt10375624",
+      "homepage": "https://www.netflix.com/title/81605886",
+      "id": 1202033,
+      "imdb_id": "tt32278481",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Voicemails for Isabelle",
-      "overview": "A young woman's hilariously confessional voicemails to her late sister are unknowingly redirected to a stranger, who begins to fall in love from afar.",
-      "popularity": 84.7334,
-      "poster_path": "/canZTWSxACSnAluir3dCtMxKpA1.jpg",
+      "original_title": "Enola Holmes 3",
+      "overview": "Adventure follows detective Enola Holmes to Malta, where her plans to tie the knot unravel when Sherlock's disappearance plunges her into a perilous case.",
+      "popularity": 180.8214,
+      "poster_path": "/7kRYHH9H9PjBFwz1FprbHB2AAjI.jpg",
       "production_companies": [
         {
-          "id": 1423,
-          "logo_path": "/gzvsPHV9WqcQMrvI8pq5hbuvEZ5.png",
-          "name": "Escape Artists",
+          "id": 923,
+          "logo_path": "/5UQsZrfbfG2dYJbx8DxfoTr2Bvu.png",
+          "name": "Legendary Pictures",
           "origin_country": "US"
         },
         {
-          "id": 34,
-          "logo_path": "/xAb1o9HrSvKBo9mnXC8fJKDNu00.png",
-          "name": "Sony Pictures",
+          "id": 121424,
+          "logo_path": "/laQkxRzl2PTQFHPKVUE54UM38sw.png",
+          "name": "PCMA Productions",
           "origin_country": "US"
         }
       ],
@@ -46,23 +55,28 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2026-06-20",
+      "release_date": "2026-06-30",
       "revenue": 0,
-      "runtime": 119,
+      "runtime": 109,
       "softcore": false,
       "spoken_languages": [
         {
           "english_name": "English",
           "iso_639_1": "en",
           "name": "English"
+        },
+        {
+          "english_name": "Maltese",
+          "iso_639_1": "mt",
+          "name": "Malti"
         }
       ],
       "status": "Released",
-      "tagline": "Sometimes the universe leaves you a message.",
-      "title": "Voicemails for Isabelle",
+      "tagline": "Tis I do?",
+      "title": "Enola Holmes 3",
       "video": false,
-      "vote_average": 8.366,
-      "vote_count": 461,
+      "vote_average": 7.0,
+      "vote_count": 280,
       "media_type": "movie"
     },
     {
@@ -85,7 +99,7 @@
       "original_language": "fr",
       "original_title": "Les Condés",
       "overview": "",
-      "popularity": 2.0114,
+      "popularity": 2.0175,
       "poster_path": "/qt9zPUPjLJwNsBipzcLaddXYys1.jpg",
       "production_companies": [
         {
@@ -128,172 +142,41 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/josJUt5eVMANf06mxSKnJlwjELB.jpg",
+      "backdrop_path": "/2WU6Y6aonzD6uAaCmNnEFlesxxJ.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
         {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "http://www.luckythefilm.com",
-      "id": 407449,
-      "imdb_id": "tt5859238",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Lucky",
-      "overview": "Follows the journey of a 90-year-old atheist and the quirky characters that inhabit his off-the-map desert town. He finds himself at the precipice of life, thrust into a journey of self-exploration.",
-      "popularity": 1.7382,
-      "poster_path": "/fy2K8jqCV9rNC8fHx9muPJTNaqs.jpg",
-      "production_companies": [
-        {
-          "id": 89115,
-          "logo_path": "/zQwTHJVIruUlGsa7zIdfXuSm9GG.png",
-          "name": "Divide / Conquer",
-          "origin_country": "US"
+          "id": 10749,
+          "name": "Romance"
         },
-        {
-          "id": 89212,
-          "logo_path": "/zFEXjYOgGRne5IbRlGEDsFjNdOE.png",
-          "name": "Superlative Films",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2017-09-29",
-      "revenue": 955925,
-      "runtime": 88,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Lucky",
-      "video": false,
-      "vote_average": 7.3,
-      "vote_count": 646,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4KxkzF4OgyPzuYziq4sIzuMhDyG.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
         {
           "id": 35,
           "name": "Comedy"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
         }
       ],
-      "homepage": "",
-      "id": 892508,
-      "imdb_id": "tt14793714",
-      "origin_country": [
-        "FR"
-      ],
-      "original_language": "fr",
-      "original_title": "Les Folies fermières",
-      "overview": "David, a young farmer from Cantal, has just had an idea: to save his farm from bankruptcy, he is going to set up a cabaret on the farm. The show will be on stage and on the plate, with good local products. He is sure, it can only work. His relatives, his mother and especially his grandfather, are more skeptical.",
-      "popularity": 0.7168,
-      "poster_path": "/n59B3omT4VnKGeOkBLAGe7wfGXH.jpg",
-      "production_companies": [
-        {
-          "id": 14026,
-          "logo_path": "/8yZvjKBIoOpcR6TiELlwVMoIJHN.png",
-          "name": "Escazal Films",
-          "origin_country": "FR"
-        },
-        {
-          "id": 90562,
-          "logo_path": "/qII3jJQ4S32FgJRlfSU267woloF.png",
-          "name": "TF1 Studio",
-          "origin_country": "FR"
-        },
-        {
-          "id": 591,
-          "logo_path": "/q5I5RDwMEiqoNmfaJgd2LraEOJY.png",
-          "name": "France 3 Cinéma",
-          "origin_country": "FR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "FR",
-          "name": "France"
-        }
-      ],
-      "release_date": "2022-05-11",
-      "revenue": 0,
-      "runtime": 109,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "French",
-          "iso_639_1": "fr",
-          "name": "Français"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "Country Cabaret",
-      "video": false,
-      "vote_average": 5.724,
-      "vote_count": 67,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/3qfiZd8ETMk9MQsmhbOB5QAAx0l.jpg",
-      "belongs_to_collection": null,
-      "budget": 135000000,
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "http://www.turbomovie.com/",
-      "id": 77950,
-      "imdb_id": "tt1860353",
+      "homepage": "https://www.netflix.com/title/81716219",
+      "id": 614945,
+      "imdb_id": "tt10375624",
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_title": "Turbo",
-      "overview": "The tale of an ordinary garden snail who dreams of winning the Indy 500.",
-      "popularity": 7.3377,
-      "poster_path": "/inTKQni4YW8syrfgnXHwzmNeSo4.jpg",
+      "original_title": "Voicemails for Isabelle",
+      "overview": "A young woman's hilariously confessional voicemails to her late sister are unknowingly redirected to a stranger, who begins to fall in love from afar.",
+      "popularity": 78.9144,
+      "poster_path": "/canZTWSxACSnAluir3dCtMxKpA1.jpg",
       "production_companies": [
         {
-          "id": 521,
-          "logo_path": "/3BPX5VGBov8SDqTV7wC1L1xShAS.png",
-          "name": "DreamWorks Animation",
+          "id": 1423,
+          "logo_path": "/gzvsPHV9WqcQMrvI8pq5hbuvEZ5.png",
+          "name": "Escape Artists",
+          "origin_country": "US"
+        },
+        {
+          "id": 34,
+          "logo_path": "/xAb1o9HrSvKBo9mnXC8fJKDNu00.png",
+          "name": "Sony Pictures",
           "origin_country": "US"
         }
       ],
@@ -303,9 +186,9 @@
           "name": "United States of America"
         }
       ],
-      "release_date": "2013-07-11",
-      "revenue": 282570682,
-      "runtime": 96,
+      "release_date": "2026-06-20",
+      "revenue": 0,
+      "runtime": 119,
       "softcore": false,
       "spoken_languages": [
         {
@@ -315,56 +198,97 @@
         }
       ],
       "status": "Released",
-      "tagline": "He's fast. They're furious.",
-      "title": "Turbo",
+      "tagline": "Sometimes the universe leaves you a message.",
+      "title": "Voicemails for Isabelle",
       "video": false,
-      "vote_average": 6.275,
-      "vote_count": 3702,
+      "vote_average": 8.371,
+      "vote_count": 481,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/oGD1dZvojZssnd9Ua6RUalEEHQu.jpg",
+      "backdrop_path": "/rRvkxdL8R6L7K5b7mGovn94SApK.jpg",
       "belongs_to_collection": null,
       "budget": 0,
       "genres": [
         {
-          "id": 99,
-          "name": "Documentary"
+          "id": 28,
+          "name": "Action"
         },
         {
-          "id": 80,
-          "name": "Crime"
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81766093",
-      "id": 1699155,
-      "imdb_id": "tt42863533",
+      "homepage": "",
+      "id": 15071,
+      "imdb_id": "tt0770806",
       "origin_country": [
+        "GB",
         "US"
       ],
       "original_language": "en",
-      "original_title": "Maternal Instinct",
-      "overview": "Police pull over a woman who claims she just gave birth. But the baby — and the blood — aren't hers. Twisted lies unravel in this true-crime documentary.",
-      "popularity": 15.0488,
-      "poster_path": "/4KdmT71AGzDMp5hJbAu9vysKQKT.jpg",
+      "original_title": "The Contractor",
+      "overview": "Former CIA Operative James Dial is coaxed back into action to kill a terrorist in London, but it all goes wrong and he is forced into hiding, where he meets and befriends a 12 year old girl.",
+      "popularity": 6.5883,
+      "poster_path": "/udf7WGMqLeq4C91a4xEoS7WAh1.jpg",
       "production_companies": [
         {
-          "id": 136480,
-          "logo_path": "/5fLrloYGsWbdxS0HMmetiyZJ0Tw.png",
-          "name": "Story Syndicate",
+          "id": 3026,
+          "logo_path": null,
+          "name": "April Productions",
+          "origin_country": ""
+        },
+        {
+          "id": 3027,
+          "logo_path": null,
+          "name": "Chaintron",
+          "origin_country": ""
+        },
+        {
+          "id": 3028,
+          "logo_path": null,
+          "name": "RMA Productions",
+          "origin_country": ""
+        },
+        {
+          "id": 769,
+          "logo_path": "/j8zjbr6CzgiOj4kdtkTkwjdn0b3.png",
+          "name": "Destination Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 5388,
+          "logo_path": "/i6tbNeVEi7s1uN97s2o0LhEMuF0.png",
+          "name": "Sony Pictures Home Entertainment",
           "origin_country": "US"
         }
       ],
       "production_countries": [
         {
+          "iso_3166_1": "BG",
+          "name": "Bulgaria"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
           "iso_3166_1": "US",
           "name": "United States of America"
         }
       ],
-      "release_date": "2026-06-11",
+      "release_date": "2007-05-11",
       "revenue": 0,
-      "runtime": 97,
+      "runtime": 105,
       "softcore": false,
       "spoken_languages": [
         {
@@ -374,11 +298,80 @@
         }
       ],
       "status": "Released",
-      "tagline": "",
-      "title": "Maternal Instinct",
+      "tagline": "The world's greatest marksman is now a marked man.",
+      "title": "The Contractor",
       "video": false,
-      "vote_average": 7.13,
-      "vote_count": 93,
+      "vote_average": 5.5,
+      "vote_count": 201,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/6r38uhBZTZl0KGfEcfi3HNP2N0z.jpg",
+      "belongs_to_collection": null,
+      "budget": 53000000,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10749,
+          "name": "Romance"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "http://angeleyesmovie.warnerbros.com/index_noflash.html",
+      "id": 5852,
+      "imdb_id": "tt0225071",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Angel Eyes",
+      "overview": "A story about a seemingly unlikely couple who cross paths under life-threatening circumstances as though they are destined not only to meet but to save each other's lives. Not once, but twice.",
+      "popularity": 3.6453,
+      "poster_path": "/6ZeMoynnz4pRweKKZ9c2G1absMJ.jpg",
+      "production_companies": [
+        {
+          "id": 22351,
+          "logo_path": null,
+          "name": "The Canton Company",
+          "origin_country": "US"
+        },
+        {
+          "id": 1403,
+          "logo_path": "/pMTQNUhHCwr39CsS7yUmSg503E7.png",
+          "name": "Franchise Pictures",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2001-05-18",
+      "revenue": 29700000,
+      "runtime": 102,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "The deeper you look, the more you will find.",
+      "title": "Angel Eyes",
+      "video": false,
+      "vote_average": 6.044,
+      "vote_count": 489,
       "media_type": "movie"
     },
     {
@@ -401,7 +394,7 @@
       "original_language": "en",
       "original_title": "Little Brother",
       "overview": "A tightly wound realtor's picture-perfect life gets an extreme makeover when his lovably chaotic \"little brother\" suddenly reappears.",
-      "popularity": 100.8706,
+      "popularity": 95.4497,
       "poster_path": "/hIJpXb7Xaje2mebN9ylsS7blQzP.jpg",
       "production_companies": [
         {
@@ -432,8 +425,331 @@
       "tagline": "An uncomfortably touching comedy.",
       "title": "Little Brother",
       "video": false,
-      "vote_average": 6.438,
-      "vote_count": 194,
+      "vote_average": 6.388,
+      "vote_count": 200,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/1ZVlzOBYCggLzvVYHK7Im6LohjC.jpg",
+      "belongs_to_collection": {
+        "id": 85943,
+        "name": "Night at the Museum Collection",
+        "poster_path": "/q2nwE0Qi8U6tsU5HDmiWS2D3dSJ.jpg",
+        "backdrop_path": "/9YJLEgVVzEvGRJ0IzYf7RBnYx1k.jpg"
+      },
+      "budget": 110000000,
+      "genres": [
+        {
+          "id": 14,
+          "name": "Fantasy"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://family.20thcenturystudios.com/movies/night-at-the-museum-1",
+      "id": 1593,
+      "imdb_id": "tt0477347",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Night at the Museum",
+      "overview": "Chaos reigns at the natural history museum when night watchman Larry Daley accidentally stirs up an ancient curse, awakening Attila the Hun, an army of gladiators, a Tyrannosaurus rex and other exhibits.",
+      "popularity": 10.0946,
+      "poster_path": "/pDsAAYf6Zn0yiAGJ6lYGs6hoZ4E.jpg",
+      "production_companies": [
+        {
+          "id": 436,
+          "logo_path": "/A7WCkG3F0NFvjGCwUnclpGdIu9E.png",
+          "name": "1492 Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 2575,
+          "logo_path": "/9YJrHYlcfHtwtulkFMAies3aFEl.png",
+          "name": "21 Laps Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 25,
+          "logo_path": "/qZCc1lty5FzX30aOCVRBLzaVmcp.png",
+          "name": "20th Century Fox",
+          "origin_country": "US"
+        },
+        {
+          "id": 290,
+          "logo_path": "/jrgCuaQsY9ouP5ILZf4Dq4ZOkIX.png",
+          "name": "Ingenious Media",
+          "origin_country": "GB"
+        },
+        {
+          "id": 20035,
+          "logo_path": null,
+          "name": "Sun Canada Productions",
+          "origin_country": "CA"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2006-12-20",
+      "revenue": 574480841,
+      "runtime": 108,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Italian",
+          "iso_639_1": "it",
+          "name": "Italiano"
+        },
+        {
+          "english_name": "Hebrew",
+          "iso_639_1": "he",
+          "name": "עִבְרִית"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Where history comes to life.",
+      "title": "Night at the Museum",
+      "video": false,
+      "vote_average": 6.6,
+      "vote_count": 11016,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/fu9PqKZvAAawuGdchsISzjaSbm3.jpg",
+      "belongs_to_collection": null,
+      "budget": 15000000,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "",
+      "id": 1266781,
+      "imdb_id": "tt32370862",
+      "origin_country": [
+        "BE",
+        "FR"
+      ],
+      "original_language": "fr",
+      "original_title": "Natacha (presque) hôtesse de l'air",
+      "overview": "France, 1963. Since she was a child, Natacha has dreamed of freedom and adventure. Her dream has a name: air hostess. She admires the women who fly the world, with no ties, no husbands, and no cooking to do. Despite all her efforts Natacha does not match the walking fantasy that an air hostess is supposed to embody at the time. She's too... or not enough... whatever it is, she hasn't got it!",
+      "popularity": 1.4142,
+      "poster_path": "/lXK0ORuAgYq54CH7UjWjX9UnNk8.jpg",
+      "production_companies": [
+        {
+          "id": 208645,
+          "logo_path": "/90vbHm6TZYsKezRE84fsA17J8FF.png",
+          "name": "Daï Daï Films",
+          "origin_country": "FR"
+        },
+        {
+          "id": 90562,
+          "logo_path": "/qII3jJQ4S32FgJRlfSU267woloF.png",
+          "name": "TF1 Studio",
+          "origin_country": "FR"
+        },
+        {
+          "id": 75242,
+          "logo_path": "/hrZzmOGhzhv473sIInHtSNwQOhT.png",
+          "name": "Pictanovo",
+          "origin_country": "FR"
+        },
+        {
+          "id": 7981,
+          "logo_path": "/6Yv1gIAuGkHS5Vis4UjnqHhCPWV.png",
+          "name": "Pathé",
+          "origin_country": "FR"
+        },
+        {
+          "id": 356,
+          "logo_path": "/9tW5wZEGotn1Ei5pErA88m47XiD.png",
+          "name": "TF1 Films Production",
+          "origin_country": "FR"
+        },
+        {
+          "id": 209019,
+          "logo_path": "/gDJwJuczv05ckpzy24GFRvHR4Qd.png",
+          "name": "Petite Panthère Productions",
+          "origin_country": "FR"
+        },
+        {
+          "id": 209127,
+          "logo_path": "/6kby8aYYQX7RqPGs0DPIGMtG2Sg.png",
+          "name": "Logical Content Ventures",
+          "origin_country": "FR"
+        },
+        {
+          "id": 11199,
+          "logo_path": "/tWXanyy8XwpcOPannNJ33QUcXp5.png",
+          "name": "SCOPE Pictures",
+          "origin_country": "BE"
+        },
+        {
+          "id": 258421,
+          "logo_path": "/8cjbEkmCkvuflBZitvpppm0jXKG.png",
+          "name": "Studio TF1",
+          "origin_country": "FR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "FR",
+          "name": "France"
+        },
+        {
+          "iso_3166_1": "BE",
+          "name": "Belgium"
+        }
+      ],
+      "release_date": "2025-04-02",
+      "revenue": 0,
+      "runtime": 90,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Based on the Belgian comics series, created by François Walthéry and Gos.",
+      "title": "Natacha, (Almost) Air Hostess",
+      "video": false,
+      "vote_average": 5.061,
+      "vote_count": 41,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/g2aOpyCO1vEyUZURh3V5uaHu187.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "",
+      "id": 1288341,
+      "imdb_id": "tt36926359",
+      "origin_country": [
+        "AU"
+      ],
+      "original_language": "en",
+      "original_title": "Seven Snipers",
+      "overview": "When a former elite sniper is hunted down by the ruthless warlord who once held her captive, she must fight to the death to protect the daughter she has raised in hiding, on a remote Australian farm.",
+      "popularity": 53.3963,
+      "poster_path": "/pK6tGCG6UAgUT5FTq3ylGErHxQQ.jpg",
+      "production_companies": [
+        {
+          "id": 290364,
+          "logo_path": "/6OnXPrkJJfsZUEgWEaQGxE9YA4K.png",
+          "name": "Filmbarr",
+          "origin_country": "AU"
+        },
+        {
+          "id": 242869,
+          "logo_path": "/k09JY4DWHq8on7oeb6FYy533HZC.png",
+          "name": "Monster Pictures Studios",
+          "origin_country": "AU"
+        },
+        {
+          "id": 5056,
+          "logo_path": "/ok7CQyn0RPEuI0upznPoo93YE6H.png",
+          "name": "Head Gear Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 10950,
+          "logo_path": "/6TdE9m9KgV2az7vNI8n95rQiYr3.png",
+          "name": "Screen Queensland",
+          "origin_country": "AU"
+        },
+        {
+          "id": 25954,
+          "logo_path": "/oga9DS7GZGbZ0iZ4JFuVTBMBv1C.png",
+          "name": "Metrol Technology",
+          "origin_country": "GB"
+        },
+        {
+          "id": 50079,
+          "logo_path": "/hqfJCkivo3juHdqKjMq4pZI4hih.png",
+          "name": "Kreo Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 122034,
+          "logo_path": "/kmZNR0LSuhSkEAje0v20Tn6WOt9.png",
+          "name": "Signature Films",
+          "origin_country": "GB"
+        },
+        {
+          "id": 220750,
+          "logo_path": null,
+          "name": "Sandy Pictures",
+          "origin_country": "AU"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "AU",
+          "name": "Australia"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        }
+      ],
+      "release_date": "2026-04-30",
+      "revenue": 0,
+      "runtime": 87,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "She escaped her past. It hunted her down.",
+      "title": "Seven Snipers",
+      "video": false,
+      "vote_average": 5.75,
+      "vote_count": 42,
       "media_type": "movie"
     },
     {
@@ -468,7 +784,7 @@
       "original_language": "en",
       "original_title": "KPop Demon Hunters",
       "overview": "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums, they're using their secret powers to protect their fans from supernatural threats.",
-      "popularity": 40.7804,
+      "popularity": 38.9562,
       "poster_path": "/zT7Lhw3BhJbMkRqm9Zlx2YGMsY0.jpg",
       "production_companies": [
         {
@@ -505,211 +821,14 @@
       "title": "KPop Demon Hunters",
       "video": false,
       "vote_average": 8.015,
-      "vote_count": 2958,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/tNUM567Hrv925Z3vWXdJUjQE6Ho.jpg",
-      "belongs_to_collection": {
-        "id": 124881,
-        "name": "Street Kings Collection",
-        "poster_path": "/r0c2hR2KQsZO3vdhFQdUsnSuUef.jpg",
-        "backdrop_path": "/eldKjRRasDWkcjlkUFZQ08VcorU.jpg"
-      },
-      "budget": 20000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1266,
-      "imdb_id": "tt0421073",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Street Kings",
-      "overview": "Tom Ludlow is a disillusioned L.A. Police Officer, rarely playing by the rules and haunted by the death of his wife. When evidence implicates him in the execution of a fellow officer, he is forced to go up against the cop culture he's been a part of his entire career, ultimately leading him to question the loyalties of everyone around him.",
-      "popularity": 4.9502,
-      "poster_path": "/iTO7sBfVTr7LUqiFtGeFW7g2Ncf.jpg",
-      "production_companies": [
-        {
-          "id": 43,
-          "logo_path": "/4RgIPr55kBakgupWkzdDxqXJEqr.png",
-          "name": "Fox Searchlight Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 508,
-          "logo_path": "/4sGWXoboEkWPphI6es6rTmqkCBh.png",
-          "name": "Regency Enterprises",
-          "origin_country": "US"
-        },
-        {
-          "id": 6332,
-          "logo_path": null,
-          "name": "Dune Entertainment III",
-          "origin_country": "US"
-        },
-        {
-          "id": 214742,
-          "logo_path": "/7rlv0Vg2bIdI0EPlUO1z5VpxsKP.png",
-          "name": "Emmett/Furla Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 2448,
-          "logo_path": "/5sHdaGheYOw2qA20fewRVGDM4Xk.png",
-          "name": "Yari Film Group",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2008-04-10",
-      "revenue": 66476363,
-      "runtime": 109,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Turkish",
-          "iso_639_1": "tr",
-          "name": "Türkçe"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Their city. Their rules. No prisoners.",
-      "title": "Street Kings",
-      "video": false,
-      "vote_average": 6.652,
-      "vote_count": 1736,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/oNoprEND25zXR6Fns8cIZUkuoMc.jpg",
-      "belongs_to_collection": null,
-      "budget": 50000000,
-      "genres": [
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "http://www.wardogsthemovie.com/",
-      "id": 308266,
-      "imdb_id": "tt2005151",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "War Dogs",
-      "overview": "Based on the true story of two young men, David Packouz and Efraim Diveroli, who won a $300 million contract from the Pentagon to arm America's allies in Afghanistan.",
-      "popularity": 8.5631,
-      "poster_path": "/mDcPRjZC1bb6LavFU3gwsWdVfCM.jpg",
-      "production_companies": [
-        {
-          "id": 1557,
-          "logo_path": "/ccz9bqCu3jSFKbPFnfWmjAKZLBL.png",
-          "name": "The Mark Gordon Company",
-          "origin_country": "US"
-        },
-        {
-          "id": 83036,
-          "logo_path": null,
-          "name": "Joint Effort",
-          "origin_country": "US"
-        },
-        {
-          "id": 41624,
-          "logo_path": "/wzKxIeQKlMP0y5CaAw25MD6EQmf.png",
-          "name": "RatPac Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 174,
-          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
-          "name": "Warner Bros. Pictures",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2016-08-18",
-      "revenue": 86234523,
-      "runtime": 114,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Albanian",
-          "iso_639_1": "sq",
-          "name": "shqip"
-        },
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Arabic",
-          "iso_639_1": "ar",
-          "name": "العربية"
-        },
-        {
-          "english_name": "Romanian",
-          "iso_639_1": "ro",
-          "name": "Română"
-        }
-      ],
-      "status": "Released",
-      "tagline": "An American dream",
-      "title": "War Dogs",
-      "video": false,
-      "vote_average": 6.9,
-      "vote_count": 5519,
+      "vote_count": 2959,
       "media_type": "movie"
     }
   ],
   "tv_shows": [
     {
       "adult": false,
-      "backdrop_path": "/z0R6ToCsMMkLwuQXjzzdd1QCdJv.jpg",
+      "backdrop_path": "/yOna5ZGXrvWO2HdOCKcahx2sCDN.jpg",
       "created_by": [
         {
           "id": 1232167,
@@ -776,7 +895,7 @@
       "original_language": "en",
       "original_name": "I Will Find You",
       "overview": "Wrongfully imprisoned for murdering his own son, a father sets out on a desperate rescue mission after learning the boy may still be alive.",
-      "popularity": 99.177,
+      "popularity": 94.8104,
       "poster_path": "/pb9oYHHNzauiCQZT03MpDAg46GI.jpg",
       "production_companies": [
         {
@@ -807,7 +926,7 @@
           "overview": "",
           "poster_path": "/pb9oYHHNzauiCQZT03MpDAg46GI.jpg",
           "season_number": 1,
-          "vote_average": 7.6
+          "vote_average": 7.5
         }
       ],
       "softcore": false,
@@ -821,8 +940,146 @@
       "status": "Ended",
       "tagline": "Find the boy. Find the truth.",
       "type": "Miniseries",
-      "vote_average": 8.224,
-      "vote_count": 210,
+      "vote_average": 8.2,
+      "vote_count": 217,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xUB3xFMgsHgPmdWnUWkHTJ03vHa.jpg",
+      "created_by": [
+        {
+          "id": 209839,
+          "credit_id": "6654f7f7e877115768ff5b9c",
+          "name": "Albert Kim",
+          "original_name": "Albert Kim",
+          "gender": 2,
+          "profile_path": null
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2024-02-22",
+      "genres": [
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/80237957",
+      "id": 82452,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-06-25",
+      "last_episode_to_air": {
+        "id": 7097607,
+        "name": "Something Broken",
+        "overview": "Torn across the city as the Fire Nation closes in, the team must reunite to save Ba Sing Se — and Zuko must decide where his real loyalties lie.",
+        "vote_average": 7.6,
+        "vote_count": 11,
+        "air_date": "2026-06-25",
+        "episode_number": 7,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 69,
+        "season_number": 2,
+        "show_id": 82452,
+        "still_path": "/hGpGatL0EwuGhTZjIy4m6cAXVJt.jpg"
+      },
+      "name": "Avatar: The Last Airbender",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 15,
+      "number_of_seasons": 2,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Avatar: The Last Airbender",
+      "overview": "A young boy known as the Avatar must master the four elemental powers to save a world at war — and fight a ruthless enemy bent on stopping him.",
+      "popularity": 196.0005,
+      "poster_path": "/lzZpWEaqzP0qVA5nkCc5ASbNcSy.jpg",
+      "production_companies": [
+        {
+          "id": 5371,
+          "logo_path": "/7EFsFPaWY5DFn8s9rz2ORHxAw0y.png",
+          "name": "Nickelodeon Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 118854,
+          "logo_path": "/g9LPNlQFoDcHjfnvrEqFmeIaDrZ.png",
+          "name": "Rideback",
+          "origin_country": "US"
+        },
+        {
+          "id": 221528,
+          "logo_path": null,
+          "name": "Albert Kim Pictures",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2024-02-22",
+          "episode_count": 8,
+          "id": 109532,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/dHVBAhJ7jfD4S16ZEJmZbjotAD0.jpg",
+          "season_number": 1,
+          "vote_average": 7.8
+        },
+        {
+          "air_date": "2026-06-25",
+          "episode_count": 7,
+          "id": 419520,
+          "name": "Season 2",
+          "overview": "",
+          "poster_path": "/i18qgDSOTxZ1QFWBBg0GdDffLGj.jpg",
+          "season_number": 2,
+          "vote_average": 6.8
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "The epic saga continues.",
+      "type": "Scripted",
+      "vote_average": 7.797,
+      "vote_count": 1224,
       "media_type": "tv"
     },
     {
@@ -926,7 +1183,7 @@
       "original_language": "es",
       "original_name": "Oasis",
       "overview": "Oasis is the most luxurious holiday resort in the country — a paradise reserved for the wealthiest families, featuring private beaches, VIP facilities, and impenetrable security. The perfect place to spend the best summer of your life. But everything falls apart when the police storm the resort to investigate a mysterious disappearance. In such an exclusive place, everyone is a suspect — and no one can leave until the culprit is found.",
-      "popularity": 56.6369,
+      "popularity": 51.9625,
       "poster_path": "/vWBtcjETIUd45OoIULEqc6qZxM7.jpg",
       "production_companies": [
         {
@@ -971,60 +1228,43 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/xUB3xFMgsHgPmdWnUWkHTJ03vHa.jpg",
-      "created_by": [
-        {
-          "id": 209839,
-          "credit_id": "6654f7f7e877115768ff5b9c",
-          "name": "Albert Kim",
-          "original_name": "Albert Kim",
-          "gender": 2,
-          "profile_path": null
-        }
-      ],
+      "backdrop_path": "/d8tVPtlvJ4219WknD3GvPmxg3Xh.jpg",
+      "created_by": [],
       "episode_run_time": [],
-      "first_air_date": "2024-02-22",
+      "first_air_date": "2026-04-11",
       "genres": [
         {
-          "id": 10759,
-          "name": "Action & Adventure"
+          "id": 10764,
+          "name": "Reality"
         },
         {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
+          "id": 10762,
+          "name": "Kids"
         }
       ],
-      "homepage": "https://www.netflix.com/title/80237957",
-      "id": 82452,
+      "homepage": "https://www.netflix.com/title/82738277",
+      "id": 318906,
       "in_production": true,
       "languages": [
         "en"
       ],
-      "last_air_date": "2026-06-25",
+      "last_air_date": "2026-04-11",
       "last_episode_to_air": {
-        "id": 7097607,
-        "name": "Something Broken",
-        "overview": "Torn across the city as the Fire Nation closes in, the team must reunite to save Ba Sing Se — and Zuko must decide where his real loyalties lie.",
-        "vote_average": 8.333,
-        "vote_count": 9,
-        "air_date": "2026-06-25",
-        "episode_number": 7,
+        "id": 7430875,
+        "name": "Episode 6",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-06-27",
+        "episode_number": 6,
         "episode_type": "finale",
         "production_code": "",
-        "runtime": 69,
+        "runtime": 30,
         "season_number": 2,
-        "show_id": 82452,
-        "still_path": "/hGpGatL0EwuGhTZjIy4m6cAXVJt.jpg"
+        "show_id": 318906,
+        "still_path": null
       },
-      "name": "Avatar: The Last Airbender",
+      "name": "Salish & Jordan Matter",
       "next_episode_to_air": null,
       "networks": [
         {
@@ -1034,62 +1274,43 @@
           "origin_country": ""
         }
       ],
-      "number_of_episodes": 15,
+      "number_of_episodes": 13,
       "number_of_seasons": 2,
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_name": "Avatar: The Last Airbender",
-      "overview": "A young boy known as the Avatar must master the four elemental powers to save a world at war — and fight a ruthless enemy bent on stopping him.",
-      "popularity": 210.9284,
-      "poster_path": "/lzZpWEaqzP0qVA5nkCc5ASbNcSy.jpg",
-      "production_companies": [
-        {
-          "id": 5371,
-          "logo_path": "/7EFsFPaWY5DFn8s9rz2ORHxAw0y.png",
-          "name": "Nickelodeon Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 118854,
-          "logo_path": "/g9LPNlQFoDcHjfnvrEqFmeIaDrZ.png",
-          "name": "Rideback",
-          "origin_country": "US"
-        },
-        {
-          "id": 221528,
-          "logo_path": null,
-          "name": "Albert Kim Pictures",
-          "origin_country": ""
-        }
-      ],
+      "original_name": "Salish & Jordan Matter",
+      "overview": "Follow father and daughter Jordan and Salish through wild situations and extreme challenges in this compilation of classic family moments.",
+      "popularity": 2.3482,
+      "poster_path": "/lnllybMv0XVxClYf0dXGXKnANj3.jpg",
+      "production_companies": [],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "KR",
+          "name": "South Korea"
         }
       ],
       "seasons": [
         {
-          "air_date": "2024-02-22",
-          "episode_count": 8,
-          "id": 109532,
+          "air_date": "2026-04-11",
+          "episode_count": 7,
+          "id": 509447,
           "name": "Season 1",
           "overview": "",
-          "poster_path": "/dHVBAhJ7jfD4S16ZEJmZbjotAD0.jpg",
+          "poster_path": "/kJiILxXEzSfvwPlMXdrCyzUAWXk.jpg",
           "season_number": 1,
-          "vote_average": 7.9
+          "vote_average": 7.8
         },
         {
-          "air_date": "2026-06-25",
-          "episode_count": 7,
-          "id": 419520,
+          "air_date": "2026-06-27",
+          "episode_count": 6,
+          "id": 524639,
           "name": "Season 2",
           "overview": "",
-          "poster_path": "/i18qgDSOTxZ1QFWBBg0GdDffLGj.jpg",
+          "poster_path": null,
           "season_number": 2,
-          "vote_average": 7.4
+          "vote_average": 0.0
         }
       ],
       "softcore": false,
@@ -1101,10 +1322,373 @@
         }
       ],
       "status": "Returning Series",
-      "tagline": "The epic saga continues.",
+      "tagline": "",
+      "type": "Reality",
+      "vote_average": 5.5,
+      "vote_count": 2,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/m1EXAPGmzZbr58mY6dzjaZyDOVU.jpg",
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2026-07-01",
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 99,
+          "name": "Documentary"
+        }
+      ],
+      "homepage": "http://www.netflix.com/title/82016571",
+      "id": 325188,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-07-01",
+      "last_episode_to_air": {
+        "id": 7374232,
+        "name": "The Executor",
+        "overview": "When Charles' neighbors report him missing, suspicion falls on Caroline, who claims to be managing his estate — but is instead concealing a grisly crime.",
+        "vote_average": 6.0,
+        "vote_count": 1,
+        "air_date": "2026-07-01",
+        "episode_number": 4,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 61,
+        "season_number": 1,
+        "show_id": 325188,
+        "still_path": "/p18TeVIN4iHRnozya8Rt7DAbGxo.jpg"
+      },
+      "name": "Worst Neighbor Ever",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 4,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Worst Neighbor Ever",
+      "overview": "This intense documentary series details true stories of neighbors gone bad, from heinous fraud schemes to senseless acts of violent retribution.",
+      "popularity": 12.1487,
+      "poster_path": "/1WarGMl1xR0l7ut72putZcgrCJS.jpg",
+      "production_companies": [
+        {
+          "id": 68884,
+          "logo_path": "/1BYexT6Vikz4ulCcYKGPmOi6Jm0.png",
+          "name": "Blumhouse Television",
+          "origin_country": "US"
+        },
+        {
+          "id": 234134,
+          "logo_path": "/g1p84abJBwFtdSTFQhSS2PluKGB.png",
+          "name": "ITV America",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-07-01",
+          "episode_count": 4,
+          "id": 521828,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/1WarGMl1xR0l7ut72putZcgrCJS.jpg",
+          "season_number": 1,
+          "vote_average": 6.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Documentary",
+      "vote_average": 7.3,
+      "vote_count": 8,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/g1LJLlmWP74zv9yXKEXm7g9p10O.jpg",
+      "created_by": [
+        {
+          "id": 2097690,
+          "credit_id": "6a053c8e9eefbb7e9ddb120a",
+          "name": "Nam Dae-joong",
+          "original_name": "남대중",
+          "gender": 2,
+          "profile_path": null
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2026-06-26",
+      "genres": [
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://programs.sbs.co.kr/drama/mrkim/main",
+      "id": 296206,
+      "in_production": true,
+      "languages": [
+        "ko"
+      ],
+      "last_air_date": "2026-07-04",
+      "last_episode_to_air": {
+        "id": 7247668,
+        "name": "Episode 4",
+        "overview": "Manager Kim's risky actions put him on the radar of enemies past and present. When danger strikes, Han-soo and Jin-cheol step up to help save the day.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-07-04",
+        "episode_number": 4,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 61,
+        "season_number": 1,
+        "show_id": 296206,
+        "still_path": "/2yGGXfQmvcHlxktR17CowgcxVyp.jpg"
+      },
+      "name": "Agent Kim Reactivated",
+      "next_episode_to_air": {
+        "id": 7247670,
+        "name": "Episode 5",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-07-10",
+        "episode_number": 5,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 296206,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 156,
+          "logo_path": "/uHQFPvRTlpgaIFQVN8eKWEnFOll.png",
+          "name": "SBS",
+          "origin_country": "KR"
+        }
+      ],
+      "number_of_episodes": 10,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "KR"
+      ],
+      "original_language": "ko",
+      "original_name": "김부장",
+      "overview": "When an unassuming dad's daughter goes missing, he dusts off his old black-ops skills to track her down — only to attract the wrong kind of attention.",
+      "popularity": 169.0085,
+      "poster_path": "/mxa7YxVln3Rwnd2Va82PoclTznj.jpg",
+      "production_companies": [
+        {
+          "id": 12620,
+          "logo_path": "/9eEyymKRwMS7GiBy1ZqHiMCpE8i.png",
+          "name": "Fantagio",
+          "origin_country": "KR"
+        },
+        {
+          "id": 83914,
+          "logo_path": "/nFcR2kd7vl5O3TITQs6x39BNo6Y.png",
+          "name": "Studio S",
+          "origin_country": "KR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "KR",
+          "name": "South Korea"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-06-26",
+          "episode_count": 10,
+          "id": 465802,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/5XgYxMGAaANdAtUew0Hr9YVtiLC.jpg",
+          "season_number": 1,
+          "vote_average": 8.9
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Korean",
+          "iso_639_1": "ko",
+          "name": "한국어/조선말"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "Daughter missing, past unleashed.",
+      "type": "Miniseries",
+      "vote_average": 7.386,
+      "vote_count": 22,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/eND0QkFMyqWONmAy1lBKtPjsrFF.jpg",
+      "created_by": [
+        {
+          "id": 1580327,
+          "credit_id": "62e446c2e86017005f3e009f",
+          "name": "Nuran Evren Şit",
+          "original_name": "Nuran Evren Şit",
+          "gender": 1,
+          "profile_path": "/8BUCWpFVAvZ4HK25sL2GtsOSRPR.jpg"
+        }
+      ],
+      "episode_run_time": [
+        54
+      ],
+      "first_air_date": "2022-07-28",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81380432",
+      "id": 206180,
+      "in_production": true,
+      "languages": [
+        "tr"
+      ],
+      "last_air_date": "2026-06-24",
+      "last_episode_to_air": {
+        "id": 7268503,
+        "name": "Episode 8",
+        "overview": "",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-06-24",
+        "episode_number": 8,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 63,
+        "season_number": 3,
+        "show_id": 206180,
+        "still_path": "/7OfwBDfzH4C0KIsVlpBfTbyaOSt.jpg"
+      },
+      "name": "Another Self",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 24,
+      "number_of_seasons": 3,
+      "origin_country": [
+        "TR"
+      ],
+      "original_language": "tr",
+      "original_name": "Zeytin Ağacı",
+      "overview": "Three friends arrive in a seaside town, where they connect with their spiritual selves and suddenly face unresolved trauma from their families' pasts.",
+      "popularity": 32.5572,
+      "poster_path": "/zogTjQRIJsmg8yvIo8gDLtp65th.jpg",
+      "production_companies": [
+        {
+          "id": 142312,
+          "logo_path": null,
+          "name": "OGM Pictures",
+          "origin_country": "TR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "TR",
+          "name": "Turkey"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2022-07-28",
+          "episode_count": 8,
+          "id": 301111,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/s1AZwYGpt1b9mQ8og7EYKuocikz.jpg",
+          "season_number": 1,
+          "vote_average": 9.3
+        },
+        {
+          "air_date": "2024-07-11",
+          "episode_count": 8,
+          "id": 392003,
+          "name": "Season 2",
+          "overview": "",
+          "poster_path": "/gaC7Rk1w1YzYXRjBbCx34GAjvqy.jpg",
+          "season_number": 2,
+          "vote_average": 8.7
+        },
+        {
+          "air_date": "2026-06-24",
+          "episode_count": 8,
+          "id": 516260,
+          "name": "Season 3",
+          "overview": "",
+          "poster_path": "/4sJYMVWiL3bXCIk4jd64Ha2p1mM.jpg",
+          "season_number": 3,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Turkish",
+          "iso_639_1": "tr",
+          "name": "Türkçe"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
       "type": "Scripted",
-      "vote_average": 7.799,
-      "vote_count": 1211,
+      "vote_average": 7.923,
+      "vote_count": 117,
       "media_type": "tv"
     },
     {
@@ -1184,7 +1768,7 @@
       "original_language": "ko",
       "original_name": "참교육",
       "overview": "An inspector from the Educational Rights Protection Bureau (ERPB) who is authorized by the government to use physical intervention and unconventional methods to discipline delinquent students and reform the educational system.",
-      "popularity": 144.2788,
+      "popularity": 138.7242,
       "poster_path": "/fMECSPrTmRClSViMsXFYmiYIcWP.jpg",
       "production_companies": [
         {
@@ -1215,7 +1799,7 @@
           "overview": "The National Assembly and the Minister of Education passes the Amendment to the Act on the Protection of Teachers' Rights. With the passage of the law, a new government organization, the Educational Rights Protection Bureau, is formed. Na Hwa-jin belongs to the Educational Rights Protection Bureau. He is sent to a problem school as a supervisor. There, he can educate the students without any restrictions or limitations.",
           "poster_path": "/cDLlx3tQbDvYJmMzjS1LJldxvlr.jpg",
           "season_number": 1,
-          "vote_average": 8.7
+          "vote_average": 8.6
         }
       ],
       "softcore": false,
@@ -1229,8 +1813,8 @@
       "status": "Ended",
       "tagline": "Let us protect you!",
       "type": "Miniseries",
-      "vote_average": 9.453,
-      "vote_count": 601,
+      "vote_average": 9.458,
+      "vote_count": 617,
       "media_type": "tv"
     },
     {
@@ -1291,7 +1875,7 @@
       "original_language": "zu",
       "original_name": "The Polygamist",
       "overview": "Social media darling, Joyce, is the picture of marital perfection — until her cheating husband's conquests ignite a scandalous emotional meltdown.",
-      "popularity": 174.088,
+      "popularity": 174.595,
       "poster_path": "/emnQZe22rYBCsbZ7h1TUAkYEzrZ.jpg",
       "production_companies": [
         {
@@ -1340,623 +1924,8 @@
       "status": "Returning Series",
       "tagline": "He chose betrayal, she chose revenge.",
       "type": "Scripted",
-      "vote_average": 8.753,
-      "vote_count": 85,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/eND0QkFMyqWONmAy1lBKtPjsrFF.jpg",
-      "created_by": [
-        {
-          "id": 1580327,
-          "credit_id": "62e446c2e86017005f3e009f",
-          "name": "Nuran Evren Şit",
-          "original_name": "Nuran Evren Şit",
-          "gender": 1,
-          "profile_path": "/8BUCWpFVAvZ4HK25sL2GtsOSRPR.jpg"
-        }
-      ],
-      "episode_run_time": [
-        54
-      ],
-      "first_air_date": "2022-07-28",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81380432",
-      "id": 206180,
-      "in_production": true,
-      "languages": [
-        "tr"
-      ],
-      "last_air_date": "2026-06-24",
-      "last_episode_to_air": {
-        "id": 7268503,
-        "name": "Episode 8",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-06-24",
-        "episode_number": 8,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 63,
-        "season_number": 3,
-        "show_id": 206180,
-        "still_path": "/7OfwBDfzH4C0KIsVlpBfTbyaOSt.jpg"
-      },
-      "name": "Another Self",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 24,
-      "number_of_seasons": 3,
-      "origin_country": [
-        "TR"
-      ],
-      "original_language": "tr",
-      "original_name": "Zeytin Ağacı",
-      "overview": "Three friends arrive in a seaside town, where they connect with their spiritual selves and suddenly face unresolved trauma from their families' pasts.",
-      "popularity": 32.3434,
-      "poster_path": "/zogTjQRIJsmg8yvIo8gDLtp65th.jpg",
-      "production_companies": [
-        {
-          "id": 142312,
-          "logo_path": null,
-          "name": "OGM Pictures",
-          "origin_country": "TR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "TR",
-          "name": "Turkey"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2022-07-28",
-          "episode_count": 8,
-          "id": 301111,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/s1AZwYGpt1b9mQ8og7EYKuocikz.jpg",
-          "season_number": 1,
-          "vote_average": 9.3
-        },
-        {
-          "air_date": "2024-07-11",
-          "episode_count": 8,
-          "id": 392003,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": "/gaC7Rk1w1YzYXRjBbCx34GAjvqy.jpg",
-          "season_number": 2,
-          "vote_average": 8.7
-        },
-        {
-          "air_date": "2026-06-24",
-          "episode_count": 8,
-          "id": 516260,
-          "name": "Season 3",
-          "overview": "",
-          "poster_path": "/4sJYMVWiL3bXCIk4jd64Ha2p1mM.jpg",
-          "season_number": 3,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Turkish",
-          "iso_639_1": "tr",
-          "name": "Türkçe"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 7.923,
-      "vote_count": 117,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/vPVdWiLUNQyaGMazyZGVAyRcYBG.jpg",
-      "created_by": [
-        {
-          "id": 4731551,
-          "credit_id": "66b4e554078b5a26e357a775",
-          "name": "Gooseworx",
-          "original_name": "Gooseworx",
-          "gender": 1,
-          "profile_path": "/yzGAHQxaBTULEkKSe2wZG6HL30Q.jpg"
-        }
-      ],
-      "episode_run_time": [
-        24,
-        58
-      ],
-      "first_air_date": "2023-10-13",
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        }
-      ],
-      "homepage": "https://www.glitchprod.com/digital-circus",
-      "id": 261145,
-      "in_production": false,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-06-19",
-      "last_episode_to_air": {
-        "id": 7064840,
-        "name": "Remember",
-        "overview": "As their reality unravels, the cast uncovers the truth behind the Digital Circus and its history.",
-        "vote_average": 8.2,
-        "vote_count": 12,
-        "air_date": "2026-06-19",
-        "episode_number": 9,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 59,
-        "season_number": 1,
-        "show_id": 261145,
-        "still_path": "/hb3mkbH7mlPgXfr430EkLvAof4E.jpg"
-      },
-      "name": "The Amazing Digital Circus",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        },
-        {
-          "id": 247,
-          "logo_path": "/i9YpTodhXMOAYo0TZrP0UrHeunc.png",
-          "name": "YouTube",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 9,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "AU"
-      ],
-      "original_language": "en",
-      "original_name": "The Amazing Digital Circus",
-      "overview": "A woman finds herself trapped in a virtual circus where she and five other humans are subject to the whims of a wacky AI ringmaster. In this digital purgatory they must face frightening NPCs and cope with their own personal traumas.",
-      "popularity": 46.0038,
-      "poster_path": "/lpfrgfomX8uNFxv4VaEzvJGs9TK.jpg",
-      "production_companies": [
-        {
-          "id": 239704,
-          "logo_path": "/tqqq3IpYg26z7d7BG6pdwHoG6JI.png",
-          "name": "Glitch Productions",
-          "origin_country": "AU"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "AU",
-          "name": "Australia"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2023-10-20",
-          "episode_count": 12,
-          "id": 424748,
-          "name": "Specials",
-          "overview": "The cast of the Amazing Digital Circus helps to promote the show in marketable plushie forms!!",
-          "poster_path": "/5MlQTBglZOLo3FKxsUEblFtA5SH.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2023-10-13",
-          "episode_count": 9,
-          "id": 405724,
-          "name": "Season 1",
-          "overview": "Under the direction of the circus's ringmaster, an artificial intelligence named Caine, six humans—Pomni, Jax, Ragatha, Gangle, Kinger, and Zooble—who have become trapped in the titular circus engage in nonsensical adventures to distract themselves from their situation, all while at risk of losing their sanity and \"abstracting\" into digital monstrosities.",
-          "poster_path": "/7ZCuKopf3ctE7yKea3V9Xbrh9uk.jpg",
-          "season_number": 1,
-          "vote_average": 8.4
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Ended",
-      "tagline": "Let's get this show on the road!",
-      "type": "Scripted",
-      "vote_average": 8.681,
-      "vote_count": 343,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/g1LJLlmWP74zv9yXKEXm7g9p10O.jpg",
-      "created_by": [
-        {
-          "id": 2097690,
-          "credit_id": "6a053c8e9eefbb7e9ddb120a",
-          "name": "Nam Dae-joong",
-          "original_name": "남대중",
-          "gender": 2,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2026-06-26",
-      "genres": [
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://programs.sbs.co.kr/drama/mrkim/main",
-      "id": 296206,
-      "in_production": true,
-      "languages": [
-        "ko"
-      ],
-      "last_air_date": "2026-07-04",
-      "last_episode_to_air": {
-        "id": 7247668,
-        "name": "Episode 4",
-        "overview": "Manager Kim's risky actions put him on the radar of enemies past and present. When danger strikes, Han-soo and Jin-cheol step up to help save the day.",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-07-04",
-        "episode_number": 4,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 61,
-        "season_number": 1,
-        "show_id": 296206,
-        "still_path": "/8FuIiSK8fnTQny1DrOTe5jp4MB2.jpg"
-      },
-      "name": "Agent Kim Reactivated",
-      "next_episode_to_air": {
-        "id": 7247670,
-        "name": "Episode 5",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-07-10",
-        "episode_number": 5,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 296206,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 156,
-          "logo_path": "/uHQFPvRTlpgaIFQVN8eKWEnFOll.png",
-          "name": "SBS",
-          "origin_country": "KR"
-        }
-      ],
-      "number_of_episodes": 10,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "KR"
-      ],
-      "original_language": "ko",
-      "original_name": "김부장",
-      "overview": "When an unassuming dad's daughter goes missing, he dusts off his old black-ops skills to track her down — only to attract the wrong kind of attention.",
-      "popularity": 183.5939,
-      "poster_path": "/jruaZAm1KjkFRhgRcdF8tqakhpH.jpg",
-      "production_companies": [
-        {
-          "id": 12620,
-          "logo_path": "/9eEyymKRwMS7GiBy1ZqHiMCpE8i.png",
-          "name": "Fantagio",
-          "origin_country": "KR"
-        },
-        {
-          "id": 83914,
-          "logo_path": "/nFcR2kd7vl5O3TITQs6x39BNo6Y.png",
-          "name": "Studio S",
-          "origin_country": "KR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-06-26",
-          "episode_count": 10,
-          "id": 465802,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/5XgYxMGAaANdAtUew0Hr9YVtiLC.jpg",
-          "season_number": 1,
-          "vote_average": 9.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "Daughter missing, past unleashed.",
-      "type": "Miniseries",
-      "vote_average": 7.375,
-      "vote_count": 20,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/nbtIdcehsl91z1iGlsloH8Zs3QP.jpg",
-      "created_by": [
-        {
-          "id": 1334524,
-          "credit_id": "66e813b2d7bcca524db108e5",
-          "name": "Susana López Rubio",
-          "original_name": "Susana López Rubio",
-          "gender": 0,
-          "profile_path": "/oHETtrbM3utJajJDwpxqVU18Isy.jpg"
-        },
-        {
-          "id": 1480156,
-          "credit_id": "66e813b9dd224d1a3991d281",
-          "name": "Javier Holgado",
-          "original_name": "Javier Holgado",
-          "gender": 0,
-          "profile_path": null
-        },
-        {
-          "id": 1074740,
-          "credit_id": "66e813bed7bcca524db108f3",
-          "name": "Jaime Olías",
-          "original_name": "Jaime Olías",
-          "gender": 2,
-          "profile_path": "/j1d0qH6nijfjjPxeHh1MEfYx4oV.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2025-03-23",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://www.antena3.com/series/perdiendo-juicio/",
-      "id": 259200,
-      "in_production": true,
-      "languages": [
-        "es"
-      ],
-      "last_air_date": "2025-05-25",
-      "last_episode_to_air": {
-        "id": 5477781,
-        "name": "Episode 10",
-        "overview": "",
-        "vote_average": 7.0,
-        "vote_count": 1,
-        "air_date": "2025-05-25",
-        "episode_number": 10,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 259200,
-        "still_path": "/1i3pPJau8rtG7kBgYPQ3KRCyNDO.jpg"
-      },
-      "name": "Losing Judgment",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 3744,
-          "logo_path": "/t6FPoKU3jDeCtIFpbxiIkhkQ5gm.png",
-          "name": "Atresplayer",
-          "origin_country": "ES"
-        }
-      ],
-      "number_of_episodes": 10,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "ES"
-      ],
-      "original_language": "es",
-      "original_name": "Perdiendo el juicio",
-      "overview": "",
-      "popularity": 4.3762,
-      "poster_path": "/ioyuupNi55EPjqutl0Kl6KaXZuV.jpg",
-      "production_companies": [
-        {
-          "id": 49394,
-          "logo_path": "/ksCltAjQsrjENzm9bbaA7Y9Rgr1.png",
-          "name": "Boomerang TV",
-          "origin_country": "ES"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "ES",
-          "name": "Spain"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2025-03-23",
-          "episode_count": 10,
-          "id": 402286,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/8svuI1MTkEsTyWrIxiLcuf0dnav.jpg",
-          "season_number": 1,
-          "vote_average": 6.8
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 7.3,
-      "vote_count": 19,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/d8tVPtlvJ4219WknD3GvPmxg3Xh.jpg",
-      "created_by": [],
-      "episode_run_time": [],
-      "first_air_date": "2026-04-11",
-      "genres": [
-        {
-          "id": 10764,
-          "name": "Reality"
-        },
-        {
-          "id": 10762,
-          "name": "Kids"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/82738277",
-      "id": 318906,
-      "in_production": true,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-04-11",
-      "last_episode_to_air": {
-        "id": 7430875,
-        "name": "Episode 6",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-06-27",
-        "episode_number": 6,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 30,
-        "season_number": 2,
-        "show_id": 318906,
-        "still_path": null
-      },
-      "name": "Salish & Jordan Matter",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 13,
-      "number_of_seasons": 2,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Salish & Jordan Matter",
-      "overview": "Follow father and daughter Jordan and Salish through wild situations and extreme challenges in this compilation of classic family moments.",
-      "popularity": 2.2696,
-      "poster_path": "/lnllybMv0XVxClYf0dXGXKnANj3.jpg",
-      "production_companies": [],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-04-11",
-          "episode_count": 7,
-          "id": 509447,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/kJiILxXEzSfvwPlMXdrCyzUAWXk.jpg",
-          "season_number": 1,
-          "vote_average": 7.8
-        },
-        {
-          "air_date": "2026-06-27",
-          "episode_count": 6,
-          "id": 524639,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": null,
-          "season_number": 2,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Reality",
-      "vote_average": 5.5,
-      "vote_count": 2,
+      "vote_average": 8.809,
+      "vote_count": 89,
       "media_type": "tv"
     }
   ]
