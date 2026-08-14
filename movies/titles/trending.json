@@ -2,6 +2,175 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/yzdMGn8IRHSGuV8AIzw19wkRU2W.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 10402,
+          "name": "Music"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81975622",
+      "id": 1504358,
+      "imdb_id": "tt36590417",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Don't Say Good Luck",
+      "overview": "Sophie Birenbaum is ready for the spotlight as the lead in her high school musical — until suddenly she’s living with even more drama at home than on the stage.",
+      "popularity": 3.2509,
+      "poster_path": "/w3NNwo7kImaJS7fL6YlBsJx0i6R.jpg",
+      "production_companies": [
+        {
+          "id": 147257,
+          "logo_path": null,
+          "name": "Original Headquarters",
+          "origin_country": ""
+        },
+        {
+          "id": 236263,
+          "logo_path": "/y17qPymSqFnCAsCQMF1VszHDl4h.png",
+          "name": "Range Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 878,
+          "logo_path": "/s5j0xnTXvglZoz49CUaQclVv3s9.png",
+          "name": "Happy Madison Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-08-14",
+      "revenue": 0,
+      "runtime": 95,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Don't Say Good Luck",
+      "video": false,
+      "vote_average": 5.0,
+      "vote_count": 1,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jIU5tUicaKXKKOmziCdstBCiG1z.jpg",
+      "belongs_to_collection": {
+        "id": 148055,
+        "name": "Camp Rock Collection",
+        "poster_path": "/4xOyXRsjxcKlgNWaBRvagtRF59Y.jpg",
+        "backdrop_path": "/itL2G9nPEaB6VD7ShsMSVqM1bSO.jpg"
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 10402,
+          "name": "Music"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10770,
+          "name": "TV Movie"
+        }
+      ],
+      "homepage": "https://www.disneyplus.com/browse/entity-db450dbe-0450-473e-ad79-a89ad39d2aa7",
+      "id": 1493400,
+      "imdb_id": "tt6743524",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Camp Rock 3",
+      "overview": "When Connect 3 loses their opening act for a major reunion tour, they return to their beloved Camp Rock to discover the next big thing. As campers vie for the chance to open for their favorite band, tensions rise and friendships are tested - leading to unexpected alliances, revelations, and romances.",
+      "popularity": 10.6909,
+      "poster_path": "/8wI9KByZtzBMWOzDFjxHPSOAuOH.jpg",
+      "production_companies": [
+        {
+          "id": 274572,
+          "logo_path": null,
+          "name": "Copper Cup Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 5698,
+          "logo_path": "/meGyUgXybl2X0uJlnvaAWSwVZvt.png",
+          "name": "Oops Doughnuts Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 145809,
+          "logo_path": "/sJYZwzi0kL9QTTDdnWfhA1Gbhj3.png",
+          "name": "Chorus Boy",
+          "origin_country": "US"
+        },
+        {
+          "id": 301764,
+          "logo_path": "/ajjamIKaJPMSRBoNShIpf2l0OzC.png",
+          "name": "Disney Kids & Family",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "CA",
+          "name": "Canada"
+        }
+      ],
+      "release_date": "2026-08-13",
+      "revenue": 0,
+      "runtime": 0,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Summer is back in session.",
+      "title": "Camp Rock 3",
+      "video": false,
+      "vote_average": 10.0,
+      "vote_count": 3,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
       "belongs_to_collection": {
         "id": 531241,
@@ -33,7 +202,7 @@
       "original_language": "en",
       "original_title": "Spider-Man: Brand New Day",
       "overview": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
-      "popularity": 1065.0058,
+      "popularity": 1006.0211,
       "poster_path": "/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
       "production_companies": [
         {
@@ -68,7 +237,7 @@
         }
       ],
       "release_date": "2026-07-29",
-      "revenue": 1708805242,
+      "revenue": 1812566077,
       "runtime": 145,
       "softcore": false,
       "spoken_languages": [
@@ -82,8 +251,8 @@
       "tagline": "A brand new day starts now.",
       "title": "Spider-Man: Brand New Day",
       "video": false,
-      "vote_average": 7.859,
-      "vote_count": 1618,
+      "vote_average": 7.875,
+      "vote_count": 1667,
       "media_type": "movie"
     },
     {
@@ -127,7 +296,7 @@
       "original_language": "en",
       "original_title": "Minions & Monsters",
       "overview": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the planet from the mayhem they had just created.",
-      "popularity": 344.0984,
+      "popularity": 332.7628,
       "poster_path": "/nz7i42yhLIJ4ve9JKgM6NthoLHO.jpg",
       "production_companies": [
         {
@@ -169,82 +338,8 @@
       "tagline": "Hollywood has a monster problem.",
       "title": "Minions & Monsters",
       "video": false,
-      "vote_average": 7.209,
-      "vote_count": 485,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
-      "belongs_to_collection": null,
-      "budget": 250000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://www.universalpictures.com/movies/the-odyssey",
-      "id": 1368337,
-      "imdb_id": "tt33764258",
-      "origin_country": [
-        "GB",
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Odyssey",
-      "overview": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
-      "popularity": 862.2605,
-      "poster_path": "/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
-      "production_companies": [
-        {
-          "id": 33,
-          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
-          "name": "Universal Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 9996,
-          "logo_path": "/3tvBqYsBhxWeHlu62SIJ1el93O7.png",
-          "name": "Syncopy",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-07-15",
-      "revenue": 1122074345,
-      "runtime": 173,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Defy the gods.",
-      "title": "The Odyssey",
-      "video": false,
-      "vote_average": 8.0,
-      "vote_count": 2681,
+      "vote_average": 7.299,
+      "vote_count": 528,
       "media_type": "movie"
     },
     {
@@ -275,8 +370,8 @@
       "original_language": "en",
       "original_title": "The End of Oak Street",
       "overview": "After a mysterious cosmic event rips Oak Street from suburbia and transports their neighborhood to someplace unknown, the Platt family soon discovers that their very survival depends on them sticking together as they navigate their now unrecognizable surroundings.",
-      "popularity": 112.6153,
-      "poster_path": "/3SifFCwwFzXdU1Ew0nA4Z92Bs15.jpg",
+      "popularity": 133.9196,
+      "poster_path": "/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
       "production_companies": [
         {
           "id": 174,
@@ -318,80 +413,131 @@
           "english_name": "English",
           "iso_639_1": "en",
           "name": "English"
-        },
-        {
-          "english_name": "German",
-          "iso_639_1": "de",
-          "name": "Deutsch"
         }
       ],
       "status": "Released",
       "tagline": "Where goes the neighborhood.",
       "title": "The End of Oak Street",
       "video": false,
-      "vote_average": 7.0,
-      "vote_count": 44,
+      "vote_average": 7.138,
+      "vote_count": 65,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/pWvYluV8GNWQJRC4IdrZuJPLwzO.jpg",
+      "backdrop_path": "/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
       "belongs_to_collection": null,
-      "budget": 0,
+      "budget": 250000000,
       "genres": [
         {
-          "id": 18,
-          "name": "Drama"
+          "id": 12,
+          "name": "Adventure"
         },
         {
-          "id": 53,
-          "name": "Thriller"
+          "id": 28,
+          "name": "Action"
         },
         {
-          "id": 80,
-          "name": "Crime"
+          "id": 14,
+          "name": "Fantasy"
         }
       ],
-      "homepage": "http://netflix.com/title/81765140",
-      "id": 1487864,
-      "imdb_id": "tt43640198",
+      "homepage": "https://www.universalpictures.com/movies/the-odyssey",
+      "id": 1368337,
+      "imdb_id": "tt33764258",
       "origin_country": [
-        "BR"
+        "GB",
+        "US"
       ],
-      "original_language": "pt",
-      "original_title": "Nando Entre Dois Mundos: Um Filme Sintonia",
-      "overview": "Caught between family life and his obligations to the criminal underworld, Nando faces an impossible choice about where his true loyalties lie.",
-      "popularity": 25.0432,
-      "poster_path": "/lP558W6RgDYaQvs9GKNGPUhVOLU.jpg",
+      "original_language": "en",
+      "original_title": "The Odyssey",
+      "overview": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+      "popularity": 817.7806,
+      "poster_path": "/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
       "production_companies": [
         {
-          "id": 4243,
-          "logo_path": "/1HE2IvZ6DLRHHl7ZCk5tXzzj6jD.png",
-          "name": "Gullane Entretenimento",
-          "origin_country": "BR"
+          "id": 33,
+          "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+          "name": "Universal Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 9996,
+          "logo_path": "/3tvBqYsBhxWeHlu62SIJ1el93O7.png",
+          "name": "Syncopy",
+          "origin_country": "GB"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "BR",
-          "name": "Brazil"
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
-      "release_date": "2026-08-12",
-      "revenue": 0,
-      "runtime": 109,
+      "release_date": "2026-07-15",
+      "revenue": 1122074345,
+      "runtime": 173,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        },
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Defy the gods.",
+      "title": "The Odyssey",
+      "video": false,
+      "vote_average": 7.998,
+      "vote_count": 2713,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/oAFBdUTyyJZ7EMImZAdMGuPvt6V.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
         {
-          "english_name": "Portuguese",
-          "iso_639_1": "pt",
-          "name": "Português"
-        },
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "",
+      "id": 1589248,
+      "imdb_id": "tt38662472",
+      "origin_country": [
+        "DE"
+      ],
+      "original_language": "de",
+      "original_title": "Mein bester Freund, seine Freundin und ich",
+      "overview": "For Olli, one thing is clear: his best friend Matze has obviously been brainwashed by his new girlfriend Rebecca. Her disastrous influence not only jeopardizes their friendship, but above all the trip around the world that Olli and Matze have been planning for years, down to the last detail. So there is only one solution: Rebecca must be stopped! Together with his buddy Schmitti, Olli goes on the offensive. But to everyone's surprise, Rebecca also has a few tricks up her sleeve. The battle is on.",
+      "popularity": 2.1977,
+      "poster_path": "/aWLshM7DZECutuQVpMfhDiPZUQC.jpg",
+      "production_companies": [
+        {
+          "id": 40788,
+          "logo_path": "/ydsYNksXNi0NzkCDSjnpsPRUCGI.png",
+          "name": "Wiedemann & Berg Television",
+          "origin_country": "DE"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "DE",
+          "name": "Germany"
+        }
+      ],
+      "release_date": "2026-08-14",
+      "revenue": 0,
+      "runtime": 0,
+      "softcore": false,
+      "spoken_languages": [
         {
           "english_name": "German",
           "iso_639_1": "de",
@@ -400,10 +546,10 @@
       ],
       "status": "Released",
       "tagline": "",
-      "title": "Nando Between Two Worlds - A Sintonia Film",
+      "title": "My Best Friend, His Girlfriend and Me",
       "video": false,
-      "vote_average": 2.6,
-      "vote_count": 5,
+      "vote_average": 0.0,
+      "vote_count": 0,
       "media_type": "movie"
     },
     {
@@ -434,7 +580,7 @@
       "original_language": "en",
       "original_title": "The Invite",
       "overview": "Joe and Angela's marriage is on thin ice. When they invite their enigmatic upstairs neighbors for a dinner party, the night spirals into unexpected places. Have they reignited the spark or lit the match that burns it all down?",
-      "popularity": 100.8765,
+      "popularity": 111.0871,
       "poster_path": "/b7Dr8Chzse8VagexAporUu2RtLx.jpg",
       "production_companies": [
         {
@@ -487,77 +633,8 @@
       "tagline": "It'll be fun.",
       "title": "The Invite",
       "video": false,
-      "vote_average": 7.5,
-      "vote_count": 171,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/2mPmccLg8QCD4ZF6v8kSsUijPPW.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81914143",
-      "id": 1284041,
-      "imdb_id": "tt32268156",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Last House",
-      "overview": "A family suddenly sealed inside their home must work together to survive against dwindling resources and the ominous threat keeping them trapped.",
-      "popularity": 388.6318,
-      "poster_path": "/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
-      "production_companies": [
-        {
-          "id": 7076,
-          "logo_path": "/8BFxn9NUWSgp0ndih569Gm62xiC.png",
-          "name": "Chernin Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 787,
-          "logo_path": "/cCefBs1t7jxtiz3eCxBp9yxrxGx.png",
-          "name": "3 Arts Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-08-06",
-      "revenue": 0,
-      "runtime": 110,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "How long can you survive?",
-      "title": "The Last House",
-      "video": false,
-      "vote_average": 6.871,
-      "vote_count": 520,
+      "vote_average": 7.468,
+      "vote_count": 190,
       "media_type": "movie"
     },
     {
@@ -584,7 +661,7 @@
       "original_language": "en",
       "original_title": "Obsession",
       "overview": "After breaking the mysterious \"One Wish Willow\" to win his crush's heart, a hopeless romantic finds himself getting exactly what he asked for but soon discovers that some desires come at a dark, sinister price.",
-      "popularity": 293.7814,
+      "popularity": 248.3267,
       "poster_path": "/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg",
       "production_companies": [
         {
@@ -623,7 +700,7 @@
         }
       ],
       "release_date": "2026-05-13",
-      "revenue": 488181025,
+      "revenue": 488211055,
       "runtime": 109,
       "softcore": false,
       "spoken_languages": [
@@ -637,8 +714,514 @@
       "tagline": "Be careful who you wish for…",
       "title": "Obsession",
       "video": false,
-      "vote_average": 8.23,
-      "vote_count": 4605,
+      "vote_average": 8.2,
+      "vote_count": 4632,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/6yLIoPWFKwXO2ChTTk6NyNT7Lk2.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81947296",
+      "id": 1632473,
+      "imdb_id": "tt39741670",
+      "origin_country": [
+        "PH"
+      ],
+      "original_language": "tl",
+      "original_title": "Ganito, Ganyan, Ganoon",
+      "overview": "A TV writer returns home to her estranged mother, igniting chaos as they navigate painful secrets and the  complexities of their dysfunctional family.",
+      "popularity": 12.4127,
+      "poster_path": "/voT1x4FdnBieu1en3CeKhf7N0n8.jpg",
+      "production_companies": [
+        {
+          "id": 205809,
+          "logo_path": "/rX4stwQ5tKXhb7Tb10DTMx121tQ.png",
+          "name": "Unitel Straight Shooters",
+          "origin_country": "PH"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "PH",
+          "name": "Philippines"
+        }
+      ],
+      "release_date": "2026-08-13",
+      "revenue": 0,
+      "runtime": 112,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Tagalog",
+          "iso_639_1": "tl",
+          "name": ""
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "This, That and Everything in Between",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2mPmccLg8QCD4ZF6v8kSsUijPPW.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81914143",
+      "id": 1284041,
+      "imdb_id": "tt32268156",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "The Last House",
+      "overview": "A family suddenly sealed inside their home must work together to survive against dwindling resources and the ominous threat keeping them trapped.",
+      "popularity": 375.692,
+      "poster_path": "/6JU7E8Vv2M11egkctWVOScxWR75.jpg",
+      "production_companies": [
+        {
+          "id": 7076,
+          "logo_path": "/8BFxn9NUWSgp0ndih569Gm62xiC.png",
+          "name": "Chernin Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 787,
+          "logo_path": "/cCefBs1t7jxtiz3eCxBp9yxrxGx.png",
+          "name": "3 Arts Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-08-06",
+      "revenue": 0,
+      "runtime": 110,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "How long can you survive?",
+      "title": "The Last House",
+      "video": false,
+      "vote_average": 6.928,
+      "vote_count": 574,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/54KIfdTEzOliHDKx0OkzYGqAICx.jpg",
+      "belongs_to_collection": null,
+      "budget": 175000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://www.supergirlmovie.com",
+      "id": 1081003,
+      "imdb_id": "tt8814476",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Supergirl",
+      "overview": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
+      "popularity": 204.0723,
+      "poster_path": "/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
+      "production_companies": [
+        {
+          "id": 184898,
+          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
+          "name": "DC Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 94218,
+          "logo_path": "/kxuhS8wyKtVprOn5nckdHyNuSg1.png",
+          "name": "Troll Court Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 11565,
+          "logo_path": "/odU3l6csuBmXUrzFm6araUgEUHQ.png",
+          "name": "The Safran Company",
+          "origin_country": "US"
+        },
+        {
+          "id": 216687,
+          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
+          "name": "Domain Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-06-24",
+      "revenue": 126253294,
+      "runtime": 108,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Truth. Justice. Whatever.",
+      "title": "Supergirl",
+      "video": false,
+      "vote_average": 6.736,
+      "vote_count": 1815,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/pWvYluV8GNWQJRC4IdrZuJPLwzO.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
+        }
+      ],
+      "homepage": "http://netflix.com/title/81765140",
+      "id": 1487864,
+      "imdb_id": "tt43640198",
+      "origin_country": [
+        "BR"
+      ],
+      "original_language": "pt",
+      "original_title": "Nando Entre Dois Mundos: Um Filme Sintonia",
+      "overview": "Caught between family life and his obligations to the criminal underworld, Nando faces an impossible choice about where his true loyalties lie.",
+      "popularity": 54.0638,
+      "poster_path": "/lP558W6RgDYaQvs9GKNGPUhVOLU.jpg",
+      "production_companies": [
+        {
+          "id": 4243,
+          "logo_path": "/1HE2IvZ6DLRHHl7ZCk5tXzzj6jD.png",
+          "name": "Gullane Entretenimento",
+          "origin_country": "BR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "BR",
+          "name": "Brazil"
+        }
+      ],
+      "release_date": "2026-08-12",
+      "revenue": 0,
+      "runtime": 109,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "Portuguese",
+          "iso_639_1": "pt",
+          "name": "Português"
+        },
+        {
+          "english_name": "German",
+          "iso_639_1": "de",
+          "name": "Deutsch"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Nando Between Two Worlds - A Sintonia Film",
+      "video": false,
+      "vote_average": 3.3,
+      "vote_count": 7,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/dqmMWNWfLnExDRpMtIMqI97GQFR.jpg",
+      "belongs_to_collection": null,
+      "budget": 10000000,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        }
+      ],
+      "homepage": "https://app.a24films.com/release/backrooms/522",
+      "id": 1083381,
+      "imdb_id": "tt26657236",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Backrooms",
+      "overview": "A strange doorway appears in the basement of a furniture showroom.",
+      "popularity": 152.346,
+      "poster_path": "/rhGx6E3qRNMgj3i5su2oukNHwIQ.jpg",
+      "production_companies": [
+        {
+          "id": 76907,
+          "logo_path": "/ygMQtjsKX7BZkCQhQZY82lgnCUO.png",
+          "name": "Atomic Monster",
+          "origin_country": "US"
+        },
+        {
+          "id": 2575,
+          "logo_path": "/9YJrHYlcfHtwtulkFMAies3aFEl.png",
+          "name": "21 Laps Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 41077,
+          "logo_path": "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
+          "name": "A24",
+          "origin_country": "US"
+        },
+        {
+          "id": 262307,
+          "logo_path": "/Yt9QqQjZzvdZCRLN5vGoi3dc8n.png",
+          "name": "Phobos",
+          "origin_country": "CA"
+        },
+        {
+          "id": 251729,
+          "logo_path": "/lKT1JrDNMwC9M3HvQQCofbiYtRr.png",
+          "name": "The North Road Company",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "CA",
+          "name": "Canada"
+        }
+      ],
+      "release_date": "2026-05-27",
+      "revenue": 393127430,
+      "runtime": 111,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "See how far it goes.",
+      "title": "Backrooms",
+      "video": false,
+      "vote_average": 7.101,
+      "vote_count": 2732,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jJ3SrQoGsCa6xMfbfgB19OazGwX.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 99,
+          "name": "Documentary"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81712344",
+      "id": 1616131,
+      "imdb_id": "tt37961750",
+      "origin_country": [
+        "MX"
+      ],
+      "original_language": "es",
+      "original_title": "Un hijo propio",
+      "overview": "Desperate for a baby and burdened by family and societal expectations, a woman fakes a pregnancy and gets tangled in a crime.",
+      "popularity": 8.666,
+      "poster_path": "/4ALVUEb2PCIFDNCD88xTFJFCJ3q.jpg",
+      "production_companies": [
+        {
+          "id": 286514,
+          "logo_path": null,
+          "name": "Micromundo Producciones",
+          "origin_country": "CL"
+        },
+        {
+          "id": 196729,
+          "logo_path": "/1TENbycPTrTDYwXnuFerFm73r8f.png",
+          "name": "Gato Grande Productions",
+          "origin_country": "MX"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CL",
+          "name": "Chile"
+        },
+        {
+          "iso_3166_1": "MX",
+          "name": "Mexico"
+        }
+      ],
+      "release_date": "2026-07-30",
+      "revenue": 0,
+      "runtime": 96,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "A Child of My Own",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 2,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/sJBASJrAnbpDeQNGwbLRLx5s1nS.jpg",
+      "belongs_to_collection": {
+        "id": 1726913,
+        "name": "Awarapan Collection",
+        "poster_path": null,
+        "backdrop_path": null
+      },
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10749,
+          "name": "Romance"
+        }
+      ],
+      "homepage": "",
+      "id": 1444466,
+      "imdb_id": "tt36300841",
+      "origin_country": [
+        "IN"
+      ],
+      "original_language": "hi",
+      "original_title": "आवारापन २",
+      "overview": "19 years later, Shivam is back. A man haunted by grief and loss, searching for a purpose for his life.",
+      "popularity": 5.2966,
+      "poster_path": "/lD3J6zTbWkVtPYuSUuuBwpuKMCO.jpg",
+      "production_companies": [
+        {
+          "id": 3749,
+          "logo_path": "/vSqS9ovkpql7VN1HwTYwR5KexrB.png",
+          "name": "Vishesh Films",
+          "origin_country": "IN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "IN",
+          "name": "India"
+        }
+      ],
+      "release_date": "2026-08-14",
+      "revenue": 0,
+      "runtime": 140,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
+        }
+      ],
+      "status": "Released",
+      "tagline": "",
+      "title": "Awarapan 2",
+      "video": false,
+      "vote_average": 0.0,
+      "vote_count": 0,
       "media_type": "movie"
     },
     {
@@ -674,7 +1257,7 @@
       "original_language": "en",
       "original_title": "Young Washington",
       "overview": "Before he led a nation, George Washington was a young soldier thrown into a global conflict. With alliances crumbling and war closing in, he must choose who to trust and confront the leader he's becoming.",
-      "popularity": 49.7929,
+      "popularity": 46.5997,
       "poster_path": "/6CdoTKnRQHJkjRGxTefFGkPQplB.jpg",
       "production_companies": [
         {
@@ -755,189 +1338,8 @@
       "tagline": "250 years of history begins with one man.",
       "title": "Young Washington",
       "video": false,
-      "vote_average": 7.806,
-      "vote_count": 49,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/54KIfdTEzOliHDKx0OkzYGqAICx.jpg",
-      "belongs_to_collection": null,
-      "budget": 175000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://www.supergirlmovie.com",
-      "id": 1081003,
-      "imdb_id": "tt8814476",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Supergirl",
-      "overview": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
-      "popularity": 248.9535,
-      "poster_path": "/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
-      "production_companies": [
-        {
-          "id": 184898,
-          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
-          "name": "DC Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 94218,
-          "logo_path": "/kxuhS8wyKtVprOn5nckdHyNuSg1.png",
-          "name": "Troll Court Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 11565,
-          "logo_path": "/odU3l6csuBmXUrzFm6araUgEUHQ.png",
-          "name": "The Safran Company",
-          "origin_country": "US"
-        },
-        {
-          "id": 216687,
-          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
-          "name": "Domain Entertainment",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-24",
-      "revenue": 126253294,
-      "runtime": 108,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Truth. Justice. Whatever.",
-      "title": "Supergirl",
-      "video": false,
-      "vote_average": 6.75,
-      "vote_count": 1798,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/9XwQphZxNJgGASfjL58mhIkJJpf.jpg",
-      "belongs_to_collection": null,
-      "budget": 20000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.lionsgate.com/movies/the-furious",
-      "id": 1280738,
-      "imdb_id": "tt33311069",
-      "origin_country": [
-        "CN",
-        "HK"
-      ],
-      "original_language": "zh",
-      "original_title": "火遮眼",
-      "overview": "After a criminal network kidnaps Wang Wei's daughter and the corrupt police refuse to assist him, Wei sets out on his own to locate her. Navin, a tenacious journalist whose wife has mysteriously vanished, is his only ally. In this explosive martial arts showdown, the unlikely duo fights the kidnappers ruthlessly driven by a furious vengeance.",
-      "popularity": 83.7546,
-      "poster_path": "/zP19YO60jwEsfKd5Qf1UvA5uJu8.jpg",
-      "production_companies": [
-        {
-          "id": 10284,
-          "logo_path": "/u0FCdiR026xbEbuY4yqaKj9Lf2O.png",
-          "name": "Edko Films",
-          "origin_country": "HK"
-        },
-        {
-          "id": 12142,
-          "logo_path": "/rPnEeMwxjI6rYMGqkWqIWwIJXxi.png",
-          "name": "XYZ Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 131092,
-          "logo_path": "/dtsMvAgTenOlDWnqaa4pEovx6d5.png",
-          "name": "Zhejiang Hengdian Film Production",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "HK",
-          "name": "Hong Kong"
-        },
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "release_date": "2026-06-10",
-      "revenue": 36653413,
-      "runtime": 113,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Indonesian",
-          "iso_639_1": "id",
-          "name": "Bahasa indonesia"
-        },
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        },
-        {
-          "english_name": "Tagalog",
-          "iso_639_1": "tl",
-          "name": ""
-        },
-        {
-          "english_name": "Thai",
-          "iso_639_1": "th",
-          "name": "ภาษาไทย"
-        }
-      ],
-      "status": "Released",
-      "tagline": "To save their loved ones, they will fight everyone.",
-      "title": "The Furious",
-      "video": false,
-      "vote_average": 7.763,
-      "vote_count": 399,
+      "vote_average": 7.8,
+      "vote_count": 54,
       "media_type": "movie"
     },
     {
@@ -964,7 +1366,7 @@
       "original_language": "en",
       "original_title": "Project Hail Mary",
       "overview": "Science teacher Ryland Grace wakes up on a spaceship light years from home with no recollection of who he is or how he got there. As his memory returns, he begins to uncover his mission: solve the riddle of the mysterious substance causing the sun to die out. He must call on his scientific knowledge and unorthodox ideas to save everything on Earth from extinction.",
-      "popularity": 138.522,
+      "popularity": 133.8338,
       "poster_path": "/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
       "production_companies": [
         {
@@ -1034,94 +1436,8 @@
       "tagline": "Believe in the Hail Mary.",
       "title": "Project Hail Mary",
       "video": false,
-      "vote_average": 8.656,
-      "vote_count": 6988,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/dUbP1HNdI0aCq1zgRJw28PWSqmk.jpg",
-      "belongs_to_collection": {
-        "id": 17178,
-        "name": "Jackass Collection",
-        "poster_path": "/gi1Ygc102Lw1R9gTNG7cJznSaev.jpg",
-        "backdrop_path": "/lidPLbyE1JCUacEDOzkTCncCPBL.jpg"
-      },
-      "budget": 10000000,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 99,
-          "name": "Documentary"
-        }
-      ],
-      "homepage": "https://www.paramountpictures.com/movies/jackass-best-and-last",
-      "id": 1612018,
-      "imdb_id": "tt39316472",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Jackass: Best and Last",
-      "overview": "The fifth and final installment to Jackass franchise where the crew go on one last insane crusade.",
-      "popularity": 53.6942,
-      "poster_path": "/tfgccePxnswMqhmtxafliLlcCVR.jpg",
-      "production_companies": [
-        {
-          "id": 4,
-          "logo_path": "/jay6WcMgagAklUt7i9Euwj1pzTF.png",
-          "name": "Paramount Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 6329,
-          "logo_path": "/4lZJiVHPClma8YB9hXodraFXSwi.png",
-          "name": "MTV Entertainment Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 216687,
-          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
-          "name": "Domain Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 6328,
-          "logo_path": null,
-          "name": "Dickhouse Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-25",
-      "revenue": 310282181,
-      "runtime": 92,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "One. Last. Ride.",
-      "title": "Jackass: Best and Last",
-      "video": false,
-      "vote_average": 7.6,
-      "vote_count": 106,
+      "vote_average": 8.7,
+      "vote_count": 7009,
       "media_type": "movie"
     },
     {
@@ -1149,7 +1465,7 @@
       "original_language": "en",
       "original_title": "Evil Dead Burn",
       "overview": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
-      "popularity": 271.5888,
+      "popularity": 226.54,
       "poster_path": "/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
       "production_companies": [
         {
@@ -1197,482 +1513,246 @@
       "tagline": "Every family has its demons.",
       "title": "Evil Dead Burn",
       "video": false,
-      "vote_average": 7.908,
-      "vote_count": 994,
+      "vote_average": 7.9,
+      "vote_count": 1025,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/lh3BDkmWJh998n4fQcHYcVi7dpm.jpg",
-      "belongs_to_collection": null,
-      "budget": 25000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        }
-      ],
-      "homepage": "https://a24films.com/films/the-death-of-robin-hood",
-      "id": 1284465,
-      "imdb_id": "tt32273171",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Death of Robin Hood",
-      "overview": "Grappling with his past after a life of crime and murder, Robin Hood finds himself gravely injured after a battle he thought would be his last. In the hands of a mysterious woman, he is offered a chance at salvation.",
-      "popularity": 261.4544,
-      "poster_path": "/92Tsfx7SFafOqWsotvrlJbHyehd.jpg",
-      "production_companies": [
-        {
-          "id": 180839,
-          "logo_path": "/v2A9SsZdaWpmZdXPf3I7Ajxn1Pc.png",
-          "name": "Lyrical Media",
-          "origin_country": "US"
-        },
-        {
-          "id": 172841,
-          "logo_path": "/MKTZVUIIWMjwpF58tGtAx8UXFs.png",
-          "name": "Ryder Picture Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-06-18",
-      "revenue": 3200000,
-      "runtime": 123,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "He was no hero.",
-      "title": "The Death of Robin Hood",
-      "video": false,
-      "vote_average": 6.296,
-      "vote_count": 203,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/8sSKdEmlmqF4kJUd28SqthXC4yZ.jpg",
+      "backdrop_path": "/6tROOVmV5vRymO2g52aR8kWlfoT.jpg",
       "belongs_to_collection": {
-        "id": 10194,
-        "name": "Toy Story Collection",
-        "poster_path": "/rki5qLuwb0xnnE9seehxO9TlLhW.jpg",
-        "backdrop_path": "/hApclyB9NEZEQujAVajzi5iWE4a.jpg"
+        "id": 1716673,
+        "name": "Cocktail Collection",
+        "poster_path": "/6b9rHUxGLJPs0IYgjfsOpVty14Y.jpg",
+        "backdrop_path": null
       },
-      "budget": 250000000,
+      "budget": 15872640,
       "genres": [
         {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
+          "id": 10749,
+          "name": "Romance"
         },
         {
           "id": 35,
           "name": "Comedy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
         }
       ],
-      "homepage": "https://movies.disney.com/toy-story-5",
-      "id": 1084244,
-      "imdb_id": "tt29355505",
+      "homepage": "",
+      "id": 1392469,
+      "imdb_id": "tt35064672",
       "origin_country": [
-        "US"
+        "IN"
       ],
-      "original_language": "en",
-      "original_title": "Toy Story 5",
-      "overview": "When Bonnie receives a Lilypad tablet as a gift and becomes obsessed, Buzz, Woody, Jessie and the rest of the gang's jobs become exponentially harder when they have to go head to head with the all-new threat to playtime.",
-      "popularity": 276.347,
-      "poster_path": "/sfQtVlIHljToOwYjhe21KPGzZWK.jpg",
+      "original_language": "hi",
+      "original_title": "कॉकटेल २",
+      "overview": "A vacation in Sicily forces longtime partners Diya and Kunal to question their love and commitment after they reunite with Diya's old friend Ally.",
+      "popularity": 6.5217,
+      "poster_path": "/oIQmtByV1LtEQSwM4EpdLTyoSlM.jpg",
       "production_companies": [
         {
-          "id": 3,
-          "logo_path": "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png",
-          "name": "Pixar",
-          "origin_country": "US"
+          "id": 86699,
+          "logo_path": "/tFikZRdCEuse5WRG2N7Z4YSNCxr.png",
+          "name": "Maddock Films",
+          "origin_country": "IN"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "IN",
+          "name": "India"
         }
       ],
-      "release_date": "2026-06-17",
-      "revenue": 1069518777,
-      "runtime": 102,
+      "release_date": "2026-06-19",
+      "revenue": 12947333,
+      "runtime": 149,
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "Portuguese",
-          "iso_639_1": "pt",
-          "name": "Português"
-        },
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "It's on.",
-      "title": "Toy Story 5",
-      "video": false,
-      "vote_average": 7.418,
-      "vote_count": 813,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/dqmMWNWfLnExDRpMtIMqI97GQFR.jpg",
-      "belongs_to_collection": null,
-      "budget": 10000000,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        }
-      ],
-      "homepage": "https://app.a24films.com/release/backrooms/522",
-      "id": 1083381,
-      "imdb_id": "tt26657236",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Backrooms",
-      "overview": "A strange doorway appears in the basement of a furniture showroom.",
-      "popularity": 162.347,
-      "poster_path": "/rhGx6E3qRNMgj3i5su2oukNHwIQ.jpg",
-      "production_companies": [
-        {
-          "id": 76907,
-          "logo_path": "/ygMQtjsKX7BZkCQhQZY82lgnCUO.png",
-          "name": "Atomic Monster",
-          "origin_country": "US"
-        },
-        {
-          "id": 2575,
-          "logo_path": "/9YJrHYlcfHtwtulkFMAies3aFEl.png",
-          "name": "21 Laps Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 41077,
-          "logo_path": "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
-          "name": "A24",
-          "origin_country": "US"
-        },
-        {
-          "id": 262307,
-          "logo_path": "/Yt9QqQjZzvdZCRLN5vGoi3dc8n.png",
-          "name": "Phobos",
-          "origin_country": "CA"
-        },
-        {
-          "id": 251729,
-          "logo_path": "/lKT1JrDNMwC9M3HvQQCofbiYtRr.png",
-          "name": "The North Road Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "CA",
-          "name": "Canada"
-        }
-      ],
-      "release_date": "2026-05-27",
-      "revenue": 393958642,
-      "runtime": 111,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "See how far it goes.",
-      "title": "Backrooms",
-      "video": false,
-      "vote_average": 7.1,
-      "vote_count": 2710,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/6yLIoPWFKwXO2ChTTk6NyNT7Lk2.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81947296",
-      "id": 1632473,
-      "imdb_id": "tt39741670",
-      "origin_country": [
-        "PH"
-      ],
-      "original_language": "tl",
-      "original_title": "Ganito, Ganyan, Ganoon",
-      "overview": "A TV writer returns home to her estranged mother, igniting chaos as they navigate painful secrets and the  complexities of their dysfunctional family.",
-      "popularity": 1.4906,
-      "poster_path": "/voT1x4FdnBieu1en3CeKhf7N0n8.jpg",
-      "production_companies": [
-        {
-          "id": 205809,
-          "logo_path": "/rX4stwQ5tKXhb7Tb10DTMx121tQ.png",
-          "name": "Unitel Straight Shooters",
-          "origin_country": "PH"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "PH",
-          "name": "Philippines"
-        }
-      ],
-      "release_date": "2026-08-13",
-      "revenue": 0,
-      "runtime": 112,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Tagalog",
-          "iso_639_1": "tl",
-          "name": ""
+          "english_name": "Hindi",
+          "iso_639_1": "hi",
+          "name": "हिन्दी"
         }
       ],
       "status": "Released",
       "tagline": "",
-      "title": "This, That, and Everything in Between",
+      "title": "Cocktail 2",
       "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/s4v0UX1anfXm0UvloLsTTJ4v222.jpg",
-      "belongs_to_collection": {
-        "id": 86311,
-        "name": "The Avengers Collection",
-        "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
-        "backdrop_path": "/2UNUv4NJdC36E5myDHACBJ99EwL.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://www.marvel.com/movies/avengers-doomsday",
-      "id": 1003596,
-      "imdb_id": "tt21357150",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Avengers: Doomsday",
-      "overview": "Beloved heroes from three distinct universes are set on a deadly collision course and face an existential threat unlike anything they've ever encountered.",
-      "popularity": 57.8451,
-      "poster_path": "/bh2OuKvq19jBHsloUVCfPSZZw81.jpg",
-      "production_companies": [
-        {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 176762,
-          "logo_path": null,
-          "name": "Kevin Feige Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 106544,
-          "logo_path": "/psd84iF7PTGrKf4yFOStKj8JbAh.png",
-          "name": "AGBO",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-12-16",
-      "revenue": 0,
-      "runtime": 165,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Post Production",
-      "tagline": "",
-      "title": "Avengers: Doomsday",
-      "video": false,
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/6TSxLmwT7j1ugtKi8NyMmdzWAGj.jpg",
-      "belongs_to_collection": {
-        "id": 893731,
-        "name": "PAW Patrol (Theatrical) Collection",
-        "poster_path": "/5nOVo6a1NHyhlh1kn857YHAPapG.jpg",
-        "backdrop_path": "/gjHZbURgyqjBMHQICu3VZQf41gF.jpg"
-      },
-      "budget": 30000000,
-      "genres": [
-        {
-          "id": 12,
-          "name": "Adventure"
-        },
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
-        }
-      ],
-      "homepage": "https://www.paramountpictures.com/movies/paw-patrol-3-the-dino-movie",
-      "id": 1185806,
-      "imdb_id": "tt29356163",
-      "origin_country": [
-        "US",
-        "CA"
-      ],
-      "original_language": "en",
-      "original_title": "PAW Patrol: The Dino Movie",
-      "overview": "The Paw Patrol lands on a mysterious dinosaur island after a storm, where they meet Rex, a stranded pup. When Humdinger's reckless mining triggers a volcano, the team faces their biggest rescue mission yet to save the island.",
-      "popularity": 32.788,
-      "poster_path": "/qnin56Syy5rbG7KCaxWY7SPuy6p.jpg",
-      "production_companies": [
-        {
-          "id": 71738,
-          "logo_path": "/9SiK63A0hOmn3FiLCEqydtE1ZQW.png",
-          "name": "Spin Master",
-          "origin_country": "CA"
-        },
-        {
-          "id": 2348,
-          "logo_path": "/m31fQvZJuUvAgxoqTiCGYFBfZYe.png",
-          "name": "Nickelodeon Movies",
-          "origin_country": "US"
-        },
-        {
-          "id": 24955,
-          "logo_path": "/bX3cYCRWdddXTgIcDEfNiVa8U4j.png",
-          "name": "Paramount Animation",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CA",
-          "name": "Canada"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-07-23",
-      "revenue": 25000000,
-      "runtime": 88,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Adventure reaches new heights.",
-      "title": "PAW Patrol: The Dino Movie",
-      "video": false,
-      "vote_average": 7.4,
-      "vote_count": 22,
+      "vote_average": 5.8,
+      "vote_count": 20,
       "media_type": "movie"
     }
   ],
   "tv_shows": [
+    {
+      "adult": false,
+      "backdrop_path": "/uTWhbLc7Bj4qNSdW3ZvZKL8cOHv.jpg",
+      "created_by": [
+        {
+          "id": 21206,
+          "credit_id": "6404e86a021cee00da36d3be",
+          "name": "Graham Yost",
+          "original_name": "Graham Yost",
+          "gender": 2,
+          "profile_path": "/zbaUcbYdFU28bGoi6F2lJo0XUaX.jpg"
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2023-05-04",
+      "genres": [
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://tv.apple.com/show/umc.cmc.3yksgc857px0k0rqe5zd4jice",
+      "id": 125988,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-08-06",
+      "last_episode_to_air": {
+        "id": 7173963,
+        "name": "Radio",
+        "overview": "Juliette sends Lukas and Kennedy on a mission, as a desperate Camille threatens Robert to tell the truth.",
+        "vote_average": 4.538,
+        "vote_count": 13,
+        "air_date": "2026-08-13",
+        "episode_number": 7,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 56,
+        "season_number": 3,
+        "show_id": 125988,
+        "still_path": "/hT47PUyS6fQrmukmbyXrL9nBgKc.jpg"
+      },
+      "name": "Silo",
+      "next_episode_to_air": {
+        "id": 7173964,
+        "name": "Gray Goo",
+        "overview": "Knox's father Gus comes clean about a secret. Charlotte makes a life-changing decision.",
+        "vote_average": 1.0,
+        "vote_count": 2,
+        "air_date": "2026-08-20",
+        "episode_number": 8,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 56,
+        "season_number": 3,
+        "show_id": 125988,
+        "still_path": "/qZiRIiFbjCSttNe3uNHsi6hoxWV.jpg"
+      },
+      "networks": [
+        {
+          "id": 2552,
+          "logo_path": "/bngHRFi794mnMq34gfVcm9nDxN1.png",
+          "name": "Apple TV",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 30,
+      "number_of_seasons": 4,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Silo",
+      "overview": "In a ruined and toxic future, thousands live in a giant silo deep underground. After its sheriff breaks a cardinal rule and residents die mysteriously, engineer Juliette starts to uncover shocking secrets and the truth about the silo.",
+      "popularity": 200.8542,
+      "poster_path": "/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
+      "production_companies": [
+        {
+          "id": 23242,
+          "logo_path": "/ucE6dN6pUPfZHH5JlXkq44TDUMS.png",
+          "name": "AMC Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 65105,
+          "logo_path": null,
+          "name": "Nemofilms",
+          "origin_country": "US"
+        },
+        {
+          "id": 199363,
+          "logo_path": null,
+          "name": "Mimir Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 194232,
+          "logo_path": "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
+          "name": "Apple Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2023-05-04",
+          "episode_count": 10,
+          "id": 196076,
+          "name": "Season 1",
+          "overview": "In a bleak dystopian future, humanity clings to survival deep underground within the confines of a colossal silo. Juliette, an engineer tasked with unraveling the mystery behind the death of a colleague, uncovers startling secrets that threaten the very fabric of their enclosed world.",
+          "poster_path": "/ay0fwyIFEZ71NBXzyaN6d0OGxgu.jpg",
+          "season_number": 1,
+          "vote_average": 7.0
+        },
+        {
+          "air_date": "2024-11-14",
+          "episode_count": 10,
+          "id": 404198,
+          "name": "Season 2",
+          "overview": "Stranded outside her silo with a failing suit, Juliette Nichols races against time, stunned to find another silo nearby that could be her only hope for survival. Meanwhile, unrest brews inside her original silo as Bernard Holland rallies citizens to maintain order amid rising questions about their world. As Juliette faces unexpected dangers near the new silo, hidden truths about the silos’ origins and the world beyond begin to surface, deepening the mystery.",
+          "poster_path": "/rY2LTYNkLdfWJAoa7whge0HGFik.jpg",
+          "season_number": 2,
+          "vote_average": 6.5
+        },
+        {
+          "air_date": "2026-07-02",
+          "episode_count": 10,
+          "id": 512220,
+          "name": "Season 3",
+          "overview": "Season three reveals an origin story set centuries earlier, while continuing the saga of a dystopian society of 10,000 people living underground under mysterious circumstances. In the present, Juliette Nichols survives her forced \"cleaning\" but returns with memory loss as the silo recovers from rebellion and faces a dangerous new threat. Meanwhile, in the \"Before Times,\" journalist Helen Drew and Congressman Daniel Keene uncover a conspiracy that pulls them into a chain of events with catastrophic, irreversible consequences.",
+          "poster_path": "/eviZTbKOXOeSaR268iJ9yqtwTNU.jpg",
+          "season_number": 3,
+          "vote_average": 5.4
+        },
+        {
+          "air_date": null,
+          "episode_count": 0,
+          "id": 532506,
+          "name": "Season 4",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 4,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "The key to the future lies in the past.",
+      "type": "Scripted",
+      "vote_average": 8.191,
+      "vote_count": 2414,
+      "media_type": "tv"
+    },
     {
       "adult": false,
       "backdrop_path": "/pF0qkRsrHkdYadPWY9AMeFZfcwk.jpg",
@@ -1713,8 +1793,8 @@
         "id": 7438863,
         "name": "One Small Step",
         "overview": "Reacher learns that things are more complex than they seem as he and Lila draw closer. Meanwhile, Tamara, Jacob, and Plum find an important clue after another attack from one of their mysterious adversaries sends them back to Philadelphia.",
-        "vote_average": 2.5,
-        "vote_count": 5,
+        "vote_average": 4.95,
+        "vote_count": 10,
         "air_date": "2026-08-12",
         "episode_number": 3,
         "episode_type": "standard",
@@ -1730,7 +1810,7 @@
         "name": "Karambits and Pieces",
         "overview": "Reacher interrogates Sampson, Tamara breaks into a government facility, Jacob receives some crushing news and the team learns a piece of information that changes everything.",
         "vote_average": 1.0,
-        "vote_count": 2,
+        "vote_count": 3,
         "air_date": "2026-08-19",
         "episode_number": 4,
         "episode_type": "standard",
@@ -1756,7 +1836,7 @@
       "original_language": "en",
       "original_name": "Reacher",
       "overview": "Jack Reacher, a veteran military police investigator, has just recently entered civilian life. Reacher is a drifter, carrying no phone and the barest of essentials as he travels the country and explores the nation he once served.",
-      "popularity": 323.2214,
+      "popularity": 425.4143,
       "poster_path": "/f1VCQIG2iCyOookdgOzwtUpwWC0.jpg",
       "production_companies": [
         {
@@ -1813,7 +1893,7 @@
           "id": 364732,
           "name": "Season 2",
           "overview": "Based on \"Bad Luck and Trouble,\" when members of Reacher's old military unit start turning up dead, Reacher has just one thing on his mind—revenge.",
-          "poster_path": "/rQRe3ydBYGoyr1mgxUeGHVs2lw5.jpg",
+          "poster_path": "/jFuH0md41x5mB4qj5344mSmtHrO.jpg",
           "season_number": 2,
           "vote_average": 6.7
         },
@@ -1825,7 +1905,7 @@
           "overview": "Based on \"Persuader,\" Reacher hurtles into the dark heart of a vast criminal enterprise when trying to rescue an undercover DEA informant whose time is running out. There he finds a world of secrecy and violence—and confronts some unfinished business from his own past.",
           "poster_path": "/31GlRQMiDunO8cl3NxTz34U64rf.jpg",
           "season_number": 3,
-          "vote_average": 7.2
+          "vote_average": 7.3
         },
         {
           "air_date": "2026-08-12",
@@ -1835,7 +1915,7 @@
           "overview": "Based on \"Gone Tomorrow,\" when a chance encounter with a distraught stranger on a subway goes horribly wrong, Jack Reacher is drawn into a complex and deadly game that pits him against ruthless foes from the highest echelons of power.",
           "poster_path": "/f1VCQIG2iCyOookdgOzwtUpwWC0.jpg",
           "season_number": 4,
-          "vote_average": 3.0
+          "vote_average": 4.2
         }
       ],
       "softcore": false,
@@ -1850,105 +1930,100 @@
       "tagline": "Reacher's back.",
       "type": "Scripted",
       "vote_average": 8.1,
-      "vote_count": 3022,
+      "vote_count": 3037,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/jIyEmnBrZtl6SEWyBoMO2hZnzMa.jpg",
-      "created_by": [],
-      "episode_run_time": [],
-      "first_air_date": "2024-03-20",
-      "genres": [
+      "backdrop_path": "/5ErhLuuVrxlNa2JiRzXfo0U10uZ.jpg",
+      "created_by": [
         {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        },
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
+          "id": 1251885,
+          "credit_id": "6958514e02500da7574af163",
+          "name": "Liz Doran",
+          "original_name": "Liz Doran",
+          "gender": 1,
+          "profile_path": "/imyFYZqYHI4s2VSasb7VpFHwvSj.jpg"
         }
       ],
-      "homepage": "https://www.disneyplus.com/series/x-men-97/vc1XIz90ZNH5",
-      "id": 138502,
+      "episode_run_time": [],
+      "first_air_date": "2026-08-13",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10751,
+          "name": "Family"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81655060",
+      "id": 309798,
       "in_production": true,
       "languages": [
         "en"
       ],
-      "last_air_date": "2026-08-12",
+      "last_air_date": "2026-08-13",
       "last_episode_to_air": {
-        "id": 7383319,
-        "name": "Survival of the Fittest",
-        "overview": "The X-Men are pushed to their limits as their past comes back to haunt them.",
-        "vote_average": 9.0,
-        "vote_count": 4,
-        "air_date": "2026-08-12",
-        "episode_number": 9,
+        "id": 7073795,
+        "name": "TA TA",
+        "overview": "Sybylla struggles as a governess but amid chaotic classrooms and never-ending chores, she realizes the value of sacrifice and pursuing her dreams.",
+        "vote_average": 4.0,
+        "vote_count": 3,
+        "air_date": "2026-08-13",
+        "episode_number": 6,
         "episode_type": "finale",
         "production_code": "",
-        "runtime": 32,
-        "season_number": 2,
-        "show_id": 138502,
-        "still_path": "/4ZS9gq1GkqyWM4GgJhSnAHUMvpr.jpg"
+        "runtime": 39,
+        "season_number": 1,
+        "show_id": 309798,
+        "still_path": "/owUF45f9hWVQcFmASj10TYdHvdW.jpg"
       },
-      "name": "X-Men '97",
+      "name": "My Brilliant Career",
       "next_episode_to_air": null,
       "networks": [
         {
-          "id": 2739,
-          "logo_path": "/1edZOYAfoyZyZ3rklNSiUpXX30Q.png",
-          "name": "Disney+",
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
           "origin_country": ""
         }
       ],
-      "number_of_episodes": 19,
-      "number_of_seasons": 2,
+      "number_of_episodes": 6,
+      "number_of_seasons": 1,
       "origin_country": [
-        "US"
+        "AU"
       ],
       "original_language": "en",
-      "original_name": "X-Men '97",
-      "overview": "The X-Men, a band of mutants who use their uncanny gifts to protect a world that hates and fears them, are challenged like never before, forced to face a dangerous and unexpected new future.",
-      "popularity": 103.1422,
-      "poster_path": "/2HKBc5UiFw8JrruHq8S1Y7TnlW0.jpg",
+      "original_name": "My Brilliant Career",
+      "overview": "Restless, razor-sharp, and refusing to conform, Sybylla is dead set on writing her own story in an era that expects her to find a man and settle down.",
+      "popularity": 5.5148,
+      "poster_path": "/fhpa8B6USatHybK04XBbPAB6Mlz.jpg",
       "production_companies": [
         {
-          "id": 420,
-          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-          "name": "Marvel Studios",
-          "origin_country": "US"
+          "id": 68509,
+          "logo_path": "/wh3STJlJupw2o3LZBIFJvPLrjra.png",
+          "name": "Jungle Entertainment",
+          "origin_country": "AU"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "AU",
+          "name": "Australia"
         }
       ],
       "seasons": [
         {
-          "air_date": "2024-03-20",
-          "episode_count": 10,
-          "id": 219363,
+          "air_date": "2026-08-13",
+          "episode_count": 6,
+          "id": 492359,
           "name": "Season 1",
-          "overview": "Picking up where 'X-Men' left off, the X-Men are in a period of transition, struggling with the loss of Professor X. And while their world is in a strained state of calm when it comes to mutant-human relations—everyone knows that's likely temporary.",
-          "poster_path": "/9Ycz7yYRf9V4jk3YXwcZhFtbNcF.jpg",
+          "overview": "",
+          "poster_path": "/fhpa8B6USatHybK04XBbPAB6Mlz.jpg",
           "season_number": 1,
-          "vote_average": 8.1
-        },
-        {
-          "air_date": "2026-07-01",
-          "episode_count": 9,
-          "id": 518984,
-          "name": "Season 2",
-          "overview": "Season 2 continues with the heroic mutant team of X-Men, divided and thrown across different eras in time as they struggle to navigate their return home. Meanwhile, back in the 1990s, suspicious foes and new strains of mutant intolerance are on the rise in the wake of the X-Men's absence.",
-          "poster_path": "/2HKBc5UiFw8JrruHq8S1Y7TnlW0.jpg",
-          "season_number": 2,
-          "vote_average": 7.8
+          "vote_average": 3.7
         }
       ],
       "softcore": false,
@@ -1960,146 +2035,10 @@
         }
       ],
       "status": "Returning Series",
-      "tagline": "New episodes. New era.",
-      "type": "Scripted",
-      "vote_average": 8.683,
-      "vote_count": 835,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/mWVeYmtCfA3zvSeZtW5bN2Khe01.jpg",
-      "created_by": [
-        {
-          "id": 125426,
-          "credit_id": "65ac7c0b67b61300afeeeee9",
-          "name": "E.oni",
-          "original_name": "이언희",
-          "gender": 1,
-          "profile_path": "/3VN0hXvY9XsWlKDfFe9mmup84lf.jpg"
-        },
-        {
-          "id": 1471895,
-          "credit_id": "65ac7bdc5294e7010bed8424",
-          "name": "Lee Kwon",
-          "original_name": "이권",
-          "gender": 2,
-          "profile_path": "/iFuKriMZ8koGUZCLsFOkAIPftW1.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2024-01-17",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        }
-      ],
-      "homepage": "https://www.disneyplus.com/series/a-shop-for-killers/6pcuvK0SUuHI",
-      "id": 215072,
-      "in_production": false,
-      "languages": [
-        "ko"
-      ],
-      "last_air_date": "2026-08-12",
-      "last_episode_to_air": {
-        "id": 7506460,
-        "name": "Listen Up, Jinman",
-        "overview": "Murthehelp and Babylon face off in a final battle.",
-        "vote_average": 10.0,
-        "vote_count": 1,
-        "air_date": "2026-08-12",
-        "episode_number": 8,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 61,
-        "season_number": 2,
-        "show_id": 215072,
-        "still_path": "/iLBCClEwhYK3q3Z0bCDW1HbmUmT.jpg"
-      },
-      "name": "A Shop for Killers",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 2739,
-          "logo_path": "/1edZOYAfoyZyZ3rklNSiUpXX30Q.png",
-          "name": "Disney+",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 16,
-      "number_of_seasons": 2,
-      "origin_country": [
-        "KR"
-      ],
-      "original_language": "ko",
-      "original_name": "킬러들의 쇼핑몰",
-      "overview": "A niece who lost her parents and grew up in the hands of an uncle who runs a shopping mall faces a new truth after her uncle's sudden death.",
-      "popularity": 106.0397,
-      "poster_path": "/7yUY1HUyQuybbvkAAhLzQ7x1l9g.jpg",
-      "production_companies": [
-        {
-          "id": 114519,
-          "logo_path": "/omfLDgUXKmXly7T7bWBpKstq3HP.png",
-          "name": "Merry Christmas",
-          "origin_country": "KR"
-        },
-        {
-          "id": 218882,
-          "logo_path": "/wKIPvCa01xm9Gv0lFvqHtOZexYQ.png",
-          "name": "Project Onion",
-          "origin_country": "KR"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "KR",
-          "name": "South Korea"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2024-01-17",
-          "episode_count": 8,
-          "id": 317519,
-          "name": "Season 1",
-          "overview": "After the sudden death of Jian's uncle, she learns of a suspicious shopping mall that he left behind. Who was her uncle, and what kind of shopping mall did he run? Before Jian can even fathom what is going on, she is attacked by unidentified people who are after her uncle's supplies.",
-          "poster_path": "/Iau2aSJjAbwHVmhfCqVliOTXEs.jpg",
-          "season_number": 1,
-          "vote_average": 8.6
-        },
-        {
-          "air_date": "2026-07-22",
-          "episode_count": 8,
-          "id": 481757,
-          "name": "Season 2",
-          "overview": "Season 2 returns with Jian in control of the weapons shop, Jinman returned from the dead, and BABYLON well and truly on the backfoot. Working to keep Jian safe, Jinman will take the fight to BABYLON's door, but the mercenary organization won't go down easily. Humiliated, BABYLON will bring in help from overseas and unleash a new wave of deadly assassins to rebuild their ranks and exact their revenge.",
-          "poster_path": "/lLwE6AEGUqpDGkNe1y923Siz3PK.jpg",
-          "season_number": 2,
-          "vote_average": 9.3
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Korean",
-          "iso_639_1": "ko",
-          "name": "한국어/조선말"
-        }
-      ],
-      "status": "Ended",
-      "tagline": "His hidden past, her deadly inheritance.",
-      "type": "Scripted",
-      "vote_average": 8.4,
-      "vote_count": 209,
+      "tagline": "",
+      "type": "Miniseries",
+      "vote_average": 4.286,
+      "vote_count": 7,
       "media_type": "tv"
     },
     {
@@ -2150,8 +2089,8 @@
         "id": 7196571,
         "name": "The Treasons at Tumbleton",
         "overview": "Shifting alliances irrevocably reshape the war as Rhaenyra's forces converge around Tumbleton and both sides vie to gain the upper hand.",
-        "vote_average": 6.516,
-        "vote_count": 31,
+        "vote_average": 6.6,
+        "vote_count": 32,
         "air_date": "2026-08-09",
         "episode_number": 8,
         "episode_type": "finale",
@@ -2179,7 +2118,7 @@
       "original_language": "en",
       "original_name": "House of the Dragon",
       "overview": "The Targaryen dynasty is at the absolute apex of its power, with more than 15 dragons under their yoke. Most empires crumble from such heights. In the case of the Targaryens, their slow fall begins when King Viserys breaks with a century of tradition by naming his daughter Rhaenyra heir to the Iron Throne. But when Viserys later fathers a son, the court is shocked when Rhaenyra retains her status as his heir, and seeds of division sow friction across the realm.",
-      "popularity": 452.94,
+      "popularity": 415.8801,
       "poster_path": "/7V0Ebks0GgpKvQ7QbLAIdX5dos4.jpg",
       "production_companies": [
         {
@@ -2252,7 +2191,7 @@
           "overview": "The Black and Green factions lock into an all-out, relentless struggle for the Iron Throne. As dragons and armies clash across the realm, Westeros witnesses the devastating consequences of total war.",
           "poster_path": "/wSvDQN6tZR4VzDDZD3MUPIghVjC.jpg",
           "season_number": 3,
-          "vote_average": 6.5
+          "vote_average": 6.6
         }
       ],
       "softcore": false,
@@ -2266,59 +2205,285 @@
       "status": "Returning Series",
       "tagline": "Win or die.",
       "type": "Scripted",
-      "vote_average": 8.384,
-      "vote_count": 6934,
+      "vote_average": 8.385,
+      "vote_count": 6945,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/5ErhLuuVrxlNa2JiRzXfo0U10uZ.jpg",
+      "backdrop_path": "/w3agwUSMpJ4X9t1jGrDtqqRPjDQ.jpg",
       "created_by": [
         {
-          "id": 1251885,
-          "credit_id": "6958514e02500da7574af163",
-          "name": "Liz Doran",
-          "original_name": "Liz Doran",
-          "gender": 1,
-          "profile_path": "/imyFYZqYHI4s2VSasb7VpFHwvSj.jpg"
+          "id": 2004912,
+          "credit_id": "6906840597f1b8571e597f3b",
+          "name": "Li Haoling",
+          "original_name": "李豪凌",
+          "gender": 2,
+          "profile_path": "/zsux0GhDJxf7KP08TCiEl2LGEHc.jpg"
         }
       ],
-      "episode_run_time": [],
-      "first_air_date": "2026-08-13",
+      "episode_run_time": [
+        23
+      ],
+      "first_air_date": "2021-04-30",
       "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
         {
           "id": 18,
           "name": "Drama"
-        },
-        {
-          "id": 10751,
-          "name": "Family"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81655060",
-      "id": 309798,
+      "homepage": "https://www.bilibili.com/bangumi/media/md28230742/",
+      "id": 123542,
+      "in_production": true,
+      "languages": [
+        "zh"
+      ],
+      "last_air_date": "2025-01-31",
+      "last_episode_to_air": {
+        "id": 5853078,
+        "name": "Puzzle",
+        "overview": "To earn Vein’s help in locating Wang Qing, Cheng Xiaoshi and Lu Guang agree to replace a missing model at a photo shoot. Their unusual payment leads them to Wang Qing’s mental health clinic, where her psychological tests begin raising unsettling questions about the people and hidden motives surrounding their investigation.",
+        "vote_average": 8.5,
+        "vote_count": 2,
+        "air_date": "2025-01-31",
+        "episode_number": 6,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 26,
+        "season_number": 3,
+        "show_id": 123542,
+        "still_path": "/djrOYPY0JBsQWbKEwpHJi06EPVv.jpg"
+      },
+      "name": "LINK CLICK",
+      "next_episode_to_air": {
+        "id": 7411170,
+        "name": "The Forgotten Past",
+        "overview": "An adoptive father, an old photo, and the day two powers first crossed paths.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-08-14",
+        "episode_number": 1,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 22,
+        "season_number": 4,
+        "show_id": 123542,
+        "still_path": "/1NKDXGoo6tyB7ebXhVLd9OjWtdn.jpg"
+      },
+      "networks": [
+        {
+          "id": 1605,
+          "logo_path": "/cdRh1NZIUaqDUhwjgqWbp6zhWHK.png",
+          "name": "bilibili",
+          "origin_country": "CN"
+        }
+      ],
+      "number_of_episodes": 31,
+      "number_of_seasons": 4,
+      "origin_country": [
+        "CN"
+      ],
+      "original_language": "zh",
+      "original_name": "时光代理人",
+      "overview": "Using superpowers to enter their clientele’s photos one by one, Cheng Xiaoshi and Lu Guang take their work seriously at “Time Photo Studio,” a small photography shop set in the backdrop of a modern metropolis. Each job can be full of danger, but nothing is more important than fulfilling every order, no matter the scale…or peril involved!",
+      "popularity": 14.6997,
+      "poster_path": "/hCt2bLRGTCjHGqtV5FP3Img6w1h.jpg",
+      "production_companies": [
+        {
+          "id": 87874,
+          "logo_path": "/9zuMeFMDUba1gRIZDBEAcCUIoaA.png",
+          "name": "Haoliners Animation",
+          "origin_country": "CN"
+        },
+        {
+          "id": 123270,
+          "logo_path": "/4KxfGr13VXMr44og11hzpdwfQDQ.png",
+          "name": "bilibili",
+          "origin_country": "CN"
+        },
+        {
+          "id": 109472,
+          "logo_path": "/uYhbAVOWwruODFgzR7yZGHMmtAK.png",
+          "name": "LAN STUDIO",
+          "origin_country": "CN"
+        },
+        {
+          "id": 153541,
+          "logo_path": null,
+          "name": "BeDream",
+          "origin_country": "CN"
+        },
+        {
+          "id": 206585,
+          "logo_path": "/wlYJ8QdpD5ROYYKKSpnVW2Md2VC.png",
+          "name": "Shanghai Phantom Animation",
+          "origin_country": "CN"
+        },
+        {
+          "id": 234045,
+          "logo_path": null,
+          "name": "后生动漫",
+          "origin_country": ""
+        },
+        {
+          "id": 234046,
+          "logo_path": null,
+          "name": "MIAO'S ANIMATION",
+          "origin_country": "CN"
+        },
+        {
+          "id": 244222,
+          "logo_path": "/gxwM9iwZrTSob5Sau4QnyUKfpmt.png",
+          "name": "Pb Animation",
+          "origin_country": "CN"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "CN",
+          "name": "China"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2021-05-28",
+          "episode_count": 28,
+          "id": 197171,
+          "name": "Specials",
+          "overview": "",
+          "poster_path": "/sY5CiLskdnrZ8kmb2CICr0Bbv1z.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2021-04-30",
+          "episode_count": 11,
+          "id": 191014,
+          "name": "Link Click",
+          "overview": "At Time Photo Studio, Cheng Xiaoshi and Lu Guang use their complementary powers to enter photographs and fulfil their clients’ unresolved requests. Each mission draws them into lives shaped by regret, loss and difficult choices, while Cheng’s compassion repeatedly tests the rule against changing the past. When their cases become connected to a dangerous mystery, the consequences reach the studio itself.",
+          "poster_path": "/yubQJec2v2SzEiYd1rUidRbn4WG.jpg",
+          "season_number": 1,
+          "vote_average": 8.6
+        },
+        {
+          "air_date": "2023-07-14",
+          "episode_count": 12,
+          "id": 220399,
+          "name": "Link Click 2",
+          "overview": "Following the attack on Time Photo Studio, Cheng Xiaoshi and Qiao Ling become entangled in a dangerous investigation while Lu Guang fights to recover. As a mysterious enemy uses photographs to control others, the group uncovers a tragic family history and a conspiracy surrounding their powers, forcing them into a desperate struggle to protect one another and expose the mastermind behind the escalating violence.",
+          "poster_path": "/oetQX3BHXsQ1DL9bttVQglCRfrX.jpg",
+          "season_number": 2,
+          "vote_average": 8.8
+        },
+        {
+          "air_date": "2024-12-27",
+          "episode_count": 6,
+          "id": 358607,
+          "name": "Bridon Arc",
+          "overview": "When a photograph connected to Cheng Xiaoshi’s missing parents is discovered, he and Lu Guang travel to Bridon in search of answers. Their investigation leads them into the aftermath of a devastating academy fire and the lives of several strangers hiding conflicting motives. As buried connections gradually emerge, Lu Guang quietly struggles against the fate he fears may be awaiting Cheng.",
+          "poster_path": "/xXpbmitC7HyHEynNFBKBanR0c5j.jpg",
+          "season_number": 3,
+          "vote_average": 8.8
+        },
+        {
+          "air_date": "2026-08-14",
+          "episode_count": 2,
+          "id": 454061,
+          "name": "Link Click 3",
+          "overview": "After the Li Tianchen incident came to an end, the Time Photo Studio returned to a superficial calm. However, the news of Xia Fei's disappearance once again plunged everyone into the crossroads of fate. With Vein's return and Qiao Ling's awakening powers, Cheng Xiaoshi and Lu Guang gradually uncover the secrets of the Bahati fire case. Cheng Xiaoshi's father, Cheng Weimin, and mother, Shao Yuanyuan, also seemed to have intricate connections to it. As the investigation deepens, Liu Xiao, from a mysterious organization, begins his actions, and the intervention of Bridon police officer Jae adds uncertainty to this quest for the truth.",
+          "poster_path": "/d3zD25f4VY3rGlv7QOQDGQYRGn6.jpg",
+          "season_number": 4,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Mandarin",
+          "iso_639_1": "zh",
+          "name": "普通话"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "Past or future, just let them be.",
+      "type": "Scripted",
+      "vote_average": 8.2,
+      "vote_count": 120,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/xyS9R7Dno812rPLzpN4gJrDUUFd.jpg",
+      "created_by": [
+        {
+          "id": 3231008,
+          "credit_id": "65dcfd36719aeb017be711cb",
+          "name": "Shane Gillis",
+          "original_name": "Shane Gillis",
+          "gender": 2,
+          "profile_path": "/ijRXBDjfazwne2jxjWEaaWqPw2.jpg"
+        },
+        {
+          "id": 3231009,
+          "credit_id": "65dcfdad3ff2df01870a222c",
+          "name": "McKeever",
+          "original_name": "McKeever",
+          "gender": 2,
+          "profile_path": "/c9aP0R39F4oemhBOfYQhprKsqq3.jpg"
+        },
+        {
+          "id": 3730008,
+          "credit_id": "65dd3bdc2ac499017dcacb64",
+          "name": "Steve Gerben",
+          "original_name": "Steve Gerben",
+          "gender": 2,
+          "profile_path": "/ih16WqF2Dpt2tC8T2RSOlHnMlJo.jpg"
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2024-05-23",
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81758875",
+      "id": 247522,
       "in_production": true,
       "languages": [
         "en"
       ],
-      "last_air_date": null,
-      "last_episode_to_air": null,
-      "name": "My Brilliant Career",
-      "next_episode_to_air": {
-        "id": 6805990,
-        "name": "REVOLT",
-        "overview": "Sybylla is sent to her posh grandmother to be polished for marriage, but her spirited nature leaves a bold impression on high society.",
-        "vote_average": 1.0,
-        "vote_count": 1,
+      "last_air_date": "2026-08-13",
+      "last_episode_to_air": {
+        "id": 7648199,
+        "name": "It's a Good Day, West Chester",
+        "overview": "While promoting Valley Forge's next chapter on a local morning TV show, Will and Shane confront life-changing news and uncertainty at the shop.",
+        "vote_average": 0.0,
+        "vote_count": 0,
         "air_date": "2026-08-13",
-        "episode_number": 1,
+        "episode_number": 12,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 49,
-        "season_number": 1,
-        "show_id": 309798,
-        "still_path": "/wV9UWAMM3BrqJi1lWzt0Qt19NKm.jpg"
+        "runtime": 28,
+        "season_number": 3,
+        "show_id": 247522,
+        "still_path": "/kcR7AfFet5HCSE7BARa44mcsKVB.jpg"
       },
+      "name": "Tires",
+      "next_episode_to_air": null,
       "networks": [
         {
           "id": 213,
@@ -2327,40 +2492,82 @@
           "origin_country": ""
         }
       ],
-      "number_of_episodes": 6,
-      "number_of_seasons": 1,
+      "number_of_episodes": 30,
+      "number_of_seasons": 3,
       "origin_country": [
-        "AU"
+        "US"
       ],
       "original_language": "en",
-      "original_name": "My Brilliant Career",
-      "overview": "Restless, razor-sharp, and refusing to conform, Sybylla is dead set on writing her own story in an era that expects her to find a man and settle down.",
-      "popularity": 6.2086,
-      "poster_path": "/fhpa8B6USatHybK04XBbPAB6Mlz.jpg",
+      "original_name": "Tires",
+      "overview": "At his father's auto shop, a hapless manager strives to improve customer service and drive profits while keeping his troublemaking cousin in line.",
+      "popularity": 33.0587,
+      "poster_path": "/cNHTFUV39qyEsm7edSaJdSqJYtJ.jpg",
       "production_companies": [
         {
-          "id": 68509,
-          "logo_path": "/wh3STJlJupw2o3LZBIFJvPLrjra.png",
-          "name": "Jungle Entertainment",
-          "origin_country": "AU"
+          "id": 20848,
+          "logo_path": "/xfQxrdf3WumiLoaMS2F3xWO6nKF.png",
+          "name": "Rough House Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 221884,
+          "logo_path": null,
+          "name": "Dad Sick Productions",
+          "origin_country": "US"
+        },
+        {
+          "id": 77171,
+          "logo_path": null,
+          "name": "AGI Entertainment Media & Management",
+          "origin_country": "US"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "AU",
-          "name": "Australia"
+          "iso_3166_1": "US",
+          "name": "United States of America"
         }
       ],
       "seasons": [
         {
-          "air_date": "2026-08-13",
+          "air_date": "2019-04-10",
+          "episode_count": 1,
+          "id": 460655,
+          "name": "Specials",
+          "overview": "",
+          "poster_path": "/hniwttCkNq5NyIdW2YZ4XWGFttm.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
+        },
+        {
+          "air_date": "2024-05-22",
           "episode_count": 6,
-          "id": 492359,
+          "id": 381130,
           "name": "Season 1",
           "overview": "",
-          "poster_path": "/fhpa8B6USatHybK04XBbPAB6Mlz.jpg",
+          "poster_path": "/jMhq74ok3D84lHHm8rttMDmbqd6.jpg",
           "season_number": 1,
-          "vote_average": 1.0
+          "vote_average": 7.7
+        },
+        {
+          "air_date": "2025-06-05",
+          "episode_count": 12,
+          "id": 449272,
+          "name": "Season 2",
+          "overview": "In Season 2, after the unexpected success of their big marketing idea, Will and Shane rush to grow personally and professionally without fully realizing the cost of doing business.",
+          "poster_path": "/3pHhjuex9rWmlxgK3U39u75GpQr.jpg",
+          "season_number": 2,
+          "vote_average": 8.5
+        },
+        {
+          "air_date": "2026-08-13",
+          "episode_count": 12,
+          "id": 525759,
+          "name": "Season 3",
+          "overview": "",
+          "poster_path": "/vzVW4UAGi8JcvN8qWU7hBVCrZpd.jpg",
+          "season_number": 3,
+          "vote_average": 9.7
         }
       ],
       "softcore": false,
@@ -2373,14 +2580,150 @@
       ],
       "status": "Returning Series",
       "tagline": "",
-      "type": "Miniseries",
-      "vote_average": 1.0,
-      "vote_count": 1,
+      "type": "Scripted",
+      "vote_average": 6.6,
+      "vote_count": 87,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/gEQkOMmnJcoh9Hh1vk7fpVYnksR.jpg",
+      "backdrop_path": "/mWVeYmtCfA3zvSeZtW5bN2Khe01.jpg",
+      "created_by": [
+        {
+          "id": 125426,
+          "credit_id": "65ac7c0b67b61300afeeeee9",
+          "name": "E.oni",
+          "original_name": "이언희",
+          "gender": 1,
+          "profile_path": "/3VN0hXvY9XsWlKDfFe9mmup84lf.jpg"
+        },
+        {
+          "id": 1471895,
+          "credit_id": "65ac7bdc5294e7010bed8424",
+          "name": "Lee Kwon",
+          "original_name": "이권",
+          "gender": 2,
+          "profile_path": "/iFuKriMZ8koGUZCLsFOkAIPftW1.jpg"
+        }
+      ],
+      "episode_run_time": [],
+      "first_air_date": "2024-01-17",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        }
+      ],
+      "homepage": "https://www.disneyplus.com/series/a-shop-for-killers/6pcuvK0SUuHI",
+      "id": 215072,
+      "in_production": true,
+      "languages": [
+        "ko"
+      ],
+      "last_air_date": "2026-08-12",
+      "last_episode_to_air": {
+        "id": 7506460,
+        "name": "Listen Up, Jinman",
+        "overview": "Murthehelp and Babylon face off in a final battle.",
+        "vote_average": 10.0,
+        "vote_count": 1,
+        "air_date": "2026-08-12",
+        "episode_number": 8,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 61,
+        "season_number": 2,
+        "show_id": 215072,
+        "still_path": "/iLBCClEwhYK3q3Z0bCDW1HbmUmT.jpg"
+      },
+      "name": "A Shop for Killers",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 2739,
+          "logo_path": "/1edZOYAfoyZyZ3rklNSiUpXX30Q.png",
+          "name": "Disney+",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 16,
+      "number_of_seasons": 2,
+      "origin_country": [
+        "KR"
+      ],
+      "original_language": "ko",
+      "original_name": "킬러들의 쇼핑몰",
+      "overview": "A niece who lost her parents and grew up in the hands of an uncle who runs a shopping mall faces a new truth after her uncle's sudden death.",
+      "popularity": 103.9511,
+      "poster_path": "/7yUY1HUyQuybbvkAAhLzQ7x1l9g.jpg",
+      "production_companies": [
+        {
+          "id": 114519,
+          "logo_path": "/omfLDgUXKmXly7T7bWBpKstq3HP.png",
+          "name": "Merry Christmas",
+          "origin_country": "KR"
+        },
+        {
+          "id": 218882,
+          "logo_path": "/wKIPvCa01xm9Gv0lFvqHtOZexYQ.png",
+          "name": "Project Onion",
+          "origin_country": "KR"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "KR",
+          "name": "South Korea"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2024-01-17",
+          "episode_count": 8,
+          "id": 317519,
+          "name": "Season 1",
+          "overview": "After the sudden death of Jian's uncle, she learns of a suspicious shopping mall that he left behind. Who was her uncle, and what kind of shopping mall did he run? Before Jian can even fathom what is going on, she is attacked by unidentified people who are after her uncle's supplies.",
+          "poster_path": "/Iau2aSJjAbwHVmhfCqVliOTXEs.jpg",
+          "season_number": 1,
+          "vote_average": 8.6
+        },
+        {
+          "air_date": "2026-07-22",
+          "episode_count": 8,
+          "id": 481757,
+          "name": "Season 2",
+          "overview": "Season 2 returns with Jian in control of the weapons shop, Jinman returned from the dead, and BABYLON well and truly on the backfoot. Working to keep Jian safe, Jinman will take the fight to BABYLON's door, but the mercenary organization won't go down easily. Humiliated, BABYLON will bring in help from overseas and unleash a new wave of deadly assassins to rebuild their ranks and exact their revenge.",
+          "poster_path": "/lLwE6AEGUqpDGkNe1y923Siz3PK.jpg",
+          "season_number": 2,
+          "vote_average": 9.3
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Korean",
+          "iso_639_1": "ko",
+          "name": "한국어/조선말"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "His hidden past, her deadly inheritance.",
+      "type": "Scripted",
+      "vote_average": 8.423,
+      "vote_count": 214,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/3KLmx6nLaiYe07kSwuWdpTEHJgE.jpg",
       "created_by": [
         {
           "id": 58224,
@@ -2436,15 +2779,15 @@
       "last_air_date": "2026-08-11",
       "last_episode_to_air": {
         "id": 7203306,
-        "name": "Curiouser and Curiouser",
+        "name": "Curiouser and Curiouser!",
         "overview": "Ted returns to Richmond to meet the Lady Greyhounds, but not everyone is glad to see him.",
-        "vote_average": 7.1,
-        "vote_count": 9,
+        "vote_average": 7.4,
+        "vote_count": 10,
         "air_date": "2026-08-11",
         "episode_number": 2,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 46,
+        "runtime": 47,
         "season_number": 4,
         "show_id": 97546,
         "still_path": "/uQh0LIEnvwp4j3Z2Rnab4K1kG0Y.jpg"
@@ -2453,7 +2796,7 @@
       "next_episode_to_air": {
         "id": 7203307,
         "name": "Richmond's Got Talent",
-        "overview": "Richmond’s shareholders are unsure about a women's team. The coaches hold tryouts to fill out their roster.",
+        "overview": "Richmond's shareholders are unsure about a women's team. The coaches hold tryouts to fill out their roster.",
         "vote_average": 1.0,
         "vote_count": 1,
         "air_date": "2026-08-18",
@@ -2481,7 +2824,7 @@
       "original_language": "en",
       "original_name": "Ted Lasso",
       "overview": "Ted Lasso, an American football coach, moves to England when he's hired to manage a soccer team—despite having no experience. With cynical players and a doubtful town, will he get them to see the Ted Lasso Way?",
-      "popularity": 158.1465,
+      "popularity": 150.5394,
       "poster_path": "/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
       "production_companies": [
         {
@@ -2564,7 +2907,7 @@
           "overview": "In season four, Ted returns to Richmond, taking on his biggest challenge yet: coaching a second division women's football team. Throughout the course of the season, Ted and the team learn to leap before they look, taking chances they never thought they would.",
           "poster_path": "/uRHsiw1wLxPHFXkkv4Ix1s0O6f4.jpg",
           "season_number": 4,
-          "vote_average": 5.1
+          "vote_average": 5.2
         }
       ],
       "softcore": false,
@@ -2578,354 +2921,41 @@
       "status": "Returning Series",
       "tagline": "Ted's back.",
       "type": "Scripted",
-      "vote_average": 8.3,
-      "vote_count": 2528,
+      "vote_average": 8.35,
+      "vote_count": 2531,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/hKXMOOvQwXiL01hfYG5nrkH0tEP.jpg",
+      "backdrop_path": "/fZJs6xgU9dqIg9phIXjZAZOInzy.jpg",
       "created_by": [
         {
-          "id": 1274663,
-          "credit_id": "674e2558af6b3e0182a1c679",
-          "name": "Jonathan Tropper",
-          "original_name": "Jonathan Tropper",
+          "id": 938831,
+          "credit_id": "62746bdcc56d2d5b66d2110d",
+          "name": "Jenny Lumet",
+          "original_name": "Jenny Lumet",
+          "gender": 1,
+          "profile_path": "/y3Hf3wFiA1Jo7Zj9N0x7eciCLcM.jpg"
+        },
+        {
+          "id": 15345,
+          "credit_id": "62746bd48c3159006890b279",
+          "name": "Alex Kurtzman",
+          "original_name": "Alex Kurtzman",
           "gender": 2,
-          "profile_path": "/8cyJtu5Jja9Rw6uZNkKotL1F2rc.jpg"
+          "profile_path": "/uDZxuaV19OYMhN7vuuVg1bSlqUM.jpg"
+        },
+        {
+          "id": 5575,
+          "credit_id": "62746bcd967cc70068e2a744",
+          "name": "Akiva Goldsman",
+          "original_name": "Akiva Goldsman",
+          "gender": 2,
+          "profile_path": "/7dWsuEUrC7AmAzZAeNstZ2zg1M8.jpg"
         }
       ],
       "episode_run_time": [],
-      "first_air_date": "2026-07-14",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 80,
-          "name": "Crime"
-        }
-      ],
-      "homepage": "https://tv.apple.com/show/umc.cmc.5qo7t3nngb2vj0m9dxkwebw1o",
-      "id": 278624,
-      "in_production": true,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-08-11",
-      "last_episode_to_air": {
-        "id": 6912002,
-        "name": "Wherever You Go, There You Are",
-        "overview": "Lucky must face her past while planning for her future.",
-        "vote_average": 6.125,
-        "vote_count": 8,
-        "air_date": "2026-08-11",
-        "episode_number": 6,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 49,
-        "season_number": 1,
-        "show_id": 278624,
-        "still_path": "/ipUpVlpqI7tsDc37Lc3AOM6Bbef.jpg"
-      },
-      "name": "Lucky",
-      "next_episode_to_air": {
-        "id": 6912004,
-        "name": "All Good Things",
-        "overview": "Everything is on the line as Lucky navigates an explosive confrontation.",
-        "vote_average": 1.0,
-        "vote_count": 2,
-        "air_date": "2026-08-18",
-        "episode_number": 7,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 45,
-        "season_number": 1,
-        "show_id": 278624,
-        "still_path": "/5u1Ubzf2RN1XXedIS2TMJpa6E7y.jpg"
-      },
-      "networks": [
-        {
-          "id": 2552,
-          "logo_path": "/bngHRFi794mnMq34gfVcm9nDxN1.png",
-          "name": "Apple TV",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 7,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Lucky",
-      "overview": "When a multi-million-dollar heist goes sideways, con artist Lucky is forced to go on the run. Pursued by both the FBI and a ruthless crime boss, Lucky must fight for her life—and a way out.",
-      "popularity": 81.6113,
-      "poster_path": "/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
-      "production_companies": [
-        {
-          "id": 94284,
-          "logo_path": null,
-          "name": "Tropper Ink Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 105382,
-          "logo_path": "/b94sYzp4YUqi3DqIUnWnfrmxlN.png",
-          "name": "Hello Sunshine",
-          "origin_country": "US"
-        },
-        {
-          "id": 246220,
-          "logo_path": null,
-          "name": "Lady Killer Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 194232,
-          "logo_path": "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
-          "name": "Apple Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 304649,
-          "logo_path": null,
-          "name": "J. V. T. Films",
-          "origin_country": "GB"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-07-14",
-          "episode_count": 7,
-          "id": 431609,
-          "name": "Miniseries",
-          "overview": "",
-          "poster_path": "/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
-          "season_number": 1,
-          "vote_average": 4.8
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "Wish her luck.",
-      "type": "Miniseries",
-      "vote_average": 7.3,
-      "vote_count": 133,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/7ZruEnSnHD6Jx5mF0hBt1E306Vt.jpg",
-      "created_by": [],
-      "episode_run_time": [
-        25
-      ],
-      "first_air_date": "2016-04-04",
-      "genres": [
-        {
-          "id": 16,
-          "name": "Animation"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        },
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        }
-      ],
-      "homepage": "http://re-zero-anime.jp/",
-      "id": 65942,
-      "in_production": true,
-      "languages": [
-        "ja"
-      ],
-      "last_air_date": "2026-06-17",
-      "last_episode_to_air": {
-        "id": 7130155,
-        "name": "From Now On",
-        "overview": "After waking up without his memories yet again, Subaru makes up his mind to save Meili this time.",
-        "vote_average": 8.9,
-        "vote_count": 10,
-        "air_date": "2026-08-12",
-        "episode_number": 78,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 24,
-        "season_number": 1,
-        "show_id": 65942,
-        "still_path": "/wCls3YU2fX7Lfy0Cjf3s1H3PnM2.jpg"
-      },
-      "name": "Re:ZERO -Starting Life in Another World-",
-      "next_episode_to_air": {
-        "id": 7130159,
-        "name": "Episode 79",
-        "overview": "",
-        "vote_average": 10.0,
-        "vote_count": 1,
-        "air_date": "2026-08-19",
-        "episode_number": 79,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 65942,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 98,
-          "logo_path": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png",
-          "name": "TV Tokyo",
-          "origin_country": "JP"
-        },
-        {
-          "id": 173,
-          "logo_path": "/fERjndErEpveJmQZccJbJDi93rj.png",
-          "name": "AT-X",
-          "origin_country": "JP"
-        }
-      ],
-      "number_of_episodes": 85,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "JP"
-      ],
-      "original_language": "ja",
-      "original_name": "Re:ゼロから始める異世界生活",
-      "overview": "Natsuki Subaru, an ordinary high school  student, is on his way home from the convenience store when he finds  himself transported to another world. As he's lost and confused in a new  world where he doesn't even know left from right, the only person to  reach out to him was a beautiful girl with silver hair. Determined to  repay her somehow for saving him from his own despair, Subaru agrees to  help the girl find something she's looking for.",
-      "popularity": 91.7863,
-      "poster_path": "/oHqYrPAsIiTD5m4DuxumV4er8BU.jpg",
-      "production_companies": [
-        {
-          "id": 12569,
-          "logo_path": "/pROt6mT15AC5aTadf7NRBRiTVo3.png",
-          "name": "White Fox",
-          "origin_country": "JP"
-        },
-        {
-          "id": 2073,
-          "logo_path": "/tWxRSaKmRJNTcmtlXsmn5R4KOSU.png",
-          "name": "KADOKAWA",
-          "origin_country": "JP"
-        },
-        {
-          "id": 142186,
-          "logo_path": "/bdXTOuU7PdsDtQngyM7vb47zePs.png",
-          "name": "Hakuhodo DY Music & Pictures",
-          "origin_country": "JP"
-        },
-        {
-          "id": 157002,
-          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
-          "name": "Tokyo MX",
-          "origin_country": "JP"
-        },
-        {
-          "id": 17981,
-          "logo_path": "/8UABNMysukRi4udTHYxcNUMbPR1.png",
-          "name": "AT-X",
-          "origin_country": "JP"
-        },
-        {
-          "id": 12540,
-          "logo_path": null,
-          "name": "Memory-Tech",
-          "origin_country": "JP"
-        },
-        {
-          "id": 225089,
-          "logo_path": "/g2DdqSxJNOzr9uoEwAcOcSi6DRQ.png",
-          "name": "DAXEL",
-          "origin_country": "JP"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "JP",
-          "name": "Japan"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2016-04-05",
-          "episode_count": 78,
-          "id": 76465,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": "/DZtIJ4MbMgvrdZ6aqcCRfWjH03.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2016-04-04",
-          "episode_count": 85,
-          "id": 75470,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/5MrRCj7z92YLWMXHeWKp19eJPYv.jpg",
-          "season_number": 1,
-          "vote_average": 9.4
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Japanese",
-          "iso_639_1": "ja",
-          "name": "日本語"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "Racing through the journey of memories——",
-      "type": "Scripted",
-      "vote_average": 8.0,
-      "vote_count": 739,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/uTWhbLc7Bj4qNSdW3ZvZKL8cOHv.jpg",
-      "created_by": [
-        {
-          "id": 21206,
-          "credit_id": "6404e86a021cee00da36d3be",
-          "name": "Graham Yost",
-          "original_name": "Graham Yost",
-          "gender": 2,
-          "profile_path": "/zbaUcbYdFU28bGoi6F2lJo0XUaX.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2023-05-04",
+      "first_air_date": "2022-05-05",
       "genres": [
         {
           "id": 10765,
@@ -2936,85 +2966,91 @@
           "name": "Drama"
         }
       ],
-      "homepage": "https://tv.apple.com/show/umc.cmc.3yksgc857px0k0rqe5zd4jice",
-      "id": 125988,
+      "homepage": "https://www.paramountplus.com/shows/star-trek-strange-new-worlds",
+      "id": 103516,
       "in_production": true,
       "languages": [
         "en"
       ],
       "last_air_date": "2026-08-06",
       "last_episode_to_air": {
-        "id": 7173962,
-        "name": "The Drive",
-        "overview": "Billings and Hank stumble on a new mystery. Daniel and Helen receive a surprising proposition.",
-        "vote_average": 5.827,
-        "vote_count": 26,
-        "air_date": "2026-08-06",
-        "episode_number": 6,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 55,
-        "season_number": 3,
-        "show_id": 125988,
-        "still_path": "/hCUVzq1FghJlS75KIG2Ttxua4AL.jpg"
-      },
-      "name": "Silo",
-      "next_episode_to_air": {
-        "id": 7173963,
-        "name": "Radio",
-        "overview": "Juliette sends Lukas and Kennedy on a mission, as a desperate Camille threatens Robert to tell the truth.",
-        "vote_average": 3.5,
-        "vote_count": 10,
+        "id": 7193798,
+        "name": "A Case of Chiaroscuro",
+        "overview": "Una is mistaken for a virtuous kingpin against a Klingon occupation.",
+        "vote_average": 7.286,
+        "vote_count": 7,
         "air_date": "2026-08-13",
-        "episode_number": 7,
+        "episode_number": 4,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 56,
-        "season_number": 3,
-        "show_id": 125988,
-        "still_path": "/t80ahWNj6b5Rk3LCseM8TDIfyNf.jpg"
+        "runtime": 51,
+        "season_number": 4,
+        "show_id": 103516,
+        "still_path": "/kAggRfHzsWUlaev0bAemIxEBHQg.jpg"
+      },
+      "name": "Star Trek: Strange New Worlds",
+      "next_episode_to_air": {
+        "id": 7193799,
+        "name": "Level-Five Transporter Accident",
+        "overview": "A transporter accident turns everyone but Spock into puppets as pirates invade the ship.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-08-20",
+        "episode_number": 5,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 4,
+        "show_id": 103516,
+        "still_path": null
       },
       "networks": [
         {
-          "id": 2552,
-          "logo_path": "/bngHRFi794mnMq34gfVcm9nDxN1.png",
-          "name": "Apple TV",
-          "origin_country": ""
+          "id": 4330,
+          "logo_path": "/fi83B1oztoS47xxcemFdPMhIzK.png",
+          "name": "Paramount+",
+          "origin_country": "US"
         }
       ],
-      "number_of_episodes": 30,
+      "number_of_episodes": 40,
       "number_of_seasons": 4,
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_name": "Silo",
-      "overview": "In a ruined and toxic future, thousands live in a giant silo deep underground. After its sheriff breaks a cardinal rule and residents die mysteriously, engineer Juliette starts to uncover shocking secrets and the truth about the silo.",
-      "popularity": 207.6542,
-      "poster_path": "/gMYZZvnkVNTqSVnVCphWbPXwWwb.jpg",
+      "original_name": "Star Trek: Strange New Worlds",
+      "overview": "Follow Captain Christopher Pike, Science Officer Spock and Number One in the years before Captain Kirk boarded the U.S.S. Enterprise, as they explore new worlds around the galaxy.",
+      "popularity": 60.2726,
+      "poster_path": "/97TTJuqiSMfU0DuXx1B4NG5QNP7.jpg",
       "production_companies": [
         {
-          "id": 23242,
-          "logo_path": "/ucE6dN6pUPfZHH5JlXkq44TDUMS.png",
-          "name": "AMC Studios",
+          "id": 90517,
+          "logo_path": "/uq7itRpnnb1LX1VDDaJg64pKFmT.png",
+          "name": "Secret Hideout",
           "origin_country": "US"
         },
         {
-          "id": 65105,
+          "id": 51670,
+          "logo_path": "/sFDn8bWLh9sE2dPxaa0xUUYL6zS.png",
+          "name": "Roddenberry Entertainment",
+          "origin_country": "US"
+        },
+        {
+          "id": 1081,
+          "logo_path": "/19kn4jVvpc3sAL3YpZNb3elhSMl.png",
+          "name": "CBS Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 433,
+          "logo_path": "/iafkKMpcRfEXq9a4sQf0h6tg2E2.png",
+          "name": "Weed Road Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 174838,
           "logo_path": null,
-          "name": "Nemofilms",
-          "origin_country": "US"
-        },
-        {
-          "id": 199363,
-          "logo_path": null,
-          "name": "Mimir Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 194232,
-          "logo_path": "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
-          "name": "Apple Studios",
+          "name": "H M R X Productions",
           "origin_country": "US"
         }
       ],
@@ -3026,44 +3062,54 @@
       ],
       "seasons": [
         {
-          "air_date": "2023-05-04",
-          "episode_count": 10,
-          "id": 196076,
-          "name": "Season 1",
-          "overview": "In a bleak dystopian future, humanity clings to survival deep underground within the confines of a colossal silo. Juliette, an engineer tasked with unraveling the mystery behind the death of a colleague, uncovers startling secrets that threaten the very fabric of their enclosed world.",
-          "poster_path": "/ay0fwyIFEZ71NBXzyaN6d0OGxgu.jpg",
-          "season_number": 1,
-          "vote_average": 7.0
+          "air_date": "2020-09-08",
+          "episode_count": 31,
+          "id": 165857,
+          "name": "Specials",
+          "overview": "Special installments of the series.",
+          "poster_path": "/9Onpd1x7y0M9W13H4XrvsrV5pOG.jpg",
+          "season_number": 0,
+          "vote_average": 0.0
         },
         {
-          "air_date": "2024-11-14",
+          "air_date": "2022-05-05",
           "episode_count": 10,
-          "id": 404198,
+          "id": 151012,
+          "name": "Season 1",
+          "overview": "The series follows the voyages of the Starfleet starship USS Enterprise (NCC-1701), captained by Christopher Pike, during its second five-year mission (2259-2264), which precedes Captain James T. Kirk's five-year mission narrated in the television series Star Trek. The series picks up on stardate 1738.12 (2259), a couple of years after the events that occurred in the second season of the television series Star Trek: Discovery, when Pike temporarily captained the USS Discovery.",
+          "poster_path": "/iwIdajr5Y4zq2ibvq75VnDAJBr.jpg",
+          "season_number": 1,
+          "vote_average": 7.3
+        },
+        {
+          "air_date": "2023-06-15",
+          "episode_count": 10,
+          "id": 307894,
           "name": "Season 2",
-          "overview": "Stranded outside her silo with a failing suit, Juliette Nichols races against time, stunned to find another silo nearby that could be her only hope for survival. Meanwhile, unrest brews inside her original silo as Bernard Holland rallies citizens to maintain order amid rising questions about their world. As Juliette faces unexpected dangers near the new silo, hidden truths about the silos’ origins and the world beyond begin to surface, deepening the mystery.",
-          "poster_path": "/rY2LTYNkLdfWJAoa7whge0HGFik.jpg",
+          "overview": "In season two, the crew of the U.S.S. Enterprise, under the command of Captain Christopher Pike, confronts increasingly dangerous stakes, explores uncharted territories and encounters new life and civilizations. The crew will also embark on personal journeys that will continue to test their resolve and redefine their destinies. Facing friends and enemies both new and familiar, their adventures will unfold in surprising ways never seen before.",
+          "poster_path": "/7Cp5w4X8xH2x4xDk67C5kMC5ePA.jpg",
           "season_number": 2,
+          "vote_average": 7.5
+        },
+        {
+          "air_date": "2025-07-17",
+          "episode_count": 10,
+          "id": 404255,
+          "name": "Season 3",
+          "overview": "In season three, when we reconnect with the crew of the U.S.S. Enterprise, still under the command of Captain Pike, they face the conclusion of season two's harrowing encounter with the Gorn. But new life and civilizations await, including a villain that will test our characters' grit and resolve. An exciting twist on classic Star Trek, season three takes characters both new and beloved to new heights, and dives into thrilling adventures of faith, duty, romance, comedy and mystery, with varying genres never before seen on any other Star Trek.",
+          "poster_path": "/w6KapI2JvrCkOPmQhkwYPJNjqeo.jpg",
+          "season_number": 3,
           "vote_average": 6.5
         },
         {
-          "air_date": "2026-07-02",
+          "air_date": "2026-07-23",
           "episode_count": 10,
-          "id": 512220,
-          "name": "Season 3",
-          "overview": "Season three reveals an origin story set centuries earlier, while continuing the saga of a dystopian society of 10,000 people living underground under mysterious circumstances. In the present, Juliette Nichols survives her forced \"cleaning\" but returns with memory loss as the silo recovers from rebellion and faces a dangerous new threat. Meanwhile, in the \"Before Times,\" journalist Helen Drew and Congressman Daniel Keene uncover a conspiracy that pulls them into a chain of events with catastrophic, irreversible consequences.",
-          "poster_path": "/eviZTbKOXOeSaR268iJ9yqtwTNU.jpg",
-          "season_number": 3,
-          "vote_average": 5.9
-        },
-        {
-          "air_date": null,
-          "episode_count": 0,
-          "id": 532506,
+          "id": 472809,
           "name": "Season 4",
-          "overview": "",
-          "poster_path": null,
+          "overview": "In the fourth season, the crew of the U.S.S. Enterprise—led by Captain Christopher Pike—embarks on a series of thrilling and emotional adventures across the stars. As they journey to strange new worlds, they battle inner demons and external threats, encounter colorful new characters, reunite with familiar faces and confront terrifying aliens. Through it all, they strive to embrace a bright, hopeful future.",
+          "poster_path": "/fW8uT1hiZPpd5k8tryEyOclkW1p.jpg",
           "season_number": 4,
-          "vote_average": 0.0
+          "vote_average": 6.9
         }
       ],
       "softcore": false,
@@ -3075,10 +3121,10 @@
         }
       ],
       "status": "Returning Series",
-      "tagline": "The key to the future lies in the past.",
+      "tagline": "Boldly go one step closer to where it all began.",
       "type": "Scripted",
-      "vote_average": 8.19,
-      "vote_count": 2409,
+      "vote_average": 7.908,
+      "vote_count": 806,
       "media_type": "tv"
     },
     {
@@ -3125,13 +3171,13 @@
         "id": 7334653,
         "name": "Robert's Party",
         "overview": "Susan's welcome party for Robert is overshadowed by a terrifying and violent incident.",
-        "vote_average": 0.0,
-        "vote_count": 1,
+        "vote_average": 9.5,
+        "vote_count": 2,
         "air_date": "2026-08-12",
         "episode_number": 4,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": null,
+        "runtime": 47,
         "season_number": 1,
         "show_id": 298168,
         "still_path": "/uQKspEW1rQ6uXVhhO9v18eFeCaR.jpg"
@@ -3174,7 +3220,7 @@
       "original_language": "en",
       "original_name": "The Shards",
       "overview": "17-year-old Bret Easton Ellis is in his final year at the elite Buckley prep school. Upending his world is the arrival of a mysterious new student, Robert Mallory, whose unsettling presence coincides with the activities of a serial killer known as The Trawler.",
-      "popularity": 73.9209,
+      "popularity": 71.9449,
       "poster_path": "/wP0GdqwVu2g1y3q1KzBXuSrdTvX.jpg",
       "production_companies": [
         {
@@ -3217,7 +3263,7 @@
           "overview": "",
           "poster_path": "/wP0GdqwVu2g1y3q1KzBXuSrdTvX.jpg",
           "season_number": 1,
-          "vote_average": 8.8
+          "vote_average": 8.4
         }
       ],
       "softcore": false,
@@ -3231,260 +3277,126 @@
       "status": "Returning Series",
       "tagline": "If looks could kill.",
       "type": "Scripted",
-      "vote_average": 8.1,
-      "vote_count": 19,
+      "vote_average": 8.0,
+      "vote_count": 21,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/v713kGiwYw2amhk6v9lfxvAYncv.jpg",
+      "backdrop_path": "/k5ujbFUxNlBQQ6sh3UmApwadVTV.jpg",
       "created_by": [
         {
-          "id": 1456398,
-          "credit_id": "66a76b2976e52c86403a404d",
-          "name": "Pablo Aramendi",
-          "original_name": "Pablo Aramendi",
+          "id": 160172,
+          "credit_id": "6a626a4d8e257fed35751700",
+          "name": "Chuck Lorre",
+          "original_name": "Chuck Lorre",
           "gender": 2,
-          "profile_path": null
+          "profile_path": "/8OTRD3d6N0GKy1Z0LJaWZ3MVxXr.jpg"
         },
         {
-          "id": 1076025,
-          "credit_id": "66a060ea112956a68172a3fb",
-          "name": "Fernando Rovzar",
-          "original_name": "Fernando Rovzar",
+          "id": 11011,
+          "credit_id": "6a626a5496a3190036d3e6d1",
+          "name": "Zak Penn",
+          "original_name": "Zak Penn",
           "gender": 2,
-          "profile_path": null
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2024-07-30",
-      "genres": [
-        {
-          "id": 80,
-          "name": "Crime"
+          "profile_path": "/5Zx3o1Fmlu4sIYq4xn5WLyK2GNM.jpg"
         },
         {
-          "id": 18,
-          "name": "Drama"
-        }
-      ],
-      "homepage": "https://tv.apple.com/show/umc.cmc.73wmdmkfpta5ul1vbwckmme39",
-      "id": 253983,
-      "in_production": true,
-      "languages": [
-        "es"
-      ],
-      "last_air_date": "2026-08-11",
-      "last_episode_to_air": {
-        "id": 7082855,
-        "name": "Mauricio",
-        "overview": "New lieutenant María and the Azules set their sights on investigating the murder of a college student.",
-        "vote_average": 1.0,
-        "vote_count": 3,
-        "air_date": "2026-08-11",
-        "episode_number": 1,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 56,
-        "season_number": 2,
-        "show_id": 253983,
-        "still_path": "/yDs2hOF56OkRsOY3nclmMrHchr1.jpg"
-      },
-      "name": "Women in Blue",
-      "next_episode_to_air": {
-        "id": 7082856,
-        "name": "Filiberto",
-        "overview": "An unexpected clue links the first victim with a second, kicking off a theory about targeted attacks.",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-08-18",
-        "episode_number": 2,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 56,
-        "season_number": 2,
-        "show_id": 253983,
-        "still_path": "/dURMvx0amRN8qwhDEWBVAAgECNU.jpg"
-      },
-      "networks": [
-        {
-          "id": 2552,
-          "logo_path": "/bngHRFi794mnMq34gfVcm9nDxN1.png",
-          "name": "Apple TV",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 18,
-      "number_of_seasons": 2,
-      "origin_country": [
-        "MX"
-      ],
-      "original_language": "es",
-      "original_name": "Las azules",
-      "overview": "In 1971, four women defy ultraconservative norms and join Mexico's first female police force—only to discover that it's a publicity stunt to distract the media from a serial killer. As the body count grows, they make a pact to bring the killer to justice.",
-      "popularity": 33.0312,
-      "poster_path": "/7x7ONogOLYypFzRsoMcTINGABPD.jpg",
-      "production_companies": [
-        {
-          "id": 107558,
-          "logo_path": "/gfEtcH7hmqUPFkCgERa2JoUIxEE.png",
-          "name": "Lemon Studios",
-          "origin_country": "MX"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "MX",
-          "name": "Mexico"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2024-07-30",
-          "episode_count": 10,
-          "id": 392927,
-          "name": "Season 1",
-          "overview": "Set in 1970 and inspired by true events, “Women in Blue” tells the story of four women who defy the ultraconservative norms of the time and join Mexico’s first female police force, only to discover that their squad is a publicity stunt to distract the media from a brutal serial killer. As the body count grows, María, whose determination to catch the killer becomes an obsession, Gabina, whose father is a renowned cop, Ángeles, a brilliant fingerprint analyst, and Valentina, a young rebel, set up a secret investigation to achieve what no male officer has been able to do and bring the serial killer to justice.",
-          "poster_path": "/5JMYd2jYZGQ0KKcSQ8MH6k49XnF.jpg",
-          "season_number": 1,
-          "vote_average": 1.2
-        },
-        {
-          "air_date": "2026-08-11",
-          "episode_count": 8,
-          "id": 507180,
-          "name": "Season 2",
-          "overview": "In season two, now promoted to lieutenant, María finds herself torn between the rules she's sworn to uphold and a relentless pull toward the truth when the body of a student activist is discovered, and the Azules are pulled into an investigation that reaches back to the student massacre of 1968. Before they can make sense of what they've found, the body of a person connected to that brutal chapter of history is found, sending shock waves through the department. Someone is delivering justice straight to the police's door, and the Azules are the department's last hope of stopping the killer. As María, Valentina, Gabina and Ángeles fight battles both inside and outside the precinct, buried truths rise to the surface and they're forced to confront an uncomfortable question: in a system plagued with corruption, what is the cost of fighting for their ideals?",
-          "poster_path": "/7x7ONogOLYypFzRsoMcTINGABPD.jpg",
-          "season_number": 2,
-          "vote_average": 1.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "Defy the system. Discover the truth.",
-      "type": "Scripted",
-      "vote_average": 6.983,
-      "vote_count": 58,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/xyS9R7Dno812rPLzpN4gJrDUUFd.jpg",
-      "created_by": [
-        {
-          "id": 3231008,
-          "credit_id": "65dcfd36719aeb017be711cb",
-          "name": "Shane Gillis",
-          "original_name": "Shane Gillis",
+          "id": 163528,
+          "credit_id": "6a626a5a973d3b7048e220c2",
+          "name": "Bill Prady",
+          "original_name": "Bill Prady",
           "gender": 2,
-          "profile_path": "/ijRXBDjfazwne2jxjWEaaWqPw2.jpg"
-        },
-        {
-          "id": 3231009,
-          "credit_id": "65dcfdad3ff2df01870a222c",
-          "name": "McKeever",
-          "original_name": "McKeever",
-          "gender": 2,
-          "profile_path": "/c9aP0R39F4oemhBOfYQhprKsqq3.jpg"
-        },
-        {
-          "id": 3730008,
-          "credit_id": "65dd3bdc2ac499017dcacb64",
-          "name": "Steve Gerben",
-          "original_name": "Steve Gerben",
-          "gender": 2,
-          "profile_path": "/ih16WqF2Dpt2tC8T2RSOlHnMlJo.jpg"
+          "profile_path": "/voM7AngVEko9ZzNFuv0F53AMTzu.jpg"
         }
       ],
-      "episode_run_time": [],
-      "first_air_date": "2024-05-23",
+      "episode_run_time": [
+        24
+      ],
+      "first_air_date": "2026-07-23",
       "genres": [
         {
           "id": 35,
           "name": "Comedy"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
         }
       ],
-      "homepage": "https://www.netflix.com/title/81758875",
-      "id": 247522,
+      "homepage": "https://www.hbomax.com/shows/1130c5ba-e71f-43e0-8de3-487dfdb49c11",
+      "id": 287620,
       "in_production": true,
       "languages": [
         "en"
       ],
-      "last_air_date": "2025-06-05",
+      "last_air_date": "2026-08-06",
       "last_episode_to_air": {
-        "id": 6214289,
-        "name": "At What Cost",
-        "overview": "Facing a crossroads, the Valley Forge team must find a way forward as Will and Shane combine their strengths to snag a potential lifeline.",
-        "vote_average": 8.5,
-        "vote_count": 4,
-        "air_date": "2025-06-05",
-        "episode_number": 12,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": 26,
-        "season_number": 2,
-        "show_id": 247522,
-        "still_path": "/AdNl9AGKD9B32Mo3zdGKpvnb88A.jpg"
+        "id": 7269518,
+        "name": "Spoiler: Stuart Makes a Wallet",
+        "overview": "After landing in a mental hospital, Stuart questions whether his memories of hopping from universe to universe are the product of an overactive imagination...or psychotic illusion. Meanwhile, Kripke has a new love interest.",
+        "vote_average": 10.0,
+        "vote_count": 2,
+        "air_date": "2026-08-13",
+        "episode_number": 4,
+        "episode_type": "standard",
+        "production_code": "T12.19154",
+        "runtime": 25,
+        "season_number": 1,
+        "show_id": 287620,
+        "still_path": "/qSODVIPNlSDRFZdjQFORyZo4zE9.jpg"
       },
-      "name": "Tires",
+      "name": "Stuart Fails to Save the Universe",
       "next_episode_to_air": {
-        "id": 7439801,
-        "name": "It Often Rhymes",
-        "overview": "Will pitches a commercial to boost sales, but Phil counters with a more immediate way to cut costs. A familiar face on a dating app catches Shane's eye.",
+        "id": 7269519,
+        "name": "Spoiler: Gary Works for UPS",
+        "overview": "",
         "vote_average": 0.0,
         "vote_count": 0,
-        "air_date": "2026-08-13",
-        "episode_number": 1,
+        "air_date": "2026-08-20",
+        "episode_number": 5,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 27,
-        "season_number": 3,
-        "show_id": 247522,
-        "still_path": "/nxUQ6hA778B4SeAW4VYueF9Qhve.jpg"
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 287620,
+        "still_path": null
       },
       "networks": [
         {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
+          "id": 8304,
+          "logo_path": "/gqWI9y0owo9sxgzZD7TXOeILYI9.png",
+          "name": "HBO Max",
           "origin_country": ""
         }
       ],
-      "number_of_episodes": 30,
-      "number_of_seasons": 3,
+      "number_of_episodes": 10,
+      "number_of_seasons": 1,
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_name": "Tires",
-      "overview": "At his father's auto shop, a hapless manager strives to improve customer service and drive profits while keeping his troublemaking cousin in line.",
-      "popularity": 21.5738,
-      "poster_path": "/1GV37YUYJrsi4frLZfEzLnoeILT.jpg",
+      "original_name": "Stuart Fails to Save the Universe",
+      "overview": "After accidentally creating a new multiverse, comic book store owner Stuart Bloom must locate a quantum-interference device to restore reality.",
+      "popularity": 59.2196,
+      "poster_path": "/rZLmNNoQKfmfedsckkTqMy7F2ti.jpg",
       "production_companies": [
         {
-          "id": 20848,
-          "logo_path": "/xfQxrdf3WumiLoaMS2F3xWO6nKF.png",
-          "name": "Rough House Pictures",
+          "id": 1957,
+          "logo_path": "/pJJw98MtNFC9cHn3o15G7vaUnnX.png",
+          "name": "Warner Bros. Television",
           "origin_country": "US"
         },
         {
-          "id": 221884,
-          "logo_path": null,
-          "name": "Dad Sick Productions",
+          "id": 35504,
+          "logo_path": "/e70DaugzSRbTbVEhZV3e1nCofcY.png",
+          "name": "Chuck Lorre Productions",
           "origin_country": "US"
         },
         {
-          "id": 77171,
-          "logo_path": null,
-          "name": "AGI Entertainment Media & Management",
+          "id": 238698,
+          "logo_path": "/t46miLcQJ7dQqu49R86aADfo9Cv.png",
+          "name": "California Film Commission",
           "origin_country": "US"
         }
       ],
@@ -3496,44 +3408,14 @@
       ],
       "seasons": [
         {
-          "air_date": "2019-04-10",
-          "episode_count": 1,
-          "id": 460655,
-          "name": "Specials",
-          "overview": "",
-          "poster_path": "/ei4Rq8RDHD3pShR7XeQr2eMTy6y.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2024-05-22",
-          "episode_count": 6,
-          "id": 381130,
+          "air_date": "2026-07-23",
+          "episode_count": 10,
+          "id": 448732,
           "name": "Season 1",
           "overview": "",
-          "poster_path": "/cNHTFUV39qyEsm7edSaJdSqJYtJ.jpg",
+          "poster_path": "/iQbTbwmLX5Nh1nlH21YUJPWt3Zo.jpg",
           "season_number": 1,
-          "vote_average": 7.3
-        },
-        {
-          "air_date": "2025-06-05",
-          "episode_count": 12,
-          "id": 449272,
-          "name": "Season 2",
-          "overview": "In Season 2, after the unexpected success of their big marketing idea, Will and Shane rush to grow personally and professionally without fully realizing the cost of doing business.",
-          "poster_path": "/A5pblX4SU0gVDcw5ngs3CqFccku.jpg",
-          "season_number": 2,
-          "vote_average": 8.1
-        },
-        {
-          "air_date": "2026-08-13",
-          "episode_count": 12,
-          "id": 525759,
-          "name": "Season 3",
-          "overview": "",
-          "poster_path": "/p5S9g4Df2J2mS7PO1IA9cJYaU5u.jpg",
-          "season_number": 3,
-          "vote_average": 0.0
+          "vote_average": 8.7
         }
       ],
       "softcore": false,
@@ -3545,10 +3427,361 @@
         }
       ],
       "status": "Returning Series",
+      "tagline": "Every universe needs a hero. We got Stuart.",
+      "type": "Scripted",
+      "vote_average": 9.098,
+      "vote_count": 97,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/wCqQrj4536IkhFlxDSytf4p3H09.jpg",
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2026-08-14",
+      "genres": [
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://www.netflix.com/title/81958141",
+      "id": 322428,
+      "in_production": true,
+      "languages": [
+        "es"
+      ],
+      "last_air_date": null,
+      "last_episode_to_air": null,
+      "name": "Moria",
+      "next_episode_to_air": {
+        "id": 7268539,
+        "name": "El Obelisco con tetas",
+        "overview": "In 1960s Buenos Aires, ambitious young Ana María Casanova begins her public transformation into the phenomenon all Argentina will know as Moria Casán.",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-08-14",
+        "episode_number": 1,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 46,
+        "season_number": 1,
+        "show_id": 322428,
+        "still_path": "/4BDYBuSCOMaP4dsNTWifJyPoUSv.jpg"
+      },
+      "networks": [
+        {
+          "id": 213,
+          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 8,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "AR"
+      ],
+      "original_language": "es",
+      "original_name": "Moria",
+      "overview": "Moria Casán transforms her life story into a symbolic spectacle of fame, controversy and ceaseless reinvention.",
+      "popularity": 1.7432,
+      "poster_path": "/sbgnRVTa1ovATE2rH1TZXrb4dLH.jpg",
+      "production_companies": [
+        {
+          "id": 178464,
+          "logo_path": "/tyHnxjQJLH6h4iDQKhN5iqebWmX.png",
+          "name": "Netflix",
+          "origin_country": "US"
+        },
+        {
+          "id": 243497,
+          "logo_path": "/9Hi0xc3LIDXTmZQXriNdh9aDpLK.png",
+          "name": "About Entertainment",
+          "origin_country": "AR"
+        }
+      ],
+      "production_countries": [],
+      "seasons": [
+        {
+          "air_date": "2026-08-14",
+          "episode_count": 8,
+          "id": 516265,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/jfaHxmlFYUC1pipZfD2qerqNF32.jpg",
+          "season_number": 1,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Returning Series",
       "tagline": "",
       "type": "Scripted",
-      "vote_average": 6.5,
-      "vote_count": 85,
+      "vote_average": 0.0,
+      "vote_count": 0,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/wJjnJbVUwPz0GADAgpFt9nWtzUu.jpg",
+      "created_by": [
+        {
+          "id": 28974,
+          "credit_id": "667b240b8e91ec743ec27c72",
+          "name": "Damon Lindelof",
+          "original_name": "Damon Lindelof",
+          "gender": 2,
+          "profile_path": "/9V75oRAKiI0chdg1wGh1wPqaXsG.jpg"
+        },
+        {
+          "id": 1258079,
+          "credit_id": "667b69db74da0fb41e7ba4e0",
+          "name": "Chris Mundy",
+          "original_name": "Chris Mundy",
+          "gender": 2,
+          "profile_path": "/aEWK5Qo1U896iMsUMd2oY8yso1I.jpg"
+        },
+        {
+          "id": 2325172,
+          "credit_id": "667b2415af94a9c945f68fcc",
+          "name": "Tom King",
+          "original_name": "Tom King",
+          "gender": 2,
+          "profile_path": "/no73FbFgWdBB5wU6xEc7WKT8EIs.jpg"
+        }
+      ],
+      "episode_run_time": [
+        55
+      ],
+      "first_air_date": "2026-08-16",
+      "genres": [
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        }
+      ],
+      "homepage": "https://www.hbo.com/content/lanterns",
+      "id": 95350,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": null,
+      "last_episode_to_air": null,
+      "name": "Lanterns",
+      "next_episode_to_air": {
+        "id": 4988115,
+        "name": "Pilot",
+        "overview": "After a fatal shooting, Green Lantern Hal Jordan and new recruit John Stewart set out to prove it was an extraterrestrial event.",
+        "vote_average": 5.5,
+        "vote_count": 2,
+        "air_date": "2026-08-16",
+        "episode_number": 1,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": 62,
+        "season_number": 1,
+        "show_id": 95350,
+        "still_path": null
+      },
+      "networks": [
+        {
+          "id": 49,
+          "logo_path": "/tuomPhY2UtuPTqqFnKMVHvSb724.png",
+          "name": "HBO",
+          "origin_country": "US"
+        }
+      ],
+      "number_of_episodes": 8,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "Lanterns",
+      "overview": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, earth-based mystery as they investigate a murder in the American heartland.",
+      "popularity": 23.5899,
+      "poster_path": "/rb94rKVIzLyfWufIN7WqLvadBDH.jpg",
+      "production_companies": [
+        {
+          "id": 184898,
+          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
+          "name": "DC Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 3268,
+          "logo_path": "/tuomPhY2UtuPTqqFnKMVHvSb724.png",
+          "name": "HBO",
+          "origin_country": "US"
+        },
+        {
+          "id": 1957,
+          "logo_path": "/pJJw98MtNFC9cHn3o15G7vaUnnX.png",
+          "name": "Warner Bros. Television",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-08-16",
+          "episode_count": 8,
+          "id": 165308,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": "/j9PTWG0Xn0NeIRhGGFJbciNYWvS.jpg",
+          "season_number": 1,
+          "vote_average": 5.5
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "Only one can wear the ring.",
+      "type": "Scripted",
+      "vote_average": 5.0,
+      "vote_count": 9,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/jIyEmnBrZtl6SEWyBoMO2hZnzMa.jpg",
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2024-03-20",
+      "genres": [
+        {
+          "id": 16,
+          "name": "Animation"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
+        },
+        {
+          "id": 10765,
+          "name": "Sci-Fi & Fantasy"
+        }
+      ],
+      "homepage": "https://www.disneyplus.com/series/x-men-97/vc1XIz90ZNH5",
+      "id": 138502,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": "2026-08-12",
+      "last_episode_to_air": {
+        "id": 7383319,
+        "name": "Survival of the Fittest",
+        "overview": "The X-Men are pushed to their limits as their past comes back to haunt them.",
+        "vote_average": 9.0,
+        "vote_count": 4,
+        "air_date": "2026-08-12",
+        "episode_number": 9,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 32,
+        "season_number": 2,
+        "show_id": 138502,
+        "still_path": "/4ZS9gq1GkqyWM4GgJhSnAHUMvpr.jpg"
+      },
+      "name": "X-Men '97",
+      "next_episode_to_air": null,
+      "networks": [
+        {
+          "id": 2739,
+          "logo_path": "/1edZOYAfoyZyZ3rklNSiUpXX30Q.png",
+          "name": "Disney+",
+          "origin_country": ""
+        }
+      ],
+      "number_of_episodes": 19,
+      "number_of_seasons": 2,
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_name": "X-Men '97",
+      "overview": "The X-Men, a band of mutants who use their uncanny gifts to protect a world that hates and fears them, are challenged like never before, forced to face a dangerous and unexpected new future.",
+      "popularity": 106.1827,
+      "poster_path": "/2HKBc5UiFw8JrruHq8S1Y7TnlW0.jpg",
+      "production_companies": [
+        {
+          "id": 420,
+          "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+          "name": "Marvel Studios",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2024-03-20",
+          "episode_count": 10,
+          "id": 219363,
+          "name": "Season 1",
+          "overview": "Picking up where 'X-Men' left off, the X-Men are in a period of transition, struggling with the loss of Professor X. And while their world is in a strained state of calm when it comes to mutant-human relations—everyone knows that's likely temporary.",
+          "poster_path": "/9Ycz7yYRf9V4jk3YXwcZhFtbNcF.jpg",
+          "season_number": 1,
+          "vote_average": 8.1
+        },
+        {
+          "air_date": "2026-07-01",
+          "episode_count": 9,
+          "id": 518984,
+          "name": "Season 2",
+          "overview": "Season 2 continues with the heroic mutant team of X-Men, divided and thrown across different eras in time as they struggle to navigate their return home. Meanwhile, back in the 1990s, suspicious foes and new strains of mutant intolerance are on the rise in the wake of the X-Men's absence.",
+          "poster_path": "/2HKBc5UiFw8JrruHq8S1Y7TnlW0.jpg",
+          "season_number": 2,
+          "vote_average": 7.8
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "New episodes. New era.",
+      "type": "Scripted",
+      "vote_average": 8.684,
+      "vote_count": 843,
       "media_type": "tv"
     },
     {
@@ -3587,8 +3820,8 @@
         "id": 7355562,
         "name": "No Sorrow Like the Survivor",
         "overview": "Kaitlyn races to contain a crisis spiraling across agencies.",
-        "vote_average": 9.556,
-        "vote_count": 9,
+        "vote_average": 9.364,
+        "vote_count": 11,
         "air_date": "2026-08-09",
         "episode_number": 2,
         "episode_type": "standard",
@@ -3630,7 +3863,7 @@
       "original_language": "en",
       "original_name": "Lioness",
       "overview": "Cruz Manuelos, a rough-around-the-edges but passionate young Marine, is recruited to join the CIA's Lioness Engagement Team to help bring down a terrorist organization from within. Joe, the station chief of the Lioness program, is tasked with training, managing and leading her female undercover operatives.",
-      "popularity": 321.7403,
+      "popularity": 304.9327,
       "poster_path": "/rzpHPSEgPTpRs8EHbygwsOw7jC0.jpg",
       "production_companies": [
         {
@@ -3705,7 +3938,7 @@
           "overview": "In Season Three, hidden networks, foreign operatives, and personal betrayals collide. Joe walks the line between duty and home as unseen forces circle her world. Patterns appear where they shouldn't, names vanish, and paths rearrange. Guided by Kaitlyn and Westfield, Joe confronts enemies operating in the shadows, leaving her to reckon with a war that now reaches into every part of her life.",
           "poster_path": "/aNeXjZkHrnG5XdoSsnqKTH2SK72.jpg",
           "season_number": 3,
-          "vote_average": 9.4
+          "vote_average": 9.3
         }
       ],
       "softcore": false,
@@ -3719,8 +3952,100 @@
       "status": "Returning Series",
       "tagline": "This wasn't the mission.",
       "type": "Scripted",
-      "vote_average": 8.04,
-      "vote_count": 1332,
+      "vote_average": 8.046,
+      "vote_count": 1336,
+      "media_type": "tv"
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "created_by": [],
+      "episode_run_time": [],
+      "first_air_date": "2026-08-14",
+      "genres": [
+        {
+          "id": 80,
+          "name": "Crime"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "",
+      "id": 331650,
+      "in_production": true,
+      "languages": [
+        "en"
+      ],
+      "last_air_date": null,
+      "last_episode_to_air": null,
+      "name": "Umthetho",
+      "next_episode_to_air": {
+        "id": 7678907,
+        "name": "Episode 01",
+        "overview": "Episode 01",
+        "vote_average": 0.0,
+        "vote_count": 0,
+        "air_date": "2026-08-14",
+        "episode_number": 1,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 331650,
+        "still_path": null
+      },
+      "networks": [],
+      "number_of_episodes": 1,
+      "number_of_seasons": 1,
+      "origin_country": [
+        "ZA"
+      ],
+      "original_language": "en",
+      "original_name": "Umthetho",
+      "overview": "To keep their youngest brother alive, a state prosecutor becomes a double agent in her imprisoned older brother's gang.",
+      "popularity": 0.0,
+      "poster_path": "/xCiH7GBwpkdJMxPESMYo5ika7gW.jpg",
+      "production_companies": [
+        {
+          "id": 307311,
+          "logo_path": null,
+          "name": "Netflix",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "ZA",
+          "name": "South Africa"
+        }
+      ],
+      "seasons": [
+        {
+          "air_date": "2026-08-14",
+          "episode_count": 1,
+          "id": 536359,
+          "name": "Season 1",
+          "overview": "",
+          "poster_path": null,
+          "season_number": 1,
+          "vote_average": 0.0
+        }
+      ],
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Returning Series",
+      "tagline": "",
+      "type": "Scripted",
+      "vote_average": 0.0,
+      "vote_count": 0,
       "media_type": "tv"
     },
     {
@@ -3805,7 +4130,7 @@
       "original_language": "ja",
       "original_name": "ワンピース",
       "overview": "Years ago, the fearsome Pirate King, Gol D. Roger was executed leaving a huge pile of treasure and the famous \"One Piece\" behind. Whoever claims the \"One Piece\" will be named the new King of the Pirates.\n\nMonkey D. Luffy, a boy who consumed a \"Devil Fruit,\" decides to follow in the footsteps of his idol, the pirate Shanks, and find the One Piece. It helps, of course, that his body has the properties of rubber and that he's surrounded by a bevy of skilled fighters and thieves to help him along the way.\n\nLuffy will do anything to get the One Piece and become King of the Pirates!",
-      "popularity": 50.37,
+      "popularity": 46.8962,
       "poster_path": "/dB4EDhre2dsC2kxYDavyKWqLQwi.jpg",
       "production_companies": [
         {
@@ -4098,458 +4423,143 @@
       "status": "Returning Series",
       "tagline": "Set sail for One Piece!",
       "type": "Scripted",
-      "vote_average": 8.752,
-      "vote_count": 5474,
+      "vote_average": 8.8,
+      "vote_count": 5475,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/yRuUGw1zFd3IyayCwHv8gInDVeT.jpg",
+      "backdrop_path": "/hKXMOOvQwXiL01hfYG5nrkH0tEP.jpg",
       "created_by": [
         {
-          "id": 69237,
-          "credit_id": "6a7cd2ab2d607d5f47f284ec",
-          "name": "Joe Berlinger",
-          "original_name": "Joe Berlinger",
+          "id": 1274663,
+          "credit_id": "674e2558af6b3e0182a1c679",
+          "name": "Jonathan Tropper",
+          "original_name": "Jonathan Tropper",
           "gender": 2,
-          "profile_path": "/yvCTSlShNLmaq9NNlFKpFOLrVeJ.jpg"
+          "profile_path": "/8cyJtu5Jja9Rw6uZNkKotL1F2rc.jpg"
         }
       ],
       "episode_run_time": [],
-      "first_air_date": "2026-08-12",
+      "first_air_date": "2026-07-14",
       "genres": [
-        {
-          "id": 99,
-          "name": "Documentary"
-        }
-      ],
-      "homepage": "https://www.netflix.com/title/81705441",
-      "id": 330320,
-      "in_production": true,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": "2026-08-12",
-      "last_episode_to_air": {
-        "id": 7619495,
-        "name": "Episode 3",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-08-12",
-        "episode_number": 3,
-        "episode_type": "finale",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 330320,
-        "still_path": null
-      },
-      "name": "Conversations with a Killer: The Charles Manson Tapes",
-      "next_episode_to_air": null,
-      "networks": [
-        {
-          "id": 213,
-          "logo_path": "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
-          "name": "Netflix",
-          "origin_country": ""
-        }
-      ],
-      "number_of_episodes": 3,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "GB",
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Conversations with a Killer: The Charles Manson Tapes",
-      "overview": "Tracing Charles Manson's rise as a cult leader, the 1969 murders, and his trial, using unreleased prison recordings, interviews, and archival footage.",
-      "popularity": 7.8346,
-      "poster_path": "/8yyWUZjItJEO5dpKyCE8IghET9i.jpg",
-      "production_companies": [
-        {
-          "id": 89394,
-          "logo_path": "/m1Hku3PhgdsQiPO8uVe7szyrxAb.png",
-          "name": "RadicalMedia",
-          "origin_country": "US"
-        },
-        {
-          "id": 122026,
-          "logo_path": "/gryNdmVLc1aKXPAEKlzKGBBzf4V.png",
-          "name": "Naked",
-          "origin_country": "GB"
-        },
-        {
-          "id": 71816,
-          "logo_path": null,
-          "name": "Third Eye Motion Picture Company",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-08-12",
-          "episode_count": 3,
-          "id": 533471,
-          "name": "Miniseries",
-          "overview": "",
-          "poster_path": null,
-          "season_number": 1,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Miniseries",
-      "vote_average": 0.0,
-      "vote_count": 0,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/fZJs6xgU9dqIg9phIXjZAZOInzy.jpg",
-      "created_by": [
-        {
-          "id": 938831,
-          "credit_id": "62746bdcc56d2d5b66d2110d",
-          "name": "Jenny Lumet",
-          "original_name": "Jenny Lumet",
-          "gender": 1,
-          "profile_path": "/y3Hf3wFiA1Jo7Zj9N0x7eciCLcM.jpg"
-        },
-        {
-          "id": 15345,
-          "credit_id": "62746bd48c3159006890b279",
-          "name": "Alex Kurtzman",
-          "original_name": "Alex Kurtzman",
-          "gender": 2,
-          "profile_path": "/uDZxuaV19OYMhN7vuuVg1bSlqUM.jpg"
-        },
-        {
-          "id": 5575,
-          "credit_id": "62746bcd967cc70068e2a744",
-          "name": "Akiva Goldsman",
-          "original_name": "Akiva Goldsman",
-          "gender": 2,
-          "profile_path": "/7dWsuEUrC7AmAzZAeNstZ2zg1M8.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "2022-05-05",
-      "genres": [
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        },
         {
           "id": 18,
           "name": "Drama"
+        },
+        {
+          "id": 80,
+          "name": "Crime"
         }
       ],
-      "homepage": "https://www.paramountplus.com/shows/star-trek-strange-new-worlds",
-      "id": 103516,
+      "homepage": "https://tv.apple.com/show/umc.cmc.5qo7t3nngb2vj0m9dxkwebw1o",
+      "id": 278624,
       "in_production": true,
       "languages": [
         "en"
       ],
-      "last_air_date": "2026-08-06",
+      "last_air_date": "2026-08-11",
       "last_episode_to_air": {
-        "id": 7193797,
-        "name": "Human Best Friend",
-        "overview": "The Enterprise crew visits a shore-leave planet that guarantees fun in an inebriating atmosphere.",
-        "vote_average": 7.0,
-        "vote_count": 19,
-        "air_date": "2026-08-06",
-        "episode_number": 3,
+        "id": 6912002,
+        "name": "Wherever You Go, There You Are",
+        "overview": "Lucky must face her past while planning for her future.",
+        "vote_average": 4.864,
+        "vote_count": 11,
+        "air_date": "2026-08-11",
+        "episode_number": 6,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 48,
-        "season_number": 4,
-        "show_id": 103516,
-        "still_path": "/z7v5DpM6lCDxdHZMDYeUPV1lunF.jpg"
-      },
-      "name": "Star Trek: Strange New Worlds",
-      "next_episode_to_air": {
-        "id": 7193798,
-        "name": "A Case of Chiaroscuro",
-        "overview": "Una is mistaken for a virtuous kingpin against a Klingon occupation.",
-        "vote_average": 1.0,
-        "vote_count": 1,
-        "air_date": "2026-08-13",
-        "episode_number": 4,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 4,
-        "show_id": 103516,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 4330,
-          "logo_path": "/fi83B1oztoS47xxcemFdPMhIzK.png",
-          "name": "Paramount+",
-          "origin_country": "US"
-        }
-      ],
-      "number_of_episodes": 40,
-      "number_of_seasons": 4,
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_name": "Star Trek: Strange New Worlds",
-      "overview": "Follow Captain Christopher Pike, Science Officer Spock and Number One in the years before Captain Kirk boarded the U.S.S. Enterprise, as they explore new worlds around the galaxy.",
-      "popularity": 54.9582,
-      "poster_path": "/97TTJuqiSMfU0DuXx1B4NG5QNP7.jpg",
-      "production_companies": [
-        {
-          "id": 90517,
-          "logo_path": "/uq7itRpnnb1LX1VDDaJg64pKFmT.png",
-          "name": "Secret Hideout",
-          "origin_country": "US"
-        },
-        {
-          "id": 51670,
-          "logo_path": "/sFDn8bWLh9sE2dPxaa0xUUYL6zS.png",
-          "name": "Roddenberry Entertainment",
-          "origin_country": "US"
-        },
-        {
-          "id": 1081,
-          "logo_path": "/19kn4jVvpc3sAL3YpZNb3elhSMl.png",
-          "name": "CBS Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 433,
-          "logo_path": "/iafkKMpcRfEXq9a4sQf0h6tg2E2.png",
-          "name": "Weed Road Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 174838,
-          "logo_path": null,
-          "name": "H M R X Productions",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2020-09-08",
-          "episode_count": 31,
-          "id": 165857,
-          "name": "Specials",
-          "overview": "Special installments of the series.",
-          "poster_path": "/9Onpd1x7y0M9W13H4XrvsrV5pOG.jpg",
-          "season_number": 0,
-          "vote_average": 0.0
-        },
-        {
-          "air_date": "2022-05-05",
-          "episode_count": 10,
-          "id": 151012,
-          "name": "Season 1",
-          "overview": "The series follows the voyages of the Starfleet starship USS Enterprise (NCC-1701), captained by Christopher Pike, during its second five-year mission (2259-2264), which precedes Captain James T. Kirk's five-year mission narrated in the television series Star Trek. The series picks up on stardate 1738.12 (2259), a couple of years after the events that occurred in the second season of the television series Star Trek: Discovery, when Pike temporarily captained the USS Discovery.",
-          "poster_path": "/iwIdajr5Y4zq2ibvq75VnDAJBr.jpg",
-          "season_number": 1,
-          "vote_average": 7.3
-        },
-        {
-          "air_date": "2023-06-15",
-          "episode_count": 10,
-          "id": 307894,
-          "name": "Season 2",
-          "overview": "In season two, the crew of the U.S.S. Enterprise, under the command of Captain Christopher Pike, confronts increasingly dangerous stakes, explores uncharted territories and encounters new life and civilizations. The crew will also embark on personal journeys that will continue to test their resolve and redefine their destinies. Facing friends and enemies both new and familiar, their adventures will unfold in surprising ways never seen before.",
-          "poster_path": "/7Cp5w4X8xH2x4xDk67C5kMC5ePA.jpg",
-          "season_number": 2,
-          "vote_average": 7.5
-        },
-        {
-          "air_date": "2025-07-17",
-          "episode_count": 10,
-          "id": 404255,
-          "name": "Season 3",
-          "overview": "In season three, when we reconnect with the crew of the U.S.S. Enterprise, still under the command of Captain Pike, they face the conclusion of season two's harrowing encounter with the Gorn. But new life and civilizations await, including a villain that will test our characters' grit and resolve. An exciting twist on classic Star Trek, season three takes characters both new and beloved to new heights, and dives into thrilling adventures of faith, duty, romance, comedy and mystery, with varying genres never before seen on any other Star Trek.",
-          "poster_path": "/w6KapI2JvrCkOPmQhkwYPJNjqeo.jpg",
-          "season_number": 3,
-          "vote_average": 6.5
-        },
-        {
-          "air_date": "2026-07-23",
-          "episode_count": 10,
-          "id": 472809,
-          "name": "Season 4",
-          "overview": "In the fourth season, the crew of the U.S.S. Enterprise—led by Captain Christopher Pike—embarks on a series of thrilling and emotional adventures across the stars. As they journey to strange new worlds, they battle inner demons and external threats, encounter colorful new characters, reunite with familiar faces and confront terrifying aliens. Through it all, they strive to embrace a bright, hopeful future.",
-          "poster_path": "/fW8uT1hiZPpd5k8tryEyOclkW1p.jpg",
-          "season_number": 4,
-          "vote_average": 5.3
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "Boldly go one step closer to where it all began.",
-      "type": "Scripted",
-      "vote_average": 7.908,
-      "vote_count": 806,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/wJjnJbVUwPz0GADAgpFt9nWtzUu.jpg",
-      "created_by": [
-        {
-          "id": 28974,
-          "credit_id": "667b240b8e91ec743ec27c72",
-          "name": "Damon Lindelof",
-          "original_name": "Damon Lindelof",
-          "gender": 2,
-          "profile_path": "/9V75oRAKiI0chdg1wGh1wPqaXsG.jpg"
-        },
-        {
-          "id": 1258079,
-          "credit_id": "667b69db74da0fb41e7ba4e0",
-          "name": "Chris Mundy",
-          "original_name": "Chris Mundy",
-          "gender": 2,
-          "profile_path": "/aEWK5Qo1U896iMsUMd2oY8yso1I.jpg"
-        },
-        {
-          "id": 2325172,
-          "credit_id": "667b2415af94a9c945f68fcc",
-          "name": "Tom King",
-          "original_name": "Tom King",
-          "gender": 2,
-          "profile_path": "/no73FbFgWdBB5wU6xEc7WKT8EIs.jpg"
-        }
-      ],
-      "episode_run_time": [
-        55
-      ],
-      "first_air_date": "2026-08-16",
-      "genres": [
-        {
-          "id": 10765,
-          "name": "Sci-Fi & Fantasy"
-        },
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        }
-      ],
-      "homepage": "https://www.hbo.com/content/lanterns",
-      "id": 95350,
-      "in_production": true,
-      "languages": [
-        "en"
-      ],
-      "last_air_date": null,
-      "last_episode_to_air": null,
-      "name": "Lanterns",
-      "next_episode_to_air": {
-        "id": 4988115,
-        "name": "Pilot",
-        "overview": "After a fatal shooting, Green Lantern Hal Jordan and new recruit John Stewart set out to prove it was an extraterrestrial event.",
-        "vote_average": 1.0,
-        "vote_count": 1,
-        "air_date": "2026-08-16",
-        "episode_number": 1,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 60,
+        "runtime": 49,
         "season_number": 1,
-        "show_id": 95350,
-        "still_path": null
+        "show_id": 278624,
+        "still_path": "/ipUpVlpqI7tsDc37Lc3AOM6Bbef.jpg"
+      },
+      "name": "Lucky",
+      "next_episode_to_air": {
+        "id": 6912004,
+        "name": "All Good Things",
+        "overview": "Everything is on the line as Lucky navigates an explosive confrontation.",
+        "vote_average": 1.0,
+        "vote_count": 4,
+        "air_date": "2026-08-18",
+        "episode_number": 7,
+        "episode_type": "finale",
+        "production_code": "",
+        "runtime": 45,
+        "season_number": 1,
+        "show_id": 278624,
+        "still_path": "/5u1Ubzf2RN1XXedIS2TMJpa6E7y.jpg"
       },
       "networks": [
         {
-          "id": 49,
-          "logo_path": "/tuomPhY2UtuPTqqFnKMVHvSb724.png",
-          "name": "HBO",
-          "origin_country": "US"
+          "id": 2552,
+          "logo_path": "/bngHRFi794mnMq34gfVcm9nDxN1.png",
+          "name": "Apple TV",
+          "origin_country": ""
         }
       ],
-      "number_of_episodes": 8,
+      "number_of_episodes": 7,
       "number_of_seasons": 1,
       "origin_country": [
         "US"
       ],
       "original_language": "en",
-      "original_name": "Lanterns",
-      "overview": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, earth-based mystery as they investigate a murder in the American heartland.",
-      "popularity": 16.9685,
-      "poster_path": "/rb94rKVIzLyfWufIN7WqLvadBDH.jpg",
+      "original_name": "Lucky",
+      "overview": "When a multi-million-dollar heist goes sideways, con artist Lucky is forced to go on the run. Pursued by both the FBI and a ruthless crime boss, Lucky must fight for her life—and a way out.",
+      "popularity": 104.7681,
+      "poster_path": "/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
       "production_companies": [
         {
-          "id": 184898,
-          "logo_path": "/iNTsbEgntSUwHmsZ9whiLhm60WB.png",
-          "name": "DC Studios",
+          "id": 94284,
+          "logo_path": null,
+          "name": "Tropper Ink Productions",
           "origin_country": "US"
         },
         {
-          "id": 3268,
-          "logo_path": "/tuomPhY2UtuPTqqFnKMVHvSb724.png",
-          "name": "HBO",
+          "id": 105382,
+          "logo_path": "/b94sYzp4YUqi3DqIUnWnfrmxlN.png",
+          "name": "Hello Sunshine",
           "origin_country": "US"
         },
         {
-          "id": 1957,
-          "logo_path": "/pJJw98MtNFC9cHn3o15G7vaUnnX.png",
-          "name": "Warner Bros. Television",
+          "id": 246220,
+          "logo_path": null,
+          "name": "Lady Killer Productions",
           "origin_country": "US"
+        },
+        {
+          "id": 194232,
+          "logo_path": "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
+          "name": "Apple Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 304649,
+          "logo_path": null,
+          "name": "J. V. T. Films",
+          "origin_country": "GB"
         }
       ],
       "production_countries": [
         {
           "iso_3166_1": "US",
           "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
         }
       ],
       "seasons": [
         {
-          "air_date": "2026-08-16",
-          "episode_count": 8,
-          "id": 165308,
-          "name": "Season 1",
+          "air_date": "2026-07-14",
+          "episode_count": 7,
+          "id": 431609,
+          "name": "Miniseries",
           "overview": "",
-          "poster_path": "/j9PTWG0Xn0NeIRhGGFJbciNYWvS.jpg",
+          "poster_path": "/xsrkiXg8EuNNtbPtbmvCxg95gK7.jpg",
           "season_number": 1,
-          "vote_average": 1.0
+          "vote_average": 4.5
         }
       ],
       "softcore": false,
@@ -4561,10 +4571,10 @@
         }
       ],
       "status": "Returning Series",
-      "tagline": "Only one can wear the ring.",
-      "type": "Scripted",
-      "vote_average": 2.8,
-      "vote_count": 5,
+      "tagline": "Wish her luck.",
+      "type": "Miniseries",
+      "vote_average": 7.361,
+      "vote_count": 137,
       "media_type": "tv"
     },
     {
@@ -4603,8 +4613,8 @@
         "id": 7204102,
         "name": "I'm the Kid",
         "overview": "Annie and Ramona confront hard truths about their families and themselves, forcing each woman to decide what truly matters as they navigate the tensions between their past choices and future hopes.",
-        "vote_average": 6.0,
-        "vote_count": 3,
+        "vote_average": 6.25,
+        "vote_count": 4,
         "air_date": "2026-08-05",
         "episode_number": 8,
         "episode_type": "finale",
@@ -4632,7 +4642,7 @@
       "original_language": "en",
       "original_name": "Sterling Point",
       "overview": "After discovering she's inherited a remote island in Canada from the estranged grandfather she was never allowed to meet, 17-year-old Annie Jacobson decides to investigate, pulling her into a world of buried secrets, unexpected sisterhood, and the complicated family history she was never meant to find.",
-      "popularity": 88.7356,
+      "popularity": 86.8832,
       "poster_path": "/cThLWEGs6BEqY0QZMbU4FAeWwPT.jpg",
       "production_companies": [
         {
@@ -4685,7 +4695,7 @@
           "overview": "",
           "poster_path": "/cThLWEGs6BEqY0QZMbU4FAeWwPT.jpg",
           "season_number": 1,
-          "vote_average": 5.6
+          "vote_average": 5.9
         }
       ],
       "softcore": false,
@@ -4700,395 +4710,186 @@
       "tagline": "Uncover the secrets.",
       "type": "Scripted",
       "vote_average": 7.8,
-      "vote_count": 46,
+      "vote_count": 49,
       "media_type": "tv"
     },
     {
       "adult": false,
-      "backdrop_path": "/paF9IoqXN3inVb5eR9rxElbpYyb.jpg",
-      "created_by": [
-        {
-          "id": 1682677,
-          "credit_id": "6a6c0d756287a712e3771396",
-          "name": "Kennedy Xu",
-          "original_name": "南派三叔",
-          "gender": 2,
-          "profile_path": "/mVq05W1wbpSrk0EvDSzJPyiBuzf.jpg"
-        }
+      "backdrop_path": "/7ZruEnSnHD6Jx5mF0hBt1E306Vt.jpg",
+      "created_by": [],
+      "episode_run_time": [
+        25
       ],
-      "episode_run_time": [],
-      "first_air_date": "2026-07-30",
-      "genres": [
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 10759,
-          "name": "Action & Adventure"
-        }
-      ],
-      "homepage": "https://v.youku.com/v_show/id_XNTE5ODA2NTMwMA==.html",
-      "id": 271016,
-      "in_production": true,
-      "languages": [
-        "zh"
-      ],
-      "last_air_date": "2026-08-11",
-      "last_episode_to_air": {
-        "id": 7578313,
-        "name": "Episode 24",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-08-12",
-        "episode_number": 24,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": 38,
-        "season_number": 1,
-        "show_id": 271016,
-        "still_path": "/6DyGvFlDFtXecRrzCQtYDlumR7j.jpg"
-      },
-      "name": "Mystic Nine",
-      "next_episode_to_air": {
-        "id": 7578314,
-        "name": "Episode 25",
-        "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-08-13",
-        "episode_number": 25,
-        "episode_type": "standard",
-        "production_code": "",
-        "runtime": null,
-        "season_number": 1,
-        "show_id": 271016,
-        "still_path": null
-      },
-      "networks": [
-        {
-          "id": 1419,
-          "logo_path": "/w2TeR3fvPZ9a617tNIF1oOfyPtk.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "number_of_episodes": 30,
-      "number_of_seasons": 1,
-      "origin_country": [
-        "CN"
-      ],
-      "original_language": "zh",
-      "original_name": "九门",
-      "overview": "Mystic Nine follows Zhang Qishan as he joins forces with Wu Laogou, alongside Huo Xiangu and the other members of the Mystic Nine, when turmoil returns to Changsha. The mysterious disappearance of Unit 401 uncovers a century-old secret. Faced with life-and-death choices, bound by brotherhood, responsibility to their sects, and devotion to their country, they risk everything to protect their home and overcome the crisis.",
-      "popularity": 46.6039,
-      "poster_path": "/Q9u5ZSrthOuwkULV41VUqE8vRV.jpg",
-      "production_companies": [
-        {
-          "id": 38617,
-          "logo_path": null,
-          "name": "Quantum Entertainment",
-          "origin_country": "CN"
-        },
-        {
-          "id": 48460,
-          "logo_path": "/7m3BMwdstKRqw7qg5vSYW2S0HrR.png",
-          "name": "Youku",
-          "origin_country": "CN"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "CN",
-          "name": "China"
-        }
-      ],
-      "seasons": [
-        {
-          "air_date": "2026-07-30",
-          "episode_count": 30,
-          "id": 417788,
-          "name": "Season 1",
-          "overview": "",
-          "poster_path": "/zh8q1TgnNqNo92z65Cum3guG6uu.jpg",
-          "season_number": 1,
-          "vote_average": 0.0
-        }
-      ],
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "Mandarin",
-          "iso_639_1": "zh",
-          "name": "普通话"
-        }
-      ],
-      "status": "Returning Series",
-      "tagline": "",
-      "type": "Scripted",
-      "vote_average": 6.8,
-      "vote_count": 5,
-      "media_type": "tv"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/4xKG4S1IyLIglHbCYGJDsptgQNh.jpg",
-      "created_by": [
-        {
-          "id": 5741,
-          "credit_id": "52538acb19c2957940246e70",
-          "name": "Matt Groening",
-          "original_name": "Matt Groening",
-          "gender": 2,
-          "profile_path": "/2HmAw3AN93DGESPi3ibLZgBa8cT.jpg"
-        }
-      ],
-      "episode_run_time": [],
-      "first_air_date": "1999-03-28",
+      "first_air_date": "2016-04-04",
       "genres": [
         {
           "id": 16,
           "name": "Animation"
         },
         {
-          "id": 35,
-          "name": "Comedy"
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 9648,
+          "name": "Mystery"
+        },
+        {
+          "id": 10759,
+          "name": "Action & Adventure"
         },
         {
           "id": 10765,
           "name": "Sci-Fi & Fantasy"
         }
       ],
-      "homepage": "https://www.hulu.com/series/85bf4cc1-cd8b-4469-ad87-7289217a0b74",
-      "id": 615,
+      "homepage": "http://re-zero-anime.jp/",
+      "id": 65942,
       "in_production": true,
       "languages": [
-        "en"
+        "ja"
       ],
-      "last_air_date": "2026-08-03",
+      "last_air_date": "2026-08-12",
       "last_episode_to_air": {
-        "id": 7269630,
-        "name": "Our Flag Means Medical Coverage",
-        "overview": "Bender and Fry are hired to deliver a priceless cargo, but they are attacked and pillaged by vicious space pirates.",
-        "vote_average": 7.5,
-        "vote_count": 4,
-        "air_date": "2026-08-10",
-        "episode_number": 3,
-        "episode_type": "standard",
-        "production_code": "BACV02",
-        "runtime": 25,
-        "season_number": 11,
-        "show_id": 615,
-        "still_path": "/rJUwHE7AlMq4wVYt2TiJJZdlViI.jpg"
-      },
-      "name": "Futurama",
-      "next_episode_to_air": {
-        "id": 7269635,
-        "name": "Lords of the Ring",
-        "overview": "The Planet Express ship crash-lands on a mysterious world inhabited by intelligent rats.",
-        "vote_average": 0.0,
-        "vote_count": 0,
-        "air_date": "2026-08-17",
-        "episode_number": 4,
+        "id": 7130155,
+        "name": "From Now On",
+        "overview": "After waking up without his memories yet again, Subaru makes up his mind to save Meili this time.",
+        "vote_average": 8.636,
+        "vote_count": 11,
+        "air_date": "2026-08-12",
+        "episode_number": 78,
         "episode_type": "standard",
         "production_code": "",
-        "runtime": 25,
-        "season_number": 11,
-        "show_id": 615,
-        "still_path": "/bgJtryTYALxW9gDPow7nkNGphUa.jpg"
+        "runtime": 24,
+        "season_number": 1,
+        "show_id": 65942,
+        "still_path": "/wCls3YU2fX7Lfy0Cjf3s1H3PnM2.jpg"
+      },
+      "name": "Re:ZERO -Starting Life in Another World-",
+      "next_episode_to_air": {
+        "id": 7130159,
+        "name": "Episode 79",
+        "overview": "",
+        "vote_average": 10.0,
+        "vote_count": 1,
+        "air_date": "2026-08-19",
+        "episode_number": 79,
+        "episode_type": "standard",
+        "production_code": "",
+        "runtime": null,
+        "season_number": 1,
+        "show_id": 65942,
+        "still_path": null
       },
       "networks": [
         {
-          "id": 19,
-          "logo_path": "/1DSpHrWyOORkL9N2QHX7Adt31mQ.png",
-          "name": "FOX",
-          "origin_country": "US"
+          "id": 98,
+          "logo_path": "/jnuO8pZNEBLEq5YaOP1f5OkmG91.png",
+          "name": "TV Tokyo",
+          "origin_country": "JP"
         },
         {
-          "id": 47,
-          "logo_path": "/6ooPjtXufjsoskdJqj6pxuvHEno.png",
-          "name": "Comedy Central",
-          "origin_country": "US"
-        },
-        {
-          "id": 453,
-          "logo_path": "/pqUTCleNUiTLAVlelGxUgWn1ELh.png",
-          "name": "Hulu",
-          "origin_country": "US"
+          "id": 173,
+          "logo_path": "/fERjndErEpveJmQZccJbJDi93rj.png",
+          "name": "AT-X",
+          "origin_country": "JP"
         }
       ],
-      "number_of_episodes": 164,
-      "number_of_seasons": 11,
+      "number_of_episodes": 85,
+      "number_of_seasons": 1,
       "origin_country": [
-        "US"
+        "JP"
       ],
-      "original_language": "en",
-      "original_name": "Futurama",
-      "overview": "The adventures of a late-20th-century New York City pizza delivery boy, Philip J. Fry, who, after being unwittingly cryogenically frozen for one thousand years, finds employment at Planet Express, an interplanetary delivery company in the retro-futuristic 31st century.",
-      "popularity": 103.0322,
-      "poster_path": "/eM8bbTn8C8vUwwS6upzzm7gX31u.jpg",
+      "original_language": "ja",
+      "original_name": "Re:ゼロから始める異世界生活",
+      "overview": "Natsuki Subaru, an ordinary high school  student, is on his way home from the convenience store when he finds  himself transported to another world. As he's lost and confused in a new  world where he doesn't even know left from right, the only person to  reach out to him was a beautiful girl with silver hair. Determined to  repay her somehow for saving him from his own despair, Subaru agrees to  help the girl find something she's looking for.",
+      "popularity": 93.7415,
+      "poster_path": "/oHqYrPAsIiTD5m4DuxumV4er8BU.jpg",
       "production_companies": [
         {
-          "id": 1556,
-          "logo_path": "/31h94rG9hzjprXoYNy3L1ErUya2.png",
-          "name": "20th Century Fox Television",
-          "origin_country": "US"
+          "id": 12569,
+          "logo_path": "/pROt6mT15AC5aTadf7NRBRiTVo3.png",
+          "name": "White Fox",
+          "origin_country": "JP"
         },
         {
-          "id": 29500,
-          "logo_path": "/a3ltwX7b1opYeG7MxaxxswDmkeg.png",
-          "name": "The Curiosity Company",
-          "origin_country": "US"
+          "id": 2073,
+          "logo_path": "/tWxRSaKmRJNTcmtlXsmn5R4KOSU.png",
+          "name": "KADOKAWA",
+          "origin_country": "JP"
         },
         {
-          "id": 154887,
-          "logo_path": "/wLFPu95hIMmyLR5hdtvYaMuK0tG.png",
-          "name": "20th Television Animation",
-          "origin_country": "US"
+          "id": 142186,
+          "logo_path": "/bdXTOuU7PdsDtQngyM7vb47zePs.png",
+          "name": "Hakuhodo DY Music & Pictures",
+          "origin_country": "JP"
+        },
+        {
+          "id": 157002,
+          "logo_path": "/hSdroyVthq3CynxTIIY7lnS8w1.png",
+          "name": "Tokyo MX",
+          "origin_country": "JP"
+        },
+        {
+          "id": 17981,
+          "logo_path": "/8UABNMysukRi4udTHYxcNUMbPR1.png",
+          "name": "AT-X",
+          "origin_country": "JP"
+        },
+        {
+          "id": 12540,
+          "logo_path": null,
+          "name": "Memory-Tech",
+          "origin_country": "JP"
+        },
+        {
+          "id": 225089,
+          "logo_path": "/g2DdqSxJNOzr9uoEwAcOcSi6DRQ.png",
+          "name": "DAXEL",
+          "origin_country": "JP"
         }
       ],
       "production_countries": [
         {
-          "iso_3166_1": "US",
-          "name": "United States of America"
+          "iso_3166_1": "JP",
+          "name": "Japan"
         }
       ],
       "seasons": [
         {
-          "air_date": "2007-11-27",
-          "episode_count": 6,
-          "id": 1874,
+          "air_date": "2016-04-05",
+          "episode_count": 78,
+          "id": 76465,
           "name": "Specials",
-          "overview": "Special installments of the series.",
-          "poster_path": "/k4MbPg0Tp3vSptVdXGxkiqDOD90.jpg",
+          "overview": "",
+          "poster_path": "/DZtIJ4MbMgvrdZ6aqcCRfWjH03.jpg",
           "season_number": 0,
           "vote_average": 0.0
         },
         {
-          "air_date": "1999-03-28",
-          "episode_count": 9,
-          "id": 1868,
+          "air_date": "2016-04-04",
+          "episode_count": 85,
+          "id": 75470,
           "name": "Season 1",
           "overview": "",
-          "poster_path": "/zJvhAgtA37QwntMc59CHCjRjW50.jpg",
+          "poster_path": "/5MrRCj7z92YLWMXHeWKp19eJPYv.jpg",
           "season_number": 1,
-          "vote_average": 7.6
-        },
-        {
-          "air_date": "1999-09-26",
-          "episode_count": 20,
-          "id": 1869,
-          "name": "Season 2",
-          "overview": "",
-          "poster_path": "/73wNUIJoi50I8RozwncfPurfk8g.jpg",
-          "season_number": 2,
-          "vote_average": 7.4
-        },
-        {
-          "air_date": "2000-11-05",
-          "episode_count": 15,
-          "id": 1870,
-          "name": "Season 3",
-          "overview": "",
-          "poster_path": "/3b7s0n9vpyrSQkohX8wxnmNKA9l.jpg",
-          "season_number": 3,
-          "vote_average": 7.6
-        },
-        {
-          "air_date": "2001-12-09",
-          "episode_count": 12,
-          "id": 1871,
-          "name": "Season 4",
-          "overview": "",
-          "poster_path": "/mOc2Cd9cpCn5uaOjHqNNMrvNbzi.jpg",
-          "season_number": 4,
-          "vote_average": 7.6
-        },
-        {
-          "air_date": "2002-11-10",
-          "episode_count": 16,
-          "id": 1872,
-          "name": "Season 5",
-          "overview": "In the fifth season, Bender grows jealous when Fry attempts to clone his beloved fossilized dog; when Kif gets pregnant, Amy questions her readiness to become a parent; when Fry and Leela discover a mysterious cream that gives them unusual powers, they form a Superhero team along with Bender; and Fry makes a deal with the Robot Devil so he can become a skillful musician and win Leela's heart.",
-          "poster_path": "/n4CGT9lmlU2GWiT9vmPbpvqXbZG.jpg",
-          "season_number": 5,
-          "vote_average": 7.8
-        },
-        {
-          "air_date": "2010-06-24",
-          "episode_count": 26,
-          "id": 1873,
-          "name": "Season 6",
-          "overview": "",
-          "poster_path": "/9QGsYuRe7XHa9ARu9XHKz0h0cra.jpg",
-          "season_number": 6,
-          "vote_average": 7.3
-        },
-        {
-          "air_date": "2012-06-20",
-          "episode_count": 26,
-          "id": 1875,
-          "name": "Season 7",
-          "overview": "",
-          "poster_path": "/sKkMifpyEHPqqfMsmkOJ7oFgfpb.jpg",
-          "season_number": 7,
-          "vote_average": 7.3
-        },
-        {
-          "air_date": "2023-07-24",
-          "episode_count": 10,
-          "id": 339563,
-          "name": "Season 8",
-          "overview": "After a brief ten-year hiatus, Futurama has crawled triumphantly from the cryogenic tube, its full original cast and satirical spirit intact. New viewers will be able to pick up the series from here, while long-time fans will recognize payoffs to decades-long mysteries - including developments in the epic love story of Fry and Leela, the mysterious contents of Nibbler's litter box, the secret history of evil Robot Santa, and the whereabouts of Kif and Amy's tadpoles. Meanwhile there's a whole new pandemic in town as the crew explores the future of vaccines, bitcoin, cancel culture, and streaming TV.",
-          "poster_path": "/7bRHBrmSn5QLY1UJ32v4jeSoKzP.jpg",
-          "season_number": 8,
-          "vote_average": 6.5
-        },
-        {
-          "air_date": "2024-07-29",
-          "episode_count": 10,
-          "id": 387123,
-          "name": "Season 9",
-          "overview": "On this orbit around the sun, our occasionally heroic crew embarks on mind-bending adventures involving birthday party games to the death, the secrets of Bender's ancestral robot village, A.I. friends (and enemies), impossibly cute beanbags, and the true 5 million-year-old story behind the consciousness-altering substance known as coffee. And, of course, the next chapter in Fry and Leela's fateful, time-twisted romance.",
-          "poster_path": "/sdJcX2cXirwQurLLlrDLYov7hcD.jpg",
-          "season_number": 9,
-          "vote_average": 6.5
-        },
-        {
-          "air_date": "2025-09-15",
-          "episode_count": 10,
-          "id": 466354,
-          "name": "Season 10",
-          "overview": "Bender is rampaging out of control! A volcano is about to explode! Fry confronts a rival for Leela's love! And Dr. Zoidberg is rising up to heaven?! The excitement might be too much! You've been warned... it's an all new season of FUTURAMA!",
-          "poster_path": "/6ZS8SOno6kTmWz4eQ8lX8EBXOMv.jpg",
-          "season_number": 10,
-          "vote_average": 6.8
-        },
-        {
-          "air_date": "2026-08-03",
-          "episode_count": 10,
-          "id": 516338,
-          "name": "Season 11",
-          "overview": "Brace yourselves... The future is about to get a whole lot stranger! It's a non-stop onslaught of swaggering space pirates, lab-grown meats, sexy scams... plus the shocking return of Dr. Zoidberg's lost love! You didn't see that coming, prior to being told about it just now!",
-          "poster_path": "/6twzHoDuPuDqk2xQJg04kKLwFhl.jpg",
-          "season_number": 11,
-          "vote_average": 7.0
+          "vote_average": 9.4
         }
       ],
       "softcore": false,
       "spoken_languages": [
         {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
+          "english_name": "Japanese",
+          "iso_639_1": "ja",
+          "name": "日本語"
         }
       ],
       "status": "Returning Series",
-      "tagline": "New season on the horizon.",
+      "tagline": "Racing through the journey of memories——",
       "type": "Scripted",
-      "vote_average": 8.366,
-      "vote_count": 3843,
+      "vote_average": 8.0,
+      "vote_count": 740,
       "media_type": "tv"
     }
   ]
