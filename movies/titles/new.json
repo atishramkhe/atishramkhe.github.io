@@ -2,6 +2,75 @@
   "movies": [
     {
       "adult": false,
+      "backdrop_path": "/jdJsnhHfkIi3J7jwfiCFT4gXNx5.jpg",
+      "belongs_to_collection": null,
+      "budget": 0,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 12,
+          "name": "Adventure"
+        }
+      ],
+      "homepage": "https://tv.apple.com/movie/umc.cmc.31qa8j1tn2cnpyk3fx43w928d",
+      "id": 1148365,
+      "imdb_id": "tt28498219",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Matchbox the Movie",
+      "overview": "When a group of former childhood friends reconnect, their reunion takes a wild turn as they stumble upon a dangerous international plot—and must save the world.",
+      "popularity": 391.6431,
+      "poster_path": "/lFKA4GMz36dImEy3DQPdPF7G4V9.jpg",
+      "production_companies": [
+        {
+          "id": 168848,
+          "logo_path": "/omEguKifcJixMvKWq85sUp4lFdT.png",
+          "name": "Mattel Studios",
+          "origin_country": "US"
+        },
+        {
+          "id": 82819,
+          "logo_path": "/gXfFl9pRPaoaq14jybEn1pHeldr.png",
+          "name": "Skydance Media",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-10-05",
+      "revenue": 0,
+      "runtime": 127,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Save the world, bring your friends.",
+      "title": "Matchbox the Movie",
+      "video": false,
+      "vote_average": 7.9,
+      "vote_count": 336,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
       "backdrop_path": "/3icyRAqgakNcQn6aDVz9libFmBA.jpg",
       "belongs_to_collection": null,
       "budget": 75000000,
@@ -28,7 +97,7 @@
       "original_language": "en",
       "original_title": "Resident Evil",
       "overview": "Medical courier Bryan unwittingly finds himself fighting for survival as one fateful, horrifying night collapses around him in chaos.",
-      "popularity": 379.6986,
+      "popularity": 296.6412,
       "poster_path": "/i7UyjfPio0VFHB9rBUZSFyhOoM8.jpg",
       "production_companies": [
         {
@@ -103,82 +172,13 @@
       "tagline": "A new era of evil.",
       "title": "Resident Evil",
       "video": false,
-      "vote_average": 7.315,
-      "vote_count": 939,
+      "vote_average": 7.3,
+      "vote_count": 953,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/y6RIuwuxLG3Nsb37KUj5yatnTIp.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 28,
-          "name": "Action"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 12,
-          "name": "Adventure"
-        }
-      ],
-      "homepage": "https://tv.apple.com/movie/umc.cmc.31qa8j1tn2cnpyk3fx43w928d",
-      "id": 1148365,
-      "imdb_id": "tt28498219",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Matchbox the Movie",
-      "overview": "When a group of former childhood friends reconnect, their reunion takes a wild turn as they stumble upon a dangerous international plot—and must save the world.",
-      "popularity": 408.7678,
-      "poster_path": "/lFKA4GMz36dImEy3DQPdPF7G4V9.jpg",
-      "production_companies": [
-        {
-          "id": 168848,
-          "logo_path": "/omEguKifcJixMvKWq85sUp4lFdT.png",
-          "name": "Mattel Studios",
-          "origin_country": "US"
-        },
-        {
-          "id": 82819,
-          "logo_path": "/gXfFl9pRPaoaq14jybEn1pHeldr.png",
-          "name": "Skydance Media",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-10-05",
-      "revenue": 0,
-      "runtime": 127,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Save the world, bring your friends.",
-      "title": "Matchbox the Movie",
-      "video": false,
-      "vote_average": 7.9,
-      "vote_count": 313,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/twiVn9oFXOVR0uoYgawyEBlnFu8.jpg",
+      "backdrop_path": "/nVBzWBqHTB3XD0iqWiJLfKLo5fq.jpg",
       "belongs_to_collection": null,
       "budget": 250000000,
       "genres": [
@@ -205,7 +205,7 @@
       "original_language": "en",
       "original_title": "The Odyssey",
       "overview": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
-      "popularity": 379.5091,
+      "popularity": 366.4624,
       "poster_path": "/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
       "production_companies": [
         {
@@ -246,91 +246,8 @@
       "tagline": "Defy the gods.",
       "title": "The Odyssey",
       "video": false,
-      "vote_average": 8.012,
-      "vote_count": 4131,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/yBDxqDB29kpH9VojTytjGWBgmdJ.jpg",
-      "belongs_to_collection": {
-        "id": 1102372,
-        "name": "Fall Collection",
-        "poster_path": "/jgccDcJCq963VhKUbzoV2Oxhirk.jpg",
-        "backdrop_path": "/irpXNMKEdYZLQAZDmKeicXdUHMG.jpg"
-      },
-      "budget": 3000000,
-      "genres": [
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://www.fall.movie/",
-      "id": 1101412,
-      "imdb_id": "tt31192372",
-      "origin_country": [
-        "US",
-        "GB"
-      ],
-      "original_language": "en",
-      "original_title": "Fall 2: Deadpoint",
-      "overview": "On a perilous climb across Thailand's Mount Kwan, two climbers become trapped thousands of feet above the ground, where vertigo-inducing heights, sheer exposure, and impossible odds turn every moment into a fight for survival.",
-      "popularity": 239.7621,
-      "poster_path": "/fgSm5ylwiXbIHn8UbUXDjk9RRu4.jpg",
-      "production_companies": [
-        {
-          "id": 155758,
-          "logo_path": "/iZi0zd9ijrcWR9zlEUUthG8d600.png",
-          "name": "Tea Shop Productions",
-          "origin_country": "GB"
-        },
-        {
-          "id": 154063,
-          "logo_path": "/r4anaxYa8OL5KaUbU35VkrIe88L.png",
-          "name": "Capstone Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 61975,
-          "logo_path": null,
-          "name": "Flawless Production",
-          "origin_country": "GB"
-        },
-        {
-          "id": 303075,
-          "logo_path": null,
-          "name": "Cousin Jones",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "GB",
-          "name": "United Kingdom"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-09-01",
-      "revenue": 9256541,
-      "runtime": 98,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Are you down?",
-      "title": "Fall 2: Deadpoint",
-      "video": false,
-      "vote_average": 7.286,
-      "vote_count": 537,
+      "vote_average": 8.01,
+      "vote_count": 4138,
       "media_type": "movie"
     },
     {
@@ -357,7 +274,7 @@
       "original_language": "en",
       "original_title": "Animals",
       "overview": "When the son of an L.A. mayoral candidate is kidnapped, he and his wife have a few hours to come up with the ransom payment. With most of their money spent on his political campaign, they have to get their hands dirty and expose a side of their lives they never intended to see the light of day.",
-      "popularity": 269.6434,
+      "popularity": 262.6055,
       "poster_path": "/iISM36voS1E8gX9BM0DVK0kgi3E.jpg",
       "production_companies": [
         {
@@ -405,8 +322,8 @@
       "tagline": "Power can't protect you.",
       "title": "Animals",
       "video": false,
-      "vote_average": 7.238,
-      "vote_count": 361,
+      "vote_average": 7.2,
+      "vote_count": 380,
       "media_type": "movie"
     },
     {
@@ -433,7 +350,7 @@
       "original_language": "en",
       "original_title": "Runner",
       "overview": "A former soldier is thrown into a brutal race against time when a critical medical delivery makes him and his unlikely partner the targets of a ruthless cartel. As the mission spirals into a deadly manhunt, every detour, delay, and bullet pushes them closer to failure. With betrayal closing in from every side, they must survive the chase and deliver their cargo to save the life of a little girl.",
-      "popularity": 265.0429,
+      "popularity": 237.4458,
       "poster_path": "/yBKMAIj7clP42UkFejhGDBBoTpb.jpg",
       "production_companies": [
         {
@@ -514,8 +431,91 @@
       "tagline": "Next-day delivery isn't an option.",
       "title": "Runner",
       "video": false,
-      "vote_average": 8.296,
-      "vote_count": 560,
+      "vote_average": 8.303,
+      "vote_count": 577,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/nGau0KBOaRILSK5MqFcuTfv7GMl.jpg",
+      "belongs_to_collection": {
+        "id": 1102372,
+        "name": "Fall Collection",
+        "poster_path": "/jgccDcJCq963VhKUbzoV2Oxhirk.jpg",
+        "backdrop_path": "/irpXNMKEdYZLQAZDmKeicXdUHMG.jpg"
+      },
+      "budget": 3000000,
+      "genres": [
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://www.fall.movie/",
+      "id": 1101412,
+      "imdb_id": "tt31192372",
+      "origin_country": [
+        "US",
+        "GB"
+      ],
+      "original_language": "en",
+      "original_title": "Fall 2: Deadpoint",
+      "overview": "On a perilous climb across Thailand's Mount Kwan, two climbers become trapped thousands of feet above the ground, where vertigo-inducing heights, sheer exposure, and impossible odds turn every moment into a fight for survival.",
+      "popularity": 210.5122,
+      "poster_path": "/fgSm5ylwiXbIHn8UbUXDjk9RRu4.jpg",
+      "production_companies": [
+        {
+          "id": 155758,
+          "logo_path": "/iZi0zd9ijrcWR9zlEUUthG8d600.png",
+          "name": "Tea Shop Productions",
+          "origin_country": "GB"
+        },
+        {
+          "id": 154063,
+          "logo_path": "/r4anaxYa8OL5KaUbU35VkrIe88L.png",
+          "name": "Capstone Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 61975,
+          "logo_path": null,
+          "name": "Flawless Production",
+          "origin_country": "GB"
+        },
+        {
+          "id": 303075,
+          "logo_path": null,
+          "name": "Cousin Jones",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "GB",
+          "name": "United Kingdom"
+        },
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-09-01",
+      "revenue": 9256541,
+      "runtime": 98,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Are you down?",
+      "title": "Fall 2: Deadpoint",
+      "video": false,
+      "vote_average": 7.3,
+      "vote_count": 544,
       "media_type": "movie"
     },
     {
@@ -542,7 +542,7 @@
       "original_language": "en",
       "original_title": "The Fix",
       "overview": "Disillusioned by the end of the war in Afghanistan, a group of disgraced, war-torn ex-CIA operatives set out to Tehran to take down a life-changing score.",
-      "popularity": 248.4615,
+      "popularity": 231.3774,
       "poster_path": "/jlP8XDjZN89GrpM3je5Uf8Grqx8.jpg",
       "production_companies": [
         {
@@ -626,8 +626,8 @@
       "tagline": "Settle the score.",
       "title": "The Fix",
       "video": false,
-      "vote_average": 6.754,
-      "vote_count": 63,
+      "vote_average": 6.8,
+      "vote_count": 64,
       "media_type": "movie"
     },
     {
@@ -658,7 +658,7 @@
       "original_language": "ko",
       "original_title": "호프",
       "overview": "In the remote South Korean village of Hope Harbor, police chief Bum-seok and officer Sung-ae are called to investigate a mysterious creature wreaking havoc on the community. But all is not as it seems, and perceptions can be misleading. What begins as ignorance plants the seed of disaster, escalating through human conflict into a tragedy of cosmic proportions.",
-      "popularity": 191.1737,
+      "popularity": 214.21,
       "poster_path": "/bcK5naYzzfY0JBCgrPrsrbV6NO1.jpg",
       "production_companies": [
         {
@@ -701,8 +701,8 @@
       "tagline": "Is this how it ends?",
       "title": "Hope",
       "video": false,
-      "vote_average": 7.2,
-      "vote_count": 171,
+      "vote_average": 7.108,
+      "vote_count": 185,
       "media_type": "movie"
     },
     {
@@ -729,7 +729,7 @@
       "original_language": "en",
       "original_title": "Obsession",
       "overview": "After breaking the mysterious \"One Wish Willow\" to win his crush's heart, a hopeless romantic finds himself getting exactly what he asked for but soon discovers that some desires come at a dark, sinister price.",
-      "popularity": 175.5056,
+      "popularity": 132.0886,
       "poster_path": "/bRwnj8WEKBCvmfeUNOukJPwB43K.jpg",
       "production_companies": [
         {
@@ -783,125 +783,7 @@
       "title": "Obsession",
       "video": false,
       "vote_average": 8.179,
-      "vote_count": 6120,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/k22XyPbce7zvzzf5OnT4uaY8ZD1.jpg",
-      "belongs_to_collection": null,
-      "budget": 100000,
-      "genres": [
-        {
-          "id": 878,
-          "name": "Science Fiction"
-        },
-        {
-          "id": 18,
-          "name": "Drama"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "https://michielrensen.com/catalogue/after-impact",
-      "id": 1751701,
-      "imdb_id": "tt36809539",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "After Impact",
-      "overview": "After losing his father, Ethan Nichols inherits one of the largest greenhouses in the country, just as the world faces a devastating threat from an approaching asteroid. As society begins to unravel, Ethan grapples with personal betrayal, overwhelming loneliness, and the growing fear that survival may come at the cost of his humanity. Seeking refuge in his family’s bunker, Ethan endures the harsh aftermath of the impact, wrestling with physical injury and emotional despair. When a faint voice crackles over his radio, Ethan discovers he's not as alone as he believed.",
-      "popularity": 143.7825,
-      "poster_path": "/yzDuAQCY2n6zzOlBkn6JzhLhY3k.jpg",
-      "production_companies": [
-        {
-          "id": 307908,
-          "logo_path": null,
-          "name": "PWA Media Ltd",
-          "origin_country": ""
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "NZ",
-          "name": "New Zealand"
-        }
-      ],
-      "release_date": "2026-09-15",
-      "revenue": 0,
-      "runtime": 95,
-      "softcore": false,
-      "spoken_languages": [],
-      "status": "Released",
-      "tagline": "",
-      "title": "After Impact",
-      "video": false,
-      "vote_average": 5.833,
-      "vote_count": 27,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/ncm7djsVTHQQMX2HEbEVxMUFchG.jpg",
-      "belongs_to_collection": null,
-      "budget": 18000000,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        }
-      ],
-      "homepage": "http://www.universalpictures.com/movies/other-mommy/",
-      "id": 1400837,
-      "imdb_id": "tt36586020",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Other Mommy",
-      "overview": "Young Bela forms a relationship with a sinister entity in her home that looks uncannily like her own mother, drawing her into a terrifying and increasingly dark world.",
-      "popularity": 150.8613,
-      "poster_path": "/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg",
-      "production_companies": [
-        {
-          "id": 144586,
-          "logo_path": "/zJpOzVCUgmlNJJJe8PzS5lsurgW.png",
-          "name": "Spin a Black Yarn",
-          "origin_country": "US"
-        },
-        {
-          "id": 314016,
-          "logo_path": null,
-          "name": "Blumhouse Atomic Monster",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        }
-      ],
-      "release_date": "2026-10-07",
-      "revenue": 55483056,
-      "runtime": 93,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Your mommy won't save you.",
-      "title": "Other Mommy",
-      "video": false,
-      "vote_average": 5.982,
-      "vote_count": 111,
+      "vote_count": 6135,
       "media_type": "movie"
     },
     {
@@ -932,7 +814,7 @@
       "original_language": "en",
       "original_title": "Coyote vs. Acme",
       "overview": "After Acme products fail him one too many times in his dogged pursuit of the Roadrunner, Wile E. Coyote decides to hire a billboard lawyer to sue the Acme Corporation.",
-      "popularity": 140.3705,
+      "popularity": 136.5018,
       "poster_path": "/kYDCl2y0VPvhT5eYWbMRInPoB03.jpg",
       "production_companies": [
         {
@@ -981,8 +863,8 @@
       "tagline": "The movie ACME doesn't want you to see.",
       "title": "Coyote vs. Acme",
       "video": false,
-      "vote_average": 7.493,
-      "vote_count": 741,
+      "vote_average": 7.5,
+      "vote_count": 748,
       "media_type": "movie"
     },
     {
@@ -1018,7 +900,7 @@
       "original_language": "en",
       "original_title": "Practical Magic 2",
       "overview": "The Owens sisters must confront the dark curse that threatens to unravel their family once and for all.",
-      "popularity": 139.895,
+      "popularity": 142.9498,
       "poster_path": "/ogwQOLbCfncjvBhFb5l0OmQH8KC.jpg",
       "production_companies": [
         {
@@ -1079,8 +961,213 @@
       "tagline": "Everything you've witched for.",
       "title": "Practical Magic 2",
       "video": false,
-      "vote_average": 6.35,
-      "vote_count": 160,
+      "vote_average": 6.687,
+      "vote_count": 182,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/ncm7djsVTHQQMX2HEbEVxMUFchG.jpg",
+      "belongs_to_collection": null,
+      "budget": 18000000,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        }
+      ],
+      "homepage": "http://www.universalpictures.com/movies/other-mommy/",
+      "id": 1400837,
+      "imdb_id": "tt36586020",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Other Mommy",
+      "overview": "Young Bela forms a relationship with a sinister entity in her home that looks uncannily like her own mother, drawing her into a terrifying and increasingly dark world.",
+      "popularity": 139.3386,
+      "poster_path": "/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg",
+      "production_companies": [
+        {
+          "id": 144586,
+          "logo_path": "/zJpOzVCUgmlNJJJe8PzS5lsurgW.png",
+          "name": "Spin a Black Yarn",
+          "origin_country": "US"
+        },
+        {
+          "id": 314016,
+          "logo_path": null,
+          "name": "Blumhouse Atomic Monster",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-10-07",
+      "revenue": 58779544,
+      "runtime": 93,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "Your mommy won't save you.",
+      "title": "Other Mommy",
+      "video": false,
+      "vote_average": 5.888,
+      "vote_count": 120,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/k22XyPbce7zvzzf5OnT4uaY8ZD1.jpg",
+      "belongs_to_collection": null,
+      "budget": 100000,
+      "genres": [
+        {
+          "id": 878,
+          "name": "Science Fiction"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://michielrensen.com/catalogue/after-impact",
+      "id": 1751701,
+      "imdb_id": "tt36809539",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "After Impact",
+      "overview": "After losing his father, Ethan Nichols inherits one of the largest greenhouses in the country, just as the world faces a devastating threat from an approaching asteroid. As society begins to unravel, Ethan grapples with personal betrayal, overwhelming loneliness, and the growing fear that survival may come at the cost of his humanity. Seeking refuge in his family’s bunker, Ethan endures the harsh aftermath of the impact, wrestling with physical injury and emotional despair. When a faint voice crackles over his radio, Ethan discovers he's not as alone as he believed.",
+      "popularity": 130.9435,
+      "poster_path": "/yzDuAQCY2n6zzOlBkn6JzhLhY3k.jpg",
+      "production_companies": [
+        {
+          "id": 307908,
+          "logo_path": null,
+          "name": "PWA Media Ltd",
+          "origin_country": ""
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "NZ",
+          "name": "New Zealand"
+        }
+      ],
+      "release_date": "2026-09-15",
+      "revenue": 0,
+      "runtime": 95,
+      "softcore": false,
+      "spoken_languages": [],
+      "status": "Released",
+      "tagline": "",
+      "title": "After Impact",
+      "video": false,
+      "vote_average": 5.8,
+      "vote_count": 27,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/clePZhqOSzNyjfuFBpOrziLEFzb.jpg",
+      "belongs_to_collection": null,
+      "budget": 15000000,
+      "genres": [
+        {
+          "id": 28,
+          "name": "Action"
+        },
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 53,
+          "name": "Thriller"
+        }
+      ],
+      "homepage": "https://a24films.com/films/onslaught",
+      "id": 1284046,
+      "imdb_id": "tt32268691",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Onslaught",
+      "overview": "When a rogue squad of genetically engineered super soldiers break loose in the desert, a badass Army sniper must unleash hell to protect her young daughter.",
+      "popularity": 112.014,
+      "poster_path": "/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg",
+      "production_companies": [
+        {
+          "id": 41077,
+          "logo_path": "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
+          "name": "A24",
+          "origin_country": "US"
+        },
+        {
+          "id": 172841,
+          "logo_path": "/MKTZVUIIWMjwpF58tGtAx8UXFs.png",
+          "name": "Ryder Picture Company",
+          "origin_country": "US"
+        },
+        {
+          "id": 180839,
+          "logo_path": "/v2A9SsZdaWpmZdXPf3I7Ajxn1Pc.png",
+          "name": "Lyrical Media",
+          "origin_country": "US"
+        },
+        {
+          "id": 227881,
+          "logo_path": null,
+          "name": "Breakaway Civilization",
+          "origin_country": "US"
+        },
+        {
+          "id": 178359,
+          "logo_path": "/8Vir3jz2OMrcLFdcpRAg6LQixJp.png",
+          "name": "828 Productions",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-09-02",
+      "revenue": 3426239,
+      "runtime": 92,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        }
+      ],
+      "status": "Released",
+      "tagline": "They unleashed their deadliest weapon on us.",
+      "title": "Onslaught",
+      "video": false,
+      "vote_average": 5.716,
+      "vote_count": 109,
       "media_type": "movie"
     },
     {
@@ -1107,7 +1194,7 @@
       "original_language": "hi",
       "original_title": "रिपोर्टिंग लाइव",
       "overview": "A young reporter and her reluctant cameraman chase a story, only to get entangled in an illegal sand-mining racket run by a ruthless syndicate.",
-      "popularity": 128.2849,
+      "popularity": 126.3339,
       "poster_path": "/7Ncfrt43mLLFB8yWcWON8imHr0Q.jpg",
       "production_companies": [
         {
@@ -1175,7 +1262,7 @@
       "original_language": "en",
       "original_title": "Pinocchio: Unstrung",
       "overview": "Influenced by a sinister Cricket and created by Geppetto, Pinocchio launches a violent crusade to carve himself into a real boy like his brother James, one piece at a time.",
-      "popularity": 127.7629,
+      "popularity": 114.2503,
       "poster_path": "/hJNdizFlxOW89edX3Rzr6OliSFI.jpg",
       "production_companies": [
         {
@@ -1207,80 +1294,63 @@
       "title": "Pinocchio: Unstrung",
       "video": false,
       "vote_average": 6.5,
-      "vote_count": 133,
+      "vote_count": 135,
       "media_type": "movie"
     },
     {
       "adult": false,
-      "backdrop_path": "/clePZhqOSzNyjfuFBpOrziLEFzb.jpg",
+      "backdrop_path": "/zDE9hd1SG9695YncbZGjSf7Z9Jk.jpg",
       "belongs_to_collection": null,
-      "budget": 15000000,
+      "budget": 82000000,
       "genres": [
         {
           "id": 28,
           "name": "Action"
         },
         {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
+          "id": 14,
+          "name": "Fantasy"
         }
       ],
-      "homepage": "https://a24films.com/films/onslaught",
-      "id": 1284046,
-      "imdb_id": "tt32268691",
+      "homepage": "https://www.streetfightermovie.com",
+      "id": 1153576,
+      "imdb_id": "tt27419420",
       "origin_country": [
-        "US"
+        "US",
+        "JP"
       ],
       "original_language": "en",
-      "original_title": "Onslaught",
-      "overview": "When a rogue squad of genetically engineered super soldiers break loose in the desert, a badass Army sniper must unleash hell to protect her young daughter.",
-      "popularity": 129.7146,
-      "poster_path": "/cOGtvhc6Ij9KvzM6jZsfQyg0B0O.jpg",
+      "original_title": "Street Fighter",
+      "overview": "In 1993, estranged Street Fighters Ryu and Ken Masters are thrown back into combat when the mysterious Chun-Li recruits them for the next World Warrior Tournament: a brutal clash of fists, fate, and fury. But behind this battle royale lies a deadly conspiracy that forces them to face off against each other and the demons of their past. And if they don't, it's GAME OVER!",
+      "popularity": 117.2294,
+      "poster_path": "/dJPT2Uf12X6aFg8i5N67NTpIZ9t.jpg",
       "production_companies": [
         {
-          "id": 41077,
-          "logo_path": "/1ZXsGaFPgrgS6ZZGS37AqD5uU12.png",
-          "name": "A24",
-          "origin_country": "US"
+          "id": 7220,
+          "logo_path": "/dD0x5awPmtx4sAr2pNvkmxkCODh.png",
+          "name": "Capcom",
+          "origin_country": "JP"
         },
         {
-          "id": 172841,
-          "logo_path": "/MKTZVUIIWMjwpF58tGtAx8UXFs.png",
-          "name": "Ryder Picture Company",
-          "origin_country": "US"
-        },
-        {
-          "id": 180839,
-          "logo_path": "/v2A9SsZdaWpmZdXPf3I7Ajxn1Pc.png",
-          "name": "Lyrical Media",
-          "origin_country": "US"
-        },
-        {
-          "id": 227881,
-          "logo_path": null,
-          "name": "Breakaway Civilization",
-          "origin_country": "US"
-        },
-        {
-          "id": 178359,
-          "logo_path": "/8Vir3jz2OMrcLFdcpRAg6LQixJp.png",
-          "name": "828 Productions",
+          "id": 923,
+          "logo_path": "/5UQsZrfbfG2dYJbx8DxfoTr2Bvu.png",
+          "name": "Legendary Pictures",
           "origin_country": "US"
         }
       ],
       "production_countries": [
         {
+          "iso_3166_1": "JP",
+          "name": "Japan"
+        },
+        {
           "iso_3166_1": "US",
           "name": "United States of America"
         }
       ],
-      "release_date": "2026-09-02",
-      "revenue": 3426239,
-      "runtime": 92,
+      "release_date": "2026-10-13",
+      "revenue": 0,
+      "runtime": 120,
       "softcore": false,
       "spoken_languages": [
         {
@@ -1290,11 +1360,182 @@
         }
       ],
       "status": "Released",
-      "tagline": "They unleashed their deadliest weapon on us.",
-      "title": "Onslaught",
+      "tagline": "Ready. Set. Fight.",
+      "title": "Street Fighter",
       "video": false,
-      "vote_average": 5.704,
-      "vote_count": 108,
+      "vote_average": 6.414,
+      "vote_count": 35,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/b7t3r39Oll5qPxBKzLZ8eHMBD7l.jpg",
+      "belongs_to_collection": null,
+      "budget": 180000000,
+      "genres": [
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 18,
+          "name": "Drama"
+        }
+      ],
+      "homepage": "https://www.diggermovie.com",
+      "id": 1248832,
+      "imdb_id": "tt31450459",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Digger",
+      "overview": "The most powerful man in the world embarks on a frantic mission to prove he is humanity's savior before the disaster he's unleashed destroys everything.",
+      "popularity": 96.6527,
+      "poster_path": "/1ATXKrIPJyKNwnJ6lcG088Sa6zi.jpg",
+      "production_companies": [
+        {
+          "id": 174,
+          "logo_path": "/zhD3hhtKB5qyv7ZeL4uLpNxgMVU.png",
+          "name": "Warner Bros. Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 923,
+          "logo_path": "/5UQsZrfbfG2dYJbx8DxfoTr2Bvu.png",
+          "name": "Legendary Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 216687,
+          "logo_path": "/kKVYqekveOvLK1IgqdJojLjQvtu.png",
+          "name": "Domain Entertainment",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        }
+      ],
+      "release_date": "2026-09-28",
+      "revenue": 35332754,
+      "runtime": 129,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        },
+        {
+          "english_name": "French",
+          "iso_639_1": "fr",
+          "name": "Français"
+        }
+      ],
+      "status": "Released",
+      "tagline": "A man. A plan. A meltdown.",
+      "title": "Digger",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 378,
+      "media_type": "movie"
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/kghxBvN7f3vUt377yjO4ygbefYN.jpg",
+      "belongs_to_collection": null,
+      "budget": 3000000,
+      "genres": [
+        {
+          "id": 27,
+          "name": "Horror"
+        },
+        {
+          "id": 35,
+          "name": "Comedy"
+        },
+        {
+          "id": 14,
+          "name": "Fantasy"
+        }
+      ],
+      "homepage": "https://roadsideattractions.com/filmography/Buddy/",
+      "id": 1514026,
+      "imdb_id": "tt37281055",
+      "origin_country": [
+        "US"
+      ],
+      "original_language": "en",
+      "original_title": "Buddy",
+      "overview": "A magical, singing orange unicorn holds his cast hostage in a surreal TV-show dimension, as he becomes more and more demented.",
+      "popularity": 110.6281,
+      "poster_path": "/1BdZbNvl1SfrrX8J9X5tQzN6Ivu.jpg",
+      "production_companies": [
+        {
+          "id": 18609,
+          "logo_path": "/pxtYCfl1DWzvizqZcYwE4NefOOF.png",
+          "name": "BoulderLight Pictures",
+          "origin_country": "US"
+        },
+        {
+          "id": 28286,
+          "logo_path": "/m4zzuwJbTrqw5qZHoXpySkC87jE.png",
+          "name": "Low Spark Films",
+          "origin_country": "US"
+        },
+        {
+          "id": 188458,
+          "logo_path": "/limNPrYGEOyKb4kjcZKdIk6K0Sh.png",
+          "name": "SIPUR",
+          "origin_country": "IL"
+        },
+        {
+          "id": 312527,
+          "logo_path": null,
+          "name": "Substance",
+          "origin_country": "US"
+        }
+      ],
+      "production_countries": [
+        {
+          "iso_3166_1": "US",
+          "name": "United States of America"
+        },
+        {
+          "iso_3166_1": "IL",
+          "name": "Israel"
+        }
+      ],
+      "release_date": "2026-08-27",
+      "revenue": 26848371,
+      "runtime": 96,
+      "softcore": false,
+      "spoken_languages": [
+        {
+          "english_name": "English",
+          "iso_639_1": "en",
+          "name": "English"
+        },
+        {
+          "english_name": "Spanish",
+          "iso_639_1": "es",
+          "name": "Español"
+        }
+      ],
+      "status": "Released",
+      "tagline": "It's Buddy!",
+      "title": "Buddy",
+      "video": false,
+      "vote_average": 7.246,
+      "vote_count": 118,
       "media_type": "movie"
     },
     {
@@ -1321,7 +1562,7 @@
       "original_language": "en",
       "original_title": "Mutiny",
       "overview": "After witnessing his billionaire boss' murder and being framed for the crime, Cole Reed boards a cargo ship on a one-man crusade to avenge his boss' death only to discover an international conspiracy.",
-      "popularity": 111.429,
+      "popularity": 105.8925,
       "poster_path": "/pu2VxGlpGwffOx292w18b1tv96j.jpg",
       "production_companies": [
         {
@@ -1362,287 +1603,8 @@
       "tagline": "There's blood in the water.",
       "title": "Mutiny",
       "video": false,
-      "vote_average": 7.56,
-      "vote_count": 886,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/qz8m7DGpuhc4RJmCbHsdueQKkTg.jpg",
-      "belongs_to_collection": null,
-      "budget": 0,
-      "genres": [
-        {
-          "id": 9648,
-          "name": "Mystery"
-        },
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 53,
-          "name": "Thriller"
-        }
-      ],
-      "homepage": "",
-      "id": 1280300,
-      "imdb_id": "tt1776340",
-      "origin_country": [
-        "VE",
-        "CO",
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "The Whistler",
-      "overview": "Reeling from their daughter's loss, Nicole and Sebastian come into possession of a secluded Venezuelan farm, unaware of the dark forces they're about to face.",
-      "popularity": 104.8454,
-      "poster_path": "/sX8tqkFR1aqZaLQ4Jgb8jEMB4RN.jpg",
-      "production_companies": [
-        {
-          "id": 74808,
-          "logo_path": "/vOYU0riOusJmSETDlY9gu2QiN6.png",
-          "name": "Hideout Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 271006,
-          "logo_path": null,
-          "name": "Open Studios",
-          "origin_country": ""
-        },
-        {
-          "id": 54827,
-          "logo_path": "/ctXs8RMflxZc39zv1b41pn18D8a.png",
-          "name": "64A Films",
-          "origin_country": "CO"
-        },
-        {
-          "id": 93092,
-          "logo_path": "/unMAQEA4tPsOndGkPSsoVq9HKTu.png",
-          "name": "Sundance Institute",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "VE",
-          "name": "Venezuela"
-        },
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "CO",
-          "name": "Colombia"
-        }
-      ],
-      "release_date": "2026-09-24",
-      "revenue": 0,
-      "runtime": 97,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "",
-      "title": "The Whistler",
-      "video": false,
-      "vote_average": 5.0,
-      "vote_count": 3,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/kghxBvN7f3vUt377yjO4ygbefYN.jpg",
-      "belongs_to_collection": null,
-      "budget": 3000000,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 35,
-          "name": "Comedy"
-        },
-        {
-          "id": 14,
-          "name": "Fantasy"
-        }
-      ],
-      "homepage": "https://roadsideattractions.com/filmography/Buddy/",
-      "id": 1514026,
-      "imdb_id": "tt37281055",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "Buddy",
-      "overview": "A magical, singing orange unicorn holds his cast hostage in a surreal TV-show dimension, as he becomes more and more demented.",
-      "popularity": 111.5068,
-      "poster_path": "/1BdZbNvl1SfrrX8J9X5tQzN6Ivu.jpg",
-      "production_companies": [
-        {
-          "id": 18609,
-          "logo_path": "/pxtYCfl1DWzvizqZcYwE4NefOOF.png",
-          "name": "BoulderLight Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 28286,
-          "logo_path": "/m4zzuwJbTrqw5qZHoXpySkC87jE.png",
-          "name": "Low Spark Films",
-          "origin_country": "US"
-        },
-        {
-          "id": 188458,
-          "logo_path": "/limNPrYGEOyKb4kjcZKdIk6K0Sh.png",
-          "name": "SIPUR",
-          "origin_country": "IL"
-        },
-        {
-          "id": 312527,
-          "logo_path": null,
-          "name": "Substance",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "IL",
-          "name": "Israel"
-        }
-      ],
-      "release_date": "2026-08-27",
-      "revenue": 26848371,
-      "runtime": 95,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        },
-        {
-          "english_name": "Spanish",
-          "iso_639_1": "es",
-          "name": "Español"
-        }
-      ],
-      "status": "Released",
-      "tagline": "It's Buddy!",
-      "title": "Buddy",
-      "video": false,
-      "vote_average": 7.4,
-      "vote_count": 104,
-      "media_type": "movie"
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/mpB4pgtUcc7rCLxvlknzCbAQQEE.jpg",
-      "belongs_to_collection": {
-        "id": 207621,
-        "name": "V/H/S Collection",
-        "poster_path": "/7i2YVI2Xll9Uh2g7moD4vkt743R.jpg",
-        "backdrop_path": "/m3xmiaeZKsjnHiGJvFGb1W6Ti81.jpg"
-      },
-      "budget": 0,
-      "genres": [
-        {
-          "id": 27,
-          "name": "Horror"
-        },
-        {
-          "id": 10402,
-          "name": "Music"
-        }
-      ],
-      "homepage": "",
-      "id": 1742441,
-      "imdb_id": "tt43739386",
-      "origin_country": [
-        "US"
-      ],
-      "original_language": "en",
-      "original_title": "V/H/S/Mixtape",
-      "overview": "V/H/S/MIXTAPE cranks the volume on horror with a blood-soaked collection of cursed music videos, terrifying performances, and found footage. Press play. Pray it stops.",
-      "popularity": 109.0193,
-      "poster_path": "/uS8yoiA6NfsuYeOTbVfpem8Ib9.jpg",
-      "production_companies": [
-        {
-          "id": 169906,
-          "logo_path": "/zcjActhEXaYww1JSvx2OtCd8jTG.png",
-          "name": "Spooky Pictures",
-          "origin_country": "US"
-        },
-        {
-          "id": 6736,
-          "logo_path": "/cdCAYeb3K3Ajhn1tfXHPSfT1KzB.png",
-          "name": "Image Nation Studios",
-          "origin_country": "AE"
-        },
-        {
-          "id": 294668,
-          "logo_path": "/jmvzr8HpCEVV8s4BqDbL4BD6r33.png",
-          "name": "Be Afraid Media",
-          "origin_country": "US"
-        },
-        {
-          "id": 276262,
-          "logo_path": "/aPBayr9blyun7loP31H67Jlq2tT.png",
-          "name": "Speed Demon Productions",
-          "origin_country": "US"
-        },
-        {
-          "id": 179565,
-          "logo_path": "/burAbTx0L7cECMVqAEerWNPGYdI.png",
-          "name": "Cinepocalypse",
-          "origin_country": "US"
-        },
-        {
-          "id": 142877,
-          "logo_path": "/c0Qhy9uvdXfvAZQ9e8GnT5Nb75m.png",
-          "name": "Shudder",
-          "origin_country": "US"
-        }
-      ],
-      "production_countries": [
-        {
-          "iso_3166_1": "US",
-          "name": "United States of America"
-        },
-        {
-          "iso_3166_1": "AE",
-          "name": "United Arab Emirates"
-        }
-      ],
-      "release_date": "2026-10-09",
-      "revenue": 0,
-      "runtime": 98,
-      "softcore": false,
-      "spoken_languages": [
-        {
-          "english_name": "English",
-          "iso_639_1": "en",
-          "name": "English"
-        }
-      ],
-      "status": "Released",
-      "tagline": "Low fidelity. High body count.",
-      "title": "V/H/S/Mixtape",
-      "video": false,
-      "vote_average": 4.368,
-      "vote_count": 19,
+      "vote_average": 7.576,
+      "vote_count": 894,
       "media_type": "movie"
     }
   ],
@@ -1784,7 +1746,7 @@
       "original_language": "ko",
       "original_name": "런닝맨",
       "overview": "These days, as variety shows are gradually disappearing, this is one of Korea’s representative variety shows that has been responsible for Sunday evenings for over 10 years. This program features numerous stars and members going around various places, playing games, and completing missions. In particular, among the many fun elements of variety shows, this one focuses solely on laughter.\n\nOpen your eyes! Big fun is coming in!\n\nOpen your mouth! Big laughter is coming in!\n\nOpen your heart! Useful lessons are coming in!",
-      "popularity": 406.7939,
+      "popularity": 419.7567,
       "poster_path": "/2Wmmu1MkqxJ48J7aySET9EKEjXz.jpg",
       "production_companies": [
         {
@@ -1885,8 +1847,8 @@
         "id": 6412926,
         "name": "Theseus",
         "overview": "Vision comes face to face with his assailant while investigating whether Tommy Shepherd is his son.",
-        "vote_average": 7.0,
-        "vote_count": 4,
+        "vote_average": 8.0,
+        "vote_count": 11,
         "air_date": "2026-10-13",
         "episode_number": 2,
         "episode_type": "standard",
@@ -1901,8 +1863,8 @@
         "id": 6412927,
         "name": "Reboot",
         "overview": "",
-        "vote_average": 0.0,
-        "vote_count": 0,
+        "vote_average": 6.0,
+        "vote_count": 1,
         "air_date": "2026-10-20",
         "episode_number": 3,
         "episode_type": "standard",
@@ -1928,7 +1890,7 @@
       "original_language": "en",
       "original_name": "VisionQuest",
       "overview": "With a bounty on his head, Vision must confront his nature and resist Ultron's influence to survive.",
-      "popularity": 284.1556,
+      "popularity": 290.3975,
       "poster_path": "/WGyAyBPncfuu8MZhLY9RtfZPM0.jpg",
       "production_companies": [
         {
@@ -1956,10 +1918,10 @@
           "episode_count": 8,
           "id": 314452,
           "name": "Miniseries",
-          "overview": "The Vision, rebooted and having escaped from those who sought to weaponize him, has been in hiding. Searching for new meaning, he consults the AI personas embedded in his programming, including F.R.I.D.A.Y., E.D.I.T.H., J.A.R.V.I.S., and the infamous Ultron. His discreet existence ends when a bounty placed on his head thrusts him on the run with Thomas Shepard, a mysterious boy who may be Vision's son, reincarnate. As Vision evades capture, he must confront his nature, resist Ultron's influence, and unravel the enigma that is his young companion if he's to survive.",
+          "overview": "The Vision, rebooted and having escaped from those who sought to weaponize him, has been in hiding. Searching for new meaning, he consults the AI personas embedded in his programming, including Friday, Edith, Jarvis, and the infamous Ultron. His discreet existence ends when a bounty placed on his head thrusts him on the run with Thomas Shepherd, a mysterious boy who may be Vision's son reincarnate. As Vision evades capture, he must confront his nature, resist Ultron's influence, and unravel the enigma that is his young companion if he's to survive.",
           "poster_path": "/xK27l5uwaVyZSlENWnmLlWwDQNS.jpg",
           "season_number": 1,
-          "vote_average": 6.9
+          "vote_average": 6.7
         }
       ],
       "softcore": false,
@@ -1973,8 +1935,8 @@
       "status": "Returning Series",
       "tagline": "",
       "type": "Miniseries",
-      "vote_average": 9.0,
-      "vote_count": 60,
+      "vote_average": 9.1,
+      "vote_count": 72,
       "media_type": "tv"
     },
     {
@@ -2054,7 +2016,7 @@
       "original_language": "ko",
       "original_name": "나 혼자 산다",
       "overview": "It can be a badge of honor to be “single.” “I Live Alone” is a documentary-style South Korean reality series that follows the members of a self-formed club called Rainbow, which is comprised of  celebrities who are single and live alone.",
-      "popularity": 224.4439,
+      "popularity": 210.2167,
       "poster_path": "/1hqGagr94soBq70Lq7tPHvNmmxy.jpg",
       "production_companies": [
         {
@@ -2183,7 +2145,7 @@
       "original_language": "ko",
       "original_name": "아는 형님",
       "overview": "Male celebs play make-believe as high schoolers, welcoming star transfer students every week and engaging in battles of witty humor and slapstick.",
-      "popularity": 221.4469,
+      "popularity": 215.9399,
       "poster_path": "/2jIi55JtYKJTL1km8qHMuUilOWo.jpg",
       "production_companies": [
         {
